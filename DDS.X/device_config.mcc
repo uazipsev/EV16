@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration device="PIC18F45K22" mcc_version="v2.25.2">
+    <managers>
+        <manager generated="true" name="Pin Manager" reloadPin="manual">
+            <setting name="package" option="PDIP40"/>
+            <setting name="sorting" option="false"/>
+            <resource customName="channel_AN4" digital="false" direction="INPUT" function="AN4" module="ADC" name="RA5" start="false" type="pin" wpu="false"/>
+            <resource customName="INDICATOR" digital="true" direction="OUTPUT" function="RA3" module="GPIO" name="RA3" start="false" type="pin" wpu="false"/>
+            <resource customName="Button8" digital="true" direction="INPUT" function="RA2" module="GPIO" name="RA2" start="false" type="pin" wpu="false"/>
+            <resource customName="Button7" digital="true" direction="INPUT" function="RA1" module="GPIO" name="RA1" start="false" type="pin" wpu="false"/>
+            <resource customName="Button6" digital="true" direction="INPUT" function="RA0" module="GPIO" name="RA0" start="false" type="pin" wpu="false"/>
+            <resource customName="LED1" digital="true" direction="OUTPUT" function="RB5" ioc="0" module="GPIO" name="RB5" start="false" type="pin" wpu="false"/>
+            <resource customName="Button5" digital="true" direction="INPUT" function="RB4" ioc="0" module="GPIO" name="RB4" start="false" type="pin" wpu="false"/>
+            <resource customName="LED0" digital="true" direction="OUTPUT" function="RB3" module="GPIO" name="RB3" start="false" type="pin" wpu="false"/>
+            <resource customName="Button4" digital="true" direction="INPUT" function="RB2" module="GPIO" name="RB2" start="false" type="pin" wpu="false"/>
+            <resource customName="Button3" digital="true" direction="INPUT" function="RB1" module="GPIO" name="RB1" start="false" type="pin" wpu="false"/>
+            <resource customName="Button2" digital="true" direction="INPUT" function="RB0" module="GPIO" name="RB0" start="false" type="pin" wpu="false"/>
+            <resource customName="RX1" digital="true" direction="INPUT" function="RX1" module="EUSART1" name="RC7" start="false" type="pin" wpu="false"/>
+            <resource customName="TX1" digital="true" direction="INPUT" function="TX1" module="EUSART1" name="RC6" start="false" type="pin" wpu="false"/>
+            <resource customName="Talk" digital="true" direction="OUTPUT" function="RC5" module="GPIO" name="RC5" start="false" type="pin" wpu="false"/>
+            <resource customName="SDA1" digital="true" direction="BIDIRECTIONAL" function="SDA1" module="MSSP1" name="RC4" start="true" type="pin" wpu="false"/>
+            <resource customName="SCL1" digital="true" direction="BIDIRECTIONAL" function="SCL1" module="MSSP1" name="RC3" start="true" type="pin" wpu="false"/>
+            <resource customName="Button1" digital="true" direction="INPUT" function="RD5" module="GPIO" name="RD5" start="false" type="pin" wpu="false"/>
+            <resource customName="LED2" digital="true" direction="OUTPUT" function="RD1" module="GPIO" name="RD1" start="false" type="pin" wpu="false"/>
+            <resource customName="LED3" digital="true" direction="OUTPUT" function="RE2" module="GPIO" name="RE2" start="false" type="pin" wpu="false"/>
+            <resource customName="LED4" digital="true" direction="OUTPUT" function="RE1" module="GPIO" name="RE1" start="false" type="pin" wpu="false"/>
+            <resource customName="LED5" digital="true" direction="OUTPUT" function="RE0" module="GPIO" name="RE0" start="false" type="pin" wpu="false"/>
+            <file checksum="383953267" modified="true" name="pin_manager.c" path="mcc_generated_files/pin_manager.c"/>
+            <file checksum="2237411146" modified="true" name="pin_manager.h" path="mcc_generated_files/pin_manager.h"/>
+        </manager>
+        <manager generated="true" name="Interrupt Manager" reloadPin="manual">
+            <setting name="preemptHigh" option="true"/>
+            <setting name="preemptLow" option="true"/>
+            <setting name="useIPEN" option="false"/>
+            <file checksum="3081420280" modified="false" name="interrupt_manager.c" path="mcc_generated_files/interrupt_manager.c"/>
+            <file checksum="1490174825" modified="false" name="interrupt_manager.h" path="mcc_generated_files/interrupt_manager.h"/>
+            <interrupt module="EUSART1" name="RCI" priority="2"/>
+            <interrupt module="EUSART1" name="TXI" priority="2"/>
+            <interrupt module="TMR0" name="TMRI" priority="2"/>
+            <interrupt module="ADC" name="ADI" priority="2"/>
+            <interrupt module="MSSP1" name="SSPI" priority="2"/>
+            <interrupt module="MSSP1" name="BCLI" priority="2"/>
+            <interrupt module="TMR2" name="TMRI" priority="2"/>
+        </manager>
+        <manager generated="true" name="System" reloadPin="manual">
+            <initializer comment="" name="Initialize">
+                <setting name="SCS" option="INTOSC" register="OSCCON"/>
+                <setting name="IRCF" option="16MHz_HFINTOSC/4" register="OSCCON"/>
+                <setting name="IDLEN" option="disabled" register="OSCCON"/>
+                <setting name="PRISD" option="enabled" register="OSCCON2"/>
+                <setting name="SOSCGO" option="disabled" register="OSCCON2"/>
+                <setting name="MFIOSEL" option="disabled" register="OSCCON2"/>
+                <setting name="INTSRC" option="disabled" register="OSCTUNE"/>
+                <setting name="PLLEN" option="disabled" register="OSCTUNE"/>
+                <setting name="TUN" option="0x00" register="OSCTUNE"/>
+                <additionalSetting name="pllMultiplier" option=""/>
+                <additionalSetting name="extclk" option="1.0 MHz"/>
+            </initializer>
+            <setting name="PLLCFG" option="OFF"/>
+            <setting name="FCMEN" option="OFF"/>
+            <setting name="PRICLKEN" option="OFF"/>
+            <setting name="FOSC" option="INTIO67"/>
+            <setting name="IESO" option="OFF"/>
+            <setting name="PWRTEN" option="OFF"/>
+            <setting name="BOREN" option="SBORDIS"/>
+            <setting name="BORV" option="190"/>
+            <setting name="WDTPS" option="32768"/>
+            <setting name="WDTEN" option="OFF"/>
+            <setting name="CCP2MX" option="PORTC1"/>
+            <setting name="P2BMX" option="PORTD2"/>
+            <setting name="MCLRE" option="EXTMCLR"/>
+            <setting name="CCP3MX" option="PORTB5"/>
+            <setting name="T3CMX" option="PORTC0"/>
+            <setting name="PBADEN" option="ON"/>
+            <setting name="HFOFST" option="ON"/>
+            <setting name="XINST" option="OFF"/>
+            <setting name="LVP" option="OFF"/>
+            <setting name="STVREN" option="ON"/>
+            <setting name="DEBUG" option="OFF"/>
+            <setting name="CP0" option="OFF"/>
+            <setting name="CP2" option="OFF"/>
+            <setting name="CP1" option="OFF"/>
+            <setting name="CP3" option="OFF"/>
+            <setting name="CPB" option="OFF"/>
+            <setting name="CPD" option="OFF"/>
+            <setting name="WRT1" option="OFF"/>
+            <setting name="WRT2" option="OFF"/>
+            <setting name="WRT3" option="OFF"/>
+            <setting name="WRT0" option="OFF"/>
+            <setting name="WRTB" option="OFF"/>
+            <setting name="WRTC" option="OFF"/>
+            <setting name="WRTD" option="OFF"/>
+            <setting name="EBTR3" option="OFF"/>
+            <setting name="EBTR2" option="OFF"/>
+            <setting name="EBTR1" option="OFF"/>
+            <setting name="EBTR0" option="OFF"/>
+            <setting name="EBTRB" option="OFF"/>
+            <setting name="generateConfigBits" option="true"/>
+            <file checksum="1576425788" modified="false" name="mcc.c" path="mcc_generated_files/mcc.c"/>
+            <file checksum="900149986" modified="false" name="mcc.h" path="mcc_generated_files/mcc.h"/>
+        </manager>
+    </managers>
+    <modules>
+        <module generated="true" mode="ADC" name="ADC" order="0" reloadPin="manual_auto" type="adc_sarcore_10bit">
+            <initializer comment="" name="Initialize">
+                <setting name="GO_nDONE" option="stop" register="ADCON0"/>
+                <setting name="ADON" option="enabled" register="ADCON0"/>
+                <setting name="CHS" option="AN0" register="ADCON0"/>
+                <setting name="PVCFG" option="VDD" register="ADCON1"/>
+                <setting name="TRIGSEL" option="CTMU" register="ADCON1"/>
+                <setting name="NVCFG" option="VSS" register="ADCON1"/>
+                <setting name="ADFM" option="left" register="ADCON2"/>
+                <setting name="ACQT" option="0" register="ADCON2"/>
+                <setting name="ADCS" option="FOSC/16" register="ADCON2"/>
+                <setting name="ADRESL" option="0x0" register="ADRESL"/>
+                <setting name="ADRESH" option="0x0" register="ADRESH"/>
+            </initializer>
+            <setting name="ADI" option="true"/>
+            <resource customName="channel_AN4" function="AN4" name="RA5" type="pin"/>
+            <file checksum="2690311859" modified="false" name="adc.c" path="mcc_generated_files/adc.c"/>
+            <file checksum="813232071" modified="false" name="adc.h" path="mcc_generated_files/adc.h"/>
+        </module>
+        <module generated="true" mode="Timer" name="TMR0" order="1" reloadPin="manual" type="tmr_timer0">
+            <initializer comment="" name="Initialize">
+                <setting name="T08BIT" option="16-bit" register="T0CON"/>
+                <setting name="T0SE" option="Increment_hi_lo" register="T0CON"/>
+                <setting name="T0PS" option="1:32" register="T0CON"/>
+                <setting name="T0CS" option="FOSC/4" register="T0CON"/>
+                <setting name="TMR0ON" option="enabled" register="T0CON"/>
+                <setting name="PSA" option="assigned" register="T0CON"/>
+                <setting name="TMR0H" option="207" register="TMR0H"/>
+                <setting name="TMR0L" option="44" register="TMR0L"/>
+                <additionalSetting name="TMR0" option="53036"/>
+                <additionalSetting name="extfreq" option="100 kHz"/>
+                <additionalSetting name="periodChanged" option="100.0ms"/>
+                <additionalSetting name="timerstart" option="enabled"/>
+            </initializer>
+            <setting name="TMRI" option="true"/>
+            <setting name="ticker" option="5"/>
+            <file checksum="3982478518" modified="true" name="tmr0.c" path="mcc_generated_files/tmr0.c"/>
+            <file checksum="1620689720" modified="false" name="tmr0.h" path="mcc_generated_files/tmr0.h"/>
+        </module>
+        <module generated="true" mode="EUSART Asynchronous(NRZ)" name="EUSART1" order="2" reloadPin="manual" type="uart_enh">
+            <initializer comment="" name="Initialize">
+                <setting name="ABDOVF" option="no_overflow" register="BAUD1CON"/>
+                <setting name="RCIDL" option="idle" register="BAUD1CON"/>
+                <setting name="BRG16" option="16bit_generator" register="BAUD1CON"/>
+                <setting name="WUE" option="disabled" register="BAUD1CON"/>
+                <setting name="CKTXP" option="async_noninverted_sync_fallingedge" register="BAUD1CON"/>
+                <setting name="ABDEN" option="disabled" register="BAUD1CON"/>
+                <setting name="DTRXP" option="not_inverted" register="BAUD1CON"/>
+                <setting name="SPEN" option="enabled" register="RC1STA"/>
+                <setting name="OERR" option="no_error" register="RC1STA"/>
+                <setting name="RX9" option="8-bit" register="RC1STA"/>
+                <setting name="RX9D" option="0x0" register="RC1STA"/>
+                <setting name="CREN" option="enabled" register="RC1STA"/>
+                <setting name="ADDEN" option="disabled" register="RC1STA"/>
+                <setting name="SREN" option="disabled" register="RC1STA"/>
+                <setting name="FERR" option="no_error" register="RC1STA"/>
+                <setting name="TRMT" option="TSR_empty" register="TX1STA"/>
+                <setting name="TX9" option="8-bit" register="TX1STA"/>
+                <setting name="TX9D" option="0x0" register="TX1STA"/>
+                <setting name="SENDB" option="sync_break_complete" register="TX1STA"/>
+                <setting name="TXEN" option="enabled" register="TX1STA"/>
+                <setting name="SYNC" option="asynchronous" register="TX1STA"/>
+                <setting name="BRGH" option="hi_speed" register="TX1STA"/>
+                <setting name="CSRC" option="slave_mode" register="TX1STA"/>
+                <setting name="SPBRGL" option="207" register="SPBRG1"/>
+                <setting name="SPBRGH" option="0" register="SPBRGH1"/>
+                <setting name="TXREG" option="0" register="TXREG1"/>
+                <setting name="RCREG" option="0" register="RCREG1"/>
+                <additionalSetting name="baudrateString" option="19200"/>
+            </initializer>
+            <setting name="RCI" option="true"/>
+            <setting name="TXI" option="true"/>
+            <setting name="inputBuffer" option="8"/>
+            <setting name="outputBuffer" option="8"/>
+            <setting name="stdio" option="true"/>
+            <file checksum="267847151" modified="false" name="eusart1.c" path="mcc_generated_files/eusart1.c"/>
+            <file checksum="3720182245" modified="false" name="eusart1.h" path="mcc_generated_files/eusart1.h"/>
+        </module>
+        <module generated="true" mode="GPIO" name="GPIO" order="3" reloadPin="manual" type="GPIO">
+            <resource customName="Button1" digital="true" direction="INPUT" function="RD5" module="GPIO" name="RD5" start="false" type="pin" wpu="false"/>
+            <resource customName="Button2" digital="true" direction="INPUT" function="RB0" module="GPIO" name="RB0" start="false" type="pin" wpu="false"/>
+            <resource customName="Button3" digital="true" direction="INPUT" function="RB1" module="GPIO" name="RB1" start="false" type="pin" wpu="false"/>
+            <resource customName="Button4" digital="true" direction="INPUT" function="RB2" module="GPIO" name="RB2" start="false" type="pin" wpu="false"/>
+            <resource customName="LED0" digital="true" direction="OUTPUT" function="RB3" module="GPIO" name="RB3" start="false" type="pin" wpu="false"/>
+            <resource customName="Button5" digital="true" direction="INPUT" function="RB4" ioc="0" module="GPIO" name="RB4" start="false" type="pin" wpu="false"/>
+            <resource customName="LED1" digital="true" direction="OUTPUT" function="RB5" ioc="0" module="GPIO" name="RB5" start="false" type="pin" wpu="false"/>
+            <resource customName="Button6" digital="true" direction="INPUT" function="RA0" module="GPIO" name="RA0" start="false" type="pin" wpu="false"/>
+            <resource customName="Button7" digital="true" direction="INPUT" function="RA1" module="GPIO" name="RA1" start="false" type="pin" wpu="false"/>
+            <resource customName="Button8" digital="true" direction="INPUT" function="RA2" module="GPIO" name="RA2" start="false" type="pin" wpu="false"/>
+            <resource customName="INDICATOR" digital="true" direction="OUTPUT" function="RA3" module="GPIO" name="RA3" start="false" type="pin" wpu="false"/>
+            <resource customName="LED5" digital="true" direction="OUTPUT" function="RE0" module="GPIO" name="RE0" start="false" type="pin" wpu="false"/>
+            <resource customName="LED4" digital="true" direction="OUTPUT" function="RE1" module="GPIO" name="RE1" start="false" type="pin" wpu="false"/>
+            <resource customName="LED3" digital="true" direction="OUTPUT" function="RE2" module="GPIO" name="RE2" start="false" type="pin" wpu="false"/>
+            <resource customName="LED2" digital="true" direction="OUTPUT" function="RD1" module="GPIO" name="RD1" start="false" type="pin" wpu="false"/>
+            <resource customName="Talk" digital="true" direction="OUTPUT" function="RC5" module="GPIO" name="RC5" start="false" type="pin" wpu="false"/>
+        </module>
+        <module generated="true" mode="I2C Master Interrupt" name="MSSP1" order="4" reloadPin="manual" type="mssp">
+            <initializer comment="" name="Initialize">
+                <setting name="R_nW" option="write_noTX" register="SSP1STAT"/>
+                <setting name="P" option="stopbit_notdetected" register="SSP1STAT"/>
+                <setting name="S" option="startbit_notdetected" register="SSP1STAT"/>
+                <setting name="BF" option="RCinprocess_TXcomplete" register="SSP1STAT"/>
+                <setting name="SMP" option="Standard Speed" register="SSP1STAT"/>
+                <setting name="UA" option="dontupdate" register="SSP1STAT"/>
+                <setting name="CKE" option="Idle to Active" register="SSP1STAT"/>
+                <setting name="D_nA" option="lastbyte_address" register="SSP1STAT"/>
+                <setting name="SSPEN" option="enabled" register="SSP1CON1"/>
+                <setting name="WCOL" option="no_collision" register="SSP1CON1"/>
+                <setting name="CKP" option="Idle:Low, Active:High" register="SSP1CON1"/>
+                <setting name="SSPM" option="FOSC/4_SSPxADD" register="SSP1CON1"/>
+                <setting name="SSPOV" option="no_overflow" register="SSP1CON1"/>
+                <setting name="ACKEN" option="disabled" register="SSP1CON2"/>
+                <setting name="GCEN" option="disabled" register="SSP1CON2"/>
+                <setting name="PEN" option="disabled" register="SSP1CON2"/>
+                <setting name="ACKDT" option="acknowledge" register="SSP1CON2"/>
+                <setting name="RSEN" option="disabled" register="SSP1CON2"/>
+                <setting name="RCEN" option="disabled" register="SSP1CON2"/>
+                <setting name="ACKSTAT" option="received" register="SSP1CON2"/>
+                <setting name="SEN" option="disabled" register="SSP1CON2"/>
+                <setting name="ACKTIM" option="ackseq" register="SSP1CON3"/>
+                <setting name="SBCDE" option="disabled" register="SSP1CON3"/>
+                <setting name="BOEN" option="disabled" register="SSP1CON3"/>
+                <setting name="SCIE" option="disabled" register="SSP1CON3"/>
+                <setting name="PCIE" option="disabled" register="SSP1CON3"/>
+                <setting name="DHEN" option="disabled" register="SSP1CON3"/>
+                <setting name="SDAHT" option="100ns" register="SSP1CON3"/>
+                <setting name="AHEN" option="disabled" register="SSP1CON3"/>
+                <setting name="MSK0" option="0x0" register="SSP1MSK"/>
+                <setting name="SSPBUF" option="0x0" register="SSP1BUF"/>
+                <setting name="SSP1ADD" option="9" register="SSP1ADD"/>
+            </initializer>
+            <setting name="readbufferchanged" option="8"/>
+            <setting name="writebufferchanged" option="8"/>
+            <setting name="addressMode" option="true"/>
+            <file checksum="1152103807" modified="false" name="i2c1.c" path="mcc_generated_files/i2c1.c"/>
+            <file checksum="103917405" modified="false" name="i2c1.h" path="mcc_generated_files/i2c1.h"/>
+        </module>
+        <module generated="true" mode="Timer" name="TMR2" order="5" reloadPin="manual" type="tmr_timer2">
+            <initializer comment="BLINK_LED" name="Initialize">
+                <setting name="TMR2ON" option="off" register="T2CON"/>
+                <setting name="T2OUTPS" option="1:1" register="T2CON"/>
+                <setting name="T2CKPS" option="1:16" register="T2CON"/>
+                <setting name="PR2" option="249" register="PR2"/>
+                <setting name="TMR2" option="0x0" register="TMR2"/>
+                <additionalSetting name="period" option="10.0 ms"/>
+                <additionalSetting name="ticker" option="10"/>
+                <additionalSetting name="maxPeriodChanged" option="64.0 us"/>
+                <additionalSetting name="minPeriodChanged" option="250.0 ns"/>
+                <additionalSetting name="timerstart" option="enabled"/>
+                <additionalSetting name="T2OUTPS" option="1:1"/>
+                <additionalSetting name="T2CKPS" option="1:16"/>
+            </initializer>
+            <setting name="TMRI" option="true"/>
+            <setting name="ticker" option="10"/>
+            <file checksum="1903625653" modified="false" name="tmr2.c" path="mcc_generated_files/tmr2.c"/>
+            <file checksum="219024692" modified="false" name="tmr2.h" path="mcc_generated_files/tmr2.h"/>
+        </module>
+        <module generated="true" mode="Timer" name="TMR3" order="6" reloadPin="manual" type="tmr_timer1">
+            <initializer comment="" name="Initialize">
+                <setting name="TMR3CS" option="FOSC/4" register="T3CON"/>
+                <setting name="nT3SYNC" option="synchronize" register="T3CON"/>
+                <setting name="TMR3ON" option="disabled" register="T3CON"/>
+                <setting name="T3RD16" option="disabled" register="T3CON"/>
+                <setting name="T3OSCEN" option="disabled" register="T3CON"/>
+                <setting name="T3CKPS" option="1:1" register="T3CON"/>
+                <setting name="T3GPOL" option="low" register="T3GCON"/>
+                <setting name="TMR3GE" option="disabled" register="T3GCON"/>
+                <setting name="T3GTM" option="disabled" register="T3GCON"/>
+                <setting name="T3GGO" option="done" register="T3GCON"/>
+                <setting name="T3GVAL" option="disabled" register="T3GCON"/>
+                <setting name="T3GSS" option="T3G" register="T3GCON"/>
+                <setting name="T3GSPM" option="disabled" register="T3GCON"/>
+                <setting name="TMR3H" option="0" register="TMR3H"/>
+                <setting name="TMR3L" option="0" register="TMR3L"/>
+                <additionalSetting name="timerstart" option="enabled"/>
+                <additionalSetting name="externalFreq" option=""/>
+            </initializer>
+            <setting name="TMRI" option="false"/>
+            <setting name="TMRGI" option="false"/>
+            <setting name="ticker" option="0"/>
+            <setting name="hasGate" option="true"/>
+            <file checksum="1538304070" modified="false" name="tmr3.c" path="mcc_generated_files/tmr3.c"/>
+            <file checksum="837199132" modified="false" name="tmr3.h" path="mcc_generated_files/tmr3.h"/>
+        </module>
+    </modules>
+</configuration>
