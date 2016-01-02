@@ -6,6 +6,7 @@
 #include "debug.h"
 #include "StoppedState.h"
 #include "horn.h"
+
 int carActive = false;
 //Each board has a condition that says which fault it is experiencing if any
 int DDS_FAULT_CONDITION, MCS_FAULT_CONDITION, SAS_FAULT_CONDITION, BMM_FAULT_CONDITION, PDU_FAULT_CONDITION, ECU_FAULT_CONDITION;

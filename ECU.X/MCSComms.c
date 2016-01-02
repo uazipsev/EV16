@@ -5,6 +5,7 @@ bool receiveCommMCS();
 bool readyToSendMCS = true;
 bool MCS_COMMS_ERROR = false;
 extern int carActive;
+
 bool requestMCSData() {
     if (((MCSTimer > BOARD_RESEND_MIN+100) && (readyToSendMCS)) || (MCSTimer > BOARD_TIMEOUT)) {
         static int MCSErrorCounter = 0;

@@ -25,7 +25,7 @@ int buttonArray[8];
 unsigned int buttons=0;
 unsigned int indicators=0;
 int seekButtonChange();
-void changeLEDState(int LED,bool state);
+void changeLEDState(int LED,int state);
 
 
 #ifdef	__cplusplus
