@@ -63,12 +63,13 @@ struct faultStates {
 enum ECUstates {
     stopped = 0,
     booting = 1,
-    running = 2,
-    stopping = 3,
-    softFault=4,
-    fault = 5,
-    override = 6,
-    NUM_STATES = 7
+    startup = 2,
+    running = 3,
+    stopping = 4,
+    softFault=5,
+    fault = 6,
+    override = 7,
+    NUM_STATES = 8
 };
 #ifdef	__cplusplus
 }

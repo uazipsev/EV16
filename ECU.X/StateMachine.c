@@ -22,6 +22,7 @@ struct commsStates comms;
 struct powerStates powerSet;
 //Check to see if boot is completed
 bool bootSequenceCompleted();
+bool StartSequenceCompleted();
 
 bool checkForBootupTimeout();
 int faultChecker();
@@ -54,24 +55,14 @@ void updateECUState() {
         case booting:
             //Means this is your first time in this state
             if (previousState != currentState) {
-                carActive = true;
+                carActive = false;
                 previousState = currentState;
                 //Power up the MCS
                 powerSet.MCS = true;
-
-                //Set the safety system to boot
-                SS_RELAY = 1;
                 //reset timeout timer
                 BootTimer = 0;
             }
-
-            //Wait for complete or for timeout
-            if (bootSequenceCompleted()){
-                RTD(5);
-                currentState++;
-            }
-            else checkForBootupTimeout();
-
+            
             //if start button changes to depressed here, exit boot sequence
             if (seekButtonChange()) {
                 if (!buttonArray[START_BUTTON]) {
@@ -80,6 +71,41 @@ void updateECUState() {
                 }
             }
             break;
+
+            //Wait for complete or for timeout
+            if (bootSequenceCompleted()){
+                RTD(5);
+                currentState++;
+            }
+            else checkForBootupTimeout();
+        case startup:
+            //Means this is your first time in this state
+            if (previousState != currentState) {
+                carActive = true;
+                previousState = currentState;
+                //Power up the MCS
+
+                //Set the safety system to boot
+                SS_RELAY = 1;
+                //reset timeout timer
+                BootTimer = 0;
+            }
+            
+            //if start button changes to depressed here, exit boot sequence
+            if (seekButtonChange()) {
+                if (!buttonArray[START_BUTTON]) {
+                    changeLEDState(ACTIVE_LED, buttonArray[START_BUTTON]);
+                    currentState--;
+                }
+            }
+            break;
+
+            //Wait for complete or for timeout
+            if (StartSequenceCompleted()){
+                currentState++;
+            }
+            else checkForBootupTimeout();
+
             //CAR IS RUNNING BREAK ON FAULTS OR ON BUTTON
         case running:
             //Means this is your first time in this state
@@ -197,11 +223,6 @@ void updateECUState() {
 
 int faultChecker() {
     if (MCS_FAULT_CONDITION || DDS_FAULT_CONDITION || PDU_FAULT_CONDITION || SAS_FAULT_CONDITION || BMM_FAULT_CONDITION || ECU_FAULT_CONDITION) {
-        
-        
-        
-        
-        
         if (SAS_FAULT_CONDITION == THROTTLE_BRAKE_CHECK) {
             return SOFT_FAULT;
         } else if (SAS_FAULT_CONDITION == THROTTLE_SANITY_CHECK) {
@@ -213,8 +234,13 @@ int faultChecker() {
         return false;
 }
 
+bool StartSequenceCompleted() {
+    if ((BootTimer > 3000) && PORTBbits.RB10 ) return true;
+    else return false;
+}
+
 bool bootSequenceCompleted() {
-    if ((BootTimer > 3000) && comms.MCS && PORTBbits.RB10 ) return true;
+    if ((BootTimer > 1000) && comms.MCS ) return true;
     else return false;
 }
 
