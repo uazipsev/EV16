@@ -109,23 +109,21 @@ void Send_put2(unsigned char _data) {
         U1TXREG = UART_buff_get2(&output_buffer2);
     }
 }
-/*  Getting erros here HELP
-void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void) {
-    if (U1STAbits.OERR) {
-        U1STAbits.OERR = 0;
+void __attribute__((interrupt, no_auto_psv)) _U2RXInterrupt(void) {
+    if (U2STAbits.OERR) {
+        U2STAbits.OERR = 0;
     }
-    unsigned char data = U1RXREG;
+    unsigned char data = U2RXREG;
     UART_buff_put2(&input_buffer2, data);
-    IFS0bits.U1RXIF = 0; // Clear RX interrupt flag
+    IFS1bits.U2RXIF = 0; // Clear RX interrupt flag
 }
 
-void __attribute__((interrupt, no_auto_psv)) _U1TXInterrupt(void) {
+void __attribute__((interrupt, no_auto_psv)) _U2TXInterrupt(void) {
     //LED ^= 1;
     if (UART_buff_size2(&output_buffer2) > 0) {
-        U1TXREG = UART_buff_get2(&output_buffer2);
+        U2TXREG = UART_buff_get2(&output_buffer2);
     } else {
         Transmit_stall2 = true;
     }
-    IFS0bits.U1TXIF = 0; // Clear TX interrupt flag
+    IFS1bits.U2TXIF = 0; // Clear TX interrupt flag
 }
-*/

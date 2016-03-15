@@ -12,14 +12,14 @@
 
 #include "MotorControler.h"
 #include <stdbool.h>
+#include <stdlib.h>
 #include "PinDef.h"
 #include "Function.h"
 #include "MCP4725.h"
+#include "GetParameter.h"
 #include <xc.h>
 //#include "UART2.h" Not working HELP
 
-
-struct RMS_Parameters CarParameters;
 
 
 void SetMotorDefaults() {
@@ -102,72 +102,9 @@ void Regen(bool enable) {
  */
 
 //Not sure how to read ascii HELP it could be for something else.
-void Read_rs232(struct RMS_Parameters *car){
-    int count_of_Param=0;
-    int paramter_total;  // Total of the parameter 
-      int bitplace=0;   //A marker to keep track at which bit it is.
-    while (count_of_Param<20){
-    /* Not sure how to read from UArt from this class. HELP
-     * Going to put psudeo code.
-     int ascii_value[3];
-     * 
-    
-     * 
-     * 
-     * if (ascii value is a space){
-     * 
-     * paramter_total=ascii_value[0]
-     * 
-     * paramter_total= paramter_tota+ascii_value[1]*16
-     * 
-     *  paramter_total= paramter_tota+ascii_value[2]*256
-     * 
-     *  paramter_total= paramter_tota+ascii_value[3]*4096
-     * car.carsearch(count_of_Param)=paramter_total             // need to make function will be a case statement dictating what varible needs to be updated. 
-     * 
-     * count_of_Param=count_of_Param+1;                         // Update count and repeat
-     * paramter_total=0                                         //Clear total and bitplace
-     * bitplace=0
-     * 
-     *  for (int bit=0, bit<4, bit++){
-     *      ascii_value[bitplace]=0;                                 //Clear bit values
-     *      }
-     * }
-     * 
-     * else{ 
-     *      //read 4 bits (which are in ascii) through uart
-     *      for (int bit=0, bit<4, bit++){
-     *      ascii_value[bitplace]=ascii_value+getuart*2^bit;
-     *      }
-         bitplace=bitplace+1;
-     *      }
-     
-     */ 
-        ;
-    }
-  
-  ;
-  }
+
   //Converst value to to the right value depending on the type of value it is like temprature etc.
 
-void Convert_rs232(struct RMS_Parameters *car){
-  
-  
-  ;
-  }
 
-//Gets the actual value you want from rs232
-int Get_rs232(struct RMS_Parameters *car, int values){
-  // Return the value it requests
-  // return car.carsearch(values);
-  ;
-  }
 
-// Turns on data and analize input
-//needs work
 
-void GetMCData(int values) {
-    Read_rs232(&CarParameters);
-    Convert_rs232(&CarParameters);
-    Get_rs232( &CarParameters,values);
-}

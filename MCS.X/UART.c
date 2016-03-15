@@ -7,7 +7,7 @@
 #define OFF        1
 
 void UART_init(void) {
-    // UART config
+    // UART config                  FUCK YOU
     U1MODEbits.STSEL = 0; // 1-stop bit
     U1MODEbits.PDSEL = 0; // No parity, 8-data bits
     U1MODEbits.ABAUD = 0; // Auto-baud disabled

@@ -25,6 +25,20 @@ void timerTwo(void) {
     IEC0bits.T2IE = 1; // enable timer2 interrupt
     T2CONbits.TON = 1; //enable timer 2
 }
+void timerFour(void) {
+    // Timer 4
+     TMR4 = 0x00; //clear timer register WAS Commented Out
+    T4CONbits.T32 = 0;  // Makes timer 3 and 4 two independent 16 bit timers
+    T4CONbits.TON = 0; //disable timer 4
+    T4CONbits.TCKPS = 0b11; // 1:256 prescalar    60MHz/256= 234.375KHz (4.266us)
+    T4CONbits.TCS = 0; //internal instruction clock (36,000,000 Hertz)
+    T4CONbits.TGATE = 0; //disable gated timer mode
+   
+    PR4 = 30000; //- set to 279 ms per overflow (4.266 us * 65535)= 279 ms TO BE Determined 
+    IFS1bits.T4IF = 0; // clear timer4 interrupt flag
+    IEC1bits.T4IE = 1; // enable timer4 interrupt
+    T4CONbits.TON = 1; //enable timer 4
+}
 
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     LEDtime++;
@@ -40,6 +54,11 @@ void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void) {
     IFS0bits.T2IF = 0; // clear timer interrupt flag
 }
 
+
+void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void) {
+    
+}
+
 int getLEDTime(){
     return LEDtime;
 }
@@ -51,3 +70,5 @@ void ClearLEDTime(){
 void setLEDTime(int value){
     LEDtime = value;
 }
+
+

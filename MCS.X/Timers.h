@@ -10,6 +10,7 @@
 
     void timerTwo(void);
     void timerOne(void);
+    void timerFour(void) ;
     extern volatile unsigned int talkTime, LEDtime,safetyTime,bootTime;
     int getLEDTime(void);
     void ClearLEDTime();
