@@ -8,7 +8,7 @@
 #include "mcc_generated_files/mcc.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "mcc_generated_files/timer2.h"
+#include "mcc_generated_files/tmr2.h"
 #include <stdbool.h>
 // Arrays to recorded the button and LED state.
 int LED_array[8];

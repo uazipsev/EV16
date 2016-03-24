@@ -8,19 +8,19 @@
     interrupt_manager.c
 
   @Summary:
-    This is the Interrupt Manager file generated using MPLAB® Code Configurator
+    This is the Interrupt Manager file generated using MPLAB(c) Code Configurator
 
   @Description:
     This header file provides implementations for global interrupt handling.
     For individual peripheral handlers please see the peripheral driver for
     all modules selected in the GUI.
     Generation Information :
-        Product Revision  :  MPLAB® Code Configurator - v2.25
+        Product Revision  :  MPLAB(c) Code Configurator - v3.00
         Device            :  PIC18F45K22
         Driver Version    :  1.02
     The generated drivers are tested against the following:
-        Compiler          :  XC8 v1.34
-        MPLAB             :  MPLAB X v2.35 or v3.00
+        Compiler          :  XC8 1.35
+        MPLAB             :  MPLAB X 3.20
 */
 
 /*
@@ -68,6 +68,8 @@ void  INTERRUPT_Initialize (void)
     IPR1bits.SSP1IP = 0;
     // BCLI
     IPR2bits.BCL1IP = 0;
+    IPR1bits.TMR2IP=0;
+    
 }
 
 void interrupt INTERRUPT_InterruptManager (void)
@@ -84,6 +86,10 @@ void interrupt INTERRUPT_InterruptManager (void)
     else if(INTCONbits.TMR0IE == 1 && INTCONbits.TMR0IF == 1)
     {
         TMR0_ISR();
+    }
+    else if(PIE1bits.TMR2IE == 1 && PIR1bits.TMR2IF == 1)
+    {
+        TMR2_ISR();
     }
     else if(PIE1bits.ADIE == 1 && PIR1bits.ADIF == 1)
     {

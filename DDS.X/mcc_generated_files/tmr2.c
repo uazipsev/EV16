@@ -8,18 +8,18 @@
     tmr2.c
 
   @Summary
-    This is the generated driver implementation file for the TMR2 driver using MPLAB® Code Configurator
+    This is the generated driver implementation file for the TMR2 driver using MPLAB(c) Code Configurator
 
   @Description
     This source file provides APIs for TMR2.
     Generation Information :
-        Product Revision  :  MPLAB® Code Configurator - v2.25.2
+        Product Revision  :  MPLAB(c) Code Configurator - v3.00
         Device            :  PIC18F45K22
         Driver Version    :  2.00
     The generated drivers are tested against the following:
-        Compiler          :  XC8 v1.34
-        MPLAB             :  MPLAB X v2.35 or v3.00
- */
+        Compiler          :  XC8 1.35
+        MPLAB             :  MPLAB X 3.20
+*/
 
 /*
 Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
@@ -46,26 +46,30 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 /**
   Section: Included Files
- */
+*/
+
+#include <xc.h>
+#include "tmr2.h"
+#include "mcc.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <xc.h>
-#include "timer2.h"
-#include "mcc.h"
-
-
+/**
+  Section: TMR2 APIs
+*/
+int k=0;
 int LEDNUM_ENAB[6]=0;   // LED array to keep track which values are blinking (enabled) or not. All values default to 0.
 int LEDState[6]=0;      // LED array to keep track which state the LEDS are in. All values default to 0
-void TMR2_Initialize(void) {
+void TMR2_Initialize(void)
+{
     // Set TMR2 to the options selected in the User Interface
 
-    // TMR2ON off; T2OUTPS 1:1; T2CKPS 1:16; 
-    T2CON = 0x02;
+    // T2CKPS 1:4; T2OUTPS 1:16; TMR2ON on; 
+    T2CON = 0x7D;
 
-    // PR2 249; 
-    PR2 = 0xF9;
+    // PR2 194; 
+    PR2 = 0xC2;
 
-    // TMR2 0x0; 
+    // TMR2 0; 
     TMR2 = 0x00;
 
     // Clearing IF flag before enabling the interrupt.
@@ -74,21 +78,27 @@ void TMR2_Initialize(void) {
     // Enabling TMR2 interrupt.
     PIE1bits.TMR2IE = 1;
 
+    // Set Default Interrupt Handler
+    TMR2_SetInterruptHandler(TMR2_DefaultInterruptHandler);
+
     // Start TMR2
     TMR2_StartTimer();
 }
 
-void TMR2_StartTimer(void) {
+void TMR2_StartTimer(void)
+{
     // Start the Timer by writing to TMRxON bit
     T2CONbits.TMR2ON = 1;
 }
 
-void TMR2_StopTimer(void) {
+void TMR2_StopTimer(void)
+{
     // Stop the Timer by writing to TMRxON bit
     T2CONbits.TMR2ON = 0;
 }
 
-uint8_t TMR2_ReadTimer(void) {
+uint8_t TMR2_ReadTimer(void)
+{
     uint8_t readVal;
 
     readVal = TMR2;
@@ -96,35 +106,37 @@ uint8_t TMR2_ReadTimer(void) {
     return readVal;
 }
 
-void TMR2_WriteTimer(uint8_t timerVal) {
+void TMR2_WriteTimer(uint8_t timerVal)
+{
     // Write to the Timer2 register
     TMR2 = timerVal;
 }
 
-void TMR2_LoadPeriodRegister(uint8_t periodVal) {
-    PR2 = periodVal;
+void TMR2_LoadPeriodRegister(uint8_t periodVal)
+{
+   PR2 = periodVal;
 }
 
-void TMR2_ISR(void) {
-    static volatile unsigned int CountCallBack = 0;
+void TMR2_ISR(void)
+{
 
     // clear the TMR2 interrupt flag
     PIR1bits.TMR2IF = 0;
 
-    // callback function - called every 10th pass
-    if (++CountCallBack >= TMR2_INTERRUPT_TICKER_FACTOR) {
-        // ticker function call
-        TMR2_CallBack();
-
-        // reset ticker counter
-        CountCallBack = 0;
-    }
-
-    // add your TMR2 interrupt custom code
+    // ticker function call;
+    // ticker is 1 -> Callback function gets called everytime this ISR executes
+    TMR2_CallBack();
 }
 
 void TMR2_CallBack(void) {
-    int i=0;
+    if (k>=50){
+   
+    LED4_Toggle();
+    k=0;}
+    else {
+    k++;}
+    
+    /*int i=0;
     while(i<=5){
 
    if(LEDNUM_ENAB[i]==1){
@@ -141,8 +153,11 @@ void TMR2_CallBack(void) {
             }  
    i=i+1;  
     }
-   
-    
+   */
+     if(TMR2_InterruptHandler)
+    {
+        TMR2_InterruptHandler();
+    }
     
     // Add your custom callback code here
     // this code executes every TMR2_INTERRUPT_TICKER_FACTOR periods of TMR2
@@ -205,6 +220,7 @@ void Off_Led(int led){
                 LED5_SetLow() ;
                 break;
                  }
+    
 }
 
 
@@ -212,6 +228,17 @@ void Change_Blink_Rate(int time){
 time=TMR2_INTERRUPT_TICKER_FACTOR;
 }
 
+
+
+void TMR2_SetInterruptHandler(void* InterruptHandler){
+    TMR2_InterruptHandler = InterruptHandler;
+}
+
+void TMR2_DefaultInterruptHandler(void){
+    // add your TMR2 interrupt custom code
+    // or set custom function using TMR2_SetInterruptHandler()
+}
+
 /**
   End of File
- */
+*/
