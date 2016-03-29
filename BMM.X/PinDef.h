@@ -28,56 +28,23 @@
  *  RS485 Flow control
  */
 #define RS_RE_DE PORTBbits.RB0
-/*
- *      BMS Bus Select Mux Pins
- */
- #define S0_TRIS TRISAbits.TRISA4     //Select Comm Line Mux S0
- #define S1_TRIS TRISBbits.TRISB4     //Select Comm Line Mux S1
- #define S0 LATAbits.LATA4
- #define S1 LATBbits.LATB4
-/*
- 
- */
 #define BMS_TURN_ON LATBbits.LATB5
-
-
 /*
  *    LED :)
  */
 #define INDICATOR LATBbits.LATB1
-
-/*
- *   Motor Control Pins
- */
-#define FORWARD PORTCbits.RC1
-#define REVERSE PORTCbits.RC2
-#define BRAKE   PORTAbits.RA8
-#define PROGEN  PORTBbits.RB4
-#define REGENEN PORTAbits.RA4
-
-/*
- *   DigiPot control lines
- */
-#define DIGI_CS     PORTBbits.RB15
-#define DIGI_INC    PORTBbits.RB14
-#define DIGI_UP_DN  PORTAbits.RA7
-
 /*
  *    Relay control 
  */
 #define Analog_Relay _LATA0
 #define Analog_Relay_Port PORTAbits.RA0
-
 /*
- *    12 DC/DC
+ *    LT6020 CS & EN
  */
-#define DC12EN _LATA10
-
-/*
- *    FAN PWM
- */
-#define FAN !_LATB5
-
+#define LT6020_1_CS PORTAbits.RA0
+#define LT6020_2_CS PORTAbits.RA0
+#define LT6020_1_EN PORTAbits.RA0
+#define LT6020_2_EN PORTAbits.RA0
 
 #endif	/* PINDEF_H */
 

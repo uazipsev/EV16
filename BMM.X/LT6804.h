@@ -60,12 +60,6 @@ Copyright 2013 Linear Technology Corp. (LTC)
 #ifndef LTC68042_H
 #define LTC68042_H
 
-
-#ifndef LTC6804_CS
-#define LTC6804_CS QUIKEVAL_CS
-#endif
-
-
 /*
 	Pre computed crc15 table used for the LTC6804 PEC calculation
 	
@@ -177,7 +171,7 @@ static const unsigned int crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 
 #define AUX_CH_GPIO5 5
 #define AUX_CH_VREF2 6
 
-//uint8_t CHG = 0; //!< aux channels to be converted
+//int CHG = 0; //!< aux channels to be converted
  /*!****************************************************
   \brief Controls if Discharging transitors are enabled
   or disabled during Cell conversions.
@@ -192,41 +186,39 @@ static const unsigned int crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 
 #define DCP_ENABLED 1
 
 
-
-
 void LTC6804_initialize();
 
-void set_adc(uint8_t MD, uint8_t DCP, uint8_t CH, uint8_t CHG);
+void set_adc(int MD, int DCP, int CH, int CHG);
 
 void LTC6804_adcv(); 
 
 void LTC6804_adax();
 
-uint8_t LTC6804_rdcv(uint8_t reg, uint8_t total_ic, uint16_t cell_codes[][12]);
+int LTC6804_rdcv(int reg, int total_ic, int cell_codes[][12]);
 
-void LTC6804_rdcv_reg(uint8_t reg, uint8_t nIC, uint8_t *data);
+void LTC6804_rdcv_reg(int reg, int nIC, int *data);
 
-int8_t LTC6804_rdaux(uint8_t reg, uint8_t nIC, uint16_t aux_codes[][6]);
+int LTC6804_rdaux(int reg, int nIC, int aux_codes[][6]);
 
-void LTC6804_rdaux_reg(uint8_t reg, uint8_t nIC,uint8_t *data);
+void LTC6804_rdaux_reg(int reg, int nIC,int *data);
 
 void LTC6804_clrcell();
 
 void LTC6804_clraux();
 
-void LTC6804_wrcfg(uint8_t nIC,uint8_t config[][6]);
+void LTC6804_wrcfg(int nIC,int config[][6]);
 
-int8_t LTC6804_rdcfg(uint8_t nIC, uint8_t r_config[][8]);
+int LTC6804_rdcfg(int nIC, int r_config[][8]);
 
 void wakeup_idle();
 
 void wakeup_sleep();
 
-uint16_t pec15_calc(uint8_t len, uint8_t *data);
+int pec15_calc(int len, int *data);
 
-void spi_write_array( uint8_t length, uint8_t *data);
+void spi_write_array( int length, int *data);
 
-void spi_write_read(uint8_t *TxData, uint8_t TXlen, uint8_t *rx_data, uint8_t RXlen);
+void spi_write_read(int *TxData, int TXlen, int *rx_data, int RXlen);
 
 #endif
 

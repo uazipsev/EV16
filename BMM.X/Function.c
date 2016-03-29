@@ -32,10 +32,8 @@ void Setup(void) {
     
     initTimerOne();
     //initTimerTwo();
-    begin(receiveArray, sizeof (receiveArray), BMM_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
+    begin(receiveArray2, sizeof (receiveArray2), BMM_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
     UART_init();
-    begin1(receiveArray1, sizeof (receiveArray1), BMM_MASTER_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);
-    UART1_init();
     //i2c_init();
     //PWM_Init();
 }
@@ -63,11 +61,8 @@ void PinSetMode(void) {
     
     LATCbits.LATC6=1;
     LATCbits.LATC7=1;
-    
-    S0_TRIS=OUTPUT;     //Select Comm Line Mux S0
-    S1_TRIS=OUTPUT;     //Select Comm Line Mux S1
-    S0 =0;
-    S1 =0;
+ 
+ 
     
     BMS_TURN_ON = 1;
     

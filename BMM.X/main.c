@@ -10,10 +10,7 @@
 
 extern void updateTimers();
 extern volatile unsigned long int ADCTime;
-extern int readADC(int inputNum);
 int ADCReadings[4];
-extern int BVolts[NUMSLAVES][BATTPERSLAVE];
-extern int BTemps[NUMSLAVES][TEMPPERSLAVE];
 
 /*
  * 
@@ -21,15 +18,7 @@ extern int BTemps[NUMSLAVES][TEMPPERSLAVE];
 
 int main(int argc, char** argv) {
     Setup();
-    int l = 0, j = 0;
-    for (l = 0; l < NUMSLAVES; l++) {
-        for (j = 0; j < BATTPERSLAVE; j++) {
-            BVolts[l][j] = 100;
-        }
-        for (j = 0; j < TEMPPERSLAVE; j++) {
-            BTemps[l][j] = 70;
-        }
-    }
+
     while (1) {
         updateTimers();
         if (ADCTime > 50) {

@@ -1,6 +1,6 @@
 
 #include "Communications.h"
-#include "SlaveCommunications.h"
+#include "Function.h"
 
 #define LOW_VOLTAGE_FLAG 1
 #define HIGH_TEMPERATURE_FLAG 2
@@ -16,7 +16,6 @@ extern struct UART_ring_buff {
 
 extern struct UART_ring_buff input_buffer;
 extern void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
-extern int faultingBattery;
 extern int ADCReadings[4];
 
 enum BMM {
@@ -30,8 +29,8 @@ int slaveaddr = 0;
 bool portClosed = false;
 
 void updateComms() {
-    checkSlaveCommDirection();
-    updateSlaveCommunications();
+    //checkSlaveCommDirection();
+    //updateSlaveCommunications();
     if (receiveData()) {
         UART_buff_flush(&input_buffer,1);
         talkTime = 0;
@@ -52,7 +51,7 @@ void updateComms() {
                     slaveaddr = 0;
                 }
                 populateBatteryV(slaveaddr++);
-                if (slaveaddr >= NUMSLAVES1) slaveaddr = 0;
+                //if (slaveaddr >= NUMSLAVES1) slaveaddr = 0;
                 break;
             case BATTERY_TEMPS:
                 if (lastCommState != COMM_STATE) {
@@ -60,7 +59,7 @@ void updateComms() {
                     slaveaddr = 0;
                 }
                 populateBatteryT(slaveaddr++);
-                if (slaveaddr >= NUMSLAVES1) slaveaddr = 0;
+                //if (slaveaddr >= NUMSLAVES1) slaveaddr = 0;
                 break;
             case BATTERY_POWER:
                 if (lastCommState != COMM_STATE) {
@@ -87,12 +86,12 @@ void updateComms() {
                 LATBbits.LATB0=1;
                 Delay(1);
                 LATBbits.LATB0=0;
-                faultingBattery = 0;
+                //faultingBattery = 0;
                 break;
             case LOW_VOLTAGE_FLAG:
             case HIGH_TEMPERATURE_FLAG:
             case COMMUNICATIONS_FAULT:
-                ToSend(FAULTINGBATTERY, faultingBattery);
+                //ToSend(FAULTINGBATTERY, faultingBattery);
                 LATAbits.LATA1=1;
                 Delay(1);
                 LATAbits.LATA1=0;
@@ -116,18 +115,18 @@ void checkCommDirection() {
 }
 
 void populateBatteryT(int slave) {
-    ToSend(SLAVE_ADDRESS_SEND, slave);
-    int j = 0;
-    for (j = 0; j < BATTPERSLAVE; j++) {
-        ToSend(BATTERYT_ECU + j, BTemps[slave][j]);
-    }
+//    ToSend(SLAVE_ADDRESS_SEND, slave);
+//    int j = 0;
+//    for (j = 0; j < BATTPERSLAVE; j++) {
+//        ToSend(BATTERYT_ECU + j, BTemps[slave][j]);
+//    }
 }
 
 void populateBatteryV(int slave) {
-    ToSend(SLAVE_ADDRESS_SEND, slave);
-    int j = 0;
-    for (j = 0; j < BATTPERSLAVE; j++) {
-        ToSend(BATTERYV_ECU + j, BVolts[slave][j]);
-    }
+//    ToSend(SLAVE_ADDRESS_SEND, slave);
+//    int j = 0;
+//    for (j = 0; j < BATTPERSLAVE; j++) {
+//        ToSend(BATTERYV_ECU + j, BVolts[slave][j]);
+//    }
 }
 
