@@ -63,11 +63,11 @@ void TMR2_Initialize(void)
 {
     // Set TMR2 to the options selected in the User Interface
 
-    // T2CKPS 1:4; T2OUTPS 1:16; TMR2ON on; 
-    T2CON = 0x7D;
+    // T2CKPS 1:16; T2OUTPS 1:16; TMR2ON on; 
+    T2CON = 0x7E;
 
-    // PR2 194; 
-    PR2 = 0xC2;
+    // PR2 48; 
+    PR2 = 0x30;
 
     // TMR2 0; 
     TMR2 = 0x00;
@@ -129,31 +129,65 @@ void TMR2_ISR(void)
 }
 
 void TMR2_CallBack(void) {
-    if (k>=50){
    
-    LED4_Toggle();
-    k=0;}
-    else {
-    k++;}
-    
-    /*int i=0;
-    while(i<=5){
+        int i = 0;
+        while (i <= 5) {
 
-   if(LEDNUM_ENAB[i]==1){
-   switch (LEDState[i]) {  
-           case 0:
-           LED0_Toggle();
-           LEDState[i]=1;
-           break;
-           case 1:
-              LED0_Toggle();
-           LEDState[i]=0;
-           break;
-   }
-            }  
-   i=i+1;  
-    }
-   */
+            if (LEDNUM_ENAB[i] == 1) {
+                switch (LEDState[i]) {
+                    case 0:
+                        switch (i) {
+                            case 0:
+                                LED0_Toggle();
+                                break;
+                            case 1:
+                                LED1_Toggle();
+                                break;
+                            case 2:
+                                LED2_Toggle();
+                                break;
+                            case 3:
+                                LED3_Toggle();
+                                break;
+                            case 4:
+                                LED4_Toggle();
+                                break;
+                            case 5:
+                                LED5_Toggle();
+                                break;
+                        }
+                        LEDState[i] = 1;
+                        break;
+                    case 1:
+                        switch (i) {
+                            case 0:
+                                LED0_Toggle();
+                                break;
+                            case 1:
+                                LED1_Toggle();
+                                break;
+                            case 2:
+                                LED2_Toggle();
+                                break;
+                            case 3:
+                                LED3_Toggle();
+                                break;
+                            case 4:
+                                LED4_Toggle();
+                                break;
+                            case 5:
+                                LED5_Toggle();
+                                break;
+                        }
+                        LEDState[i] = 0;
+                        break;
+                }
+            }
+            i = i + 1;
+        }
+     
+     
+    
      if(TMR2_InterruptHandler)
     {
         TMR2_InterruptHandler();
@@ -197,35 +231,61 @@ void Off_Led(int led){
     switch (led){
     case 0: 
                 LEDNUM_ENAB[0]=0;
+                LEDState[0]=0;
                 LED0_SetLow(); 
                 break;
     case 1: 
                 LEDNUM_ENAB[1]=0;
+                LEDState[1]=0;
                 LED1_SetLow();  
                 break;
     case 2: 
                 LEDNUM_ENAB[2]=0;
+                LEDState[2]=0;
                 LED2_SetLow(); 
                 break;
     case 3: 
                 LEDNUM_ENAB[3]=0;
+                LEDState[3]=0;
                 LED3_SetLow(); 
                 break;
     case 4: 
                 LEDNUM_ENAB[4]=0;
+                LEDState[4]=0;
                 LED4_SetLow(); 
                 break;
     case 5: 
                 LEDNUM_ENAB[5]=0;
+                LEDState[5]=0;
                 LED5_SetLow() ;
                 break;
                  }
     
 }
-
-
+int Get_Blink_State(int LED){
+switch (LED){
+    case 0: 
+        return LEDState[0]=0;
+                break;
+    case 1: 
+               return LEDState[1]=0; 
+                break;
+    case 2: 
+                return LEDState[2]=0;
+                break;
+    case 3: 
+                return LEDState[3]=0;
+                break;
+    case 4: 
+                return LEDState[4]=0;
+                break;
+    case 5: 
+                return LEDState[5]=0;
+                break;}
+;}
+//Problem with int function
 void Change_Blink_Rate(int time){
-time=TMR2_INTERRUPT_TICKER_FACTOR;
+PR2=time;
 }
 
 

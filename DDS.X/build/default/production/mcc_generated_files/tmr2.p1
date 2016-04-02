@@ -1,5 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F7763 `(v ~T0 @X0 0 tf ]
+[v F7765 `(v ~T0 @X0 0 tf ]
 "102 mcc_generated_files/..\UART.h
 [s S1126 `uc -> 200 `i `i 1 `i 1 `i 1 ]
 [n S1126 UART_ring_buff buf head tail count ]
@@ -31,9 +31,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S544 . . . ]
 "9622
 [v _PIE1bits `VS544 ~T0 @X0 0 e@3997 ]
-"349 mcc_generated_files/tmr2.h
+"350 mcc_generated_files/tmr2.h
 [v _TMR2_SetInterruptHandler `(v ~T0 @X0 0 ef1`*v ]
-"385
+"386
 [v _TMR2_DefaultInterruptHandler `(v ~T0 @X0 0 ef ]
 "132
 [v _TMR2_StartTimer `(v ~T0 @X0 0 ef ]
@@ -50,9 +50,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _T2CONbits `VS792 ~T0 @X0 0 e@4026 ]
 "326 mcc_generated_files/tmr2.h
 [v _TMR2_CallBack `(v ~T0 @X0 0 ef ]
-"18865 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
-[v _LATE1 `Vb ~T0 @X0 0 e@31849 ]
-"18821
+"18821 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
 [v _LATB3 `Vb ~T0 @X0 0 e@31827 ]
 "18825
 [v _LATB5 `Vb ~T0 @X0 0 e@31829 ]
@@ -60,6 +58,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LATD1 `Vb ~T0 @X0 0 e@31841 ]
 "18867
 [v _LATE2 `Vb ~T0 @X0 0 e@31850 ]
+"18865
+[v _LATE1 `Vb ~T0 @X0 0 e@31849 ]
 "18863
 [v _LATE0 `Vb ~T0 @X0 0 e@31848 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -7429,11 +7429,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.h: 346: void setLED(int);
 [; ;tmr2.h: 347: void Off_Led(int);
 [; ;tmr2.h: 348: void Change_Blink_Rate(int);
-[; ;tmr2.h: 349: void TMR2_SetInterruptHandler(void *InterruptHandler);
-"367 mcc_generated_files/tmr2.h
-[v _TMR2_InterruptHandler `*F7763 ~T0 @X0 1 e ]
-[; ;tmr2.h: 367: void (*TMR2_InterruptHandler)(void);
-[; ;tmr2.h: 385: void TMR2_DefaultInterruptHandler(void);
+[; ;tmr2.h: 349: int Get_Blink_State(int) ;
+[; ;tmr2.h: 350: void TMR2_SetInterruptHandler(void *InterruptHandler);
+"368 mcc_generated_files/tmr2.h
+[v _TMR2_InterruptHandler `*F7765 ~T0 @X0 1 e ]
+[; ;tmr2.h: 368: void (*TMR2_InterruptHandler)(void);
+[; ;tmr2.h: 386: void TMR2_DefaultInterruptHandler(void);
 [; ;pin_manager.h: 386: void PIN_MANAGER_Initialize (void);
 [; ;pin_manager.h: 398: void PIN_MANAGER_IOC(void);
 [; ;interrupt_manager.h: 110: void INTERRUPT_Initialize (void);
@@ -7665,12 +7666,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.c: 63: {
 [e :U _TMR2_Initialize ]
 [f ]
-[; ;tmr2.c: 67: T2CON = 0x7D;
+[; ;tmr2.c: 67: T2CON = 0x7E;
 "67
-[e = _T2CON -> -> 125 `i `uc ]
-[; ;tmr2.c: 70: PR2 = 0xC2;
+[e = _T2CON -> -> 126 `i `uc ]
+[; ;tmr2.c: 70: PR2 = 0x30;
 "70
-[e = _PR2 -> -> 194 `i `uc ]
+[e = _PR2 -> -> 48 `i `uc ]
 [; ;tmr2.c: 73: TMR2 = 0x00;
 "73
 [e = _TMR2 -> -> 0 `i `uc ]
@@ -7802,311 +7803,646 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.c: 131: void TMR2_CallBack(void) {
 [e :U _TMR2_CallBack ]
 [f ]
-[; ;tmr2.c: 132: if (k>=50){
-"132
-[e $ ! >= _k -> 50 `i 1136  ]
-{
-[; ;tmr2.c: 134: do { LATE1 = ~LATE1; } while(0);
+"133
+[v _i `i ~T0 @X0 1 a ]
+[; ;tmr2.c: 133: int i = 0;
+[e = _i -> 0 `i ]
+[; ;tmr2.c: 134: while (i <= 5) {
 "134
-[e :U 1139 ]
+[e $U 1136  ]
+[e :U 1137 ]
+{
+[; ;tmr2.c: 136: if (LEDNUM_ENAB[i] == 1) {
+"136
+[e $ ! == *U + &U _LEDNUM_ENAB * -> -> _i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 1 `i 1139  ]
+{
+[; ;tmr2.c: 137: switch (LEDState[i]) {
+"137
+[e $U 1141  ]
+{
+[; ;tmr2.c: 138: case 0:
+"138
+[e :U 1142 ]
+[; ;tmr2.c: 139: switch (i) {
+"139
+[e $U 1144  ]
+{
+[; ;tmr2.c: 140: case 0:
+"140
+[e :U 1145 ]
+[; ;tmr2.c: 141: do { LATB3 = ~LATB3; } while(0);
+"141
+[e :U 1148 ]
+{
+[e = _LATB3 -> ~ -> _LATB3 `ui `b ]
+}
+[e :U 1147 ]
+[; ;tmr2.c: 142: break;
+"142
+[e $U 1143  ]
+[; ;tmr2.c: 143: case 1:
+"143
+[e :U 1149 ]
+[; ;tmr2.c: 144: do { LATB5 = ~LATB5; } while(0);
+"144
+[e :U 1152 ]
+{
+[e = _LATB5 -> ~ -> _LATB5 `ui `b ]
+}
+[e :U 1151 ]
+[; ;tmr2.c: 145: break;
+"145
+[e $U 1143  ]
+[; ;tmr2.c: 146: case 2:
+"146
+[e :U 1153 ]
+[; ;tmr2.c: 147: do { LATD1 = ~LATD1; } while(0);
+"147
+[e :U 1156 ]
+{
+[e = _LATD1 -> ~ -> _LATD1 `ui `b ]
+}
+[e :U 1155 ]
+[; ;tmr2.c: 148: break;
+"148
+[e $U 1143  ]
+[; ;tmr2.c: 149: case 3:
+"149
+[e :U 1157 ]
+[; ;tmr2.c: 150: do { LATE2 = ~LATE2; } while(0);
+"150
+[e :U 1160 ]
+{
+[e = _LATE2 -> ~ -> _LATE2 `ui `b ]
+}
+[e :U 1159 ]
+[; ;tmr2.c: 151: break;
+"151
+[e $U 1143  ]
+[; ;tmr2.c: 152: case 4:
+"152
+[e :U 1161 ]
+[; ;tmr2.c: 153: do { LATE1 = ~LATE1; } while(0);
+"153
+[e :U 1164 ]
 {
 [e = _LATE1 -> ~ -> _LATE1 `ui `b ]
 }
-[e :U 1138 ]
-[; ;tmr2.c: 135: k=0;}
-"135
-[e = _k -> 0 `i ]
-}
-[e $U 1140  ]
-"136
-[e :U 1136 ]
-[; ;tmr2.c: 136: else {
+[e :U 1163 ]
+[; ;tmr2.c: 154: break;
+"154
+[e $U 1143  ]
+[; ;tmr2.c: 155: case 5:
+"155
+[e :U 1165 ]
+[; ;tmr2.c: 156: do { LATE0 = ~LATE0; } while(0);
+"156
+[e :U 1168 ]
 {
-[; ;tmr2.c: 137: k++;}
-"137
-[e ++ _k -> 1 `i ]
+[e = _LATE0 -> ~ -> _LATE0 `ui `b ]
 }
-[e :U 1140 ]
-[; ;tmr2.c: 157: if(TMR2_InterruptHandler)
+[e :U 1167 ]
+[; ;tmr2.c: 157: break;
 "157
-[e $ ! != _TMR2_InterruptHandler -> -> 0 `i `*F7763 1141  ]
-[; ;tmr2.c: 158: {
+[e $U 1143  ]
 "158
-{
-[; ;tmr2.c: 159: TMR2_InterruptHandler();
-"159
-[e ( *U _TMR2_InterruptHandler ..  ]
-"160
 }
-[e :U 1141 ]
-[; ;tmr2.c: 160: }
-[; ;tmr2.c: 164: }
+[; ;tmr2.c: 158: }
+[e $U 1143  ]
+"139
+[e :U 1144 ]
+[e [\ _i , $ -> 0 `i 1145
+ , $ -> 1 `i 1149
+ , $ -> 2 `i 1153
+ , $ -> 3 `i 1157
+ , $ -> 4 `i 1161
+ , $ -> 5 `i 1165
+ 1143 ]
+"158
+[e :U 1143 ]
+[; ;tmr2.c: 159: LEDState[i] = 1;
+"159
+[e = *U + &U _LEDState * -> -> _i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 1 `i ]
+[; ;tmr2.c: 160: break;
+"160
+[e $U 1140  ]
+[; ;tmr2.c: 161: case 1:
+"161
+[e :U 1169 ]
+[; ;tmr2.c: 162: switch (i) {
+"162
+[e $U 1171  ]
+{
+[; ;tmr2.c: 163: case 0:
+"163
+[e :U 1172 ]
+[; ;tmr2.c: 164: do { LATB3 = ~LATB3; } while(0);
 "164
+[e :U 1175 ]
+{
+[e = _LATB3 -> ~ -> _LATB3 `ui `b ]
+}
+[e :U 1174 ]
+[; ;tmr2.c: 165: break;
+"165
+[e $U 1170  ]
+[; ;tmr2.c: 166: case 1:
+"166
+[e :U 1176 ]
+[; ;tmr2.c: 167: do { LATB5 = ~LATB5; } while(0);
+"167
+[e :U 1179 ]
+{
+[e = _LATB5 -> ~ -> _LATB5 `ui `b ]
+}
+[e :U 1178 ]
+[; ;tmr2.c: 168: break;
+"168
+[e $U 1170  ]
+[; ;tmr2.c: 169: case 2:
+"169
+[e :U 1180 ]
+[; ;tmr2.c: 170: do { LATD1 = ~LATD1; } while(0);
+"170
+[e :U 1183 ]
+{
+[e = _LATD1 -> ~ -> _LATD1 `ui `b ]
+}
+[e :U 1182 ]
+[; ;tmr2.c: 171: break;
+"171
+[e $U 1170  ]
+[; ;tmr2.c: 172: case 3:
+"172
+[e :U 1184 ]
+[; ;tmr2.c: 173: do { LATE2 = ~LATE2; } while(0);
+"173
+[e :U 1187 ]
+{
+[e = _LATE2 -> ~ -> _LATE2 `ui `b ]
+}
+[e :U 1186 ]
+[; ;tmr2.c: 174: break;
+"174
+[e $U 1170  ]
+[; ;tmr2.c: 175: case 4:
+"175
+[e :U 1188 ]
+[; ;tmr2.c: 176: do { LATE1 = ~LATE1; } while(0);
+"176
+[e :U 1191 ]
+{
+[e = _LATE1 -> ~ -> _LATE1 `ui `b ]
+}
+[e :U 1190 ]
+[; ;tmr2.c: 177: break;
+"177
+[e $U 1170  ]
+[; ;tmr2.c: 178: case 5:
+"178
+[e :U 1192 ]
+[; ;tmr2.c: 179: do { LATE0 = ~LATE0; } while(0);
+"179
+[e :U 1195 ]
+{
+[e = _LATE0 -> ~ -> _LATE0 `ui `b ]
+}
+[e :U 1194 ]
+[; ;tmr2.c: 180: break;
+"180
+[e $U 1170  ]
+"181
+}
+[; ;tmr2.c: 181: }
+[e $U 1170  ]
+"162
+[e :U 1171 ]
+[e [\ _i , $ -> 0 `i 1172
+ , $ -> 1 `i 1176
+ , $ -> 2 `i 1180
+ , $ -> 3 `i 1184
+ , $ -> 4 `i 1188
+ , $ -> 5 `i 1192
+ 1170 ]
+"181
+[e :U 1170 ]
+[; ;tmr2.c: 182: LEDState[i] = 0;
+"182
+[e = *U + &U _LEDState * -> -> _i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
+[; ;tmr2.c: 183: break;
+"183
+[e $U 1140  ]
+"184
+}
+[; ;tmr2.c: 184: }
+[e $U 1140  ]
+"137
+[e :U 1141 ]
+[e [\ *U + &U _LEDState * -> -> _i `ui `ux -> -> # *U &U _LEDState `ui `ux , $ -> 0 `i 1142
+ , $ -> 1 `i 1169
+ 1140 ]
+"184
+[e :U 1140 ]
+"185
+}
+[e :U 1139 ]
+[; ;tmr2.c: 185: }
+[; ;tmr2.c: 186: i = i + 1;
+"186
+[e = _i + _i -> 1 `i ]
+"187
+}
+[e :U 1136 ]
+"134
+[e $ <= _i -> 5 `i 1137  ]
+[e :U 1138 ]
+[; ;tmr2.c: 187: }
+[; ;tmr2.c: 191: if(TMR2_InterruptHandler)
+"191
+[e $ ! != _TMR2_InterruptHandler -> -> 0 `i `*F7765 1196  ]
+[; ;tmr2.c: 192: {
+"192
+{
+[; ;tmr2.c: 193: TMR2_InterruptHandler();
+"193
+[e ( *U _TMR2_InterruptHandler ..  ]
+"194
+}
+[e :U 1196 ]
+[; ;tmr2.c: 194: }
+[; ;tmr2.c: 198: }
+"198
 [e :UE 1135 ]
 }
-"168
+"202
 [v _setLED `(v ~T0 @X0 1 ef1`i ]
 {
-[; ;tmr2.c: 168: void setLED(int led){
+[; ;tmr2.c: 202: void setLED(int led){
 [e :U _setLED ]
 [v _led `i ~T0 @X0 1 r1 ]
 [f ]
-[; ;tmr2.c: 169: switch (led){
-"169
-[e $U 1144  ]
+[; ;tmr2.c: 203: switch (led){
+"203
+[e $U 1199  ]
 {
-[; ;tmr2.c: 170: case 0:
-"170
-[e :U 1145 ]
-[; ;tmr2.c: 171: LEDNUM_ENAB[0]=1;
-"171
+[; ;tmr2.c: 204: case 0:
+"204
+[e :U 1200 ]
+[; ;tmr2.c: 205: LEDNUM_ENAB[0]=1;
+"205
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 0 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 1 `i ]
-[; ;tmr2.c: 172: LEDState[0]=0;
-"172
+[; ;tmr2.c: 206: LEDState[0]=0;
+"206
 [e = *U + &U _LEDState * -> -> -> 0 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
-[; ;tmr2.c: 173: break;
-"173
-[e $U 1143  ]
-[; ;tmr2.c: 174: case 1:
-"174
-[e :U 1146 ]
-[; ;tmr2.c: 175: LEDNUM_ENAB[1]=1;
-"175
+[; ;tmr2.c: 207: break;
+"207
+[e $U 1198  ]
+[; ;tmr2.c: 208: case 1:
+"208
+[e :U 1201 ]
+[; ;tmr2.c: 209: LEDNUM_ENAB[1]=1;
+"209
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 1 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 1 `i ]
-[; ;tmr2.c: 176: LEDState[1]=0;
-"176
+[; ;tmr2.c: 210: LEDState[1]=0;
+"210
 [e = *U + &U _LEDState * -> -> -> 1 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
-[; ;tmr2.c: 177: break;
-"177
-[e $U 1143  ]
-[; ;tmr2.c: 178: case 2:
-"178
-[e :U 1147 ]
-[; ;tmr2.c: 179: LEDNUM_ENAB[2]=1;
-"179
+[; ;tmr2.c: 211: break;
+"211
+[e $U 1198  ]
+[; ;tmr2.c: 212: case 2:
+"212
+[e :U 1202 ]
+[; ;tmr2.c: 213: LEDNUM_ENAB[2]=1;
+"213
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 2 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 1 `i ]
-[; ;tmr2.c: 180: LEDState[2]=0;
-"180
+[; ;tmr2.c: 214: LEDState[2]=0;
+"214
 [e = *U + &U _LEDState * -> -> -> 2 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
-[; ;tmr2.c: 181: break;
-"181
-[e $U 1143  ]
-[; ;tmr2.c: 182: case 3:
-"182
-[e :U 1148 ]
-[; ;tmr2.c: 183: LEDNUM_ENAB[3]=1;
-"183
+[; ;tmr2.c: 215: break;
+"215
+[e $U 1198  ]
+[; ;tmr2.c: 216: case 3:
+"216
+[e :U 1203 ]
+[; ;tmr2.c: 217: LEDNUM_ENAB[3]=1;
+"217
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 3 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 1 `i ]
-[; ;tmr2.c: 184: LEDState[3]=0;
-"184
+[; ;tmr2.c: 218: LEDState[3]=0;
+"218
 [e = *U + &U _LEDState * -> -> -> 3 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
-[; ;tmr2.c: 185: break;
-"185
-[e $U 1143  ]
-[; ;tmr2.c: 186: case 4:
-"186
-[e :U 1149 ]
-[; ;tmr2.c: 187: LEDNUM_ENAB[4]=1;
-"187
+[; ;tmr2.c: 219: break;
+"219
+[e $U 1198  ]
+[; ;tmr2.c: 220: case 4:
+"220
+[e :U 1204 ]
+[; ;tmr2.c: 221: LEDNUM_ENAB[4]=1;
+"221
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 4 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 1 `i ]
-[; ;tmr2.c: 188: LEDState[4]=0;
-"188
+[; ;tmr2.c: 222: LEDState[4]=0;
+"222
 [e = *U + &U _LEDState * -> -> -> 4 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
-[; ;tmr2.c: 189: break;
-"189
-[e $U 1143  ]
-[; ;tmr2.c: 190: case 5:
-"190
-[e :U 1150 ]
-[; ;tmr2.c: 191: LEDNUM_ENAB[5]=1;
-"191
+[; ;tmr2.c: 223: break;
+"223
+[e $U 1198  ]
+[; ;tmr2.c: 224: case 5:
+"224
+[e :U 1205 ]
+[; ;tmr2.c: 225: LEDNUM_ENAB[5]=1;
+"225
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 5 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 1 `i ]
-[; ;tmr2.c: 192: LEDState[5]=0;
-"192
+[; ;tmr2.c: 226: LEDState[5]=0;
+"226
 [e = *U + &U _LEDState * -> -> -> 5 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
-[; ;tmr2.c: 193: break;
-"193
-[e $U 1143  ]
-"194
+[; ;tmr2.c: 227: break;
+"227
+[e $U 1198  ]
+"228
 }
-[; ;tmr2.c: 194: }
-[e $U 1143  ]
-"169
-[e :U 1144 ]
-[e [\ _led , $ -> 0 `i 1145
- , $ -> 1 `i 1146
- , $ -> 2 `i 1147
- , $ -> 3 `i 1148
- , $ -> 4 `i 1149
- , $ -> 5 `i 1150
- 1143 ]
-"194
-[e :U 1143 ]
-[; ;tmr2.c: 195: }
-"195
-[e :UE 1142 ]
+[; ;tmr2.c: 228: }
+[e $U 1198  ]
+"203
+[e :U 1199 ]
+[e [\ _led , $ -> 0 `i 1200
+ , $ -> 1 `i 1201
+ , $ -> 2 `i 1202
+ , $ -> 3 `i 1203
+ , $ -> 4 `i 1204
+ , $ -> 5 `i 1205
+ 1198 ]
+"228
+[e :U 1198 ]
+[; ;tmr2.c: 229: }
+"229
+[e :UE 1197 ]
 }
-"196
+"230
 [v _Off_Led `(v ~T0 @X0 1 ef1`i ]
 {
-[; ;tmr2.c: 196: void Off_Led(int led){
+[; ;tmr2.c: 230: void Off_Led(int led){
 [e :U _Off_Led ]
 [v _led `i ~T0 @X0 1 r1 ]
 [f ]
-[; ;tmr2.c: 197: switch (led){
-"197
-[e $U 1153  ]
+[; ;tmr2.c: 231: switch (led){
+"231
+[e $U 1208  ]
 {
-[; ;tmr2.c: 198: case 0:
-"198
-[e :U 1154 ]
-[; ;tmr2.c: 199: LEDNUM_ENAB[0]=0;
-"199
+[; ;tmr2.c: 232: case 0:
+"232
+[e :U 1209 ]
+[; ;tmr2.c: 233: LEDNUM_ENAB[0]=0;
+"233
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 0 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 0 `i ]
-[; ;tmr2.c: 200: do { LATB3 = 0; } while(0);
-"200
-[e :U 1157 ]
+[; ;tmr2.c: 234: LEDState[0]=0;
+"234
+[e = *U + &U _LEDState * -> -> -> 0 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
+[; ;tmr2.c: 235: do { LATB3 = 0; } while(0);
+"235
+[e :U 1212 ]
 {
 [e = _LATB3 -> -> 0 `i `b ]
 }
-[e :U 1156 ]
-[; ;tmr2.c: 201: break;
-"201
-[e $U 1152  ]
-[; ;tmr2.c: 202: case 1:
-"202
-[e :U 1158 ]
-[; ;tmr2.c: 203: LEDNUM_ENAB[1]=0;
-"203
+[e :U 1211 ]
+[; ;tmr2.c: 236: break;
+"236
+[e $U 1207  ]
+[; ;tmr2.c: 237: case 1:
+"237
+[e :U 1213 ]
+[; ;tmr2.c: 238: LEDNUM_ENAB[1]=0;
+"238
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 1 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 0 `i ]
-[; ;tmr2.c: 204: do { LATB5 = 0; } while(0);
-"204
-[e :U 1161 ]
+[; ;tmr2.c: 239: LEDState[1]=0;
+"239
+[e = *U + &U _LEDState * -> -> -> 1 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
+[; ;tmr2.c: 240: do { LATB5 = 0; } while(0);
+"240
+[e :U 1216 ]
 {
 [e = _LATB5 -> -> 0 `i `b ]
 }
-[e :U 1160 ]
-[; ;tmr2.c: 205: break;
-"205
-[e $U 1152  ]
-[; ;tmr2.c: 206: case 2:
-"206
-[e :U 1162 ]
-[; ;tmr2.c: 207: LEDNUM_ENAB[2]=0;
-"207
+[e :U 1215 ]
+[; ;tmr2.c: 241: break;
+"241
+[e $U 1207  ]
+[; ;tmr2.c: 242: case 2:
+"242
+[e :U 1217 ]
+[; ;tmr2.c: 243: LEDNUM_ENAB[2]=0;
+"243
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 2 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 0 `i ]
-[; ;tmr2.c: 208: do { LATD1 = 0; } while(0);
-"208
-[e :U 1165 ]
+[; ;tmr2.c: 244: LEDState[2]=0;
+"244
+[e = *U + &U _LEDState * -> -> -> 2 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
+[; ;tmr2.c: 245: do { LATD1 = 0; } while(0);
+"245
+[e :U 1220 ]
 {
 [e = _LATD1 -> -> 0 `i `b ]
 }
-[e :U 1164 ]
-[; ;tmr2.c: 209: break;
-"209
-[e $U 1152  ]
-[; ;tmr2.c: 210: case 3:
-"210
-[e :U 1166 ]
-[; ;tmr2.c: 211: LEDNUM_ENAB[3]=0;
-"211
+[e :U 1219 ]
+[; ;tmr2.c: 246: break;
+"246
+[e $U 1207  ]
+[; ;tmr2.c: 247: case 3:
+"247
+[e :U 1221 ]
+[; ;tmr2.c: 248: LEDNUM_ENAB[3]=0;
+"248
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 3 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 0 `i ]
-[; ;tmr2.c: 212: do { LATE2 = 0; } while(0);
-"212
-[e :U 1169 ]
+[; ;tmr2.c: 249: LEDState[3]=0;
+"249
+[e = *U + &U _LEDState * -> -> -> 3 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
+[; ;tmr2.c: 250: do { LATE2 = 0; } while(0);
+"250
+[e :U 1224 ]
 {
 [e = _LATE2 -> -> 0 `i `b ]
 }
-[e :U 1168 ]
-[; ;tmr2.c: 213: break;
-"213
-[e $U 1152  ]
-[; ;tmr2.c: 214: case 4:
-"214
-[e :U 1170 ]
-[; ;tmr2.c: 215: LEDNUM_ENAB[4]=0;
-"215
+[e :U 1223 ]
+[; ;tmr2.c: 251: break;
+"251
+[e $U 1207  ]
+[; ;tmr2.c: 252: case 4:
+"252
+[e :U 1225 ]
+[; ;tmr2.c: 253: LEDNUM_ENAB[4]=0;
+"253
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 4 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 0 `i ]
-[; ;tmr2.c: 216: do { LATE1 = 0; } while(0);
-"216
-[e :U 1173 ]
+[; ;tmr2.c: 254: LEDState[4]=0;
+"254
+[e = *U + &U _LEDState * -> -> -> 4 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
+[; ;tmr2.c: 255: do { LATE1 = 0; } while(0);
+"255
+[e :U 1228 ]
 {
 [e = _LATE1 -> -> 0 `i `b ]
 }
-[e :U 1172 ]
-[; ;tmr2.c: 217: break;
-"217
-[e $U 1152  ]
-[; ;tmr2.c: 218: case 5:
-"218
-[e :U 1174 ]
-[; ;tmr2.c: 219: LEDNUM_ENAB[5]=0;
-"219
+[e :U 1227 ]
+[; ;tmr2.c: 256: break;
+"256
+[e $U 1207  ]
+[; ;tmr2.c: 257: case 5:
+"257
+[e :U 1229 ]
+[; ;tmr2.c: 258: LEDNUM_ENAB[5]=0;
+"258
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 5 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 0 `i ]
-[; ;tmr2.c: 220: do { LATE0 = 0; } while(0) ;
-"220
-[e :U 1177 ]
+[; ;tmr2.c: 259: LEDState[5]=0;
+"259
+[e = *U + &U _LEDState * -> -> -> 5 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
+[; ;tmr2.c: 260: do { LATE0 = 0; } while(0) ;
+"260
+[e :U 1232 ]
 {
 [e = _LATE0 -> -> 0 `i `b ]
 }
-[e :U 1176 ]
-[; ;tmr2.c: 221: break;
-"221
-[e $U 1152  ]
-"222
+[e :U 1231 ]
+[; ;tmr2.c: 261: break;
+"261
+[e $U 1207  ]
+"262
 }
-[; ;tmr2.c: 222: }
-[e $U 1152  ]
-"197
-[e :U 1153 ]
-[e [\ _led , $ -> 0 `i 1154
- , $ -> 1 `i 1158
- , $ -> 2 `i 1162
- , $ -> 3 `i 1166
- , $ -> 4 `i 1170
- , $ -> 5 `i 1174
- 1152 ]
-"222
-[e :U 1152 ]
-[; ;tmr2.c: 224: }
-"224
-[e :UE 1151 ]
+[; ;tmr2.c: 262: }
+[e $U 1207  ]
+"231
+[e :U 1208 ]
+[e [\ _led , $ -> 0 `i 1209
+ , $ -> 1 `i 1213
+ , $ -> 2 `i 1217
+ , $ -> 3 `i 1221
+ , $ -> 4 `i 1225
+ , $ -> 5 `i 1229
+ 1207 ]
+"262
+[e :U 1207 ]
+[; ;tmr2.c: 264: }
+"264
+[e :UE 1206 ]
 }
-"227
+"265
+[v _Get_Blink_State `(i ~T0 @X0 1 ef1`i ]
+{
+[; ;tmr2.c: 265: int Get_Blink_State(int LED){
+[e :U _Get_Blink_State ]
+[v _LED `i ~T0 @X0 1 r1 ]
+[f ]
+[; ;tmr2.c: 266: switch (LED){
+"266
+[e $U 1235  ]
+{
+[; ;tmr2.c: 267: case 0:
+"267
+[e :U 1236 ]
+[; ;tmr2.c: 268: return LEDState[0]=0;
+"268
+[e ) = *U + &U _LEDState * -> -> -> 0 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
+[e $UE 1233  ]
+[; ;tmr2.c: 269: break;
+"269
+[e $U 1234  ]
+[; ;tmr2.c: 270: case 1:
+"270
+[e :U 1237 ]
+[; ;tmr2.c: 271: return LEDState[1]=0;
+"271
+[e ) = *U + &U _LEDState * -> -> -> 1 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
+[e $UE 1233  ]
+[; ;tmr2.c: 272: break;
+"272
+[e $U 1234  ]
+[; ;tmr2.c: 273: case 2:
+"273
+[e :U 1238 ]
+[; ;tmr2.c: 274: return LEDState[2]=0;
+"274
+[e ) = *U + &U _LEDState * -> -> -> 2 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
+[e $UE 1233  ]
+[; ;tmr2.c: 275: break;
+"275
+[e $U 1234  ]
+[; ;tmr2.c: 276: case 3:
+"276
+[e :U 1239 ]
+[; ;tmr2.c: 277: return LEDState[3]=0;
+"277
+[e ) = *U + &U _LEDState * -> -> -> 3 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
+[e $UE 1233  ]
+[; ;tmr2.c: 278: break;
+"278
+[e $U 1234  ]
+[; ;tmr2.c: 279: case 4:
+"279
+[e :U 1240 ]
+[; ;tmr2.c: 280: return LEDState[4]=0;
+"280
+[e ) = *U + &U _LEDState * -> -> -> 4 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
+[e $UE 1233  ]
+[; ;tmr2.c: 281: break;
+"281
+[e $U 1234  ]
+[; ;tmr2.c: 282: case 5:
+"282
+[e :U 1241 ]
+[; ;tmr2.c: 283: return LEDState[5]=0;
+"283
+[e ) = *U + &U _LEDState * -> -> -> 5 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
+[e $UE 1233  ]
+[; ;tmr2.c: 284: break;}
+"284
+[e $U 1234  ]
+}
+[e $U 1234  ]
+"266
+[e :U 1235 ]
+[e [\ _LED , $ -> 0 `i 1236
+ , $ -> 1 `i 1237
+ , $ -> 2 `i 1238
+ , $ -> 3 `i 1239
+ , $ -> 4 `i 1240
+ , $ -> 5 `i 1241
+ 1234 ]
+"284
+[e :U 1234 ]
+[; ;tmr2.c: 285: ;}
+"285
+[e :UE 1233 ]
+}
+"287
 [v _Change_Blink_Rate `(v ~T0 @X0 1 ef1`i ]
 {
-[; ;tmr2.c: 227: void Change_Blink_Rate(int time){
+[; ;tmr2.c: 287: void Change_Blink_Rate(int time){
 [e :U _Change_Blink_Rate ]
 [v _time `i ~T0 @X0 1 r1 ]
 [f ]
-[; ;tmr2.c: 228: time=500;
-"228
-[e = _time -> 500 `i ]
-[; ;tmr2.c: 229: }
-"229
-[e :UE 1178 ]
+[; ;tmr2.c: 288: PR2=time;
+"288
+[e = _PR2 -> _time `uc ]
+[; ;tmr2.c: 289: }
+"289
+[e :UE 1242 ]
 }
-"233
+"293
 [v _TMR2_SetInterruptHandler `(v ~T0 @X0 1 ef1`*v ]
 {
-[; ;tmr2.c: 233: void TMR2_SetInterruptHandler(void* InterruptHandler){
+[; ;tmr2.c: 293: void TMR2_SetInterruptHandler(void* InterruptHandler){
 [e :U _TMR2_SetInterruptHandler ]
 [v _InterruptHandler `*v ~T0 @X0 1 r1 ]
 [f ]
-[; ;tmr2.c: 234: TMR2_InterruptHandler = InterruptHandler;
-"234
-[e = _TMR2_InterruptHandler -> _InterruptHandler `*F7763 ]
-[; ;tmr2.c: 235: }
-"235
-[e :UE 1179 ]
+[; ;tmr2.c: 294: TMR2_InterruptHandler = InterruptHandler;
+"294
+[e = _TMR2_InterruptHandler -> _InterruptHandler `*F7765 ]
+[; ;tmr2.c: 295: }
+"295
+[e :UE 1243 ]
 }
-"237
+"297
 [v _TMR2_DefaultInterruptHandler `(v ~T0 @X0 1 ef ]
 {
-[; ;tmr2.c: 237: void TMR2_DefaultInterruptHandler(void){
+[; ;tmr2.c: 297: void TMR2_DefaultInterruptHandler(void){
 [e :U _TMR2_DefaultInterruptHandler ]
 [f ]
-[; ;tmr2.c: 240: }
-"240
-[e :UE 1180 ]
+[; ;tmr2.c: 300: }
+"300
+[e :UE 1244 ]
 }

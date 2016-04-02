@@ -9323,12 +9323,13 @@ void TMR2_CallBack(void);
 void setLED(int);
 void Off_Led(int);
 void Change_Blink_Rate(int);
+int Get_Blink_State(int) ;
 void TMR2_SetInterruptHandler(void *InterruptHandler);
 
-# 367
+# 368
 void (*TMR2_InterruptHandler)(void);
 
-# 385
+# 386
 void TMR2_DefaultInterruptHandler(void);
 
 # 386 "mcc_generated_files/pin_manager.h"
@@ -9669,10 +9670,10 @@ void TMR2_Initialize(void)
 
 
 
-T2CON = 0x7D;
+T2CON = 0x7E;
 
 
-PR2 = 0xC2;
+PR2 = 0x30;
 
 
 TMR2 = 0x00;
@@ -9734,14 +9735,65 @@ TMR2_CallBack();
 }
 
 void TMR2_CallBack(void) {
-if (k>=50){
 
+int i = 0;
+while (i <= 5) {
+
+if (LEDNUM_ENAB[i] == 1) {
+switch (LEDState[i]) {
+case 0:
+switch (i) {
+case 0:
+do { LATB3 = ~LATB3; } while(0);
+break;
+case 1:
+do { LATB5 = ~LATB5; } while(0);
+break;
+case 2:
+do { LATD1 = ~LATD1; } while(0);
+break;
+case 3:
+do { LATE2 = ~LATE2; } while(0);
+break;
+case 4:
 do { LATE1 = ~LATE1; } while(0);
-k=0;}
-else {
-k++;}
+break;
+case 5:
+do { LATE0 = ~LATE0; } while(0);
+break;
+}
+LEDState[i] = 1;
+break;
+case 1:
+switch (i) {
+case 0:
+do { LATB3 = ~LATB3; } while(0);
+break;
+case 1:
+do { LATB5 = ~LATB5; } while(0);
+break;
+case 2:
+do { LATD1 = ~LATD1; } while(0);
+break;
+case 3:
+do { LATE2 = ~LATE2; } while(0);
+break;
+case 4:
+do { LATE1 = ~LATE1; } while(0);
+break;
+case 5:
+do { LATE0 = ~LATE0; } while(0);
+break;
+}
+LEDState[i] = 0;
+break;
+}
+}
+i = i + 1;
+}
 
-# 157
+
+
 if(TMR2_InterruptHandler)
 {
 TMR2_InterruptHandler();
@@ -9785,35 +9837,61 @@ void Off_Led(int led){
 switch (led){
 case 0:
 LEDNUM_ENAB[0]=0;
+LEDState[0]=0;
 do { LATB3 = 0; } while(0);
 break;
 case 1:
 LEDNUM_ENAB[1]=0;
+LEDState[1]=0;
 do { LATB5 = 0; } while(0);
 break;
 case 2:
 LEDNUM_ENAB[2]=0;
+LEDState[2]=0;
 do { LATD1 = 0; } while(0);
 break;
 case 3:
 LEDNUM_ENAB[3]=0;
+LEDState[3]=0;
 do { LATE2 = 0; } while(0);
 break;
 case 4:
 LEDNUM_ENAB[4]=0;
+LEDState[4]=0;
 do { LATE1 = 0; } while(0);
 break;
 case 5:
 LEDNUM_ENAB[5]=0;
+LEDState[5]=0;
 do { LATE0 = 0; } while(0) ;
 break;
 }
 
 }
-
+int Get_Blink_State(int LED){
+switch (LED){
+case 0:
+return LEDState[0]=0;
+break;
+case 1:
+return LEDState[1]=0;
+break;
+case 2:
+return LEDState[2]=0;
+break;
+case 3:
+return LEDState[3]=0;
+break;
+case 4:
+return LEDState[4]=0;
+break;
+case 5:
+return LEDState[5]=0;
+break;}
+;}
 
 void Change_Blink_Rate(int time){
-time=500;
+PR2=time;
 }
 
 

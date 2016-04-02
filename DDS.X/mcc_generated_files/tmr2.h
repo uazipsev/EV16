@@ -53,7 +53,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include <stdint.h>
 #include <stdbool.h>
-#define TMR2_INTERRUPT_TICKER_FACTOR    500  // Blinks for half a second.
+
 #ifdef __cplusplus  // Provide C++ Compatibility
 
     extern "C" {
@@ -346,6 +346,7 @@ void TMR2_ISR(void);
     void setLED(int); //Custom Function to set which LEDs are blinking.
     void Off_Led(int); //Custom Function to turn off which LEDs that were blinking.
     void Change_Blink_Rate(int); //Custom Function to change time of clock.
+    int Get_Blink_State(int) ;//  Returns blink state of current LED
  void TMR2_SetInterruptHandler(void *InterruptHandler);
 
 /**

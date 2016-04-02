@@ -64,7 +64,6 @@ void main(void) {
     LEDbegin(0x70);
     LEDbegin(0x71);
     INDICATOR_SetHigh();
-
     LATCbits.LATC5 = 0;
     while (1) {
         updateComms();
