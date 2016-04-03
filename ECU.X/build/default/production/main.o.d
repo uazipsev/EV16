@@ -1,7 +1,7 @@
 build/default/production/main.o:  \
 main.c  \
-PinDef.h  \
-ADDRESSING.h  \
 main.h  \
+ADDRESSING.h  \
  StateMachine.h  \
+Functions.h  \
 horn.h 

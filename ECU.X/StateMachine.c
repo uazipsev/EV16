@@ -44,7 +44,7 @@ void updateECUState() {
                 previousState = currentState;
                 powerSet.DDS = true;
                 powerSet.SAS = true;
-                powerSet.BMM = true;
+                powerSet.BMM = false;
                 powerSet.MCS = false;
                 carActive = false;
                 SS_RELAY = 0;
@@ -58,6 +58,7 @@ void updateECUState() {
                 carActive = false;
                 previousState = currentState;
                 //Power up the MCS
+                powerSet.BMM = true;
                 powerSet.MCS = true;
                 //reset timeout timer
                 BootTimer = 0;
@@ -136,7 +137,7 @@ void updateECUState() {
                 changeLEDState(ACTIVE_LED, 0);
                 powerSet.DDS = true;
                 powerSet.SAS = true;
-                powerSet.BMM = true;
+                powerSet.BMM = false;
                 powerSet.MCS = false;
                 carActive = false;
                 SS_RELAY = 0;

@@ -97,3 +97,16 @@ void PinSetMode(void) {
     //TX2_Tris=OUTPUT;
 
 }
+
+void ledDebug(){
+    if (time > 1000) {
+            INDICATOR ^= 1;
+            time = 0;
+        }
+    }
+
+void updateBrakeLight() {
+    if (brake > 10) {
+        BRAKELT = 1;
+    } else BRAKELT = 0;
+}

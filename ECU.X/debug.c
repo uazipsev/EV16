@@ -85,7 +85,6 @@ void handleDebugRequests() {
                 printf("Brake:          %d\n", brake);
                 break;
             case BATTERY_DEBUG_VOLTS:
-
                 //This is the first time through the loop
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
@@ -124,8 +123,6 @@ void handleDebugRequests() {
                     lastDebugState = debugState;
                     comms.BMM_SEND = BATTERY_POWER;
                 }
-
-
                 printf("\n----BMM Power Signal Debug----\n");
                 printf("BMMADC[0]:      %d\n", BMMADC[0]);
                 printf("BMMADC[1]:      %d\n", BMMADC[1]);

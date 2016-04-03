@@ -4,32 +4,17 @@
  *
  * Created on May 11, 2015, 11:19 PM
  */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include "xc.h"
-#include "PinDef.h"
-#include "ADDRESSING.h"
 #include "main.h"
-#include "StateMachine.h"
-#include "horn.h"
 
 int main(int argc, char** argv) {
-    Setup();
-    Delay(1000);
-    //Boot(100);
+    Setup(); //Setup the I/O system
+    Delay(1000); // Wait for everything to get up and running
+    Boot(1);    // Boot horn 
     while (1) {
-        ledDebug();
-        updateComms();
-        updateECUState();
-        updateBrakeLight();
+        ledDebug(); //This runs off a timer and blinks status LED
+        updateComms(); // Runs the COMS system 
+        updateECUState(); // State MSN for CAR 
+        updateBrakeLight(); // Runs Brake light!
     }
     return (EXIT_SUCCESS);
-}
-
-void updateBrakeLight() {
-    if (brake > 10) {
-        BRAKELT = 1;
-    } else BRAKELT = 0;
 }

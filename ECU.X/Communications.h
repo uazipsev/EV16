@@ -44,7 +44,7 @@ extern "C" {
     extern struct commsStates comms;
 
     //COMMUNICATIONS METHODS
-    void updateComms();
+    extern void updateComms();
 
     enum bus1CommState {
         SAS_UPDATE = 0, DDS_UPDATE = 1, PDU_UPDATE = 2, CHECK_STATE1 = 3, ERROR_STATE1 = 4, NUM_STATES1 = 5
