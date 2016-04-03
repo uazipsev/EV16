@@ -61,7 +61,17 @@ Copyright 2013 Linear Technology Corp. (LTC)
 */
 
 #include <stdint.h>
+<<<<<<< .mine
+//#include <Arduino.h>
+#include "Linduino.h"
+#include "LT_SPI.h"
+||||||| .r12
+//#include <Arduino.h>
+//#include "Linduino.h"
+//#include "LT_SPI.h"
+=======
 #include "spi2.h"
+>>>>>>> .r16
 #include "LT6804.h"
 #include "PinDef.h"
 #include "Function.h"
@@ -90,7 +100,15 @@ int ADAX[2]; //!< GPIO conversion command.
 */
 void LTC6804_initialize()
 {
+<<<<<<< .mine
+  +();+++++++++++++++++++++++++++++++++++++++++++++++++++++
+  spi_enable(SPI_CLOCK_DIV16);
+||||||| .r12
+  quikeval_SPI_connect();
+  spi_enable(SPI_CLOCK_DIV16);
+=======
   SPI2_Initialize();
+>>>>>>> .r16
   set_adc(MD_NORMAL,DCP_DISABLED,CELL_CH_ALL,AUX_CH_ALL);
 }
 
@@ -108,10 +126,23 @@ void LTC6804_initialize()
 			|ADCV:	    |   0   |   1   | MD[1] | MD[2] |   1   |   1   |  DCP  |   0   | CH[2] | CH[1] | CH[0] | 
 			|ADAX:	    |   1   |   0   | MD[1] | MD[2] |   1   |   1   |  DCP  |   0   | CHG[2]| CHG[1]| CHG[0]| 
  ******************************************************************************************************************/
+<<<<<<< .mine
+void set_adc(uint8_t MD, //ADC Mode
+       
+			 uint8_t DCP, //Discharge Permit
+			 uint8_t CH, //Cell Channels to be measured
+			 uint8_t CHG //GPIO Channels to be measured
+||||||| .r12
+void set_adc(uint8_t MD, //ADC Mode
+			 uint8_t DCP, //Discharge Permit
+			 uint8_t CH, //Cell Channels to be measured
+			 uint8_t CHG //GPIO Channels to be measured
+=======
 void set_adc(int MD, //ADC Mode
 			 int DCP, //Discharge Permit
 			 int CH, //Cell Channels to be measured
 			 int CHG //GPIO Channels to be measured
+>>>>>>> .r16
 			 )
 {
   int md_bits;
@@ -124,7 +155,7 @@ void set_adc(int MD, //ADC Mode
   md_bits = (MD & 0x02) >> 1;
   ADAX[0] = md_bits + 0x04;
   md_bits = (MD & 0x01) << 7;
-  ADAX[1] = md_bits + 0x60 + CHG ;
+  ADAX[1] = md_bits + 0x60 + CHG ; //LOOK no DCP? 
   
 }
 
