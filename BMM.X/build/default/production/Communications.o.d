@@ -2,5 +2,6 @@ build/default/production/Communications.o:  \
 Communications.c  \
  Communications.h  \
 ADDRESSING.h  \
-SlaveCommunications.h  \
+Function.h  \
+PinDef.h  \
 SlaveAddressing.h 

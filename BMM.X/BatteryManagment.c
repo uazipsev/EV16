@@ -1,5 +1,6 @@
 
 #include "BatteryManagment.h"
+#include <stdbool.h>
 
 //|r_config[0]|r_config[1]|r_config[2]|r_config[3]|r_config[4]|r_config[5]|r_config[6]  |r_config[7] |r_config[8]|r_config[9]|  .....    |
 //|-----------|-----------|-----------|-----------|-----------|-----------|-------------|------------|-----------|-----------|-----------|
@@ -46,15 +47,15 @@ void SetBypass(int bank, int ic, int cell, bool value){
 		if(cell < 8){
 			CFGR4 = CFGR4 | (1 << cell);
 		}
-		else(){
+		else{
 			CFGR5 = CFGR5 | (1 << (cell-8));
 		}
 	}
-	else(){
+	else{
 		if(cell < 8){
 			CFGR4 = CFGR4 & ~(1 << cell);
 		}
-		else(){
+		else{
 			CFGR5 = CFGR5 & ~(1 << (cell-8));
 		}
 	}
@@ -66,15 +67,15 @@ void SetTempEnable(int bank, int ic, bool value){
 	if(value){
 		CFGR0 = CFGR0 | (1 << 4);
 	}
-	else(){
+	else{
 		CFGR0 = CFGR0 & ~(1 << 4);
 	}
 	LTC6804_DATA[bank][ic][0] = CFGR0;
 }
 
 void SetUnderOverVoltage(int under, int over){
-	int uv[2];
-	int ov[2]0;
+	char uv[2];
+	char ov[2];
 	
 	uv[0] = ((under >> 0) & 0xff);
 	uv[1] = ((under >> 8) & 0xff);
