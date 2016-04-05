@@ -59,8 +59,8 @@ void SetBypass(int bank, int ic, int cell, bool value){
 			CFGR5 = CFGR5 & ~(1 << (cell-8));
 		}
 	}
-	LTC6804_DATA[bank][ic][5] = CFGR5;
-	LTC6804_DATA[bank][ic][4] = CFGR4;
+	LTC6804_DATA[bank][(ic*8)+5] = CFGR5;
+	LTC6804_DATA[bank][(ic*8)+4] = CFGR4;
 }
 
 void SetTempEnable(int bank, int ic, bool value){
@@ -70,7 +70,7 @@ void SetTempEnable(int bank, int ic, bool value){
 	else{
 		CFGR0 = CFGR0 & ~(1 << 4);
 	}
-	LTC6804_DATA[bank][ic][0] = CFGR0;
+	LTC6804_DATA[bank][ic*8] = CFGR0;
 }
 
 void SetUnderOverVoltage(int under, int over){
@@ -85,4 +85,11 @@ void SetUnderOverVoltage(int under, int over){
 	
 	CFGR1 = uv[0];
 	CFGR2 = uv[1];
+}
+
+void UpdateLT6804(int bank){
+    //need to calc PEC
+
+    //Need to send out data
+    LTC6804_wrcfg(NUMBEROFIC,LTC6804_DATA[bank]);
 }

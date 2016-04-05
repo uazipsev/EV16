@@ -12,7 +12,7 @@
 #define NUMBEROFCH 2
 #define NUMBEROFDATA 8
 
-char LTC6804_DATA[NUMBEROFCH][NUMBEROFIC][NUMBEROFDATA];
+int LTC6804_DATA[NUMBEROFCH][NUMBEROFDATA*NUMBEROFIC];
 
 void Start_LTC6804_initialize();
 void Read_Battery(int BatteryPlacement);
