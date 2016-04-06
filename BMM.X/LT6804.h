@@ -60,6 +60,9 @@ Copyright 2013 Linear Technology Corp. (LTC)
 #ifndef LTC68042_H
 #define LTC68042_H
 
+#include <stdlib.h>
+#include <stdbool.h>
+
 /*
 	Pre computed crc15 table used for the LTC6804 PEC calculation
 	
@@ -202,8 +205,8 @@ static const unsigned int crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 
 #define REFOFF_TURN_OFF 0x00
 #define ADC_MODE_BIT_14k_3k_2k 0x02
 #define ADC_MODE_BIT_27k_7k_26 0x00
-#define SWTRD_ON 0x01       //Read only check with richard 
-#define SWTRD_ON 0x00       //Read only check with richard 
+//#define SWTRD_ON 0x01       //Read only check with richard 
+//#define SWTRD_ON 0x00       //Read only check with richard 
 #define Discharge_Cell_1  0x01 // Shorting Switch for Cell 1
 #define Discharge_Cell_2  0x02 // Shorting Switch for Cell 2
 #define Discharge_Cell_3  0x04 // Shorting Switch for Cell 3
@@ -219,19 +222,18 @@ static const unsigned int crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 
 
 
 //Andrew Variables
-int Over_Voltage_Value=0x000;// Compare Voltage = Over_Voltage_Value ? 16 ? 100?V  
+//int Over_Voltage_Value=0x000;// Compare Voltage = Over_Voltage_Value ? 16 ? 100?V  
                              // Default Over_Voltage_Value=0x000 
 
-int Under_Voltage_Value=0x000; // Compare Voltage = (Under_Voltage_Value +1) ? 16 ? 100?V  
+//int Under_Voltage_Value=0x000; // Compare Voltage = (Under_Voltage_Value +1) ? 16 ? 100?V  
                               // Default Under_Voltage_Value=0x000
-int Discharge_Time_Out_Value=0x000; // For chart refering to values Refer to 680412fb data sheet, Page 51,  Variable DCTO
+//int Discharge_Time_Out_Value=0x000; // For chart refering to values Refer to 680412fb data sheet, Page 51,  Variable DCTO
 
-int Config_Value[5]=0; // Array to hold each register for the config Cell
+//int Config_Value[5]; // Array to hold each register for the config Cell
 
-int GPIO_Config=0;  // Will hold the total GPIO Value
-bool Discharge_CELL_ARRAY[11]; // Holds the value if you want cell x (which will be in element[x-1]) to be discharged. Bool of  1=yes 0=no.
+//int GPIO_Config=0;  // Will hold the total GPIO Value
 
-
+//bool Discharge_CELL_ARRAY[11]; // Holds the value if you want cell x (which will be in element[x-1]) to be discharged. Bool of  1=yes 0=no.
 
 void LTC6804_initialize();
 

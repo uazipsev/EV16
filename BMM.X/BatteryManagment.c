@@ -91,5 +91,5 @@ void UpdateLT6804(int bank){
     //need to calc PEC
 
     //Need to send out data
-    LTC6804_wrcfg(NUMBEROFIC,LTC6804_DATA[bank]);
+    //LTC6804_wrcfg(NUMBEROFIC,LTC6804_DATA[bank]);
 }

@@ -61,14 +61,11 @@ Copyright 2013 Linear Technology Corp. (LTC)
 */
 
 #include <stdint.h>
-//#include <Arduino.h>
-//#include "Linduino.h"
-//#include "LT_SPI.h"
 #include "spi2.h"
 #include "LT6804.h"
 #include "PinDef.h"
 #include "Function.h"
-#include <stdlib.h>
+
 
 /*
    ADC control Variables for LTC6804
@@ -940,6 +937,8 @@ void spi_write_read(int tx_Data[],//array of data to be written on SPI port
 
 }
 
+/*
+
 void Setting_Config_Register(int GPIO, int Ref, int SWTRD, int ADCOPT, int VOV, int VUV, int Cell_Dis[], int DCTO) {
     int Cell_Discharge_Total = 0; // Total Value based on the array that is given
     int Cell_Num_MinusOne = 0; // Counter Variable
@@ -1000,7 +999,7 @@ void Setting_Config_Register(int GPIO, int Ref, int SWTRD, int ADCOPT, int VOV, 
     Config_Value[4]= Cell_Discharge_Total& 0xFF; //First  8 Bits of DCC
     Config_Value[5]= ((Cell_Discharge_Total& 0xF00)>>8) + (DCTO<< 4); // Combined DCTO and the Last 4 bits of DCC
 }   
-
+*/
 
 
 

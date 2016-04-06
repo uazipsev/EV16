@@ -79,7 +79,6 @@ ongoing work.
 //#include <Arduino.h>
 #include <stdint.h>
 #include <SPI.h>
-#include "Linduino.h"
 #include "LT_SPI.h"
 
 // Reads and sends a byte

@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=ConfigBits.c FastTransfer.c Function.c main.c pwm.c I2C.c UART.c Timers.c Communications.c UART1.c FastTransfer1.c SlaveCommunications.c ADC.c LT6804.c LT_SPI.c Read_Battery_Level.c spi2.c BatteryManagment.c
+SOURCEFILES_QUOTED_IF_SPACED=ConfigBits.c FastTransfer.c Function.c main.c pwm.c I2C.c UART.c Timers.c Communications.c UART1.c FastTransfer1.c SlaveCommunications.c ADC.c LT6804.c spi2.c BatteryManagment.c ADS1015.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/ConfigBits.o ${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/Function.o ${OBJECTDIR}/main.o ${OBJECTDIR}/pwm.o ${OBJECTDIR}/I2C.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/Timers.o ${OBJECTDIR}/Communications.o ${OBJECTDIR}/UART1.o ${OBJECTDIR}/FastTransfer1.o ${OBJECTDIR}/SlaveCommunications.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/LT6804.o ${OBJECTDIR}/LT_SPI.o ${OBJECTDIR}/Read_Battery_Level.o ${OBJECTDIR}/spi2.o ${OBJECTDIR}/BatteryManagment.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/ConfigBits.o.d ${OBJECTDIR}/FastTransfer.o.d ${OBJECTDIR}/Function.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/pwm.o.d ${OBJECTDIR}/I2C.o.d ${OBJECTDIR}/UART.o.d ${OBJECTDIR}/Timers.o.d ${OBJECTDIR}/Communications.o.d ${OBJECTDIR}/UART1.o.d ${OBJECTDIR}/FastTransfer1.o.d ${OBJECTDIR}/SlaveCommunications.o.d ${OBJECTDIR}/ADC.o.d ${OBJECTDIR}/LT6804.o.d ${OBJECTDIR}/LT_SPI.o.d ${OBJECTDIR}/Read_Battery_Level.o.d ${OBJECTDIR}/spi2.o.d ${OBJECTDIR}/BatteryManagment.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/ConfigBits.o ${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/Function.o ${OBJECTDIR}/main.o ${OBJECTDIR}/pwm.o ${OBJECTDIR}/I2C.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/Timers.o ${OBJECTDIR}/Communications.o ${OBJECTDIR}/UART1.o ${OBJECTDIR}/FastTransfer1.o ${OBJECTDIR}/SlaveCommunications.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/LT6804.o ${OBJECTDIR}/spi2.o ${OBJECTDIR}/BatteryManagment.o ${OBJECTDIR}/ADS1015.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/ConfigBits.o.d ${OBJECTDIR}/FastTransfer.o.d ${OBJECTDIR}/Function.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/pwm.o.d ${OBJECTDIR}/I2C.o.d ${OBJECTDIR}/UART.o.d ${OBJECTDIR}/Timers.o.d ${OBJECTDIR}/Communications.o.d ${OBJECTDIR}/UART1.o.d ${OBJECTDIR}/FastTransfer1.o.d ${OBJECTDIR}/SlaveCommunications.o.d ${OBJECTDIR}/ADC.o.d ${OBJECTDIR}/LT6804.o.d ${OBJECTDIR}/spi2.o.d ${OBJECTDIR}/BatteryManagment.o.d ${OBJECTDIR}/ADS1015.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/ConfigBits.o ${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/Function.o ${OBJECTDIR}/main.o ${OBJECTDIR}/pwm.o ${OBJECTDIR}/I2C.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/Timers.o ${OBJECTDIR}/Communications.o ${OBJECTDIR}/UART1.o ${OBJECTDIR}/FastTransfer1.o ${OBJECTDIR}/SlaveCommunications.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/LT6804.o ${OBJECTDIR}/LT_SPI.o ${OBJECTDIR}/Read_Battery_Level.o ${OBJECTDIR}/spi2.o ${OBJECTDIR}/BatteryManagment.o
+OBJECTFILES=${OBJECTDIR}/ConfigBits.o ${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/Function.o ${OBJECTDIR}/main.o ${OBJECTDIR}/pwm.o ${OBJECTDIR}/I2C.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/Timers.o ${OBJECTDIR}/Communications.o ${OBJECTDIR}/UART1.o ${OBJECTDIR}/FastTransfer1.o ${OBJECTDIR}/SlaveCommunications.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/LT6804.o ${OBJECTDIR}/spi2.o ${OBJECTDIR}/BatteryManagment.o ${OBJECTDIR}/ADS1015.o
 
 # Source Files
-SOURCEFILES=ConfigBits.c FastTransfer.c Function.c main.c pwm.c I2C.c UART.c Timers.c Communications.c UART1.c FastTransfer1.c SlaveCommunications.c ADC.c LT6804.c LT_SPI.c Read_Battery_Level.c spi2.c BatteryManagment.c
+SOURCEFILES=ConfigBits.c FastTransfer.c Function.c main.c pwm.c I2C.c UART.c Timers.c Communications.c UART1.c FastTransfer1.c SlaveCommunications.c ADC.c LT6804.c spi2.c BatteryManagment.c ADS1015.c
 
 
 CFLAGS=
@@ -180,20 +180,6 @@ ${OBJECTDIR}/LT6804.o: LT6804.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  LT6804.c  -o ${OBJECTDIR}/LT6804.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/LT6804.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf   -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/LT6804.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
-${OBJECTDIR}/LT_SPI.o: LT_SPI.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/LT_SPI.o.d 
-	@${RM} ${OBJECTDIR}/LT_SPI.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  LT_SPI.c  -o ${OBJECTDIR}/LT_SPI.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/LT_SPI.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf   -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/LT_SPI.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/Read_Battery_Level.o: Read_Battery_Level.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Read_Battery_Level.o.d 
-	@${RM} ${OBJECTDIR}/Read_Battery_Level.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  Read_Battery_Level.c  -o ${OBJECTDIR}/Read_Battery_Level.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Read_Battery_Level.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf   -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/Read_Battery_Level.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 ${OBJECTDIR}/spi2.o: spi2.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/spi2.o.d 
@@ -207,6 +193,13 @@ ${OBJECTDIR}/BatteryManagment.o: BatteryManagment.c  nbproject/Makefile-${CND_CO
 	@${RM} ${OBJECTDIR}/BatteryManagment.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  BatteryManagment.c  -o ${OBJECTDIR}/BatteryManagment.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/BatteryManagment.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf   -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/BatteryManagment.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/ADS1015.o: ADS1015.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/ADS1015.o.d 
+	@${RM} ${OBJECTDIR}/ADS1015.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ADS1015.c  -o ${OBJECTDIR}/ADS1015.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/ADS1015.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf   -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/ADS1015.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 else
 ${OBJECTDIR}/ConfigBits.o: ConfigBits.c  nbproject/Makefile-${CND_CONF}.mk
@@ -307,20 +300,6 @@ ${OBJECTDIR}/LT6804.o: LT6804.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  LT6804.c  -o ${OBJECTDIR}/LT6804.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/LT6804.o.d"        -g -omf=elf   -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/LT6804.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
-${OBJECTDIR}/LT_SPI.o: LT_SPI.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/LT_SPI.o.d 
-	@${RM} ${OBJECTDIR}/LT_SPI.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  LT_SPI.c  -o ${OBJECTDIR}/LT_SPI.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/LT_SPI.o.d"        -g -omf=elf   -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/LT_SPI.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/Read_Battery_Level.o: Read_Battery_Level.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Read_Battery_Level.o.d 
-	@${RM} ${OBJECTDIR}/Read_Battery_Level.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  Read_Battery_Level.c  -o ${OBJECTDIR}/Read_Battery_Level.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Read_Battery_Level.o.d"        -g -omf=elf   -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/Read_Battery_Level.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 ${OBJECTDIR}/spi2.o: spi2.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/spi2.o.d 
@@ -334,6 +313,13 @@ ${OBJECTDIR}/BatteryManagment.o: BatteryManagment.c  nbproject/Makefile-${CND_CO
 	@${RM} ${OBJECTDIR}/BatteryManagment.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  BatteryManagment.c  -o ${OBJECTDIR}/BatteryManagment.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/BatteryManagment.o.d"        -g -omf=elf   -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/BatteryManagment.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/ADS1015.o: ADS1015.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/ADS1015.o.d 
+	@${RM} ${OBJECTDIR}/ADS1015.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ADS1015.c  -o ${OBJECTDIR}/ADS1015.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/ADS1015.o.d"        -g -omf=elf   -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/ADS1015.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 
