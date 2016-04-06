@@ -15,7 +15,7 @@ I2CEMEM_DRV i2cmem= I2CSEMEM_DRV_DEFAULTS;
 I2CEMEM_DATA wData;
 I2CEMEM_DATA rData;
 
-unsigned int wBuff[10],rBuff[10];
+unsigned int wBuff[2],rBuff[2];
 unsigned int enable;
 
 /*=========================================================================
@@ -113,13 +113,12 @@ typedef enum
   char conversionDelay = ADS1015_CONVERSIONDELAY;
   char bitShift = 4;
   int  IC_gain = GAIN_ONE;
-
-  void      ADS1015(char i2cAddress);
-  void      ADS1015begin(void);
-  int       ADS1015readADC_SingleEnded(char channel);
-  void      ADS1015startComparator_SingleEnded(char channel, int threshold);
-  int       ADS1015getLastConversionResults(char i2cAddress);
-  void      ADS1015setGain(gain_enum gain);
+  
+  int   i2cread(int num);
+  void  i2cwrite(char wData);
+  extern void  ADS1015begin(void);
+  extern int   ADS1015readADC_SingleEnded(char channel, char i2cAddress);
+  extern void  ADS1015setGain(gain_enum gain);
 
 #endif	/* NEWFILE_H */
 

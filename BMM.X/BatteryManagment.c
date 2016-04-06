@@ -1,5 +1,6 @@
 
 #include "BatteryManagment.h"
+//#include "ADS1015.h"
 #include <stdbool.h>
 
 //|r_config[0]|r_config[1]|r_config[2]|r_config[3]|r_config[4]|r_config[5]|r_config[6]  |r_config[7] |r_config[8]|r_config[9]|  .....    |
@@ -9,6 +10,7 @@
 
 void Start_LTC6804_initialize() {
     LTC6804_initialize();
+    //ADS1015begin();
 }
 
 void Read_Battery(int BatteryPlacement) {
@@ -92,4 +94,14 @@ void UpdateLT6804(int bank){
 
     //Need to send out data
     //LTC6804_wrcfg(NUMBEROFIC,LTC6804_DATA[bank]);
+}
+
+void ReadCurrentSense(){
+    int Current[6];
+    //Current[0] = ADS1015readADC_SingleEnded(0, 0x01);
+    //Current[1] = ADS1015readADC_SingleEnded(1, 0x01);
+    //Current[2] = ADS1015readADC_SingleEnded(2, 0x01);
+    //Current[3] = ADS1015readADC_SingleEnded(3, 0x01);
+    //Current[4] = ADS1015readADC_SingleEnded(0, 0x02);
+    //Current[5] = ADS1015readADC_SingleEnded(1, 0x02);
 }

@@ -19,10 +19,16 @@
     @brief  Abstract away platform differences in Arduino wire library
 */
 /**************************************************************************/
-char i2cread(void)
+int i2cread(int num)
 {
-  //return Wire.receive();
-  return 1;
+    rData.n = num;
+  	i2cmem.oData=&rData;
+	i2cmem.cmd = I2C_READ;
+	while(i2cmem.cmd!=I2C_IDLE)
+    {
+		i2cmem.tick(&i2cmem); 
+	}
+    return (int)&rData;
 }
 
 /**************************************************************************/
@@ -30,9 +36,14 @@ char i2cread(void)
     @brief  Abstract away platform differences in Arduino wire library
 */
 /**************************************************************************/
-void i2cwrite(char x)
+void i2cwrite(char wData)
 {
-  //Wire.send(x);
+    i2cmem.oData=&wData;
+    i2cmem.cmd = I2C_WRITE;
+    while(i2cmem.cmd!=I2C_IDLE )
+    {	
+		i2cmem.tick(&i2cmem); 
+	}
 }
 
 /**************************************************************************/
@@ -42,11 +53,10 @@ void i2cwrite(char x)
 /**************************************************************************/
 static void writeRegister(char i2cAddress, char reg, int value)
 {
-  //Wire.beginTransmission(i2cAddress);
+  wData.addr = i2cAddress;
   i2cwrite(reg);
   i2cwrite((value>>8));
   i2cwrite((value & 0xFF));
-  //Wire.endTransmission();
 }
 
 /**************************************************************************/
@@ -56,11 +66,10 @@ static void writeRegister(char i2cAddress, char reg, int value)
 /**************************************************************************/
 int readRegister(char i2cAddress, char reg)
 {
-  //Wire.beginTransmission(i2cAddress);
+  rData.addr = i2cAddress;
   i2cwrite(ADS1015_REG_POINTER_CONVERT);
-  //Wire.endTransmission();
-  //Wire.requestFrom(i2cAddress, (uint8_t)2);
-  return ((i2cread() << 8) | i2cread());  
+  //rData.n=2;
+  return i2cread(2); 
 }
 
 /**************************************************************************/
@@ -72,14 +81,13 @@ void ADS1015Begin() {
   //Wire.begin();
   // Initialise I2C Data object for Write operation   
     wData.buff=wBuff;
-    wData.n=10;
+    wData.n=1;
     wData.addr=0x00; 
     wData.csel=0x00;
                   
 
 // Initialise I2C Data Object for Read operation            
     rData.buff=rBuff;
-    rData.n=10;
     rData.addr=0x00; 
     rData.csel=0x00;
     
@@ -101,7 +109,7 @@ void ADS1015SetGain(gain_enum gain)
     @brief  Gets a single-ended ADC reading from the specified channel
 */
 /**************************************************************************/
-int ADS1015readADC_SingleEnded(char channel){
+int ADS1015readADC_SingleEnded(char channel, char i2cAddress){
   if (channel > 3)
   {
     return 0;
