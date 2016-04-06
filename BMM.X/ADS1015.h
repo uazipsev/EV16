@@ -1,12 +1,22 @@
 /* 
- * File:   newfile.h
+ * File:   ADS1015.h
  * Author: Rick
  *
  * Created on April 6, 2016, 12:14 AM
  */
 
-#ifndef NEWFILE_H
-#define	NEWFILE_H
+#ifndef ADS1015_H
+#define	ADS1015_H
+
+#include "I2C.h"
+
+// Instantiate Drive and Data objects
+I2CEMEM_DRV i2cmem= I2CSEMEM_DRV_DEFAULTS;                                  
+I2CEMEM_DATA wData;
+I2CEMEM_DATA rData;
+
+unsigned int wBuff[10],rBuff[10];
+unsigned int enable;
 
 /*=========================================================================
     I2C ADDRESS/BITS
@@ -98,19 +108,17 @@ typedef enum
   GAIN_SIXTEEN      = ADS1015_REG_CONFIG_PGA_0_256V
 } gain_enum;
 
-
    // Instance-specific properties
   char i2cAddress;
-  char conversionDelay;
-  char bitShift;
-  int  IC_gain;
-
+  char conversionDelay = ADS1015_CONVERSIONDELAY;
+  char bitShift = 4;
+  int  IC_gain = GAIN_ONE;
 
   void      ADS1015(char i2cAddress);
   void      ADS1015begin(void);
   int       ADS1015readADC_SingleEnded(char channel);
   void      ADS1015startComparator_SingleEnded(char channel, int threshold);
-  int       ADS1015getLastConversionResults();
+  int       ADS1015getLastConversionResults(char i2cAddress);
   void      ADS1015setGain(gain_enum gain);
 
 #endif	/* NEWFILE_H */

@@ -12,7 +12,6 @@
  */
 
 #include "ADS1015.h"
-#include <stddef.h>
 #include "Function.h"
 
 /**************************************************************************/
@@ -23,7 +22,7 @@
 char i2cread(void)
 {
   //return Wire.receive();
-    return 1;
+  return 1;
 }
 
 /**************************************************************************/
@@ -33,7 +32,6 @@ char i2cread(void)
 /**************************************************************************/
 void i2cwrite(char x)
 {
-
   //Wire.send(x);
 }
 
@@ -45,9 +43,9 @@ void i2cwrite(char x)
 static void writeRegister(char i2cAddress, char reg, int value)
 {
   //Wire.beginTransmission(i2cAddress);
-  i2cwrite((char)reg);
-  i2cwrite((char)(value>>8));
-  i2cwrite((char)(value & 0xFF));
+  i2cwrite(reg);
+  i2cwrite((value>>8));
+  i2cwrite((value & 0xFF));
   //Wire.endTransmission();
 }
 
@@ -67,24 +65,25 @@ int readRegister(char i2cAddress, char reg)
 
 /**************************************************************************/
 /*!
-    @brief  Instantiates a new ADS1015 class w/appropriate properties
-*/
-/**************************************************************************/
-void ADS1015(char i2cAddress) 
-{
-   i2cAddress = i2cAddress;
-   conversionDelay = ADS1015_CONVERSIONDELAY;
-   bitShift = 4;
-   IC_gain = GAIN_ONE; /* +/- 6.144V range (limited to VDD +0.3V max!) */
-}
-
-/**************************************************************************/
-/*!
     @brief  Sets up the HW (reads coefficients values, etc.)
 */
 /**************************************************************************/
 void ADS1015Begin() {
   //Wire.begin();
+  // Initialise I2C Data object for Write operation   
+    wData.buff=wBuff;
+    wData.n=10;
+    wData.addr=0x00; 
+    wData.csel=0x00;
+                  
+
+// Initialise I2C Data Object for Read operation            
+    rData.buff=rBuff;
+    rData.n=10;
+    rData.addr=0x00; 
+    rData.csel=0x00;
+    
+  i2cmem.init(&i2cmem); 
 }
 
 /**************************************************************************/
@@ -102,7 +101,7 @@ void ADS1015SetGain(gain_enum gain)
     @brief  Gets a single-ended ADC reading from the specified channel
 */
 /**************************************************************************/
-int ADS1015readADC_SingleEnded(char channel) {
+int ADS1015readADC_SingleEnded(char channel){
   if (channel > 3)
   {
     return 0;
@@ -136,7 +135,7 @@ int ADS1015readADC_SingleEnded(char channel) {
       break;
   }
 
-  // Set 'start single-conversion' bit
+  // Set start single-conversion bit
   config |= ADS1015_REG_CONFIG_OS_SINGLE;
 
   // Write config register to the ADC
@@ -148,35 +147,4 @@ int ADS1015readADC_SingleEnded(char channel) {
   // Read the conversion results
   // Shift 12-bit results right 4 bits for the ADS1015
   return readRegister(i2cAddress, ADS1015_REG_POINTER_CONVERT) >> bitShift;  
-}
-
-/**************************************************************************/
-/*!
-    @brief  In order to clear the comparator, we need to read the
-            conversion results.  This function reads the last conversion
-            results without changing the config value.
-*/
-/**************************************************************************/
-int ADS1015getLastConversionResults()
-{
-  // Wait for the conversion to complete
-  //delay(m_conversionDelay);
-
-  // Read the conversion results
-  int res = readRegister(i2cAddress, ADS1015_REG_POINTER_CONVERT) >> bitShift;
-  if (bitShift == 0)
-  {
-    return res;
-  }
-  else
-  {
-    // Shift 12-bit results right 4 bits for the ADS1015,
-    // making sure we keep the sign bit intact
-    if (res > 0x07FF)
-    {
-      // negative number - extend the sign to 16th bit
-      res |= 0xF000;
-    }
-    return res;
-  }
 }
