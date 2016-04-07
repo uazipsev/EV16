@@ -31,6 +31,8 @@ unsigned int enable;
 void writeRegister(char i2cAddress, char reg, int value)
 {
     // Write Data
+    i2cmem.oData->addr = i2cAddress;
+    i2cmem.oData->n = 2;
 	i2cmem.oData=&wData;
 	i2cmem.cmd = I2C_WRITE;	
 		
@@ -48,8 +50,11 @@ void writeRegister(char i2cAddress, char reg, int value)
 int readRegister(char i2cAddress, char reg)
 {
 	// Read Data
+    i2cmem.oData->addr = i2cAddress;
+    i2cmem.oData->n = 2;
 	i2cmem.oData=&rData;
 	i2cmem.cmd = I2C_READ;
+    
 	while(i2cmem.cmd!=I2C_IDLE)
     {
 		i2cmem.tick(&i2cmem); 
@@ -119,12 +124,12 @@ int ADS1015readADC_SingleEnded(char channel, char i2cAddress){
   config |= ADS1015_REG_CONFIG_OS_SINGLE;
 
   // Write config register to the ADC
-  //writeRegister(i2cAddress, ADS1015_REG_POINTER_CONFIG, config);
+  writeRegister(i2cAddress, ADS1015_REG_POINTER_CONFIG, config);
 
   // Wait for the conversion to complete
   Delay(conversionDelay);
 
   // Read the conversion results
   // Shift 12-bit results right 4 bits for the ADS1015
-  return 1;//readRegister(i2cAddress, ADS1015_REG_POINTER_CONVERT) >> bitShift;  
+  return readRegister(i2cAddress, ADS1015_REG_POINTER_CONVERT) >> bitShift;  
 }
