@@ -97,7 +97,7 @@ void UpdateLT6804(int bank){
 }
 
 void ReadCurrentSense(){
-    int Current[6];
+    //int Current[6];
     //Current[0] = ADS1015readADC_SingleEnded(0, 0x01);
     //Current[1] = ADS1015readADC_SingleEnded(1, 0x01);
     //Current[2] = ADS1015readADC_SingleEnded(2, 0x01);

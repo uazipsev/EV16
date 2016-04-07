@@ -12,8 +12,8 @@ I2C Master Interrupt Service Routine
 =============================================================================*/
 void __attribute__((interrupt, no_auto_psv)) _MI2C1Interrupt(void)
 {
-	jDone=1;
-    IFS1bits.MI2C1IF = 0;		//Clear the DMA0 Interrupt Flag;
+		jDone=1;
+        IFS1bits.MI2C1IF = 0;		//Clear the DMA0 Interrupt Flag;
 
 }
 
@@ -22,7 +22,8 @@ I2C Slave Interrupt Service Routine
 =============================================================================*/
 void __attribute__((interrupt, no_auto_psv)) _SI2C1Interrupt(void)
 {
-	IFS1bits.SI2C1IF = 0;		//Clear the DMA0 Interrupt Flag
+	
+        IFS1bits.SI2C1IF = 0;		//Clear the DMA0 Interrupt Flag
 }
 
 
@@ -35,9 +36,9 @@ void I2CEMEMinit(I2CEMEM_DRV *i2cMem)
     i2cMem->cmd=0;
     i2cMem->oData=0;
 
-    // Configre SCA/SDA pin as open-drain
-	ODCAbits.ODCA2=1;
-	ODCAbits.ODCA3=1;
+// Configre SCA/SDA pin as open-drain
+	//ODCGbits.ODCG2=1;
+	//ODCGbits.ODCG3=1;
 
 
 	I2C1CONbits.A10M=0;
@@ -50,6 +51,8 @@ void I2CEMEMinit(I2CEMEM_DRV *i2cMem)
 	I2C1CONbits.I2CEN=1;
 	IEC1bits.MI2C1IE = 1;
   	IFS1bits.MI2C1IF = 0;
+
+
 }
 
 /*=============================================================================

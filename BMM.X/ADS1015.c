@@ -13,34 +13,28 @@
 
 #include "ADS1015.h"
 #include "Function.h"
+#include "I2C.h"
+
+// Instantiate Drive and Data objects
+I2CEMEM_DRV i2cmem= I2CSEMEM_DRV_DEFAULTS;                                  
+I2CEMEM_DATA wData;
+I2CEMEM_DATA rData;
+
+unsigned int wBuff[10],rBuff[10];
+unsigned int enable;
 
 /**************************************************************************/
 /*!
-    @brief  Abstract away platform differences in Arduino wire library
+    @brief  Writes 16-bits to the specified destination register
 */
 /**************************************************************************/
-int i2cread(int num)
+void writeRegister(char i2cAddress, char reg, int value)
 {
-    rData.n = num;
-  	i2cmem.oData=&rData;
-	i2cmem.cmd = I2C_READ;
-	while(i2cmem.cmd!=I2C_IDLE)
-    {
-		i2cmem.tick(&i2cmem); 
-	}
-    return (int)&rData;
-}
-
-/**************************************************************************/
-/*!
-    @brief  Abstract away platform differences in Arduino wire library
-*/
-/**************************************************************************/
-void i2cwrite(char wData)
-{
-    i2cmem.oData=&wData;
-    i2cmem.cmd = I2C_WRITE;
-    while(i2cmem.cmd!=I2C_IDLE )
+    // Write Data
+	i2cmem.oData=&wData;
+	i2cmem.cmd = I2C_WRITE;	
+		
+	while(i2cmem.cmd!=I2C_IDLE )
     {	
 		i2cmem.tick(&i2cmem); 
 	}
@@ -51,25 +45,16 @@ void i2cwrite(char wData)
     @brief  Writes 16-bits to the specified destination register
 */
 /**************************************************************************/
-static void writeRegister(char i2cAddress, char reg, int value)
-{
-  wData.addr = i2cAddress;
-  i2cwrite(reg);
-  i2cwrite((value>>8));
-  i2cwrite((value & 0xFF));
-}
-
-/**************************************************************************/
-/*!
-    @brief  Writes 16-bits to the specified destination register
-*/
-/**************************************************************************/
 int readRegister(char i2cAddress, char reg)
 {
-  rData.addr = i2cAddress;
-  i2cwrite(ADS1015_REG_POINTER_CONVERT);
-  //rData.n=2;
-  return i2cread(2); 
+	// Read Data
+	i2cmem.oData=&rData;
+	i2cmem.cmd = I2C_READ;
+	while(i2cmem.cmd!=I2C_IDLE)
+    {
+		i2cmem.tick(&i2cmem); 
+	}
+    return 1;
 }
 
 /**************************************************************************/
@@ -78,20 +63,7 @@ int readRegister(char i2cAddress, char reg)
 */
 /**************************************************************************/
 void ADS1015Begin() {
-  //Wire.begin();
-  // Initialise I2C Data object for Write operation   
-    wData.buff=wBuff;
-    wData.n=1;
-    wData.addr=0x00; 
-    wData.csel=0x00;
-                  
-
-// Initialise I2C Data Object for Read operation            
-    rData.buff=rBuff;
-    rData.addr=0x00; 
-    rData.csel=0x00;
-    
-  i2cmem.init(&i2cmem); 
+    i2cmem.init(&i2cmem); 
 }
 
 /**************************************************************************/
@@ -147,12 +119,12 @@ int ADS1015readADC_SingleEnded(char channel, char i2cAddress){
   config |= ADS1015_REG_CONFIG_OS_SINGLE;
 
   // Write config register to the ADC
-  writeRegister(i2cAddress, ADS1015_REG_POINTER_CONFIG, config);
+  //writeRegister(i2cAddress, ADS1015_REG_POINTER_CONFIG, config);
 
   // Wait for the conversion to complete
   Delay(conversionDelay);
 
   // Read the conversion results
   // Shift 12-bit results right 4 bits for the ADS1015
-  return readRegister(i2cAddress, ADS1015_REG_POINTER_CONVERT) >> bitShift;  
+  return 1;//readRegister(i2cAddress, ADS1015_REG_POINTER_CONVERT) >> bitShift;  
 }

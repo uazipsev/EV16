@@ -8,16 +8,6 @@
 #ifndef ADS1015_H
 #define	ADS1015_H
 
-#include "I2C.h"
-
-// Instantiate Drive and Data objects
-I2CEMEM_DRV i2cmem= I2CSEMEM_DRV_DEFAULTS;                                  
-I2CEMEM_DATA wData;
-I2CEMEM_DATA rData;
-
-unsigned int wBuff[2],rBuff[2];
-unsigned int enable;
-
 /*=========================================================================
     I2C ADDRESS/BITS
     -----------------------------------------------------------------------*/
@@ -113,9 +103,9 @@ typedef enum
   char conversionDelay = ADS1015_CONVERSIONDELAY;
   char bitShift = 4;
   int  IC_gain = GAIN_ONE;
-  
-  int   i2cread(int num);
-  void  i2cwrite(char wData);
+ 
+  int readRegister(char i2cAddress, char reg);
+  void writeRegister(char i2cAddress, char reg, int value);
   extern void  ADS1015begin(void);
   extern int   ADS1015readADC_SingleEnded(char channel, char i2cAddress);
   extern void  ADS1015setGain(gain_enum gain);

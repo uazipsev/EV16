@@ -8,18 +8,17 @@
 #ifndef I2C_API_H
 #define	I2C_API_H
 
-#define MAX_RETRY	 1000
-#define ONE_BYTE     1
-#define TWO_BYTE     2
-
 // EEPROM ADDRESS SIZE
 #define ADDRWIDTH   ONE_BYTE     
   
-// EEPROM DRIVER COMMAND DEFINITION
 #define I2C_IDLE 		 0  
 #define I2C_WRITE        1      
 #define I2C_READ         2    
 #define I2C_ERR        0xFFFF
+
+#define MAX_RETRY	 1000
+#define ONE_BYTE     1
+#define TWO_BYTE     2
 
 // EEPROM DATA OBJECT
 typedef struct { 
@@ -41,11 +40,9 @@ typedef struct {
         (I2CEMEM_DATA *)0,\
         (void (*)(void *))I2CEMEMinit,\
         (void (*)(void *))I2CEMEMdrv}  
-        
 
 void I2CEMEMinit(I2CEMEM_DRV *); 
 void I2CEMEMdrv(I2CEMEM_DRV *);
-
 
 #endif	/* I2C_API_H */
 
