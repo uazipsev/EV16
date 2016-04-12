@@ -8,6 +8,7 @@
 #ifndef BATTERYMANAGMENTPRIVATE_H
 #define	BATTERYMANAGMENTPRIVATE_H
 
+
 int Current[6];
 float CVolt[6];
 float Volt1 = 0;
@@ -22,6 +23,7 @@ char CFGR2 = 0;
 char CFGR3 = 0;
 char CFGR4 = 0;
 char CFGR5 = 0;
+
 bool CarOn = 1;
 
 #define NUMBEROFIC 12

@@ -9,7 +9,7 @@
 //|-----------|-----------|-----------|-----------|-----------|-----------|-------------|------------|-----------|-----------|-----------|
 //|IC1 CFGR0  |IC1 CFGR1  |IC1 CFGR2  |IC1 CFGR3  |IC1 CFGR4  |IC1 CFGR5  |IC1 PEC High |IC1 PEC Low |IC2 CFGR0  |IC2 CFGR1  |  .....    |
 
-void Start_LTC6804_initialize() {
+void Start_BMS(){
     LTC6804_initialize();
     ADS1015Begin();
 }
@@ -119,6 +119,10 @@ void ReadVoltToCurrent(){
     for(i = 0;i<5;i++){
         Current[i] = (CVolt[i]/ADCBIT)*5/SHUNTOHMS/CURRENTGAIN;
     }
+}
+
+void ChargerEN(){
+    CarOn = 0;
 }
 
 void CurrentCoulombCount(int tme){

@@ -8,7 +8,8 @@
 #ifndef READ_BATTERY_LEVEL_H
 #define	READ_BATTERY_LEVEL_H
 
-void Start_LTC6804_initialize();
+void Start_BMS();
+void ChargerEN();
 void Read_Battery(int BatteryPlacement);
 extern void CurrentCoulombCount(int tme);
 
