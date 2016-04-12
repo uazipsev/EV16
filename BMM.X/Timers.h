@@ -21,6 +21,8 @@ extern "C" {
 
     void initTimerTwo(void);
     void initTimerOne(void);
+    
+    extern volatile unsigned long int time;
 
 
 #ifdef	__cplusplus

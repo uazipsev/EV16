@@ -1,6 +1,7 @@
 
 
 #include "Timers.h"
+#include "BatteryManagment.h"
 volatile unsigned long int slaveTime,time,ADCTime;
 volatile unsigned long int LEDtime = 0, talkTime = 0;
 void updateTimers();
@@ -11,6 +12,7 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
 }
 
 void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void) {
+    CurrentCoulombCount(time);
     IFS0bits.T2IF = 0; // clear timer interrupt flag
 }
 
