@@ -62,8 +62,5 @@ void PinSetMode(void) {
     LATCbits.LATC6=1;
     LATCbits.LATC7=1;
  
- 
-    
     BMS_TURN_ON = 1;
-    
 }

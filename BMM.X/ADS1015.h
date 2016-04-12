@@ -97,18 +97,12 @@ typedef enum
   GAIN_EIGHT        = ADS1015_REG_CONFIG_PGA_0_512V,
   GAIN_SIXTEEN      = ADS1015_REG_CONFIG_PGA_0_256V
 } gain_enum;
-
-   // Instance-specific properties
-  char i2cAddress;
-  char conversionDelay = ADS1015_CONVERSIONDELAY;
-  char bitShift = 4;
-  int  IC_gain = GAIN_ONE;
  
   int readRegister(char i2cAddress, char reg);
   void writeRegister(char i2cAddress, char reg, int value);
-  extern void  ADS1015begin(void);
-  extern int   ADS1015readADC_SingleEnded(char channel, char i2cAddress);
-  extern void  ADS1015setGain(gain_enum gain);
+  void  ADS1015Begin();
+  int   ADS1015readADC_SingleEnded(char channel, char i2cAddress);
+  void  ADS1015setGain(gain_enum gain);
 
 #endif	/* NEWFILE_H */
 

@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include "p33Fxxxx.h"
 
-#include "i2c.h"
+#include "I2C.h"
 
 unsigned int jDone;
 

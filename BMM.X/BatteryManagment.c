@@ -1,16 +1,17 @@
 
 #include "BatteryManagment.h"
-//#include "ADS1015.h"
+#include "BatteryManagmentPrivate.h"
+#include "ADS1015.h"
+#include "Timers.h"
 #include <stdbool.h>
 
 //|r_config[0]|r_config[1]|r_config[2]|r_config[3]|r_config[4]|r_config[5]|r_config[6]  |r_config[7] |r_config[8]|r_config[9]|  .....    |
 //|-----------|-----------|-----------|-----------|-----------|-----------|-------------|------------|-----------|-----------|-----------|
 //|IC1 CFGR0  |IC1 CFGR1  |IC1 CFGR2  |IC1 CFGR3  |IC1 CFGR4  |IC1 CFGR5  |IC1 PEC High |IC1 PEC Low |IC2 CFGR0  |IC2 CFGR1  |  .....    |
 
-
 void Start_LTC6804_initialize() {
     LTC6804_initialize();
-    //ADS1015begin();
+    ADS1015Begin();
 }
 
 void Read_Battery(int BatteryPlacement) {
@@ -96,12 +97,39 @@ void UpdateLT6804(int bank){
     //LTC6804_wrcfg(NUMBEROFIC,LTC6804_DATA[bank]);
 }
 
-void ReadCurrentSense(){
-    //int Current[6];
-    //Current[0] = ADS1015readADC_SingleEnded(0, 0x01);
-    //Current[1] = ADS1015readADC_SingleEnded(1, 0x01);
-    //Current[2] = ADS1015readADC_SingleEnded(2, 0x01);
-    //Current[3] = ADS1015readADC_SingleEnded(3, 0x01);
-    //Current[4] = ADS1015readADC_SingleEnded(0, 0x02);
-    //Current[5] = ADS1015readADC_SingleEnded(1, 0x02);
+void ReadCurrentVolt(){
+    CVolt[0] = ADS1015readADC_SingleEnded(0, 0x01);
+    CVolt[1] = ADS1015readADC_SingleEnded(1, 0x01);
+    CVolt[2] = ADS1015readADC_SingleEnded(2, 0x01);
+    CVolt[3] = ADS1015readADC_SingleEnded(3, 0x01);
+    CVolt[4] = ADS1015readADC_SingleEnded(0, 0x02);
+    CVolt[5] = ADS1015readADC_SingleEnded(1, 0x02);
+}
+
+void ReadVolt(){
+    Volt1 = ADS1015readADC_SingleEnded(2, 0x02);
+    Volt2 = ADS1015readADC_SingleEnded(3, 0x02);
+    Volt1 = (Volt1/ADCBIT)*5*VOLTAGERATIO;
+    Volt2 = (Volt2/ADCBIT)*5*VOLTAGERATIO;
+}
+
+void ReadVoltToCurrent(){
+    ReadCurrentVolt();
+    int i;
+    for(i = 0;i<5;i++){
+        Current[i] = (CVolt[i]/ADCBIT)*5/SHUNTOHMS/CURRENTGAIN;
+    }
+}
+
+void CurrentCoulombCount(int tme){
+    if(CarOn){
+        CC1 = CC1 - (Current[0]*tme);
+        CC2 = CC2 - (Current[2]*tme);
+        CC3 = CC3 - (Current[4]*tme);
+    }
+    else{
+        CC1 = CC1 + (Current[1]*tme);
+        CC2 = CC2 + (Current[3]*tme);
+        CC3 = CC3 + (Current[5]*tme);
+    }
 }

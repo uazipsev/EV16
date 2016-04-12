@@ -23,6 +23,12 @@ I2CEMEM_DATA rData;
 unsigned int wBuff[10],rBuff[10];
 unsigned int enable;
 
+// Instance-specific properties
+char i2cAddress;
+char conversionDelay = ADS1015_CONVERSIONDELAY;
+char bitShift = 4;
+int  IC_gain = GAIN_ONE;
+
 /**************************************************************************/
 /*!
     @brief  Writes 16-bits to the specified destination register
@@ -31,8 +37,9 @@ unsigned int enable;
 void writeRegister(char i2cAddress, char reg, int value)
 {
     // Write Data
-    i2cmem.oData->addr = i2cAddress;
-    i2cmem.oData->n = 2;
+    wData.buff=wBuff;
+    wData.n=2;
+    wData.addr=i2cAddress;
 	i2cmem.oData=&wData;
 	i2cmem.cmd = I2C_WRITE;	
 		
@@ -50,8 +57,9 @@ void writeRegister(char i2cAddress, char reg, int value)
 int readRegister(char i2cAddress, char reg)
 {
 	// Read Data
-    i2cmem.oData->addr = i2cAddress;
-    i2cmem.oData->n = 2;
+    rData.buff=rBuff;
+    rData.n=2;
+    rData.addr=i2cAddress; 
 	i2cmem.oData=&rData;
 	i2cmem.cmd = I2C_READ;
     
@@ -69,6 +77,21 @@ int readRegister(char i2cAddress, char reg)
 /**************************************************************************/
 void ADS1015Begin() {
     i2cmem.init(&i2cmem); 
+    
+    // Initialise I2C Data object for Write operation   
+    wData.buff=wBuff;
+    wData.n=10;
+    wData.addr=0x00; 
+    wData.csel=0x00;
+                  
+
+// Initialise I2C Data Object for Read operation            
+    rData.buff=rBuff;
+    rData.n=10;
+    rData.addr=0x00; 
+    rData.csel=0x00;
+    
+
 }
 
 /**************************************************************************/

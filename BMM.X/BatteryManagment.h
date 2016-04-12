@@ -8,21 +8,9 @@
 #ifndef READ_BATTERY_LEVEL_H
 #define	READ_BATTERY_LEVEL_H
 
-#define NUMBEROFIC 12
-#define NUMBEROFCH 2
-#define NUMBEROFDATA 8
-
-int LTC6804_DATA[NUMBEROFCH][NUMBEROFDATA*NUMBEROFIC];
-
 void Start_LTC6804_initialize();
 void Read_Battery(int BatteryPlacement);
-
-char CFGR0 = 0;
-char CFGR1 = 0;
-char CFGR2 = 0;
-char CFGR3 = 0;
-char CFGR4 = 0;
-char CFGR5 = 0;
+extern void CurrentCoulombCount(int tme);
 
             
 #endif	/* READ_BATTERY_LEVEL_H */
