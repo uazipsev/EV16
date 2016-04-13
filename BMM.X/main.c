@@ -6,7 +6,6 @@
  */
 
 #include "main.h"
-#include "SlaveAddressing.h"
 
 extern void updateTimers();
 extern volatile unsigned long int ADCTime;

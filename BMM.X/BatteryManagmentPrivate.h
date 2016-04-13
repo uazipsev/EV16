@@ -8,7 +8,7 @@
 #ifndef BATTERYMANAGMENTPRIVATE_H
 #define	BATTERYMANAGMENTPRIVATE_H
 
-
+float CurrentOffset[6] = {0.0,0.0,0.0,0.0,0.0,0.0};
 int Current[6];
 float CVolt[6];
 float Volt1 = 0;

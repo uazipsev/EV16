@@ -20,7 +20,6 @@
 #include <stdbool.h>
 #include "pps.h"
 #include "PinDef.h"
-#include "SlaveAddressing.h"
 #include "ADDRESSING.h"
 
 #define PPSin(fn,pin)    iPPSInput(IN_FN_PPS##fn,IN_PIN_PPS##pin)

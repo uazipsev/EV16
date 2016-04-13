@@ -15,34 +15,38 @@ void Start_BMS(){
 }
 
 void Read_Battery(int BatteryPlacement) {
-
     switch (BatteryPlacement) {
-        case 0: set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
+        case 0: 
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
             LTC6804_adcv();
             break;
-        case 1: set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_1and7, AUX_CH_ALL);
+        case 1: 
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_1and7, AUX_CH_ALL);
             LTC6804_adcv();
             break;
-        case 2: set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_2and8, AUX_CH_ALL);
+        case 2: 
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_2and8, AUX_CH_ALL);
             LTC6804_adcv();
             break;
-        case 3: set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_3and9, AUX_CH_ALL);
+        case 3: 
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_3and9, AUX_CH_ALL);
             LTC6804_adcv();
             break;
-        case 4: set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_4and10, AUX_CH_ALL);
+        case 4: 
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_4and10, AUX_CH_ALL);
             LTC6804_adcv();
             break;
-        case 5: set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_5and11, AUX_CH_ALL);
+        case 5: 
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_5and11, AUX_CH_ALL);
             LTC6804_adcv();
             break;
-        case 6: set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_6and12, AUX_CH_ALL);
+        case 6: 
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_6and12, AUX_CH_ALL);
             LTC6804_adcv();
             break;
         default:
             break;
-    }
-                
-            
+    }        
 }
 
 void SetBypass(int bank, int ic, int cell, bool value){
@@ -117,7 +121,7 @@ void ReadVoltToCurrent(){
     ReadCurrentVolt();
     int i;
     for(i = 0;i<5;i++){
-        Current[i] = (CVolt[i]/ADCBIT)*5/SHUNTOHMS/CURRENTGAIN;
+        Current[i] = ((CVolt[i]/ADCBIT)*5/SHUNTOHMS/CURRENTGAIN) + CurrentOffset[i];
     }
 }
 
@@ -136,4 +140,45 @@ void CurrentCoulombCount(int tme){
         CC2 = CC2 + (Current[3]*tme);
         CC3 = CC3 + (Current[5]*tme);
     }
+}
+
+int CurrentGet(bool total, char channel){
+    if(total){
+        if(CarOn){
+            return Current[0] + Current[2] + Current[4];
+        }
+        else{
+            return Current[1] + Current[3] + Current[5];
+        }
+    }
+    else{
+        if(CarOn){
+            switch(channel){
+                case 1:
+                    return Current[0];
+                    break;
+                case 2:
+                    return Current[2];
+                    break;
+                case 3:
+                    return Current[4];
+                    break;
+            }
+        }
+        else{
+            switch(channel){
+                case 1:
+                    return Current[1];
+                    break;
+                case 2:
+                    return Current[3];
+                    break;
+                case 3:
+                    return Current[5];
+                    break;
+            }
+        }
+        
+    }
+    return 0;
 }

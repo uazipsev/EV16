@@ -10,6 +10,8 @@
 
 void Start_BMS();
 void ChargerEN();
+void ReadVoltToCurrent();
+int CurrentGet(bool total, char channel);
 void Read_Battery(int BatteryPlacement);
 extern void CurrentCoulombCount(int tme);
 
