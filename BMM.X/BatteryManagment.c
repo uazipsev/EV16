@@ -48,7 +48,7 @@ void Read_Battery(int BatteryPlacement) {
             break;
     }        
 }
-
+//Update
 void SetBypass(int bank, int ic, int cell, bool value){
 	if(value){
 		if(cell < 8){
@@ -79,7 +79,7 @@ void SetTempEnable(int bank, int ic, bool value){
 	}
 	LTC6804_DATA[bank][ic*8] = CFGR0;
 }
-
+//Update
 void SetUnderOverVoltage(int under, int over){
 	char uv[2];
 	char ov[2];
@@ -93,7 +93,7 @@ void SetUnderOverVoltage(int under, int over){
 	CFGR1 = uv[0];
 	CFGR2 = uv[1];
 }
-
+//
 void UpdateLT6804(int bank){
     //need to calc PEC
 
