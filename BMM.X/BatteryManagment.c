@@ -2,8 +2,11 @@
 #include "BatteryManagment.h"
 #include "BatteryManagmentPrivate.h"
 #include "ADS1015.h"
+#include "LT6804.h"
 #include "Timers.h"
 #include <stdbool.h>
+
+
 
 //|r_config[0]|r_config[1]|r_config[2]|r_config[3]|r_config[4]|r_config[5]|r_config[6]  |r_config[7] |r_config[8]|r_config[9]|  .....    |
 //|-----------|-----------|-----------|-----------|-----------|-----------|-------------|------------|-----------|-----------|-----------|
@@ -66,8 +69,8 @@ void SetBypass(int bank, int ic, int cell, bool value){
 			CFGR5 = CFGR5 & ~(1 << (cell-8));
 		}
 	}
-	LTC6804_DATA[bank][(ic*8)+5] = CFGR5;
-	LTC6804_DATA[bank][(ic*8)+4] = CFGR4;
+    LTC6804_DATA[bank][(ic*8)+5] = CFGR4& 0xFF; //First  8 Bits of DCC
+    LTC6804_DATA[bank][(ic*8)+4] = ((CFGR5& 0xF00)>>8) + (DCTO<< 4); // Combined DCTO and the Last 4 bits of DCC
 }
 
 void SetTempEnable(int bank, int ic, bool value){
@@ -79,19 +82,20 @@ void SetTempEnable(int bank, int ic, bool value){
 	}
 	LTC6804_DATA[bank][ic*8] = CFGR0;
 }
-//Update
-void SetUnderOverVoltage(int under, int over){
-	char uv[2];
-	char ov[2];
-	
-	uv[0] = ((under >> 0) & 0xff);
-	uv[1] = ((under >> 8) & 0xff);
-	
-	ov[0] = ((over >> 12) & 0xff);
-	ov[1] = ((over >> 4) & 0xff);
-	
-	CFGR1 = uv[0];
-	CFGR2 = uv[1];
+//Update Under and over voltages. 
+void SetUnderOverVoltage(int VUV, int VOV){
+    //LTC6804 - PG: 49 
+    CFGR1 = VUV& 0xFF; // Ands with the First 8 bits
+    CFGR2 = ((VUV & 0xF00)>> 8)+ ((VOV & 0x0F) <<4); // Finish Last bits of VUV start with VOV
+    CFGR3 = (VOV& 0xFF0)>>4;       // Finish VOV setup
+    
+    for(k = 0;k<NUMBEROFCH;k++){
+        for(j=0;j<NUMBEROFIC;j++){
+            LTC6804_DATA[k][j*8 + 1] = CFGR1;
+            LTC6804_DATA[k][j*8 + 2] = CFGR2;
+            LTC6804_DATA[k][j*8 + 3] = CFGR3;
+        }
+    }
 }
 //
 void UpdateLT6804(int bank){
@@ -119,9 +123,8 @@ void ReadVolt(){
 
 void ReadVoltToCurrent(){
     ReadCurrentVolt();
-    int i;
-    for(i = 0;i<5;i++){
-        Current[i] = ((CVolt[i]/ADCBIT)*5/SHUNTOHMS/CURRENTGAIN) + CurrentOffset[i];
+    for(k = 0;k<5;k++){
+        Current[k] = ((CVolt[k]/ADCBIT)*5/SHUNTOHMS/CURRENTGAIN) + CurrentOffset[k];
     }
 }
 
@@ -180,5 +183,5 @@ int CurrentGet(bool total, char channel){
         }
         
     }
-    return 0;
+    return -1;
 }

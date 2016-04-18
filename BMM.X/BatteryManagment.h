@@ -4,9 +4,10 @@
  *
  * Created on March 15, 2016, 12:53 PM
  */
-#include"LT6804.h"
 #ifndef READ_BATTERY_LEVEL_H
 #define	READ_BATTERY_LEVEL_H
+
+#include <stdbool.h>
 
 void Start_BMS();
 void ChargerEN();
