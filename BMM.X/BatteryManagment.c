@@ -24,33 +24,70 @@ void Read_Battery(int BatteryPlacement) {
             LTC6804_adcv();
             break;
         case 1: 
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_1and7, AUX_CH_ALL);
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO1);
             LTC6804_adcv();
             break;
         case 2: 
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_2and8, AUX_CH_ALL);
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO2);
             LTC6804_adcv();
             break;
         case 3: 
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_3and9, AUX_CH_ALL);
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO3);
             LTC6804_adcv();
             break;
         case 4: 
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_4and10, AUX_CH_ALL);
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO4);
             LTC6804_adcv();
             break;
         case 5: 
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_5and11, AUX_CH_ALL);
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO5);
             LTC6804_adcv();
             break;
         case 6: 
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_6and12, AUX_CH_ALL);
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_VREF2);
             LTC6804_adcv();
             break;
         default:
             break;
     }        
 }
+
+
+Read_GPIO(int BatteryPlacement )
+{ switch (BatteryPlacement) {
+        case 0: 
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
+            LTC6804_adax();
+            break;
+        case 1: 
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_1and7, AUX_CH_ALL);
+            LTC6804_adax();
+            break;
+        case 2: 
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_2and8, AUX_CH_ALL);
+            LTC6804_adax();
+            break;
+        case 3: 
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_3and9, AUX_CH_ALL);
+            LTC6804_adax();
+            break;
+        case 4: 
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_4and10, AUX_CH_ALL);
+            LTC6804_adax();
+            break;
+        case 5: 
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_5and11, AUX_CH_ALL);
+            LTC6804_adax();
+            break;
+        case 6: 
+            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_6and12, AUX_CH_ALL);
+            LTC6804_adax();
+            break;
+        default:
+            break;}}
+
+
+
 //Update
 void SetBypass(int bank, int ic, int cell, bool value){
 	if(value){
@@ -70,7 +107,7 @@ void SetBypass(int bank, int ic, int cell, bool value){
 		}
 	}
     LTC6804_DATA[bank][(ic*8)+5] = CFGR4& 0xFF; //First  8 Bits of DCC
-    LTC6804_DATA[bank][(ic*8)+4] = ((CFGR5& 0xF00)>>8) + (DCTO<< 4); // Combined DCTO and the Last 4 bits of DCC
+    LTC6804_DATA[bank][(ic*8)+4] = (CFGR5) + (DCTO<< 4); // Combined DCTO and the Last 4 bits of DCC
 }
 
 void SetTempEnable(int bank, int ic, bool value){
@@ -97,12 +134,36 @@ void SetUnderOverVoltage(int VUV, int VOV){
         }
     }
 }
+//Not Sure how this  LTC6804_DATA works however will copy for consistency 
+void Set_ADC_Mode(int bank, int ic, bool ADCOPT_Mode){
+    if(ADCOPT_Mode){
+    CFGR0= CFGR4 | ADC_MODE_BIT_14k_3k_2k ;
+    }
+    else {
+    CFGR0=CFGR0 & ~ADC_MODE_BIT_14k_3k_2k;   //ADC_MODE_BIT_27k_7k_26
+    }
+        LTC6804_DATA[bank][ic*8] = CFGR0;
+}
+
+//Not Sure how this  LTC6804_DATA works however will copy for consistency 
+Set_REFON_Pin(int bank, int ic, bool REFON_Mode){
+    if(REFON_Mode){
+    CFGR0= CFGR4 | REFON_TURN_ON ;
+    }
+    else {
+    CFGR0=CFGR0 & ~REFON_TURN_ON;   //REFOFF_TURN_OFF
+    }
+        LTC6804_DATA[bank][ic*8] = CFGR0;
+}
+
+
+
+
 //
 void UpdateLT6804(int bank){
-    //need to calc PEC
+    //I dont think we need to calculate the PEC becuase that is done in the LTC6804_wrcfg
 
-    //Need to send out data
-    //LTC6804_wrcfg(NUMBEROFIC,LTC6804_DATA[bank]);
+    LTC6804_wrcfg(NUMBEROFIC,LTC6804_DATA[bank]);
 }
 
 void ReadCurrentVolt(){

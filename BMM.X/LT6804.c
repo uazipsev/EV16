@@ -91,6 +91,7 @@ int ADAX[2]; //!< GPIO conversion command.
 void LTC6804_initialize()
 {
   SPI2_Initialize();
+  //Need to determine ADC Values
   set_adc(MD_NORMAL,DCP_DISABLED,CELL_CH_ALL,AUX_CH_ALL);
 }
 

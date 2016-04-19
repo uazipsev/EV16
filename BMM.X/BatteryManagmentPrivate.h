@@ -33,6 +33,15 @@ char CFGR3 = 0;
 char CFGR4 = 0;
 char CFGR5 = 0;
 
+int Over_Voltage_Value=0x9C4; // Compare Voltage = Over_Voltage_Value*16*100uV  
+                              //Default Over_Voltage_Value=4.0 4.0=2500*16*100*10^-6
+                              // 2500=0x7CF
+
+
+int Under_Voltage_Value=0x7CF; // Compare Voltage = (Under_Voltage_Value +1) * 16 * 100uV  
+                               // Default Under Voltage Value should be= 3.2 3.2=(1999+1)*16*100*10^-6
+                               // 1999=0x7CF
+
 #define NUMBEROFIC 12
 #define NUMBEROFCH 2
 #define NUMBEROFDATA 8
