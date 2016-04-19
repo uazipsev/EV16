@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=interrupt_handler.c main.c FastTransfer.c Functions.c ConfigBit.c ADC.c UART.c PedalFunctions.c UART1.c Communications.c
+SOURCEFILES_QUOTED_IF_SPACED=interrupt_handler.c main.c FastTransfer.c Functions.c ConfigBit.c ADC.c UART.c UART1.c Communications.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/interrupt_handler.o ${OBJECTDIR}/main.o ${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/Functions.o ${OBJECTDIR}/ConfigBit.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/PedalFunctions.o ${OBJECTDIR}/UART1.o ${OBJECTDIR}/Communications.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/interrupt_handler.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/FastTransfer.o.d ${OBJECTDIR}/Functions.o.d ${OBJECTDIR}/ConfigBit.o.d ${OBJECTDIR}/ADC.o.d ${OBJECTDIR}/UART.o.d ${OBJECTDIR}/PedalFunctions.o.d ${OBJECTDIR}/UART1.o.d ${OBJECTDIR}/Communications.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/interrupt_handler.o ${OBJECTDIR}/main.o ${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/Functions.o ${OBJECTDIR}/ConfigBit.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/UART1.o ${OBJECTDIR}/Communications.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/interrupt_handler.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/FastTransfer.o.d ${OBJECTDIR}/Functions.o.d ${OBJECTDIR}/ConfigBit.o.d ${OBJECTDIR}/ADC.o.d ${OBJECTDIR}/UART.o.d ${OBJECTDIR}/UART1.o.d ${OBJECTDIR}/Communications.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/interrupt_handler.o ${OBJECTDIR}/main.o ${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/Functions.o ${OBJECTDIR}/ConfigBit.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/PedalFunctions.o ${OBJECTDIR}/UART1.o ${OBJECTDIR}/Communications.o
+OBJECTFILES=${OBJECTDIR}/interrupt_handler.o ${OBJECTDIR}/main.o ${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/Functions.o ${OBJECTDIR}/ConfigBit.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/UART1.o ${OBJECTDIR}/Communications.o
 
 # Source Files
-SOURCEFILES=interrupt_handler.c main.c FastTransfer.c Functions.c ConfigBit.c ADC.c UART.c PedalFunctions.c UART1.c Communications.c
+SOURCEFILES=interrupt_handler.c main.c FastTransfer.c Functions.c ConfigBit.c ADC.c UART.c UART1.c Communications.c
 
 
 CFLAGS=
@@ -131,13 +131,6 @@ ${OBJECTDIR}/UART.o: UART.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  UART.c  -o ${OBJECTDIR}/UART.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/UART.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf   -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/UART.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
-${OBJECTDIR}/PedalFunctions.o: PedalFunctions.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/PedalFunctions.o.d 
-	@${RM} ${OBJECTDIR}/PedalFunctions.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  PedalFunctions.c  -o ${OBJECTDIR}/PedalFunctions.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/PedalFunctions.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf   -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/PedalFunctions.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 ${OBJECTDIR}/UART1.o: UART1.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/UART1.o.d 
@@ -201,13 +194,6 @@ ${OBJECTDIR}/UART.o: UART.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/UART.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  UART.c  -o ${OBJECTDIR}/UART.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/UART.o.d"        -g -omf=elf   -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/UART.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/PedalFunctions.o: PedalFunctions.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/PedalFunctions.o.d 
-	@${RM} ${OBJECTDIR}/PedalFunctions.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  PedalFunctions.c  -o ${OBJECTDIR}/PedalFunctions.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/PedalFunctions.o.d"        -g -omf=elf   -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/PedalFunctions.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/UART1.o: UART1.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
