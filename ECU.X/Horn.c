@@ -9,14 +9,7 @@
 void RTD(int lenth) {
     //Start horn
     HORN_EN = 1; // Starting Horn
-    PWMupdate(80);
-    int x = 0;
-    for (; x < lenth; x++) {
-        PERupdate(0x04F0);
-        Delay(1);
-        PERupdate(0x04E9);
-        //Delay(250);
-    }
+    Delay(lenth);
     HORN_EN = 0;
     //end horn
 }
@@ -36,14 +29,7 @@ void Boot(int lenth) {
 void Fault(int lenth) {
     //Start horn
     HORN_EN = 1; // Starting Horn
-    PWMupdate(80);
-    int x = 0;
-    for (; x < lenth; x++) {
-        PERupdate(0x0400);
-        Delay(1);
-        //PERupdate(0x04E9);
-        //Delay(250);
-    }
+    Delay(lenth);
     HORN_EN = 0;
     //end horn
 }
