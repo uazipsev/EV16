@@ -72,8 +72,10 @@ void SetADC(void) {
 }
 
 void handleADCValues() {
-    throttle1 = ((throttle1 * 3) + ADCbuffer[0]) / 4;
-    throttle2 = ((throttle2 * 3) + ADCbuffer[1]) / 4;
-    brake = ((brake * 3) + ADCbuffer[2]) / 4;
-
+    throttle1 = ((throttle1 * 3) + (1-ADCbuffer[0]) * throttle1);
+    throttle2 = ((throttle2 * 3) + (1-ADCbuffer[1]) * throttle2);
+    brake = ((brake * 3) + (1-ADCbuffer[2]) * brake);
+    throttle1 = throttle1 * 0.02;
+    throttle1 = throttle2 * 0.02;
+    brake = brake * 0.02;
 }
