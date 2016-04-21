@@ -1,11 +1,5 @@
 
-# 1 "mcc_generated_files/interrupt_manager.c"
-
-# 110 "mcc_generated_files/interrupt_manager.h"
-void INTERRUPT_Initialize(void);
-
-# 122
-void interrupt INTERRUPT_InterruptManager(void);
+# 1 "mcc_generated_files/spi2.c"
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -9205,11 +9199,14 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 316 "mcc_generated_files/pin_manager.h"
-void PIN_MANAGER_Initialize (void);
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdbool.h"
+typedef unsigned char bool;
 
-# 328
-void PIN_MANAGER_IOC(void);
+# 4 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\__size_t.h"
+typedef unsigned size_t;
+
+# 6 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stddef.h"
+typedef int ptrdiff_t;
 
 # 13 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdint.h"
 typedef signed char int8_t;
@@ -9301,166 +9298,104 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdbool.h"
-typedef unsigned char bool;
+# 117 "mcc_generated_files/spi2.h"
+void SPI2_Initialize(void);
 
-# 4 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\__size_t.h"
-typedef unsigned size_t;
+# 152
+uint8_t SPI2_Exchange8bit(uint8_t data);
 
-# 7 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdarg.h"
-typedef void * va_list[1];
+# 192
+uint8_t SPI2_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut);
 
-#pragma intrinsic(__va_start)
-extern void * __va_start(void);
+# 215
+bool SPI2_IsBufferFull(void);
 
-#pragma intrinsic(__va_arg)
-extern void * __va_arg(void *, ...);
+# 240
+bool SPI2_HasWriteCollisionOccured(void);
 
-# 43 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdio.h"
-struct __prbuf
+# 264
+void SPI2_ClearWriteCollisionStatus(void);
+
+# 64 "mcc_generated_files/spi2.c"
+void SPI2_Initialize(void)
 {
-char * ptr;
-void (* func)(char);
-};
-
-# 29 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\errno.h"
-extern int errno;
-
-# 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\conio.h"
-extern void init_uart(void);
-
-extern char getch(void);
-extern char getche(void);
-extern void putch(char);
-extern void ungetch(char);
-
-extern __bit kbhit(void);
-
-# 23
-extern char * cgets(char *);
-extern void cputs(const char *);
-
-# 88 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdio.h"
-extern int cprintf(char *, ...);
-#pragma printf_check(cprintf)
 
 
 
-extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+SSP2STAT = 0x00;
 
 
-# 180
-#pragma printf_check(vprintf) const
-#pragma printf_check(vsprintf) const
-
-extern char * gets(char *);
-extern int puts(const char *);
-extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
-extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
-extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
-extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
-extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
-
-#pragma printf_check(printf) const
-#pragma printf_check(sprintf) const
-extern int sprintf(char *, const char *, ...);
-extern int printf(const char *, ...);
-
-# 78 "mcc_generated_files/eusart1.h"
-extern volatile uint8_t eusart1TxBufferRemaining;
-extern volatile uint8_t eusart1RxCount;
-
-# 107
-void EUSART1_Initialize(void);
-
-# 156
-uint8_t EUSART1_Read(void);
-
-# 181
-void EUSART1_Write(uint8_t txData);
-
-# 202
-void EUSART1_Transmit_ISR(void);
-
-# 223
-void EUSART1_Receive_ISR(void);
-
-# 78 "mcc_generated_files/eusart2.h"
-extern volatile uint8_t eusart2TxBufferRemaining;
-extern volatile uint8_t eusart2RxCount;
-
-# 107
-void EUSART2_Initialize(void);
-
-# 156
-uint8_t EUSART2_Read(void);
-
-# 181
-void EUSART2_Write(uint8_t txData);
-
-# 202
-void EUSART2_Transmit_ISR(void);
-
-# 223
-void EUSART2_Receive_ISR(void);
-
-# 100 "mcc_generated_files/tmr0.h"
-void TMR0_Initialize(void);
-
-# 129
-void TMR0_StartTimer(void);
-
-# 161
-void TMR0_StopTimer(void);
-
-# 197
-uint16_t TMR0_Read16bitTimer(void);
-
-# 236
-void TMR0_Write16bitTimer(uint16_t timerVal);
-
-# 272
-void TMR0_Reload16bit(void);
-
-# 310
-bool TMR0_HasOverflowOccured(void);
-
-# 71 "mcc_generated_files/mcc.h"
-void SYSTEM_Initialize(void);
-
-# 84
-void OSCILLATOR_Initialize(void);
-
-# 52 "mcc_generated_files/interrupt_manager.c"
-void INTERRUPT_Initialize(void) {
-
-RCONbits.IPEN = 0;
+SSP2CON1 = 0x21;
 
 
-
-
-IPR3bits.RC2IP = 0;
-
-IPR3bits.TX2IP = 0;
-
-IPR1bits.RC1IP = 0;
-
-IPR1bits.TX1IP = 0;
+SSP2ADD = 0x00;
 }
 
-void interrupt INTERRUPT_InterruptManager(void) {
+uint8_t SPI2_Exchange8bit(uint8_t data)
+{
 
-if (PIE3bits.RC2IE == 1 && PIR3bits.RC2IF == 1) {
-EUSART2_Receive_ISR();
-} else if (PIE3bits.TX2IE == 1 && PIR3bits.TX2IF == 1) {
-EUSART2_Transmit_ISR();
-} else if (PIE1bits.RC1IE == 1 && PIR1bits.RC1IF == 1) {
-EUSART1_Receive_ISR();
-} else if (PIE1bits.TX1IE == 1 && PIR1bits.TX1IF == 1) {
-EUSART1_Transmit_ISR();
-} else {
+SSP2CON1bits.WCOL = 0;
 
+SSP2BUF = data;
+
+while(SSP2STATbits.BF == 0x0)
+{
 }
+
+return (SSP2BUF);
+}
+
+uint8_t SPI2_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut)
+{
+uint8_t bytesWritten = 0;
+
+if(bufLen != 0)
+{
+if(dataIn != (0))
+{
+while(bytesWritten < bufLen)
+{
+if(dataOut == (0))
+{
+SPI2_Exchange8bit(dataIn[bytesWritten]);
+}
+else
+{
+dataOut[bytesWritten] = SPI2_Exchange8bit(dataIn[bytesWritten]);
+}
+
+bytesWritten++;
+}
+}
+else
+{
+if(dataOut != (0))
+{
+while(bytesWritten < bufLen )
+{
+dataOut[bytesWritten] = SPI2_Exchange8bit(0x0);
+
+bytesWritten++;
+}
+}
+}
+}
+
+return bytesWritten;
+}
+
+bool SPI2_IsBufferFull(void)
+{
+return (SSP2STATbits.BF);
+}
+
+bool SPI2_HasWriteCollisionOccured(void)
+{
+return (SSP2CON1bits.WCOL);
+}
+
+void SPI2_ClearWriteCollisionStatus(void)
+{
+SSP2CON1bits.WCOL = 0;
 }
 

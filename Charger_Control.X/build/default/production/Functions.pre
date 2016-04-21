@@ -5,6 +5,9 @@
 extern void Delay(int wait);
 
 # 3 "Functions.C"
-void Delay(int wait){
-
+void Delay(long int wait) {
+long int i = 0;
+for (; wait > i; i++) {
+__delay_ms(1);
+}
 }

@@ -2,12 +2,16 @@
 
 #include "mcc_generated_files/mcc.h"
 #include "Functions.h"
+#include "Communications.h"
+#include "Nokia3310.h"
 
 /*
                          Main application
  */
 
 int Start = 0;
+char i;
+char ddata[11];
 
 void main(void) {
     // Initialize the device
@@ -42,36 +46,23 @@ void main(void) {
     //INTERRUPT_PeripheralInterruptDisable();
 
     while (1) {
-        if((Start_GetValue() == 0) && (Start != 1)){
-            Delay(500);
-            if(Start_GetValue() == 0){
-                Start = 1;  //Start the Sequence
-                Yellow_SetHigh();
-                Pre_Charge_SetHigh();
-                for(int i = 0;i<5;i++){
-                    Delay(1000);
-                }
-                Main_SetHigh();
-                Blue_SetHigh();
-                Power_SetHigh();
-            }
-        }
-        
-        else if((Start_GetValue() == 0) && (Start != 0)){
-            Delay(500);
-            if(Start_GetValue() == 0){
-                Start = 0;  //Start the Sequence
-                Pre_Charge_SetLow();
-                Main_SetLow();
-                Blue_SetLow();
-                for(int i = 0;i<5;i++){
-                    Delay(1000);
-                }
-                Yellow_SetLow();
-                Power_SetLow();
-            }
-        }
+        Delay(1000);
+        clearLcd();
+        ddata[0]='T';
+        ddata[1]='E';
+        ddata[2]='S';
+        ddata[3]='T';
+        ddata[4]=' ';
+        ddata[5]='L';
+        ddata[6]='C';
+        ddata[7]='D';
+        ddata[8]=' ';
+        ddata[9]=i;
+        i++;
+        gotoXy(2,2);
+        lcdStr(ddata,10);
     }
+    updateComms();
 }
 /**
  End of File

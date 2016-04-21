@@ -113,7 +113,7 @@ void SYSTEM_Initialize(void) {
     OSCILLATOR_Initialize();
     PIN_MANAGER_Initialize();
     INTERRUPT_Initialize();
-    EUSART1_Initialize();
+    //EUSART1_Initialize();
     EUSART2_Initialize();
     TMR0_Initialize();
 }
