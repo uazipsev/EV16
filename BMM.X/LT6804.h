@@ -219,24 +219,13 @@ static const unsigned int crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 
 #define Discharge_Cell_11 0x04 // Shorting Switch for Cell 11
 #define Discharge_Cell_12 0x08 // Shorting Switch for Cell 12
 
-/*
-//Andrew Variables
-int Over_Voltage_Value=0x9C4; // Compare Voltage = Over_Voltage_Value*16*100uV  
-                              //Default Over_Voltage_Value=4.0 4.0=2500*16*100*10^-6
-                              // 2500=0x7CF
-
-
-int Under_Voltage_Value=0x7CF; // Compare Voltage = (Under_Voltage_Value +1) * 16 * 100uV  
-                               // Default Under Voltage Value should be= 3.2 3.2=(1999+1)*16*100*10^-6
-                               // 1999=0x7CF
-int Discharge_Time_Out_Value=0x000; // For chart refering to values Refer to 680412fb data sheet, Page 51,  Variable DCTO
 
 int Config_Value[5]; // Array to hold each register for the config Cell
 
 int GPIO_Config=0;  // Will hold the total GPIO Value
 
 bool Discharge_CELL_ARRAY[11]; // Holds the value if you want cell x (which will be in element[x-1]) to be discharged. Bool of  1=yes 0=no.
-*/
+
 
 void LTC6804_initialize();
 

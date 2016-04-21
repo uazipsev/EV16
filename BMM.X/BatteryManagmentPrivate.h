@@ -33,6 +33,7 @@ char CFGR3 = 0;
 char CFGR4 = 0;
 char CFGR5 = 0;
 
+
 int Over_Voltage_Value=0x9C4; // Compare Voltage = Over_Voltage_Value*16*100uV  
                               //Default Over_Voltage_Value=4.0 4.0=2500*16*100*10^-6
                               // 2500=0x7CF
@@ -41,6 +42,13 @@ int Over_Voltage_Value=0x9C4; // Compare Voltage = Over_Voltage_Value*16*100uV
 int Under_Voltage_Value=0x7CF; // Compare Voltage = (Under_Voltage_Value +1) * 16 * 100uV  
                                // Default Under Voltage Value should be= 3.2 3.2=(1999+1)*16*100*10^-6
                                // 1999=0x7CF
+
+#define  All_Stats 0x000 //SOC, ITMP, VA, VD
+#define SOC  0x01 //Sum Of Cells
+#define ITMP 0x02 //Internal Die Temp
+#define VA   0x03 //Analog Power Supply
+#define VD   0x04 //Digital Power Supply
+#define Discharge_Time_Out_Value 0x000 // For chart refering to values Refer to 680412fb data sheet, Page 51,  Variable DCTO
 
 #define NUMBEROFIC 12
 #define NUMBEROFCH 2

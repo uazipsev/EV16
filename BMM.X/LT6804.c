@@ -77,9 +77,9 @@ int current_byte = 0;
 /*!
   6804 conversion command variables.  
 */
-int ADCV[2]; //!< Cell Voltage conversion command.
-int ADAX[2]; //!< GPIO conversion command.
-
+int ADCV[2];    //!< Cell Voltage conversion command.
+int ADAX[2];    //!< GPIO conversion command.
+int ADSTAT [2]; //!< /Stat conversion command.
 
 /*!
   \brief This function will initialize all 6804 variables and the SPI port.
@@ -129,6 +129,34 @@ void set_adc(int MD, //ADC Mode
   ADAX[1] = md_bits + 0x60 + CHG ; //LOOK no DCP? 
   
 }
+
+/*!******************************************************************************************************************
+ \brief Map of ADSTAT Control 
+ 
+@param[in] int MD The adc conversion mode
+@param[in] int CHST Determines which cells are measured during an ADC conversion command
+ 
+ Command Code: \n
+			|command	|  10   |   9   |   8   |   7   |   6   |   5   |   4   |   3   |   2   |   1   |   0   | 
+			|-----------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
+			|ADSTAT:    |   1   |   0   | MD[1] | MD[2] |   1   |   1   |   0   |   1   |CHST[2]|CHST[1]|CHST[0]| 
+ ******************************************************************************************************************/
+
+void Set_Stat(int MD, //ADC Mode
+			 int CHST //Cell Channels to be measured
+			 )
+{
+  int md_bits;
+  
+  md_bits = (MD & 0x02) >> 1;
+  ADSTAT[0] = md_bits + 0x04;
+  md_bits = (MD & 0x01) << 7;
+  ADSTAT[1] =  md_bits + 0x68  + CHST;
+   
+}
+
+
+
 
 
 /*!*********************************************************************************************
@@ -213,6 +241,55 @@ void LTC6804_adax()
   3. wakeup isoSPI port, this step can be removed if isoSPI status is previously guaranteed
   4. send broadcast adax command to LTC6804 stack
 */
+
+
+
+/*!*********************************************************************************************
+  \brief Starts cell Status group ADC Conversion
+  
+  Starts ADC conversions of the LTC6804 Cpin inputs.
+  The type of ADC conversion done is set using the associated global variables:
+ |Variable|Function                                      | 
+ |--------|----------------------------------------------|
+ | MD     | Determines the filter corner of the ADC      |
+ | CHST   | Determines which tests are being used        |
+  
+***********************************************************************************************/
+void LTC6804_ADSTAT()
+{
+  int cmd[4];
+  int temp_pec;
+  //1
+  cmd[0] = ADSTAT[0];
+  cmd[1] = ADSTAT[1]; 
+  //2
+  temp_pec = pec15_calc(2, ADSTAT);
+  cmd[2] = (int)(temp_pec >> 8);
+  cmd[3] = (int)(temp_pec);
+  //3
+  wakeup_idle (); //This will guarantee that the LTC6804 isoSPI port is awake. This command can be removed.
+  //4
+  LT6020_1_CS = 0;
+  spi_write_array(4,cmd);
+  LT6020_1_CS = 1;
+}
+
+/*
+  LTC6804_ADSTAT Function sequence:
+  1. Load ADSTAT command into cmd array
+  2. Calculate ADSTAT cmd PEC and load pec into cmd array
+  3. wakeup isoSPI port, this step can be removed if isoSPI status is previously guaranteed
+  4. send broadcast ADSTAT command to LTC6804 stack
+*/
+
+
+
+
+
+
+
+
+
 
 
 /***********************************************//**

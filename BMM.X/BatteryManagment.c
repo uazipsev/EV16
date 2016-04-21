@@ -155,10 +155,11 @@ Set_REFON_Pin(int bank, int ic, bool REFON_Mode){
     }
         LTC6804_DATA[bank][ic*8] = CFGR0;
 }
-
-
-
-
+void Get_Stat(int cmd){
+   
+  Set_Stat(MD_NORMAL, cmd);
+  LTC6804_ADSTAT();
+}
 //
 void UpdateLT6804(int bank){
     //I dont think we need to calculate the PEC becuase that is done in the LTC6804_wrcfg
