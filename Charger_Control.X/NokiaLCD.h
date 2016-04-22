@@ -5,8 +5,8 @@
  * Created on April 21, 2016, 1:50 AM
  */
 
-#ifndef NOKIA3310_H
-#define	NOKIA3310_H
+#ifndef NOKIALCD_H
+#define	NOKIALCD_H
 
 void gotoXy(unsigned char ,unsigned char );
 void NokiaStart(void);

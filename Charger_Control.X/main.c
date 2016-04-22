@@ -3,7 +3,7 @@
 #include "mcc_generated_files/mcc.h"
 #include "Functions.h"
 #include "Communications.h"
-#include "Nokia3310.h"
+#include "NokiaLCD.h"
 
 /*
                          Main application
@@ -44,7 +44,8 @@ void main(void) {
 
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
-
+    NokiaStart();
+    
     while (1) {
         Delay(1000);
         clearLcd();
@@ -60,7 +61,7 @@ void main(void) {
         ddata[9]=i;
         i++;
         gotoXy(2,2);
-        lcdStr(ddata,10);
+        NokiaStr(ddata,10);
     }
     updateComms();
 }
