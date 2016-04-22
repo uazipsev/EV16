@@ -1,8 +1,5 @@
 
-# 1 "Functions.c"
-
-# 11 "functions.h"
-extern void Delay(long int wait);
+# 1 "UART.c"
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -9202,11 +9199,8 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 316 "mcc_generated_files/pin_manager.h"
-void PIN_MANAGER_Initialize (void);
-
-# 328
-void PIN_MANAGER_IOC(void);
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdbool.h"
+typedef unsigned char bool;
 
 # 13 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdint.h"
 typedef signed char int8_t;
@@ -9298,15 +9292,6 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdbool.h"
-typedef unsigned char bool;
-
-# 110 "mcc_generated_files/interrupt_manager.h"
-void INTERRUPT_Initialize(void);
-
-# 122
-void interrupt INTERRUPT_InterruptManager(void);
-
 # 4 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\__size_t.h"
 typedef unsigned size_t;
 
@@ -9370,75 +9355,250 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 78 "mcc_generated_files/eusart1.h"
-extern volatile uint8_t eusart1TxBufferRemaining;
-extern volatile uint8_t eusart1RxCount;
+# 7 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdlib.h"
+typedef unsigned short wchar_t;
 
-# 107
-void EUSART1_Initialize(void);
+# 15
+typedef struct {
+int rem;
+int quot;
+} div_t;
+typedef struct {
+unsigned rem;
+unsigned quot;
+} udiv_t;
+typedef struct {
+long quot;
+long rem;
+} ldiv_t;
+typedef struct {
+unsigned long quot;
+unsigned long rem;
+} uldiv_t;
 
-# 156
+# 53
+extern double atof(const char *);
+extern double strtod(const char *, const char **);
+extern int atoi(const char *);
+extern unsigned xtoi(const char *);
+extern long atol(const char *);
+extern long strtol(const char *, char **, int);
+
+extern int rand(void);
+extern void srand(unsigned int);
+extern void * calloc(size_t, size_t);
+extern div_t div(int numer, int denom);
+extern udiv_t udiv(unsigned numer, unsigned denom);
+extern ldiv_t ldiv(long numer, long denom);
+extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
+extern unsigned long _lrotl(unsigned long value, unsigned int shift);
+extern unsigned long _lrotr(unsigned long value, unsigned int shift);
+extern unsigned int _rotl(unsigned int value, unsigned int shift);
+extern unsigned int _rotr(unsigned int value, unsigned int shift);
+
+
+
+
+extern void * malloc(size_t);
+extern void free(void *);
+extern void * realloc(void *, size_t);
+
+# 86
+extern int atexit(void (*)(void));
+extern char * getenv(const char *);
+extern char ** environ;
+extern int system(char *);
+extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
+extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
+extern int abs(int);
+extern long labs(long);
+
+extern char * itoa(char * buf, int val, int base);
+extern char * utoa(char * buf, unsigned val, int base);
+
+
+
+
+extern char * ltoa(char * buf, long val, int base);
+extern char * ultoa(char * buf, unsigned long val, int base);
+
+extern char * ftoa(float f, int * status);
+
+# 23 "UART.h"
 uint8_t EUSART1_Read(void);
 
-# 181
+# 48
 void EUSART1_Write(uint8_t txData);
 
-# 202
+# 69
 void EUSART1_Transmit_ISR(void);
 
-# 223
+# 90
 void EUSART1_Receive_ISR(void);
 
-# 78 "mcc_generated_files/eusart2.h"
-extern volatile uint8_t eusart2TxBufferRemaining;
-extern volatile uint8_t eusart2RxCount;
+char getch(void);
+void putch(char txData);
 
-# 107
-void EUSART2_Initialize(void);
+# 99
+extern volatile unsigned int talkTime;
+void *memset(void *s, int c, size_t n);
 
-# 156
-uint8_t EUSART2_Read(void);
+struct UART_ring_buff {
+unsigned char buf[200];
+int head;
+int tail;
+int count;
+};
 
-# 181
-void EUSART2_Write(uint8_t txData);
+struct UART_ring_buff input_buffer;
+struct UART_ring_buff output_buffer;
 
-# 202
-void EUSART2_Transmit_ISR(void);
+bool Transmit_stall = 1;
+void EUSART1_Initialize(void);
+void UART_buff_init(struct UART_ring_buff* _this);
+void UART_buff_put(struct UART_ring_buff* _this, const unsigned char c);
+unsigned char UART_buff_get(struct UART_ring_buff* _this);
+void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
+int UART_buff_size(struct UART_ring_buff* _this);
+unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
+unsigned char UART_buff_peek(struct UART_ring_buff* _this);
 
-# 223
-void EUSART2_Receive_ISR(void);
 
-# 100 "mcc_generated_files/tmr0.h"
-void TMR0_Initialize(void);
+unsigned char Receive_peek(void);
+int Receive_available(void);
+unsigned char Receive_get(void);
+void Send_put(unsigned char _data);
 
-# 129
-void TMR0_StartTimer(void);
+# 21 "UART.c"
+void EUSART1_Initialize(void) {
 
-# 161
-void TMR0_StopTimer(void);
+PIE1bits.RC1IE = 0;
+PIE1bits.TX1IE = 0;
 
-# 197
-uint16_t TMR0_Read16bitTimer(void);
 
-# 236
-void TMR0_Write16bitTimer(uint16_t timerVal);
 
-# 272
-void TMR0_Reload16bit(void);
 
-# 310
-bool TMR0_HasOverflowOccured(void);
+BAUD1CON = 0x48;
 
-# 71 "mcc_generated_files/mcc.h"
-void SYSTEM_Initialize(void);
 
-# 84
-void OSCILLATOR_Initialize(void);
+RC1STA = 0x98;
 
-# 9 "Functions.c"
-void Delay(long int wait) {
-long int i = 0;
-for (; wait > i; i++) {
-_delay((unsigned long)((1)*(16000000/4000.0)));
+
+TX1STA = 0x26;
+
+
+SPBRG1 = (((8000000/38400)/4)-1);
+
+
+SPBRGH1 = 0x00;
+
+
+TXREG1 = 0x00;
+
+
+RCREG1 = 0x00;
+
+UART_buff_init(&input_buffer);
+UART_buff_init(&output_buffer);
+
+PIE1bits.RC1IE = 1;
+
+}
+
+void UART_buff_init(struct UART_ring_buff* _this) {
+
+# 65
+memset(_this, 0, sizeof (*_this));
+}
+
+void UART_buff_put(struct UART_ring_buff* _this, const unsigned char c) {
+if (_this->count < 200) {
+_this->buf[_this->head] = c;
+_this->head = UART_buff_modulo_inc(_this->head, 200);
+++_this->count;
+} else {
+_this->buf[_this->head] = c;
+_this->head = UART_buff_modulo_inc(_this->head, 200);
+_this->tail = UART_buff_modulo_inc(_this->tail, 200);
+
+}
+}
+
+unsigned char UART_buff_get(struct UART_ring_buff* _this) {
+unsigned char c;
+if (_this->count > 0) {
+c = _this->buf[_this->tail];
+_this->tail = UART_buff_modulo_inc(_this->tail, 200);
+--_this->count;
+} else {
+c = 0;
+}
+return (c);
+}
+
+void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer) {
+_this->count = 0;
+_this->head = 0;
+_this->tail = 0;
+if (clearBuffer) {
+memset(_this->buf, 0, sizeof (_this->buf));
+}
+}
+
+int UART_buff_size(struct UART_ring_buff* _this) {
+return (_this->count);
+}
+
+unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus) {
+unsigned int my_value = value + 1;
+if (my_value >= modulus) {
+my_value = 0;
+}
+return (my_value);
+}
+
+unsigned char UART_buff_peek(struct UART_ring_buff* _this) {
+return _this->buf[_this->tail];
+}
+
+unsigned char Receive_peek(void) {
+return UART_buff_peek(&input_buffer);
+}
+
+int Receive_available(void) {
+return UART_buff_size(&input_buffer);
+}
+
+unsigned char Receive_get(void) {
+return UART_buff_get(&input_buffer);
+}
+
+void Send_put(unsigned char _data) {
+UART_buff_put(&output_buffer, _data);
+if (Transmit_stall == 1) {
+Transmit_stall = 0;
+TXREG1 = UART_buff_get(&output_buffer);
+PIE1bits.TX1IE = 1;
+}
+}
+
+void EUSART1_Receive_ISR(void) {
+if (1 == RC1STAbits.OERR) {
+
+
+RC1STAbits.CREN = 0;
+RC1STAbits.CREN = 1;
+}
+unsigned char data = RCREG1;
+UART_buff_put(&input_buffer, data);
+}
+
+void EUSART1_Transmit_ISR(void) {
+
+if (UART_buff_size(&output_buffer) > 0) {
+TXREG1 = UART_buff_get(&output_buffer);
+} else {
+Transmit_stall = 1;
+PIE1bits.TX1IE = 0;
 }
 }

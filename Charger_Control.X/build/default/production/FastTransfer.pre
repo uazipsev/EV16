@@ -1,8 +1,5 @@
 
-# 1 "Functions.c"
-
-# 11 "functions.h"
-extern void Delay(long int wait);
+# 1 "FastTransfer.c"
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -9202,243 +9199,531 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 316 "mcc_generated_files/pin_manager.h"
-void PIN_MANAGER_Initialize (void);
-
-# 328
-void PIN_MANAGER_IOC(void);
-
-# 13 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdint.h"
-typedef signed char int8_t;
-
-# 20
-typedef signed int int16_t;
-
-# 28
-typedef signed short long int int24_t;
-
-# 36
-typedef signed long int int32_t;
-
-# 43
-typedef unsigned char uint8_t;
-
-# 49
-typedef unsigned int uint16_t;
-
-# 56
-typedef unsigned short long int uint24_t;
-
-# 63
-typedef unsigned long int uint32_t;
-
-# 71
-typedef signed char int_least8_t;
-
-# 78
-typedef signed int int_least16_t;
-
-# 90
-typedef signed short long int int_least24_t;
-
-# 98
-typedef signed long int int_least32_t;
-
-# 105
-typedef unsigned char uint_least8_t;
-
-# 111
-typedef unsigned int uint_least16_t;
-
-# 121
-typedef unsigned short long int uint_least24_t;
-
-# 128
-typedef unsigned long int uint_least32_t;
-
-# 137
-typedef signed char int_fast8_t;
-
-# 144
-typedef signed int int_fast16_t;
-
-# 156
-typedef signed short long int int_fast24_t;
-
-# 164
-typedef signed long int int_fast32_t;
-
-# 171
-typedef unsigned char uint_fast8_t;
-
-# 177
-typedef unsigned int uint_fast16_t;
-
-# 187
-typedef unsigned short long int uint_fast24_t;
-
-# 194
-typedef unsigned long int uint_fast32_t;
-
-# 200
-typedef int32_t intmax_t;
-
-
-
-
-typedef uint32_t uintmax_t;
-
-
-
-
-typedef int16_t intptr_t;
-
-
-
-
-typedef uint16_t uintptr_t;
-
 # 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdbool.h"
 typedef unsigned char bool;
-
-# 110 "mcc_generated_files/interrupt_manager.h"
-void INTERRUPT_Initialize(void);
-
-# 122
-void interrupt INTERRUPT_InterruptManager(void);
 
 # 4 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\__size_t.h"
 typedef unsigned size_t;
 
-# 7 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdarg.h"
-typedef void * va_list[1];
+# 7 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdlib.h"
+typedef unsigned short wchar_t;
 
-#pragma intrinsic(__va_start)
-extern void * __va_start(void);
+# 15
+typedef struct {
+int rem;
+int quot;
+} div_t;
+typedef struct {
+unsigned rem;
+unsigned quot;
+} udiv_t;
+typedef struct {
+long quot;
+long rem;
+} ldiv_t;
+typedef struct {
+unsigned long quot;
+unsigned long rem;
+} uldiv_t;
 
-#pragma intrinsic(__va_arg)
-extern void * __va_arg(void *, ...);
+# 53
+extern double atof(const char *);
+extern double strtod(const char *, const char **);
+extern int atoi(const char *);
+extern unsigned xtoi(const char *);
+extern long atol(const char *);
+extern long strtol(const char *, char **, int);
 
-# 43 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdio.h"
-struct __prbuf
-{
-char * ptr;
-void (* func)(char);
+extern int rand(void);
+extern void srand(unsigned int);
+extern void * calloc(size_t, size_t);
+extern div_t div(int numer, int denom);
+extern udiv_t udiv(unsigned numer, unsigned denom);
+extern ldiv_t ldiv(long numer, long denom);
+extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
+extern unsigned long _lrotl(unsigned long value, unsigned int shift);
+extern unsigned long _lrotr(unsigned long value, unsigned int shift);
+extern unsigned int _rotl(unsigned int value, unsigned int shift);
+extern unsigned int _rotr(unsigned int value, unsigned int shift);
+
+
+
+
+extern void * malloc(size_t);
+extern void free(void *);
+extern void * realloc(void *, size_t);
+
+# 86
+extern int atexit(void (*)(void));
+extern char * getenv(const char *);
+extern char ** environ;
+extern int system(char *);
+extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
+extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
+extern int abs(int);
+extern long labs(long);
+
+extern char * itoa(char * buf, int val, int base);
+extern char * utoa(char * buf, unsigned val, int base);
+
+
+
+
+extern char * ltoa(char * buf, long val, int base);
+extern char * ultoa(char * buf, unsigned long val, int base);
+
+extern char * ftoa(float f, int * status);
+
+# 14 "FastTransfer.h"
+void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
+void sendData(unsigned char whereToSend);
+bool receiveData();
+void ToSend(const unsigned char where, const unsigned int what);
+unsigned char AKNAK(unsigned char module);
+unsigned int alignError(void);
+unsigned int CRCError(void);
+unsigned int addressError(void);
+unsigned int dataAddressError(void);
+
+volatile int receiveArray[20];
+
+void (*serial_write)(unsigned char);
+unsigned char (*serial_read)(void);
+int (*serial_available)(void);
+unsigned char (*serial_peek)(void);
+unsigned char rx_buffer[200];
+unsigned char rx_array_inx;
+unsigned char rx_len;
+unsigned char calc_CS;
+unsigned char moduleAddress;
+unsigned char returnAddress;
+unsigned char maxDataAddress;
+volatile int * receiveArrayAddress;
+unsigned char * sendStructAddress;
+bool AKNAKsend;
+unsigned int alignErrorCounter;
+unsigned int crcErrorCounter;
+unsigned int addressErrorCounter;
+unsigned int dataAdressErrorCounter;
+unsigned char rx_address;
+
+# 52
+struct ringBufS {
+unsigned char buf[200];
+int head;
+int tail;
+int count;
 };
+struct ringBufS ring_buffer;
 
-# 29 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\errno.h"
-extern int errno;
+union stuff {
+unsigned char parts[2];
+unsigned int integer;
+};
+union stuff group;
 
-# 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\conio.h"
-extern void init_uart(void);
+struct crcBufS {
+unsigned char buf[(5 * 3)];
+int head;
+};
+struct crcBufS crc_buffer;
 
-extern char getch(void);
-extern char getche(void);
-extern void putch(char);
-extern void ungetch(char);
+unsigned char CRC8(const unsigned char * data, unsigned char len);
+void FastTransfer_buffer_put(struct ringBufS *_this, const unsigned char towhere, const unsigned int towhat);
+unsigned char FastTransfer_buffer_get(struct ringBufS* _this);
+void FastTransfer_buffer_flush(struct ringBufS* _this, const int clearBuffer);
+unsigned int FastTransfer_buffer_modulo_inc(const unsigned int value, const unsigned int modulus);
+void crcBufS_put(struct crcBufS* _this, unsigned char address, unsigned char oldCRC, unsigned char status);
+void crcBufS_status_put(struct crcBufS* _this, unsigned char time, unsigned char status);
+unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned char space);
+void CRCcheck(void);
 
-extern __bit kbhit(void);
+# 18 "FastTransfer.c"
+void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void)) {
+receiveArrayAddress = ptr;
+moduleAddress = givenAddress;
+serial_write = stufftosend;
+serial_available = stuffavailable;
+serial_peek = stuffpeek;
+serial_read = stufftoreceive;
+maxDataAddress = maxSize / 2;
+sendStructAddress = (unsigned char*) & ring_buffer;
+AKNAKsend = error;
+alignErrorCounter = 0;
 
-# 23
-extern char * cgets(char *);
-extern void cputs(const char *);
-
-# 88 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdio.h"
-extern int cprintf(char *, ...);
-#pragma printf_check(cprintf)
+}
 
 
 
-extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-
-
-# 180
-#pragma printf_check(vprintf) const
-#pragma printf_check(vsprintf) const
-
-extern char * gets(char *);
-extern int puts(const char *);
-extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
-extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
-extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
-extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
-extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
-
-#pragma printf_check(printf) const
-#pragma printf_check(sprintf) const
-extern int sprintf(char *, const char *, ...);
-extern int printf(const char *, ...);
-
-# 78 "mcc_generated_files/eusart1.h"
-extern volatile uint8_t eusart1TxBufferRemaining;
-extern volatile uint8_t eusart1RxCount;
-
-# 107
-void EUSART1_Initialize(void);
-
-# 156
-uint8_t EUSART1_Read(void);
-
-# 181
-void EUSART1_Write(uint8_t txData);
-
-# 202
-void EUSART1_Transmit_ISR(void);
-
-# 223
-void EUSART1_Receive_ISR(void);
-
-# 78 "mcc_generated_files/eusart2.h"
-extern volatile uint8_t eusart2TxBufferRemaining;
-extern volatile uint8_t eusart2RxCount;
-
-# 107
-void EUSART2_Initialize(void);
-
-# 156
-uint8_t EUSART2_Read(void);
-
-# 181
-void EUSART2_Write(uint8_t txData);
-
-# 202
-void EUSART2_Transmit_ISR(void);
-
-# 223
-void EUSART2_Receive_ISR(void);
-
-# 100 "mcc_generated_files/tmr0.h"
-void TMR0_Initialize(void);
-
-# 129
-void TMR0_StartTimer(void);
-
-# 161
-void TMR0_StopTimer(void);
-
-# 197
-uint16_t TMR0_Read16bitTimer(void);
-
-# 236
-void TMR0_Write16bitTimer(uint16_t timerVal);
-
-# 272
-void TMR0_Reload16bit(void);
-
-# 310
-bool TMR0_HasOverflowOccured(void);
-
-# 71 "mcc_generated_files/mcc.h"
-void SYSTEM_Initialize(void);
-
-# 84
-void OSCILLATOR_Initialize(void);
-
-# 9 "Functions.c"
-void Delay(long int wait) {
-long int i = 0;
-for (; wait > i; i++) {
-_delay((unsigned long)((1)*(16000000/4000.0)));
+unsigned char CRC8(const unsigned char * data, unsigned char len) {
+unsigned char crc = 0x00;
+while (len--) {
+unsigned char extract = *data++;
+unsigned char tempI;
+for (tempI = 8; tempI; tempI--) {
+unsigned char sum = (crc ^ extract) & 0x01;
+crc >>= 1;
+if (sum) {
+crc ^= 0x8C;
+}
+extract >>= 1;
 }
 }
+return crc;
+}
+
+
+
+void sendData(unsigned char whereToSend) {
+
+
+unsigned char CS = CRC8(sendStructAddress, ring_buffer.count);
+
+serial_write(0x06);
+serial_write(0x85);
+serial_write(whereToSend);
+serial_write(moduleAddress);
+serial_write(ring_buffer.count);
+
+
+
+int i;
+for (i = 0; i < ring_buffer.count; i++) {
+serial_write(*(sendStructAddress + i));
+}
+
+
+serial_write(CS);
+
+
+crcBufS_put(&crc_buffer, whereToSend, CS, 0);
+
+
+FastTransfer_buffer_flush(&ring_buffer, 1);
+
+}
+
+bool receiveData() {
+
+
+if (rx_len == 0) {
+
+if (serial_available() > 4) {
+
+while (serial_read() != 0x06) {
+
+
+
+alignErrorCounter++;
+if (serial_available() < 5)
+return 0;
+}
+if (serial_read() == 0x85) {
+rx_address = serial_read();
+returnAddress = serial_read();
+rx_len = serial_read();
+
+if (rx_address != moduleAddress) {
+addressErrorCounter++;
+
+
+int u;
+for (u = 0; u <= (rx_len + 1); u++) {
+serial_read();
+}
+rx_len = 0;
+return 0;
+}
+
+}
+}
+}
+
+
+if (rx_len != 0) {
+
+
+if (rx_array_inx == 0) {
+while (!(serial_available() >= 1));
+if (255 == serial_peek()) {
+CRCcheck();
+rx_len = 0;
+rx_array_inx = 0;
+return 0;
+}
+}
+
+
+while (serial_available() && rx_array_inx <= rx_len) {
+rx_buffer[rx_array_inx++] = serial_read();
+}
+
+if (rx_len == (rx_array_inx - 1)) {
+
+
+calc_CS = CRC8(rx_buffer, rx_len);
+
+
+
+if (calc_CS == rx_buffer[rx_array_inx - 1]) {
+
+
+int r;
+for (r = 0; r < rx_len; r = r + 3) {
+if (rx_buffer[r] < maxDataAddress) {
+group.parts[0] = rx_buffer[r + 1];
+group.parts[1] = rx_buffer[r + 2];
+receiveArrayAddress[(rx_buffer[r])] = group.integer;
+} else {
+dataAdressErrorCounter++;
+}
+}
+
+
+if (AKNAKsend) {
+unsigned char holder[3];
+holder[0] = 255;
+holder[1] = 1;
+holder[2] = rx_buffer[rx_array_inx - 1];
+unsigned char crcHolder = CRC8(holder, 3);
+serial_write(0x06);
+serial_write(0x85);
+serial_write(returnAddress);
+serial_write(moduleAddress);
+serial_write(3);
+serial_write(255);
+serial_write(1);
+serial_write(rx_buffer[rx_array_inx - 1]);
+serial_write(crcHolder);
+}
+
+
+
+rx_len = 0;
+rx_array_inx = 0;
+return 1;
+} else {
+crcErrorCounter++;
+
+if (AKNAKsend) {
+unsigned char holder[3];
+holder[0] = 255;
+holder[1] = 2;
+holder[2] = rx_buffer[rx_array_inx - 1];
+unsigned char crcHolder = CRC8(holder, 3);
+serial_write(0x06);
+serial_write(0x85);
+serial_write(returnAddress);
+serial_write(moduleAddress);
+serial_write(3);
+serial_write(255);
+serial_write(2);
+serial_write(rx_buffer[rx_array_inx - 1]);
+serial_write(crcHolder);
+}
+
+
+rx_len = 0;
+rx_array_inx = 0;
+return 0;
+}
+}
+}
+
+
+return 0;
+}
+
+
+
+
+void ToSend(unsigned char where, unsigned int what) {
+FastTransfer_buffer_put(&ring_buffer, where, what);
+}
+
+
+
+
+void FastTransfer_buffer_put(struct ringBufS *_this, unsigned char towhere, unsigned int towhat) {
+
+group.integer = towhat;
+
+if (_this->count < (200 - 3)) {
+_this->buf[_this->head] = towhere;
+_this->head = FastTransfer_buffer_modulo_inc(_this->head, 200);
+++_this->count;
+_this->buf[_this->head] = group.parts[0];
+_this->head = FastTransfer_buffer_modulo_inc(_this->head, 200);
+++_this->count;
+_this->buf[_this->head] = group.parts[1];
+_this->head = FastTransfer_buffer_modulo_inc(_this->head, 200);
+++_this->count;
+
+}
+
+}
+
+
+
+
+unsigned char FastTransfer_buffer_get(struct ringBufS* _this) {
+unsigned char c;
+if (_this->count > 0) {
+c = _this->buf[_this->tail];
+_this->tail = FastTransfer_buffer_modulo_inc(_this->tail, 200);
+--_this->count;
+} else {
+c = 0;
+}
+return (c);
+}
+
+void *memset(void *s, int c, size_t n);
+
+
+
+void FastTransfer_buffer_flush(struct ringBufS* _this, const int clearBuffer) {
+_this->count = 0;
+_this->head = 0;
+_this->tail = 0;
+if (clearBuffer) {
+memset(_this->buf, 0, sizeof (_this->buf));
+}
+}
+
+
+
+
+unsigned int FastTransfer_buffer_modulo_inc(const unsigned int value, const unsigned int modulus) {
+unsigned int my_value = value + 1;
+if (my_value >= modulus) {
+my_value = 0;
+}
+return (my_value);
+}
+
+
+
+
+unsigned char AKNAK(unsigned char module) {
+int r;
+for (r = 0; r < 5; r++) {
+if (module == crcBufS_get(&crc_buffer, r, 0)) {
+return crcBufS_get(&crc_buffer, r, 2);
+}
+}
+return 4;
+}
+
+
+
+
+unsigned int alignError(void) {
+return alignErrorCounter;
+}
+
+
+
+
+unsigned int CRCError(void) {
+return crcErrorCounter;
+}
+
+
+
+
+unsigned int addressError(void) {
+return addressErrorCounter;
+}
+
+unsigned int dataAddressError(void) {
+return dataAdressErrorCounter;
+}
+
+
+
+void crcBufS_put(struct crcBufS* _this, unsigned char address, unsigned char oldCRC, unsigned char status) {
+_this->buf[_this->head] = address;
+_this->head++;
+_this->buf[_this->head] = oldCRC;
+_this->head++;
+_this->buf[_this->head] = status;
+_this->head++;
+if (_this->head >= (5 * 3)) {
+_this->head = 0;
+}
+}
+
+
+
+
+void crcBufS_status_put(struct crcBufS* _this, unsigned char time, unsigned char status) {
+if (time >= 5) {
+time = 5 - 1;
+}
+time = time + 1;
+int wantedTime = time * 3;
+if (wantedTime > _this->head) {
+wantedTime = ((5 * 3)) - (wantedTime - _this->head);
+_this->buf[(wantedTime + 2)] = status;
+} else {
+_this->buf[(_this->head - wantedTime) + 2] = status;
+}
+}
+
+
+
+
+unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned char space) {
+if (time >= 5) {
+time = 5 - 1;
+}
+if (space >= 3) {
+space = 3 - 1;
+}
+time = time + 1;
+int wantedTime = time * 3;
+if (wantedTime > _this->head) {
+wantedTime = ((5 * 3)) - (wantedTime - _this->head);
+return (_this->buf[(wantedTime + space)]);
+} else {
+return (_this->buf[(_this->head - wantedTime) + space]);
+}
+}
+
+
+
+
+void CRCcheck(void) {
+
+while (!(serial_available() > 3));
+
+unsigned char arrayHolder[3];
+arrayHolder[0] = serial_read();
+arrayHolder[1] = serial_read();
+arrayHolder[2] = serial_read();
+unsigned char SentCRC = serial_read();
+unsigned char calculatedCRC = CRC8(arrayHolder, 3);
+
+
+if (SentCRC == calculatedCRC) {
+
+int rt;
+for (rt = 0; rt < 5; rt++) {
+if (returnAddress == crcBufS_get(&crc_buffer, rt, 0)) {
+if (arrayHolder[2] == crcBufS_get(&crc_buffer, rt, 1)) {
+if (arrayHolder[1] == 1) {
+crcBufS_status_put(&crc_buffer, rt, 1);
+break;
+} else if (arrayHolder[1] == 2) {
+crcBufS_status_put(&crc_buffer, rt, 2);
+break;
+}
+}
+}
+}
+} else {
+crcErrorCounter++;
+}
+}
+

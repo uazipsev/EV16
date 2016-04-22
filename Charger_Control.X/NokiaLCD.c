@@ -1,6 +1,6 @@
 #include "NokiaLCD.h"
-#include "../mcc_generated_files/spi2.h"
-#include "../mcc_generated_files/mcc.h"
+#include "mcc_generated_files/spi2.h"
+#include "mcc_generated_files/mcc.h"
 
 
 void NokiaStart(){

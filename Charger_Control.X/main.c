@@ -1,7 +1,7 @@
 
 
 #include "mcc_generated_files/mcc.h"
-#include "Functions.h"
+#include "functions.h"
 #include "Communications.h"
 #include "NokiaLCD.h"
 
