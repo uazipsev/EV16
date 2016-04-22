@@ -56,12 +56,15 @@ int Under_Voltage_Value=0x7CF; // Compare Voltage = (Under_Voltage_Value +1) * 1
 
 //Discharge time out value 
 #define DCTO 0 
-
+#define Cell_Per_Bank 12
 #define CURRENTGAIN 40
 #define VOLTAGERATIO 158.18
 #define SHUNTOHMS 0.0001
 #define ADCBIT 4095
-
+#define Bypass_High_Limit 100 //Needs configuration
+#define Bypass_Low_Limit 20 // Needs Configuration
+int Voltage_data[1][12];
+int Aux_data[1][6];
 int LTC6804_DATA[NUMBEROFCH][NUMBEROFDATA*NUMBEROFIC];
 
 #endif	/* BATTERYMANAGMENTPRIVATE_H */
