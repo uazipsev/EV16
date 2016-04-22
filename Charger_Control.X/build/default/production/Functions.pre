@@ -1,8 +1,14 @@
 
 # 1 "Functions.c"
 
-# 11 "functions.h"
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdbool.h"
+typedef unsigned char bool;
+
+# 13 "Functions.h"
 extern void Delay(long int wait);
+void Precharge(bool OnOff);
+void SetCharger(char mode, char Current, char Voltage);
+void SetMux(char channel);
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -9298,9 +9304,6 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdbool.h"
-typedef unsigned char bool;
-
 # 110 "mcc_generated_files/interrupt_manager.h"
 void INTERRUPT_Initialize(void);
 
@@ -9436,9 +9439,86 @@ void SYSTEM_Initialize(void);
 void OSCILLATOR_Initialize(void);
 
 # 9 "Functions.c"
+char ChargerData[9] = {'M', ',', 0, ',', 0, ',', 0, ',', 'E'};
+
 void Delay(long int wait) {
 long int i = 0;
 for (; wait > i; i++) {
 _delay((unsigned long)((1)*(16000000/4000.0)));
+}
+}
+
+void Precharge(bool OnOff){
+if(OnOff){
+do { LATC1 = 1; } while(0);
+do { LATB3 = 1; } while(0);
+for(int i = 0;i<5;i++){
+Delay(1000);
+}
+do { LATB4 = 1; } while(0);
+do { LATC0 = 1; } while(0);
+do { LATB5 = 1; } while(0);
+}
+
+else{
+do { LATB4 = 0; } while(0);
+do { LATB3 = 0; } while(0);
+do { LATC0 = 0; } while(0);
+for(int i = 0;i<5;i++){
+Delay(1000);
+}
+do { LATC1 = 0; } while(0);
+do { LATB5 = 0; } while(0);
+}
+}
+
+
+
+void SetCharger(char mode, char Current, char Voltage){
+if(mode == 1){
+
+SetMux(1);
+
+
+ChargerData[2] = 001;
+ChargerData[4] = 000;
+ChargerData[6] = 001;
+
+printf("%s",ChargerData);
+}
+if(mode == 2){
+
+SetMux(1);
+
+ChargerData[2] = Current;
+ChargerData[4] = Voltage;
+
+ChargerData[6] = (Current + Voltage)%1,000;
+
+printf("%s",ChargerData);
+}
+}
+
+void SetMux(char channel){
+switch (channel){
+case 1:
+do { LATB0 = 0; } while(0);
+do { LATB1 = 0; } while(0);
+break;
+case 2:
+do { LATB0 = 1; } while(0);
+do { LATB1 = 0; } while(0);
+break;
+case 3:
+do { LATB0 = 0; } while(0);
+do { LATB1 = 1; } while(0);
+break;
+case 4:
+do { LATB0 = 1; } while(0);
+do { LATB1 = 1; } while(0);
+break;
+default:
+
+break;
 }
 }

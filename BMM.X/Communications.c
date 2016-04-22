@@ -1,6 +1,7 @@
 
 #include "Communications.h"
 #include "Function.h"
+#include "BatteryManagment.h"
 
 #define LOW_VOLTAGE_FLAG 1
 #define HIGH_TEMPERATURE_FLAG 2
@@ -22,7 +23,8 @@ enum BMM {
     BATTERY_FAULT = 0,
     BATTERY_VOLTS = 1,
     BATTERY_TEMPS = 2,
-    BATTERY_POWER = 3
+    BATTERY_POWER = 3,
+    BATTERY_MODE = 4
 } COMM_STATE;
 int faultFlag = 0;
 int slaveaddr = 0;
@@ -75,7 +77,8 @@ void updateComms() {
                     lastCommState = COMM_STATE;
                 }
                 break;
-
+            case BATTERY_MODE:
+                ChargerEN();
             default:
                 break;
 

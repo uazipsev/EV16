@@ -9209,32 +9209,31 @@ extern void sendData(unsigned char whereToSend);
 extern bool receiveData();
 extern void ToSend(const unsigned char where, const unsigned int what);
 
-# 11 "Functions.h"
+# 13 "Functions.h"
 extern void Delay(long int wait);
+void Precharge(bool OnOff);
+void SetCharger(char mode, char Current, char Voltage);
+void SetMux(char channel);
 
-# 16 "Communications.c"
-void processPowerRequest(int powerSet);
+# 17 "Communications.c"
 void respondECU();
 
 void updateComms() {
 if (receiveData()) {
-static int previousPowerState;
-if (previousPowerState != receiveArray[1]) {
-previousPowerState = receiveArray[1];
-
-}
+Precharge(receiveArray[1]);
+SetCharger(1, receiveArray[2], receiveArray[3]);
 respondECU();
 }
 }
 
-
+# 38
 void respondECU() {
 LATCbits.LATC5 = 1;
-ToSend(0, 5);
-ToSend(9, 5);
+ToSend(0, 1);
+ToSend(1, 1);
 Delay(5);
 
-sendData(1);
+sendData(6);
 Delay(3);
 LATCbits.LATC5 = 0;
 }

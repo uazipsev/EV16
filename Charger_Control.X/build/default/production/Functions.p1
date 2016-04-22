@@ -1,9 +1,31 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F7703 `(v ~T0 @X0 1 tf1`ul ]
+[v F7712 `(v ~T0 @X0 1 tf1`ul ]
 "156 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18.h
-[v __delay `JF7703 ~T0 @X0 0 e ]
+[v __delay `JF7712 ~T0 @X0 0 e ]
 [p i __delay ]
-[; ;functions.h: 11: extern void Delay(long int wait);
+"18833 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
+[v _LATC1 `Vb ~T0 @X0 0 e@31833 ]
+"18821
+[v _LATB3 `Vb ~T0 @X0 0 e@31827 ]
+"18823
+[v _LATB4 `Vb ~T0 @X0 0 e@31828 ]
+"18831
+[v _LATC0 `Vb ~T0 @X0 0 e@31832 ]
+"18825
+[v _LATB5 `Vb ~T0 @X0 0 e@31829 ]
+"16 Functions.h
+[v _SetMux `(v ~T0 @X0 0 ef1`uc ]
+"195 C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdio.h
+[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"18815 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
+[v _LATB0 `Vb ~T0 @X0 0 e@31824 ]
+"18817
+[v _LATB1 `Vb ~T0 @X0 0 e@31825 ]
+[; ;stdbool.h: 12: typedef unsigned char bool;
+[; ;Functions.h: 13: extern void Delay(long int wait);
+[; ;Functions.h: 14: void Precharge(bool OnOff);
+[; ;Functions.h: 15: void SetCharger(char mode, char Current, char Voltage);
+[; ;Functions.h: 16: void SetMux(char channel);
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -7360,7 +7382,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 205: typedef uint32_t uintmax_t;
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
-[; ;stdbool.h: 12: typedef unsigned char bool;
 [; ;interrupt_manager.h: 110: void INTERRUPT_Initialize(void);
 [; ;interrupt_manager.h: 122: void interrupt INTERRUPT_InterruptManager(void);
 [; ;__size_t.h: 4: typedef unsigned size_t;
@@ -7417,36 +7438,367 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mcc.h: 71: void SYSTEM_Initialize(void);
 [; ;mcc.h: 84: void OSCILLATOR_Initialize(void);
 "9 Functions.c
+[v _ChargerData `uc ~T0 @X0 -> 9 `i e ]
+[i _ChargerData
+:U ..
+-> -> 77 `ui `uc
+-> -> 44 `ui `uc
+-> -> 0 `i `uc
+-> -> 44 `ui `uc
+-> -> 0 `i `uc
+-> -> 44 `ui `uc
+-> -> 0 `i `uc
+-> -> 44 `ui `uc
+-> -> 69 `ui `uc
+..
+]
+[; ;Functions.c: 9: char ChargerData[9] = {'M', ',', 0, ',', 0, ',', 0, ',', 'E'};
+"11
 [v _Delay `(v ~T0 @X0 1 ef1`l ]
 {
-[; ;Functions.c: 9: void Delay(long int wait) {
+[; ;Functions.c: 11: void Delay(long int wait) {
 [e :U _Delay ]
 [v _wait `l ~T0 @X0 1 r1 ]
 [f ]
-"10
+"12
 [v _i `l ~T0 @X0 1 a ]
-[; ;Functions.c: 10: long int i = 0;
+[; ;Functions.c: 12: long int i = 0;
 [e = _i -> -> 0 `i `l ]
-[; ;Functions.c: 11: for (; wait > i; i++) {
-"11
+[; ;Functions.c: 13: for (; wait > i; i++) {
+"13
 {
 [e $U 1126  ]
 [e :U 1123 ]
 {
-[; ;Functions.c: 12: _delay((unsigned long)((1)*(16000000/4000.0)));
-"12
+[; ;Functions.c: 14: _delay((unsigned long)((1)*(16000000/4000.0)));
+"14
 [e ( __delay (1 -> * -> -> 1 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"13
+"15
 }
-"11
+"13
 [e ++ _i -> -> 1 `i `l ]
 [e :U 1126 ]
 [e $ > _wait _i 1123  ]
 [e :U 1124 ]
-"13
+"15
 }
-[; ;Functions.c: 13: }
-[; ;Functions.c: 14: }
-"14
+[; ;Functions.c: 15: }
+[; ;Functions.c: 16: }
+"16
 [e :UE 1122 ]
 }
+"18
+[v _Precharge `(v ~T0 @X0 1 ef1`uc ]
+{
+[; ;Functions.c: 18: void Precharge(bool OnOff){
+[e :U _Precharge ]
+[v _OnOff `uc ~T0 @X0 1 r1 ]
+[f ]
+[; ;Functions.c: 19: if(OnOff){
+"19
+[e $ ! != -> _OnOff `i -> -> -> 0 `i `uc `i 1128  ]
+{
+[; ;Functions.c: 20: do { LATC1 = 1; } while(0);
+"20
+[e :U 1131 ]
+{
+[e = _LATC1 -> -> 1 `i `b ]
+}
+[e :U 1130 ]
+[; ;Functions.c: 21: do { LATB3 = 1; } while(0);
+"21
+[e :U 1134 ]
+{
+[e = _LATB3 -> -> 1 `i `b ]
+}
+[e :U 1133 ]
+[; ;Functions.c: 22: for(int i = 0;i<5;i++){
+"22
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 5 `i 1135  ]
+[e $U 1136  ]
+[e :U 1135 ]
+{
+[; ;Functions.c: 23: Delay(1000);
+"23
+[e ( _Delay (1 -> -> 1000 `i `l ]
+"24
+}
+"22
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 5 `i 1135  ]
+[e :U 1136 ]
+"24
+}
+[; ;Functions.c: 24: }
+[; ;Functions.c: 25: do { LATB4 = 1; } while(0);
+"25
+[e :U 1140 ]
+{
+[e = _LATB4 -> -> 1 `i `b ]
+}
+[e :U 1139 ]
+[; ;Functions.c: 26: do { LATC0 = 1; } while(0);
+"26
+[e :U 1143 ]
+{
+[e = _LATC0 -> -> 1 `i `b ]
+}
+[e :U 1142 ]
+[; ;Functions.c: 27: do { LATB5 = 1; } while(0);
+"27
+[e :U 1146 ]
+{
+[e = _LATB5 -> -> 1 `i `b ]
+}
+[e :U 1145 ]
+"28
+}
+[; ;Functions.c: 28: }
+[e $U 1147  ]
+"30
+[e :U 1128 ]
+[; ;Functions.c: 30: else{
+{
+[; ;Functions.c: 31: do { LATB4 = 0; } while(0);
+"31
+[e :U 1150 ]
+{
+[e = _LATB4 -> -> 0 `i `b ]
+}
+[e :U 1149 ]
+[; ;Functions.c: 32: do { LATB3 = 0; } while(0);
+"32
+[e :U 1153 ]
+{
+[e = _LATB3 -> -> 0 `i `b ]
+}
+[e :U 1152 ]
+[; ;Functions.c: 33: do { LATC0 = 0; } while(0);
+"33
+[e :U 1156 ]
+{
+[e = _LATC0 -> -> 0 `i `b ]
+}
+[e :U 1155 ]
+[; ;Functions.c: 34: for(int i = 0;i<5;i++){
+"34
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 5 `i 1157  ]
+[e $U 1158  ]
+[e :U 1157 ]
+{
+[; ;Functions.c: 35: Delay(1000);
+"35
+[e ( _Delay (1 -> -> 1000 `i `l ]
+"36
+}
+"34
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 5 `i 1157  ]
+[e :U 1158 ]
+"36
+}
+[; ;Functions.c: 36: }
+[; ;Functions.c: 37: do { LATC1 = 0; } while(0);
+"37
+[e :U 1162 ]
+{
+[e = _LATC1 -> -> 0 `i `b ]
+}
+[e :U 1161 ]
+[; ;Functions.c: 38: do { LATB5 = 0; } while(0);
+"38
+[e :U 1165 ]
+{
+[e = _LATB5 -> -> 0 `i `b ]
+}
+[e :U 1164 ]
+"39
+}
+[e :U 1147 ]
+[; ;Functions.c: 39: }
+[; ;Functions.c: 40: }
+"40
+[e :UE 1127 ]
+}
+"44
+[v _SetCharger `(v ~T0 @X0 1 ef3`uc`uc`uc ]
+{
+[; ;Functions.c: 44: void SetCharger(char mode, char Current, char Voltage){
+[e :U _SetCharger ]
+[v _mode `uc ~T0 @X0 1 r1 ]
+[v _Current `uc ~T0 @X0 1 r2 ]
+[v _Voltage `uc ~T0 @X0 1 r3 ]
+[f ]
+[; ;Functions.c: 45: if(mode == 1){
+"45
+[e $ ! == -> _mode `i -> 1 `i 1167  ]
+{
+[; ;Functions.c: 47: SetMux(1);
+"47
+[e ( _SetMux (1 -> -> 1 `i `uc ]
+[; ;Functions.c: 50: ChargerData[2] = 001;
+"50
+[e = *U + &U _ChargerData * -> -> -> 2 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux -> -> 1 `i `uc ]
+[; ;Functions.c: 51: ChargerData[4] = 000;
+"51
+[e = *U + &U _ChargerData * -> -> -> 4 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux -> -> 0 `i `uc ]
+[; ;Functions.c: 52: ChargerData[6] = 001;
+"52
+[e = *U + &U _ChargerData * -> -> -> 6 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux -> -> 1 `i `uc ]
+[; ;Functions.c: 54: printf("%s",ChargerData);
+"54
+[e ( _printf , (. :s 1C -> &U _ChargerData `*Cuc ]
+"55
+}
+[e :U 1167 ]
+[; ;Functions.c: 55: }
+[; ;Functions.c: 56: if(mode == 2){
+"56
+[e $ ! == -> _mode `i -> 2 `i 1168  ]
+{
+[; ;Functions.c: 58: SetMux(1);
+"58
+[e ( _SetMux (1 -> -> 1 `i `uc ]
+[; ;Functions.c: 60: ChargerData[2] = Current;
+"60
+[e = *U + &U _ChargerData * -> -> -> 2 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux _Current ]
+[; ;Functions.c: 61: ChargerData[4] = Voltage;
+"61
+[e = *U + &U _ChargerData * -> -> -> 4 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux _Voltage ]
+[; ;Functions.c: 63: ChargerData[6] = (Current + Voltage)%1,000;
+"63
+[e ; = *U + &U _ChargerData * -> -> -> 6 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux -> % + -> _Current `i -> _Voltage `i -> 1 `i `uc -> 0 `i ]
+[; ;Functions.c: 65: printf("%s",ChargerData);
+"65
+[e ( _printf , (. :s 2C -> &U _ChargerData `*Cuc ]
+"66
+}
+[e :U 1168 ]
+[; ;Functions.c: 66: }
+[; ;Functions.c: 67: }
+"67
+[e :UE 1166 ]
+}
+"69
+[v _SetMux `(v ~T0 @X0 1 ef1`uc ]
+{
+[; ;Functions.c: 69: void SetMux(char channel){
+[e :U _SetMux ]
+[v _channel `uc ~T0 @X0 1 r1 ]
+[f ]
+[; ;Functions.c: 70: switch (channel){
+"70
+[e $U 1171  ]
+{
+[; ;Functions.c: 71: case 1:
+"71
+[e :U 1172 ]
+[; ;Functions.c: 72: do { LATB0 = 0; } while(0);
+"72
+[e :U 1175 ]
+{
+[e = _LATB0 -> -> 0 `i `b ]
+}
+[e :U 1174 ]
+[; ;Functions.c: 73: do { LATB1 = 0; } while(0);
+"73
+[e :U 1178 ]
+{
+[e = _LATB1 -> -> 0 `i `b ]
+}
+[e :U 1177 ]
+[; ;Functions.c: 74: break;
+"74
+[e $U 1170  ]
+[; ;Functions.c: 75: case 2:
+"75
+[e :U 1179 ]
+[; ;Functions.c: 76: do { LATB0 = 1; } while(0);
+"76
+[e :U 1182 ]
+{
+[e = _LATB0 -> -> 1 `i `b ]
+}
+[e :U 1181 ]
+[; ;Functions.c: 77: do { LATB1 = 0; } while(0);
+"77
+[e :U 1185 ]
+{
+[e = _LATB1 -> -> 0 `i `b ]
+}
+[e :U 1184 ]
+[; ;Functions.c: 78: break;
+"78
+[e $U 1170  ]
+[; ;Functions.c: 79: case 3:
+"79
+[e :U 1186 ]
+[; ;Functions.c: 80: do { LATB0 = 0; } while(0);
+"80
+[e :U 1189 ]
+{
+[e = _LATB0 -> -> 0 `i `b ]
+}
+[e :U 1188 ]
+[; ;Functions.c: 81: do { LATB1 = 1; } while(0);
+"81
+[e :U 1192 ]
+{
+[e = _LATB1 -> -> 1 `i `b ]
+}
+[e :U 1191 ]
+[; ;Functions.c: 82: break;
+"82
+[e $U 1170  ]
+[; ;Functions.c: 83: case 4:
+"83
+[e :U 1193 ]
+[; ;Functions.c: 84: do { LATB0 = 1; } while(0);
+"84
+[e :U 1196 ]
+{
+[e = _LATB0 -> -> 1 `i `b ]
+}
+[e :U 1195 ]
+[; ;Functions.c: 85: do { LATB1 = 1; } while(0);
+"85
+[e :U 1199 ]
+{
+[e = _LATB1 -> -> 1 `i `b ]
+}
+[e :U 1198 ]
+[; ;Functions.c: 86: break;
+"86
+[e $U 1170  ]
+[; ;Functions.c: 87: default:
+"87
+[e :U 1200 ]
+[; ;Functions.c: 89: break;
+"89
+[e $U 1170  ]
+"90
+}
+[; ;Functions.c: 90: }
+[e $U 1170  ]
+"70
+[e :U 1171 ]
+[e [\ _channel , $ -> -> 1 `i `uc 1172
+ , $ -> -> 2 `i `uc 1179
+ , $ -> -> 3 `i `uc 1186
+ , $ -> -> 4 `i `uc 1193
+ 1200 ]
+"90
+[e :U 1170 ]
+[; ;Functions.c: 91: }
+"91
+[e :UE 1169 ]
+}
+[p f _printf 8650752 ]
+[a 1C 37 115 0 ]
+[a 2C 37 115 0 ]

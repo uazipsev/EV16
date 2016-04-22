@@ -18,7 +18,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _INTCONbits `VS1092 ~T0 @X0 0 e@4082 ]
 "12 NokiaLCD.h
 [v _NokiaStart `(v ~T0 @X0 0 ef ]
-"11 functions.h
+"13 functions.h
 [v _Delay `(v ~T0 @X0 0 ef1`l ]
 "13 NokiaLCD.h
 [v _clearLcd `(v ~T0 @X0 0 ef ]
@@ -7440,7 +7440,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr0.h: 310: bool TMR0_HasOverflowOccured(void);
 [; ;mcc.h: 71: void SYSTEM_Initialize(void);
 [; ;mcc.h: 84: void OSCILLATOR_Initialize(void);
-[; ;functions.h: 11: extern void Delay(long int wait);
+[; ;functions.h: 13: extern void Delay(long int wait);
+[; ;functions.h: 14: void Precharge(bool OnOff);
+[; ;functions.h: 15: void SetCharger(char mode, char Current, char Voltage);
+[; ;functions.h: 16: void SetMux(char channel);
 [; ;Communications.h: 11: extern volatile int receiveArray[20];
 [; ;Communications.h: 12: void updateComms();
 [; ;Communications.h: 13: extern void sendData(unsigned char whereToSend);
@@ -7451,9 +7454,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;NokiaLCD.h: 13: void clearLcd(void);
 [; ;NokiaLCD.h: 14: void blackLcd(void);
 [; ;NokiaLCD.h: 15: void NokiaStr( char * ,unsigned char);
-[v F7873 `Cuc ~T0 @X0 -> 5 `i t ]
+[v F7881 `Cuc ~T0 @X0 -> 5 `i t ]
 "17 NokiaLCD.h
-[v _FONTLOOKUP `F7873 ~T0 @X0 -> 0 `x e ]
+[v _FONTLOOKUP `F7881 ~T0 @X0 -> 0 `x e ]
 [i _FONTLOOKUP
 :U ..
 :U ..

@@ -1,8 +1,12 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "14 Communications.h
 [v _receiveData `(uc ~T0 @X0 0 ef ]
-"11
+"14 Functions.h
+[v _Precharge `(v ~T0 @X0 0 ef1`uc ]
+"11 Communications.h
 [v _receiveArray `Vi ~T0 @X0 -> 0 `x e ]
+"15 Functions.h
+[v _SetCharger `(v ~T0 @X0 0 ef3`uc`uc`uc ]
 "17 Communications.c
 [v _respondECU `(v ~T0 @X0 0 ef ]
 "7938 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
@@ -39,7 +43,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LATCbits `VS476 ~T0 @X0 0 e@3979 ]
 "15 Communications.h
 [v _ToSend `(v ~T0 @X0 0 ef2`Cuc`Cui ]
-"11 Functions.h
+"13 Functions.h
 [v _Delay `(v ~T0 @X0 0 ef1`l ]
 "13 Communications.h
 [v _sendData `(v ~T0 @X0 0 ef1`uc ]
@@ -7375,8 +7379,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Communications.h: 13: extern void sendData(unsigned char whereToSend);
 [; ;Communications.h: 14: extern bool receiveData();
 [; ;Communications.h: 15: extern void ToSend(const unsigned char where, const unsigned int what);
-[; ;Functions.h: 11: extern void Delay(long int wait);
-[; ;Communications.c: 16: void processPowerRequest(int powerSet);
+[; ;Functions.h: 13: extern void Delay(long int wait);
+[; ;Functions.h: 14: void Precharge(bool OnOff);
+[; ;Functions.h: 15: void SetCharger(char mode, char Current, char Voltage);
+[; ;Functions.h: 16: void SetMux(char channel);
 [; ;Communications.c: 17: void respondECU();
 "19 Communications.c
 [v _updateComms `(v ~T0 @X0 1 ef ]
@@ -7388,59 +7394,51 @@ Version 3.2 HI-TECH Software Intermediate Code
 "20
 [e $ ! != -> ( _receiveData ..  `i -> -> -> 0 `i `uc `i 1122  ]
 {
+[; ;Communications.c: 21: Precharge(receiveArray[1]);
 "21
-[v F7722 `i ~T0 @X0 1 s previousPowerState ]
-[; ;Communications.c: 21: static int previousPowerState;
-[; ;Communications.c: 22: if (previousPowerState != receiveArray[1]) {
+[e ( _Precharge (1 -> *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux `uc ]
+[; ;Communications.c: 22: SetCharger(1, receiveArray[2], receiveArray[3]);
 "22
-[e $ ! != F7722 *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux 1123  ]
-{
-[; ;Communications.c: 23: previousPowerState = receiveArray[1];
+[e ( _SetCharger (3 , , -> -> 1 `i `uc -> *U + &U _receiveArray * -> -> -> 2 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux `uc -> *U + &U _receiveArray * -> -> -> 3 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux `uc ]
+[; ;Communications.c: 23: respondECU();
 "23
-[e = F7722 *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux ]
-"25
-}
-[e :U 1123 ]
-[; ;Communications.c: 25: }
-[; ;Communications.c: 26: respondECU();
-"26
 [e ( _respondECU ..  ]
-"27
+"24
 }
 [e :U 1122 ]
-[; ;Communications.c: 27: }
-[; ;Communications.c: 28: }
-"28
+[; ;Communications.c: 24: }
+[; ;Communications.c: 25: }
+"25
 [e :UE 1121 ]
 }
-"31
+"38
 [v _respondECU `(v ~T0 @X0 1 ef ]
 {
-[; ;Communications.c: 31: void respondECU() {
+[; ;Communications.c: 38: void respondECU() {
 [e :U _respondECU ]
 [f ]
-[; ;Communications.c: 32: LATCbits.LATC5 = 1;
-"32
-[e = . . _LATCbits 0 5 -> -> 1 `i `uc ]
-[; ;Communications.c: 33: ToSend(0, 5);
-"33
-[e ( _ToSend (2 , -> -> 0 `i `uc -> -> 5 `i `ui ]
-[; ;Communications.c: 34: ToSend(9, 5);
-"34
-[e ( _ToSend (2 , -> -> 9 `i `uc -> -> 5 `i `ui ]
-[; ;Communications.c: 35: Delay(5);
-"35
-[e ( _Delay (1 -> -> 5 `i `l ]
-[; ;Communications.c: 37: sendData(1);
-"37
-[e ( _sendData (1 -> -> 1 `i `uc ]
-[; ;Communications.c: 38: Delay(3);
-"38
-[e ( _Delay (1 -> -> 3 `i `l ]
-[; ;Communications.c: 39: LATCbits.LATC5 = 0;
+[; ;Communications.c: 39: LATCbits.LATC5 = 1;
 "39
-[e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
-[; ;Communications.c: 40: }
+[e = . . _LATCbits 0 5 -> -> 1 `i `uc ]
+[; ;Communications.c: 40: ToSend(0, 1);
 "40
-[e :UE 1124 ]
+[e ( _ToSend (2 , -> -> 0 `i `uc -> -> 1 `i `ui ]
+[; ;Communications.c: 41: ToSend(1, 1);
+"41
+[e ( _ToSend (2 , -> -> 1 `i `uc -> -> 1 `i `ui ]
+[; ;Communications.c: 42: Delay(5);
+"42
+[e ( _Delay (1 -> -> 5 `i `l ]
+[; ;Communications.c: 44: sendData(6);
+"44
+[e ( _sendData (1 -> -> 6 `i `uc ]
+[; ;Communications.c: 45: Delay(3);
+"45
+[e ( _Delay (1 -> -> 3 `i `l ]
+[; ;Communications.c: 46: LATCbits.LATC5 = 0;
+"46
+[e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
+[; ;Communications.c: 47: }
+"47
+[e :UE 1123 ]
 }

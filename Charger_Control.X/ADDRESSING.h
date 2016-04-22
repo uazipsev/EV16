@@ -16,6 +16,7 @@
 #define PDU_ADDRESS 5
 #define BMM_ADDRESS 6
 
+
     //ECU Data
 #define RESPONSE_ADDRESS        0
 #define THROTTLE1_SAS           1
@@ -54,7 +55,12 @@
     //BMM Receive
 #define BMM_COMM_STATE          1
 
-
+    //Charger Receive
+#define CHARGE                  1
+#define CURRENT                 2
+#define VOLTAGE                 3
+#define AVGCELL                 4
+#define BMMFAULT                5
 
 #define DEBUG_ADDRESS 9
 

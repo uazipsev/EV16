@@ -40,9 +40,10 @@ extern "C" {
 #define SAS_FAULT               13
 #define BMM_FAULT               14
 #define CURRENT_BMM1            15
-#define CURRENT_BMM2             16
-#define CURRENT_BMM3             17
+#define CURRENT_BMM2            16
+#define CURRENT_BMM3            17
 #define CURRENT_BMM4            18
+
     
 
     //MCS Receive
