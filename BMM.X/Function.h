@@ -30,7 +30,7 @@ extern void PWM_Init(void);
 extern void initTimerTwo(void);
 extern void initTimerOne(void);
 
-extern void i2c_init(void);
+//extern void i2c_init(void);
 
 extern volatile int receiveArray2[20];
 extern void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));

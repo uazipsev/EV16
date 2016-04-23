@@ -19,9 +19,9 @@ void PDUStartup(void) {
     //now enable SAS and DDS
     EnableSlavePower(SAS, ON);
     EnableSlavePower(DDS, ON);
-    //EnableSlavePower(MCS, ON);
+    EnableSlavePower(MCS, ON);
     EnableSlavePower(BMM, ON);
-    //EnableSlavePower(TSS, ON);
+    EnableSlavePower(TSS, ON);
     Update();
     //Lets pull Prev values out of memory for control
     ComputeStorageData();

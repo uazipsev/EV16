@@ -3,7 +3,6 @@
  Functions.c  \
 mcc_generated_files/mcc.h  \
 Functions.h  \
-mcc_generated_files/eusart1.h  \
 mcc_generated_files/eusart2.h  \
 mcc_generated_files/interrupt_manager.h  \
 mcc_generated_files/tmr0.h  \

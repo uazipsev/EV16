@@ -37,7 +37,7 @@ void main(void) {
     INTERRUPT_GlobalInterruptEnable();
 
     // Enable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptEnable();
+    INTERRUPT_PeripheralInterruptEnable();
 
     // Disable the Global Interrupts
     //INTERRUPT_GlobalInterruptDisable();
@@ -45,8 +45,10 @@ void main(void) {
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
     NokiaStart();
-    
+    LED_SetDigitalOutput();
+    LED_SetHigh();
     while (1) {
+        /*
         Delay(1000);
         clearLcd();
         ddata[0]='T';
@@ -62,8 +64,15 @@ void main(void) {
         i++;
         gotoXy(2,2);
         NokiaStr(ddata,10);
+         *
+         */
+        Delay(1000);
+        GREEN_Toggle();
+        BLUE_Toggle();
+        YELLOW_Toggle();
+        LED_Toggle();
     }
-    updateComms();
+    //updateComms();
 }
 /**
  End of File

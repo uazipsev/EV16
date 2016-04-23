@@ -3,4 +3,5 @@ Communications.c  \
  Communications.h  \
 ADDRESSING.h  \
 Function.h  \
-PinDef.h 
+PinDef.h  \
+BatteryManagment.h 

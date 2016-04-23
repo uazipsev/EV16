@@ -285,6 +285,9 @@
 #define LCD_CS_SetAnalogMode()   do { ANSD0 = 1; } while(0)
 #define LCD_CS_SetDigitalMode()   do { ANSD0 = 0; } while(0)
 
+#define LCD_RES_SetDigitalOutput()   do { TRISD2 = 0; } while(0)
+#define LCD_RES_SetHigh()    do { LATD2 = 1; } while(0)
+#define LCD_RES_SetLow()   do { LATD2 = 0; } while(0)
 
 // get/set LCD_DC aliases
 #define LCD_DC_TRIS               TRISD3

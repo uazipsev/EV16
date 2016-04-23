@@ -31,7 +31,7 @@ void Setup(void) {
     
     
     initTimerOne();
-    //initTimerTwo();
+    initTimerTwo();
     //begin(receiveArray2, sizeof (receiveArray2), BMM_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
     UART_init();
     //i2c_init();
