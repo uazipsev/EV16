@@ -15,7 +15,7 @@ extern enum debugStates debugState;
 //Record and report fault conditions
 struct faultStates faults;
 //Record and control ECU states
-enum ECUstates currentState = stopped;
+enum ECUstates currentState = startup;// TODO make back to start
 //Record and control comm states
 struct commsStates comms;
 //Control the power rails on the PDU
@@ -44,8 +44,8 @@ void updateECUState() {
                 previousState = currentState;
                 powerSet.DDS = true;
                 powerSet.SAS = true;
-                powerSet.BMM = true;
-                powerSet.MCS = true;
+                powerSet.BMM = true;  //TODO Change back to false
+                powerSet.MCS = true;   //TODO Change back to false
                 carActive = false;
                 SS_RELAY = 0;
             }

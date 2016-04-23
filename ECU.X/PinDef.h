@@ -21,7 +21,7 @@
  */
 #define INDICATOR _LATE13
 
-#define SS_RELAY _LATC10
+#define SS_RELAY _LATA9
 /*
  *   Safty Read in
  */
@@ -31,12 +31,12 @@
 /*
  *    HORN
  */
-#define HORN_EN _LATB9
+#define HORN_EN _LATC4
 
 /*
  *   Brake Light
  */
-#define BRAKELT _LATB6
+#define BRAKELT _LATC3
 
 #define OUTPUT 0
 #define INPUT  1

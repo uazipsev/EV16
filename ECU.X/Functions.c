@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "Functions.h"
-
+# define BRAKE_LIGHT_THRESHOLD 10
 extern void PWM_Init(void);
 
 void Setup(void) {
@@ -85,8 +85,12 @@ void PinSetMode(void) {
     RS485_1_Direction = LISTEN;
     RS485_2_Direction = LISTEN;
     TRISCbits.TRISC10=OUTPUT;
+    TRISCbits.TRISC4=OUTPUT;
+    TRISCbits.TRISC3=OUTPUT;
+    TRISAbits.TRISA9=OUTPUT;
     LATCbits.LATC10 = 0;
     ANSELCbits.ANSC0 = 0;
+    ANSELCbits.ANSC3 = 1;
     //RX0_Tris=OUTPUT;
     //TX0_Tris=OUTPUT;
     //RX1_Tris=OUTPUT;
@@ -101,12 +105,16 @@ void PinSetMode(void) {
 void ledDebug(){
     if (time > 1000) {
             INDICATOR ^= 1;
+           // HORN_EN ^=1;
+            BRAKELT ^= 1;
+           // SS_RELAY ^= 1;
             time = 0;
         }
     }
-
+//TODO May need update Values  
 void updateBrakeLight() {
-    if (brake > 10) {
+    if (brake > BRAKE_LIGHT_THRESHOLD) {
         BRAKELT = 1;
-    } else BRAKELT = 0;
+    } else if (brake<(BRAKE_LIGHT_THRESHOLD-3))  //Prevent Ossicliation Number subject to chan
+      ; // BRAKELT = 0;
 }
