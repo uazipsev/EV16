@@ -219,14 +219,6 @@ static const unsigned int crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 
 #define Discharge_Cell_11 0x04 // Shorting Switch for Cell 11
 #define Discharge_Cell_12 0x08 // Shorting Switch for Cell 12
 
-/*
-int Config_Value[5]; // Array to hold each register for the config Cell
-
-int GPIO_Config=0;  // Will hold the total GPIO Value
-
-bool Discharge_CELL_ARRAY[11]; // Holds the value if you want cell x (which will be in element[x-1]) to be discharged. Bool of  1=yes 0=no.
-*/
-
 void LTC6804_initialize();
 
 void set_adc(int MD, int DCP, int CH, int CHG);

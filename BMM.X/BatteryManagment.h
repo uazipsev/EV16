@@ -13,7 +13,7 @@ void Start_BMS();
 void ChargerEN();
 void ReadVoltToCurrent();
 int CurrentGet(bool total, char channel);
-void Read_Battery(int BatteryPlacement);
+int Read_Battery(int BatteryPlacement,int *cell_codes[12][12] );// Amount of IC's, amount of cells per IC
 extern void CurrentCoulombCount(int tme);
 
             

@@ -53,7 +53,8 @@ int Under_Voltage_Value=0x7CF; // Compare Voltage = (Under_Voltage_Value +1) * 1
 #define NUMBEROFIC 12
 #define NUMBEROFCH 2
 #define NUMBEROFDATA 8
-
+#define bank_1 0
+#define bank_2 1
 //Discharge time out value 
 #define DCTO 0 
 #define Cell_Per_Bank 12
@@ -65,7 +66,30 @@ int Under_Voltage_Value=0x7CF; // Compare Voltage = (Under_Voltage_Value +1) * 1
 #define Bypass_Low_Limit 20 // Needs Configuration
 int Voltage_data[1][12];
 int Aux_data[1][6];
-int LTC6804_DATA[NUMBEROFCH][NUMBEROFDATA*NUMBEROFIC];
+int LTC6804_DATA_Config[NUMBEROFCH][NUMBEROFDATA*NUMBEROFIC];
+
+
+int cell_codes_Bank1[NUMBEROFIC][12]; 
+int cell_codes_Bank2[NUMBEROFIC][12]; 
+/*!< 
+  The cell codes will be stored in the cell_codes[][12] array in the following format:
+  
+  |  cell_codes[0][0]| cell_codes[0][1] |  cell_codes[0][2]|    .....     |  cell_codes[0][11]|  cell_codes[1][0] | cell_codes[1][1]|  .....   |
+  |------------------|------------------|------------------|--------------|-------------------|-------------------|-----------------|----------|
+  |IC1 Cell 1        |IC1 Cell 2        |IC1 Cell 3        |    .....     |  IC1 Cell 12      |IC2 Cell 1         |IC2 Cell 2       | .....    |
+****/
+
+int aux_codes_Bank1[NUMBEROFIC][6];
+int aux_codes_Bank2[NUMBEROFIC][6];
+/*!<
+ The GPIO codes will be stored in the aux_codes[][6] array in the following format:
+ 
+ |  aux_codes[0][0]| aux_codes[0][1] |  aux_codes[0][2]|  aux_codes[0][3]|  aux_codes[0][4]|  aux_codes[0][5]| aux_codes[1][0] |aux_codes[1][1]|  .....    |
+ |-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|---------------|-----------|
+ |IC1 GPIO1        |IC1 GPIO2        |IC1 GPIO3        |IC1 GPIO4        |IC1 GPIO5        |IC1 Vref2        |IC2 GPIO1        |IC2 GPIO2      |  .....    |
+*/
+
+
 
 #endif	/* BATTERYMANAGMENTPRIVATE_H */
 

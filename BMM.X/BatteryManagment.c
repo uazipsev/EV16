@@ -11,8 +11,8 @@
 #include "LT6804.h"
 #include "Timers.h"
 #include <stdbool.h>
-
-
+//TODO Need to make a fault status and a use with var
+int Read_Status_INC=0;
 
 //|r_config[0]|r_config[1]|r_config[2]|r_config[3]|r_config[4]|r_config[5]|r_config[6]  |r_config[7] |r_config[8]|r_config[9]|  .....    |
 //|-----------|-----------|-----------|-----------|-----------|-----------|-------------|------------|-----------|-----------|-----------|
@@ -29,112 +29,169 @@ void Start_BMS(){
     LTC6804_initialize();
     ADS1015Begin();
 }
+void Charge_Mode(int command){
+    //if in charge mode 
+    Run_ByPass(cell_codes_Bank1,cell_codes_Bank2);
+   
+}
 
+void Run_Mode(){
+   Read_Total_Voltage(cell_codes_Bank1,cell_codes_Bank2);
+}
+
+
+//TODO figure out fault function of bank 1 and 2
+void Run_ByPass(int cell_codesBank1[][12],int cell_codesBank2[][12]){
+    //To detect error values
+     int Error_Value=0;
+     //Bank1
+ do {
+    Error_Value=Read_Battery(0,cell_codes_Bank1);
+    if (Error_Value!=0){
+    Read_Status_INC=Read_Status_INC+1;}
+   } while(Error_Value!=0);
+   //RunBypass_Set(bank_1,NUMBEROFIC,cell_codes_Bank1);
+   
+   //Bank2
+   do {
+    Error_Value=Read_Battery(0,cell_codesBank2);
+    if (Error_Value!=0){
+    Read_Status_INC=Read_Status_INC+1;}
+   } while(Error_Value!=0);
+  // RunBypass_Set(bank_2,NUMBEROFIC,cell_codesBank2);
+   
+}
+
+void Read_Total_Voltage(int cell_codesBank1[][12],int cell_codesBank2[][12]){
+
+int Error_Value=0;
+    do {
+    Error_Value=Read_Battery(0,cell_codes_Bank1);
+    if (Error_Value!=0){
+    Read_Status_INC=Read_Status_INC+1;}
+   } while(Error_Value!=0);
+   
+    do {
+    Error_Value=Read_Battery(0,cell_codesBank2);
+    if (Error_Value!=0){
+    Read_Status_INC=Read_Status_INC+1;}
+   } while(Error_Value!=0);
+
+}
 /*******************************************************************
  * @brief           Read_Battery
  * @brief           Reads battery voltage of each cell 
  * @return          none
  * @note            
  *******************************************************************/
+//TODO Need to Reference the Bat array
+int Read_Battery(int BatteryPlacement,int *cell_codes[NUMBEROFIC][12]) {
+    int Read_Status=0;
 
-void Read_Battery(int BatteryPlacement) {
     switch (BatteryPlacement) {
         case 0: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
             LTC6804_adcv();
-           // LTC6804_rdcv(0,3,Voltage_data[][12]);
+            Read_Status=LTC6804_rdcv(0,3,*cell_codes);
             break;
         case 1: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_1and7, AUX_CH_ALL);
             LTC6804_adcv();
-           // LTC6804_rdcv(1,3,Voltage_data[][12]); //Cell 1
-           // LTC6804_rdcv(3,3,Voltage_data[][12]); //Cell 7
+           Read_Status= LTC6804_rdcv(1,3,*cell_codes); //Cell 1
+           Read_Status= LTC6804_rdcv(3,3,*cell_codes); //Cell 7
             break;
         case 2: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_2and8, AUX_CH_ALL);
             LTC6804_adcv();
-            //LTC6804_rdcv(0,3,Voltage_data[][12]); // Cell 2
-            //LTC6804_rdcv(3,3,Voltage_data[][12]); //Cell 8
+           Read_Status= LTC6804_rdcv(0,3,*cell_codes); // Cell 2
+           Read_Status=LTC6804_rdcv(3,3,*cell_codes); //Cell 8
             break;
         case 3: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_3and9, AUX_CH_ALL);
             LTC6804_adcv();
-            //LTC6804_rdcv(0,3,Voltage_data[][12]); // Cell 3
-            //LTC6804_rdcv(3,3,Voltage_data[][12]); //Cell 9
+            Read_Status= LTC6804_rdcv(0,3,*cell_codes); // Cell 3
+            Read_Status= LTC6804_rdcv(3,3,*cell_codes); //Cell 9
             break;
         case 4: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_4and10, AUX_CH_ALL);
             LTC6804_adcv();
-            //LTC6804_rdcv(2,3,Voltage_data[][12]); // Cell 4
-            //LTC6804_rdcv(4,3,Voltage_data[][12]); //Cell 10
+            Read_Status= LTC6804_rdcv(2,3,*cell_codes); // Cell 4
+            Read_Status= LTC6804_rdcv(4,3,*cell_codes); //Cell 10
             break;
         case 5: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_5and11, AUX_CH_ALL);
             LTC6804_adcv();
-            //LTC6804_rdcv(2,3,Voltage_data[][12]); // Cell 5
-            //LTC6804_rdcv(4,3,Voltage_data[][12]); //Cell 11
+            Read_Status= LTC6804_rdcv(2,3,*cell_codes); // Cell 5
+            Read_Status= LTC6804_rdcv(4,3,*cell_codes); //Cell 11
             break;
         case 6: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_6and12, AUX_CH_ALL);
             LTC6804_adcv();
-            //LTC6804_rdcv(2,3,Voltage_data[][12]); // Cell 6
-            //LTC6804_rdcv(4,3,Voltage_data[][12]); //Cell 12
+            Read_Status= LTC6804_rdcv(2,3,*cell_codes); // Cell 6
+            Read_Status= LTC6804_rdcv(4,3,*cell_codes); //Cell 12
             break;
         default:
             break;
-    }        
+    }  
+    return Read_Status;
 }
+
 
 /*******************************************************************
  * @brief           Read_GPIO
  * @brief           Reads GPIO for the Temp sensors 
  * @return          none
  * @note            We may need to add some voltage to temp convert
- *******************************************************************/
+ *******************************************************************/\
 
-void Read_GPIO(int BatteryPlacement )
-{ switch (BatteryPlacement) {
+
+//TODO Need to Reference the Aux array
+int Read_GPIO(int BatteryPlacement, int *aux_codes[NUMBEROFIC][6])
+{  int Read_Status=0;
+    switch (BatteryPlacement) {
+
+
         case 0: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
             LTC6804_adax();
             // What Cells to read,amount of IC,Data
-            // LTC6804_rdaux(0,3,Aux_data[][6]); // All GPIO and Ref
+             Read_Status=LTC6804_rdaux(0,3,*aux_codes); // All GPIO and Ref
 
             break;
         case 1: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO1);
             LTC6804_adax();
-            //LTC6804_rdaux(1,3,Aux_data[][6]);//GPIO 1
+            Read_Status=LTC6804_rdaux(1,3,*aux_codes);//GPIO 1
             break;
         case 2: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO2);
             LTC6804_adax();
-            //LTC6804_rdaux(1,3,Aux_data[][6]);//GPIO 2
+            Read_Status=LTC6804_rdaux(1,3,*aux_codes);//GPIO 2
             break;
         case 3: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO3);
             LTC6804_adax();
-            //LTC6804_rdaux(1,3,Aux_data[][6]);//GPIO 3
+            Read_Status=LTC6804_rdaux(1,3,*aux_codes);//GPIO 3
             break;
         case 4: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO4);
             LTC6804_adax();
-            //LTC6804_rdaux(2,3,Aux_data[][6]);//GPIO 4
+            Read_Status=LTC6804_rdaux(2,3,*aux_codes);//GPIO 4
             break;
         case 5: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO5);
             LTC6804_adax();
-            //LTC6804_rdaux(2,3,Aux_data[][6]);//GPIO 5
+            Read_Status=LTC6804_rdaux(2,3,*aux_codes);//GPIO 5
             break;
         case 6: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_VREF2);
             LTC6804_adax();
-            //LTC6804_rdaux(2,3,Aux_data[][6]);//GPIO 6
+            Read_Status=LTC6804_rdaux(2,3,*aux_codes);//GPIO 6
             break;
         default:
             break;}
 
-
+    return Read_Status;
 }
 
 /*******************************************************************
@@ -162,8 +219,8 @@ void SetBypass(int bank, int ic, int cell, bool value){
 			CFGR5 = CFGR5 & ~(1 << (cell-8)); //This sets the cell on the stack to off when > 8
 		}
 	}
-    LTC6804_DATA[bank][(ic*8)+5] = CFGR4& 0xFF; //First  8 Bits of DCC
-    LTC6804_DATA[bank][(ic*8)+4] = (CFGR5) + (DCTO<< 4); // Combined DCTO and the Last 4 bits of DCC
+    LTC6804_DATA_Config[bank][(ic*8)+4] = CFGR4& 0xFF; //First  8 Bits of DCC
+    LTC6804_DATA_Config[bank][(ic*8)+5] = (CFGR5) + (DCTO<< 4); // Combined DCTO and the Last 4 bits of DCC
 }
 
 /*******************************************************************
@@ -172,36 +229,36 @@ void SetBypass(int bank, int ic, int cell, bool value){
  * @return          none
  * @note            
  *******************************************************************/
+int RunBypass_Set(int bank, int ic, int cell_codes[][12]){
+    int cellbyp = 0;
+    int voltstat=0; 
+    int batvolt = 0;
+    int i;// Increment for IC
+    int c;// Increment for Cells
+// Want to make a function for all Batterys Right now it works with just 1 IC
+  // Need to understand how he Bank IC and Cell system works 
+    
+    for (i = 0; i<=NUMBEROFIC;i++){
+        
+           for(c = 0; c<=Cell_Per_Bank;c++)      // runs threw num of batteries
+           {
+           //voltstat = CheckUnderOverVoltageFlag();
+           if (voltstat==0){
+              if(batvolt>=Bypass_High_Limit)      // if bypass needs enabled..
+            {
+               SetBypass(bank,ic,c,true);           // sets bypass on
+               cellbyp = 1;
+            }
+           if(batvolt <= Bypass_Low_Limit)     //if bypass needs turned off...
+           {
+               SetBypass(bank,ic,c,false);           // sets bypass off
+           }
+           }
+        }
+    }
+    UpdateLT6804(bank);
+  return cellbyp;}
 
-//
-//int RunBypass(int bank, int ic, bool value)
-//{
-//    int cellbyp = 0;
-//    int i = 0;
-//    int voltstat=0; 
-//    float batvolt = 0;
-//// Want to make a function for all Batterys Right now it works with just 1 IC
-//    // Need to understand how he Bank IC and Cell system works 
-//    
-//    
-//    for(i = 0; i<=Cell_Per_Bank;i++)      //<! runs threw num of batteries
-//    {
-//       // batvolt = Read_Battery(i);    //<! gets battery voltage Not working need to know how to get Read_Battery
-//        //voltstat = CheckUnderOverVoltageFlag();
-//        if (voltstat==0){
-//        if(batvolt>=Bypass_High_Limit)      //<! if bypass needs enabled..
-//        {
-//           SetBypass(bank,ic,i,1);           //<! sets bypass on
-//           cellbyp = 1;
-//        }
-//        if(batvolt <= Bypass_Low_Limit)     //<! if bypass needs turned off...
-//        {
-//           SetBypass(bank,ic,i,0);           //<! sets bypass off
-//        }
-//        }
-//    }
-//    return cellbyp;
-//}
 
 /*******************************************************************
  * @brief           SetTempEnable
@@ -210,6 +267,7 @@ void SetBypass(int bank, int ic, int cell, bool value){
  * @note            
  *******************************************************************/
 
+
 void SetTempEnable(int bank, int ic, bool value){
 	if(value){
 		CFGR0 = CFGR0 | (1 << 4); //Turn on GPIO 1
@@ -217,7 +275,7 @@ void SetTempEnable(int bank, int ic, bool value){
 	else{
 		CFGR0 = CFGR0 & ~(1 << 4); //Turn off GPIO 1
 	}
-	LTC6804_DATA[bank][ic*8] = CFGR0; //Update data set for IC 
+	LTC6804_DATA_Config[bank][ic*8] = CFGR0;
 }
 
 /*******************************************************************
@@ -247,9 +305,9 @@ void SetUnderOverVoltage(int VUV, int VOV){
     // load up static reg
     for(k = 0;k<NUMBEROFCH;k++){ //This is for the banks
         for(j=0;j<NUMBEROFIC;j++){ //This is for the IC's on a bank
-            LTC6804_DATA[k][j*8 + 1] = CFGR1;
-            LTC6804_DATA[k][j*8 + 2] = CFGR2;
-            LTC6804_DATA[k][j*8 + 3] = CFGR3;
+            LTC6804_DATA_Config[k][j*8 + 1] = CFGR1;
+            LTC6804_DATA_Config[k][j*8 + 2] = CFGR2;
+            LTC6804_DATA_Config[k][j*8 + 3] = CFGR3;
         }
     }
 }
@@ -269,7 +327,7 @@ void Set_ADC_Mode(int bank, int ic, bool ADCOPT_Mode){
     else {
     CFGR0=CFGR0 & ~ADC_MODE_BIT_14k_3k_2k;   //ADC_MODE_BIT_27k_7k_26
     }
-        LTC6804_DATA[bank][ic*8] = CFGR0;
+        LTC6804_DATA_Config[bank][ic*8] = CFGR0;
 }
 
 //Not Sure how this  LTC6804_DATA works however will copy for consistency 
@@ -280,7 +338,7 @@ void Set_REFON_Pin(int bank, int ic, bool REFON_Mode){
     else {
     CFGR0=CFGR0 & ~REFON_TURN_ON;   //REFOFF_TURN_OFF
     }
-        LTC6804_DATA[bank][ic*8] = CFGR0;
+        LTC6804_DATA_Config[bank][ic*8] = CFGR0;
 }
 void Get_Stat(int cmd){
    
@@ -289,10 +347,10 @@ void Get_Stat(int cmd){
 }
 //
 void UpdateLT6804(int bank){
-  
+  //TODO make Algorithim to determine which bank it is?
     //I dont think we need to calculate the PEC becuase that is done in the LTC6804_wrcfg
 
-    //LTC6804_wrcfg(NUMBEROFIC,LTC6804_DATA[bank]);   ERROR Need to Fix
+    LTC6804_wrcfg(NUMBEROFIC,LTC6804_DATA_Config[bank]);   //ERROR Need to Fix
     //LTC6804_wrcfg(3,randomarray[2][6]); //Bullshit code to compile
 }
 
