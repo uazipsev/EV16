@@ -1,8 +1,21 @@
+/*******************************************************************
+ * @brief           NokiaLCD.c
+ * @brief           Adds easy to use functions to the Nokia LCD
+ * @return          EU
+ * @note            The lib is written for Nokia 5110 (https://learn.adafruit.com/downloads/pdf/nokia-5110-3310-monochrome-lcd.pdf)
+ *******************************************************************/
+
 #include "NokiaLCD.h"
 #include "Functions.h"
 #include "mcc_generated_files/spi1.h"
 #include "mcc_generated_files/mcc.h"
 
+/*******************************************************************
+ * @brief           NokiaStart
+ * @brief           Set's up the LCD 
+ * @return          none
+ * @note            
+ *******************************************************************/
 
 void NokiaStart(){
     LCD_CS_SetDigitalOutput();
@@ -27,6 +40,12 @@ void NokiaStart(){
     blackLcd();
 }
 
+/*******************************************************************
+ * @brief           clearLcd
+ * @brief           This may clear the LCD display..I don't know...
+ * @return          none
+ * @note            
+ *******************************************************************/
 
 void clearLcd(){
     int res;
@@ -38,6 +57,14 @@ void clearLcd(){
     LCD_CS_SetHigh();
     
 }
+
+/*******************************************************************
+ * @brief           blackLCD
+ * @brief           I have no clue what this does..really....
+ * @return          none
+ * @note            
+ *******************************************************************/
+
 void blackLcd(){
     int res;
     LCD_CS_SetLow();
@@ -48,6 +75,13 @@ void blackLcd(){
     LCD_CS_SetHigh();
 }
 
+/*******************************************************************
+ * @brief           gotoXy
+ * @brief           go to pixel for format 
+ * @return          none
+ * @note            
+ *******************************************************************/
+
 void gotoXy(unsigned char x,unsigned char y){
     LCD_CS_SetLow();
     LCD_DC_SetLow();
@@ -57,6 +91,13 @@ void gotoXy(unsigned char x,unsigned char y){
     SPI1_Exchange8bit(x);
     LCD_CS_SetHigh();
 }
+
+/*******************************************************************
+ * @brief           NokiaStr
+ * @brief           This allows us to print text on the display
+ * @return          none
+ * @note            
+ *******************************************************************/
 
 void NokiaStr( char *str,unsigned char len){
     int i;

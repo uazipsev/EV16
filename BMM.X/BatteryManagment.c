@@ -1,3 +1,9 @@
+/*******************************************************************
+ * @brief           BatteryManagment.c
+ * @brief           Adds easy to use functions to the LTC6804.c
+ * @return          EU
+ * @note            The lib is writen for US
+ *******************************************************************/
 
 #include "BatteryManagment.h"
 #include "BatteryManagmentPrivate.h"
@@ -12,10 +18,24 @@
 //|-----------|-----------|-----------|-----------|-----------|-----------|-------------|------------|-----------|-----------|-----------|
 //|IC1 CFGR0  |IC1 CFGR1  |IC1 CFGR2  |IC1 CFGR3  |IC1 CFGR4  |IC1 CFGR5  |IC1 PEC High |IC1 PEC Low |IC2 CFGR0  |IC2 CFGR1  |  .....    |
 
+/*******************************************************************
+ * @brief           Start_BMS
+ * @brief           Setup The BMS and set configs
+ * @return          none
+ * @note            
+ *******************************************************************/
+
 void Start_BMS(){
     LTC6804_initialize();
     ADS1015Begin();
 }
+
+/*******************************************************************
+ * @brief           Read_Battery
+ * @brief           Reads battery voltage of each cell 
+ * @return          none
+ * @note            
+ *******************************************************************/
 
 void Read_Battery(int BatteryPlacement) {
     switch (BatteryPlacement) {
@@ -65,6 +85,12 @@ void Read_Battery(int BatteryPlacement) {
     }        
 }
 
+/*******************************************************************
+ * @brief           Read_GPIO
+ * @brief           Reads GPIO for the Temp sensors 
+ * @return          none
+ * @note            We may need to add some voltage to temp convert
+ *******************************************************************/
 
 void Read_GPIO(int BatteryPlacement )
 { switch (BatteryPlacement) {
@@ -111,30 +137,41 @@ void Read_GPIO(int BatteryPlacement )
 
 }
 
-
+/*******************************************************************
+ * @brief           Set_Bypass
+ * @brief           sets bypass for a cell on the stack
+ * @return          none
+ * @note            
+ *******************************************************************/
 
 //Update
 void SetBypass(int bank, int ic, int cell, bool value){
 	if(value){
 		if(cell < 8){
-			CFGR4 = CFGR4 | (1 << cell);
+			CFGR4 = CFGR4 | (1 << cell);  //This sets the cell on the stack to on when less than 8 
 		}
 		else{
-			CFGR5 = CFGR5 | (1 << (cell-8));
+			CFGR5 = CFGR5 | (1 << (cell-8)); //This sets the cell on the stack to on when > 8
 		}
 	}
 	else{
 		if(cell < 8){
-			CFGR4 = CFGR4 & ~(1 << cell);
+			CFGR4 = CFGR4 & ~(1 << cell); //This sets the cell on the stack to off when less than 8
 		}
 		else{
-			CFGR5 = CFGR5 & ~(1 << (cell-8));
+			CFGR5 = CFGR5 & ~(1 << (cell-8)); //This sets the cell on the stack to off when > 8
 		}
 	}
     LTC6804_DATA[bank][(ic*8)+5] = CFGR4& 0xFF; //First  8 Bits of DCC
     LTC6804_DATA[bank][(ic*8)+4] = (CFGR5) + (DCTO<< 4); // Combined DCTO and the Last 4 bits of DCC
 }
 
+/*******************************************************************
+ * @brief           RunBypass
+ * @brief           Controls bypass algorithm for pack
+ * @return          none
+ * @note            
+ *******************************************************************/
 
 //
 //int RunBypass(int bank, int ic, bool value)
@@ -166,21 +203,39 @@ void SetBypass(int bank, int ic, int cell, bool value){
 //    return cellbyp;
 //}
 
-
-
+/*******************************************************************
+ * @brief           SetTempEnable
+ * @brief           This enables the power to the temp measurements
+ * @return          none
+ * @note            
+ *******************************************************************/
 
 void SetTempEnable(int bank, int ic, bool value){
 	if(value){
-		CFGR0 = CFGR0 | (1 << 4);
+		CFGR0 = CFGR0 | (1 << 4); //Turn on GPIO 1
 	}
 	else{
-		CFGR0 = CFGR0 & ~(1 << 4);
+		CFGR0 = CFGR0 & ~(1 << 4); //Turn off GPIO 1
 	}
-	LTC6804_DATA[bank][ic*8] = CFGR0;
+	LTC6804_DATA[bank][ic*8] = CFGR0; //Update data set for IC 
 }
+
+/*******************************************************************
+ * @brief           CheckUnderOverVoltageFlag
+ * @brief           This will respond (true?)if there is a OV/UV 
+ * @return          The flag true if there is a fault
+ * @note            
+ *******************************************************************/
 
 int CheckUnderOverVoltageFlag(){
 return 1;}
+
+/*******************************************************************
+ * @brief           SetUnderOverVoltage
+ * @brief           This will set the UV and OV for all the IC's and banks
+ * @return          none
+ * @note            
+ *******************************************************************/
 
 //Update Under and over voltages. 
 void SetUnderOverVoltage(int VUV, int VOV){
@@ -189,14 +244,23 @@ void SetUnderOverVoltage(int VUV, int VOV){
     CFGR2 = ((VUV & 0xF00)>> 8)+ ((VOV & 0x0F) <<4); // Finish Last bits of VUV start with VOV
     CFGR3 = (VOV& 0xFF0)>>4;       // Finish VOV setup
     
-    for(k = 0;k<NUMBEROFCH;k++){
-        for(j=0;j<NUMBEROFIC;j++){
+    // load up static reg
+    for(k = 0;k<NUMBEROFCH;k++){ //This is for the banks
+        for(j=0;j<NUMBEROFIC;j++){ //This is for the IC's on a bank
             LTC6804_DATA[k][j*8 + 1] = CFGR1;
             LTC6804_DATA[k][j*8 + 2] = CFGR2;
             LTC6804_DATA[k][j*8 + 3] = CFGR3;
         }
     }
 }
+
+/*******************************************************************
+ * @brief           Set_ADC_Mode
+ * @brief           This will set the UV and OV for all the IC's and banks
+ * @return          none
+ * @note            
+ *******************************************************************/
+
 //Not Sure how this  LTC6804_DATA works however will copy for consistency 
 void Set_ADC_Mode(int bank, int ic, bool ADCOPT_Mode){
     if(ADCOPT_Mode){
@@ -232,14 +296,30 @@ void UpdateLT6804(int bank){
     //LTC6804_wrcfg(3,randomarray[2][6]); //Bullshit code to compile
 }
 
+/*******************************************************************
+ * @brief           ReadCurrentVolt
+ * @brief           Reads in the ADC counts from the current sense PCB
+ * @return          none
+ * @note            This populates the array with raw ADC values
+ *******************************************************************/
+
+// FIXME Need to change I2C address!
 void ReadCurrentVolt(){
-    CVolt[0] = ADS1015readADC_SingleEnded(0, 0x01);
+    CVolt[0] = ADS1015readADC_SingleEnded(0, 0x01); //Set channel and IC
     CVolt[1] = ADS1015readADC_SingleEnded(1, 0x01);
     CVolt[2] = ADS1015readADC_SingleEnded(2, 0x01);
     CVolt[3] = ADS1015readADC_SingleEnded(3, 0x01);
     CVolt[4] = ADS1015readADC_SingleEnded(0, 0x02);
     CVolt[5] = ADS1015readADC_SingleEnded(1, 0x02);
+    ReadVoltToCurrent(); //Converts ADC counts to amps
 }
+
+/*******************************************************************
+ * @brief           ReadVolt
+ * @brief           Reads in the ADC counts and converts to voltages 
+ * @return          none
+ * @note            Gets it ready for a traditional getter
+ *******************************************************************/
 
 void ReadVolt(){
     Volt1 = ADS1015readADC_SingleEnded(2, 0x02);
@@ -248,6 +328,13 @@ void ReadVolt(){
     Volt2 = (Volt2/ADCBIT)*5*VOLTAGERATIO;
 }
 
+/*******************************************************************
+ * @brief           ReadVoltToCurrent
+ * @brief           converts ADC counts to amps
+ * @return          none
+ * @note            Gets it ready for a traditional getter
+ *******************************************************************/
+// FIXME Need to simplify the ADC convert 1 ADC count = 1mV
 void ReadVoltToCurrent(){
     ReadCurrentVolt();
     for(k = 0;k<5;k++){
@@ -255,22 +342,43 @@ void ReadVoltToCurrent(){
     }
 }
 
+/*******************************************************************
+ * @brief           ChargerEN
+ * @brief           Tells the BMS system that the charger is connected
+ * @return          none
+ * @note            Sets flag for reading
+ *******************************************************************/
+
 void ChargerEN(){
     CarOn = 0;
 }
 
+/*******************************************************************
+ * @brief           CurrentCoulombCount
+ * @brief           This function "should" get us a coulomb count (I hope)
+ * @return          none
+ * @note            This fcn is controlled by a timer for a true CC (timer 2) 
+ *******************************************************************/
+
 void CurrentCoulombCount(int tme){
-    if(CarOn){
+    if(CarOn){                        //Positive charing current
         CC1 = CC1 - (Current[0]*tme);
         CC2 = CC2 - (Current[2]*tme);
         CC3 = CC3 - (Current[4]*tme);
     }
-    else{
+    else{                             //negative discharging current  
         CC1 = CC1 + (Current[1]*tme);
         CC2 = CC2 + (Current[3]*tme);
         CC3 = CC3 + (Current[5]*tme);
     }
 }
+
+/*******************************************************************
+ * @brief           CurrentGet
+ * @brief           getter
+ * @return          none
+ * @note            This can give you a different response depending on input
+ *******************************************************************/
 
 int CurrentGet(bool total, char channel){
     if(total){
