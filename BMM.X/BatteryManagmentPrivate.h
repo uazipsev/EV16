@@ -88,8 +88,11 @@ int aux_codes_Bank2[NUMBEROFIC][6];
  |-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|---------------|-----------|
  |IC1 GPIO1        |IC1 GPIO2        |IC1 GPIO3        |IC1 GPIO4        |IC1 GPIO5        |IC1 Vref2        |IC2 GPIO1        |IC2 GPIO2      |  .....    |
 */
-
-
+void Charge_Mode(int command);
+void Run_Mode();
+void Run_ByPass(int cell_codesBank1[][12],int cell_codesBank2[][12]);
+void Read_Total_Voltage(int cell_codesBank1[][12],int cell_codesBank2[][12]);
+int Read_Battery(int BatteryPlacement,int *cell_codes[NUMBEROFIC][12]);
 
 #endif	/* BATTERYMANAGMENTPRIVATE_H */
 

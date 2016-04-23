@@ -6,7 +6,7 @@
  */
 
 #include "main.h"
-
+#include "Function.h"
 extern void updateTimers();
 extern volatile unsigned long int ADCTime;
 int ADCReadings[4];
@@ -18,7 +18,7 @@ int ADCReadings[4];
 int main(int argc, char** argv) {
     Setup();
 
-    while (1) {
+    while (1) { 
         updateTimers();
         if (ADCTime > 50) {
             static int counter = 0;
@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
             else counter = 0;
             ADCTime = 0;
         }
-        //ledDebug();
+        ledDebug();
         updateComms();
     }
 

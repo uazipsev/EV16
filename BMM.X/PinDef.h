@@ -27,7 +27,7 @@
 /*
  *  RS485 Flow control
  */
-#define RS_RE_DE PORTBbits.RB0
+#define RS_RE_DE PORTBbits.RB7
 #define BMS_TURN_ON LATBbits.LATB5
 /*
  *    LED :)
@@ -36,8 +36,8 @@
 /*
  *    Relay control 
  */
-#define Analog_Relay _LATA0
-#define Analog_Relay_Port PORTAbits.RA0
+#define Saftey_Relay_Set PORTBbits.RB3
+#define Saftey_Relay_Reset PORTBbits.RB2
 /*
  *    LT6020 CS & EN
  */

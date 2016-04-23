@@ -21,7 +21,8 @@ extern "C" {
 
     void initTimerTwo(void);
     void initTimerOne(void);
-    
+    int  time_get();
+    void Time_return();
     extern volatile unsigned long int time;
 
 

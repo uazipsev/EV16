@@ -28,12 +28,7 @@ extern "C" {
     extern void sendData(unsigned char whereToSend);
     extern bool receiveData();
     extern void ToSend(const unsigned char where, const unsigned int what);
-    void ledDebug() {
-        if (LEDtime > 500) {
-            INDICATOR = !INDICATOR;
-            LEDtime = 0;
-        }
-    }
+   
 
 #ifdef	__cplusplus
 }

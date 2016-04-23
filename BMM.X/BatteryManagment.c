@@ -27,7 +27,7 @@ int Read_Status_INC=0;
 
 void Start_BMS(){
     LTC6804_initialize();
-    ADS1015Begin();
+    //ADS1015Begin();
 }
 void Charge_Mode(int command){
     //if in charge mode 
@@ -350,7 +350,7 @@ void UpdateLT6804(int bank){
   //TODO make Algorithim to determine which bank it is?
     //I dont think we need to calculate the PEC becuase that is done in the LTC6804_wrcfg
 
-    LTC6804_wrcfg(NUMBEROFIC,LTC6804_DATA_Config[bank]);   //ERROR Need to Fix
+   // LTC6804_wrcfg(NUMBEROFIC,LTC6804_DATA_Config[bank]);   //ERROR Need to Fix
     //LTC6804_wrcfg(3,randomarray[2][6]); //Bullshit code to compile
 }
 

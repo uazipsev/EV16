@@ -15,7 +15,7 @@ void ReadVoltToCurrent();
 int CurrentGet(bool total, char channel);
 int Read_Battery(int BatteryPlacement,int *cell_codes[12][12] );// Amount of IC's, amount of cells per IC
 extern void CurrentCoulombCount(int tme);
-
+void UpdateLT6804(int bank);
             
 #endif	/* READ_BATTERY_LEVEL_H */
 

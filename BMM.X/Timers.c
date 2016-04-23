@@ -2,9 +2,11 @@
 
 #include "Timers.h"
 #include "BatteryManagment.h"
+#include "Function.h" //TODO get rid of
 volatile unsigned long int slaveTime,time,ADCTime;
 volatile unsigned long int LEDtime = 0, talkTime = 0;
 void updateTimers();
+static unsigned long int lastLEDTime=0, lastTalkTime=0, lastSlaveTime=0,lastADCTime=0;// TODO could be issue with timer was intilized in update timers with not decleration. 
 
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     time++;
@@ -12,8 +14,9 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
 }
 
 void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void) {
-    ReadCurrentVolt();
-    CurrentCoulombCount(time);
+    
+    //ReadCurrentVolt();
+    //CurrentCoulombCount(time);
     IFS0bits.T2IF = 0; // clear timer interrupt flag
 }
 
@@ -43,7 +46,7 @@ void initTimerTwo(void) {
 }
 
 void updateTimers() {
-    static unsigned long int lastLEDTime, lastTalkTime, lastSlaveTime,lastADCTime;
+    
     //if (lastLEDTime != time) {
         LEDtime += (time - lastLEDTime);
         lastLEDTime = time;
@@ -59,3 +62,9 @@ void updateTimers() {
         ADCTime += (time - lastADCTime);
         lastADCTime = time;
 }
+int time_get(){
+    return LEDtime;
+
+}
+void Time_return(int LEDTIME){
+LEDtime=LEDTIME;}
