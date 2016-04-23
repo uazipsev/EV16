@@ -35,19 +35,19 @@ void EnableSlavePower(device slave, int onof) {
             SetPin595(2, 1, onof);
             break;
         case BMM:
-            SetPin595(3, 1, onof);
-            break;
-        case MCS:
-            SetPin595(2, 6, onof);
-            break;
-        case DDS:
-            SetPin595(3, 6, onof);
-            break;
-        case TSS:
             SetPin595(1, 1, onof);
             break;
-        case AUX:
+        case MCS:
             SetPin595(1, 6, onof);
+            break;
+        case DDS:
+            SetPin595(2, 6, onof);
+            break;
+        case TSS:
+            SetPin595(3, 6, onof);
+            break;
+        case AUX:
+            SetPin595(3, 1, onof);
             break;
     }
 }
