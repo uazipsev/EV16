@@ -19,6 +19,11 @@ void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void) {
     //CurrentCoulombCount(time);
     IFS0bits.T2IF = 0; // clear timer interrupt flag
 }
+void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void) {
+    check_fault();
+    IFS0bits.T2IF = 0; // clear timer interrupt flag
+}
+
 
 void initTimerOne(void) {
     T1CONbits.TON = 0; // turn off timer
@@ -44,6 +49,20 @@ void initTimerTwo(void) {
     IEC0bits.T2IE = 1; // enable timer2 interrupt
     T2CONbits.TON = 1; //enable timer 2
 }
+void initTimerFour(void) {
+    // timer 2
+    T4CONbits.T32 = 0;
+    T4CONbits.TON = 0; //disable timer 2
+    T4CONbits.TCS = 0; //internal instruction clock (36,000,000 Hertz)
+    T4CONbits.TGATE = 0; //disable gated timer mode
+    T4CONbits.TCKPS = 0b11; // 1:256 prescalar    36MHz/256= 140.625KHz (7.111us)
+    TMR4 = 0x00; //clear timer register
+    PR4 = 65535; //- set to 279 ms per overflow (7.111us * x)= 466 ms
+    IFS0bits.T2IF = 0; // clear timer2 interrupt flag
+    IEC0bits.T2IE = 1; // enable timer2 interrupt
+    T4CONbits.TON = 1; //enable timer 2
+}
+
 
 void updateTimers() {
     
@@ -68,3 +87,7 @@ int time_get(){
 }
 void Time_return(int LEDTIME){
 LEDtime=LEDTIME;}
+
+void check_fault(){
+
+}
