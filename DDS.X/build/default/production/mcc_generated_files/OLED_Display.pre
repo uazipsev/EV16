@@ -1,114 +1,147 @@
 
-# 1 "mcc_generated_files/i2c1.c"
-
-# 13 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdint.h"
-typedef signed char int8_t;
-
-# 20
-typedef signed int int16_t;
-
-# 28
-typedef signed short long int int24_t;
-
-# 36
-typedef signed long int int32_t;
-
-# 43
-typedef unsigned char uint8_t;
-
-# 49
-typedef unsigned int uint16_t;
-
-# 56
-typedef unsigned short long int uint24_t;
-
-# 63
-typedef unsigned long int uint32_t;
-
-# 71
-typedef signed char int_least8_t;
-
-# 78
-typedef signed int int_least16_t;
-
-# 90
-typedef signed short long int int_least24_t;
-
-# 98
-typedef signed long int int_least32_t;
-
-# 105
-typedef unsigned char uint_least8_t;
-
-# 111
-typedef unsigned int uint_least16_t;
-
-# 121
-typedef unsigned short long int uint_least24_t;
-
-# 128
-typedef unsigned long int uint_least32_t;
-
-# 137
-typedef signed char int_fast8_t;
-
-# 144
-typedef signed int int_fast16_t;
-
-# 156
-typedef signed short long int int_fast24_t;
-
-# 164
-typedef signed long int int_fast32_t;
-
-# 171
-typedef unsigned char uint_fast8_t;
-
-# 177
-typedef unsigned int uint_fast16_t;
-
-# 187
-typedef unsigned short long int uint_fast24_t;
-
-# 194
-typedef unsigned long int uint_fast32_t;
-
-# 200
-typedef int32_t intmax_t;
-
-
-
-
-typedef uint32_t uintmax_t;
-
-
-
-
-typedef int16_t intptr_t;
-
-
-
-
-typedef uint16_t uintptr_t;
-
-# 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdbool.h"
-typedef unsigned char bool;
+# 1 "mcc_generated_files/OLED_Display.c"
 
 # 4 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\__size_t.h"
 typedef unsigned size_t;
 
-# 6 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stddef.h"
-typedef int ptrdiff_t;
+# 7 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdarg.h"
+typedef void * va_list[1];
 
-# 26 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\htc.h"
-extern const char __xc8_OPTIM_SPEED;
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
 
-extern double __fpnormalize(double);
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+
+# 43 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdio.h"
+struct __prbuf
+{
+char * ptr;
+void (* func)(char);
+};
+
+# 29 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\errno.h"
+extern int errno;
+
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\conio.h"
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern __bit kbhit(void);
+
+# 23
+extern char * cgets(char *);
+extern void cputs(const char *);
+
+# 88 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdio.h"
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+
+
+# 180
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+
+# 7 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdlib.h"
+typedef unsigned short wchar_t;
+
+# 15
+typedef struct {
+int rem;
+int quot;
+} div_t;
+typedef struct {
+unsigned rem;
+unsigned quot;
+} udiv_t;
+typedef struct {
+long quot;
+long rem;
+} ldiv_t;
+typedef struct {
+unsigned long quot;
+unsigned long rem;
+} uldiv_t;
+
+# 53
+extern double atof(const char *);
+extern double strtod(const char *, const char **);
+extern int atoi(const char *);
+extern unsigned xtoi(const char *);
+extern long atol(const char *);
+extern long strtol(const char *, char **, int);
+
+extern int rand(void);
+extern void srand(unsigned int);
+extern void * calloc(size_t, size_t);
+extern div_t div(int numer, int denom);
+extern udiv_t udiv(unsigned numer, unsigned denom);
+extern ldiv_t ldiv(long numer, long denom);
+extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
+extern unsigned long _lrotl(unsigned long value, unsigned int shift);
+extern unsigned long _lrotr(unsigned long value, unsigned int shift);
+extern unsigned int _rotl(unsigned int value, unsigned int shift);
+extern unsigned int _rotr(unsigned int value, unsigned int shift);
+
+
+
+
+extern void * malloc(size_t);
+extern void free(void *);
+extern void * realloc(void *, size_t);
 
 
 # 13 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\xc8debug.h"
 #pragma intrinsic(__builtin_software_breakpoint)
 extern void __builtin_software_breakpoint(void);
+
+# 86 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdlib.h"
+extern int atexit(void (*)(void));
+extern char * getenv(const char *);
+extern char ** environ;
+extern int system(char *);
+extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
+extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
+extern int abs(int);
+extern long labs(long);
+
+extern char * itoa(char * buf, int val, int base);
+extern char * utoa(char * buf, unsigned val, int base);
+
+
+
+
+extern char * ltoa(char * buf, long val, int base);
+extern char * ultoa(char * buf, unsigned long val, int base);
+
+extern char * ftoa(float f, int * status);
+
+# 26 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\htc.h"
+extern const char __xc8_OPTIM_SPEED;
+
+extern double __fpnormalize(double);
 
 # 49 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h"
 extern volatile unsigned char ANSELA @ 0xF38;
@@ -9534,6 +9567,9 @@ void Busy_eep ( void );
 unsigned char Read_b_eep( unsigned int badd );
 void Write_b_eep( unsigned int badd, unsigned char bdat );
 
+# 6 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stddef.h"
+typedef int ptrdiff_t;
+
 # 65 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\GenericTypeDefs.h"
 typedef enum _BOOL { FALSE = 0, TRUE } BOOL;
 
@@ -10300,6 +10336,99 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
+# 13 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdint.h"
+typedef signed char int8_t;
+
+# 20
+typedef signed int int16_t;
+
+# 28
+typedef signed short long int int24_t;
+
+# 36
+typedef signed long int int32_t;
+
+# 43
+typedef unsigned char uint8_t;
+
+# 49
+typedef unsigned int uint16_t;
+
+# 56
+typedef unsigned short long int uint24_t;
+
+# 63
+typedef unsigned long int uint32_t;
+
+# 71
+typedef signed char int_least8_t;
+
+# 78
+typedef signed int int_least16_t;
+
+# 90
+typedef signed short long int int_least24_t;
+
+# 98
+typedef signed long int int_least32_t;
+
+# 105
+typedef unsigned char uint_least8_t;
+
+# 111
+typedef unsigned int uint_least16_t;
+
+# 121
+typedef unsigned short long int uint_least24_t;
+
+# 128
+typedef unsigned long int uint_least32_t;
+
+# 137
+typedef signed char int_fast8_t;
+
+# 144
+typedef signed int int_fast16_t;
+
+# 156
+typedef signed short long int int_fast24_t;
+
+# 164
+typedef signed long int int_fast32_t;
+
+# 171
+typedef unsigned char uint_fast8_t;
+
+# 177
+typedef unsigned int uint_fast16_t;
+
+# 187
+typedef unsigned short long int uint_fast24_t;
+
+# 194
+typedef unsigned long int uint_fast32_t;
+
+# 200
+typedef int32_t intmax_t;
+
+
+
+
+typedef uint32_t uintmax_t;
+
+
+
+
+typedef int16_t intptr_t;
+
+
+
+
+typedef uint16_t uintptr_t;
+
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdbool.h"
+typedef unsigned char bool;
+
 # 40 "mcc_generated_files/i2c1.h"
 typedef enum
 {
@@ -10367,589 +10496,271 @@ bool I2C1_MasterQueueIsFull(void);
 void I2C1_BusCollisionISR( void );
 void I2C1_ISR ( void );
 
-# 15 "mcc_generated_files/i2c1.c"
-typedef union
+# 14 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\string.h"
+extern void * memcpy(void *, const void *, size_t);
+extern void * memmove(void *, const void *, size_t);
+extern void * memset(void *, int, size_t);
+
+# 34
+extern char * strcat(char *, const char *);
+extern char * strcpy(char *, const char *);
+extern char * strncat(char *, const char *, size_t);
+extern char * strncpy(char *, const char *, size_t);
+extern char * strdup(const char *);
+extern char * strtok(char *, const char *);
+
+
+extern int memcmp(const void *, const void *, size_t);
+extern int strcmp(const char *, const char *);
+extern int stricmp(const char *, const char *);
+extern int strncmp(const char *, const char *, size_t);
+extern int strnicmp(const char *, const char *, size_t);
+extern void * memchr(const void *, int, size_t);
+extern size_t strcspn(const char *, const char *);
+extern char * strpbrk(const char *, const char *);
+extern size_t strspn(const char *, const char *);
+extern char * strstr(const char *, const char *);
+extern char * stristr(const char *, const char *);
+extern char * strerror(int);
+extern size_t strlen(const char *);
+extern char * strchr(const char *, int);
+extern char * strichr(const char *, int);
+extern char * strrchr(const char *, int);
+extern char * strrichr(const char *, int);
+
+# 14 "mcc_generated_files/OLED_Display.h"
+void oledClear();
+void oledPrint( char *s );
+void OLED_init();
+void OLED_command(char com);
+void oledGotoYX(unsigned char Row, unsigned char Column);
+
+# 13 "mcc_generated_files/OLED_Display_P.h"
+int i;
+
+uint16_t timeOut;
+
+const uint8_t OledFont[][8] =
 {
-struct
+{0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00},
+{0x00,0x00,0x5F,0x00,0x00,0x00,0x00,0x00},
+{0x00,0x00,0x07,0x00,0x07,0x00,0x00,0x00},
+{0x00,0x14,0x7F,0x14,0x7F,0x14,0x00,0x00},
+{0x00,0x24,0x2A,0x7F,0x2A,0x12,0x00,0x00},
+{0x00,0x23,0x13,0x08,0x64,0x62,0x00,0x00},
+{0x00,0x36,0x49,0x55,0x22,0x50,0x00,0x00},
+{0x00,0x00,0x05,0x03,0x00,0x00,0x00,0x00},
+{0x00,0x1C,0x22,0x41,0x00,0x00,0x00,0x00},
+{0x00,0x41,0x22,0x1C,0x00,0x00,0x00,0x00},
+{0x00,0x08,0x2A,0x1C,0x2A,0x08,0x00,0x00},
+{0x00,0x08,0x08,0x3E,0x08,0x08,0x00,0x00},
+{0x00,0xA0,0x60,0x00,0x00,0x00,0x00,0x00},
+{0x00,0x08,0x08,0x08,0x08,0x08,0x00,0x00},
+{0x00,0x60,0x60,0x00,0x00,0x00,0x00,0x00},
+{0x00,0x20,0x10,0x08,0x04,0x02,0x00,0x00},
+{0x00,0x3E,0x51,0x49,0x45,0x3E,0x00,0x00},
+{0x00,0x00,0x42,0x7F,0x40,0x00,0x00,0x00},
+{0x00,0x62,0x51,0x49,0x49,0x46,0x00,0x00},
+{0x00,0x22,0x41,0x49,0x49,0x36,0x00,0x00},
+{0x00,0x18,0x14,0x12,0x7F,0x10,0x00,0x00},
+{0x00,0x27,0x45,0x45,0x45,0x39,0x00,0x00},
+{0x00,0x3C,0x4A,0x49,0x49,0x30,0x00,0x00},
+{0x00,0x01,0x71,0x09,0x05,0x03,0x00,0x00},
+{0x00,0x36,0x49,0x49,0x49,0x36,0x00,0x00},
+{0x00,0x06,0x49,0x49,0x29,0x1E,0x00,0x00},
+{0x00,0x00,0x36,0x36,0x00,0x00,0x00,0x00},
+{0x00,0x00,0xAC,0x6C,0x00,0x00,0x00,0x00},
+{0x00,0x08,0x14,0x22,0x41,0x00,0x00,0x00},
+{0x00,0x14,0x14,0x14,0x14,0x14,0x00,0x00},
+{0x00,0x41,0x22,0x14,0x08,0x00,0x00,0x00},
+{0x00,0x02,0x01,0x51,0x09,0x06,0x00,0x00},
+{0x00,0x32,0x49,0x79,0x41,0x3E,0x00,0x00},
+{0x00,0x7E,0x09,0x09,0x09,0x7E,0x00,0x00},
+{0x00,0x7F,0x49,0x49,0x49,0x36,0x00,0x00},
+{0x00,0x3E,0x41,0x41,0x41,0x22,0x00,0x00},
+{0x00,0x7F,0x41,0x41,0x22,0x1C,0x00,0x00},
+{0x00,0x7F,0x49,0x49,0x49,0x41,0x00,0x00},
+{0x00,0x7F,0x09,0x09,0x09,0x01,0x00,0x00},
+{0x00,0x3E,0x41,0x41,0x51,0x72,0x00,0x00},
+{0x00,0x7F,0x08,0x08,0x08,0x7F,0x00,0x00},
+{0x00,0x41,0x7F,0x41,0x00,0x00,0x00,0x00},
+{0x00,0x20,0x40,0x41,0x3F,0x01,0x00,0x00},
+{0x00,0x7F,0x08,0x14,0x22,0x41,0x00,0x00},
+{0x00,0x7F,0x40,0x40,0x40,0x40,0x00,0x00},
+{0x00,0x7F,0x02,0x0C,0x02,0x7F,0x00,0x00},
+{0x00,0x7F,0x04,0x08,0x10,0x7F,0x00,0x00},
+{0x00,0x3E,0x41,0x41,0x41,0x3E,0x00,0x00},
+{0x00,0x7F,0x09,0x09,0x09,0x06,0x00,0x00},
+{0x00,0x3E,0x41,0x51,0x21,0x5E,0x00,0x00},
+{0x00,0x7F,0x09,0x19,0x29,0x46,0x00,0x00},
+{0x00,0x26,0x49,0x49,0x49,0x32,0x00,0x00},
+{0x00,0x01,0x01,0x7F,0x01,0x01,0x00,0x00},
+{0x00,0x3F,0x40,0x40,0x40,0x3F,0x00,0x00},
+{0x00,0x1F,0x20,0x40,0x20,0x1F,0x00,0x00},
+{0x00,0x3F,0x40,0x38,0x40,0x3F,0x00,0x00},
+{0x00,0x63,0x14,0x08,0x14,0x63,0x00,0x00},
+{0x00,0x03,0x04,0x78,0x04,0x03,0x00,0x00},
+{0x00,0x61,0x51,0x49,0x45,0x43,0x00,0x00},
+{0x00,0x7F,0x41,0x41,0x00,0x00,0x00,0x00},
+{0x00,0x02,0x04,0x08,0x10,0x20,0x00,0x00},
+{0x00,0x41,0x41,0x7F,0x00,0x00,0x00,0x00},
+{0x00,0x04,0x02,0x01,0x02,0x04,0x00,0x00},
+{0x00,0x80,0x80,0x80,0x80,0x80,0x00,0x00},
+{0x00,0x01,0x02,0x04,0x00,0x00,0x00,0x00},
+{0x00,0x20,0x54,0x54,0x54,0x78,0x00,0x00},
+{0x00,0x7F,0x48,0x44,0x44,0x38,0x00,0x00},
+{0x00,0x38,0x44,0x44,0x28,0x00,0x00,0x00},
+{0x00,0x38,0x44,0x44,0x48,0x7F,0x00,0x00},
+{0x00,0x38,0x54,0x54,0x54,0x18,0x00,0x00},
+{0x00,0x08,0x7E,0x09,0x02,0x00,0x00,0x00},
+{0x00,0x18,0xA4,0xA4,0xA4,0x7C,0x00,0x00},
+{0x00,0x7F,0x08,0x04,0x04,0x78,0x00,0x00},
+{0x00,0x00,0x7D,0x00,0x00,0x00,0x00,0x00},
+{0x00,0x80,0x84,0x7D,0x00,0x00,0x00,0x00},
+{0x00,0x7F,0x10,0x28,0x44,0x00,0x00,0x00},
+{0x00,0x41,0x7F,0x40,0x00,0x00,0x00,0x00},
+{0x00,0x7C,0x04,0x18,0x04,0x78,0x00,0x00},
+{0x00,0x7C,0x08,0x04,0x7C,0x00,0x00,0x00},
+{0x00,0x38,0x44,0x44,0x38,0x00,0x00,0x00},
+{0x00,0xFC,0x24,0x24,0x18,0x00,0x00,0x00},
+{0x00,0x18,0x24,0x24,0xFC,0x00,0x00,0x00},
+{0x00,0x00,0x7C,0x08,0x04,0x00,0x00,0x00},
+{0x00,0x48,0x54,0x54,0x24,0x00,0x00,0x00},
+{0x00,0x04,0x7F,0x44,0x00,0x00,0x00,0x00},
+{0x00,0x3C,0x40,0x40,0x7C,0x00,0x00,0x00},
+{0x00,0x1C,0x20,0x40,0x20,0x1C,0x00,0x00},
+{0x00,0x3C,0x40,0x30,0x40,0x3C,0x00,0x00},
+{0x00,0x44,0x28,0x10,0x28,0x44,0x00,0x00},
+{0x00,0x1C,0xA0,0xA0,0x7C,0x00,0x00,0x00},
+{0x00,0x44,0x64,0x54,0x4C,0x44,0x00,0x00},
+{0x00,0x08,0x36,0x41,0x00,0x00,0x00,0x00},
+{0x00,0x00,0x7F,0x00,0x00,0x00,0x00,0x00},
+{0x00,0x41,0x36,0x08,0x00,0x00,0x00,0x00},
+{0x00,0x02,0x01,0x01,0x02,0x01,0x00,0x00},
+{0x00,0x02,0x05,0x05,0x02,0x00,0x00,0x00}
+};
+
+
+char Buff[2];
+
+# 10 "mcc_generated_files/OLED_Display.c"
+void OLED_command(char com)
 {
-uint8_t full:1;
-uint8_t empty:1;
-uint8_t reserved:6;
-}s;
-uint8_t status;
-}I2C_TR_QUEUE_STATUS;
+Buff[0] = 0x80;
 
-# 37
-typedef struct
-{
-uint8_t count;
-I2C1_TRANSACTION_REQUEST_BLOCK *ptrb_list;
-I2C1_MESSAGE_STATUS *pTrFlag;
+Buff[1] = com;
+I2C1_MESSAGE_STATUS status = I2C1_MESSAGE_PENDING;
 
+timeOut = 0;
+while (status != I2C1_MESSAGE_FAIL) {
 
-} I2C_TR_QUEUE_ENTRY;
-
-# 57
-typedef struct
-{
-
-I2C_TR_QUEUE_ENTRY *pTrTail;
-I2C_TR_QUEUE_ENTRY *pTrHead;
-I2C_TR_QUEUE_STATUS trStatus;
-uint8_t i2cDoneFlag;
-
-uint8_t i2cErrors;
+I2C1_MasterWrite(Buff,
+2,
+0x3C,
+&status);
 
 
-} I2C_OBJECT ;
+while (status == I2C1_MESSAGE_PENDING);
 
-# 81
-typedef enum
-{
-S_MASTER_IDLE,
-S_MASTER_RESTART,
-S_MASTER_SEND_ADDR,
-S_MASTER_SEND_DATA,
-S_MASTER_SEND_STOP,
-S_MASTER_ACK_ADDR,
-S_MASTER_RCV_DATA,
-S_MASTER_RCV_STOP,
-S_MASTER_ACK_RCV_DATA,
-S_MASTER_NOACK_STOP,
-S_MASTER_SEND_ADDR_10BIT_LSB,
-S_MASTER_10BIT_RESTART,
-
-} I2C_MASTER_STATES;
-
-# 130
-void I2C1_FunctionComplete(void);
-void I2C1_Stop(I2C1_MESSAGE_STATUS completion_code);
-
-# 137
-static I2C_TR_QUEUE_ENTRY i2c1_tr_queue[1];
-static I2C_OBJECT i2c1_object;
-static I2C_MASTER_STATES i2c1_state = S_MASTER_IDLE;
-static uint8_t i2c1_trb_count = 0;
-
-static I2C1_TRANSACTION_REQUEST_BLOCK *p_i2c1_trb_current = (0);
-static I2C_TR_QUEUE_ENTRY *p_i2c1_current = (0);
-
-# 151
-void I2C1_Initialize(void)
-{
-i2c1_object.pTrHead = i2c1_tr_queue;
-i2c1_object.pTrTail = i2c1_tr_queue;
-i2c1_object.trStatus.s.empty = 1;
-i2c1_object.trStatus.s.full = 0;
-
-i2c1_object.i2cErrors = 0;
-
-
-SSP1STAT = 0x80;
-
-SSP1CON1 = 0x28;
-
-SSP1CON3 = 0x00;
-
-SSP1ADD = 0x09;
-
-
-
-PIR1bits.SSP1IF = 0;
-
-PIE1bits.SSP1IE = 1;
-
-}
-
-
-uint8_t I2C1_ErrorCountGet(void)
-{
-uint8_t ret;
-
-ret = i2c1_object.i2cErrors;
-return ret;
-}
-
-void I2C1_ISR ( void )
-{
-
-static uint8_t *pi2c_buf_ptr;
-static uint16_t i2c_address = 0;
-static uint8_t i2c_bytes_left = 0;
-static uint8_t i2c_10bit_address_restart = 0;
-
-PIR1bits.SSP1IF = 0;
-
-
-
-if(SSP1CON1bits.WCOL)
-{
-
-SSP1CON1bits.WCOL = 0;
-i2c1_state = S_MASTER_IDLE;
-*(p_i2c1_current->pTrFlag) = I2C1_MESSAGE_FAIL;
-
-
-p_i2c1_current = (0);
-
-return;
-}
-
-
-switch(i2c1_state)
-{
-case S_MASTER_IDLE:
-
-if(i2c1_object.trStatus.s.empty != 1)
-{
-
-p_i2c1_current = i2c1_object.pTrHead;
-i2c1_trb_count = i2c1_object.pTrHead->count;
-p_i2c1_trb_current = i2c1_object.pTrHead->ptrb_list;
-
-i2c1_object.pTrHead++;
-
-
-if(i2c1_object.pTrHead == (i2c1_tr_queue + 1))
-{
-
-i2c1_object.pTrHead = i2c1_tr_queue;
-}
-
-
-
-i2c1_object.trStatus.s.full = 0;
-
-
-if(i2c1_object.pTrHead == i2c1_object.pTrTail)
-{
-
-i2c1_object.trStatus.s.empty = 1;
-}
-
-
-SSP1CON2bits.SEN = 1;
-
-
-i2c1_state = S_MASTER_SEND_ADDR;
-}
-
+if (status == I2C1_MESSAGE_COMPLETE)
 break;
-
-case S_MASTER_RESTART:
-
-
-
-
-SSP1CON2bits.RSEN = 1;
-
-
-i2c1_state = S_MASTER_SEND_ADDR;
-
+if (timeOut == 100)
 break;
-
-case S_MASTER_SEND_ADDR_10BIT_LSB:
-
-if(SSP1CON2bits.ACKSTAT)
-{
-i2c1_object.i2cErrors++;
-I2C1_Stop(I2C1_MESSAGE_ADDRESS_NO_ACK);
-}
-else
-{
-
-SSP1BUF = (i2c_address >> 1) & 0x00FF;
-
-
-if(i2c_address & 0x01)
-{
-
-
-i2c1_state = S_MASTER_10BIT_RESTART;
-}
-else
-{
-
-i2c1_state = S_MASTER_SEND_DATA;
-}
-}
-
+if (status == I2C1_MESSAGE_FAIL)
 break;
-
-case S_MASTER_10BIT_RESTART:
-
-if(SSP1CON2bits.ACKSTAT)
-{
-i2c1_object.i2cErrors++;
-I2C1_Stop(I2C1_MESSAGE_ADDRESS_NO_ACK);
-}
 else
-{
-
-
-SSP1CON2bits.RSEN = 1;
-
-
-
-i2c_address = 0x00F0 | ((i2c_address >> 8) & 0x0006);
-
-
-i2c_address |= 0x0001;
-
-
-i2c_10bit_address_restart = 1;
-
-
-i2c1_state = S_MASTER_SEND_ADDR;
+timeOut++;
+}
 }
 
+void oledGotoYX(unsigned char Row, unsigned char Column)
+{
+OLED_command( 0xB0 + Row);
+OLED_command( 0xB0 + Row);
+OLED_command( 0x00 + (8*Column & 0x0F) );
+OLED_command( 0x00 + (8*Column & 0x0F) );
+OLED_command( 0x10 + ((8*Column>>4)&0x0F) );
+OLED_command( 0x10 + ((8*Column>>4)&0x0F) );
+}
+
+# 146
+void OLED_init()
+{
+OLED_command (0xae);
+OLED_command (0xa8);
+OLED_command (0x3f);
+OLED_command (0xd3);
+OLED_command (0x00);
+OLED_command (0x40);
+
+OLED_command (0xa0);
+OLED_command (0xa1);
+OLED_command (0xc0);
+
+OLED_command (0xc8);
+OLED_command (0xda);
+OLED_command (0x12);
+OLED_command (0x81);
+OLED_command (0xfF);
+OLED_command (0xa4);
+OLED_command (0xa6);
+OLED_command (0xd5);
+OLED_command (0x80);
+OLED_command (0x8d);
+OLED_command (0x14);
+OLED_command (0xAF);
+OLED_command (0x20);
+OLED_command (0x00);
+
+}
+
+
+
+void oledPutChar( char ch ){
+if ( ( ch < 32 ) || ( ch > 127 ) )
+ch = ' ';
+
+const uint8_t *base = &OledFont[ch - 32][0];
+
+uint8_t bytes[9];
+bytes[0] = 0x40;
+memmove( bytes + 1, base, 8 );
+
+I2C1_MESSAGE_STATUS status = I2C1_MESSAGE_PENDING;
+
+timeOut = 0;
+while (status != I2C1_MESSAGE_FAIL) {
+
+I2C1_MasterWrite(bytes,
+9,
+0x3C,
+&status);
+
+
+while (status == I2C1_MESSAGE_PENDING);
+
+if (status == I2C1_MESSAGE_COMPLETE)
 break;
-
-case S_MASTER_SEND_ADDR:
-
-# 334
-if(i2c_10bit_address_restart != 1)
-{
-
-i2c_address = p_i2c1_trb_current->address;
-pi2c_buf_ptr = p_i2c1_trb_current->pbuffer;
-i2c_bytes_left = p_i2c1_trb_current->length;
-}
-
-
-if(!1 && (0x0 != i2c_address))
-{
-if (0 == i2c_10bit_address_restart)
-{
-
-
-
-SSP1BUF = 0xF0 | ((i2c_address >> 8) & 0x0006);
-i2c1_state = S_MASTER_SEND_ADDR_10BIT_LSB;
-}
-else
-{
-
-SSP1BUF = i2c_address;
-i2c1_state = S_MASTER_ACK_ADDR;
-
-i2c_10bit_address_restart = 0;
-}
-}
-else
-{
-
-SSP1BUF = i2c_address;
-if(i2c_address & 0x01)
-{
-
-i2c1_state = S_MASTER_ACK_ADDR;
-}
-else
-{
-
-i2c1_state = S_MASTER_SEND_DATA;
-}
-}
+if (timeOut == 100)
 break;
-
-case S_MASTER_SEND_DATA:
-
-
-if(SSP1CON2bits.ACKSTAT)
-{
-
-i2c1_object.i2cErrors++;
-
-
-SSP1CON2bits.ACKSTAT = 0;
-
-
-I2C1_Stop(I2C1_DATA_NO_ACK);
-
-}
-else
-{
-
-if(i2c_bytes_left-- == 0U)
-{
-
-
-
-p_i2c1_trb_current++;
-
-
-if(--i2c1_trb_count == 0)
-{
-I2C1_Stop(I2C1_MESSAGE_COMPLETE);
-}
-else
-{
-
-# 417
-SSP1CON2bits.RSEN = 1;
-
-
-i2c1_state = S_MASTER_SEND_ADDR;
-
-}
-}
-else
-{
-
-SSP1BUF = *pi2c_buf_ptr++;
-}
-}
+if (status == I2C1_MESSAGE_FAIL)
 break;
-
-case S_MASTER_ACK_ADDR:
-
-
-if(SSP1CON2bits.ACKSTAT)
-{
-
-
-i2c1_object.i2cErrors++;
-
-
-I2C1_Stop(I2C1_MESSAGE_ADDRESS_NO_ACK);
-
-
-SSP1CON2bits.ACKSTAT = 0;
-}
 else
+timeOut++;
+}
+}
+
+void oledClear()
 {
-SSP1CON2bits.RCEN = 1;
-i2c1_state = S_MASTER_ACK_RCV_DATA;
+for ( uint16_t row = 0; row < 8; row++ ) {
+for ( uint16_t col = 0; col < 16; col++ ) {
+oledGotoYX( row, col );
+oledPutChar( ' ' );
 }
-break;
+}
+}
 
-case S_MASTER_RCV_DATA:
-
-
-
-
-i2c1_state = S_MASTER_ACK_RCV_DATA;
-
-
-SSP1CON2bits.RCEN = 1;
-
-break;
-
-case S_MASTER_ACK_RCV_DATA:
-
-
-*pi2c_buf_ptr++ = SSP1BUF;
-
-
-if(--i2c_bytes_left)
+void oledPrint( char *s )
 {
-
-# 479
-SSP1CON2bits.ACKDT = 0;
-
-
-i2c1_state = S_MASTER_RCV_DATA;
+while (*s) oledPutChar( *s++);
 }
-else
-{
-
-
-
-SSP1CON2bits.ACKDT = 1;
-
-I2C1_FunctionComplete();
-}
-
-
-SSP1CON2bits.ACKEN = 1;
-break;
-
-case S_MASTER_RCV_STOP:
-case S_MASTER_SEND_STOP:
-
-
-I2C1_Stop(I2C1_MESSAGE_COMPLETE);
-break;
-
-default:
-
-
-
-i2c1_object.i2cErrors++;
-I2C1_Stop(I2C1_LOST_STATE);
-break;
-
-}
-}
-
-void I2C1_FunctionComplete(void)
-{
-
-
-p_i2c1_trb_current++;
-
-
-if(--i2c1_trb_count == 0)
-{
-i2c1_state = S_MASTER_SEND_STOP;
-}
-else
-{
-i2c1_state = S_MASTER_RESTART;
-}
-
-}
-
-void I2C1_Stop(I2C1_MESSAGE_STATUS completion_code)
-{
-
-SSP1CON2bits.PEN = 1;
-
-
-if (p_i2c1_current->pTrFlag != (0))
-{
-
-*(p_i2c1_current->pTrFlag) = completion_code;
-}
-
-
-i2c1_state = S_MASTER_IDLE;
-
-}
-
-void I2C1_MasterWrite(
-uint8_t *pdata,
-uint8_t length,
-uint16_t address,
-I2C1_MESSAGE_STATUS *pflag)
-{
-static I2C1_TRANSACTION_REQUEST_BLOCK trBlock;
-
-
-if (i2c1_object.trStatus.s.full != 1)
-{
-I2C1_MasterWriteTRBBuild(&trBlock, pdata, length, address);
-I2C1_MasterTRBInsert(1, &trBlock, pflag);
-}
-else
-{
-*pflag = I2C1_MESSAGE_FAIL;
-}
-
-}
-
-void I2C1_MasterRead(
-uint8_t *pdata,
-uint8_t length,
-uint16_t address,
-I2C1_MESSAGE_STATUS *pflag)
-{
-static I2C1_TRANSACTION_REQUEST_BLOCK trBlock;
-
-
-
-if (i2c1_object.trStatus.s.full != 1)
-{
-I2C1_MasterReadTRBBuild(&trBlock, pdata, length, address);
-I2C1_MasterTRBInsert(1, &trBlock, pflag);
-}
-else
-{
-*pflag = I2C1_MESSAGE_FAIL;
-}
-
-}
-
-void I2C1_MasterTRBInsert(
-uint8_t count,
-I2C1_TRANSACTION_REQUEST_BLOCK *ptrb_list,
-I2C1_MESSAGE_STATUS *pflag)
-{
-
-
-if (i2c1_object.trStatus.s.full != 1)
-{
-*pflag = I2C1_MESSAGE_PENDING;
-
-i2c1_object.pTrTail->ptrb_list = ptrb_list;
-i2c1_object.pTrTail->count = count;
-i2c1_object.pTrTail->pTrFlag = pflag;
-i2c1_object.pTrTail++;
-
-
-if (i2c1_object.pTrTail == (i2c1_tr_queue + 1))
-{
-
-i2c1_object.pTrTail = i2c1_tr_queue;
-}
-
-
-
-i2c1_object.trStatus.s.empty = 0;
-
-
-if (i2c1_object.pTrHead == i2c1_object.pTrTail)
-{
-
-i2c1_object.trStatus.s.full = 1;
-}
-
-}
-else
-{
-*pflag = I2C1_MESSAGE_FAIL;
-}
-
-
-if (*pflag == I2C1_MESSAGE_PENDING)
-{
-while(i2c1_state != S_MASTER_IDLE);
-{
-
-
-PIR1bits.SSP1IF = 1;
-}
-}
-
-}
-
-void I2C1_MasterReadTRBBuild(
-I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
-uint8_t *pdata,
-uint8_t length,
-uint16_t address)
-{
-ptrb->address = address << 1;
-
-ptrb->address |= 0x01;
-ptrb->length = length;
-ptrb->pbuffer = pdata;
-}
-
-void I2C1_MasterWriteTRBBuild(
-I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
-uint8_t *pdata,
-uint8_t length,
-uint16_t address)
-{
-ptrb->address = address << 1;
-ptrb->length = length;
-ptrb->pbuffer = pdata;
-}
-
-bool I2C1_MasterQueueIsEmpty(void)
-{
-return(i2c1_object.trStatus.s.empty);
-}
-
-bool I2C1_MasterQueueIsFull(void)
-{
-return(i2c1_object.trStatus.s.full);
-}
-
-void I2C1_BusCollisionISR( void )
-{
-
-}
-

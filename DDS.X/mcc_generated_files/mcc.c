@@ -120,6 +120,8 @@ void SYSTEM_Initialize(void)
     EUSART1_Initialize();    
     begin(receiveArray, sizeof (receiveArray), DDS_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
     I2C1_Initialize();
+    Setupdisplay();
+    Splash();
 }
 
 void OSCILLATOR_Initialize(void)

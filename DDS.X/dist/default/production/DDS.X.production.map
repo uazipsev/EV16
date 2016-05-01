@@ -5,7 +5,7 @@ Linker command line:
 --edf=C:\Program Files (x86)\Microchip\xc8\v1.36\dat\en_msgs.txt -cs \
   -h+dist/default/production\DDS.X.production.sym \
   --cmf=dist/default/production\DDS.X.production.cmf -z -Q18F45K22 \
-  -oC:\Users\Andrew\AppData\Local\Temp\s8a8.2 \
+  -oC:\Users\Rick\AppData\Local\Temp\snk.2 \
   -Mdist/default/production/DDS.X.production.map -E1 -ver=XC8 \
   -ASTACK=0153h-01ffh -pstack=STACK -ACODE=00h-07FFFh -ACONST=00h-07FFFh \
   -ASMALLCONST=0600h-06FFhx122 -AMEDIUMCONST=0600h-07FFFh -ACOMRAM=01h-05Fh \
@@ -22,7 +22,7 @@ Linker command line:
   -pfarbss=FARRAM,fardata=FARRAM,nvFARRAM=FARRAM \
   -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
   -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE -prparam=COMRAM \
-  C:\Users\Andrew\AppData\Local\Temp\s8a8.obj \
+  C:\Users\Rick\AppData\Local\Temp\snk.obj \
   dist/default/production\DDS.X.production.obj 
 
 Object code version is 3.11
@@ -35,7 +35,7 @@ Call graph: (short form)
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\Andrew\AppData\Local\Temp\s8a8.obj
+C:\Users\Rick\AppData\Local\Temp\snk.obj
                 end_init                             D0       D0        4        4       0
                 reset_vec                             0        0        4        0       0
                 idloc                            200000   200000        8   200000       0
@@ -43,6 +43,7 @@ C:\Users\Andrew\AppData\Local\Temp\s8a8.obj
 dist/default/production\DDS.X.production.obj
                 intcode                               8        8       C8        4       0
                 temp                                 45       45        1        1       1
+                mediumconst                        7CE2     7CE2      31E     3E71       0
                 text77                             3044     3044        4        4       0
                 text76                             2E34     2E34       2A        4       0
                 text75                             1B1C     1B1C      11A        4       0
@@ -121,14 +122,14 @@ dist/default/production\DDS.X.production.obj
                 text1                              2CE6     2CE6       3A        4       0
                 text0                              1D4C     1D4C       F4        4       0
                 cstackCOMRAM                          1        1       2B        1       1
-                cstackBANK0                          EE       EE       10       60       1
+                cstackBANK0                          F4       F4        A       60       1
                 cstackBANK1                         139      139       1A      100       1
                 bssBANK5                            500      500       CE      500       1
                 bssBANK4                            400      400       CE      400       1
                 bssBANK3                            300      300       C8      300       1
                 bssBANK2                            200      200       CE      200       1
                 bssBANK1                            100      100       39      100       1
-                bssBANK0                             60       60       8E       60       1
+                bssBANK0                             60       60       94       60       1
                 dataCOMRAM                           44       44        1        1       1
                 bssCOMRAM                            2C       2C       16        1       1
                 cinit                              2846     2846       74        4       0
@@ -228,6 +229,7 @@ TOTAL           Name                               Link     Load   Length     Sp
         CLASS   SMALLCONST     
 
         CLASS   MEDIUMCONST    
+                mediumconst                        7CE2     7CE2      31E         0
 
         CLASS   COMRAM         
                 temp                                 45       45        1         1
@@ -243,8 +245,8 @@ TOTAL           Name                               Link     Load   Length     Sp
         CLASS   RAM            
 
         CLASS   BANK0          
-                cstackBANK0                          EE       EE       10         1
-                bssBANK0                             60       60       8E         1
+                cstackBANK0                          F4       F4        A         1
+                bssBANK0                             60       60       94         1
                 nvBANK0                              FE       FE        2         1
 
         CLASS   BANK1          
@@ -288,6 +290,7 @@ SEGMENTS        Name                           Load    Length   Top    Selector 
                 bssBANK3                       000300  0000C8  0003C8       300       1  BANK3   
                 bssBANK4                       000400  0000CE  0004CE       400       1  BANK4   
                 bssBANK5                       000500  0000CE  0005CE       500       1  BANK5   
+                mediumconst                    007CE2  00031E  008000      3E71       0  MEDIUMCO
                 idloc                          200000  000008  200008    200000       0  IDLOC   
                 config                         300000  00000E  30000E    300000       0  CONFIG  
 
@@ -307,19 +310,19 @@ UNUSED ADDRESS RANGES
                          0004CE-0004FF               32
                          0005CE-0005FF               32
         CODE             000004-000007                4
-                         00304F-007FFF             4FB1
+                         00304F-007CE1             4C93
         COMRAM           000046-00005F               1A
         CONST            000004-000007                4
-                         00304F-007FFF             4FB1
+                         00304F-007CE1             4C93
         EEDATA           F00000-F000FF              100
-        MEDIUMCONST      00304F-007FFF             4FB1
+        MEDIUMCONST      00304F-007CE1             4C93
         RAM              000153-0001FF               AD
                          0002CE-0002FF               32
                          0003C8-0003FF               38
                          0004CE-0004FF               32
                          0005CE-0005FF               32
         SFR              000F38-000FFF               28
-        SMALLCONST       00304F-007FFF              100
+        SMALLCONST       00304F-007CE1              100
         STACK            000153-0001FF               AD
 
                                   Symbol Table
@@ -331,7 +334,7 @@ UNUSED ADDRESS RANGES
 ?___awdiv                                 cstackCOMRAM 00001B
 ?___ftmul                                 cstackCOMRAM 000026
 ?___ftpack                                cstackCOMRAM 00001B
-?___fttol                                 cstackBANK0  0000F7
+?___fttol                                 cstackBANK1  000139
 ?___lwtoft                                cstackCOMRAM 000023
 ?_buttonsCollector                        cstackCOMRAM 000021
 ?i2_UART_buff_modulo_inc                  cstackCOMRAM 000001
@@ -342,10 +345,10 @@ CRC8@extract                              cstackCOMRAM 00001F
 CRC8@len                                  cstackCOMRAM 00001D
 CRC8@sum                                  cstackCOMRAM 00001E
 CRC8@tempI                                cstackCOMRAM 000020
-CRCcheck@SentCRC                          cstackBANK0  0000EE
-CRCcheck@arrayHolder                      cstackBANK0  0000F0
-CRCcheck@calculatedCRC                    cstackBANK0  0000EF
-CRCcheck@rt                               cstackBANK0  0000F3
+CRCcheck@SentCRC                          cstackBANK0  0000F4
+CRCcheck@arrayHolder                      cstackBANK0  0000F6
+CRCcheck@calculatedCRC                    cstackBANK0  0000F5
+CRCcheck@rt                               cstackBANK0  0000F9
 Delay@wait                                cstackCOMRAM 00001B
 Delay@x                                   cstackCOMRAM 00001E
 EUSART1_Receive_ISR@data                  cstackCOMRAM 00000C
@@ -362,7 +365,7 @@ I2C1_ISR@i2c_10bit_address_restart        bssCOMRAM    000034
 I2C1_ISR@i2c_address                      bssCOMRAM    000040
 I2C1_ISR@i2c_bytes_left                   bssCOMRAM    000035
 I2C1_ISR@pi2c_buf_ptr                     bssBANK0     0000BF
-I2C1_MasterRead@trBlock                   bssBANK0     0000DF
+I2C1_MasterRead@trBlock                   bssBANK0     0000E3
 I2C1_MasterTRBInsert@count                cstackCOMRAM 000020
 I2C1_MasterTRBInsert@pflag                cstackCOMRAM 00001D
 I2C1_MasterTRBInsert@ptrb_list            cstackCOMRAM 00001B
@@ -370,33 +373,33 @@ I2C1_MasterWrite@address                  cstackCOMRAM 000027
 I2C1_MasterWrite@length                   cstackCOMRAM 000026
 I2C1_MasterWrite@pdata                    cstackCOMRAM 000024
 I2C1_MasterWrite@pflag                    cstackCOMRAM 000029
-I2C1_MasterWrite@trBlock                  bssBANK0     0000E4
+I2C1_MasterWrite@trBlock                  bssBANK0     0000E8
 I2C1_MasterWriteTRBBuild@address          cstackCOMRAM 000020
 I2C1_MasterWriteTRBBuild@length           cstackCOMRAM 00001F
 I2C1_MasterWriteTRBBuild@pdata            cstackCOMRAM 00001D
 I2C1_MasterWriteTRBBuild@ptrb             cstackCOMRAM 00001B
 I2C1_Stop@completion_code                 cstackCOMRAM 000003
-LEDBsetBrightness@b                       cstackBANK0  0000EE
-LEDBsetBrightness@i2c_addr                cstackBANK0  0000F0
-LEDBsetBrightness@status                  cstackBANK0  0000F5
-LEDBsetBrightness@timeOut                 cstackBANK0  0000F3
-LEDBsetBrightness@writeBuffer             cstackBANK0  0000F1
-LEDbegin@i2c_addr                         cstackBANK0  0000FB
-LEDbegin@status                           cstackBANK0  0000FC
-LEDbegin@timeOut                          cstackBANK0  0000F9
-LEDbegin@writeBuffer                      cstackBANK0  0000F6
-LEDblinkRate@b                            cstackBANK0  0000EE
-LEDblinkRate@i2c_addr                     cstackBANK0  0000F0
-LEDblinkRate@status                       cstackBANK0  0000F5
-LEDblinkRate@timeOut                      cstackBANK0  0000F3
-LEDblinkRate@writeBuffer                  cstackBANK0  0000F1
+LEDBsetBrightness@b                       cstackBANK0  0000F4
+LEDBsetBrightness@i2c_addr                cstackBANK0  0000F6
+LEDBsetBrightness@status                  cstackBANK0  0000FB
+LEDBsetBrightness@timeOut                 cstackBANK0  0000F9
+LEDBsetBrightness@writeBuffer             cstackBANK0  0000F7
+LEDbegin@i2c_addr                         cstackBANK1  00013E
+LEDbegin@status                           cstackBANK1  00013F
+LEDbegin@timeOut                          cstackBANK1  00013C
+LEDbegin@writeBuffer                      cstackBANK1  000139
+LEDblinkRate@b                            cstackBANK0  0000F4
+LEDblinkRate@i2c_addr                     cstackBANK0  0000F6
+LEDblinkRate@status                       cstackBANK0  0000FB
+LEDblinkRate@timeOut                      cstackBANK0  0000F9
+LEDblinkRate@writeBuffer                  cstackBANK0  0000F7
 LEDsetBar@a                               cstackCOMRAM 000029
 LEDsetBar@bar                             cstackCOMRAM 000023
 LEDsetBar@c                               cstackCOMRAM 000027
 LEDsetBar@color                           cstackCOMRAM 000025
-LEDsetValue@color                         cstackBANK1  000146
-LEDsetValue@k                             cstackBANK1  000149
-LEDsetValue@value                         cstackBANK1  000144
+LEDsetValue@color                         cstackBANK1  00014B
+LEDsetValue@k                             cstackBANK1  00014D
+LEDsetValue@value                         cstackBANK1  000149
 LEDwriteDisplay@i2c_addr                  cstackBANK1  00014D
 LEDwriteDisplay@status                    cstackBANK1  000150
 LEDwriteDisplay@timeOut                   cstackBANK1  00014E
@@ -413,7 +416,7 @@ TMR0_ISR@x                                cstackCOMRAM 000005
 TMR2_CallBack@i                           cstackCOMRAM 000003
 TMR2_SetInterruptHandler@InterruptHandler cstackCOMRAM 00001B
 ToSend@what                               cstackCOMRAM 00002A
-ToSend@where                              cstackBANK0  0000EE
+ToSend@where                              cstackBANK0  0000F4
 UART_buff_get@_this                       cstackCOMRAM 000021
 UART_buff_get@c                           cstackCOMRAM 000025
 UART_buff_init@_this                      cstackCOMRAM 000023
@@ -439,6 +442,7 @@ _ANSELC                                   (abs)        000F3A
 _ANSELD                                   (abs)        000F3B
 _ANSELE                                   (abs)        000F3C
 _BAUD1CON                                 (abs)        000FB8
+_Buff                                     bssBANK0     0000F2
 _CRC8                                     text25       002B5A
 _CRCcheck                                 text17       0013DA
 _Delay                                    text11       002D20
@@ -490,6 +494,7 @@ _OSCCON2                                  (abs)        000FD2
 _OSCILLATOR_Initialize                    text43       00301C
 _OSCTUNE                                  (abs)        000F9B
 _Off_Led                                  text29       0020D0
+_OledFont                                 mediumconst  007CE3
 _PIE1bits                                 (abs)        000F9D
 _PIE2bits                                 (abs)        000FA0
 _PIN_MANAGER_Initialize                   text42       002ABE
@@ -640,7 +645,7 @@ __Hintentry                               intentry     000000
 __Hintret                                 intret       000000
 __Hintsave_regs                           intsave_regs 000000
 __Hirdata                                 irdata       000000
-__Hmediumconst                            mediumconst  000000
+__Hmediumconst                            mediumconst  008000
 __HnvBANK0                                nvBANK0      000000
 __HnvCOMRAM                               nvCOMRAM     000000
 __HnvFARRAM                               nvFARRAM     000000
@@ -788,7 +793,7 @@ __Lintentry                               intentry     000000
 __Lintret                                 intret       000000
 __Lintsave_regs                           intsave_regs 000000
 __Lirdata                                 irdata       000000
-__Lmediumconst                            mediumconst  000000
+__Lmediumconst                            mediumconst  007CE2
 __LnvBANK0                                nvBANK0      000000
 __LnvCOMRAM                               nvCOMRAM     000000
 __LnvFARRAM                               nvFARRAM     000000
@@ -900,21 +905,21 @@ ___awdiv@divisor                          cstackCOMRAM 00001D
 ___awdiv@quotient                         cstackCOMRAM 000021
 ___awdiv@sign                             cstackCOMRAM 000020
 ___ftmul                                  text33       0017AC
-___ftmul@cntr                             cstackBANK0  0000F5
-___ftmul@exp                              cstackBANK0  0000F1
+___ftmul@cntr                             cstackBANK0  0000FB
+___ftmul@exp                              cstackBANK0  0000F7
 ___ftmul@f1                               cstackCOMRAM 000026
 ___ftmul@f2                               cstackCOMRAM 000029
-___ftmul@f3_as_product                    cstackBANK0  0000F2
-___ftmul@sign                             cstackBANK0  0000F6
+___ftmul@f3_as_product                    cstackBANK0  0000F8
+___ftmul@sign                             cstackBANK0  0000FC
 ___ftpack                                 text34       002312
 ___ftpack@arg                             cstackCOMRAM 00001B
 ___ftpack@exp                             cstackCOMRAM 00001E
 ___ftpack@sign                            cstackCOMRAM 00001F
 ___fttol                                  text32       001538
-___fttol@exp1                             cstackBANK1  000143
-___fttol@f1                               cstackBANK0  0000F7
-___fttol@lval                             cstackBANK1  00013F
-___fttol@sign1                            cstackBANK1  00013E
+___fttol@exp1                             cstackBANK1  000147
+___fttol@f1                               cstackBANK1  000139
+___fttol@lval                             cstackBANK1  000143
+___fttol@sign1                            cstackBANK1  000142
 ___inthi_sp                               stack        000000
 ___intlo_sp                               stack        000000
 ___lwtoft                                 text31       002EAA
@@ -954,6 +959,7 @@ __end_of_LEDsetValue                      text51       002464
 __end_of_LEDwriteDisplay                  text50       001A02
 __end_of_OSCILLATOR_Initialize            text43       00302A
 __end_of_Off_Led                          text29       00219A
+__end_of_OledFont                         mediumconst  007FE3
 __end_of_PIN_MANAGER_Initialize           text42       002B0E
 __end_of_ReadButtonState                  text66       001D4C
 __end_of_Receive_available                text23       002FB0
@@ -1004,7 +1010,7 @@ __end_ofi2_UART_buff_modulo_inc           text76       002E5E
 __end_ofi2_UART_buff_put                  text75       001C36
 __end_ofi2_UART_buff_size                 text72       002FDC
 __initialization                          cinit        002846
-__mediumconst                             mediumconst  000000
+__mediumconst                             mediumconst  007CE2
 __pbssBANK0                               bssBANK0     000060
 __pbssBANK1                               bssBANK1     000100
 __pbssBANK2                               bssBANK2     000200
@@ -1013,12 +1019,13 @@ __pbssBANK4                               bssBANK4     000400
 __pbssBANK5                               bssBANK5     000500
 __pbssCOMRAM                              bssCOMRAM    00002C
 __pcinit                                  cinit        002846
-__pcstackBANK0                            cstackBANK0  0000EE
+__pcstackBANK0                            cstackBANK0  0000F4
 __pcstackBANK1                            cstackBANK1  000139
 __pcstackCOMRAM                           cstackCOMRAM 000001
 __pdataCOMRAM                             dataCOMRAM   000044
 __pidataCOMRAM                            idataCOMRAM  00304E
 __pintcode                                intcode      000008
+__pmediumconst                            mediumconst  007CE2
 __pnvBANK0                                nvBANK0      0000FE
 __pnvCOMRAM                               nvCOMRAM     000042
 __ptext0                                  text0        001D4C
@@ -1195,21 +1202,22 @@ _dataAdressErrorCounter                   bssBANK0     0000CB
 _displaybuffer                            bssBANK0     000060
 _group                                    bssCOMRAM    00002C
 _handleIndicators                         text26       0027CE
+_i                                        bssBANK0     0000CD
 _i2c1_object                              bssBANK0     0000B8
 _i2c1_state                               bssCOMRAM    000038
-_i2c1_tr_queue                            bssBANK0     0000E9
+_i2c1_tr_queue                            bssBANK0     0000ED
 _i2c1_trb_count                           bssCOMRAM    000039
 _input_buffer                             bssBANK4     000400
-_k                                        bssBANK0     0000CD
+_k                                        bssBANK0     0000CF
 _main                                     text0        001D4C
 _maxDataAddress                           bssCOMRAM    00003A
 _memset                                   text48       002DB4
 _moduleAddress                            bssCOMRAM    00003B
 _output_buffer                            bssBANK5     000500
-_p_i2c1_current                           bssBANK0     0000CF
-_p_i2c1_trb_current                       bssBANK0     0000D1
+_p_i2c1_current                           bssBANK0     0000D1
+_p_i2c1_trb_current                       bssBANK0     0000D3
 _receiveArray                             bssBANK1     000100
-_receiveArrayAddress                      bssBANK0     0000D3
+_receiveArrayAddress                      bssBANK0     0000D5
 _receiveData                              text12       0000D4
 _respondECU                               text2        002BA4
 _returnAddress                            bssCOMRAM    00003C
@@ -1219,24 +1227,25 @@ _rx_array_inx                             bssCOMRAM    00003E
 _rx_buffer                                bssBANK3     000300
 _rx_len                                   bssCOMRAM    00003F
 _sendData                                 text3        00167C
-_sendStructAddress                        bssBANK0     0000D5
+_sendStructAddress                        bssBANK0     0000D7
 _serial_available                         bssCOMRAM    00002E
-_serial_peek                              bssBANK0     0000D7
+_serial_peek                              bssBANK0     0000D9
 _serial_read                              bssCOMRAM    000030
 _serial_write                             bssCOMRAM    000032
 _setLED                                   text28       00219A
-_throttle                                 bssBANK0     0000D9
-_time                                     bssBANK0     0000DB
+_throttle                                 bssBANK0     0000DB
+_time                                     bssBANK0     0000DD
+_timeOut                                  bssBANK0     0000DF
 _timer0ReloadVal16bit                     nvCOMRAM     000042
 _updateComms                              text1        002CE6
-begin@error                               cstackBANK0  0000F2
-begin@givenAddress                        cstackBANK0  0000F1
-begin@maxSize                             cstackBANK0  0000F0
-begin@ptr                                 cstackBANK0  0000EE
-begin@stuffavailable                      cstackBANK0  0000F7
-begin@stuffpeek                           cstackBANK0  0000F9
-begin@stufftoreceive                      cstackBANK0  0000F5
-begin@stufftosend                         cstackBANK0  0000F3
+begin@error                               cstackBANK1  00013D
+begin@givenAddress                        cstackBANK1  00013C
+begin@maxSize                             cstackBANK1  00013B
+begin@ptr                                 cstackBANK1  000139
+begin@stuffavailable                      cstackBANK1  000142
+begin@stuffpeek                           cstackBANK1  000144
+begin@stufftoreceive                      cstackBANK1  000140
+begin@stufftosend                         cstackBANK1  00013E
 btemp                                     temp         000045
 buttonsCollector@i                        cstackCOMRAM 000028
 buttonsCollector@sendVal                  cstackCOMRAM 000026
@@ -1254,7 +1263,7 @@ crcBufS_status_put@time                   cstackCOMRAM 00001D
 crcBufS_status_put@wantedTime             cstackCOMRAM 000023
 end_of_initialization                     cinit        0028AC
 handleIndicators@i                        cstackCOMRAM 00002A
-handleIndicators@oldIndicators            bssBANK0     0000DD
+handleIndicators@oldIndicators            bssBANK0     0000E1
 handleIndicators@receivedIndicators       cstackCOMRAM 000025
 i2UART_buff_get@_this                     cstackCOMRAM 000007
 i2UART_buff_get@c                         cstackCOMRAM 00000B
@@ -1278,12 +1287,12 @@ memset@c                                  cstackCOMRAM 00001D
 memset@n                                  cstackCOMRAM 00001F
 memset@p                                  cstackCOMRAM 000021
 memset@p1                                 cstackCOMRAM 00001B
-receiveData@crcHolder                     cstackBANK1  00013F
-receiveData@crcHolder_2355                cstackBANK1  000140
-receiveData@holder                        cstackBANK1  000139
-receiveData@holder_2354                   cstackBANK1  00013C
-receiveData@r                             cstackBANK1  000143
-receiveData@u                             cstackBANK1  000141
+receiveData@crcHolder                     cstackBANK1  000145
+receiveData@crcHolder_2355                cstackBANK1  000146
+receiveData@holder                        cstackBANK1  00013F
+receiveData@holder_2354                   cstackBANK1  000142
+receiveData@r                             cstackBANK1  000149
+receiveData@u                             cstackBANK1  000147
 sendData@CS                               cstackCOMRAM 000029
 sendData@i                                cstackCOMRAM 00002A
 sendData@whereToSend                      cstackCOMRAM 000028
@@ -1693,12 +1702,12 @@ Total ram usage:        5 bytes
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
-  holder          3    3[BANK1 ] unsigned char [3]
-  crcHolder       1    7[BANK1 ] unsigned char 
-  holder          3    0[BANK1 ] unsigned char [3]
-  crcHolder       1    6[BANK1 ] unsigned char 
-  u               2    8[BANK1 ] int 
-  r               2   10[BANK1 ] int 
+  holder          3    9[BANK1 ] unsigned char [3]
+  crcHolder       1   13[BANK1 ] unsigned char 
+  holder          3    6[BANK1 ] unsigned char [3]
+  crcHolder       1   12[BANK1 ] unsigned char 
+  u               2   14[BANK1 ] int 
+  r               2   16[BANK1 ] int 
  Return value:  Size  Location     Type
                   1    wreg      unsigned char 
  Registers used:
@@ -1710,8 +1719,8 @@ Total ram usage:        5 bytes
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
       Params:         0       0       0       0       0       0       0
       Locals:         0       0      12       0       0       0       0
-      Temps:          0       6       0       0       0       0       0
-      Totals:         0       6      12       0       0       0       0
+      Temps:          0       0       6       0       0       0       0
+      Totals:         0       0      18       0       0       0       0
 Total ram usage:       18 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:    8
@@ -2346,13 +2355,13 @@ Total ram usage:        3 bytes
  Defined at:
 		line 44 in file "C:\Program Files (x86)\Microchip\xc8\v1.36\sources\common\fttol.c"
  Parameters:    Size  Location     Type
-  f1              3    9[BANK0 ] float 
+  f1              3    0[BANK1 ] float 
  Auto vars:     Size  Location     Type
-  lval            4    6[BANK1 ] unsigned long 
-  exp1            1   10[BANK1 ] unsigned char 
-  sign1           1    5[BANK1 ] unsigned char 
+  lval            4   10[BANK1 ] unsigned long 
+  exp1            1   14[BANK1 ] unsigned char 
+  sign1           1    9[BANK1 ] unsigned char 
  Return value:  Size  Location     Type
-                  4    9[BANK0 ] long 
+                  4    0[BANK1 ] long 
  Registers used:
 		wreg, status,2, status,0
  Tracked objects:
@@ -2360,10 +2369,10 @@ Total ram usage:        3 bytes
 		On exit  : 
 		Unchanged: 
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
-      Params:         0       4       0       0       0       0       0
+      Params:         0       0       4       0       0       0       0
       Locals:         0       0       6       0       0       0       0
       Temps:          0       0       5       0       0       0       0
-      Totals:         0       4      11       0       0       0       0
+      Totals:         0       0      15       0       0       0       0
 Total ram usage:       15 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:    4
@@ -2483,18 +2492,18 @@ Total ram usage:        0 bytes
  Defined at:
 		line 18 in file "FastTransfer.c"
  Parameters:    Size  Location     Type
-  ptr             2    0[BANK0 ] PTR volatile int 
+  ptr             2    0[BANK1 ] PTR volatile int 
 		 -> receiveArray(40), 
-  maxSize         1    2[BANK0 ] unsigned char 
-  givenAddress    1    3[BANK0 ] unsigned char 
-  error           1    4[BANK0 ] unsigned char 
-  stufftosend     2    5[BANK0 ] PTR FTN(unsigned char ,)
+  maxSize         1    2[BANK1 ] unsigned char 
+  givenAddress    1    3[BANK1 ] unsigned char 
+  error           1    4[BANK1 ] unsigned char 
+  stufftosend     2    5[BANK1 ] PTR FTN(unsigned char ,)
 		 -> Send_put(1), 
-  stufftorecei    2    7[BANK0 ] PTR FTN()unsigned char 
+  stufftorecei    2    7[BANK1 ] PTR FTN()unsigned char 
 		 -> Receive_get(1), 
-  stuffavailab    2    9[BANK0 ] PTR FTN()int 
+  stuffavailab    2    9[BANK1 ] PTR FTN()int 
 		 -> Receive_available(2), 
-  stuffpeek       2   11[BANK0 ] PTR FTN()unsigned char 
+  stuffpeek       2   11[BANK1 ] PTR FTN()unsigned char 
 		 -> Receive_peek(1), 
  Auto vars:     Size  Location     Type
 		None
@@ -2507,10 +2516,10 @@ Total ram usage:        0 bytes
 		On exit  : 
 		Unchanged: 
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
-      Params:         0      13       0       0       0       0       0
+      Params:         0       0      13       0       0       0       0
       Locals:         0       0       0       0       0       0       0
       Temps:          0       0       0       0       0       0       0
-      Totals:         0      13       0       0       0       0       0
+      Totals:         0       0      13       0       0       0       0
 Total ram usage:       13 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:    5
@@ -2929,7 +2938,7 @@ Total ram usage:        0 bytes
   i2c_addr        1   20[BANK1 ] unsigned char 
   writeBuffer    20    0[BANK1 ] unsigned char [20]
   timeOut         2   21[BANK1 ] unsigned int 
-  status          1   23[BANK1 ] enum E7758
+  status          1   23[BANK1 ] enum E8697
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
@@ -2957,10 +2966,10 @@ Total ram usage:       24 bytes
  Defined at:
 		line 11 in file "LED_BarGraph.c"
  Parameters:    Size  Location     Type
-  value           2   11[BANK1 ] int 
-  color           2   13[BANK1 ] int 
+  value           2   16[BANK1 ] int 
+  color           2   18[BANK1 ] int 
  Auto vars:     Size  Location     Type
-  k               2   16[BANK1 ] int 
+  k               2   20[BANK1 ] int 
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
@@ -2972,8 +2981,8 @@ Total ram usage:       24 bytes
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
       Params:         0       0       4       0       0       0       0
       Locals:         0       0       2       0       0       0       0
-      Temps:          0       0       1       0       0       0       0
-      Totals:         0       0       7       0       0       0       0
+      Temps:          0       1       0       0       0       0       0
+      Totals:         0       1       6       0       0       0       0
 Total ram usage:        7 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:    6
@@ -3004,8 +3013,8 @@ Total ram usage:        7 bytes
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
       Params:         4       0       0       0       0       0       0
       Locals:         4       0       0       0       0       0       0
-      Temps:          0      16       0       0       0       0       0
-      Totals:         8      16       0       0       0       0       0
+      Temps:          0       0      16       0       0       0       0
+      Totals:         8       0      16       0       0       0       0
 Total ram usage:       24 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:    5
@@ -3056,10 +3065,10 @@ Total ram usage:        8 bytes
  Parameters:    Size  Location     Type
   i2c_addr        1    wreg     unsigned char 
  Auto vars:     Size  Location     Type
-  i2c_addr        1   13[BANK0 ] unsigned char 
-  writeBuffer     3    8[BANK0 ] unsigned char [3]
-  timeOut         2   11[BANK0 ] unsigned int 
-  status          1   14[BANK0 ] enum E7758
+  i2c_addr        1    5[BANK1 ] unsigned char 
+  writeBuffer     3    0[BANK1 ] unsigned char [3]
+  timeOut         2    3[BANK1 ] unsigned int 
+  status          1    6[BANK1 ] enum E8697
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
@@ -3070,9 +3079,9 @@ Total ram usage:        8 bytes
 		Unchanged: 
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
       Params:         0       0       0       0       0       0       0
-      Locals:         0       7       0       0       0       0       0
+      Locals:         0       0       7       0       0       0       0
       Temps:          0       0       0       0       0       0       0
-      Totals:         0       7       0       0       0       0       0
+      Totals:         0       0       7       0       0       0       0
 Total ram usage:        7 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:    7
@@ -3094,7 +3103,7 @@ Total ram usage:        7 bytes
  Auto vars:     Size  Location     Type
   writeBuffer     2    3[BANK0 ] unsigned char [2]
   timeOut         2    5[BANK0 ] unsigned int 
-  status          1    7[BANK0 ] enum E7758
+  status          1    7[BANK0 ] enum E8697
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
@@ -3127,7 +3136,7 @@ Total ram usage:        8 bytes
  Auto vars:     Size  Location     Type
   writeBuffer     2    3[BANK0 ] unsigned char [2]
   timeOut         2    5[BANK0 ] unsigned int 
-  status          1    7[BANK0 ] enum E7758
+  status          1    7[BANK0 ] enum E8697
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
@@ -3156,11 +3165,13 @@ Total ram usage:        8 bytes
 		line 551 in file "mcc_generated_files/i2c1.c"
  Parameters:    Size  Location     Type
   pdata           2   35[COMRAM] PTR unsigned char 
-		 -> LEDwriteDisplay@writeBuffer(20), LEDbegin@writeBuffer(3), LEDblinkRate@writeBuffer(2), LEDBsetBrightness@writeBuffer(2), 
+		 -> oledPutChar@bytes(9), Buff(2), LEDwriteDisplay@writeBuffer(20), LEDbegin@writeBuffer(3), 
+		 -> LEDblinkRate@writeBuffer(2), LEDBsetBrightness@writeBuffer(2), 
   length          1   37[COMRAM] unsigned char 
   address         2   38[COMRAM] unsigned int 
-  pflag           2   40[COMRAM] PTR enum E7739
-		 -> LEDwriteDisplay@status(1), LEDbegin@status(1), LEDblinkRate@status(1), LEDBsetBrightness@status(1), 
+  pflag           2   40[COMRAM] PTR enum E8678
+		 -> oledPutChar@status(1), OLED_command@status(1), LEDwriteDisplay@status(1), LEDbegin@status(1), 
+		 -> LEDblinkRate@status(1), LEDBsetBrightness@status(1), 
  Auto vars:     Size  Location     Type
 		None
  Return value:  Size  Location     Type
@@ -3187,6 +3198,8 @@ Total ram usage:        7 bytes
 		_LEDblinkRate
 		_LEDbegin
 		_LEDwriteDisplay
+		_OLED_command
+		_oledPutChar
  This function uses a non-reentrant model
 
 
@@ -3197,7 +3210,8 @@ Total ram usage:        7 bytes
   ptrb            2   26[COMRAM] PTR struct .
 		 -> I2C1_MasterWrite@trBlock(5), 
   pdata           2   28[COMRAM] PTR unsigned char 
-		 -> LEDwriteDisplay@writeBuffer(20), LEDbegin@writeBuffer(3), LEDblinkRate@writeBuffer(2), LEDBsetBrightness@writeBuffer(2), 
+		 -> oledPutChar@bytes(9), Buff(2), LEDwriteDisplay@writeBuffer(20), LEDbegin@writeBuffer(3), 
+		 -> LEDblinkRate@writeBuffer(2), LEDBsetBrightness@writeBuffer(2), 
   length          1   30[COMRAM] unsigned char 
   address         2   31[COMRAM] unsigned int 
  Auto vars:     Size  Location     Type
@@ -3232,8 +3246,9 @@ Total ram usage:        9 bytes
   count           1    wreg     unsigned char 
   ptrb_list       2   26[COMRAM] PTR struct .
 		 -> I2C1_MasterRead@trBlock(5), I2C1_MasterWrite@trBlock(5), 
-  pflag           2   28[COMRAM] PTR enum E7739
-		 -> LEDwriteDisplay@status(1), LEDbegin@status(1), LEDblinkRate@status(1), LEDBsetBrightness@status(1), 
+  pflag           2   28[COMRAM] PTR enum E8678
+		 -> oledPutChar@status(1), OLED_command@status(1), LEDwriteDisplay@status(1), LEDbegin@status(1), 
+		 -> LEDblinkRate@status(1), LEDBsetBrightness@status(1), 
  Auto vars:     Size  Location     Type
   count           1   31[COMRAM] unsigned char 
  Return value:  Size  Location     Type
@@ -3511,9 +3526,9 @@ Total ram usage:        2 bytes
  Defined at:
 		line 534 in file "mcc_generated_files/i2c1.c"
  Parameters:    Size  Location     Type
-  completion_c    1    wreg     enum E7739
+  completion_c    1    wreg     enum E8678
  Auto vars:     Size  Location     Type
-  completion_c    1    2[COMRAM] enum E7739
+  completion_c    1    2[COMRAM] enum E8678
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
@@ -3946,13 +3961,14 @@ C:\Program Files (x86)\Microchip\xc8\v1.36\sources\common\float.c
 C:\Program Files (x86)\Microchip\xc8\v1.36\sources\common\float.c estimated size: 175
 
 shared
+		_OledFont      		MEDIUMCONST    	7CE3	0000	769
 		i2_UART_buff_modulo_inc		CODE           	2E34	0000	43
 		i2_UART_buff_size		CODE           	2FC6	0000	23
 		__initialization		CODE           	2846	0000	103
 		i2_UART_buff_get		CODE           	26B8	0000	147
 		i2_UART_buff_put		CODE           	1B1C	0000	283
 
-shared estimated size: 599
+shared estimated size: 1368
 
 mcc_generated_files/mcc.c
 		_OSCILLATOR_Initialize		CODE           	301C	0000	15
