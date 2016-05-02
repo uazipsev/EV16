@@ -3,5 +3,4 @@ LT6804.c  \
 spi2.h  \
 LT6804.h  \
 PinDef.h  \
- Function.h  \
-ADDRESSING.h 
+ Function.h 

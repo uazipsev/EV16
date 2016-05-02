@@ -2,11 +2,20 @@
 #include "Communications.h"
 #include "BatteryManagment.h"
 #include "Function.h"
+#include "FastTransfer.h"
+#include "UART.h"
+#include "Timers.h"
+#include <stdbool.h>
+
 #define LOW_VOLTAGE_FLAG 1
 #define HIGH_TEMPERATURE_FLAG 2
 #define COMMUNICATIONS_FAULT 3
-
 #define UART_BUFFER_SIZE 200
+
+char receiveArray[100];
+
+bool pendingSend = false;
+
 extern struct UART_ring_buff {
     unsigned char buf[UART_BUFFER_SIZE];
     int head;
@@ -14,10 +23,9 @@ extern struct UART_ring_buff {
     int count;
 };
 
-extern struct UART_ring_buff input_buffer;
-extern void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
-extern int faultingBattery;
-extern int ADCReadings[4];
+//extern struct UART_ring_buff input_buffer;
+//extern void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
+//extern int faultingBattery;
 
 enum BMM {
     BATTERY_FAULT = 0,
@@ -29,6 +37,11 @@ int faultFlag = 0;
 int slaveaddr = 0;
 bool portClosed = false;
 
+void CommStart(){
+    begin(receiveArray, sizeof (receiveArray), BMM_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
+    UART_init();
+}
+
 void updateComms() {
     //checkSlaveCommDirection();
     //updateSlaveCommunications();
@@ -39,11 +52,11 @@ void updateComms() {
 //        pendingSend = true;
 //        ToSend(2, 12);
 //    }
-    if (!portClosed && pendingSend && talkTime > 5) {
+    if (!portClosed && pendingSend && time_get(TLKTM) > 5) {
         RS485_Port = TALK;
         portClosed = true;
     }
-    if (pendingSend && talkTime > 6 && portClosed) {
+    if (pendingSend && time_get(TLKTM)> 6 && portClosed) {
         ToSend(2, 12);
         static int lastCommState = 0;
         switch (COMM_STATE) {
@@ -112,14 +125,14 @@ void updateComms() {
         sendData(ECU_ADDRESS);
         pendingSend = false;
 
-        talkTime = 0;
+        TalkTimeSet(0);
     }
     checkCommDirection();
 }
 
 void checkCommDirection() {
     //you have finished send and time has elapsed.. start listen
-    if (Transmit_stall && (talkTime > 12) && (RS485_Port == TALK) && portClosed && !pendingSend) {
+    if (GetTxStall() && (time_get(TLKTM) > 12) && (RS485_Port == TALK) && portClosed && !pendingSend) {
         RS485_Port = LISTEN;
         portClosed = false;
     }

@@ -1,6 +1,8 @@
 
 #include "Function.h"
 #include "timers.h"
+#include "Communications.h"
+
 void Setup(void) {
     PinSetMode();
     INDICATOR = 1;
@@ -42,8 +44,8 @@ void Setup(void) {
     
     initTimerOne();
     initTimerTwo();
-   // begin(receiveArray, sizeof (receiveArray), BMM_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
-    UART_init();
+    CommStart();
+
     //begin1(receiveArray1, sizeof (receiveArray1), BMM_MASTER_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);
    // UART1_init();
    // i2c_init();
@@ -88,7 +90,7 @@ void PinSetMode(void) {
  void ledDebug() {
      int x=0;
      int LEDtime;
-     LEDtime=time_get();
+     LEDtime=time_get(LEDTM);
         if (LEDtime > 500) {
             INDICATOR = !INDICATOR;
             if (x == 0) {
@@ -103,7 +105,7 @@ void PinSetMode(void) {
             x = 0;
         }
             LEDtime= 0;
-            Time_return(LEDtime);
+            time_get(LEDtime);
         }
     }
 

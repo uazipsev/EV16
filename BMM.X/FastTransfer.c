@@ -1,6 +1,7 @@
 #include <xc.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include "FastTransferPrivate.h"
 #include "FastTransfer.h"
 #include "PinDef.h"
 
