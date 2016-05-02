@@ -6,9 +6,7 @@
 #include "Function.h"
 #include "I2C.h"
 #include "pwm.h"
-#include "CoolingControl.h"
 #include "MotorControler.h"
-#include "DigiPot.h"
 #include "PinDef.h"
 #include "ADDRESSING.h"
 #include "Timers.h"
@@ -37,17 +35,13 @@ void Setup(void) {
     Pin_23_Output = TX1_OUTPUT;
     RX1_Pin_Map = 22;
     PPSLock;
-
-
+    
     PinSetMode();
     UART_init();
     begin(receiveArray, sizeof (receiveArray), MCS_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
 
     i2c_init();
     timerOne();
-    PotClear();
-    PWM_Init();
-    CoolingStart();
     SetMotorDefaults();
 }
 
@@ -89,5 +83,7 @@ void PinSetMode(void) {
     BRAKE_TRIS   =0;
     PROGEN_TRIS  =0;
     REGENEN_TRIS =0;
+    IGNEN_TRIS = 0;
+    DACRELAY_TRIS = 0;
     
 }

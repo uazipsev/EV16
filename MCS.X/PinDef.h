@@ -25,50 +25,38 @@
  *   Motor Control Pins
  */
 
+#define FORWARD _LATB4
+#define REVERSE _LATA8
+#define BRAKE   _LATA9
+#define PROGEN  _LATA4
+#define REGENEN _LATC4
+#define IGNEN   _LATC3
 
-#define FORWARD _LATC1
-#define REVERSE _LATC2
-#define BRAKE   _LATA8
-#define PROGEN  _LATB4
-#define REGENEN _LATA4
 
+#define FORWARD_R PORTBbits.RB4
+#define REVERSE_R PORTAbits.RA8
+#define BRAKE_R   PORTAbits.RA9
+#define PROGEN_R  PORTAbits.RA4
+#define REGENEN_R PORTCbits.RC4
+#define IGNEN_R   PORTCbits.RC3
 
-#define FORWARD_R PORTCbits.RC1
-#define REVERSE_R PORTCbits.RC2
-#define BRAKE_R   PORTAbits.RA8
-#define PROGEN_R  PORTBbits.RB4
-#define REGENEN_R PORTAbits.RA4
-
-#define FORWARD_TRIS TRISCbits.TRISC1
-#define REVERSE_TRIS TRISCbits.TRISC2
-#define BRAKE_TRIS   TRISAbits.TRISA8
-#define PROGEN_TRIS  TRISBbits.TRISB4
-#define REGENEN_TRIS TRISAbits.TRISA4
-
-/*
- *   DigiPot control lines
- */
-#define DIGI_CS     PORTBbits.RB15
-#define DIGI_INC    PORTBbits.RB14
-#define DIGI_UP_DN  PORTAbits.RA7
-
-/*
- *    Relay control 
- */
-#define Analog_Relay _LATA0
-#define Analog_Relay_Port PORTAbits.RA0
+#define FORWARD_TRIS TRISBbits.TRISB4
+#define REVERSE_TRIS TRISAbits.TRISA8
+#define BRAKE_TRIS   TRISAbits.TRISA9
+#define PROGEN_TRIS  TRISAbits.TRISA4
+#define REGENEN_TRIS TRISCbits.TRISC4
+#define IGNEN_TRIS   TRISCbits.TRISC3
 
 /*
  *    12 DC/DC
  */
-#define DC12DISABLE LATAbits.LATA10=1
-#define DC12ENABLE  LATAbits.LATA10=0
-
+#define DC12DISABLE LATAbits.LATA10=0
+#define DC12ENABLE  LATAbits.LATA10=1
 /*
- *    FAN PWM
+ *    Relay
  */
-#define FAN !_LATB5
-
+#define DACRELAY _LATB5
+#define DACRELAY_TRIS TRISBbits.TRISB5 
 
 
 #define RX1_Pin_Tris TRISCbits.TRISC6

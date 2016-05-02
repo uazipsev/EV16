@@ -29,10 +29,11 @@ void SetMotorDefaults() {
 
 void MotorEnable() {
     LATAbits.LATA0=1;
-    //BRAKE =1;
+    BRAKE =1;
     DC12ENABLE;
-    FORWARD=1;
-    REVERSE=0;
+    Delay(100);
+    IGNEN = 1;
+    DACRELAY = 0;
 }
 
 void MotorDisable() {
@@ -45,6 +46,7 @@ void MotorDisable() {
 void SetMotor(int speed, int direction) {
     //directionMismatchCheck(direction);
     SetDAC2(speed);
+    DACRELAY = 1;
 }
 
 bool motorControllerValuesCheck(int t, int b) {
@@ -59,16 +61,16 @@ void directionMismatchCheck(int direction) {
     static int past_direction = backward;
     if ((direction == forward) && (past_direction == backward)) {
         SetDAC2(0);
-        //Delay(100);
+        Delay(10);
         REVERSE = 0;
-        //Delay(100);
+        Delay(10);
         FORWARD = 1;
         past_direction = direction;
         
         //BRAKE =0;
     } else if ((direction == backward) && (past_direction == forward)) {
         SetDAC2(0);
-        Delay(100);
+        Delay(10);
         FORWARD = 0;
         Delay(100);
         //REVERSE = 1;
