@@ -4,11 +4,15 @@
  * @return          EU
  * @note            The lib is written for Nokia 5110 (https://learn.adafruit.com/downloads/pdf/nokia-5110-3310-monochrome-lcd.pdf)
  *******************************************************************/
-
+#include <stdbool.h>
 #include "NokiaLCD.h"
 #include "Functions.h"
 #include "mcc_generated_files/spi1.h"
 #include "mcc_generated_files/mcc.h"
+
+
+#define LCD_CMD 0
+#define LCD_DAT 1
 
 /*******************************************************************
  * @brief           NokiaStart
@@ -18,26 +22,38 @@
  *******************************************************************/
 
 void NokiaStart(){
+    TRISBbits.TRISB6 = 0;
     LCD_CS_SetDigitalOutput();
     LCD_DC_SetDigitalOutput();
     LCD_RES_SetDigitalOutput();
-    SPI1_Initialize();
-    LCD_RES_SetHigh();
-    Delay(100);
-    LCD_RES_SetLow();
-    Delay(100);
-    LCD_RES_SetHigh();
-    LCD_DC_SetLow();
-    LCD_CS_SetLow();
-    SPI1_Exchange8bit(0x21);
-    SPI1_Exchange8bit(0xC8);
-    SPI1_Exchange8bit(0x06);
-    SPI1_Exchange8bit(0x13);
-    SPI1_Exchange8bit(0x20);
-    SPI1_Exchange8bit(0x0C);
     LCD_CS_SetHigh();
+    SPI1_Initialize();
+    LATBbits.LATB6 = 1;
+    Delay(100);
+    LATBbits.LATB6 = 0;
+    Delay(100);
+    LATBbits.LATB6 = 1;
+    LCDwrite(LCD_CMD, 0x21);
+    LCDwrite(LCD_CMD, 0xBF);
+    LCDwrite(LCD_CMD, 0x04);
+    LCDwrite(LCD_CMD, 0x14);
+    LCDwrite(LCD_CMD, 0x0C);
+    LCDwrite(LCD_CMD, 0x20);
+    LCDwrite(LCD_CMD, 0x0C);
     clearLcd();
     blackLcd();
+}
+
+void LCDwrite(bool mode, char data){
+    if(mode){
+        LCD_DC_SetLow();  // LCD command
+    }
+    else{
+        LCD_DC_SetHigh(); // LCD Data
+    }
+    LCD_CS_SetLow();
+    SPI1_Exchange8bit(data);
+    LCD_CS_SetHigh();
 }
 
 /*******************************************************************
@@ -49,12 +65,9 @@ void NokiaStart(){
 
 void clearLcd(){
     int res;
-    LCD_CS_SetLow(); 
-    LCD_DC_SetHigh();
     for(res=0;res<504;res++){
-        SPI1_Exchange8bit(0x00);
+        LCDwrite(LCD_DAT, 0x00);
     }
-    LCD_CS_SetHigh();
     
 }
 
@@ -67,12 +80,9 @@ void clearLcd(){
 
 void blackLcd(){
     int res;
-    LCD_CS_SetLow();
-    LCD_DC_SetHigh();
     for(res=0;res<504;res++){
-        SPI1_Exchange8bit(0xFF);
+        LCDwrite(LCD_DAT, res);
     }
-    LCD_CS_SetHigh();
 }
 
 /*******************************************************************
@@ -83,13 +93,10 @@ void blackLcd(){
  *******************************************************************/
 
 void gotoXy(unsigned char x,unsigned char y){
-    LCD_CS_SetLow();
-    LCD_DC_SetLow();
     y=y|0x40;
-    SPI1_Exchange8bit(y);
+    LCDwrite(LCD_CMD, y);
     x=(x*6)|0x80;
-    SPI1_Exchange8bit(x);
-    LCD_CS_SetHigh();
+    LCDwrite(LCD_CMD, x);
 }
 
 /*******************************************************************
@@ -101,14 +108,11 @@ void gotoXy(unsigned char x,unsigned char y){
 
 void NokiaStr( char *str,unsigned char len){
     int i;
-    LCD_CS_SetLow();
-    LCD_DC_SetHigh();
     for(;len>0;len --){
         for(i=0;i<=4;i++){
-            SPI1_Exchange8bit(FONTLOOKUP[*str-32][i]);
-            SPI1_Exchange8bit(0x00);
+            LCDwrite(LCD_DAT,(FONTLOOKUP[*str-32][i]));
+            LCDwrite(LCD_DAT,(0x00));
             str++;
         }
     }
-    LCD_CS_SetHigh();
 }

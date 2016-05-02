@@ -48,9 +48,9 @@ void main(void) {
     LED_SetDigitalOutput();
     LED_SetHigh();
     while (1) {
-        /*
+        
         Delay(1000);
-        clearLcd();
+        //clearLcd();
         ddata[0]='T';
         ddata[1]='E';
         ddata[2]='S';
@@ -64,9 +64,7 @@ void main(void) {
         i++;
         gotoXy(2,2);
         NokiaStr(ddata,10);
-         *
-         */
-        Delay(1000);
+        //Delay(1000);
         GREEN_Toggle();
         BLUE_Toggle();
         YELLOW_Toggle();
