@@ -15,6 +15,13 @@ void Delay(long int wait) {
     }
 }
 
+/*******************************************************************
+ * @brief           AIR control
+ * @brief           Set's AIR in the Precharge / discharge control 
+ * @return          N/A
+ * @note            Blocking calls
+ *******************************************************************/
+
 void Precharge(bool OnOff){
     if(OnOff){
         YELLOW_SetHigh();
@@ -38,6 +45,13 @@ void Precharge(bool OnOff){
         CHARGER_POWER_SetLow();
     }
 }
+
+/*******************************************************************
+ * @brief           Charger Control
+ * @brief           Updates the charger to control
+ * @return          N/A
+ * @note            Uses the USART to send out data to configure charger
+ *******************************************************************/
 
 //19200bps, 8N1 comunication for the charger
 
@@ -65,6 +79,13 @@ void SetCharger(char mode, char Current, char Voltage){
         printf("%s",ChargerData);
     }
 }
+
+/*******************************************************************
+ * @brief           MUX Control
+ * @brief           Controls serial mux
+ * @return          N/A
+ * @note            Sets Serial channel the pic is talking to on the back end.
+ *******************************************************************/
 
 void SetMux(char channel){
     switch (channel){

@@ -1,11 +1,6 @@
 /*
  PDU Communications
-
-
     Authored by Zac Kilburn 6/2/2015
-
-
-
  */
 
 #include <stdbool.h>
