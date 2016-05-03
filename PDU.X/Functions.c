@@ -1,4 +1,4 @@
-#include "functions.h"
+#include "Functions.h"
 #include "xc.h"
 #include "mcc_generated_files/mcc.h"
 

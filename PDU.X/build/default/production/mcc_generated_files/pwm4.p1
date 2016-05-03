@@ -1,71 +1,21 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"16387 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
-[s S1017 :1 `uc 1 ]
-[n S1017 . NOT_BOR ]
-"16390
-[s S1018 :1 `uc 1 :1 `uc 1 ]
-[n S1018 . . NOT_POR ]
-"16394
-[s S1019 :2 `uc 1 :1 `uc 1 ]
-[n S1019 . . NOT_PD ]
-"16398
-[s S1020 :3 `uc 1 :1 `uc 1 ]
-[n S1020 . . NOT_TO ]
-"16402
-[s S1021 :4 `uc 1 :1 `uc 1 ]
-[n S1021 . . NOT_RI ]
-"16406
-[s S1022 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1022 . nBOR nPOR nPD nTO nRI . SBOREN IPEN ]
-"16416
-[s S1023 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1023 . BOR POR PD TO RI ]
-"16386
-[u S1016 `S1017 1 `S1018 1 `S1019 1 `S1020 1 `S1021 1 `S1022 1 `S1023 1 ]
-[n S1016 . . . . . . . . ]
-"16424
-[v _RCONbits `VS1016 ~T0 @X0 0 e@4048 ]
-"9758
-[s S551 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S551 . TMR1IP TMR2IP CCP1IP SSP1IP TX1IP RC1IP ADIP ]
-"9767
-[s S552 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S552 . . SSPIP TXIP RCIP ]
-"9757
-[u S550 `S551 1 `S552 1 ]
-[n S550 . . . ]
-"9774
-[v _IPR1bits `VS550 ~T0 @X0 0 e@3999 ]
-"9606
-[s S545 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S545 . TMR1IE TMR2IE CCP1IE SSP1IE TX1IE RC1IE ADIE ]
-"9615
-[s S546 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S546 . . SSPIE TXIE RCIE ]
-"9605
-[u S544 `S545 1 `S546 1 ]
-[n S544 . . . ]
-"9622
-[v _PIE1bits `VS544 ~T0 @X0 0 e@3997 ]
-"9682
-[s S548 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S548 . TMR1IF TMR2IF CCP1IF SSP1IF TX1IF RC1IF ADIF ]
-"9691
-[s S549 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S549 . . SSPIF TXIF RCIF ]
-"9681
-[u S547 `S548 1 `S549 1 ]
-[n S547 . . . ]
-"9698
-[v _PIR1bits `VS547 ~T0 @X0 0 e@3998 ]
-"72 mcc_generated_files/interrupt_manager.c
-[v _EUSART1_Receive_ISR `(i ~T0 @X0 0 ef ]
-"76
-[v _EUSART1_Transmit_ISR `(i ~T0 @X0 0 ef ]
-"80
-[v _ADC_ISR `(i ~T0 @X0 0 ef ]
-[; ;interrupt_manager.h: 64: void INTERRUPT_Initialize (void);
-[; ;interrupt_manager.h: 76: void interrupt INTERRUPT_InterruptManager (void);
+"2016 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
+[v _CCP4CON `Vuc ~T0 @X0 0 e@3927 ]
+"2085
+[v _CCPR4L `Vuc ~T0 @X0 0 e@3928 ]
+"2104
+[v _CCPR4H `Vuc ~T0 @X0 0 e@3929 ]
+"1327
+[s S60 :2 `uc 1 :2 `uc 1 ]
+[n S60 . C4TSEL C5TSEL ]
+"1331
+[s S61 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S61 . C4TSEL0 C4TSEL1 C5TSEL0 C5TSEL1 ]
+"1326
+[u S59 `S60 1 `S61 1 ]
+[n S59 . . . ]
+"1338
+[v _CCPTMRS1bits `VS59 ~T0 @X0 0 e@3912 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -7392,8 +7342,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 156: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 158: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 160: extern __nonreentrant void _delay3(unsigned char);
-[; ;pin_manager.h: 262: void PIN_MANAGER_Initialize (void);
-[; ;pin_manager.h: 274: void PIN_MANAGER_IOC(void);
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -7425,102 +7373,48 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdbool.h: 12: typedef unsigned char bool;
 [; ;pwm4.h: 97: void PWM4_Initialize(void);
 [; ;pwm4.h: 124: void PWM4_LoadDutyValue(uint16_t dutyValue);
-[; ;tmr2.h: 103: void TMR2_Initialize(void);
-[; ;tmr2.h: 132: void TMR2_StartTimer(void);
-[; ;tmr2.h: 164: void TMR2_StopTimer(void);
-[; ;tmr2.h: 199: uint8_t TMR2_ReadTimer(void);
-[; ;tmr2.h: 238: void TMR2_WriteTimer(uint8_t timerVal);
-[; ;tmr2.h: 290: void TMR2_LoadPeriodRegister(uint8_t periodVal);
-[; ;tmr2.h: 325: bool TMR2_HasOverflowOccured(void);
-[; ;mcc.h: 69: void SYSTEM_Initialize(void);
-[; ;mcc.h: 82: void OSCILLATOR_Initialize(void);
-"52 mcc_generated_files/interrupt_manager.c
-[v _INTERRUPT_Initialize `(v ~T0 @X0 1 ef ]
-"53
-{
-[; ;interrupt_manager.c: 52: void INTERRUPT_Initialize (void)
-[; ;interrupt_manager.c: 53: {
-[e :U _INTERRUPT_Initialize ]
-[f ]
-[; ;interrupt_manager.c: 55: RCONbits.IPEN = 0;
-"55
-[e = . . _RCONbits 5 7 -> -> 0 `i `uc ]
-[; ;interrupt_manager.c: 60: IPR1bits.RC1IP = 0;
-"60
-[e = . . _IPR1bits 0 5 -> -> 0 `i `uc ]
-[; ;interrupt_manager.c: 62: IPR1bits.TX1IP = 0;
-"62
-[e = . . _IPR1bits 0 4 -> -> 0 `i `uc ]
-[; ;interrupt_manager.c: 64: IPR1bits.ADIP = 0;
-"64
-[e = . . _IPR1bits 0 6 -> -> 0 `i `uc ]
-[; ;interrupt_manager.c: 65: }
+"64 mcc_generated_files/pwm4.c
+[v _PWM4_Initialize `(v ~T0 @X0 1 ef ]
 "65
+{
+[; ;pwm4.c: 64: void PWM4_Initialize(void)
+[; ;pwm4.c: 65: {
+[e :U _PWM4_Initialize ]
+[f ]
+[; ;pwm4.c: 69: CCP4CON = 0x3C;
+"69
+[e = _CCP4CON -> -> 60 `i `uc ]
+[; ;pwm4.c: 72: CCPR4L = 0x09;
+"72
+[e = _CCPR4L -> -> 9 `i `uc ]
+[; ;pwm4.c: 75: CCPR4H = 0x00;
+"75
+[e = _CCPR4H -> -> 0 `i `uc ]
+[; ;pwm4.c: 78: CCPTMRS1bits.C4TSEL = 0x0;
+"78
+[e = . . _CCPTMRS1bits 0 0 -> -> 0 `i `uc ]
+[; ;pwm4.c: 79: }
+"79
 [e :UE 1121 ]
 }
-[v F5 `(v ~T0 @X0 1 tf ]
-"67
-[v _INTERRUPT_InterruptManager `IF5 ~T0 @X0 1 e ]
-"68
-{
-[; ;interrupt_manager.c: 67: void interrupt INTERRUPT_InterruptManager (void)
-[; ;interrupt_manager.c: 68: {
-[e :U _INTERRUPT_InterruptManager ]
-[f ]
-[; ;interrupt_manager.c: 70: if(PIE1bits.RC1IE == 1 && PIR1bits.RC1IF == 1)
-"70
-[e $ ! && == -> . . _PIE1bits 0 5 `i -> 1 `i == -> . . _PIR1bits 0 5 `i -> 1 `i 1123  ]
-[; ;interrupt_manager.c: 71: {
-"71
-{
-[; ;interrupt_manager.c: 72: EUSART1_Receive_ISR();
-"72
-[e ( _EUSART1_Receive_ISR ..  ]
-"73
-}
-[; ;interrupt_manager.c: 73: }
-[e $U 1124  ]
-"74
-[e :U 1123 ]
-[; ;interrupt_manager.c: 74: else if(PIE1bits.TX1IE == 1 && PIR1bits.TX1IF == 1)
-[e $ ! && == -> . . _PIE1bits 0 4 `i -> 1 `i == -> . . _PIR1bits 0 4 `i -> 1 `i 1125  ]
-[; ;interrupt_manager.c: 75: {
-"75
-{
-[; ;interrupt_manager.c: 76: EUSART1_Transmit_ISR();
-"76
-[e ( _EUSART1_Transmit_ISR ..  ]
-"77
-}
-[; ;interrupt_manager.c: 77: }
-[e $U 1126  ]
-"78
-[e :U 1125 ]
-[; ;interrupt_manager.c: 78: else if(PIE1bits.ADIE == 1 && PIR1bits.ADIF == 1)
-[e $ ! && == -> . . _PIE1bits 0 6 `i -> 1 `i == -> . . _PIR1bits 0 6 `i -> 1 `i 1127  ]
-[; ;interrupt_manager.c: 79: {
-"79
-{
-[; ;interrupt_manager.c: 80: ADC_ISR();
-"80
-[e ( _ADC_ISR ..  ]
 "81
-}
-[; ;interrupt_manager.c: 81: }
-[e $U 1128  ]
+[v _PWM4_LoadDutyValue `(v ~T0 @X0 1 ef1`ui ]
 "82
-[e :U 1127 ]
-[; ;interrupt_manager.c: 82: else
-[; ;interrupt_manager.c: 83: {
-"83
 {
-"85
-}
-[e :U 1128 ]
-[e :U 1126 ]
-[e :U 1124 ]
-[; ;interrupt_manager.c: 85: }
-[; ;interrupt_manager.c: 86: }
-"86
+[; ;pwm4.c: 81: void PWM4_LoadDutyValue(uint16_t dutyValue)
+[; ;pwm4.c: 82: {
+[e :U _PWM4_LoadDutyValue ]
+"81
+[v _dutyValue `ui ~T0 @X0 1 r1 ]
+"82
+[f ]
+[; ;pwm4.c: 84: CCPR4L = ((dutyValue & 0x03FC)>>2);
+"84
+[e = _CCPR4L -> >> & _dutyValue -> -> 1020 `i `ui -> 2 `i `uc ]
+[; ;pwm4.c: 87: CCP4CON = (CCP4CON & 0xCF) | ((dutyValue & 0x0003)<<4);
+"87
+[e = _CCP4CON -> | -> & -> _CCP4CON `i -> 207 `i `ui << & _dutyValue -> -> 3 `i `ui -> 4 `i `uc ]
+[; ;pwm4.c: 88: }
+"88
 [e :UE 1122 ]
 }

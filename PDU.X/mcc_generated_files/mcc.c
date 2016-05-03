@@ -109,6 +109,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "mcc.h"
 #include "../ADDRESSING.h"
+#include "../FastTransfer.h"
 
 void SYSTEM_Initialize(void) {
     OSCILLATOR_Initialize();

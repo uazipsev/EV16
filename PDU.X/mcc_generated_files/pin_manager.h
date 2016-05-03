@@ -241,6 +241,13 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #define CLK_SetAnalogMode()   do { ANSD7 = 1; } while(0)
 #define CLK_SetDigitalMode()   do { ANSD7 = 0; } while(0)
+	
+/*
+ *   DigiPot control lines
+ */
+#define DIGI_CS     PORTBbits.RB15
+#define DIGI_INC    PORTBbits.RB14
+#define DIGI_UP_DN  PORTAbits.RA7
 
 /**
  * @Param
