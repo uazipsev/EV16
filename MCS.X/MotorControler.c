@@ -23,8 +23,9 @@
 
 
 void SetMotorDefaults() {
+    DACRELAY = 0;
     SetDAC1(0);
-    SetDAC2(0);
+    SetDAC2(0);   
 }
 
 void MotorEnable() {
@@ -37,8 +38,10 @@ void MotorEnable() {
 }
 
 void MotorDisable() {
-    //DC12DISABLE;
-    //BRAKE =0;
+    BRAKE =0;
+    Delay(100);
+    DACRELAY = 0;
+    DC12DISABLE;
 }
 
 //sets the direction of the motor and sets speed

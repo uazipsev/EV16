@@ -12,7 +12,7 @@
 #include <xc.h>
 #include <stdbool.h>
 #include "I2C.h"
-//#include <i2c.h>
+#include <i2c.h>
 
 char * i2cBuffer;
 
