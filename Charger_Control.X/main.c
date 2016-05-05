@@ -51,19 +51,7 @@ void main(void) {
         
         Delay(1000);
         //clearLcd();
-        ddata[0]='T';
-        ddata[1]='E';
-        ddata[2]='S';
-        ddata[3]='T';
-        ddata[4]=' ';
-        ddata[5]='L';
-        ddata[6]='C';
-        ddata[7]='D';
-        ddata[8]=' ';
-        ddata[9]=i;
-        i++;
-        gotoXy(2,2);
-        NokiaStr(ddata,10);
+        NokiaStr("Hello World!");
         //Delay(1000);
         GREEN_Toggle();
         BLUE_Toggle();

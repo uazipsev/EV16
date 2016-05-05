@@ -11,8 +11,8 @@
 #include "mcc_generated_files/mcc.h"
 
 
-#define LCD_CMD 0
-#define LCD_DAT 1
+#define LCD_CMD 1
+#define LCD_DAT 0
 
 /*******************************************************************
  * @brief           NokiaStart
@@ -34,10 +34,9 @@ void NokiaStart(){
     Delay(100);
     LATBbits.LATB6 = 1;
     LCDwrite(LCD_CMD, 0x21);
-    LCDwrite(LCD_CMD, 0xBF);
+    LCDwrite(LCD_CMD, 0xB1);
     LCDwrite(LCD_CMD, 0x04);
     LCDwrite(LCD_CMD, 0x14);
-    LCDwrite(LCD_CMD, 0x0C);
     LCDwrite(LCD_CMD, 0x20);
     LCDwrite(LCD_CMD, 0x0C);
     clearLcd();
@@ -106,13 +105,26 @@ void gotoXy(unsigned char x,unsigned char y){
  * @note            
  *******************************************************************/
 
-void NokiaStr( char *str,unsigned char len){
-    int i;
-    for(;len>0;len --){
-        for(i=0;i<=4;i++){
-            LCDwrite(LCD_DAT,(FONTLOOKUP[*str-32][i]));
-            LCDwrite(LCD_DAT,(0x00));
-            str++;
-        }
-    }
+void LcdCharacter(char character)
+{
+  LCDwrite(LCD_DAT, 0x00);
+  for (int index = 0; index < 5; index++)
+  {
+    LCDwrite(LCD_DAT, FONTLOOKUP[character - 0x20][index]);
+  }
+  LCDwrite(LCD_DAT, 0x00);
+}
+
+/*******************************************************************
+ * @brief           NokiaStr
+ * @brief           This allows us to print text on the display
+ * @return          none
+ * @note            
+ *******************************************************************/
+
+void NokiaStr( char *str){
+  while (*str)
+  {
+    LcdCharacter(*str++);
+  }
 }
