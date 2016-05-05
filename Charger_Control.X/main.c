@@ -70,7 +70,8 @@ void main(void) {
         YELLOW_Toggle();
         LED_Toggle();
     }
-    //updateComms();
+    respondECU();
+    updateComms();
 }
 /**
  End of File

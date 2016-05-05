@@ -2,6 +2,7 @@
 
 #include <xc.h>
 #include "spi2.h"
+#include <stdio.h>
 
 /**
   Section: Macro Declarations
@@ -16,32 +17,27 @@
 void SPI2_Initialize(void)
 {
     // Set the SPI2 module to the options selected in the User Interface
-    
-    // R_nW write_noTX; P stopbit_notdetected; S startbit_notdetected; BF RCinprocess_TXcomplete; SMP Middle; UA dontupdate; CKE Idle to Active; D_nA lastbyte_address; 
-    //SSP2STAT = 0x00;
-    
-    // SSPEN enabled; WCOL no_collision; CKP Idle:Low, Active:High; SSPM FOSC/4; SSPOV no_overflow; 
-    //SSP2CON1 = 0x20;
-    
-    // SSPADD 1; 
-    //SSP2ADD = 0x01;
+    SPI1CON1 = 0x013B;     //This ets SPRE and PPRE to a 1:1 prescale, needs chaged     
+    SPI1CON2 = 0x0000;
+    SPI1STAT = 0x8000;    //Enables the module
+
 }
 
 uint8_t SPI2_Exchange8bit(uint8_t data)
 {
-    // Clear the Write Collision flag, to allow writing
-    /*
-    SSP2CON1bits.WCOL = 0;
-
-    SSP2BUF = data;
-
-    while(SSP2STATbits.BF == SPI_RX_IN_PROGRESS)
-    {
+    SPI1BUF = data & 0xff;    /*  byte write  */
+    while(SPI1STATbits.SPITBF);
+    data = SPI1BUF;               //Avoiding overflow when reading
+    SPI1STATbits.SPIROV = 0;
+    SPI1BUF = 0x00;                  // initiate bus cycle 
+    while(!SPI1STATbits.SPIRBF);
+     /* Check for Receive buffer full status bit of status register*/
+    if (SPI1STATbits.SPIRBF)
+    { 
+        SPI1STATbits.SPIROV = 0;
+        return (SPI1BUF & 0xff);    /* return byte read */
     }
-
-    return (SSP2BUF);
-    */
-    return (1);
+    return -1;                  		/* RBF bit is not set return error*/
 }
 
 uint8_t SPI2_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut)
