@@ -1,12 +1,9 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"102 mcc_generated_files/..\UART.h
-[s S1126 `uc -> 200 `i `i 1 `i 1 `i 1 ]
-[n S1126 UART_ring_buff buf head tail count ]
 [v F7703 `(v ~T0 @X0 1 tf1`ul ]
 "156 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18.h
 [v __delay `JF7703 ~T0 @X0 0 e ]
 [p i __delay ]
-[; ;functions.h: 11: extern void Delay(long int wait);
+[; ;Functions.h: 11: extern void Delay(long int wait);
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -7333,8 +7330,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 156: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 158: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 160: extern __nonreentrant void _delay3(unsigned char);
-[; ;pin_manager.h: 255: void PIN_MANAGER_Initialize (void);
-[; ;pin_manager.h: 267: void PIN_MANAGER_IOC(void);
+[; ;pin_manager.h: 309: void PIN_MANAGER_Initialize (void);
+[; ;pin_manager.h: 321: void PIN_MANAGER_IOC(void);
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -7364,135 +7361,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
 [; ;stdbool.h: 12: typedef unsigned char bool;
-[; ;interrupt_manager.h: 64: void INTERRUPT_Initialize (void);
-[; ;interrupt_manager.h: 76: void interrupt INTERRUPT_InterruptManager (void);
-[; ;__size_t.h: 4: typedef unsigned size_t;
-[; ;stdarg.h: 7: typedef void * va_list[1];
-[; ;stdarg.h: 10: extern void * __va_start(void);
-[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
-[; ;stdio.h: 43: struct __prbuf
-[; ;stdio.h: 44: {
-[; ;stdio.h: 45: char * ptr;
-[; ;stdio.h: 46: void (* func)(char);
-[; ;stdio.h: 47: };
-[; ;errno.h: 29: extern int errno;
-[; ;conio.h: 12: extern void init_uart(void);
-[; ;conio.h: 14: extern char getch(void);
-[; ;conio.h: 15: extern char getche(void);
-[; ;conio.h: 16: extern void putch(char);
-[; ;conio.h: 17: extern void ungetch(char);
-[; ;conio.h: 19: extern __bit kbhit(void);
-[; ;conio.h: 23: extern char * cgets(char *);
-[; ;conio.h: 24: extern void cputs(const char *);
-[; ;stdio.h: 88: extern int cprintf(char *, ...);
-[; ;stdio.h: 93: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-[; ;stdio.h: 183: extern char * gets(char *);
-[; ;stdio.h: 184: extern int puts(const char *);
-[; ;stdio.h: 185: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
-[; ;stdio.h: 186: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
-[; ;stdio.h: 187: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
-[; ;stdio.h: 188: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-[; ;stdio.h: 189: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
-[; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
-[; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
-[; ;stdio.h: 195: extern int printf(const char *, ...);
-[; ;stdlib.h: 7: typedef unsigned short wchar_t;
-[; ;stdlib.h: 15: typedef struct {
-[; ;stdlib.h: 16: int rem;
-[; ;stdlib.h: 17: int quot;
-[; ;stdlib.h: 18: } div_t;
-[; ;stdlib.h: 19: typedef struct {
-[; ;stdlib.h: 20: unsigned rem;
-[; ;stdlib.h: 21: unsigned quot;
-[; ;stdlib.h: 22: } udiv_t;
-[; ;stdlib.h: 23: typedef struct {
-[; ;stdlib.h: 24: long quot;
-[; ;stdlib.h: 25: long rem;
-[; ;stdlib.h: 26: } ldiv_t;
-[; ;stdlib.h: 27: typedef struct {
-[; ;stdlib.h: 28: unsigned long quot;
-[; ;stdlib.h: 29: unsigned long rem;
-[; ;stdlib.h: 30: } uldiv_t;
-[; ;stdlib.h: 53: extern double atof(const char *);
-[; ;stdlib.h: 54: extern double strtod(const char *, const char **);
-[; ;stdlib.h: 55: extern int atoi(const char *);
-[; ;stdlib.h: 56: extern unsigned xtoi(const char *);
-[; ;stdlib.h: 57: extern long atol(const char *);
-[; ;stdlib.h: 58: extern long strtol(const char *, char **, int);
-[; ;stdlib.h: 60: extern int rand(void);
-[; ;stdlib.h: 61: extern void srand(unsigned int);
-[; ;stdlib.h: 62: extern void * calloc(size_t, size_t);
-[; ;stdlib.h: 63: extern div_t div(int numer, int denom);
-[; ;stdlib.h: 64: extern udiv_t udiv(unsigned numer, unsigned denom);
-[; ;stdlib.h: 65: extern ldiv_t ldiv(long numer, long denom);
-[; ;stdlib.h: 66: extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
-[; ;stdlib.h: 67: extern unsigned long _lrotl(unsigned long value, unsigned int shift);
-[; ;stdlib.h: 68: extern unsigned long _lrotr(unsigned long value, unsigned int shift);
-[; ;stdlib.h: 69: extern unsigned int _rotl(unsigned int value, unsigned int shift);
-[; ;stdlib.h: 70: extern unsigned int _rotr(unsigned int value, unsigned int shift);
-[; ;stdlib.h: 75: extern void * malloc(size_t);
-[; ;stdlib.h: 76: extern void free(void *);
-[; ;stdlib.h: 77: extern void * realloc(void *, size_t);
-[; ;stdlib.h: 86: extern int atexit(void (*)(void));
-[; ;stdlib.h: 87: extern char * getenv(const char *);
-[; ;stdlib.h: 88: extern char ** environ;
-[; ;stdlib.h: 89: extern int system(char *);
-[; ;stdlib.h: 90: extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
-[; ;stdlib.h: 91: extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
-[; ;stdlib.h: 92: extern int abs(int);
-[; ;stdlib.h: 93: extern long labs(long);
-[; ;stdlib.h: 95: extern char * itoa(char * buf, int val, int base);
-[; ;stdlib.h: 96: extern char * utoa(char * buf, unsigned val, int base);
-[; ;stdlib.h: 101: extern char * ltoa(char * buf, long val, int base);
-[; ;stdlib.h: 102: extern char * ultoa(char * buf, unsigned long val, int base);
-[; ;stdlib.h: 104: extern char * ftoa(float f, int * status);
-[; ;..\UART.h: 23: uint8_t EUSART1_Read(void);
-[; ;..\UART.h: 48: void EUSART1_Write(uint8_t txData);
-[; ;..\UART.h: 69: void EUSART1_Transmit_ISR(void);
-[; ;..\UART.h: 90: void EUSART1_Receive_ISR(void);
-[; ;..\UART.h: 92: char getch(void);
-[; ;..\UART.h: 93: void putch(char txData);
-[; ;..\UART.h: 99: extern volatile unsigned int talkTime;
-[; ;..\UART.h: 100: void *memset(void *s, int c, size_t n);
-[; ;..\UART.h: 102: struct UART_ring_buff {
-[; ;..\UART.h: 103: unsigned char buf[200];
-[; ;..\UART.h: 104: int head;
-[; ;..\UART.h: 105: int tail;
-[; ;..\UART.h: 106: int count;
-[; ;..\UART.h: 107: };
-"109 mcc_generated_files/..\UART.h
-[v _input_buffer `S1126 ~T0 @X0 1 e ]
-[; ;..\UART.h: 109: struct UART_ring_buff input_buffer;
-"110
-[v _output_buffer `S1126 ~T0 @X0 1 e ]
-[; ;..\UART.h: 110: struct UART_ring_buff output_buffer;
-"112
-[v _Transmit_stall `uc ~T0 @X0 1 e ]
-[i _Transmit_stall
--> -> 1 `i `uc
-]
-[; ;..\UART.h: 112: bool Transmit_stall = 1;
-[; ;..\UART.h: 113: void EUSART1_Initialize(void);
-[; ;..\UART.h: 114: void UART_buff_init(struct UART_ring_buff* _this);
-[; ;..\UART.h: 115: void UART_buff_put(struct UART_ring_buff* _this, const unsigned char c);
-[; ;..\UART.h: 116: unsigned char UART_buff_get(struct UART_ring_buff* _this);
-[; ;..\UART.h: 117: void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
-[; ;..\UART.h: 118: int UART_buff_size(struct UART_ring_buff* _this);
-[; ;..\UART.h: 119: unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
-[; ;..\UART.h: 120: unsigned char UART_buff_peek(struct UART_ring_buff* _this);
-[; ;..\UART.h: 123: unsigned char Receive_peek(void);
-[; ;..\UART.h: 124: int Receive_available(void);
-[; ;..\UART.h: 125: unsigned char Receive_get(void);
-[; ;..\UART.h: 126: void Send_put(unsigned char _data);
+[; ;interrupt_manager.h: 110: void INTERRUPT_Initialize (void);
+[; ;interrupt_manager.h: 122: void interrupt INTERRUPT_InterruptManager (void);
 [; ;adc.h: 72: typedef uint16_t adc_result_t;
 [; ;adc.h: 86: typedef enum
 [; ;adc.h: 87: {
-[; ;adc.h: 88: channel_CTMU = 0x1D,
-[; ;adc.h: 89: channel_DAC = 0x1E,
-[; ;adc.h: 90: channel_FVRBuf2 = 0x1F,
-[; ;adc.h: 91: U5Multisense = 0x10,
-[; ;adc.h: 92: U8Multisense = 0x16,
-[; ;adc.h: 93: U10Multisense = 0x17
+[; ;adc.h: 88: channel_AN16 = 0x10,
+[; ;adc.h: 89: channel_AN22 = 0x16,
+[; ;adc.h: 90: channel_AN23 = 0x17,
+[; ;adc.h: 91: channel_CTMU = 0x1D,
+[; ;adc.h: 92: channel_DAC = 0x1E,
+[; ;adc.h: 93: channel_FVRBuf2 = 0x1F
 [; ;adc.h: 94: } adc_channel_t;
 [; ;adc.h: 129: void ADC_Initialize(void);
 [; ;adc.h: 158: void ADC_StartConversion(adc_channel_t channel);
@@ -7500,14 +7379,39 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;adc.h: 223: adc_result_t ADC_GetConversionResult(void);
 [; ;adc.h: 253: adc_result_t ADC_GetConversion(adc_channel_t channel);
 [; ;adc.h: 269: void ADC_ISR(void);
-[; ;mcc.h: 70: void SYSTEM_Initialize(void);
-[; ;mcc.h: 83: void OSCILLATOR_Initialize(void);
-[; ;mcc.h: 89: extern void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
-[; ;mcc.h: 91: extern unsigned char Receive_peek(void);
-[; ;mcc.h: 92: extern int Receive_available(void);
-[; ;mcc.h: 93: extern unsigned char Receive_get(void);
-[; ;mcc.h: 94: extern void Send_put(unsigned char _data);
-[; ;mcc.h: 96: extern volatile int receiveArray[20];
+[; ;pwm4.h: 97: void PWM4_Initialize(void);
+[; ;pwm4.h: 124: void PWM4_LoadDutyValue(uint16_t dutyValue);
+[; ;ccp5.h: 75: typedef union CCPR5Reg_tag
+[; ;ccp5.h: 76: {
+[; ;ccp5.h: 77: struct
+[; ;ccp5.h: 78: {
+[; ;ccp5.h: 79: uint8_t ccpr5l;
+[; ;ccp5.h: 80: uint8_t ccpr5h;
+[; ;ccp5.h: 81: };
+[; ;ccp5.h: 82: struct
+[; ;ccp5.h: 83: {
+[; ;ccp5.h: 84: uint16_t ccpr5_16Bit;
+[; ;ccp5.h: 85: };
+[; ;ccp5.h: 86: } CCP_PERIOD_REG_T ;
+[; ;ccp5.h: 118: void CCP5_Initialize(void);
+[; ;ccp5.h: 134: void CCP5_CaptureISR(void);
+[; ;ccp5.h: 155: void CCP5_CallBack(uint16_t capturedValue);
+[; ;memory.h: 99: uint8_t FLASH_ReadByte(uint32_t flashAddr);
+[; ;memory.h: 125: uint16_t FLASH_ReadWord(uint32_t flashAddr);
+[; ;memory.h: 157: void FLASH_WriteByte(uint32_t flashAddr, uint8_t *flashRdBufPtr, uint8_t byte);
+[; ;memory.h: 193: int8_t FLASH_WriteBlock(uint32_t writeAddr, uint8_t *flashWrBufPtr);
+[; ;memory.h: 218: void FLASH_EraseBlock(uint32_t baseAddr);
+[; ;memory.h: 249: void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
+[; ;memory.h: 275: uint8_t DATAEE_ReadByte(uint8_t bAdd);
+[; ;tmr2.h: 103: void TMR2_Initialize(void);
+[; ;tmr2.h: 132: void TMR2_StartTimer(void);
+[; ;tmr2.h: 164: void TMR2_StopTimer(void);
+[; ;tmr2.h: 199: uint8_t TMR2_ReadTimer(void);
+[; ;tmr2.h: 238: void TMR2_WriteTimer(uint8_t timerVal);
+[; ;tmr2.h: 290: void TMR2_LoadPeriodRegister(uint8_t periodVal);
+[; ;tmr2.h: 325: bool TMR2_HasOverflowOccured(void);
+[; ;mcc.h: 73: void SYSTEM_Initialize(void);
+[; ;mcc.h: 86: void OSCILLATOR_Initialize(void);
 "9 Functions.c
 [v _Delay `(v ~T0 @X0 1 ef1`l ]
 {
@@ -7522,23 +7426,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Functions.c: 11: for (; wait > i; i++) {
 "11
 {
-[e $U 1131  ]
-[e :U 1128 ]
+[e $U 1128  ]
+[e :U 1125 ]
 {
-[; ;Functions.c: 12: _delay((unsigned long)((1)*(8000000/4000.0)));
+[; ;Functions.c: 12: _delay((unsigned long)((1)*(16000000/4000.0)));
 "12
-[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "13
 }
 "11
 [e ++ _i -> -> 1 `i `l ]
-[e :U 1131 ]
-[e $ > _wait _i 1128  ]
-[e :U 1129 ]
+[e :U 1128 ]
+[e $ > _wait _i 1125  ]
+[e :U 1126 ]
 "13
 }
 [; ;Functions.c: 13: }
 [; ;Functions.c: 14: }
 "14
-[e :UE 1127 ]
+[e :UE 1124 ]
 }

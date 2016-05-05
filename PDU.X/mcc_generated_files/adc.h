@@ -8,17 +8,17 @@
     adc.h
 
   @Summary
-    This is the generated header file for the ADC driver using MPLAB® Code Configurator
+    This is the generated header file for the ADC driver using MPLAB(c) Code Configurator
 
   @Description
     This header file provides APIs for driver for ADC.
     Generation Information :
-        Product Revision  :  MPLAB® Code Configurator - v2.25
+        Product Revision  :  MPLAB(c) Code Configurator - v3.00
         Device            :  PIC18F45K22
         Driver Version    :  2.00
     The generated drivers are tested against the following:
-        Compiler          :  XC8 v1.34
-        MPLAB             :  MPLAB X v2.35 or v3.00
+        Compiler          :  XC8 1.35
+        MPLAB             :  MPLAB X 3.20
 */
 
 /*
@@ -42,7 +42,7 @@ INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
 CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
 SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
-*/
+ */
 
 #ifndef _ADC_H
 #define _ADC_H
@@ -85,12 +85,12 @@ typedef uint16_t adc_result_t;
 
 typedef enum
 {
+    channel_AN16 =  0x10,
+    channel_AN22 =  0x16,
+    channel_AN23 =  0x17,
     channel_CTMU =  0x1D,
     channel_DAC =  0x1E,
-    channel_FVRBuf2 =  0x1F,
-    U5Multisense =  0x10,
-    U8Multisense =  0x16,
-    U10Multisense =  0x17
+    channel_FVRBuf2 =  0x1F
 } adc_channel_t;
 
 /**

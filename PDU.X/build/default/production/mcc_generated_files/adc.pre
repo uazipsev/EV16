@@ -9298,12 +9298,12 @@ typedef uint16_t adc_result_t;
 # 86
 typedef enum
 {
+channel_AN16 = 0x10,
+channel_AN22 = 0x16,
+channel_AN23 = 0x17,
 channel_CTMU = 0x1D,
 channel_DAC = 0x1E,
-channel_FVRBuf2 = 0x1F,
-U5Multisense = 0x10,
-U8Multisense = 0x16,
-U10Multisense = 0x17
+channel_FVRBuf2 = 0x1F
 } adc_channel_t;
 
 # 129
@@ -9333,10 +9333,10 @@ void ADC_Initialize(void)
 ADCON0 = 0x01;
 
 
-ADCON1 = 0x80;
+ADCON1 = 0x00;
 
 
-ADCON2 = 0x12;
+ADCON2 = 0x0D;
 
 
 ADRESL = 0x00;
@@ -9353,12 +9353,12 @@ void ADC_StartConversion(adc_channel_t channel)
 
 ADCON0bits.CHS = channel;
 
-
 ADCON0bits.ADON = 1;
 
 
 
 ADCON0bits.GO_nDONE = 1;
+
 }
 
 bool ADC_IsConversionDone()

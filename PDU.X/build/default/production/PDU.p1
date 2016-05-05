@@ -13,14 +13,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 "17 Shift595.h
 [v _SetPin595 `(v ~T0 @X0 0 ef3`i`i`i ]
 "70 PDU.c
-[c E7778 29 30 31 16 22 23 .. ]
-[n E7778 . channel_CTMU channel_DAC channel_FVRBuf2 U5Multisense U8Multisense U10Multisense  ]
+[c E7778 16 22 23 29 30 31 .. ]
+[n E7778 . channel_AN16 channel_AN22 channel_AN23 channel_CTMU channel_DAC channel_FVRBuf2  ]
 "253 mcc_generated_files/adc.h
 [v _ADC_GetConversion `(ui ~T0 @X0 0 ef1`E7778 ]
-"231 mcc_generated_files/memory.h
+"275 mcc_generated_files/memory.h
 [v _DATAEE_ReadByte `(uc ~T0 @X0 0 ef1`uc ]
-"18805 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
-[v _LATA3 `Vb ~T0 @X0 0 e@31819 ]
+"117 PDU.c
+[v _LED1_SetHigh `(i ~T0 @X0 0 ef ]
 "19 Shift595.h
 [v _writeRegisters `(v ~T0 @X0 0 ef ]
 "13 PDU.h
@@ -77,8 +77,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Shift595.h: 17: extern void SetPin595(int Reg, int pin, int value);
 [; ;Shift595.h: 18: extern void Clear595(void);
 [; ;Shift595.h: 19: extern void writeRegisters(void);
-[; ;pin_manager.h: 255: void PIN_MANAGER_Initialize (void);
-[; ;pin_manager.h: 267: void PIN_MANAGER_IOC(void);
+[; ;pin_manager.h: 309: void PIN_MANAGER_Initialize (void);
+[; ;pin_manager.h: 321: void PIN_MANAGER_IOC(void);
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -7437,12 +7437,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;adc.h: 72: typedef uint16_t adc_result_t;
 [; ;adc.h: 86: typedef enum
 [; ;adc.h: 87: {
-[; ;adc.h: 88: channel_CTMU = 0x1D,
-[; ;adc.h: 89: channel_DAC = 0x1E,
-[; ;adc.h: 90: channel_FVRBuf2 = 0x1F,
-[; ;adc.h: 91: U5Multisense = 0x10,
-[; ;adc.h: 92: U8Multisense = 0x16,
-[; ;adc.h: 93: U10Multisense = 0x17
+[; ;adc.h: 88: channel_AN16 = 0x10,
+[; ;adc.h: 89: channel_AN22 = 0x16,
+[; ;adc.h: 90: channel_AN23 = 0x17,
+[; ;adc.h: 91: channel_CTMU = 0x1D,
+[; ;adc.h: 92: channel_DAC = 0x1E,
+[; ;adc.h: 93: channel_FVRBuf2 = 0x1F
 [; ;adc.h: 94: } adc_channel_t;
 [; ;adc.h: 129: void ADC_Initialize(void);
 [; ;adc.h: 158: void ADC_StartConversion(adc_channel_t channel);
@@ -7450,13 +7450,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;adc.h: 223: adc_result_t ADC_GetConversionResult(void);
 [; ;adc.h: 253: adc_result_t ADC_GetConversion(adc_channel_t channel);
 [; ;adc.h: 269: void ADC_ISR(void);
-[; ;memory.h: 55: uint8_t FLASH_ReadByte(uint32_t flashAddr);
-[; ;memory.h: 81: uint16_t FLASH_ReadWord(uint32_t flashAddr);
-[; ;memory.h: 113: void FLASH_WriteByte(uint32_t flashAddr, uint8_t *flashRdBufPtr, uint8_t byte);
-[; ;memory.h: 149: int8_t FLASH_WriteBlock(uint32_t writeAddr, uint8_t *flashWrBufPtr);
-[; ;memory.h: 174: void FLASH_EraseBlock(uint32_t baseAddr);
-[; ;memory.h: 205: void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
-[; ;memory.h: 231: uint8_t DATAEE_ReadByte(uint8_t bAdd);
+[; ;memory.h: 99: uint8_t FLASH_ReadByte(uint32_t flashAddr);
+[; ;memory.h: 125: uint16_t FLASH_ReadWord(uint32_t flashAddr);
+[; ;memory.h: 157: void FLASH_WriteByte(uint32_t flashAddr, uint8_t *flashRdBufPtr, uint8_t byte);
+[; ;memory.h: 193: int8_t FLASH_WriteBlock(uint32_t writeAddr, uint8_t *flashWrBufPtr);
+[; ;memory.h: 218: void FLASH_EraseBlock(uint32_t baseAddr);
+[; ;memory.h: 249: void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
+[; ;memory.h: 275: uint8_t DATAEE_ReadByte(uint8_t bAdd);
 "15 PDU.c
 [v _PDUStartup `(v ~T0 @X0 1 ef ]
 {
@@ -7617,15 +7617,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;PDU.c: 69: Update();
 "69
 [e ( _Update ..  ]
-[; ;PDU.c: 70: CurrentADC[0] = ADC_GetConversion(U5Multisense);
+[; ;PDU.c: 70: CurrentADC[0] = ADC_GetConversion(channel_AN16);
 "70
-[e = *U + &U _CurrentADC * -> -> -> 0 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7778 3 `i ]
-[; ;PDU.c: 71: CurrentADC[2] = ADC_GetConversion(U8Multisense);
+[e = *U + &U _CurrentADC * -> -> -> 0 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7778 0 `i ]
+[; ;PDU.c: 71: CurrentADC[2] = ADC_GetConversion(channel_AN22);
 "71
-[e = *U + &U _CurrentADC * -> -> -> 2 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7778 4 `i ]
-[; ;PDU.c: 72: CurrentADC[4] = ADC_GetConversion(U10Multisense);
+[e = *U + &U _CurrentADC * -> -> -> 2 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7778 1 `i ]
+[; ;PDU.c: 72: CurrentADC[4] = ADC_GetConversion(channel_AN23);
 "72
-[e = *U + &U _CurrentADC * -> -> -> 4 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7778 5 `i ]
+[e = *U + &U _CurrentADC * -> -> -> 4 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7778 2 `i ]
 "73
 }
 [; ;PDU.c: 73: } else {
@@ -7662,15 +7662,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;PDU.c: 84: Update();
 "84
 [e ( _Update ..  ]
-[; ;PDU.c: 85: CurrentADC[1] = ADC_GetConversion(U5Multisense);
+[; ;PDU.c: 85: CurrentADC[1] = ADC_GetConversion(channel_AN16);
 "85
-[e = *U + &U _CurrentADC * -> -> -> 1 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7778 3 `i ]
-[; ;PDU.c: 86: CurrentADC[3] = ADC_GetConversion(U8Multisense);
+[e = *U + &U _CurrentADC * -> -> -> 1 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7778 0 `i ]
+[; ;PDU.c: 86: CurrentADC[3] = ADC_GetConversion(channel_AN22);
 "86
-[e = *U + &U _CurrentADC * -> -> -> 3 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7778 4 `i ]
-[; ;PDU.c: 87: CurrentADC[5] = ADC_GetConversion(U10Multisense);
+[e = *U + &U _CurrentADC * -> -> -> 3 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7778 1 `i ]
+[; ;PDU.c: 87: CurrentADC[5] = ADC_GetConversion(channel_AN23);
 "87
-[e = *U + &U _CurrentADC * -> -> -> 5 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7778 5 `i ]
+[e = *U + &U _CurrentADC * -> -> -> 5 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7778 2 `i ]
 "88
 }
 [e :U 1133 ]
@@ -7768,86 +7768,82 @@ Version 3.2 HI-TECH Software Intermediate Code
 "115
 [e $ ! > *U + &U _Current * -> -> _i `ui `ux -> -> # *U &U _Current `ui `ux *U + &U _Currentcomp * -> -> _i `ui `ux -> -> # *U &U _Currentcomp `ui `ux 1145  ]
 {
-[; ;PDU.c: 117: do { LATA3 = 1; } while(0);
+[; ;PDU.c: 117: LED1_SetHigh();
 "117
-[e :U 1148 ]
-{
-[e = _LATA3 -> -> 1 `i `b ]
-}
-[e :U 1147 ]
+[e ( _LED1_SetHigh ..  ]
 [; ;PDU.c: 118: switch(i){
 "118
-[e $U 1150  ]
+[e $U 1147  ]
 {
 [; ;PDU.c: 119: case 0:
 "119
-[e :U 1151 ]
+[e :U 1148 ]
 [; ;PDU.c: 120: EnableSlavePower(SAS, 0);
 "120
 [e ( _EnableSlavePower (2 , . `E5 2 -> 0 `i ]
 [; ;PDU.c: 121: break;
 "121
-[e $U 1149  ]
+[e $U 1146  ]
 [; ;PDU.c: 122: case 1:
 "122
-[e :U 1152 ]
+[e :U 1149 ]
 [; ;PDU.c: 123: EnableSlavePower(BMM, 0);
 "123
 [e ( _EnableSlavePower (2 , . `E5 3 -> 0 `i ]
 [; ;PDU.c: 124: break;
 "124
-[e $U 1149  ]
+[e $U 1146  ]
 [; ;PDU.c: 125: case 2:
 "125
-[e :U 1153 ]
+[e :U 1150 ]
 [; ;PDU.c: 126: EnableSlavePower(MCS, 0);
 "126
 [e ( _EnableSlavePower (2 , . `E5 1 -> 0 `i ]
 [; ;PDU.c: 127: break;
 "127
-[e $U 1149  ]
+[e $U 1146  ]
 [; ;PDU.c: 128: case 3:
 "128
-[e :U 1154 ]
+[e :U 1151 ]
 [; ;PDU.c: 129: EnableSlavePower(DDS, 0);
 "129
 [e ( _EnableSlavePower (2 , . `E5 0 -> 0 `i ]
 [; ;PDU.c: 130: break;
 "130
-[e $U 1149  ]
+[e $U 1146  ]
 [; ;PDU.c: 131: case 4:
 "131
-[e :U 1155 ]
+[e :U 1152 ]
 [; ;PDU.c: 132: EnableSlavePower(TSS, 0);
 "132
 [e ( _EnableSlavePower (2 , . `E5 4 -> 0 `i ]
 [; ;PDU.c: 133: break;
 "133
-[e $U 1149  ]
+[e $U 1146  ]
 [; ;PDU.c: 134: case 5:
 "134
-[e :U 1156 ]
+[e :U 1153 ]
 [; ;PDU.c: 135: EnableSlavePower(AUX, 0);
 "135
 [e ( _EnableSlavePower (2 , . `E5 5 -> 0 `i ]
 [; ;PDU.c: 136: break;
 "136
-[e $U 1149  ]
+[e $U 1146  ]
 "137
 }
 [; ;PDU.c: 137: }
-[e $U 1149  ]
+[e $U 1146  ]
 "118
-[e :U 1150 ]
-[e [\ _i , $ -> 0 `i 1151
- , $ -> 1 `i 1152
- , $ -> 2 `i 1153
- , $ -> 3 `i 1154
- , $ -> 4 `i 1155
- , $ -> 5 `i 1156
- 1149 ]
+[e :U 1147 ]
+[e [\ _i , $ -> 0 `i 1148
+ , $ -> 1 `i 1149
+ , $ -> 2 `i 1150
+ , $ -> 3 `i 1151
+ , $ -> 4 `i 1152
+ , $ -> 5 `i 1153
+ 1146 ]
 "137
-[e :U 1149 ]
+[e :U 1146 ]
 "138
 }
 [e :U 1145 ]
@@ -7876,5 +7872,5 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _writeRegisters ..  ]
 [; ;PDU.c: 144: }
 "144
-[e :UE 1157 ]
+[e :UE 1154 ]
 }

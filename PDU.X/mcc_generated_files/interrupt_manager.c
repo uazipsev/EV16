@@ -8,19 +8,19 @@
     interrupt_manager.c
 
   @Summary:
-    This is the Interrupt Manager file generated using MPLAB® Code Configurator
+    This is the Interrupt Manager file generated using MPLAB(c) Code Configurator
 
   @Description:
     This header file provides implementations for global interrupt handling.
     For individual peripheral handlers please see the peripheral driver for
     all modules selected in the GUI.
     Generation Information :
-        Product Revision  :  MPLAB® Code Configurator - v2.25
+        Product Revision  :  MPLAB(c) Code Configurator - v3.00
         Device            :  PIC18F45K22
         Driver Version    :  1.02
     The generated drivers are tested against the following:
-        Compiler          :  XC8 v1.34
-        MPLAB             :  MPLAB X v2.35 or v3.00
+        Compiler          :  XC8 1.35
+        MPLAB             :  MPLAB X 3.20
 */
 
 /*
@@ -44,7 +44,7 @@ INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
 CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
 SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
-*/
+ */
 
 #include "interrupt_manager.h"
 #include "mcc.h"
@@ -56,28 +56,22 @@ void  INTERRUPT_Initialize (void)
 
     // Clear peripheral interrupt priority bits (default reset value)
 
-    // RCI
-    IPR1bits.RC1IP = 0;
-    // TXI
-    IPR1bits.TX1IP = 0;
     // ADI
     IPR1bits.ADIP = 0;
+    // CCPI
+    IPR4bits.CCP5IP = 0;
 }
 
 void interrupt INTERRUPT_InterruptManager (void)
 {
    // interrupt handler
-    if(PIE1bits.RC1IE == 1 && PIR1bits.RC1IF == 1)
-    {
-        EUSART1_Receive_ISR();
-    }
-    else if(PIE1bits.TX1IE == 1 && PIR1bits.TX1IF == 1)
-    {
-        EUSART1_Transmit_ISR();
-    }
-    else if(PIE1bits.ADIE == 1 && PIR1bits.ADIF == 1)
+    if(PIE1bits.ADIE == 1 && PIR1bits.ADIF == 1)
     {
         ADC_ISR();
+    }
+    else if(PIE4bits.CCP5IE == 1 && PIR4bits.CCP5IF == 1)
+    {
+        CCP5_CaptureISR();
     }
     else
     {

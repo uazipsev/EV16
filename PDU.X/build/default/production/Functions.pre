@@ -1,7 +1,7 @@
 
 # 1 "Functions.c"
 
-# 11 "functions.h"
+# 11 "Functions.h"
 extern void Delay(long int wait);
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\htc.h"
@@ -9202,10 +9202,10 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 255 "mcc_generated_files/pin_manager.h"
+# 309 "mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
 
-# 267
+# 321
 void PIN_MANAGER_IOC(void);
 
 # 13 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdint.h"
@@ -9301,188 +9301,11 @@ typedef uint16_t uintptr_t;
 # 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdbool.h"
 typedef unsigned char bool;
 
-# 64 "mcc_generated_files/interrupt_manager.h"
+# 110 "mcc_generated_files/interrupt_manager.h"
 void INTERRUPT_Initialize (void);
 
-# 76
+# 122
 void interrupt INTERRUPT_InterruptManager (void);
-
-# 4 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\__size_t.h"
-typedef unsigned size_t;
-
-# 7 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdarg.h"
-typedef void * va_list[1];
-
-#pragma intrinsic(__va_start)
-extern void * __va_start(void);
-
-#pragma intrinsic(__va_arg)
-extern void * __va_arg(void *, ...);
-
-# 43 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdio.h"
-struct __prbuf
-{
-char * ptr;
-void (* func)(char);
-};
-
-# 29 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\errno.h"
-extern int errno;
-
-# 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\conio.h"
-extern void init_uart(void);
-
-extern char getch(void);
-extern char getche(void);
-extern void putch(char);
-extern void ungetch(char);
-
-extern __bit kbhit(void);
-
-# 23
-extern char * cgets(char *);
-extern void cputs(const char *);
-
-# 88 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdio.h"
-extern int cprintf(char *, ...);
-#pragma printf_check(cprintf)
-
-
-
-extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-
-
-# 180
-#pragma printf_check(vprintf) const
-#pragma printf_check(vsprintf) const
-
-extern char * gets(char *);
-extern int puts(const char *);
-extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
-extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
-extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
-extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
-extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
-
-#pragma printf_check(printf) const
-#pragma printf_check(sprintf) const
-extern int sprintf(char *, const char *, ...);
-extern int printf(const char *, ...);
-
-# 7 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdlib.h"
-typedef unsigned short wchar_t;
-
-# 15
-typedef struct {
-int rem;
-int quot;
-} div_t;
-typedef struct {
-unsigned rem;
-unsigned quot;
-} udiv_t;
-typedef struct {
-long quot;
-long rem;
-} ldiv_t;
-typedef struct {
-unsigned long quot;
-unsigned long rem;
-} uldiv_t;
-
-# 53
-extern double atof(const char *);
-extern double strtod(const char *, const char **);
-extern int atoi(const char *);
-extern unsigned xtoi(const char *);
-extern long atol(const char *);
-extern long strtol(const char *, char **, int);
-
-extern int rand(void);
-extern void srand(unsigned int);
-extern void * calloc(size_t, size_t);
-extern div_t div(int numer, int denom);
-extern udiv_t udiv(unsigned numer, unsigned denom);
-extern ldiv_t ldiv(long numer, long denom);
-extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
-extern unsigned long _lrotl(unsigned long value, unsigned int shift);
-extern unsigned long _lrotr(unsigned long value, unsigned int shift);
-extern unsigned int _rotl(unsigned int value, unsigned int shift);
-extern unsigned int _rotr(unsigned int value, unsigned int shift);
-
-
-
-
-extern void * malloc(size_t);
-extern void free(void *);
-extern void * realloc(void *, size_t);
-
-# 86
-extern int atexit(void (*)(void));
-extern char * getenv(const char *);
-extern char ** environ;
-extern int system(char *);
-extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
-extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
-extern int abs(int);
-extern long labs(long);
-
-extern char * itoa(char * buf, int val, int base);
-extern char * utoa(char * buf, unsigned val, int base);
-
-
-
-
-extern char * ltoa(char * buf, long val, int base);
-extern char * ultoa(char * buf, unsigned long val, int base);
-
-extern char * ftoa(float f, int * status);
-
-# 23 "mcc_generated_files/..\UART.h"
-uint8_t EUSART1_Read(void);
-
-# 48
-void EUSART1_Write(uint8_t txData);
-
-# 69
-void EUSART1_Transmit_ISR(void);
-
-# 90
-void EUSART1_Receive_ISR(void);
-
-char getch(void);
-void putch(char txData);
-
-# 99
-extern volatile unsigned int talkTime;
-void *memset(void *s, int c, size_t n);
-
-struct UART_ring_buff {
-unsigned char buf[200];
-int head;
-int tail;
-int count;
-};
-
-struct UART_ring_buff input_buffer;
-struct UART_ring_buff output_buffer;
-
-bool Transmit_stall = 1;
-void EUSART1_Initialize(void);
-void UART_buff_init(struct UART_ring_buff* _this);
-void UART_buff_put(struct UART_ring_buff* _this, const unsigned char c);
-unsigned char UART_buff_get(struct UART_ring_buff* _this);
-void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
-int UART_buff_size(struct UART_ring_buff* _this);
-unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
-unsigned char UART_buff_peek(struct UART_ring_buff* _this);
-
-
-unsigned char Receive_peek(void);
-int Receive_available(void);
-unsigned char Receive_get(void);
-void Send_put(unsigned char _data);
 
 # 72 "mcc_generated_files/adc.h"
 typedef uint16_t adc_result_t;
@@ -9490,12 +9313,12 @@ typedef uint16_t adc_result_t;
 # 86
 typedef enum
 {
+channel_AN16 = 0x10,
+channel_AN22 = 0x16,
+channel_AN23 = 0x17,
 channel_CTMU = 0x1D,
 channel_DAC = 0x1E,
-channel_FVRBuf2 = 0x1F,
-U5Multisense = 0x10,
-U8Multisense = 0x16,
-U10Multisense = 0x17
+channel_FVRBuf2 = 0x1F
 } adc_channel_t;
 
 # 129
@@ -9516,26 +9339,87 @@ adc_result_t ADC_GetConversion(adc_channel_t channel);
 # 269
 void ADC_ISR(void);
 
-# 70 "mcc_generated_files/mcc.h"
+# 97 "mcc_generated_files/pwm4.h"
+void PWM4_Initialize(void);
+
+# 124
+void PWM4_LoadDutyValue(uint16_t dutyValue);
+
+# 75 "mcc_generated_files/ccp5.h"
+typedef union CCPR5Reg_tag
+{
+struct
+{
+uint8_t ccpr5l;
+uint8_t ccpr5h;
+};
+struct
+{
+uint16_t ccpr5_16Bit;
+};
+} CCP_PERIOD_REG_T ;
+
+# 118
+void CCP5_Initialize(void);
+
+# 134
+void CCP5_CaptureISR(void);
+
+# 155
+void CCP5_CallBack(uint16_t capturedValue);
+
+# 99 "mcc_generated_files/memory.h"
+uint8_t FLASH_ReadByte(uint32_t flashAddr);
+
+# 125
+uint16_t FLASH_ReadWord(uint32_t flashAddr);
+
+# 157
+void FLASH_WriteByte(uint32_t flashAddr, uint8_t *flashRdBufPtr, uint8_t byte);
+
+# 193
+int8_t FLASH_WriteBlock(uint32_t writeAddr, uint8_t *flashWrBufPtr);
+
+# 218
+void FLASH_EraseBlock(uint32_t baseAddr);
+
+# 249
+void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
+
+# 275
+uint8_t DATAEE_ReadByte(uint8_t bAdd);
+
+# 103 "mcc_generated_files/tmr2.h"
+void TMR2_Initialize(void);
+
+# 132
+void TMR2_StartTimer(void);
+
+# 164
+void TMR2_StopTimer(void);
+
+# 199
+uint8_t TMR2_ReadTimer(void);
+
+# 238
+void TMR2_WriteTimer(uint8_t timerVal);
+
+# 290
+void TMR2_LoadPeriodRegister(uint8_t periodVal);
+
+# 325
+bool TMR2_HasOverflowOccured(void);
+
+# 73 "mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
 
-# 83
+# 86
 void OSCILLATOR_Initialize(void);
-
-# 89
-extern void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
-
-extern unsigned char Receive_peek(void);
-extern int Receive_available(void);
-extern unsigned char Receive_get(void);
-extern void Send_put(unsigned char _data);
-
-extern volatile int receiveArray[20];
 
 # 9 "Functions.c"
 void Delay(long int wait) {
 long int i = 0;
 for (; wait > i; i++) {
-_delay((unsigned long)((1)*(8000000/4000.0)));
+_delay((unsigned long)((1)*(16000000/4000.0)));
 }
 }

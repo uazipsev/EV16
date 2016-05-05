@@ -32,10 +32,10 @@ extern void SetPin595(int Reg, int pin, int value);
 extern void Clear595(void);
 extern void writeRegisters(void);
 
-# 255 "mcc_generated_files/pin_manager.h"
+# 309 "mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
 
-# 267
+# 321
 void PIN_MANAGER_IOC(void);
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\htc.h"
@@ -9335,12 +9335,12 @@ typedef uint16_t adc_result_t;
 # 86
 typedef enum
 {
+channel_AN16 = 0x10,
+channel_AN22 = 0x16,
+channel_AN23 = 0x17,
 channel_CTMU = 0x1D,
 channel_DAC = 0x1E,
-channel_FVRBuf2 = 0x1F,
-U5Multisense = 0x10,
-U8Multisense = 0x16,
-U10Multisense = 0x17
+channel_FVRBuf2 = 0x1F
 } adc_channel_t;
 
 # 129
@@ -9361,25 +9361,25 @@ adc_result_t ADC_GetConversion(adc_channel_t channel);
 # 269
 void ADC_ISR(void);
 
-# 55 "mcc_generated_files/memory.h"
+# 99 "mcc_generated_files/memory.h"
 uint8_t FLASH_ReadByte(uint32_t flashAddr);
 
-# 81
+# 125
 uint16_t FLASH_ReadWord(uint32_t flashAddr);
 
-# 113
+# 157
 void FLASH_WriteByte(uint32_t flashAddr, uint8_t *flashRdBufPtr, uint8_t byte);
 
-# 149
+# 193
 int8_t FLASH_WriteBlock(uint32_t writeAddr, uint8_t *flashWrBufPtr);
 
-# 174
+# 218
 void FLASH_EraseBlock(uint32_t baseAddr);
 
-# 205
+# 249
 void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
 
-# 231
+# 275
 uint8_t DATAEE_ReadByte(uint8_t bAdd);
 
 # 15 "PDU.c"
@@ -9438,9 +9438,9 @@ SetPin595(3, 4, ON);
 SetPin595(3, 3, OFF);
 SetPin595(3, 2, OFF);
 Update();
-CurrentADC[0] = ADC_GetConversion(U5Multisense);
-CurrentADC[2] = ADC_GetConversion(U8Multisense);
-CurrentADC[4] = ADC_GetConversion(U10Multisense);
+CurrentADC[0] = ADC_GetConversion(channel_AN16);
+CurrentADC[2] = ADC_GetConversion(channel_AN22);
+CurrentADC[4] = ADC_GetConversion(channel_AN23);
 } else {
 
 SetPin595(1, 4, ON);
@@ -9453,9 +9453,9 @@ SetPin595(3, 4, ON);
 SetPin595(3, 3, OFF);
 SetPin595(3, 2, ON);
 Update();
-CurrentADC[1] = ADC_GetConversion(U5Multisense);
-CurrentADC[3] = ADC_GetConversion(U8Multisense);
-CurrentADC[5] = ADC_GetConversion(U10Multisense);
+CurrentADC[1] = ADC_GetConversion(channel_AN16);
+CurrentADC[3] = ADC_GetConversion(channel_AN22);
+CurrentADC[5] = ADC_GetConversion(channel_AN23);
 }
 }
 
@@ -9485,7 +9485,7 @@ Current[i] = CurrentADC[i]*146;
 for (int i = 0; i < 6; i++) {
 if (Current[i] > Currentcomp[i]) {
 
-do { LATA3 = 1; } while(0);
+LED1_SetHigh();
 switch(i){
 case 0:
 EnableSlavePower(SAS, 0);

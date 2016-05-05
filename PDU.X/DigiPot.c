@@ -10,7 +10,7 @@
  */
 
 #include "xc.h"
-#include "PinDef.h"
+#include "MCC_Generated_Files/pin_manager.h"
 #include "DigiPot.h"
 
 int prev_pos = 0;
@@ -31,30 +31,30 @@ void PotSetpoint(int new_point) {
     //I am bit banging the control to this
 
     //!CS this to select the device
-    DIGI_CS = 0;
+    DIGI_CS_LAT = 0;
 
     //Tells the device if the clock moves output up or down
     if (new_pos > prev_pos) {
         //moving up
-        DIGI_UP_DN = 1;
+        DIGI_UP_DN_LAT = 1;
         set_point = new_pos - prev_pos;
     }
     if (new_pos < prev_pos) {
         //moving down
-        DIGI_UP_DN = 0;
+        DIGI_UP_DN_LAT = 0;
         set_point = prev_pos - new_pos;
     }
 
     int x;
     //clock to move it desired steps
     for (x = 0; x < set_point; x++) {
-        DIGI_INC = 1;
-        Delay(1);
-        DIGI_INC = 0;
-        Delay(1);
+        DIGI_INC_LAT = 1;
+        //Delay(1);
+        DIGI_INC_LAT = 0;
+        //Delay(1);
     }
     //We are done, let it go
-    DIGI_CS = 1;
+    DIGI_CS_LAT = 1;
     prev_pos = new_pos;
 
 }
@@ -63,18 +63,18 @@ void PotSetpoint(int new_point) {
 
 void PotClear(void) {
     //!CS this Bitch
-    DIGI_CS = 0;
-    Delay(1);
-    DIGI_UP_DN = 0;
-    Delay(1);
+    DIGI_CS_LAT = 0;
+    //Delay(1);
+    DIGI_UP_DN_LAT = 0;
+    //Delay(1);
     int x;
     for (x = 0; x < 32; x++) {
-        DIGI_INC = 1;
-        Delay(1);
-        DIGI_INC = 0;
-        Delay(1);
+        DIGI_INC_LAT = 1;
+        //Delay(1);
+        DIGI_INC_LAT = 0;
+        //Delay(1);
     }
     //We are done, let it go
-    DIGI_CS = 1;
+    DIGI_CS_LAT = 1;
     prev_pos = 0;
 }

@@ -12,13 +12,13 @@
 
 #include "CoolingControl.h"
 #include "DigiPot.h"
-#include "pwm.h"
+#include "mcc_generated_files/pwm4.h"
 
 //The system needs to be started to minimum values.
 
 void CoolingStart() {
     PotSetpoint(pumpStart);
-    PWMupdate(fanStart);
+    PWM4_LoadDutyValue(fanStart);
 }
 
 void CoolingUpdate(void) {

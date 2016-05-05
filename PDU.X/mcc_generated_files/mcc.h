@@ -50,10 +50,14 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "pin_manager.h"
 #include <stdint.h>
 #include <stdbool.h>
+#include "interrupt_manager.h"
+#include "adc.h"
 #include "pwm4.h"
+#include "ccp5.h"
+#include "memory.h"
 #include "tmr2.h"
 
-#define _XTAL_FREQ  1000000
+#define _XTAL_FREQ  16000000
 
 /**
  * @Param

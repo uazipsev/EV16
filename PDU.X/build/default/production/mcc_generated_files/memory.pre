@@ -9292,28 +9292,91 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 55 "mcc_generated_files/memory.h"
+# 99 "mcc_generated_files/memory.h"
 uint8_t FLASH_ReadByte(uint32_t flashAddr);
 
-# 81
+# 125
 uint16_t FLASH_ReadWord(uint32_t flashAddr);
 
-# 113
+# 157
 void FLASH_WriteByte(uint32_t flashAddr, uint8_t *flashRdBufPtr, uint8_t byte);
 
-# 149
+# 193
 int8_t FLASH_WriteBlock(uint32_t writeAddr, uint8_t *flashWrBufPtr);
 
-# 174
+# 218
 void FLASH_EraseBlock(uint32_t baseAddr);
 
-# 205
+# 249
 void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
 
-# 231
+# 275
 uint8_t DATAEE_ReadByte(uint8_t bAdd);
 
-# 14 "mcc_generated_files/memory.c"
+# 4 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\__size_t.h"
+typedef unsigned size_t;
+
+# 7 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdarg.h"
+typedef void * va_list[1];
+
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
+
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+
+# 43 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdio.h"
+struct __prbuf
+{
+char * ptr;
+void (* func)(char);
+};
+
+# 29 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\errno.h"
+extern int errno;
+
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\conio.h"
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern __bit kbhit(void);
+
+# 23
+extern char * cgets(char *);
+extern void cputs(const char *);
+
+# 88 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdio.h"
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+
+
+# 180
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+
+# 60 "mcc_generated_files/memory.c"
 uint8_t FLASH_ReadByte(uint32_t flashAddr)
 {
 TBLPTRU = (uint8_t)((flashAddr & 0x00FF0000) >> 16);
@@ -9417,7 +9480,7 @@ EECON1bits.WR = 1;
 INTCONbits.GIE = GIEBitValue;
 }
 
-# 121
+# 167
 void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData)
 {
 uint8_t GIEBitValue = INTCONbits.GIE;
@@ -9450,5 +9513,10 @@ __nop();
 __nop();
 
 return (EEDATA);
+}
+void MEMORY_Tasks( void )
+{
+
+PIR2bits.EEIF = 0;
 }
 

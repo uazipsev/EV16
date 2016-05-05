@@ -21,8 +21,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 "9622
 [v _PIE1bits `VS544 ~T0 @X0 0 e@3997 ]
 "83 mcc_generated_files/adc.c
-[c E7738 29 30 31 16 22 23 .. ]
-[n E7738 . channel_CTMU channel_DAC channel_FVRBuf2 U5Multisense U8Multisense U10Multisense  ]
+[c E7738 16 22 23 29 30 31 .. ]
+[n E7738 . channel_AN16 channel_AN22 channel_AN23 channel_CTMU channel_DAC channel_FVRBuf2  ]
 "13904 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
 [s S814 :1 `uc 1 :1 `uc 1 ]
 [n S814 . . GO_NOT_DONE ]
@@ -7421,12 +7421,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;adc.h: 72: typedef uint16_t adc_result_t;
 [; ;adc.h: 86: typedef enum
 [; ;adc.h: 87: {
-[; ;adc.h: 88: channel_CTMU = 0x1D,
-[; ;adc.h: 89: channel_DAC = 0x1E,
-[; ;adc.h: 90: channel_FVRBuf2 = 0x1F,
-[; ;adc.h: 91: U5Multisense = 0x10,
-[; ;adc.h: 92: U8Multisense = 0x16,
-[; ;adc.h: 93: U10Multisense = 0x17
+[; ;adc.h: 88: channel_AN16 = 0x10,
+[; ;adc.h: 89: channel_AN22 = 0x16,
+[; ;adc.h: 90: channel_AN23 = 0x17,
+[; ;adc.h: 91: channel_CTMU = 0x1D,
+[; ;adc.h: 92: channel_DAC = 0x1E,
+[; ;adc.h: 93: channel_FVRBuf2 = 0x1F
 [; ;adc.h: 94: } adc_channel_t;
 [; ;adc.h: 129: void ADC_Initialize(void);
 [; ;adc.h: 158: void ADC_StartConversion(adc_channel_t channel);
@@ -7445,12 +7445,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;adc.c: 64: ADCON0 = 0x01;
 "64
 [e = _ADCON0 -> -> 1 `i `uc ]
-[; ;adc.c: 67: ADCON1 = 0x80;
+[; ;adc.c: 67: ADCON1 = 0x00;
 "67
-[e = _ADCON1 -> -> 128 `i `uc ]
-[; ;adc.c: 70: ADCON2 = 0x12;
+[e = _ADCON1 -> -> 0 `i `uc ]
+[; ;adc.c: 70: ADCON2 = 0x0D;
 "70
-[e = _ADCON2 -> -> 18 `i `uc ]
+[e = _ADCON2 -> -> 13 `i `uc ]
 [; ;adc.c: 73: ADRESL = 0x00;
 "73
 [e = _ADRESL -> -> 0 `i `uc ]
@@ -7478,11 +7478,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;adc.c: 85: ADCON0bits.CHS = channel;
 "85
 [e = . . _ADCON0bits 1 2 -> _channel `uc ]
-[; ;adc.c: 88: ADCON0bits.ADON = 1;
-"88
+[; ;adc.c: 87: ADCON0bits.ADON = 1;
+"87
 [e = . . _ADCON0bits 1 0 -> -> 1 `i `uc ]
-[; ;adc.c: 92: ADCON0bits.GO_nDONE = 1;
-"92
+[; ;adc.c: 91: ADCON0bits.GO_nDONE = 1;
+"91
 [e = . . _ADCON0bits 1 1 -> -> 1 `i `uc ]
 [; ;adc.c: 93: }
 "93

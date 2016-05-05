@@ -10,7 +10,6 @@
 
 void PotSetpoint(int new_point);
 void PotClear(void);
-extern void Delay(int wait);
 
 #endif	/* DIGIPOT_H */
 

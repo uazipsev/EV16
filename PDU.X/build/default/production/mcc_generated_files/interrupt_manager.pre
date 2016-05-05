@@ -1,10 +1,10 @@
 
 # 1 "mcc_generated_files/interrupt_manager.c"
 
-# 64 "mcc_generated_files/interrupt_manager.h"
+# 110 "mcc_generated_files/interrupt_manager.h"
 void INTERRUPT_Initialize (void);
 
-# 76
+# 122
 void interrupt INTERRUPT_InterruptManager (void);
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\htc.h"
@@ -9205,10 +9205,10 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 262 "mcc_generated_files/pin_manager.h"
+# 309 "mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
 
-# 274
+# 321
 void PIN_MANAGER_IOC(void);
 
 # 13 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdint.h"
@@ -9304,11 +9304,87 @@ typedef uint16_t uintptr_t;
 # 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdbool.h"
 typedef unsigned char bool;
 
+# 72 "mcc_generated_files/adc.h"
+typedef uint16_t adc_result_t;
+
+# 86
+typedef enum
+{
+channel_AN16 = 0x10,
+channel_AN22 = 0x16,
+channel_AN23 = 0x17,
+channel_CTMU = 0x1D,
+channel_DAC = 0x1E,
+channel_FVRBuf2 = 0x1F
+} adc_channel_t;
+
+# 129
+void ADC_Initialize(void);
+
+# 158
+void ADC_StartConversion(adc_channel_t channel);
+
+# 190
+bool ADC_IsConversionDone();
+
+# 223
+adc_result_t ADC_GetConversionResult(void);
+
+# 253
+adc_result_t ADC_GetConversion(adc_channel_t channel);
+
+# 269
+void ADC_ISR(void);
+
 # 97 "mcc_generated_files/pwm4.h"
 void PWM4_Initialize(void);
 
 # 124
 void PWM4_LoadDutyValue(uint16_t dutyValue);
+
+# 75 "mcc_generated_files/ccp5.h"
+typedef union CCPR5Reg_tag
+{
+struct
+{
+uint8_t ccpr5l;
+uint8_t ccpr5h;
+};
+struct
+{
+uint16_t ccpr5_16Bit;
+};
+} CCP_PERIOD_REG_T ;
+
+# 118
+void CCP5_Initialize(void);
+
+# 134
+void CCP5_CaptureISR(void);
+
+# 155
+void CCP5_CallBack(uint16_t capturedValue);
+
+# 99 "mcc_generated_files/memory.h"
+uint8_t FLASH_ReadByte(uint32_t flashAddr);
+
+# 125
+uint16_t FLASH_ReadWord(uint32_t flashAddr);
+
+# 157
+void FLASH_WriteByte(uint32_t flashAddr, uint8_t *flashRdBufPtr, uint8_t byte);
+
+# 193
+int8_t FLASH_WriteBlock(uint32_t writeAddr, uint8_t *flashWrBufPtr);
+
+# 218
+void FLASH_EraseBlock(uint32_t baseAddr);
+
+# 249
+void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
+
+# 275
+uint8_t DATAEE_ReadByte(uint8_t bAdd);
 
 # 103 "mcc_generated_files/tmr2.h"
 void TMR2_Initialize(void);
@@ -9331,10 +9407,10 @@ void TMR2_LoadPeriodRegister(uint8_t periodVal);
 # 325
 bool TMR2_HasOverflowOccured(void);
 
-# 69 "mcc_generated_files/mcc.h"
+# 73 "mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
 
-# 82
+# 86
 void OSCILLATOR_Initialize(void);
 
 # 52 "mcc_generated_files/interrupt_manager.c"
@@ -9346,27 +9422,21 @@ RCONbits.IPEN = 0;
 
 
 
-IPR1bits.RC1IP = 0;
-
-IPR1bits.TX1IP = 0;
-
 IPR1bits.ADIP = 0;
+
+IPR4bits.CCP5IP = 0;
 }
 
 void interrupt INTERRUPT_InterruptManager (void)
 {
 
-if(PIE1bits.RC1IE == 1 && PIR1bits.RC1IF == 1)
-{
-EUSART1_Receive_ISR();
-}
-else if(PIE1bits.TX1IE == 1 && PIR1bits.TX1IF == 1)
-{
-EUSART1_Transmit_ISR();
-}
-else if(PIE1bits.ADIE == 1 && PIR1bits.ADIF == 1)
+if(PIE1bits.ADIE == 1 && PIR1bits.ADIF == 1)
 {
 ADC_ISR();
+}
+else if(PIE4bits.CCP5IE == 1 && PIR4bits.CCP5IF == 1)
+{
+CCP5_CaptureISR();
 }
 else
 {

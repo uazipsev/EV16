@@ -3,41 +3,41 @@
 
 
 # 50
-#pragma config IESO = OFF
-#pragma config PLLCFG = OFF
-#pragma config PRICLKEN = OFF
 #pragma config FOSC = INTIO67
+#pragma config PLLCFG = OFF
+#pragma config PRICLKEN = ON
 #pragma config FCMEN = OFF
+#pragma config IESO = OFF
 
 
+#pragma config PWRTEN = OFF
 #pragma config BOREN = SBORDIS
 #pragma config BORV = 190
-#pragma config PWRTEN = OFF
 
 
-#pragma config WDTPS = 32768
 #pragma config WDTEN = OFF
+#pragma config WDTPS = 32768
 
 
 #pragma config CCP2MX = PORTC1
-#pragma config P2BMX = PORTD2
-#pragma config HFOFST = ON
 #pragma config PBADEN = ON
 #pragma config CCP3MX = PORTB5
-#pragma config MCLRE = EXTMCLR
+#pragma config HFOFST = ON
 #pragma config T3CMX = PORTC0
+#pragma config P2BMX = PORTD2
+#pragma config MCLRE = EXTMCLR
 
 
-#pragma config LVP = OFF
 #pragma config STVREN = ON
+#pragma config LVP = OFF
 #pragma config XINST = OFF
 #pragma config DEBUG = OFF
 
 
-#pragma config CP2 = OFF
-#pragma config CP1 = OFF
-#pragma config CP3 = OFF
 #pragma config CP0 = OFF
+#pragma config CP1 = OFF
+#pragma config CP2 = OFF
+#pragma config CP3 = OFF
 
 
 #pragma config CPB = OFF
@@ -51,14 +51,14 @@
 
 
 #pragma config WRTC = OFF
-#pragma config WRTD = OFF
 #pragma config WRTB = OFF
+#pragma config WRTD = OFF
 
 
-#pragma config EBTR3 = OFF
+#pragma config EBTR0 = OFF
 #pragma config EBTR1 = OFF
 #pragma config EBTR2 = OFF
-#pragma config EBTR0 = OFF
+#pragma config EBTR3 = OFF
 
 
 #pragma config EBTRB = OFF
@@ -9261,10 +9261,10 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 262 "mcc_generated_files/pin_manager.h"
+# 309 "mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
 
-# 274
+# 321
 void PIN_MANAGER_IOC(void);
 
 # 13 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdint.h"
@@ -9360,11 +9360,93 @@ typedef uint16_t uintptr_t;
 # 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdbool.h"
 typedef unsigned char bool;
 
+# 110 "mcc_generated_files/interrupt_manager.h"
+void INTERRUPT_Initialize (void);
+
+# 122
+void interrupt INTERRUPT_InterruptManager (void);
+
+# 72 "mcc_generated_files/adc.h"
+typedef uint16_t adc_result_t;
+
+# 86
+typedef enum
+{
+channel_AN16 = 0x10,
+channel_AN22 = 0x16,
+channel_AN23 = 0x17,
+channel_CTMU = 0x1D,
+channel_DAC = 0x1E,
+channel_FVRBuf2 = 0x1F
+} adc_channel_t;
+
+# 129
+void ADC_Initialize(void);
+
+# 158
+void ADC_StartConversion(adc_channel_t channel);
+
+# 190
+bool ADC_IsConversionDone();
+
+# 223
+adc_result_t ADC_GetConversionResult(void);
+
+# 253
+adc_result_t ADC_GetConversion(adc_channel_t channel);
+
+# 269
+void ADC_ISR(void);
+
 # 97 "mcc_generated_files/pwm4.h"
 void PWM4_Initialize(void);
 
 # 124
 void PWM4_LoadDutyValue(uint16_t dutyValue);
+
+# 75 "mcc_generated_files/ccp5.h"
+typedef union CCPR5Reg_tag
+{
+struct
+{
+uint8_t ccpr5l;
+uint8_t ccpr5h;
+};
+struct
+{
+uint16_t ccpr5_16Bit;
+};
+} CCP_PERIOD_REG_T ;
+
+# 118
+void CCP5_Initialize(void);
+
+# 134
+void CCP5_CaptureISR(void);
+
+# 155
+void CCP5_CallBack(uint16_t capturedValue);
+
+# 99 "mcc_generated_files/memory.h"
+uint8_t FLASH_ReadByte(uint32_t flashAddr);
+
+# 125
+uint16_t FLASH_ReadWord(uint32_t flashAddr);
+
+# 157
+void FLASH_WriteByte(uint32_t flashAddr, uint8_t *flashRdBufPtr, uint8_t byte);
+
+# 193
+int8_t FLASH_WriteBlock(uint32_t writeAddr, uint8_t *flashWrBufPtr);
+
+# 218
+void FLASH_EraseBlock(uint32_t baseAddr);
+
+# 249
+void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
+
+# 275
+uint8_t DATAEE_ReadByte(uint8_t bAdd);
 
 # 103 "mcc_generated_files/tmr2.h"
 void TMR2_Initialize(void);
@@ -9387,90 +9469,29 @@ void TMR2_LoadPeriodRegister(uint8_t periodVal);
 # 325
 bool TMR2_HasOverflowOccured(void);
 
-# 69 "mcc_generated_files/mcc.h"
+# 73 "mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
 
-# 82
+# 86
 void OSCILLATOR_Initialize(void);
 
-# 14 "mcc_generated_files/../FastTransfer.h"
-void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
-void sendData(unsigned char whereToSend);
-bool receiveData();
-void ToSend(const unsigned char where, const unsigned int what);
-unsigned char AKNAK(unsigned char module);
-unsigned int alignError(void);
-unsigned int CRCError(void);
-unsigned int addressError(void);
-unsigned int dataAddressError(void);
+# 112 "mcc_generated_files/mcc.c"
+void SYSTEM_Initialize(void)
+{
 
-volatile int receiveArray[20];
-
-void (*serial_write)(unsigned char);
-unsigned char (*serial_read)(void);
-int (*serial_available)(void);
-unsigned char (*serial_peek)(void);
-unsigned char rx_buffer[200];
-unsigned char rx_array_inx;
-unsigned char rx_len;
-unsigned char calc_CS;
-unsigned char moduleAddress;
-unsigned char returnAddress;
-unsigned char maxDataAddress;
-volatile int * receiveArrayAddress;
-unsigned char * sendStructAddress;
-bool AKNAKsend;
-unsigned int alignErrorCounter;
-unsigned int crcErrorCounter;
-unsigned int addressErrorCounter;
-unsigned int dataAdressErrorCounter;
-unsigned char rx_address;
-
-# 52
-struct ringBufS {
-unsigned char buf[200];
-int head;
-int tail;
-int count;
-};
-struct ringBufS ring_buffer;
-
-union stuff {
-unsigned char parts[2];
-unsigned int integer;
-};
-union stuff group;
-
-struct crcBufS {
-unsigned char buf[(5 * 3)];
-int head;
-};
-struct crcBufS crc_buffer;
-
-unsigned char CRC8(const unsigned char * data, unsigned char len);
-void FastTransfer_buffer_put(struct ringBufS *_this, const unsigned char towhere, const unsigned int towhat);
-unsigned char FastTransfer_buffer_get(struct ringBufS* _this);
-void FastTransfer_buffer_flush(struct ringBufS* _this, const int clearBuffer);
-unsigned int FastTransfer_buffer_modulo_inc(const unsigned int value, const unsigned int modulus);
-void crcBufS_put(struct crcBufS* _this, unsigned char address, unsigned char oldCRC, unsigned char status);
-void crcBufS_status_put(struct crcBufS* _this, unsigned char time, unsigned char status);
-unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned char space);
-void CRCcheck(void);
-
-# 114 "mcc_generated_files/mcc.c"
-void SYSTEM_Initialize(void) {
-OSCILLATOR_Initialize();
-PIN_MANAGER_Initialize();
 INTERRUPT_Initialize();
-EUSART1_Initialize();
-begin(receiveArray, sizeof (receiveArray), 5, 0, Send_put, Receive_get, Receive_available, Receive_peek);
-
+PIN_MANAGER_Initialize();
+OSCILLATOR_Initialize();
+PWM4_Initialize();
+TMR2_Initialize();
 ADC_Initialize();
+CCP5_Initialize();
 }
 
-void OSCILLATOR_Initialize(void) {
+void OSCILLATOR_Initialize(void)
+{
 
-OSCCON = 0x60;
+OSCCON = 0x70;
 
 OSCCON2 = 0x04;
 
