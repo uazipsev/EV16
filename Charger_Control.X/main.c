@@ -47,16 +47,20 @@ void main(void) {
     NokiaStart();
     LED_SetDigitalOutput();
     LED_SetHigh();
+    int x = 0;
     while (1) {
         
         Delay(1000);
-        //clearLcd();
+        clearLcd();
+        gotoXy(3,3);  //0-14,0-5
+        //NokiaStr(":");
         NokiaStr("Hello World!");
         //Delay(1000);
         GREEN_Toggle();
         BLUE_Toggle();
         YELLOW_Toggle();
         LED_Toggle();
+        x++;
     }
     respondECU();
     updateComms();

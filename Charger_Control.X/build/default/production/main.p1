@@ -30,7 +30,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LATA3 `Vb ~T0 @X0 0 e@31819 ]
 "13 functions.h
 [v _Delay `(v ~T0 @X0 0 ef1`l ]
-"16 NokiaLCD.h
+"14 NokiaLCD.h
+[v _clearLcd `(v ~T0 @X0 0 ef ]
+"11
+[v _gotoXy `(v ~T0 @X0 0 ef2`uc`uc ]
+"16
 [v _NokiaStr `(v ~T0 @X0 0 ef1`*uc ]
 "18987 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
 [v _LATA6 `Vb ~T0 @X0 0 e@31822 ]
@@ -38,7 +42,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LATC0 `Vb ~T0 @X0 0 e@31832 ]
 "19009
 [v _LATC1 `Vb ~T0 @X0 0 e@31833 ]
-"61 main.c
+"65 main.c
 [v _respondECU `(i ~T0 @X0 0 ef ]
 "12 Communications.h
 [v _updateComms `(v ~T0 @X0 0 ef ]
@@ -9183,59 +9187,72 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _LATA3 -> -> 1 `i `b ]
 }
 [e :U 1183 ]
-[; ;main.c: 50: while (1) {
 "50
+[v _x `i ~T0 @X0 1 a ]
+[; ;main.c: 50: int x = 0;
+[e = _x -> 0 `i ]
+[; ;main.c: 51: while (1) {
+"51
 [e :U 1186 ]
 {
-[; ;main.c: 52: Delay(1000);
-"52
+[; ;main.c: 53: Delay(1000);
+"53
 [e ( _Delay (1 -> -> 1000 `i `l ]
-[; ;main.c: 54: NokiaStr("Hello World!");
+[; ;main.c: 54: clearLcd();
 "54
+[e ( _clearLcd ..  ]
+[; ;main.c: 55: gotoXy(3,3);
+"55
+[e ( _gotoXy (2 , -> -> 3 `i `uc -> -> 3 `i `uc ]
+[; ;main.c: 57: NokiaStr("Hello World!");
+"57
 [e ( _NokiaStr (1 -> :s 1C `*uc ]
-[; ;main.c: 56: do { LATA6 = ~LATA6; } while(0);
-"56
+[; ;main.c: 59: do { LATA6 = ~LATA6; } while(0);
+"59
 [e :U 1190 ]
 {
 [e = _LATA6 -> ~ -> _LATA6 `ui `b ]
 }
 [e :U 1189 ]
-[; ;main.c: 57: do { LATC0 = ~LATC0; } while(0);
-"57
+[; ;main.c: 60: do { LATC0 = ~LATC0; } while(0);
+"60
 [e :U 1193 ]
 {
 [e = _LATC0 -> ~ -> _LATC0 `ui `b ]
 }
 [e :U 1192 ]
-[; ;main.c: 58: do { LATC1 = ~LATC1; } while(0);
-"58
+[; ;main.c: 61: do { LATC1 = ~LATC1; } while(0);
+"61
 [e :U 1196 ]
 {
 [e = _LATC1 -> ~ -> _LATC1 `ui `b ]
 }
 [e :U 1195 ]
-[; ;main.c: 59: do { LATA3 = ~LATA3; } while(0);
-"59
+[; ;main.c: 62: do { LATA3 = ~LATA3; } while(0);
+"62
 [e :U 1199 ]
 {
 [e = _LATA3 -> ~ -> _LATA3 `ui `b ]
 }
 [e :U 1198 ]
-"60
+[; ;main.c: 63: x++;
+"63
+[e ++ _x -> 1 `i ]
+"64
 }
 [e :U 1185 ]
-"50
+"51
 [e $U 1186  ]
 [e :U 1187 ]
-[; ;main.c: 60: }
-[; ;main.c: 61: respondECU();
-"61
+[; ;main.c: 64: }
+[; ;main.c: 65: respondECU();
+"65
 [e ( _respondECU ..  ]
-[; ;main.c: 62: updateComms();
-"62
+[; ;main.c: 66: updateComms();
+"66
 [e ( _updateComms ..  ]
-[; ;main.c: 63: }
-"63
+[; ;main.c: 67: }
+"67
 [e :UE 1178 ]
 }
 [a 1C 72 101 108 108 111 32 87 111 114 108 100 33 0 ]

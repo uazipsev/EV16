@@ -58,8 +58,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LCDwrite `(v ~T0 @X0 0 ef2`uc`uc ]
 "14
 [v _clearLcd `(v ~T0 @X0 0 ef ]
-"15
-[v _blackLcd `(v ~T0 @X0 0 ef ]
 "19029 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
 [v _LATD3 `Vb ~T0 @X0 0 e@31843 ]
 "152 mcc_generated_files/spi1.h
@@ -9156,307 +9154,310 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eusart2.h: 223: void EUSART2_Receive_ISR(void);
 [; ;mcc.h: 70: void SYSTEM_Initialize(void);
 [; ;mcc.h: 83: void OSCILLATOR_Initialize(void);
-"24 NokiaLCD.c
+"25 NokiaLCD.c
 [v _NokiaStart `(v ~T0 @X0 1 ef ]
 {
-[; ;NokiaLCD.c: 24: void NokiaStart(){
+[; ;NokiaLCD.c: 25: void NokiaStart(){
 [e :U _NokiaStart ]
 [f ]
-[; ;NokiaLCD.c: 25: TRISBbits.TRISB6 = 0;
-"25
-[e = . . _TRISBbits 0 6 -> -> 0 `i `uc ]
-[; ;NokiaLCD.c: 26: do { TRISD0 = 0; } while(0);
+[; ;NokiaLCD.c: 26: TRISBbits.TRISB6 = 0;
 "26
+[e = . . _TRISBbits 0 6 -> -> 0 `i `uc ]
+[; ;NokiaLCD.c: 27: do { TRISD0 = 0; } while(0);
+"27
 [e :U 1181 ]
 {
 [e = _TRISD0 -> -> 0 `i `b ]
 }
 [e :U 1180 ]
-[; ;NokiaLCD.c: 27: do { TRISD3 = 0; } while(0);
-"27
+[; ;NokiaLCD.c: 28: do { TRISD3 = 0; } while(0);
+"28
 [e :U 1184 ]
 {
 [e = _TRISD3 -> -> 0 `i `b ]
 }
 [e :U 1183 ]
-[; ;NokiaLCD.c: 28: do { TRISD2 = 0; } while(0);
-"28
+[; ;NokiaLCD.c: 29: do { TRISD2 = 0; } while(0);
+"29
 [e :U 1187 ]
 {
 [e = _TRISD2 -> -> 0 `i `b ]
 }
 [e :U 1186 ]
-[; ;NokiaLCD.c: 29: do { LATD0 = 1; } while(0);
-"29
+[; ;NokiaLCD.c: 30: do { LATD0 = 1; } while(0);
+"30
 [e :U 1190 ]
 {
 [e = _LATD0 -> -> 1 `i `b ]
 }
 [e :U 1189 ]
-[; ;NokiaLCD.c: 30: SPI1_Initialize();
-"30
-[e ( _SPI1_Initialize ..  ]
-[; ;NokiaLCD.c: 31: LATBbits.LATB6 = 1;
+[; ;NokiaLCD.c: 31: SPI1_Initialize();
 "31
-[e = . . _LATBbits 0 6 -> -> 1 `i `uc ]
-[; ;NokiaLCD.c: 32: Delay(100);
+[e ( _SPI1_Initialize ..  ]
+[; ;NokiaLCD.c: 32: LATBbits.LATB6 = 1;
 "32
-[e ( _Delay (1 -> -> 100 `i `l ]
-[; ;NokiaLCD.c: 33: LATBbits.LATB6 = 0;
-"33
-[e = . . _LATBbits 0 6 -> -> 0 `i `uc ]
-[; ;NokiaLCD.c: 34: Delay(100);
-"34
-[e ( _Delay (1 -> -> 100 `i `l ]
-[; ;NokiaLCD.c: 35: LATBbits.LATB6 = 1;
-"35
 [e = . . _LATBbits 0 6 -> -> 1 `i `uc ]
-[; ;NokiaLCD.c: 36: LCDwrite(1, 0x21);
+[; ;NokiaLCD.c: 33: Delay(100);
+"33
+[e ( _Delay (1 -> -> 100 `i `l ]
+[; ;NokiaLCD.c: 34: LATBbits.LATB6 = 0;
+"34
+[e = . . _LATBbits 0 6 -> -> 0 `i `uc ]
+[; ;NokiaLCD.c: 35: Delay(100);
+"35
+[e ( _Delay (1 -> -> 100 `i `l ]
+[; ;NokiaLCD.c: 36: LATBbits.LATB6 = 1;
 "36
-[e ( _LCDwrite (2 , -> -> 1 `i `uc -> -> 33 `i `uc ]
-[; ;NokiaLCD.c: 37: LCDwrite(1, 0xB1);
+[e = . . _LATBbits 0 6 -> -> 1 `i `uc ]
+[; ;NokiaLCD.c: 37: LCDwrite(1, 0x21);
 "37
-[e ( _LCDwrite (2 , -> -> 1 `i `uc -> -> 177 `i `uc ]
-[; ;NokiaLCD.c: 38: LCDwrite(1, 0x04);
+[e ( _LCDwrite (2 , -> -> 1 `i `uc -> -> 33 `i `uc ]
+[; ;NokiaLCD.c: 38: LCDwrite(1, 0xC8);
 "38
-[e ( _LCDwrite (2 , -> -> 1 `i `uc -> -> 4 `i `uc ]
-[; ;NokiaLCD.c: 39: LCDwrite(1, 0x14);
+[e ( _LCDwrite (2 , -> -> 1 `i `uc -> -> 200 `i `uc ]
+[; ;NokiaLCD.c: 39: LCDwrite(1, 0x04 | !!((66-2) & (1u << 6)));
 "39
-[e ( _LCDwrite (2 , -> -> 1 `i `uc -> -> 20 `i `uc ]
-[; ;NokiaLCD.c: 40: LCDwrite(1, 0x20);
+[e ( _LCDwrite (2 , -> -> 1 `i `uc -> | -> 4 `i -> ! ! != & -> - -> 66 `i -> 2 `i `ui << -> 1 `ui -> 6 `i -> -> 0 `i `ui `i `uc ]
+[; ;NokiaLCD.c: 40: LCDwrite(1, 0x40 | ((66-2) & ((1u << 6) - 1)));
 "40
-[e ( _LCDwrite (2 , -> -> 1 `i `uc -> -> 32 `i `uc ]
-[; ;NokiaLCD.c: 41: LCDwrite(1, 0x0C);
-"41
-[e ( _LCDwrite (2 , -> -> 1 `i `uc -> -> 12 `i `uc ]
-[; ;NokiaLCD.c: 42: clearLcd();
+[e ( _LCDwrite (2 , -> -> 1 `i `uc -> | -> -> 64 `i `ui & -> - -> 66 `i -> 2 `i `ui - << -> 1 `ui -> 6 `i -> -> 1 `i `ui `uc ]
+[; ;NokiaLCD.c: 42: LCDwrite(1, 0x14);
 "42
-[e ( _clearLcd ..  ]
-[; ;NokiaLCD.c: 43: blackLcd();
+[e ( _LCDwrite (2 , -> -> 1 `i `uc -> -> 20 `i `uc ]
+[; ;NokiaLCD.c: 43: LCDwrite(1, 0x20);
 "43
-[e ( _blackLcd ..  ]
-[; ;NokiaLCD.c: 44: }
+[e ( _LCDwrite (2 , -> -> 1 `i `uc -> -> 32 `i `uc ]
+[; ;NokiaLCD.c: 44: LCDwrite(1, 0x08);
 "44
+[e ( _LCDwrite (2 , -> -> 1 `i `uc -> -> 8 `i `uc ]
+[; ;NokiaLCD.c: 45: LCDwrite(1, 0x0C);
+"45
+[e ( _LCDwrite (2 , -> -> 1 `i `uc -> -> 12 `i `uc ]
+[; ;NokiaLCD.c: 46: clearLcd();
+"46
+[e ( _clearLcd ..  ]
+[; ;NokiaLCD.c: 48: }
+"48
 [e :UE 1178 ]
 }
-"46
+"50
 [v _LCDwrite `(v ~T0 @X0 1 ef2`uc`uc ]
 {
-[; ;NokiaLCD.c: 46: void LCDwrite(bool mode, char data){
+[; ;NokiaLCD.c: 50: void LCDwrite(bool mode, char data){
 [e :U _LCDwrite ]
 [v _mode `uc ~T0 @X0 1 r1 ]
 [v _data `uc ~T0 @X0 1 r2 ]
 [f ]
-[; ;NokiaLCD.c: 47: if(mode){
-"47
+[; ;NokiaLCD.c: 51: if(mode){
+"51
 [e $ ! != -> _mode `i -> -> -> 0 `i `uc `i 1192  ]
 {
-[; ;NokiaLCD.c: 48: do { LATD3 = 0; } while(0);
-"48
+[; ;NokiaLCD.c: 52: do { LATD3 = 0; } while(0);
+"52
 [e :U 1195 ]
 {
 [e = _LATD3 -> -> 0 `i `b ]
 }
 [e :U 1194 ]
-"49
+"53
 }
-[; ;NokiaLCD.c: 49: }
+[; ;NokiaLCD.c: 53: }
 [e $U 1196  ]
-"50
+"54
 [e :U 1192 ]
-[; ;NokiaLCD.c: 50: else{
+[; ;NokiaLCD.c: 54: else{
 {
-[; ;NokiaLCD.c: 51: do { LATD3 = 1; } while(0);
-"51
+[; ;NokiaLCD.c: 55: do { LATD3 = 1; } while(0);
+"55
 [e :U 1199 ]
 {
 [e = _LATD3 -> -> 1 `i `b ]
 }
 [e :U 1198 ]
-"52
+"56
 }
 [e :U 1196 ]
-[; ;NokiaLCD.c: 52: }
-[; ;NokiaLCD.c: 53: do { LATD0 = 0; } while(0);
-"53
+[; ;NokiaLCD.c: 56: }
+[; ;NokiaLCD.c: 57: do { LATD0 = 0; } while(0);
+"57
 [e :U 1202 ]
 {
 [e = _LATD0 -> -> 0 `i `b ]
 }
 [e :U 1201 ]
-[; ;NokiaLCD.c: 54: SPI1_Exchange8bit(data);
-"54
+[; ;NokiaLCD.c: 58: SPI1_Exchange8bit(data);
+"58
 [e ( _SPI1_Exchange8bit (1 _data ]
-[; ;NokiaLCD.c: 55: do { LATD0 = 1; } while(0);
-"55
+[; ;NokiaLCD.c: 59: do { LATD0 = 1; } while(0);
+"59
 [e :U 1205 ]
 {
 [e = _LATD0 -> -> 1 `i `b ]
 }
 [e :U 1204 ]
-[; ;NokiaLCD.c: 56: }
-"56
+[; ;NokiaLCD.c: 60: }
+"60
 [e :UE 1191 ]
 }
-"65
+"69
 [v _clearLcd `(v ~T0 @X0 1 ef ]
 {
-[; ;NokiaLCD.c: 65: void clearLcd(){
+[; ;NokiaLCD.c: 69: void clearLcd(){
 [e :U _clearLcd ]
 [f ]
-"66
+"70
 [v _res `i ~T0 @X0 1 a ]
-[; ;NokiaLCD.c: 66: int res;
-[; ;NokiaLCD.c: 67: for(res=0;res<504;res++){
-"67
+[; ;NokiaLCD.c: 70: int res;
+[; ;NokiaLCD.c: 71: for(res=0;res<504;res++){
+"71
 {
 [e = _res -> 0 `i ]
 [e $ < _res -> 504 `i 1207  ]
 [e $U 1208  ]
 [e :U 1207 ]
 {
-[; ;NokiaLCD.c: 68: LCDwrite(0, 0x00);
-"68
+[; ;NokiaLCD.c: 72: LCDwrite(0, 0x00);
+"72
 [e ( _LCDwrite (2 , -> -> 0 `i `uc -> -> 0 `i `uc ]
-"69
+"73
 }
-"67
+"71
 [e ++ _res -> 1 `i ]
 [e $ < _res -> 504 `i 1207  ]
 [e :U 1208 ]
-"69
+"73
 }
-[; ;NokiaLCD.c: 69: }
-[; ;NokiaLCD.c: 71: }
-"71
+[; ;NokiaLCD.c: 73: }
+[; ;NokiaLCD.c: 75: }
+"75
 [e :UE 1206 ]
 }
-"80
+"84
 [v _blackLcd `(v ~T0 @X0 1 ef ]
 {
-[; ;NokiaLCD.c: 80: void blackLcd(){
+[; ;NokiaLCD.c: 84: void blackLcd(){
 [e :U _blackLcd ]
 [f ]
-"81
+"85
 [v _res `i ~T0 @X0 1 a ]
-[; ;NokiaLCD.c: 81: int res;
-[; ;NokiaLCD.c: 82: for(res=0;res<504;res++){
-"82
+[; ;NokiaLCD.c: 85: int res;
+[; ;NokiaLCD.c: 86: for(res=0;res<504;res++){
+"86
 {
 [e = _res -> 0 `i ]
 [e $ < _res -> 504 `i 1211  ]
 [e $U 1212  ]
 [e :U 1211 ]
 {
-[; ;NokiaLCD.c: 83: LCDwrite(0, res);
-"83
+[; ;NokiaLCD.c: 87: LCDwrite(0, res);
+"87
 [e ( _LCDwrite (2 , -> -> 0 `i `uc -> _res `uc ]
-"84
+"88
 }
-"82
+"86
 [e ++ _res -> 1 `i ]
 [e $ < _res -> 504 `i 1211  ]
 [e :U 1212 ]
-"84
+"88
 }
-[; ;NokiaLCD.c: 84: }
-[; ;NokiaLCD.c: 85: }
-"85
+[; ;NokiaLCD.c: 88: }
+[; ;NokiaLCD.c: 89: }
+"89
 [e :UE 1210 ]
 }
-"94
+"98
 [v _gotoXy `(v ~T0 @X0 1 ef2`uc`uc ]
 {
-[; ;NokiaLCD.c: 94: void gotoXy(unsigned char x,unsigned char y){
+[; ;NokiaLCD.c: 98: void gotoXy(unsigned char x,unsigned char y){
 [e :U _gotoXy ]
 [v _x `uc ~T0 @X0 1 r1 ]
 [v _y `uc ~T0 @X0 1 r2 ]
 [f ]
-[; ;NokiaLCD.c: 95: y=y|0x40;
-"95
-[e = _y -> | -> _y `i -> 64 `i `uc ]
-[; ;NokiaLCD.c: 96: LCDwrite(1, y);
-"96
-[e ( _LCDwrite (2 , -> -> 1 `i `uc _y ]
-[; ;NokiaLCD.c: 97: x=(x*6)|0x80;
-"97
-[e = _x -> | * -> _x `i -> 6 `i -> 128 `i `uc ]
-[; ;NokiaLCD.c: 98: LCDwrite(1, x);
-"98
-[e ( _LCDwrite (2 , -> -> 1 `i `uc _x ]
-[; ;NokiaLCD.c: 99: }
+[; ;NokiaLCD.c: 99: y=y|0x40;
 "99
+[e = _y -> | -> _y `i -> 64 `i `uc ]
+[; ;NokiaLCD.c: 100: LCDwrite(1, y);
+"100
+[e ( _LCDwrite (2 , -> -> 1 `i `uc _y ]
+[; ;NokiaLCD.c: 101: x=(x*6)|0x80;
+"101
+[e = _x -> | * -> _x `i -> 6 `i -> 128 `i `uc ]
+[; ;NokiaLCD.c: 102: LCDwrite(1, x);
+"102
+[e ( _LCDwrite (2 , -> -> 1 `i `uc _x ]
+[; ;NokiaLCD.c: 103: }
+"103
 [e :UE 1214 ]
 }
-"108
+"112
 [v _LcdCharacter `(v ~T0 @X0 1 ef1`uc ]
-"109
+"113
 {
-[; ;NokiaLCD.c: 108: void LcdCharacter(char character)
-[; ;NokiaLCD.c: 109: {
+[; ;NokiaLCD.c: 112: void LcdCharacter(char character)
+[; ;NokiaLCD.c: 113: {
 [e :U _LcdCharacter ]
-"108
+"112
 [v _character `uc ~T0 @X0 1 r1 ]
-"109
+"113
 [f ]
-[; ;NokiaLCD.c: 110: LCDwrite(0, 0x00);
-"110
+[; ;NokiaLCD.c: 114: LCDwrite(0, 0x00);
+"114
 [e ( _LCDwrite (2 , -> -> 0 `i `uc -> -> 0 `i `uc ]
-[; ;NokiaLCD.c: 111: for (int index = 0; index < 5; index++)
-"111
+[; ;NokiaLCD.c: 115: for (int index = 0; index < 5; index++)
+"115
 {
 [v _index `i ~T0 @X0 1 a ]
 [e = _index -> 0 `i ]
 [e $ < _index -> 5 `i 1216  ]
 [e $U 1217  ]
-"112
+"116
 [e :U 1216 ]
-[; ;NokiaLCD.c: 112: {
+[; ;NokiaLCD.c: 116: {
 {
-[; ;NokiaLCD.c: 113: LCDwrite(0, FONTLOOKUP[character - 0x20][index]);
-"113
+[; ;NokiaLCD.c: 117: LCDwrite(0, FONTLOOKUP[character - 0x20][index]);
+"117
 [e ( _LCDwrite (2 , -> -> 0 `i `uc *U + &U *U + &U _FONTLOOKUP * -> -> - -> _character `i -> 32 `i `ui `ux -> * -> # *U &U *U &U _FONTLOOKUP `ui -> -> 5 `i `ui `ux * -> -> _index `ui `ux -> -> # *U &U *U + &U _FONTLOOKUP * -> -> - -> _character `i -> 32 `i `ui `ux -> * -> # *U &U *U &U _FONTLOOKUP `ui -> -> 5 `i `ui `ux `ui `ux ]
-"114
+"118
 }
-"111
+"115
 [e ++ _index -> 1 `i ]
 [e $ < _index -> 5 `i 1216  ]
 [e :U 1217 ]
-"114
+"118
 }
-[; ;NokiaLCD.c: 114: }
-[; ;NokiaLCD.c: 115: LCDwrite(0, 0x00);
-"115
+[; ;NokiaLCD.c: 118: }
+[; ;NokiaLCD.c: 119: LCDwrite(0, 0x00);
+"119
 [e ( _LCDwrite (2 , -> -> 0 `i `uc -> -> 0 `i `uc ]
-[; ;NokiaLCD.c: 116: }
-"116
+[; ;NokiaLCD.c: 120: }
+"120
 [e :UE 1215 ]
 }
-"125
+"129
 [v _NokiaStr `(v ~T0 @X0 1 ef1`*uc ]
 {
-[; ;NokiaLCD.c: 125: void NokiaStr( char *str){
+[; ;NokiaLCD.c: 129: void NokiaStr( char *str){
 [e :U _NokiaStr ]
 [v _str `*uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;NokiaLCD.c: 126: while (*str)
-"126
+[; ;NokiaLCD.c: 130: while (*str)
+"130
 [e $U 1220  ]
 [e :U 1221 ]
-[; ;NokiaLCD.c: 127: {
-"127
+[; ;NokiaLCD.c: 131: {
+"131
 {
-[; ;NokiaLCD.c: 128: LcdCharacter(*str++);
-"128
+[; ;NokiaLCD.c: 132: LcdCharacter(*str++);
+"132
 [e ( _LcdCharacter (1 *U ++ _str * -> -> 1 `i `x -> -> # *U _str `i `x ]
-"129
+"133
 }
 [e :U 1220 ]
-"126
+"130
 [e $ != -> *U _str `i -> -> -> 0 `i `uc `i 1221  ]
 [e :U 1222 ]
-[; ;NokiaLCD.c: 129: }
-[; ;NokiaLCD.c: 130: }
-"130
+[; ;NokiaLCD.c: 133: }
+[; ;NokiaLCD.c: 134: }
+"134
 [e :UE 1219 ]
 }

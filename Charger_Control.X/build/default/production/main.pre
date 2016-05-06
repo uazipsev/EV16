@@ -10672,9 +10672,12 @@ SYSTEM_Initialize();
 NokiaStart();
 do { TRISA3 = 0; } while(0);
 do { LATA3 = 1; } while(0);
+int x = 0;
 while (1) {
 
 Delay(1000);
+clearLcd();
+gotoXy(3,3);
 
 NokiaStr("Hello World!");
 
@@ -10682,6 +10685,7 @@ do { LATA6 = ~LATA6; } while(0);
 do { LATC0 = ~LATC0; } while(0);
 do { LATC1 = ~LATC1; } while(0);
 do { LATA3 = ~LATA3; } while(0);
+x++;
 }
 respondECU();
 updateComms();

@@ -20,6 +20,7 @@
  * @return          none
  * @note            
  *******************************************************************/
+#define LCD_START_LINE_ADDR	(66-2)
 
 void NokiaStart(){
     TRISBbits.TRISB6 = 0;
@@ -34,13 +35,16 @@ void NokiaStart(){
     Delay(100);
     LATBbits.LATB6 = 1;
     LCDwrite(LCD_CMD, 0x21);
-    LCDwrite(LCD_CMD, 0xB1);
-    LCDwrite(LCD_CMD, 0x04);
+    LCDwrite(LCD_CMD, 0xC8); //C8 was B1, B1 made the text bolder
+    LCDwrite(LCD_CMD, 0x04 | !!(LCD_START_LINE_ADDR & (1u << 6)));
+    LCDwrite(LCD_CMD, 0x40 | (LCD_START_LINE_ADDR & ((1u << 6) - 1)));
+    //LCDwrite(LCD_CMD, 0x06);
     LCDwrite(LCD_CMD, 0x14);
     LCDwrite(LCD_CMD, 0x20);
+    LCDwrite(LCD_CMD, 0x08);
     LCDwrite(LCD_CMD, 0x0C);
     clearLcd();
-    blackLcd();
+    //blackLcd();
 }
 
 void LCDwrite(bool mode, char data){

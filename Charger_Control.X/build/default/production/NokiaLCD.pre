@@ -10646,7 +10646,7 @@ void SYSTEM_Initialize(void);
 # 83
 void OSCILLATOR_Initialize(void);
 
-# 24 "NokiaLCD.c"
+# 25 "NokiaLCD.c"
 void NokiaStart(){
 TRISBbits.TRISB6 = 0;
 do { TRISD0 = 0; } while(0);
@@ -10660,13 +10660,16 @@ LATBbits.LATB6 = 0;
 Delay(100);
 LATBbits.LATB6 = 1;
 LCDwrite(1, 0x21);
-LCDwrite(1, 0xB1);
-LCDwrite(1, 0x04);
+LCDwrite(1, 0xC8);
+LCDwrite(1, 0x04 | !!((66-2) & (1u << 6)));
+LCDwrite(1, 0x40 | ((66-2) & ((1u << 6) - 1)));
+
 LCDwrite(1, 0x14);
 LCDwrite(1, 0x20);
+LCDwrite(1, 0x08);
 LCDwrite(1, 0x0C);
 clearLcd();
-blackLcd();
+
 }
 
 void LCDwrite(bool mode, char data){
@@ -10681,7 +10684,7 @@ SPI1_Exchange8bit(data);
 do { LATD0 = 1; } while(0);
 }
 
-# 65
+# 69
 void clearLcd(){
 int res;
 for(res=0;res<504;res++){
@@ -10690,7 +10693,7 @@ LCDwrite(0, 0x00);
 
 }
 
-# 80
+# 84
 void blackLcd(){
 int res;
 for(res=0;res<504;res++){
@@ -10698,7 +10701,7 @@ LCDwrite(0, res);
 }
 }
 
-# 94
+# 98
 void gotoXy(unsigned char x,unsigned char y){
 y=y|0x40;
 LCDwrite(1, y);
@@ -10706,7 +10709,7 @@ x=(x*6)|0x80;
 LCDwrite(1, x);
 }
 
-# 108
+# 112
 void LcdCharacter(char character)
 {
 LCDwrite(0, 0x00);
@@ -10717,7 +10720,7 @@ LCDwrite(0, FONTLOOKUP[character - 0x20][index]);
 LCDwrite(0, 0x00);
 }
 
-# 125
+# 129
 void NokiaStr( char *str){
 while (*str)
 {
