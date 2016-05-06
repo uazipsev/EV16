@@ -130,13 +130,13 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0xa04           0xf06  (3846)
 .const                       0xc04               0x400           0x600  (1536)
-.text                       0x1004              0x1e88          0x2dcc  (11724)
-.dinit                      0x2e8c                0x7c            0xba  (186)
-.text                       0x2f08                0x2a            0x3f  (63)
-.init.delay32               0x2f32                0x1c            0x2a  (42)
-.shared.dinit               0x2f4e                 0x2             0x3  (3)
+.text                       0x1004              0x1ec2          0x2e23  (11811)
+.dinit                      0x2ec6                0x7c            0xba  (186)
+.text                       0x2f42                0x2a            0x3f  (63)
+.init.delay32               0x2f6c                0x1c            0x2a  (42)
+.shared.dinit               0x2f88                 0x2             0x3  (3)
 
-                 Total program memory used (bytes):         0x43f8  (17400) 13%
+                 Total program memory used (bytes):         0x444f  (17487) 13%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -186,22 +186,22 @@ External Symbols in Data Memory (by address):
                     0x0826                  _serial_read
                     0x0828                  _serial_available
                     0x082a                  _serial_peek
-                    0x082c                  _group
-                    0x082e                  _rx_buffer
-                    0x0830                  _rx_array_inx
-                    0x0831                  _rx_len
-                    0x0832                  _calc_CS
-                    0x0833                  _moduleAddress
-                    0x0834                  _returnAddress
-                    0x0835                  _maxDataAddress
-                    0x0836                  _receiveArrayAddress
-                    0x0838                  _sendStructAddress
-                    0x083a                  _AKNAKsend
-                    0x083c                  _alignErrorCounter
-                    0x083e                  _crcErrorCounter
-                    0x0840                  _addressErrorCounter
-                    0x0842                  _dataAdressErrorCounter
-                    0x0844                  _rx_address
+                    0x082c                  _rx_buffer
+                    0x082e                  _rx_array_inx
+                    0x082f                  _rx_len
+                    0x0830                  _calc_CS
+                    0x0831                  _moduleAddress
+                    0x0832                  _returnAddress
+                    0x0833                  _maxDataAddress
+                    0x0834                  _receiveArrayAddress
+                    0x0836                  _sendStructAddress
+                    0x0838                  _AKNAKsend
+                    0x083a                  _alignErrorCounter
+                    0x083c                  _crcErrorCounter
+                    0x083e                  _addressErrorCounter
+                    0x0840                  _dataAdressErrorCounter
+                    0x0842                  _rx_address
+                    0x0844                  _group
                     0x0846                  _k
                     0x0848                  _j
                     0x084a                  _Volt1
@@ -272,7 +272,7 @@ External Symbols in Data Memory (by name):
                     0x0808                  _ADCTime
                     0x0880                  _ADCV
                     0x0888                  _ADSTAT
-                    0x083a                  _AKNAKsend
+                    0x0838                  _AKNAKsend
                     0x0912                  _Aux_data
                     0x0852                  _CC1
                     0x0856                  _CC2
@@ -304,23 +304,23 @@ External Symbols in Data Memory (by name):
                     0x1110                  ___alloct
                     0x1112                  ___allocx
                     0x1116                  ___curbrk
-                    0x0840                  _addressErrorCounter
-                    0x083c                  _alignErrorCounter
+                    0x083e                  _addressErrorCounter
+                    0x083a                  _alignErrorCounter
                     0x0cde                  _aux_codes_Bank1
                     0x0d6e                  _aux_codes_Bank2
                     0x08a1                  _bitShift
-                    0x0832                  _calc_CS
+                    0x0830                  _calc_CS
                     0x0a9e                  _cell_codes_Bank1
                     0x0bbe                  _cell_codes_Bank2
                     0x08a0                  _conversionDelay
-                    0x083e                  _crcErrorCounter
+                    0x083c                  _crcErrorCounter
                     0x1068                  _crc_buffer
                     0x087e                  _current_byte
                     0x087c                  _current_ic
-                    0x0842                  _dataAdressErrorCounter
+                    0x0840                  _dataAdressErrorCounter
                     0x0876                  _enable
                     0x0890                  _faultFlag
-                    0x082c                  _group
+                    0x0844                  _group
                     0x087a                  _i
                     0x0878                  _i2cAddress
                     0x0898                  _i2cmem
@@ -328,22 +328,22 @@ External Symbols in Data Memory (by name):
                     0x0848                  _j
                     0x08ae                  _jDone
                     0x0846                  _k
-                    0x0835                  _maxDataAddress
-                    0x0833                  _moduleAddress
+                    0x0833                  _maxDataAddress
+                    0x0831                  _moduleAddress
                     0x0ecc                  _output_buffer
                     0x088c                  _pendingSend
                     0x0894                  _portClosed
                     0x10f2                  _rBuff
                     0x086e                  _rData
                     0x107a                  _receiveArray
-                    0x0836                  _receiveArrayAddress
-                    0x0834                  _returnAddress
+                    0x0834                  _receiveArrayAddress
+                    0x0832                  _returnAddress
                     0x0f9a                  _ring_buffer
-                    0x0844                  _rx_address
-                    0x0830                  _rx_array_inx
-                    0x082e                  _rx_buffer
-                    0x0831                  _rx_len
-                    0x0838                  _sendStructAddress
+                    0x0842                  _rx_address
+                    0x082e                  _rx_array_inx
+                    0x082c                  _rx_buffer
+                    0x082f                  _rx_len
+                    0x0836                  _sendStructAddress
                     0x0828                  _serial_available
                     0x082a                  _serial_peek
                     0x0826                  _serial_read
@@ -481,18 +481,18 @@ External Symbols in Program Memory (by address):
                   0x002c76                  _ADS1015Begin
                   0x002cb4                  _ADS1015SetGain
                   0x002cc0                  _ADS1015readADC_SingleEnded
-                  0x002d34                  _PWM_Init
-                  0x002d80                  _Timmer2Init
-                  0x002d9c                  _PWM1update
-                  0x002dc8                  _PWM2update
-                  0x002df4                  _SPI2_Initialize
-                  0x002dfa                  _SPI2_Exchange8bit
-                  0x002e04                  _SPI2_Exchange8bitBuffer
-                  0x002e76                  _SPI2_IsBufferFull
-                  0x002e7e                  _SPI2_HasWriteCollisionOccured
-                  0x002e86                  _SPI2_ClearWriteCollisionStatus
-                  0x002f08                  _main
-                  0x002f32                  ___delay32
+                  0x002d34                  _SPI2_Initialize
+                  0x002d44                  _SPI2_Exchange8bit
+                  0x002d7e                  _SPI2_Exchange8bitBuffer
+                  0x002df0                  _SPI2_IsBufferFull
+                  0x002df8                  _SPI2_HasWriteCollisionOccured
+                  0x002e00                  _SPI2_ClearWriteCollisionStatus
+                  0x002e06                  _PWM_Init
+                  0x002e52                  _Timmer2Init
+                  0x002e6e                  _PWM1update
+                  0x002e9a                  _PWM2update
+                  0x002f42                  _main
+                  0x002f6c                  ___delay32
                   0xf80000                  __FBS.sec
                   0xf80002                  __FSS.sec
                   0xf80004                  __FGS.sec
@@ -533,9 +533,9 @@ External Symbols in Program Memory (by name):
                   0x00111c                  _LTC6804_rdcv
                   0x0012de                  _LTC6804_rdcv_reg
                   0x00160e                  _LTC6804_wrcfg
-                  0x002d9c                  _PWM1update
-                  0x002dc8                  _PWM2update
-                  0x002d34                  _PWM_Init
+                  0x002e6e                  _PWM1update
+                  0x002e9a                  _PWM2update
+                  0x002e06                  _PWM_Init
                   0x002b66                  _PinSetMode
                   0x001e30                  _ReadCurrentVolt
                   0x001e8c                  _ReadVolt
@@ -549,12 +549,12 @@ External Symbols in Program Memory (by name):
                   0x001c4e                  _RunBypass_Set
                   0x001900                  _Run_ByPass
                   0x0018f4                  _Run_Mode
-                  0x002e86                  _SPI2_ClearWriteCollisionStatus
-                  0x002dfa                  _SPI2_Exchange8bit
-                  0x002e04                  _SPI2_Exchange8bitBuffer
-                  0x002e7e                  _SPI2_HasWriteCollisionOccured
-                  0x002df4                  _SPI2_Initialize
-                  0x002e76                  _SPI2_IsBufferFull
+                  0x002e00                  _SPI2_ClearWriteCollisionStatus
+                  0x002d44                  _SPI2_Exchange8bit
+                  0x002d7e                  _SPI2_Exchange8bitBuffer
+                  0x002df8                  _SPI2_HasWriteCollisionOccured
+                  0x002d34                  _SPI2_Initialize
+                  0x002df0                  _SPI2_IsBufferFull
                   0x002824                  _Send_put
                   0x001bac                  _SetBypass
                   0x001cbc                  _SetTempEnable
@@ -566,7 +566,7 @@ External Symbols in Program Memory (by name):
                   0x002a7e                  _Setup
                   0x0018de                  _Start_BMS
                   0x0006d4                  _TalkTimeSet
-                  0x002d80                  _Timmer2Init
+                  0x002e52                  _Timmer2Init
                   0x0023b4                  _ToSend
                   0x0027a4                  _UART_buff_flush
                   0x00276c                  _UART_buff_get
@@ -588,7 +588,7 @@ External Symbols in Program Memory (by name):
                   0x002842                  __U1RXInterrupt
                   0x00289e                  __U1TXInterrupt
                   0x00072c                  ___addsf3
-                  0x002f32                  ___delay32
+                  0x002f6c                  ___delay32
                   0x0007e6                  ___divsf3
                   0x00086a                  ___fixsfsi
                   0x0009c0                  ___floatdisf
@@ -618,7 +618,7 @@ External Symbols in Program Memory (by name):
                   0x0005cc                  _initTimerOne
                   0x0005ea                  _initTimerTwo
                   0x002b8c                  _ledDebug
-                  0x002f08                  _main
+                  0x002f42                  _main
                   0x000a3e                  _malloc
                   0x000be8                  _memcpy
                   0x000bf6                  _memset
@@ -838,7 +838,7 @@ __FUID3
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x674b
+.debug_info       0x000000       0x6896
  *(.debug_info)
  .debug_info      0x000000         0x8f build/default/production/ConfigBits.o
  .debug_info      0x00008f        0xca2 build/default/production/FastTransfer.o
@@ -850,12 +850,12 @@ __FUID3
  .debug_info      0x003ca2        0x84b build/default/production/Timers.o
  .debug_info      0x0044ed        0x589 build/default/production/Communications.o
  .debug_info      0x004a76        0xb16 build/default/production/LT6804.o
- .debug_info      0x00558c        0x287 build/default/production/spi2.o
- .debug_info      0x005813        0xabf build/default/production/BatteryManagment.o
- .debug_info      0x0062d2        0x479 build/default/production/ADS1015.o
+ .debug_info      0x00558c        0x3d2 build/default/production/spi2.o
+ .debug_info      0x00595e        0xabf build/default/production/BatteryManagment.o
+ .debug_info      0x00641d        0x479 build/default/production/ADS1015.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0xfc1
+.debug_abbrev     0x000000       0x101b
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0x1f build/default/production/ConfigBits.o
  .debug_abbrev    0x00001f        0x251 build/default/production/FastTransfer.o
@@ -868,11 +868,11 @@ __FUID3
  .debug_abbrev    0x000975        0x11a build/default/production/Communications.o
  .debug_abbrev    0x000a8f          0x1 build/default/production/UART1.o
  .debug_abbrev    0x000a90        0x1db build/default/production/LT6804.o
- .debug_abbrev    0x000c6b         0x98 build/default/production/spi2.o
- .debug_abbrev    0x000d03        0x17a build/default/production/BatteryManagment.o
- .debug_abbrev    0x000e7d        0x144 build/default/production/ADS1015.o
+ .debug_abbrev    0x000c6b         0xf2 build/default/production/spi2.o
+ .debug_abbrev    0x000d5d        0x17a build/default/production/BatteryManagment.o
+ .debug_abbrev    0x000ed7        0x144 build/default/production/ADS1015.o
 
-.debug_line       0x000000        0xd06
+.debug_line       0x000000        0xd6e
  *(.debug_line)
  .debug_line      0x000000         0x1a build/default/production/ConfigBits.o
  .debug_line      0x00001a        0x1b0 build/default/production/FastTransfer.o
@@ -885,9 +885,9 @@ __FUID3
  .debug_line      0x0006d0         0xec build/default/production/Communications.o
  .debug_line      0x0007bc         0x1a build/default/production/UART1.o
  .debug_line      0x0007d6        0x27a build/default/production/LT6804.o
- .debug_line      0x000a50         0xaa build/default/production/spi2.o
- .debug_line      0x000afa        0x189 build/default/production/BatteryManagment.o
- .debug_line      0x000c83         0x83 build/default/production/ADS1015.o
+ .debug_line      0x000a50        0x112 build/default/production/spi2.o
+ .debug_line      0x000b62        0x189 build/default/production/BatteryManagment.o
+ .debug_line      0x000ceb         0x83 build/default/production/ADS1015.o
 
 .debug_frame      0x000000        0xd90
  *(.debug_frame)
@@ -904,7 +904,7 @@ __FUID3
  .debug_frame     0x000a68        0x288 build/default/production/BatteryManagment.o
  .debug_frame     0x000cf0         0xa0 build/default/production/ADS1015.o
 
-.debug_str        0x000000        0x450
+.debug_str        0x000000        0x478
  *(.debug_str)
  .debug_str       0x000000        0x13c build/default/production/FastTransfer.o
  .debug_str       0x00013c         0x87 build/default/production/Function.o
@@ -914,8 +914,9 @@ __FUID3
  .debug_str       0x000265         0x39 build/default/production/Timers.o
  .debug_str       0x00029e         0x55 build/default/production/Communications.o
  .debug_str       0x0002f3         0x8c build/default/production/LT6804.o
- .debug_str       0x00037f         0xad build/default/production/BatteryManagment.o
- .debug_str       0x00042c         0x24 build/default/production/ADS1015.o
+ .debug_str       0x00037f         0x28 build/default/production/spi2.o
+ .debug_str       0x0003a7         0xad build/default/production/BatteryManagment.o
+ .debug_str       0x000454         0x24 build/default/production/ADS1015.o
 
 .debug_loc
  *(.debug_loc)
@@ -1988,7 +1989,7 @@ LOAD data_init
 LOAD shared_data_init
 
 .debug_pubtypes
-                  0x000120        0x55c
+                  0x000120        0x581
  .debug_pubtypes
                   0x000120         0x12 build/default/production/ConfigBits.o
  .debug_pubtypes
@@ -2010,80 +2011,80 @@ LOAD shared_data_init
  .debug_pubtypes
                   0x0005cf         0x3c build/default/production/LT6804.o
  .debug_pubtypes
-                  0x00060b         0x1e build/default/production/spi2.o
+                  0x00060b         0x43 build/default/production/spi2.o
  .debug_pubtypes
-                  0x000629         0x12 build/default/production/BatteryManagment.o
+                  0x00064e         0x12 build/default/production/BatteryManagment.o
  .debug_pubtypes
-                  0x00063b         0x41 build/default/production/ADS1015.o
+                  0x000660         0x41 build/default/production/ADS1015.o
 
 __c30_signature
-                  0x00067c         0xc6
+                  0x0006a1         0xc6
  __c30_signature
-                  0x00067c          0x6 build/default/production/ConfigBits.o
+                  0x0006a1          0x6 build/default/production/ConfigBits.o
  __c30_signature
-                  0x000682          0x6 build/default/production/FastTransfer.o
+                  0x0006a7          0x6 build/default/production/FastTransfer.o
  __c30_signature
-                  0x000688          0x6 build/default/production/Function.o
+                  0x0006ad          0x6 build/default/production/Function.o
  __c30_signature
-                  0x00068e          0x6 build/default/production/main.o
+                  0x0006b3          0x6 build/default/production/main.o
  __c30_signature
-                  0x000694          0x6 build/default/production/pwm.o
+                  0x0006b9          0x6 build/default/production/pwm.o
  __c30_signature
-                  0x00069a          0x6 build/default/production/I2C.o
+                  0x0006bf          0x6 build/default/production/I2C.o
  __c30_signature
-                  0x0006a0          0x6 build/default/production/UART.o
+                  0x0006c5          0x6 build/default/production/UART.o
  __c30_signature
-                  0x0006a6          0x6 build/default/production/Timers.o
+                  0x0006cb          0x6 build/default/production/Timers.o
  __c30_signature
-                  0x0006ac          0x6 build/default/production/Communications.o
+                  0x0006d1          0x6 build/default/production/Communications.o
  __c30_signature
-                  0x0006b2          0x6 build/default/production/UART1.o
+                  0x0006d7          0x6 build/default/production/UART1.o
  __c30_signature
-                  0x0006b8          0x6 build/default/production/LT6804.o
+                  0x0006dd          0x6 build/default/production/LT6804.o
  __c30_signature
-                  0x0006be          0x6 build/default/production/spi2.o
+                  0x0006e3          0x6 build/default/production/spi2.o
  __c30_signature
-                  0x0006c4          0x6 build/default/production/BatteryManagment.o
+                  0x0006e9          0x6 build/default/production/BatteryManagment.o
  __c30_signature
-                  0x0006ca          0x6 build/default/production/ADS1015.o
+                  0x0006ef          0x6 build/default/production/ADS1015.o
  __c30_signature
-                  0x0006d0          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
+                  0x0006f5          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x0006d6          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
+                  0x0006fb          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
  __c30_signature
-                  0x0006dc          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
+                  0x000701          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
  __c30_signature
-                  0x0006e2          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(addsf3.eo)
+                  0x000707          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(addsf3.eo)
  __c30_signature
-                  0x0006e8          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(divsf3.eo)
+                  0x00070d          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(divsf3.eo)
  __c30_signature
-                  0x0006ee          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fixsfsi.eo)
+                  0x000713          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fixsfsi.eo)
  __c30_signature
-                  0x0006f4          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatsisf.eo)
+                  0x000719          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatsisf.eo)
  __c30_signature
-                  0x0006fa          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fpack.eo)
+                  0x00071f          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fpack.eo)
  __c30_signature
-                  0x000700          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(funpack.eo)
+                  0x000725          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(funpack.eo)
  __c30_signature
-                  0x000706          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(funpack2.eo)
+                  0x00072b          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(funpack2.eo)
  __c30_signature
-                  0x00070c          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(futil.eo)
+                  0x000731          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(futil.eo)
  __c30_signature
-                  0x000712          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
+                  0x000737          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
  __c30_signature
-                  0x000718          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatdisf.eo)
+                  0x00073d          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatdisf.eo)
  __c30_signature
-                  0x00071e          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
+                  0x000743          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
  __c30_signature
-                  0x000724          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libc-elf.a(malloc.eo)
+                  0x000749          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libc-elf.a(malloc.eo)
  __c30_signature
-                  0x00072a          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libc-elf.a(memcpy.eo)
+                  0x00074f          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libc-elf.a(memcpy.eo)
  __c30_signature
-                  0x000730          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libc-elf.a(memset.eo)
+                  0x000755          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libc-elf.a(memset.eo)
  __c30_signature
-                  0x000736          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libpic30-elf.a(sbrk.eo)
+                  0x00075b          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libpic30-elf.a(sbrk.eo)
  __c30_signature
-                  0x00073c          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libpic30-elf.a(brk.elo)
+                  0x000761          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libpic30-elf.a(brk.elo)
 
 .nbss               0x0800         0x98
  .nbss              0x0800         0x24 build/default/production/Timers.o
@@ -2097,22 +2098,22 @@ __c30_signature
                     0x0826                  _serial_read
                     0x0828                  _serial_available
                     0x082a                  _serial_peek
-                    0x082c                  _group
-                    0x082e                  _rx_buffer
-                    0x0830                  _rx_array_inx
-                    0x0831                  _rx_len
-                    0x0832                  _calc_CS
-                    0x0833                  _moduleAddress
-                    0x0834                  _returnAddress
-                    0x0835                  _maxDataAddress
-                    0x0836                  _receiveArrayAddress
-                    0x0838                  _sendStructAddress
-                    0x083a                  _AKNAKsend
-                    0x083c                  _alignErrorCounter
-                    0x083e                  _crcErrorCounter
-                    0x0840                  _addressErrorCounter
-                    0x0842                  _dataAdressErrorCounter
-                    0x0844                  _rx_address
+                    0x082c                  _rx_buffer
+                    0x082e                  _rx_array_inx
+                    0x082f                  _rx_len
+                    0x0830                  _calc_CS
+                    0x0831                  _moduleAddress
+                    0x0832                  _returnAddress
+                    0x0833                  _maxDataAddress
+                    0x0834                  _receiveArrayAddress
+                    0x0836                  _sendStructAddress
+                    0x0838                  _AKNAKsend
+                    0x083a                  _alignErrorCounter
+                    0x083c                  _crcErrorCounter
+                    0x083e                  _addressErrorCounter
+                    0x0840                  _dataAdressErrorCounter
+                    0x0842                  _rx_address
+                    0x0844                  _group
  .nbss              0x0846         0x20 build/default/production/BatteryManagment.o
                     0x0846                  _k
                     0x0848                  _j
@@ -2255,7 +2256,7 @@ __c30_signature
  .const             0x8c04        0x200 build/default/production/LT6804.o
  .const             0x8e04        0x200 build/default/production/BatteryManagment.o
 
-.text             0x001004       0x1e88
+.text             0x001004       0x1ec2
  .text            0x001004        0x8da build/default/production/LT6804.o
                   0x001004                  _LTC6804_initialize
                   0x001016                  _set_adc
@@ -2352,29 +2353,29 @@ __c30_signature
                   0x002c76                  _ADS1015Begin
                   0x002cb4                  _ADS1015SetGain
                   0x002cc0                  _ADS1015readADC_SingleEnded
- .text            0x002d34         0xc0 build/default/production/pwm.o
-                  0x002d34                  _PWM_Init
-                  0x002d80                  _Timmer2Init
-                  0x002d9c                  _PWM1update
-                  0x002dc8                  _PWM2update
- .text            0x002df4         0x98 build/default/production/spi2.o
-                  0x002df4                  _SPI2_Initialize
-                  0x002dfa                  _SPI2_Exchange8bit
-                  0x002e04                  _SPI2_Exchange8bitBuffer
-                  0x002e76                  _SPI2_IsBufferFull
-                  0x002e7e                  _SPI2_HasWriteCollisionOccured
-                  0x002e86                  _SPI2_ClearWriteCollisionStatus
+ .text            0x002d34         0xd2 build/default/production/spi2.o
+                  0x002d34                  _SPI2_Initialize
+                  0x002d44                  _SPI2_Exchange8bit
+                  0x002d7e                  _SPI2_Exchange8bitBuffer
+                  0x002df0                  _SPI2_IsBufferFull
+                  0x002df8                  _SPI2_HasWriteCollisionOccured
+                  0x002e00                  _SPI2_ClearWriteCollisionStatus
+ .text            0x002e06         0xc0 build/default/production/pwm.o
+                  0x002e06                  _PWM_Init
+                  0x002e52                  _Timmer2Init
+                  0x002e6e                  _PWM1update
+                  0x002e9a                  _PWM2update
 
-.dinit            0x002e8c         0x7c
- .dinit           0x002e8c         0x7c data_init
+.dinit            0x002ec6         0x7c
+ .dinit           0x002ec6         0x7c data_init
 
-.text             0x002f08         0x2a
- .text            0x002f08         0x2a build/default/production/main.o
-                  0x002f08                  _main
+.text             0x002f42         0x2a
+ .text            0x002f42         0x2a build/default/production/main.o
+                  0x002f42                  _main
 
-.init.delay32     0x002f32         0x1c
- .init.delay32    0x002f32         0x1c c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
-                  0x002f32                  ___delay32
+.init.delay32     0x002f6c         0x1c
+ .init.delay32    0x002f6c         0x1c c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
+                  0x002f6c                  ___delay32
 
-.shared.dinit     0x002f4e          0x2
- .shared.dinit    0x002f4e          0x2 shared_data_init
+.shared.dinit     0x002f88          0x2
+ .shared.dinit    0x002f88          0x2 shared_data_init
