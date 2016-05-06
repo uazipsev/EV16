@@ -11,6 +11,7 @@
 
 void Start_BMS();
 void ChargerEN();
+void ReadCurrentVolt();
 void ReadVoltToCurrent();
 int CurrentGet(bool total, char channel);
 int Read_Battery(int BatteryPlacement,int *cell_codes[12][12] );// Amount of IC's, amount of cells per IC

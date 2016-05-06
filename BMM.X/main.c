@@ -9,18 +9,19 @@
 #include "Function.h"
 #include <stdio.h>
 #include "PinDef.h"
+#include "Communications.h"
+#include "Timers.h"
 
 /*
  * 
  */
 
 int main(int argc, char** argv) {
-    //printf("InMainLoop");
     Setup();
-    //printf("Start");
+    printf("Start");
 
     while (1) { 
-        //updateTimers();
+        updateTimers();
 //        if (time_get(ADCTM) > 50) {
 //            static int counter = 0;
 //            if (counter < 4){
@@ -29,11 +30,8 @@ int main(int argc, char** argv) {
 //            else counter = 0;
 //            ADCTime = 0;
 //        }
-        //ledDebug();
-        //updateComms();
-        Delay(500);
-        INDICATOR = !INDICATOR;
-        printf("Start");
+        ledDebug();
+        updateComms();
     }
 
     return (EXIT_SUCCESS);

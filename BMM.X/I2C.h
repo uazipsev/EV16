@@ -8,41 +8,19 @@
 #ifndef I2C_API_H
 #define	I2C_API_H
 
-// EEPROM ADDRESS SIZE
-#define ADDRWIDTH   ONE_BYTE     
-  
-#define I2C_IDLE 		 0  
-#define I2C_WRITE        1      
-#define I2C_READ         2    
-#define I2C_ERR        0xFFFF
-
-#define MAX_RETRY	 1000
-#define ONE_BYTE     1
-#define TWO_BYTE     2
-
-// EEPROM DATA OBJECT
-typedef struct { 
-        unsigned int *buff;      
-        unsigned int n;        
-        unsigned int addr;       
-        unsigned int csel;            
-}I2CEMEM_DATA; 
-
-// EEPROM DRIVER OBJECT
-typedef struct { 
-        unsigned int	cmd; 
-		I2CEMEM_DATA	*oData;	        
-        void (*init)(void *);                   
-        void (*tick)(void *); 
-        }I2CEMEM_DRV; 
-    
-#define I2CSEMEM_DRV_DEFAULTS { 0,\
-        (I2CEMEM_DATA *)0,\
-        (void (*)(void *))I2CEMEMinit,\
-        (void (*)(void *))I2CEMEMdrv}  
-
-void I2CEMEMinit(I2CEMEM_DRV *); 
-void I2CEMEMdrv(I2CEMEM_DRV *);
+unsigned int IdleI2C(void);
+unsigned int StartI2C(void);
+unsigned int WriteI2C(unsigned char);
+unsigned int StopI2C(void);
+unsigned int RestartI2C(void);
+unsigned int getsI2C(unsigned char*, unsigned char);
+unsigned int NotAckI2C(void);
+unsigned int InitI2C(void);
+unsigned int ACKStatus(void);
+unsigned int getI2C(void);
+void AckI2C(void);
+unsigned int EEAckPolling(unsigned char);
+unsigned int putstringI2C(unsigned char*);
 
 #endif	/* I2C_API_H */
 

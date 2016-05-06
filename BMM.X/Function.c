@@ -50,6 +50,7 @@ void Setup(void) {
 
     //begin1(receiveArray1, sizeof (receiveArray1), BMM_MASTER_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);
      UART1_init();
+     Start_BMS();
    // i2c_init();
     //PWM_Init();
 }
@@ -91,10 +92,9 @@ void PinSetMode(void) {
 
  void ledDebug() {
      int x=0;
-     int LEDtime;
-     LEDtime=time_get(LEDTM);
-        if (LEDtime > 500) {
+        if (time_get(LEDTM) > 500) {
             INDICATOR = !INDICATOR;
+            printf("Alive");
             if (x == 0) {
             Saftey_Relay_Reset = 0;
         } else if (x == 1) {
@@ -106,8 +106,7 @@ void PinSetMode(void) {
         } else if (x == 4) {
             x = 0;
         }
-            LEDtime= 0;
-            time_get(LEDtime);
+            time_Set(LEDTM, 0);
         }
     }
 

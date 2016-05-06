@@ -14,8 +14,8 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
 
 void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void) {
     
-    //ReadCurrentVolt();
-    //CurrentCoulombCount(time);
+    ReadCurrentVolt();
+    CurrentCoulombCount(time);
     IFS0bits.T2IF = 0; // clear timer interrupt flag
 }
 
@@ -45,7 +45,6 @@ void initTimerTwo(void) {
 }
 
 void updateTimers() {
-    
     //if (lastLEDTime != time) {
         LEDtime += (time - lastLEDTime);
         lastLEDTime = time;
@@ -74,6 +73,21 @@ int time_get(char WhatTime){
     }
     else if(WhatTime == 4){
         return ADCTime;
+    }
+}
+
+void time_Set(char WhatTime, int value){
+    if(WhatTime == 1){
+        LEDtime = value;
+    }
+    else if(WhatTime == 2){
+        slaveTime = value;
+    }
+    else if(WhatTime == 3){
+        talkTime = value;
+    }
+    else if(WhatTime == 4){
+        ADCTime = value;
     }
 }
 

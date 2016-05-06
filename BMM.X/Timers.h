@@ -25,6 +25,6 @@
     int time_get(char WhatTime);
     void updateTimers();
     void TalkTimeSet(int value);
-
+    void time_Set(char WhatTime, int value);
 #endif	/* TIMERS_H */
 

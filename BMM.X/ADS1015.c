@@ -15,14 +15,6 @@
 #include "Function.h"
 #include "I2C.h"
 
-// Instantiate Drive and Data objects
-I2CEMEM_DRV i2cmem= I2CSEMEM_DRV_DEFAULTS;                                  
-I2CEMEM_DATA wData;
-I2CEMEM_DATA rData;
-
-unsigned int wBuff[10],rBuff[10];
-unsigned int enable;
-
 // Instance-specific properties
 char i2cAddress;
 char conversionDelay = ADS1015_CONVERSIONDELAY;
@@ -36,17 +28,15 @@ int  IC_gain = GAIN_ONE;
 /**************************************************************************/
 void writeRegister(char i2cAddress, char reg, int value)
 {
-    // Write Data
-    wData.buff=wBuff;
-    wData.n=2;
-    wData.addr=i2cAddress;
-	i2cmem.oData=&wData;
-	i2cmem.cmd = I2C_WRITE;	
-		
-	while(i2cmem.cmd!=I2C_IDLE )
-    {	
-		i2cmem.tick(&i2cmem); 
-	}
+	IdleI2C();						//Ensure Module is Idle
+	StartI2C();						//Initiate start condition
+	WriteI2C(i2cAddress);			//write 1 byte
+	IdleI2C();						//Ensure module is Idle
+	WriteI2C(reg);			    	//Write High word address
+	IdleI2C();						//Ensure module is idle
+	WriteI2C(value);				//Write Low word address
+	NotAckI2C();					//Send Not Ack
+	StopI2C();						//Send stop condition
 }
 
 /**************************************************************************/
@@ -56,18 +46,20 @@ void writeRegister(char i2cAddress, char reg, int value)
 /**************************************************************************/
 int readRegister(char i2cAddress, char reg)
 {
-	// Read Data
-    rData.buff=rBuff;
-    rData.n=2;
-    rData.addr=i2cAddress; 
-	i2cmem.oData=&rData;
-	i2cmem.cmd = I2C_READ;
-    
-	while(i2cmem.cmd!=I2C_IDLE)
-    {
-		i2cmem.tick(&i2cmem); 
-	}
-    return 1;
+    int data;
+    IdleI2C();						//Ensure Module is Idle
+	StartI2C();						//Initiate start condition
+	WriteI2C(i2cAddress);			//write 1 byte
+	IdleI2C();						//Ensure module is Idle
+    WriteI2C(reg);				//Write Low word address
+	IdleI2C();						//Ensure module is idle
+	RestartI2C();					//Generate I2C Restart Condition
+	WriteI2C(i2cAddress | 0x01);	//Write 1 byte - R/W bit should be 1 for read
+	IdleI2C();						//Ensure bus is idle
+	getsI2C(data, 2);			//Read in multiple bytes
+	NotAckI2C();					//Send Not Ack
+	StopI2C();						//Send stop condition
+    return data;
 }
 
 /**************************************************************************/
@@ -76,22 +68,7 @@ int readRegister(char i2cAddress, char reg)
 */
 /**************************************************************************/
 void ADS1015Begin() {
-    i2cmem.init(&i2cmem); 
-    
-    // Initialise I2C Data object for Write operation   
-    wData.buff=wBuff;
-    wData.n=10;
-    wData.addr=0x00; 
-    wData.csel=0x00;
-                  
-
-// Initialise I2C Data Object for Read operation            
-    rData.buff=rBuff;
-    rData.n=10;
-    rData.addr=0x00; 
-    rData.csel=0x00;
-    
-
+    InitI2C();
 }
 
 /**************************************************************************/

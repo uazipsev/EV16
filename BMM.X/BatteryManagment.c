@@ -27,7 +27,7 @@ int Read_Status_INC=0;
 
 void Start_BMS(){
     LTC6804_initialize();
-    //ADS1015Begin();
+    ADS1015Begin();
 }
 void Charge_Mode(int command){
     //if in charge mode 
@@ -363,12 +363,12 @@ void UpdateLT6804(int bank){
 
 // FIXME Need to change I2C address!
 void ReadCurrentVolt(){
-    CVolt[0] = ADS1015readADC_SingleEnded(0, 0x01); //Set channel and IC
-    CVolt[1] = ADS1015readADC_SingleEnded(1, 0x01);
-    CVolt[2] = ADS1015readADC_SingleEnded(2, 0x01);
-    CVolt[3] = ADS1015readADC_SingleEnded(3, 0x01);
-    CVolt[4] = ADS1015readADC_SingleEnded(0, 0x02);
-    CVolt[5] = ADS1015readADC_SingleEnded(1, 0x02);
+    CVolt[0] = ADS1015readADC_SingleEnded(0, 0x48); //Set channel and IC
+    CVolt[1] = ADS1015readADC_SingleEnded(1, 0x48);
+    CVolt[2] = ADS1015readADC_SingleEnded(2, 0x48);
+    CVolt[3] = ADS1015readADC_SingleEnded(3, 0x48);
+    CVolt[4] = ADS1015readADC_SingleEnded(0, 0x4B);
+    CVolt[5] = ADS1015readADC_SingleEnded(1, 0x4B);
     ReadVoltToCurrent(); //Converts ADC counts to amps
 }
 
