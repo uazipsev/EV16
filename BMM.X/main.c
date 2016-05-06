@@ -7,29 +7,33 @@
 
 #include "main.h"
 #include "Function.h"
-extern void updateTimers();
-extern volatile unsigned long int ADCTime;
-int ADCReadings[4];
+#include <stdio.h>
+#include "PinDef.h"
 
 /*
  * 
  */
 
 int main(int argc, char** argv) {
+    //printf("InMainLoop");
     Setup();
+    //printf("Start");
 
     while (1) { 
-        updateTimers();
-        if (ADCTime > 50) {
-            static int counter = 0;
-            if (counter < 4){
-                //ADCReadings[counter]=readADC(counter++);
-            }
-            else counter = 0;
-            ADCTime = 0;
-        }
-        ledDebug();
-        updateComms();
+        //updateTimers();
+//        if (time_get(ADCTM) > 50) {
+//            static int counter = 0;
+//            if (counter < 4){
+//                //ADCReadings[counter]=readADC(counter++);
+//            }
+//            else counter = 0;
+//            ADCTime = 0;
+//        }
+        //ledDebug();
+        //updateComms();
+        Delay(500);
+        INDICATOR = !INDICATOR;
+        printf("Start");
     }
 
     return (EXIT_SUCCESS);

@@ -2,6 +2,8 @@
 #include "Function.h"
 #include "timers.h"
 #include "Communications.h"
+#include "UART1.h"
+#include "PinDef.h"
 
 void Setup(void) {
     PinSetMode();
@@ -47,7 +49,7 @@ void Setup(void) {
     CommStart();
 
     //begin1(receiveArray1, sizeof (receiveArray1), BMM_MASTER_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);
-   // UART1_init();
+     UART1_init();
    // i2c_init();
     //PWM_Init();
 }
