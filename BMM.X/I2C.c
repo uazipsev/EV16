@@ -1,5 +1,6 @@
 #include "I2C.h"
 #include <i2c.h>
+#include <stdbool.h>
 
 
 /*********************************************************************
@@ -20,8 +21,14 @@ unsigned int InitI2C(void)
 
 	//Consult the dSPIC Data Sheet for information on how to calculate the
 	//Baud Rate.
+    
+    ODCBbits.ODCB8 = 1;
+    ODCBbits.ODCB9 = 1;
+    
+    TRISBbits.TRISB8 = 1;
+    TRISBbits.TRISB9 = 1;
 
-	I2C1BRG = 0x002F; 
+	I2C1BRG = 0x0258; 
 
 	//Now we will initialise the I2C peripheral for Master Mode, No Slew Rate
 	//Control, and leave the peripheral switched off.
@@ -171,7 +178,7 @@ unsigned int NotAckI2C(void)
 {
 	I2C1CONbits.ACKDT = 1;			//Set for NotACk
 	I2C1CONbits.ACKEN = 1;
-	while(I2C1CONbits.ACKEN);		//wait for ACK to complete
+	//while(I2C1CONbits.ACKEN);		//wait for ACK to complete
 	I2C1CONbits.ACKDT = 0;			//Set for NotACk
 }
 
@@ -302,4 +309,57 @@ unsigned int EEAckPolling(unsigned char control)
 		return(-1);
 	}
 	return(0);
+}
+
+void i2c_wait(unsigned int cnt) {
+    while (--cnt) {
+        asm("nop");
+        asm("nop");
+    }
+}
+
+void i2c_Write(char address, bool read_write, char *data, int numofbytes) {
+    int DataSz;
+    int Index = 0;
+    DataSz = numofbytes;
+
+    StartI2C1(); //Send the Start Bit
+    IdleI2C1(); //Wait to complete
+    if (read_write == 1) //write address
+    {
+        MasterWriteI2C1(((address << 1) | 0));
+        IdleI2C1(); //Wait to complete    
+        while (DataSz) {
+            MasterWriteI2C1(data[Index++]);
+            IdleI2C1(); //Wait to complete
+
+            DataSz--;
+
+            //ACKSTAT is 0 when slave acknowledge,
+            //if 1 then slave has not acknowledge the data.
+            if (I2C1STATbits.ACKSTAT)
+                break;
+        }
+    } else //read address
+    {
+        MasterWriteI2C1(((address << 1) | 1));
+        IdleI2C1(); //Wait to complete
+        while (DataSz) {
+            data[Index++]=MasterReadI2C1();
+            AckI2C1();
+            IdleI2C1(); //Wait to complete
+
+            DataSz--;
+
+            //ACKSTAT is 0 when slave acknowledge,
+            //if 1 then slave has not acknowledge the data.
+//            if (I2C1STATbits.ACKSTAT)
+//                break;
+        }
+    }
+
+
+
+    StopI2C1(); //Send the Stop condition
+    IdleI2C1(); //Wait to complete   
 }

@@ -5,4 +5,5 @@ PinDef.h  \
  timers.h  \
 Communications.h  \
 ADDRESSING.h  \
+BatteryManagment.h  \
 UART1.h 

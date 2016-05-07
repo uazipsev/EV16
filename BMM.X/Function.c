@@ -2,6 +2,7 @@
 #include "Function.h"
 #include "timers.h"
 #include "Communications.h"
+#include "BatteryManagment.h"
 #include "UART1.h"
 #include "PinDef.h"
 
@@ -94,18 +95,19 @@ void PinSetMode(void) {
      int x=0;
         if (time_get(LEDTM) > 500) {
             INDICATOR = !INDICATOR;
-            printf("Alive");
-            if (x == 0) {
-            Saftey_Relay_Reset = 0;
-        } else if (x == 1) {
-            Saftey_Relay_Set = 1;
-        } else if (x == 2) {
-            Saftey_Relay_Set = 0;
-        } else if (x == 3) {
-            Saftey_Relay_Reset = 1;
-        } else if (x == 4) {
-            x = 0;
-        }
+            printf("ADC: %.0f , %.0f , %.0f , %.0f , %.0f ,%.0f ", CurrentGet(0,0),CurrentGet(0,1),CurrentGet(0,2),CurrentGet(0,3),CurrentGet(0,4),CurrentGet(0,5) );
+//            if (x == 0) {
+//            Saftey_Relay_Reset = 0;
+//        } else if (x == 1) {
+//            Saftey_Relay_Set = 1;
+//        } else if (x == 2) {
+//            Saftey_Relay_Set = 0;
+//        } else if (x == 3) {
+//            Saftey_Relay_Reset = 1;
+//        } else if (x == 4) {
+//            x = 0;
+//        }
+            ReadCurrentVolt();
             time_Set(LEDTM, 0);
         }
     }

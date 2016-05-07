@@ -8,6 +8,8 @@
 #ifndef I2C_API_H
 #define	I2C_API_H
 
+#include <stdbool.h>
+
 unsigned int IdleI2C(void);
 unsigned int StartI2C(void);
 unsigned int WriteI2C(unsigned char);
@@ -21,6 +23,7 @@ unsigned int getI2C(void);
 void AckI2C(void);
 unsigned int EEAckPolling(unsigned char);
 unsigned int putstringI2C(unsigned char*);
+void i2c_Write(char address, bool read_write, char *data, int numofbytes);
 
 #endif	/* I2C_API_H */
 
