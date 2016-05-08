@@ -28,20 +28,22 @@ int  IC_gain = GAIN_ONE;
 /**************************************************************************/
 void writeRegister(char i2cAddress, char reg, int value)
 {
-//	IdleI2C();						//Ensure Module is Idle
-//	StartI2C();						//Initiate start condition
-//	WriteI2C(i2cAddress);			//write 1 byte
-//	IdleI2C();						//Ensure module is Idle
-//	WriteI2C(reg);			    	//Write High word address
-//	IdleI2C();						//Ensure module is idle
-//	WriteI2C(value);				//Write Low word address
-//	NotAckI2C();					//Send Not Ack
-//	//StopI2C();						//Send stop condition
+	IdleI2C();						//Ensure Module is Idle
+	StartI2C();						//Initiate start condition
+	WriteI2C(i2cAddress << 1);			//write 1 byte
+	IdleI2C();						//Ensure module is Idle
+	WriteI2C(reg);			    	//Write High word address
+	IdleI2C();						//Ensure module is idle
+	WriteI2C(value>>8);				//Write Low word address
+    IdleI2C();						//Ensure module is idle
+    WriteI2C(value & 0xFF);				//Write Low word address
+	NotAckI2C();					//Send Not Ack
+	//StopI2C();						//Send stop condition
     
-    char data[2];
-    data[0] = reg;
-    data[1] = value;
-    i2c_Write(i2cAddress, 1, data, 2);
+//    char data[2];
+//    data[0] = reg;
+//    data[1] = value;
+//    i2c_Write(i2cAddress, 1, data, 2);
 }
 
 /**************************************************************************/
@@ -51,25 +53,25 @@ void writeRegister(char i2cAddress, char reg, int value)
 /**************************************************************************/
 int readRegister(char i2cAddress, char reg)
 {
-//    int data;
-//    IdleI2C();						//Ensure Module is Idle
-//	StartI2C();						//Initiate start condition
-//	WriteI2C(i2cAddress);			//write 1 byte
-//	IdleI2C();						//Ensure module is Idle
-//    WriteI2C(reg);				//Write Low word address
-//	IdleI2C();						//Ensure module is idle
-//	RestartI2C();					//Generate I2C Restart Condition
-//	WriteI2C(i2cAddress | 0x01);	//Write 1 byte - R/W bit should be 1 for read
-//	IdleI2C();						//Ensure bus is idle
-//	getsI2C(data, 2);			//Read in multiple bytes
-//	NotAckI2C();					//Send Not Ack
-//	//StopI2C();						//Send stop condition
+   int data;
+    IdleI2C();						//Ensure Module is Idle
+	StartI2C();						//Initiate start condition
+	WriteI2C(i2cAddress << 1);			//write 1 byte
+	IdleI2C();						//Ensure module is Idle
+    WriteI2C(reg);			    	//Write Low word address
+	IdleI2C();						//Ensure module is idle
+	RestartI2C();					//Generate I2C Restart Condition
+	WriteI2C((i2cAddress << 1) | 0x01);	//Write 1 byte - R/W bit should be 1 for read
+	IdleI2C();						//Ensure bus is idle
+	getsI2C(data, 2);		     	//Read in multiple bytes
+	NotAckI2C();					//Send Not Ack
+	StopI2C();						//Send stop condition
     
-    char data[2];
-    data[0] = reg;
-    i2c_Write(i2cAddress, 1, data, 1);
-    i2c_Write(i2cAddress, 0, data, 0);
-    return data[0] | data[1] << 8;;
+//    char data[2];
+//    data[0] = reg;
+//    i2c_Write(i2cAddress, 1, data, 1);
+//    i2c_Write(i2cAddress, 0, data, 0);
+//    return data[0] | data[1] << 8;;
 }
 
 /**************************************************************************/
