@@ -395,7 +395,8 @@ void ReadVolt(){
 // FIXME Need to simplify the ADC convert 1 ADC count = 1mV
 void ReadVoltToCurrent(){
     for(k = 0;k<5;k++){
-        Current[k] = ((CVolt[k]/ADCBIT)*5/SHUNTOHMS/CURRENTGAIN) + CurrentOffset[k];
+        //TODO: Remove for production firmware
+        Current[k] = ((CVolt[k]/ADCBIT)*5); ///SHUNTOHMS/CURRENTGAIN) + CurrentOffset[k];
     }
 }
 

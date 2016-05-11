@@ -53,7 +53,7 @@ void writeRegister(char i2cAddress, char reg, int value)
 /**************************************************************************/
 int readRegister(char i2cAddress, char reg)
 {
-   int data;
+    char data[3];
     IdleI2C();						//Ensure Module is Idle
 	StartI2C();						//Initiate start condition
 	WriteI2C(i2cAddress << 1);			//write 1 byte
@@ -71,7 +71,7 @@ int readRegister(char i2cAddress, char reg)
 //    data[0] = reg;
 //    i2c_Write(i2cAddress, 1, data, 1);
 //    i2c_Write(i2cAddress, 0, data, 0);
-//    return data[0] | data[1] << 8;;
+    return data[0] | data[1] << 8;;
 }
 
 /**************************************************************************/
