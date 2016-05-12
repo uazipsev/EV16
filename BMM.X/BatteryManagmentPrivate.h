@@ -71,6 +71,10 @@ int LTC6804_DATA_Config[NUMBEROFCH][NUMBEROFDATA*NUMBEROFIC];
 
 int cell_codes_Bank1[NUMBEROFIC][12]; 
 int cell_codes_Bank2[NUMBEROFIC][12]; 
+int Aux_codes_Bank1[NUMBEROFIC][6]; 
+int Aux_codes_Bank2[NUMBEROFIC][6];
+int Stat_codes_Bank1[NUMBEROFIC][6]; 
+int Stat_codes_Bank2[NUMBEROFIC][6];
 /*!< 
   The cell codes will be stored in the cell_codes[][12] array in the following format:
   
@@ -94,5 +98,24 @@ void Run_ByPass(int cell_codesBank1[][12],int cell_codesBank2[][12]);
 void Read_Total_Voltage(int cell_codesBank1[][12],int cell_codesBank2[][12]);
 int Read_Battery(int BatteryPlacement,int *cell_codes[NUMBEROFIC][12]);
 
+
+//Fault Control Number
+#define UnderVoltageFault 1
+#define OverVoltageFault 2
+#define OverTempratureThreshold 3 
+#define WatchdogTimerFault 4 //Indicates if watchdog timer expired
+#define OverCurrentFault 5
+#define SumofCellsMeasurement 6 
+#define InternalDieTemp 7 
+#define AnalogPowerSupplyFault 8 
+#define DigitalPowerSupplyFault 9
+#define SecondRefrenceFualt 10
+#define Muxfailfault 11
+#define OpenWireFault 12 //The Wire that is fault will be indicated in the algorithim. 
+#define ThermalShutdownFault 13
+#define CommuncationFault 14
+#define ReadstatRegFault 15
+#define ReadVoltRegFault 16
+#define ReadAuxRegFault 17
 #endif	/* BATTERYMANAGMENTPRIVATE_H */
 

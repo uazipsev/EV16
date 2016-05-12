@@ -62,6 +62,46 @@ void Run_ByPass(int cell_codesBank1[][12],int cell_codesBank2[][12]){
    
 }
 
+void CheckFault(int FaultValue){
+    if (FaultValue!=0)
+    {
+    addressFault(FaultValue);
+    }
+}
+int  addressFault(int FaultNum){
+    //need to determine the fault number
+    //TODO Check if this is accurate this may break the board.
+    Saftey_Relay_Set=1;
+    //Once the error has been addressed the error is then cleared. 
+    FaultNum=0;
+}
+//TODO Finish Up setup Test
+void Startuptests(int *Stat_codes[NUMBEROFIC][12]) {
+    int ReadErrorValue = 0; //If there is a error reading the statregister
+    int ErrorCount = 0; //How many times in a row was there a error this can indicate a loop that is stuck.
+    int CriticalReadError = 0; // If over 10 Send a Critical Error to be dealt with. 
+    Set_Stat(MD_NORMAL, All_Stats);
+    LTC6804_ADSTAT();
+    ReadErrorValue = LTC6804_rdStat(0,NUMBEROFIC,*Stat_codes);
+    while (ReadErrorValue == -1 && ErrorCount < 10) {
+        LTC6804_ADSTAT();
+        ReadErrorValue = LTC6804_rdStat(0,NUMBEROFIC,*Stat_codes);
+    }
+    if (ErrorCount >= 10) {
+        CriticalReadError = ReadstatRegFault;
+    }
+    
+    return CriticalReadError;
+}
+
+int CheckThresholds(int test, int data){
+
+    switch (test){
+            case 0:
+                break;
+    }
+
+}
 void Read_Total_Voltage(int cell_codesBank1[][12],int cell_codesBank2[][12]){
 
 int Error_Value=0;
@@ -69,14 +109,18 @@ int Error_Value=0;
     Error_Value=Read_Battery(0,cell_codes_Bank1);
     if (Error_Value!=0){
     Read_Status_INC=Read_Status_INC+1;}
+    else if(Error_Value) {
+    Startuptests(Stat_codes_Bank1);}
    } while(Error_Value!=0);
    
     do {
     Error_Value=Read_Battery(0,cell_codesBank2);
     if (Error_Value!=0){
     Read_Status_INC=Read_Status_INC+1;}
+     else if(Error_Value) {
+    Startuptests(Stat_codes_Bank1);}
    } while(Error_Value!=0);
-
+   
 }
 /*******************************************************************
  * @brief           Read_Battery
@@ -92,7 +136,7 @@ int Read_Battery(int BatteryPlacement,int *cell_codes[NUMBEROFIC][12]) {
         case 0: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
             LTC6804_adcv();
-            Read_Status=LTC6804_rdcv(0,3,*cell_codes);
+            Read_Status=LTC6804_rdcv(0,NUMBEROFIC,*cell_codes);
             break;
         case 1: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_1and7, AUX_CH_ALL);
@@ -103,32 +147,32 @@ int Read_Battery(int BatteryPlacement,int *cell_codes[NUMBEROFIC][12]) {
         case 2: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_2and8, AUX_CH_ALL);
             LTC6804_adcv();
-           Read_Status= LTC6804_rdcv(0,3,*cell_codes); // Cell 2
-           Read_Status=LTC6804_rdcv(3,3,*cell_codes); //Cell 8
+           Read_Status= LTC6804_rdcv(0,NUMBEROFIC,*cell_codes); // Cell 2
+           Read_Status=LTC6804_rdcv(3,NUMBEROFIC,*cell_codes); //Cell 8
             break;
         case 3: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_3and9, AUX_CH_ALL);
             LTC6804_adcv();
-            Read_Status= LTC6804_rdcv(0,3,*cell_codes); // Cell 3
-            Read_Status= LTC6804_rdcv(3,3,*cell_codes); //Cell 9
+            Read_Status= LTC6804_rdcv(0,NUMBEROFIC,*cell_codes); // Cell 3
+            Read_Status= LTC6804_rdcv(3,NUMBEROFIC,*cell_codes); //Cell 9
             break;
         case 4: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_4and10, AUX_CH_ALL);
             LTC6804_adcv();
-            Read_Status= LTC6804_rdcv(2,3,*cell_codes); // Cell 4
-            Read_Status= LTC6804_rdcv(4,3,*cell_codes); //Cell 10
+            Read_Status= LTC6804_rdcv(2,NUMBEROFIC,*cell_codes); // Cell 4
+            Read_Status= LTC6804_rdcv(4,NUMBEROFIC,*cell_codes); //Cell 10
             break;
         case 5: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_5and11, AUX_CH_ALL);
             LTC6804_adcv();
-            Read_Status= LTC6804_rdcv(2,3,*cell_codes); // Cell 5
-            Read_Status= LTC6804_rdcv(4,3,*cell_codes); //Cell 11
+            Read_Status= LTC6804_rdcv(2,NUMBEROFIC,*cell_codes); // Cell 5
+            Read_Status= LTC6804_rdcv(4,NUMBEROFIC,*cell_codes); //Cell 11
             break;
         case 6: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_6and12, AUX_CH_ALL);
             LTC6804_adcv();
-            Read_Status= LTC6804_rdcv(2,3,*cell_codes); // Cell 6
-            Read_Status= LTC6804_rdcv(4,3,*cell_codes); //Cell 12
+            Read_Status= LTC6804_rdcv(2,NUMBEROFIC,*cell_codes); // Cell 6
+            Read_Status= LTC6804_rdcv(4,NUMBEROFIC,*cell_codes); //Cell 12
             break;
         default:
             break;
@@ -155,38 +199,38 @@ int Read_GPIO(int BatteryPlacement, int *aux_codes[NUMBEROFIC][6])
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
             LTC6804_adax();
             // What Cells to read,amount of IC,Data
-             Read_Status=LTC6804_rdaux(0,3,*aux_codes); // All GPIO and Ref
+             Read_Status=LTC6804_rdaux(0,NUMBEROFIC,*aux_codes); // All GPIO and Ref
 
             break;
         case 1: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO1);
             LTC6804_adax();
-            Read_Status=LTC6804_rdaux(1,3,*aux_codes);//GPIO 1
+            Read_Status=LTC6804_rdaux(1,NUMBEROFIC,*aux_codes);//GPIO 1
             break;
         case 2: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO2);
             LTC6804_adax();
-            Read_Status=LTC6804_rdaux(1,3,*aux_codes);//GPIO 2
+            Read_Status=LTC6804_rdaux(1,NUMBEROFIC,*aux_codes);//GPIO 2
             break;
         case 3: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO3);
             LTC6804_adax();
-            Read_Status=LTC6804_rdaux(1,3,*aux_codes);//GPIO 3
+            Read_Status=LTC6804_rdaux(1,NUMBEROFIC,*aux_codes);//GPIO 3
             break;
         case 4: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO4);
             LTC6804_adax();
-            Read_Status=LTC6804_rdaux(2,3,*aux_codes);//GPIO 4
+            Read_Status=LTC6804_rdaux(2,NUMBEROFIC,*aux_codes);//GPIO 4
             break;
         case 5: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO5);
             LTC6804_adax();
-            Read_Status=LTC6804_rdaux(2,3,*aux_codes);//GPIO 5
+            Read_Status=LTC6804_rdaux(2,NUMBEROFIC,*aux_codes);//GPIO 5
             break;
         case 6: 
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_VREF2);
             LTC6804_adax();
-            Read_Status=LTC6804_rdaux(2,3,*aux_codes);//GPIO 6
+            Read_Status=LTC6804_rdaux(2,NUMBEROFIC,*aux_codes);//GPIO 6
             break;
         default:
             break;}
