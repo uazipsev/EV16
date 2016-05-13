@@ -213,7 +213,7 @@ void AckI2C(void)
 *
 * Note:			None
 ********************************************************************/
-unsigned int getsI2C(unsigned char *rdptr, unsigned char Length)
+unsigned int getsI2C(char *rdptr, unsigned char Length)
 {
 	while (Length --)
 	{
