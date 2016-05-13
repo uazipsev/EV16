@@ -36,11 +36,15 @@ void Setup(void) {
     //INTCON1bits.NSTDIS = 1; //no nesting of interrupts
 
     PPSUnLock;
-    PPSout(_OC1, _RP5);
+    //PPSout(_OC1, _RP5);
     Pin_24_Output = TX1_OUTPUT;
     RX1_Pin_Map = 25;
     Pin_22_Output = TX2_OUTPUT;
     RX2_Pin_Map = 23;
+    PPSout(_SDO1, _RP21);
+    PPSout(_SCK1, _RP19);
+    PPSin(_SDI1, _RP20);
+    
     PPSLock;
 
     
@@ -92,7 +96,7 @@ void PinSetMode(void) {
 }
 
  void ledDebug() {
-     int x=0;
+     //int x=0;
         if (time_get(LEDTM) > 500) {
             INDICATOR = !INDICATOR;
             printf("ADC: %d , %d , %d", CurrentGet(0,1),CurrentGet(0,2),CurrentGet(0,3));

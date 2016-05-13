@@ -46,5 +46,15 @@
 #define LT6020_1_EN PORTAbits.RA0
 #define LT6020_2_EN PORTAbits.RA0
 
+/*
+ 
+ * SPI PPS mapping
+ 
+ */
+#define MOSI_Pin_Map RPOR20bits.SDO1
+#define MISO_Pin_Map RPINR20bits.SDI1R
+#define SCK_Pin_Map  RPOR21bits.SCK1
+
+
 #endif	/* PINDEF_H */
 

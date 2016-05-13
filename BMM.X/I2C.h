@@ -15,7 +15,7 @@ unsigned int StartI2C(void);
 unsigned int WriteI2C(unsigned char);
 unsigned int StopI2C(void);
 unsigned int RestartI2C(void);
-unsigned int getsI2C(unsigned char*, unsigned char);
+unsigned int getsI2C(char*, unsigned char);
 unsigned int NotAckI2C(void);
 unsigned int InitI2C(void);
 unsigned int ACKStatus(void);
