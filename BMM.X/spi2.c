@@ -17,7 +17,7 @@
 void SPI2_Initialize(void)
 {
     // Set the SPI2 module to the options selected in the User Interface
-    SPI1CON1 = 0x013B;     //This ets SPRE and PPRE to a 1:1 prescale, needs chaged     
+    SPI1CON1 = 0x0038;     //This ets SPRE and PPRE to a 1:64 prescale   
     SPI1CON2 = 0x0000;
     SPI1STAT = 0x8000;    //Enables the module
 
