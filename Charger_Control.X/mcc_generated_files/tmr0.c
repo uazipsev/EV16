@@ -8,18 +8,18 @@
     tmr0.c
 
   @Summary
-    This is the generated driver implementation file for the TMR0 driver using MPLAB® Code Configurator
+    This is the generated driver implementation file for the TMR0 driver using MPLAB(c) Code Configurator
 
   @Description
     This source file provides APIs for TMR0.
     Generation Information :
-        Product Revision  :  MPLAB® Code Configurator - v2.25.2
+        Product Revision  :  MPLAB(c) Code Configurator - v3.00
         Device            :  PIC18F45K22
         Driver Version    :  2.00
     The generated drivers are tested against the following:
-        Compiler          :  XC8 v1.34
-        MPLAB             :  MPLAB X v2.35 or v3.00
- */
+        Compiler          :  XC8 1.35
+        MPLAB             :  MPLAB X 3.20
+*/
 
 /*
 Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
@@ -46,81 +46,125 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 /**
   Section: Included Files
- */
+*/
 
 #include <xc.h>
 #include "tmr0.h"
 
 /**
   Section: Global Variables Definitions
- */
-volatile uint16_t timer0ReloadVal16bit;
+  Made this a local variable....
+*/
+int timer0ReloadVal16bit;
+unsigned long int LEDtime = 0, talkTime = 0, lastLEDTime = 0, time =0;
+
+
+
 
 /**
   Section: TMR0 APIs
- */
+*/
 
 
-void TMR0_Initialize(void) {
+void TMR0_Initialize(void)
+{
     // Set TMR0 to the options selected in the User Interface
 
-    // TMR0ON enabled; T0SE Increment_hi_lo; PSA assigned; T0CS FOSC/4; T08BIT 16-bit; T0PS 1:4; 
-    T0CON = 0x91;
+    // T0PS 1:2; T08BIT 16-bit; T0SE Increment_hi_lo; T0CS FOSC/4; TMR0ON enabled; PSA not_assigned; 
+    T0CON = 0x98;
 
-    // TMR0H 10; 
-    TMR0H = 0x0A;
+    // TMR0H 240; 
+    TMR0H = 0xF0;
 
-    // TMR0L 255; 
-    TMR0L = 0xFF;
+    // TMR0L 95; 
+    TMR0L = 0x5F;
 
     // Load TMR0 value to the 16-bit reload variable
-    timer0ReloadVal16bit = 2815;
+    timer0ReloadVal16bit = (TMR0H << 8) | TMR0L;
 
-    // Clearing IF flag.
+    // Clear Interrupt flag before enabling the interrupt
     INTCONbits.TMR0IF = 0;
+
+    // Enabling TMR0 interrupt.
+    INTCONbits.TMR0IE = 1;
 
     // Start TMR0
     TMR0_StartTimer();
 }
 
-void TMR0_StartTimer(void) {
+void TMR0_StartTimer(void)
+{
     // Start the Timer by writing to TMR0ON bit
     T0CONbits.TMR0ON = 1;
 }
 
-void TMR0_StopTimer(void) {
+void TMR0_StopTimer(void)
+{
     // Stop the Timer by writing to TMR0ON bit
     T0CONbits.TMR0ON = 0;
 }
 
-uint16_t TMR0_Read16bitTimer(void) {
+uint16_t TMR0_Read16bitTimer(void)
+{
     uint16_t readVal;
     uint8_t readValLow;
     uint8_t readValHigh;
 
-    readValLow = TMR0L;
+    readValLow  = TMR0L;
     readValHigh = TMR0H;
-    readVal = ((uint16_t) readValHigh << 8) + readValLow;
+    readVal  = ((uint16_t)readValHigh << 8) + readValLow;
 
     return readVal;
 }
 
-void TMR0_Write16bitTimer(uint16_t timerVal) {
+void TMR0_Write16bitTimer(uint16_t timerVal)
+{
     // Write to the Timer0 register
     TMR0H = timerVal >> 8;
     TMR0L = (uint8_t) timerVal;
 }
 
-void TMR0_Reload16bit(void) {
+void TMR0_Reload16bit(void)
+{
     // Write to the Timer0 register
     TMR0H = timer0ReloadVal16bit >> 8;
     TMR0L = (uint8_t) timer0ReloadVal16bit;
 }
 
-bool TMR0_HasOverflowOccured(void) {
-    // check if  overflow has occurred by checking the TMRIF bit
-    return (INTCONbits.TMR0IF);
+
+
+void TMR0_ISR(void)
+{
+
+    // clear the TMR0 interrupt flag
+    INTCONbits.TMR0IF = 0;
+
+    // reload TMR0
+    // Write to the Timer0 register
+    TMR0H = timer0ReloadVal16bit >> 8;
+    TMR0L = (uint8_t) timer0ReloadVal16bit;
+
+    time++;
+ 
 }
+
+void updateTimers() {
+        LEDtime += (time - lastLEDTime);
+        lastLEDTime = time;
+}
+
+int time_get(char WhatTime){
+    if(WhatTime == 1){
+        return LEDtime;
+    }
+}
+
+void time_Set(char WhatTime, int value){
+    if(WhatTime == 1){
+        LEDtime = value;
+    }
+}
+
 /**
   End of File
- */
+*/

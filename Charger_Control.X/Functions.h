@@ -14,6 +14,7 @@ extern void Delay(long int wait);
 void Precharge(bool OnOff);
 void SetCharger(char mode, char Current, char Voltage);
 void SetMux(char channel);
+void ledDebug();
 
 #endif	/* FUNCTIONS_H */
 

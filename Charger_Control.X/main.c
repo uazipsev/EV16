@@ -44,26 +44,17 @@ void main(void) {
 
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
-    NokiaStart();
-    LED_SetDigitalOutput();
-    LED_SetHigh();
-    int x = 0;
-    while (1) {
-        
-        Delay(1000);
-        clearLcd();
-        gotoXy(3,3);  //0-14,0-5
-        //NokiaStr(":");
-        NokiaStr("Hello World!");
-        //Delay(1000);
-        GREEN_Toggle();
-        BLUE_Toggle();
-        YELLOW_Toggle();
-        LED_Toggle();
-        x++;
+    NokiaStart();  // We are setting ut the display for text. We dont have a GFX lib installed for program size limits :(
+    Delay(100);    
+    clearLcd();    //found out the display needs cleard after a little bit to keep it clear. So I added a little delay to give the LCD a break 
+    respondECU();  //This is unique to this board, we are "faking" the ECU here to get the BMM into a master mode talking to us, controling this board. 
+    //LED_SetDigitalOutput(); //Maybe not needed? I don't know why this was added, This is for the status LED on the board. 
+    LED_SetHigh();  //We are getting the LED on for toggle control, I hope.
+    while(1){
+        respondECU();
+        updateComms();
+        ledDebug();
     }
-    respondECU();
-    updateComms();
 }
 /**
  End of File

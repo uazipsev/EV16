@@ -8,18 +8,18 @@
     tmr0.h
 
   @Summary
-    This is the generated header file for the TMR0 driver using MPLAB® Code Configurator
+    This is the generated header file for the TMR0 driver using MPLAB(c) Code Configurator
 
   @Description
     This header file provides APIs for TMR0.
     Generation Information :
-        Product Revision  :  MPLAB® Code Configurator - v2.25.2
+        Product Revision  :  MPLAB(c) Code Configurator - v3.00
         Device            :  PIC18F45K22
         Driver Version    :  2.00
     The generated drivers are tested against the following:
-        Compiler          :  XC8 v1.34
-        MPLAB             :  MPLAB X v2.35 or v3.00
- */
+        Compiler          :  XC8 1.35
+        MPLAB             :  MPLAB X 3.20
+*/
 
 /*
 Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
@@ -49,273 +49,283 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 /**
   Section: Included Files
- */
+*/
+
+#define LEDTM 1
 
 #include <stdint.h>
 #include <stdbool.h>
 
 #ifdef __cplusplus  // Provide C++ Compatibility
 
-extern "C" {
+    extern "C" {
 
 #endif
+        
+   int time_get(char WhatTime);
+   void updateTimers();
+   void time_Set(char WhatTime, int value);
 
 
 
-    /**
-      Section: TMR0 APIs
-     */
+/**
+  Section: Macro Declarations
+*/
 
-    /**
-      @Summary
-        Initializes the TMR0.
+#define TMR0_INTERRUPT_TICKER_FACTOR    1
 
-      @Description
-        This function initializes the TMR0 Registers.
-        This function must be called before any other TMR0 function is called.
+/**
+  Section: TMR0 APIs
+*/
 
-      @Preconditions
-        None
+/**
+  @Summary
+    Initializes the TMR0.
 
-      @Param
-        None
+  @Description
+    This function initializes the TMR0 Registers.
+    This function must be called before any other TMR0 function is called.
 
-      @Returns
-        None
+  @Preconditions
+    None
 
-      @Comment
+  @Param
+    None
+
+  @Returns
+    None
+
+  @Comment
     
 
-      @Example
-        <code>
-        main()
-        {
-            // Initialize TMR0 module
-            TMR0_Initialize();
-
-            // Do something else...
-        }
-        </code>
-     */
-    void TMR0_Initialize(void);
-
-    /**
-      @Summary
-        This function starts the TMR0.
-
-      @Description
-        This function starts the TMR0 operation.
-        This function must be called after the initialization of TMR0.
-
-      @Preconditions
-        Initialize  the TMR0 before calling this function.
-
-      @Param
-        None
-
-      @Returns
-        None
-
-      @Example
-        <code>
+  @Example
+    <code>
+    main()
+    {
         // Initialize TMR0 module
-
-        // Start TMR0
-        TMR0_StartTimer();
+        TMR0_Initialize();
 
         // Do something else...
-        </code>
-     */
-    void TMR0_StartTimer(void);
+    }
+    </code>
+*/
+void TMR0_Initialize(void);
 
-    /**
-      @Summary
-        This function stops the TMR0.
+/**
+  @Summary
+    This function starts the TMR0.
 
-      @Description
-        This function stops the TMR0 operation.
-        This function must be called after the start of TMR0.
+  @Description
+    This function starts the TMR0 operation.
+    This function must be called after the initialization of TMR0.
 
-      @Preconditions
-        Initialize  the TMR0 before calling this function.
+  @Preconditions
+    Initialize  the TMR0 before calling this function.
 
-      @Param
-        None
+  @Param
+    None
 
-      @Returns
-        None
+  @Returns
+    None
 
-      @Example
-        <code>
-        // Initialize TMR0 module
+  @Example
+    <code>
+    // Initialize TMR0 module
 
-        // Start TMR0
-        TMR0_StartTimer();
+    // Start TMR0
+    TMR0_StartTimer();
 
+    // Do something else...
+    </code>
+*/
+void TMR0_StartTimer(void);
+
+/**
+  @Summary
+    This function stops the TMR0.
+
+  @Description
+    This function stops the TMR0 operation.
+    This function must be called after the start of TMR0.
+
+  @Preconditions
+    Initialize  the TMR0 before calling this function.
+
+  @Param
+    None
+
+  @Returns
+    None
+
+  @Example
+    <code>
+    // Initialize TMR0 module
+
+    // Start TMR0
+    TMR0_StartTimer();
+
+    // Do something else...
+
+    // Stop TMR0;
+    TMR0_StopTimer();
+    </code>
+*/
+void TMR0_StopTimer(void);
+
+
+/**
+  @Summary
+    Reads the 16 bits TMR0 register value.
+
+  @Description
+    This function reads the 16 bits TMR0 register value and return it.
+
+  @Preconditions
+    Initialize  the TMR0 before calling this function.
+
+  @Param
+    None
+
+  @Returns
+    This function returns the 16 bits value of TMR0 register.
+
+  @Example
+    <code>
+    // Initialize TMR0 module
+
+    // Start TMR0
+    TMR0_StartTimer();
+
+    // Read the current value of TMR0
+    if(0 == TMR0_Read16bitTimer())
+    {
         // Do something else...
 
-        // Stop TMR0;
-        TMR0_StopTimer();
-        </code>
-     */
-    void TMR0_StopTimer(void);
+        // Reload the TMR value
+        TMR0_Reload();
+    }
+    </code>
+*/
+uint16_t TMR0_Read16bitTimer(void);
 
+/**
+  @Summary
+    Writes the 16 bits value to TMR0 register.
 
-    /**
-      @Summary
-        Reads the 16 bits TMR0 register value.
+  @Description
+    This function writes the 16 bits value to TMR0 register.
+    This function must be called after the initialization of TMR0.
 
-      @Description
-        This function reads the 16 bits TMR0 register value and return it.
+  @Preconditions
+    Initialize  the TMR0 before calling this function.
 
-      @Preconditions
-        Initialize  the TMR0 before calling this function.
+  @Param
+    timerVal - Value to write into TMR0 register.
 
-      @Param
-        None
+  @Returns
+    None
 
-      @Returns
-        This function returns the 16 bits value of TMR0 register.
+  @Example
+    <code>
+    #define PERIOD 0x8000
+    #define ZERO   0x0000
 
-      @Example
-        <code>
-        // Initialize TMR0 module
-
-        // Start TMR0
-        TMR0_StartTimer();
-
-        // Read the current value of TMR0
-        if(0 == TMR0_Read16bitTimer())
+    while(1)
+    {
+        //Read the TMR0 register
+        if(ZERO == TMR0_Read16bitTimer())
         {
             // Do something else...
 
-            // Reload the TMR value
-            TMR0_Reload();
+            // Write the TMR0 register
+            TMR0_Write16bitTimer(PERIOD);
         }
-        </code>
-     */
-    uint16_t TMR0_Read16bitTimer(void);
 
-    /**
-      @Summary
-        Writes the 16 bits value to TMR0 register.
+        // Do something else...
+    }
+    </code>
+*/
+void TMR0_Write16bitTimer(uint16_t timerVal);
 
-      @Description
-        This function writes the 16 bits value to TMR0 register.
-        This function must be called after the initialization of TMR0.
+/**
+  @Summary
+    Reload the 16 bits value to TMR0 register.
 
-      @Preconditions
-        Initialize  the TMR0 before calling this function.
+  @Description
+    This function reloads the 16 bit value to TMR0 register.
+    This function must be called to write initial value into TMR0 register.
 
-      @Param
-        timerVal - Value to write into TMR0 register.
+  @Preconditions
+    Initialize  the TMR0 before calling this function.
 
-      @Returns
-        None
+  @Param
+    None
 
-      @Example
-        <code>
-        #define PERIOD 0x8000
-        #define ZERO   0x0000
+  @Returns
+    None
 
-        while(1)
+  @Example
+    <code>
+    while(1)
+    {
+        if(TMR0IF)
         {
-            //Read the TMR0 register
-            if(ZERO == TMR0_Read16bitTimer())
-            {
-                // Do something else...
-
-                // Write the TMR0 register
-                TMR0_Write16bitTimer(PERIOD);
-            }
-
             // Do something else...
+
+            // clear the TMR0 interrupt flag
+            TMR0IF = 0;
+
+            // Reload the initial value of TMR0
+            TMR0_Reload16bit();
         }
-        </code>
-     */
-    void TMR0_Write16bitTimer(uint16_t timerVal);
+    }
+    </code>
+*/
+void TMR0_Reload16bit(void);
 
-    /**
-      @Summary
-        Reload the 16 bits value to TMR0 register.
+/**
+  @Summary
+    Timer Interrupt Service Routine
 
-      @Description
-        This function reloads the 16 bit value to TMR0 register.
-        This function must be called to write initial value into TMR0 register.
+  @Description
+    Timer Interrupt Service Routine is called by the Interrupt Manager.
 
-      @Preconditions
-        Initialize  the TMR0 before calling this function.
+  @Preconditions
+    Initialize  the TMR0 module with interrupt before calling this isr.
 
-      @Param
-        None
+  @Param
+    None
 
-      @Returns
-        None
+  @Returns
+    None
+ */
+void TMR0_ISR(void);
 
-      @Example
-        <code>
-        while(1)
-        {
-            if(TMR0IF)
-            {
-                // Do something else...
+/**
+  @Summary
+    CallBack function
 
-                // clear the TMR0 interrupt flag
-                TMR0IF = 0;
+  @Description
+    This function is called from the timer ISR. User can write your code in this function.
 
-                // Reload the initial value of TMR0
-                TMR0_Reload16bit();
-            }
-        }
-        </code>
-     */
-    void TMR0_Reload16bit(void);
+  @Preconditions
+    Initialize  the TMR0 module with interrupt before calling this function.
 
-    /**
-      @Summary
-        Boolean routine to poll or to check for the overflow flag on the fly.
+  @Param
+    None
 
-      @Description
-        This function is called to check for the timer overflow flag.
-        This function is usd in timer polling method.
-
-      @Preconditions
-        Initialize  the TMR0 module before calling this routine.
-
-      @Param
-        None
-
-      @Returns
-        true - timer overflow has occured.
-        false - timer overflow has not occured.
-
-      @Example
-        <code>
-        while(1)
-        {
-            // check the overflow flag
-            if(TMR0_HasOverflowOccured())
-            {
-                // Do something else...
-
-                // clear the TMR0 interrupt flag
-                TMR0IF = 0;
-
-                // Reload the TMR0 value
-                TMR0_Reload16bit();
-            }
-        }
-        </code>
-     */
-    bool TMR0_HasOverflowOccured(void);
+  @Returns
+    None
+*/
+void TMR0_CallBack(void);
 
 #ifdef __cplusplus  // Provide C++ Compatibility
 
-}
+    }
 
 #endif
 
 #endif // _TMR0_H
 /**
  End of File
- */
+*/

@@ -25,7 +25,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1109 . . . . . . ]
 "17650
 [v _INTCONbits `VS1109 ~T0 @X0 0 e@4082 ]
-"129 mcc_generated_files/tmr0.h
+"141 mcc_generated_files/tmr0.h
 [v _TMR0_StartTimer `(v ~T0 @X0 0 ef ]
 "16837 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
 [s S1050 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -8198,146 +8198,257 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
 [; ;stdbool.h: 12: typedef unsigned char bool;
-[; ;tmr0.h: 100: void TMR0_Initialize(void);
-[; ;tmr0.h: 129: void TMR0_StartTimer(void);
-[; ;tmr0.h: 161: void TMR0_StopTimer(void);
-[; ;tmr0.h: 197: uint16_t TMR0_Read16bitTimer(void);
-[; ;tmr0.h: 236: void TMR0_Write16bitTimer(uint16_t timerVal);
-[; ;tmr0.h: 272: void TMR0_Reload16bit(void);
-[; ;tmr0.h: 310: bool TMR0_HasOverflowOccured(void);
-"57 mcc_generated_files/tmr0.c
-[v _timer0ReloadVal16bit `Vui ~T0 @X0 1 e ]
-[; ;tmr0.c: 57: volatile uint16_t timer0ReloadVal16bit;
-"64
+[; ;tmr0.h: 65: int time_get(char WhatTime);
+[; ;tmr0.h: 66: void updateTimers();
+[; ;tmr0.h: 67: void time_Set(char WhatTime, int value);
+[; ;tmr0.h: 112: void TMR0_Initialize(void);
+[; ;tmr0.h: 141: void TMR0_StartTimer(void);
+[; ;tmr0.h: 173: void TMR0_StopTimer(void);
+[; ;tmr0.h: 209: uint16_t TMR0_Read16bitTimer(void);
+[; ;tmr0.h: 248: void TMR0_Write16bitTimer(uint16_t timerVal);
+[; ;tmr0.h: 284: void TMR0_Reload16bit(void);
+[; ;tmr0.h: 302: void TMR0_ISR(void);
+[; ;tmr0.h: 320: void TMR0_CallBack(void);
+"58 mcc_generated_files/tmr0.c
+[v _timer0ReloadVal16bit `i ~T0 @X0 1 e ]
+[; ;tmr0.c: 58: int timer0ReloadVal16bit;
+"59
+[v _LEDtime `ul ~T0 @X0 1 e ]
+[i _LEDtime
+-> -> -> 0 `i `l `ul
+]
+[v _talkTime `ul ~T0 @X0 1 e ]
+[i _talkTime
+-> -> -> 0 `i `l `ul
+]
+[v _lastLEDTime `ul ~T0 @X0 1 e ]
+[i _lastLEDTime
+-> -> -> 0 `i `l `ul
+]
+[v _time `ul ~T0 @X0 1 e ]
+[i _time
+-> -> -> 0 `i `l `ul
+]
+[; ;tmr0.c: 59: unsigned long int LEDtime = 0, talkTime = 0, lastLEDTime = 0, time =0;
+"69
 [v _TMR0_Initialize `(v ~T0 @X0 1 ef ]
+"70
 {
-[; ;tmr0.c: 64: void TMR0_Initialize(void) {
+[; ;tmr0.c: 69: void TMR0_Initialize(void)
+[; ;tmr0.c: 70: {
 [e :U _TMR0_Initialize ]
 [f ]
-[; ;tmr0.c: 68: T0CON = 0x91;
-"68
-[e = _T0CON -> -> 145 `i `uc ]
-[; ;tmr0.c: 71: TMR0H = 0x0A;
-"71
-[e = _TMR0H -> -> 10 `i `uc ]
-[; ;tmr0.c: 74: TMR0L = 0xFF;
+[; ;tmr0.c: 74: T0CON = 0x98;
 "74
-[e = _TMR0L -> -> 255 `i `uc ]
-[; ;tmr0.c: 77: timer0ReloadVal16bit = 2815;
+[e = _T0CON -> -> 152 `i `uc ]
+[; ;tmr0.c: 77: TMR0H = 0xF0;
 "77
-[e = _timer0ReloadVal16bit -> -> 2815 `i `ui ]
-[; ;tmr0.c: 80: INTCONbits.TMR0IF = 0;
+[e = _TMR0H -> -> 240 `i `uc ]
+[; ;tmr0.c: 80: TMR0L = 0x5F;
 "80
-[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
-[; ;tmr0.c: 83: TMR0_StartTimer();
+[e = _TMR0L -> -> 95 `i `uc ]
+[; ;tmr0.c: 83: timer0ReloadVal16bit = (TMR0H << 8) | TMR0L;
 "83
+[e = _timer0ReloadVal16bit | << -> _TMR0H `i -> 8 `i -> _TMR0L `i ]
+[; ;tmr0.c: 86: INTCONbits.TMR0IF = 0;
+"86
+[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+[; ;tmr0.c: 89: INTCONbits.TMR0IE = 1;
+"89
+[e = . . _INTCONbits 0 5 -> -> 1 `i `uc ]
+[; ;tmr0.c: 92: TMR0_StartTimer();
+"92
 [e ( _TMR0_StartTimer ..  ]
-[; ;tmr0.c: 84: }
-"84
+[; ;tmr0.c: 93: }
+"93
 [e :UE 1177 ]
 }
-"86
+"95
 [v _TMR0_StartTimer `(v ~T0 @X0 1 ef ]
+"96
 {
-[; ;tmr0.c: 86: void TMR0_StartTimer(void) {
+[; ;tmr0.c: 95: void TMR0_StartTimer(void)
+[; ;tmr0.c: 96: {
 [e :U _TMR0_StartTimer ]
 [f ]
-[; ;tmr0.c: 88: T0CONbits.TMR0ON = 1;
-"88
+[; ;tmr0.c: 98: T0CONbits.TMR0ON = 1;
+"98
 [e = . . _T0CONbits 0 5 -> -> 1 `i `uc ]
-[; ;tmr0.c: 89: }
-"89
+[; ;tmr0.c: 99: }
+"99
 [e :UE 1178 ]
 }
-"91
+"101
 [v _TMR0_StopTimer `(v ~T0 @X0 1 ef ]
+"102
 {
-[; ;tmr0.c: 91: void TMR0_StopTimer(void) {
+[; ;tmr0.c: 101: void TMR0_StopTimer(void)
+[; ;tmr0.c: 102: {
 [e :U _TMR0_StopTimer ]
 [f ]
-[; ;tmr0.c: 93: T0CONbits.TMR0ON = 0;
-"93
+[; ;tmr0.c: 104: T0CONbits.TMR0ON = 0;
+"104
 [e = . . _T0CONbits 0 5 -> -> 0 `i `uc ]
-[; ;tmr0.c: 94: }
-"94
+[; ;tmr0.c: 105: }
+"105
 [e :UE 1179 ]
 }
-"96
+"107
 [v _TMR0_Read16bitTimer `(ui ~T0 @X0 1 ef ]
+"108
 {
-[; ;tmr0.c: 96: uint16_t TMR0_Read16bitTimer(void) {
+[; ;tmr0.c: 107: uint16_t TMR0_Read16bitTimer(void)
+[; ;tmr0.c: 108: {
 [e :U _TMR0_Read16bitTimer ]
 [f ]
-"97
+"109
 [v _readVal `ui ~T0 @X0 1 a ]
-"98
+"110
 [v _readValLow `uc ~T0 @X0 1 a ]
-"99
+"111
 [v _readValHigh `uc ~T0 @X0 1 a ]
-[; ;tmr0.c: 97: uint16_t readVal;
-[; ;tmr0.c: 98: uint8_t readValLow;
-[; ;tmr0.c: 99: uint8_t readValHigh;
-[; ;tmr0.c: 101: readValLow = TMR0L;
-"101
+[; ;tmr0.c: 109: uint16_t readVal;
+[; ;tmr0.c: 110: uint8_t readValLow;
+[; ;tmr0.c: 111: uint8_t readValHigh;
+[; ;tmr0.c: 113: readValLow = TMR0L;
+"113
 [e = _readValLow _TMR0L ]
-[; ;tmr0.c: 102: readValHigh = TMR0H;
-"102
+[; ;tmr0.c: 114: readValHigh = TMR0H;
+"114
 [e = _readValHigh _TMR0H ]
-[; ;tmr0.c: 103: readVal = ((uint16_t) readValHigh << 8) + readValLow;
-"103
+[; ;tmr0.c: 115: readVal = ((uint16_t)readValHigh << 8) + readValLow;
+"115
 [e = _readVal + << -> _readValHigh `ui -> 8 `i -> _readValLow `ui ]
-[; ;tmr0.c: 105: return readVal;
-"105
+[; ;tmr0.c: 117: return readVal;
+"117
 [e ) _readVal ]
 [e $UE 1180  ]
-[; ;tmr0.c: 106: }
-"106
-[e :UE 1180 ]
-}
-"108
-[v _TMR0_Write16bitTimer `(v ~T0 @X0 1 ef1`ui ]
-{
-[; ;tmr0.c: 108: void TMR0_Write16bitTimer(uint16_t timerVal) {
-[e :U _TMR0_Write16bitTimer ]
-[v _timerVal `ui ~T0 @X0 1 r1 ]
-[f ]
-[; ;tmr0.c: 110: TMR0H = timerVal >> 8;
-"110
-[e = _TMR0H -> >> _timerVal -> 8 `i `uc ]
-[; ;tmr0.c: 111: TMR0L = (uint8_t) timerVal;
-"111
-[e = _TMR0L -> _timerVal `uc ]
-[; ;tmr0.c: 112: }
-"112
-[e :UE 1181 ]
-}
-"114
-[v _TMR0_Reload16bit `(v ~T0 @X0 1 ef ]
-{
-[; ;tmr0.c: 114: void TMR0_Reload16bit(void) {
-[e :U _TMR0_Reload16bit ]
-[f ]
-[; ;tmr0.c: 116: TMR0H = timer0ReloadVal16bit >> 8;
-"116
-[e = _TMR0H -> >> _timer0ReloadVal16bit -> 8 `i `uc ]
-[; ;tmr0.c: 117: TMR0L = (uint8_t) timer0ReloadVal16bit;
-"117
-[e = _TMR0L -> _timer0ReloadVal16bit `uc ]
 [; ;tmr0.c: 118: }
 "118
-[e :UE 1182 ]
+[e :UE 1180 ]
 }
 "120
-[v _TMR0_HasOverflowOccured `(uc ~T0 @X0 1 ef ]
+[v _TMR0_Write16bitTimer `(v ~T0 @X0 1 ef1`ui ]
+"121
 {
-[; ;tmr0.c: 120: bool TMR0_HasOverflowOccured(void) {
-[e :U _TMR0_HasOverflowOccured ]
+[; ;tmr0.c: 120: void TMR0_Write16bitTimer(uint16_t timerVal)
+[; ;tmr0.c: 121: {
+[e :U _TMR0_Write16bitTimer ]
+"120
+[v _timerVal `ui ~T0 @X0 1 r1 ]
+"121
 [f ]
-[; ;tmr0.c: 122: return (INTCONbits.TMR0IF);
-"122
-[e ) . . _INTCONbits 0 2 ]
-[e $UE 1183  ]
-[; ;tmr0.c: 123: }
+[; ;tmr0.c: 123: TMR0H = timerVal >> 8;
 "123
+[e = _TMR0H -> >> _timerVal -> 8 `i `uc ]
+[; ;tmr0.c: 124: TMR0L = (uint8_t) timerVal;
+"124
+[e = _TMR0L -> _timerVal `uc ]
+[; ;tmr0.c: 125: }
+"125
+[e :UE 1181 ]
+}
+"127
+[v _TMR0_Reload16bit `(v ~T0 @X0 1 ef ]
+"128
+{
+[; ;tmr0.c: 127: void TMR0_Reload16bit(void)
+[; ;tmr0.c: 128: {
+[e :U _TMR0_Reload16bit ]
+[f ]
+[; ;tmr0.c: 130: TMR0H = timer0ReloadVal16bit >> 8;
+"130
+[e = _TMR0H -> >> _timer0ReloadVal16bit -> 8 `i `uc ]
+[; ;tmr0.c: 131: TMR0L = (uint8_t) timer0ReloadVal16bit;
+"131
+[e = _TMR0L -> _timer0ReloadVal16bit `uc ]
+[; ;tmr0.c: 132: }
+"132
+[e :UE 1182 ]
+}
+"136
+[v _TMR0_ISR `(v ~T0 @X0 1 ef ]
+"137
+{
+[; ;tmr0.c: 136: void TMR0_ISR(void)
+[; ;tmr0.c: 137: {
+[e :U _TMR0_ISR ]
+[f ]
+[; ;tmr0.c: 140: INTCONbits.TMR0IF = 0;
+"140
+[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+[; ;tmr0.c: 144: TMR0H = timer0ReloadVal16bit >> 8;
+"144
+[e = _TMR0H -> >> _timer0ReloadVal16bit -> 8 `i `uc ]
+[; ;tmr0.c: 145: TMR0L = (uint8_t) timer0ReloadVal16bit;
+"145
+[e = _TMR0L -> _timer0ReloadVal16bit `uc ]
+[; ;tmr0.c: 147: time++;
+"147
+[e ++ _time -> -> -> 1 `i `l `ul ]
+[; ;tmr0.c: 149: }
+"149
 [e :UE 1183 ]
+}
+"151
+[v _updateTimers `(v ~T0 @X0 1 ef ]
+{
+[; ;tmr0.c: 151: void updateTimers() {
+[e :U _updateTimers ]
+[f ]
+[; ;tmr0.c: 152: LEDtime += (time - lastLEDTime);
+"152
+[e =+ _LEDtime - _time _lastLEDTime ]
+[; ;tmr0.c: 153: lastLEDTime = time;
+"153
+[e = _lastLEDTime _time ]
+[; ;tmr0.c: 154: }
+"154
+[e :UE 1184 ]
+}
+"156
+[v _time_get `(i ~T0 @X0 1 ef1`uc ]
+{
+[; ;tmr0.c: 156: int time_get(char WhatTime){
+[e :U _time_get ]
+[v _WhatTime `uc ~T0 @X0 1 r1 ]
+[f ]
+[; ;tmr0.c: 157: if(WhatTime == 1){
+"157
+[e $ ! == -> _WhatTime `i -> 1 `i 1186  ]
+{
+[; ;tmr0.c: 158: return LEDtime;
+"158
+[e ) -> _LEDtime `i ]
+[e $UE 1185  ]
+"159
+}
+[e :U 1186 ]
+[; ;tmr0.c: 159: }
+[; ;tmr0.c: 160: }
+"160
+[e :UE 1185 ]
+}
+"162
+[v _time_Set `(v ~T0 @X0 1 ef2`uc`i ]
+{
+[; ;tmr0.c: 162: void time_Set(char WhatTime, int value){
+[e :U _time_Set ]
+[v _WhatTime `uc ~T0 @X0 1 r1 ]
+[v _value `i ~T0 @X0 1 r2 ]
+[f ]
+[; ;tmr0.c: 163: if(WhatTime == 1){
+"163
+[e $ ! == -> _WhatTime `i -> 1 `i 1188  ]
+{
+[; ;tmr0.c: 164: LEDtime = value;
+"164
+[e = _LEDtime -> -> _value `l `ul ]
+"165
+}
+[e :U 1188 ]
+[; ;tmr0.c: 165: }
+[; ;tmr0.c: 166: }
+"166
+[e :UE 1187 ]
 }

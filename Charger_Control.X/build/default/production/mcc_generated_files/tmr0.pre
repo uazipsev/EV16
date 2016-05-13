@@ -10417,89 +10417,136 @@ typedef uint16_t uintptr_t;
 # 12 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\stdbool.h"
 typedef unsigned char bool;
 
-# 100 "mcc_generated_files/tmr0.h"
+# 65 "mcc_generated_files/tmr0.h"
+int time_get(char WhatTime);
+void updateTimers();
+void time_Set(char WhatTime, int value);
+
+# 112
 void TMR0_Initialize(void);
 
-# 129
+# 141
 void TMR0_StartTimer(void);
 
-# 161
+# 173
 void TMR0_StopTimer(void);
 
-# 197
+# 209
 uint16_t TMR0_Read16bitTimer(void);
 
-# 236
+# 248
 void TMR0_Write16bitTimer(uint16_t timerVal);
 
-# 272
+# 284
 void TMR0_Reload16bit(void);
 
-# 310
-bool TMR0_HasOverflowOccured(void);
+# 302
+void TMR0_ISR(void);
 
-# 57 "mcc_generated_files/tmr0.c"
-volatile uint16_t timer0ReloadVal16bit;
+# 320
+void TMR0_CallBack(void);
 
-# 64
-void TMR0_Initialize(void) {
+# 58 "mcc_generated_files/tmr0.c"
+int timer0ReloadVal16bit;
+unsigned long int LEDtime = 0, talkTime = 0, lastLEDTime = 0, time =0;
 
-
-
-T0CON = 0x91;
-
-
-TMR0H = 0x0A;
+# 69
+void TMR0_Initialize(void)
+{
 
 
-TMR0L = 0xFF;
+
+T0CON = 0x98;
 
 
-timer0ReloadVal16bit = 2815;
+TMR0H = 0xF0;
+
+
+TMR0L = 0x5F;
+
+
+timer0ReloadVal16bit = (TMR0H << 8) | TMR0L;
 
 
 INTCONbits.TMR0IF = 0;
 
 
+INTCONbits.TMR0IE = 1;
+
+
 TMR0_StartTimer();
 }
 
-void TMR0_StartTimer(void) {
+void TMR0_StartTimer(void)
+{
 
 T0CONbits.TMR0ON = 1;
 }
 
-void TMR0_StopTimer(void) {
+void TMR0_StopTimer(void)
+{
 
 T0CONbits.TMR0ON = 0;
 }
 
-uint16_t TMR0_Read16bitTimer(void) {
+uint16_t TMR0_Read16bitTimer(void)
+{
 uint16_t readVal;
 uint8_t readValLow;
 uint8_t readValHigh;
 
 readValLow = TMR0L;
 readValHigh = TMR0H;
-readVal = ((uint16_t) readValHigh << 8) + readValLow;
+readVal = ((uint16_t)readValHigh << 8) + readValLow;
 
 return readVal;
 }
 
-void TMR0_Write16bitTimer(uint16_t timerVal) {
+void TMR0_Write16bitTimer(uint16_t timerVal)
+{
 
 TMR0H = timerVal >> 8;
 TMR0L = (uint8_t) timerVal;
 }
 
-void TMR0_Reload16bit(void) {
+void TMR0_Reload16bit(void)
+{
 
 TMR0H = timer0ReloadVal16bit >> 8;
 TMR0L = (uint8_t) timer0ReloadVal16bit;
 }
 
-bool TMR0_HasOverflowOccured(void) {
 
-return (INTCONbits.TMR0IF);
+
+void TMR0_ISR(void)
+{
+
+
+INTCONbits.TMR0IF = 0;
+
+
+
+TMR0H = timer0ReloadVal16bit >> 8;
+TMR0L = (uint8_t) timer0ReloadVal16bit;
+
+time++;
+
+}
+
+void updateTimers() {
+LEDtime += (time - lastLEDTime);
+lastLEDTime = time;
+}
+
+int time_get(char WhatTime){
+if(WhatTime == 1){
+return LEDtime;
+}
+}
+
+void time_Set(char WhatTime, int value){
+if(WhatTime == 1){
+LEDtime = value;
+}
 }
 

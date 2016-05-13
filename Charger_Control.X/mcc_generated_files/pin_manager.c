@@ -56,7 +56,7 @@ void PIN_MANAGER_Initialize(void)
     LATC = 0x0;
     ANSELA = 0x2F;
     ANSELB = 0x3F;
-    ANSELC = 0xCC;
+    ANSELC = 0xEC;  // TODO: Used to be 0xCC, I don't know whay why change.....
     ANSELD = 0x3F;
     WPUB = 0xFC;
     TRISD = 0xF2;

@@ -9,6 +9,7 @@ extern void Delay(long int wait);
 void Precharge(bool OnOff);
 void SetCharger(char mode, char Current, char Voltage);
 void SetMux(char channel);
+void ledDebug();
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -10538,7 +10539,36 @@ void SYSTEM_Initialize(void);
 # 83
 void OSCILLATOR_Initialize(void);
 
-# 9 "Functions.c"
+# 65 "mcc_generated_files/tmr0.h"
+int time_get(char WhatTime);
+void updateTimers();
+void time_Set(char WhatTime, int value);
+
+# 112
+void TMR0_Initialize(void);
+
+# 141
+void TMR0_StartTimer(void);
+
+# 173
+void TMR0_StopTimer(void);
+
+# 209
+uint16_t TMR0_Read16bitTimer(void);
+
+# 248
+void TMR0_Write16bitTimer(uint16_t timerVal);
+
+# 284
+void TMR0_Reload16bit(void);
+
+# 302
+void TMR0_ISR(void);
+
+# 320
+void TMR0_CallBack(void);
+
+# 10 "Functions.c"
 char ChargerData[9] = {'M', ',', 0, ',', 0, ',', 0, ',', 'E'};
 
 void Delay(long int wait) {
@@ -10548,7 +10578,7 @@ _delay((unsigned long)((1)*(16000000/4000.0)));
 }
 }
 
-# 25
+# 26
 void Precharge(bool OnOff){
 if(OnOff){
 do { LATC1 = 1; } while(0);
@@ -10573,7 +10603,7 @@ do { LATB5 = 0; } while(0);
 }
 }
 
-# 58
+# 59
 void SetCharger(char mode, char Current, char Voltage){
 if(mode == 1){
 
@@ -10599,7 +10629,7 @@ printf("%s",ChargerData);
 }
 }
 
-# 90
+# 91
 void SetMux(char channel){
 switch (channel){
 case 1:
@@ -10621,5 +10651,13 @@ break;
 default:
 
 break;
+}
+}
+
+
+void ledDebug() {
+if (time_get(1) > 500) {
+do { LATA3 = ~LATA3; } while(0);
+time_Set(1, 0);
 }
 }

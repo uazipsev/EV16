@@ -2,6 +2,7 @@
 #include "xc.h"
 #include "mcc_generated_files/mcc.h"
 #include <stdio.h>
+#include "mcc_generated_files/tmr0.h"
 
 //Function used to make a varable delay
 //We use this because the provided fcn dosn't accept large bounds
@@ -110,3 +111,11 @@ void SetMux(char channel){
             break;
     }
 }
+
+
+ void ledDebug() {
+        if (time_get(LEDTM) > 500) {
+            LED_Toggle();
+            time_Set(LEDTM, 0);
+        }
+    }
