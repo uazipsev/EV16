@@ -15,6 +15,7 @@ void clearLcd(void);
 void blackLcd(void);
 void NokiaStr( char *str);
 void LCDwrite(bool mode, char data);
+void Splash();
 
 const char FONTLOOKUP [][5]= {
   {0x00, 0x00, 0x00, 0x00, 0x00} // 20  

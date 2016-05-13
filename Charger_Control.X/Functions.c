@@ -3,11 +3,14 @@
 #include "mcc_generated_files/mcc.h"
 #include <stdio.h>
 #include "mcc_generated_files/tmr0.h"
+#include <stdbool.h>
 
 //Function used to make a varable delay
 //We use this because the provided fcn dosn't accept large bounds
 
 char ChargerData[9] = {'M', ',', 0, ',', 0, ',', 0, ',', 'E'};
+
+bool PowerOn = 0;
 
 void Delay(long int wait) {
     long int i = 0;
@@ -33,6 +36,7 @@ void Precharge(bool OnOff){
         TOP_AIR_SetHigh();
         BLUE_SetHigh();
         CHARGER_POWER_SetHigh();
+        PowerOn = 0;
     }
         
     else{
@@ -44,6 +48,7 @@ void Precharge(bool OnOff){
         }
         YELLOW_SetLow();
         CHARGER_POWER_SetLow();
+        PowerOn = 1;
     }
 }
 
@@ -112,6 +117,12 @@ void SetMux(char channel){
     }
 }
 
+/*******************************************************************
+ * @brief           Active LED control
+ * @brief           Controls LED and watch dog
+ * @return          N/A
+ * @note            We are going to use this to toggle LED and watchdog
+ *******************************************************************/
 
  void ledDebug() {
         if (time_get(LEDTM) > 500) {

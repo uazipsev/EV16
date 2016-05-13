@@ -44,7 +44,6 @@ void NokiaStart(){
     LCDwrite(LCD_CMD, 0x08);
     LCDwrite(LCD_CMD, 0x0C);
     clearLcd();
-    //blackLcd();
 }
 
 void LCDwrite(bool mode, char data){
@@ -92,7 +91,7 @@ void blackLcd(){
  * @brief           gotoXy
  * @brief           go to pixel for format 
  * @return          none
- * @note            
+ * @note            Max X = 0-5 Max Y = 0-14 
  *******************************************************************/
 
 void gotoXy(unsigned char x,unsigned char y){
@@ -132,3 +131,19 @@ void NokiaStr( char *str){
     LcdCharacter(*str++);
   }
 }
+
+
+/*******************************************************************
+ * @brief           Splash
+ * @brief           This fcn makes a splash screen on the LCD 
+ * @return          none
+ * @note            My little toy :) 
+ *******************************************************************/
+
+void Splash(){
+    gotoXy(0,2);
+    NokiaStr("Charger Control");
+    gotoXy(1,4);
+    NokiaStr("Waiting on BMM");
+}
+

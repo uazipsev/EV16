@@ -7,8 +7,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _receiveArray `Vi ~T0 @X0 -> 0 `x e ]
 "15 Functions.h
 [v _SetCharger `(v ~T0 @X0 0 ef3`uc`uc`uc ]
-"12 Communications.c
-[v _respondECU `(v ~T0 @X0 0 ef ]
+"16 Communications.h
+[v _respondChargerAsECU `(v ~T0 @X0 0 ef ]
 "8046 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
 [s S489 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S489 . LATC0 LATC1 LATC2 LATC3 LATC4 LATC5 LATC6 LATC7 ]
@@ -8184,67 +8184,120 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Communications.h: 13: extern void sendData(unsigned char whereToSend);
 [; ;Communications.h: 14: extern bool receiveData();
 [; ;Communications.h: 15: extern void ToSend(const unsigned char where, const unsigned int what);
+[; ;Communications.h: 16: void respondChargerAsECU();
+[; ;Communications.h: 17: bool SetBMM();
 [; ;Functions.h: 13: extern void Delay(long int wait);
 [; ;Functions.h: 14: void Precharge(bool OnOff);
 [; ;Functions.h: 15: void SetCharger(char mode, char Current, char Voltage);
 [; ;Functions.h: 16: void SetMux(char channel);
 [; ;Functions.h: 17: void ledDebug();
-[; ;Communications.c: 12: void respondECU();
-"14 Communications.c
+"12 Communications.c
 [v _updateComms `(v ~T0 @X0 1 ef ]
 {
-[; ;Communications.c: 14: void updateComms() {
+[; ;Communications.c: 12: void updateComms() {
 [e :U _updateComms ]
 [f ]
-[; ;Communications.c: 15: if (receiveData()) {
-"15
+[; ;Communications.c: 13: if (receiveData()) {
+"13
 [e $ ! != -> ( _receiveData ..  `i -> -> -> 0 `i `uc `i 1178  ]
 {
-[; ;Communications.c: 16: Precharge(receiveArray[1]);
-"16
+[; ;Communications.c: 14: Precharge(receiveArray[1]);
+"14
 [e ( _Precharge (1 -> *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux `uc ]
-[; ;Communications.c: 17: SetCharger(1, receiveArray[2], receiveArray[3]);
-"17
+[; ;Communications.c: 15: SetCharger(1, receiveArray[2], receiveArray[3]);
+"15
 [e ( _SetCharger (3 , , -> -> 1 `i `uc -> *U + &U _receiveArray * -> -> -> 2 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux `uc -> *U + &U _receiveArray * -> -> -> 3 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux `uc ]
-[; ;Communications.c: 18: respondECU();
-"18
-[e ( _respondECU ..  ]
-"19
+[; ;Communications.c: 16: respondChargerAsECU();
+"16
+[e ( _respondChargerAsECU ..  ]
+"17
 }
 [e :U 1178 ]
-[; ;Communications.c: 19: }
-[; ;Communications.c: 20: }
-"20
+[; ;Communications.c: 17: }
+[; ;Communications.c: 18: }
+"18
 [e :UE 1177 ]
 }
-"33
-[v _respondECU `(v ~T0 @X0 1 ef ]
+"31
+[v _respondChargerAsECU `(v ~T0 @X0 1 ef ]
 {
-[; ;Communications.c: 33: void respondECU() {
-[e :U _respondECU ]
+[; ;Communications.c: 31: void respondChargerAsECU() {
+[e :U _respondChargerAsECU ]
 [f ]
-[; ;Communications.c: 34: LATCbits.LATC5 = 1;
-"34
+[; ;Communications.c: 32: LATCbits.LATC5 = 1;
+"32
 [e = . . _LATCbits 0 5 -> -> 1 `i `uc ]
-[; ;Communications.c: 35: ToSend(0, 1);
-"35
+[; ;Communications.c: 33: ToSend(0, 1);
+"33
 [e ( _ToSend (2 , -> -> 0 `i `uc -> -> 1 `i `ui ]
-[; ;Communications.c: 36: ToSend(1, 1);
-"36
+[; ;Communications.c: 34: ToSend(1, 1);
+"34
 [e ( _ToSend (2 , -> -> 1 `i `uc -> -> 1 `i `ui ]
-[; ;Communications.c: 37: Delay(5);
-"37
+[; ;Communications.c: 35: Delay(5);
+"35
 [e ( _Delay (1 -> -> 5 `i `l ]
-[; ;Communications.c: 39: sendData(6);
-"39
+[; ;Communications.c: 36: sendData(6);
+"36
 [e ( _sendData (1 -> -> 6 `i `uc ]
-[; ;Communications.c: 40: Delay(3);
-"40
+[; ;Communications.c: 37: Delay(3);
+"37
 [e ( _Delay (1 -> -> 3 `i `l ]
-[; ;Communications.c: 41: LATCbits.LATC5 = 0;
-"41
+[; ;Communications.c: 38: LATCbits.LATC5 = 0;
+"38
 [e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
-[; ;Communications.c: 42: }
-"42
+[; ;Communications.c: 39: }
+"39
 [e :UE 1179 ]
+}
+"41
+[v _SetBMM `(uc ~T0 @X0 1 ef ]
+{
+[; ;Communications.c: 41: bool SetBMM() {
+[e :U _SetBMM ]
+[f ]
+[; ;Communications.c: 42: LATCbits.LATC5 = 1;
+"42
+[e = . . _LATCbits 0 5 -> -> 1 `i `uc ]
+[; ;Communications.c: 43: ToSend(0, 1);
+"43
+[e ( _ToSend (2 , -> -> 0 `i `uc -> -> 1 `i `ui ]
+[; ;Communications.c: 44: ToSend(1, 1);
+"44
+[e ( _ToSend (2 , -> -> 1 `i `uc -> -> 1 `i `ui ]
+[; ;Communications.c: 45: Delay(5);
+"45
+[e ( _Delay (1 -> -> 5 `i `l ]
+[; ;Communications.c: 46: sendData(6);
+"46
+[e ( _sendData (1 -> -> 6 `i `uc ]
+[; ;Communications.c: 47: Delay(3);
+"47
+[e ( _Delay (1 -> -> 3 `i `l ]
+[; ;Communications.c: 48: LATCbits.LATC5 = 0;
+"48
+[e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
+[; ;Communications.c: 49: Delay(100);
+"49
+[e ( _Delay (1 -> -> 100 `i `l ]
+[; ;Communications.c: 50: if (receiveData()){
+"50
+[e $ ! != -> ( _receiveData ..  `i -> -> -> 0 `i `uc `i 1181  ]
+{
+[; ;Communications.c: 51: return 0;
+"51
+[e ) -> -> 0 `i `uc ]
+[e $UE 1180  ]
+"52
+}
+[; ;Communications.c: 52: }
+[e $U 1182  ]
+"53
+[e :U 1181 ]
+[; ;Communications.c: 53: else return 1;
+[e ) -> -> 1 `i `uc ]
+[e $UE 1180  ]
+[e :U 1182 ]
+[; ;Communications.c: 54: }
+"54
+[e :UE 1180 ]
 }

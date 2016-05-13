@@ -10545,6 +10545,8 @@ void updateComms();
 extern void sendData(unsigned char whereToSend);
 extern bool receiveData();
 extern void ToSend(const unsigned char where, const unsigned int what);
+void respondChargerAsECU();
+bool SetBMM();
 
 # 11 "NokiaLCD.h"
 void gotoXy(unsigned char ,unsigned char );
@@ -10554,6 +10556,7 @@ void clearLcd(void);
 void blackLcd(void);
 void NokiaStr( char *str);
 void LCDwrite(bool mode, char data);
+void Splash();
 
 const char FONTLOOKUP [][5]= {
 {0x00, 0x00, 0x00, 0x00, 0x00}
@@ -10672,12 +10675,13 @@ SYSTEM_Initialize();
 # 47
 NokiaStart();
 Delay(100);
+
 clearLcd();
-respondECU();
+Splash();
+while(SetBMM());
 
 do { LATA3 = 1; } while(0);
 while(1){
-respondECU();
 updateComms();
 ledDebug();
 }

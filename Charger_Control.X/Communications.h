@@ -13,6 +13,8 @@
     extern void sendData(unsigned char whereToSend);
     extern bool receiveData();
     extern void ToSend(const unsigned char where, const unsigned int what);
+    void respondChargerAsECU();
+    bool SetBMM();
 
 #endif	/* COMMUNICATIONS_H */
 

@@ -10333,6 +10333,8 @@ void updateComms();
 extern void sendData(unsigned char whereToSend);
 extern bool receiveData();
 extern void ToSend(const unsigned char where, const unsigned int what);
+void respondChargerAsECU();
+bool SetBMM();
 
 # 13 "Functions.h"
 extern void Delay(long int wait);
@@ -10342,24 +10344,36 @@ void SetMux(char channel);
 void ledDebug();
 
 # 12 "Communications.c"
-void respondECU();
-
 void updateComms() {
 if (receiveData()) {
 Precharge(receiveArray[1]);
 SetCharger(1, receiveArray[2], receiveArray[3]);
-respondECU();
+respondChargerAsECU();
 }
 }
 
-# 33
-void respondECU() {
+# 31
+void respondChargerAsECU() {
 LATCbits.LATC5 = 1;
 ToSend(0, 1);
 ToSend(1, 1);
 Delay(5);
-
 sendData(6);
 Delay(3);
 LATCbits.LATC5 = 0;
+}
+
+bool SetBMM() {
+LATCbits.LATC5 = 1;
+ToSend(0, 1);
+ToSend(1, 1);
+Delay(5);
+sendData(6);
+Delay(3);
+LATCbits.LATC5 = 0;
+Delay(100);
+if (receiveData()){
+return 0;
+}
+else return 1;
 }

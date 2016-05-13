@@ -12,6 +12,7 @@ void clearLcd(void);
 void blackLcd(void);
 void NokiaStr( char *str);
 void LCDwrite(bool mode, char data);
+void Splash();
 
 const char FONTLOOKUP [][5]= {
 {0x00, 0x00, 0x00, 0x00, 0x00}
@@ -10670,7 +10671,6 @@ LCDwrite(1, 0x20);
 LCDwrite(1, 0x08);
 LCDwrite(1, 0x0C);
 clearLcd();
-
 }
 
 void LCDwrite(bool mode, char data){
@@ -10685,7 +10685,7 @@ SPI1_Exchange8bit(data);
 do { LATD0 = 1; } while(0);
 }
 
-# 69
+# 68
 void clearLcd(){
 int res;
 for(res=0;res<504;res++){
@@ -10694,7 +10694,7 @@ LCDwrite(0, 0x00);
 
 }
 
-# 84
+# 83
 void blackLcd(){
 int res;
 for(res=0;res<504;res++){
@@ -10702,7 +10702,7 @@ LCDwrite(0, res);
 }
 }
 
-# 98
+# 97
 void gotoXy(unsigned char x,unsigned char y){
 y=y|0x40;
 LCDwrite(1, y);
@@ -10710,7 +10710,7 @@ x=(x*6)|0x80;
 LCDwrite(1, x);
 }
 
-# 112
+# 111
 void LcdCharacter(char character)
 {
 LCDwrite(0, 0x00);
@@ -10721,10 +10721,19 @@ LCDwrite(0, FONTLOOKUP[character - 0x20][index]);
 LCDwrite(0, 0x00);
 }
 
-# 129
+# 128
 void NokiaStr( char *str){
 while (*str)
 {
 LcdCharacter(*str++);
 }
 }
+
+# 143
+void Splash(){
+gotoXy(0,2);
+NokiaStr("Charger Control");
+gotoXy(1,4);
+NokiaStr("Waiting on BMM");
+}
+

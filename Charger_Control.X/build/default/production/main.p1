@@ -28,8 +28,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Delay `(v ~T0 @X0 0 ef1`l ]
 "14 NokiaLCD.h
 [v _clearLcd `(v ~T0 @X0 0 ef ]
-"50 main.c
-[v _respondECU `(i ~T0 @X0 0 ef ]
+"18
+[v _Splash `(v ~T0 @X0 0 ef ]
+"17 Communications.h
+[v _SetBMM `(uc ~T0 @X0 0 ef ]
 "18981 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
 [v _LATA3 `Vb ~T0 @X0 0 e@31819 ]
 "12 Communications.h
@@ -8254,6 +8256,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Communications.h: 13: extern void sendData(unsigned char whereToSend);
 [; ;Communications.h: 14: extern bool receiveData();
 [; ;Communications.h: 15: extern void ToSend(const unsigned char where, const unsigned int what);
+[; ;Communications.h: 16: void respondChargerAsECU();
+[; ;Communications.h: 17: bool SetBMM();
 [; ;NokiaLCD.h: 11: void gotoXy(unsigned char ,unsigned char );
 [; ;NokiaLCD.h: 12: void NokiaStart(void);
 [; ;NokiaLCD.h: 13: void LcdCharacter(char character);
@@ -8261,13 +8265,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;NokiaLCD.h: 15: void blackLcd(void);
 [; ;NokiaLCD.h: 16: void NokiaStr( char *str);
 [; ;NokiaLCD.h: 17: void LCDwrite(bool mode, char data);
-[v F8931 `Cuc ~T0 @X0 -> 5 `i t ]
-"19 NokiaLCD.h
-[v _FONTLOOKUP `F8931 ~T0 @X0 -> 0 `x e ]
+[; ;NokiaLCD.h: 18: void Splash();
+[v F8934 `Cuc ~T0 @X0 -> 5 `i t ]
+"20 NokiaLCD.h
+[v _FONTLOOKUP `F8934 ~T0 @X0 -> 0 `x e ]
 [i _FONTLOOKUP
 :U ..
 :U ..
-"20
+"21
 -> -> 0 `i `uc
 -> -> 0 `i `uc
 -> -> 0 `i `uc
@@ -8275,7 +8280,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"21
+"22
 -> -> 0 `i `uc
 -> -> 0 `i `uc
 -> -> 95 `i `uc
@@ -8283,23 +8288,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"22
--> -> 0 `i `uc
--> -> 7 `i `uc
--> -> 0 `i `uc
--> -> 7 `i `uc
--> -> 0 `i `uc
-..
-:U ..
 "23
--> -> 20 `i `uc
--> -> 127 `i `uc
--> -> 20 `i `uc
--> -> 127 `i `uc
--> -> 20 `i `uc
+-> -> 0 `i `uc
+-> -> 7 `i `uc
+-> -> 0 `i `uc
+-> -> 7 `i `uc
+-> -> 0 `i `uc
 ..
 :U ..
 "24
+-> -> 20 `i `uc
+-> -> 127 `i `uc
+-> -> 20 `i `uc
+-> -> 127 `i `uc
+-> -> 20 `i `uc
+..
+:U ..
+"25
 -> -> 36 `i `uc
 -> -> 42 `i `uc
 -> -> 127 `i `uc
@@ -8307,7 +8312,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 18 `i `uc
 ..
 :U ..
-"25
+"26
 -> -> 35 `i `uc
 -> -> 19 `i `uc
 -> -> 8 `i `uc
@@ -8315,7 +8320,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 98 `i `uc
 ..
 :U ..
-"26
+"27
 -> -> 54 `i `uc
 -> -> 73 `i `uc
 -> -> 85 `i `uc
@@ -8323,7 +8328,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 80 `i `uc
 ..
 :U ..
-"27
+"28
 -> -> 0 `i `uc
 -> -> 5 `i `uc
 -> -> 3 `i `uc
@@ -8331,31 +8336,31 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"28
--> -> 0 `i `uc
--> -> 28 `i `uc
--> -> 34 `i `uc
--> -> 65 `i `uc
--> -> 0 `i `uc
-..
-:U ..
 "29
 -> -> 0 `i `uc
--> -> 65 `i `uc
--> -> 34 `i `uc
 -> -> 28 `i `uc
+-> -> 34 `i `uc
+-> -> 65 `i `uc
 -> -> 0 `i `uc
 ..
 :U ..
 "30
--> -> 20 `i `uc
--> -> 8 `i `uc
--> -> 62 `i `uc
--> -> 8 `i `uc
--> -> 20 `i `uc
+-> -> 0 `i `uc
+-> -> 65 `i `uc
+-> -> 34 `i `uc
+-> -> 28 `i `uc
+-> -> 0 `i `uc
 ..
 :U ..
 "31
+-> -> 20 `i `uc
+-> -> 8 `i `uc
+-> -> 62 `i `uc
+-> -> 8 `i `uc
+-> -> 20 `i `uc
+..
+:U ..
+"32
 -> -> 8 `i `uc
 -> -> 8 `i `uc
 -> -> 62 `i `uc
@@ -8363,7 +8368,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 8 `i `uc
 ..
 :U ..
-"32
+"33
 -> -> 0 `i `uc
 -> -> 80 `i `uc
 -> -> 48 `i `uc
@@ -8371,23 +8376,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"33
--> -> 8 `i `uc
--> -> 8 `i `uc
--> -> 8 `i `uc
--> -> 8 `i `uc
--> -> 8 `i `uc
-..
-:U ..
 "34
--> -> 0 `i `uc
--> -> 96 `i `uc
--> -> 96 `i `uc
--> -> 0 `i `uc
--> -> 0 `i `uc
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+-> -> 8 `i `uc
 ..
 :U ..
 "35
+-> -> 0 `i `uc
+-> -> 96 `i `uc
+-> -> 96 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+"36
 -> -> 32 `i `uc
 -> -> 16 `i `uc
 -> -> 8 `i `uc
@@ -8395,7 +8400,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 2 `i `uc
 ..
 :U ..
-"36
+"37
 -> -> 62 `i `uc
 -> -> 81 `i `uc
 -> -> 73 `i `uc
@@ -8403,7 +8408,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 62 `i `uc
 ..
 :U ..
-"37
+"38
 -> -> 0 `i `uc
 -> -> 66 `i `uc
 -> -> 127 `i `uc
@@ -8411,7 +8416,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"38
+"39
 -> -> 66 `i `uc
 -> -> 97 `i `uc
 -> -> 81 `i `uc
@@ -8419,7 +8424,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 70 `i `uc
 ..
 :U ..
-"39
+"40
 -> -> 33 `i `uc
 -> -> 65 `i `uc
 -> -> 69 `i `uc
@@ -8427,7 +8432,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 49 `i `uc
 ..
 :U ..
-"40
+"41
 -> -> 24 `i `uc
 -> -> 20 `i `uc
 -> -> 18 `i `uc
@@ -8435,7 +8440,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 16 `i `uc
 ..
 :U ..
-"41
+"42
 -> -> 39 `i `uc
 -> -> 69 `i `uc
 -> -> 69 `i `uc
@@ -8443,7 +8448,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 57 `i `uc
 ..
 :U ..
-"42
+"43
 -> -> 60 `i `uc
 -> -> 74 `i `uc
 -> -> 73 `i `uc
@@ -8451,7 +8456,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 48 `i `uc
 ..
 :U ..
-"43
+"44
 -> -> 1 `i `uc
 -> -> 113 `i `uc
 -> -> 9 `i `uc
@@ -8459,7 +8464,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 3 `i `uc
 ..
 :U ..
-"44
+"45
 -> -> 54 `i `uc
 -> -> 73 `i `uc
 -> -> 73 `i `uc
@@ -8467,7 +8472,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 54 `i `uc
 ..
 :U ..
-"45
+"46
 -> -> 6 `i `uc
 -> -> 73 `i `uc
 -> -> 73 `i `uc
@@ -8475,7 +8480,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 30 `i `uc
 ..
 :U ..
-"46
+"47
 -> -> 0 `i `uc
 -> -> 54 `i `uc
 -> -> 54 `i `uc
@@ -8483,7 +8488,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"47
+"48
 -> -> 0 `i `uc
 -> -> 86 `i `uc
 -> -> 54 `i `uc
@@ -8491,23 +8496,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"48
+"49
 -> -> 8 `i `uc
 -> -> 20 `i `uc
 -> -> 34 `i `uc
 -> -> 65 `i `uc
 -> -> 0 `i `uc
-..
-:U ..
-"49
--> -> 20 `i `uc
--> -> 20 `i `uc
--> -> 20 `i `uc
--> -> 20 `i `uc
--> -> 20 `i `uc
 ..
 :U ..
 "50
+-> -> 20 `i `uc
+-> -> 20 `i `uc
+-> -> 20 `i `uc
+-> -> 20 `i `uc
+-> -> 20 `i `uc
+..
+:U ..
+"51
 -> -> 0 `i `uc
 -> -> 65 `i `uc
 -> -> 34 `i `uc
@@ -8515,7 +8520,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 8 `i `uc
 ..
 :U ..
-"51
+"52
 -> -> 2 `i `uc
 -> -> 1 `i `uc
 -> -> 81 `i `uc
@@ -8523,7 +8528,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 6 `i `uc
 ..
 :U ..
-"52
+"53
 -> -> 50 `i `uc
 -> -> 73 `i `uc
 -> -> 121 `i `uc
@@ -8531,7 +8536,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 62 `i `uc
 ..
 :U ..
-"53
+"54
 -> -> 126 `i `uc
 -> -> 17 `i `uc
 -> -> 17 `i `uc
@@ -8539,7 +8544,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 126 `i `uc
 ..
 :U ..
-"54
+"55
 -> -> 127 `i `uc
 -> -> 73 `i `uc
 -> -> 73 `i `uc
@@ -8547,7 +8552,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 54 `i `uc
 ..
 :U ..
-"55
+"56
 -> -> 62 `i `uc
 -> -> 65 `i `uc
 -> -> 65 `i `uc
@@ -8555,7 +8560,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 34 `i `uc
 ..
 :U ..
-"56
+"57
 -> -> 127 `i `uc
 -> -> 65 `i `uc
 -> -> 65 `i `uc
@@ -8563,7 +8568,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 28 `i `uc
 ..
 :U ..
-"57
+"58
 -> -> 127 `i `uc
 -> -> 73 `i `uc
 -> -> 73 `i `uc
@@ -8571,7 +8576,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 65 `i `uc
 ..
 :U ..
-"58
+"59
 -> -> 127 `i `uc
 -> -> 9 `i `uc
 -> -> 9 `i `uc
@@ -8579,7 +8584,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 1 `i `uc
 ..
 :U ..
-"59
+"60
 -> -> 62 `i `uc
 -> -> 65 `i `uc
 -> -> 73 `i `uc
@@ -8587,23 +8592,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 122 `i `uc
 ..
 :U ..
-"60
--> -> 127 `i `uc
--> -> 8 `i `uc
--> -> 8 `i `uc
--> -> 8 `i `uc
--> -> 127 `i `uc
-..
-:U ..
 "61
--> -> 0 `i `uc
--> -> 65 `i `uc
 -> -> 127 `i `uc
--> -> 65 `i `uc
--> -> 0 `i `uc
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+-> -> 127 `i `uc
 ..
 :U ..
 "62
+-> -> 0 `i `uc
+-> -> 65 `i `uc
+-> -> 127 `i `uc
+-> -> 65 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+"63
 -> -> 32 `i `uc
 -> -> 64 `i `uc
 -> -> 65 `i `uc
@@ -8611,7 +8616,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 1 `i `uc
 ..
 :U ..
-"63
+"64
 -> -> 127 `i `uc
 -> -> 8 `i `uc
 -> -> 20 `i `uc
@@ -8619,7 +8624,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 65 `i `uc
 ..
 :U ..
-"64
+"65
 -> -> 127 `i `uc
 -> -> 64 `i `uc
 -> -> 64 `i `uc
@@ -8627,7 +8632,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 64 `i `uc
 ..
 :U ..
-"65
+"66
 -> -> 127 `i `uc
 -> -> 2 `i `uc
 -> -> 12 `i `uc
@@ -8635,7 +8640,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 127 `i `uc
 ..
 :U ..
-"66
+"67
 -> -> 127 `i `uc
 -> -> 4 `i `uc
 -> -> 8 `i `uc
@@ -8643,7 +8648,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 127 `i `uc
 ..
 :U ..
-"67
+"68
 -> -> 62 `i `uc
 -> -> 65 `i `uc
 -> -> 65 `i `uc
@@ -8651,7 +8656,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 62 `i `uc
 ..
 :U ..
-"68
+"69
 -> -> 127 `i `uc
 -> -> 9 `i `uc
 -> -> 9 `i `uc
@@ -8659,7 +8664,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 6 `i `uc
 ..
 :U ..
-"69
+"70
 -> -> 62 `i `uc
 -> -> 65 `i `uc
 -> -> 81 `i `uc
@@ -8667,7 +8672,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 94 `i `uc
 ..
 :U ..
-"70
+"71
 -> -> 127 `i `uc
 -> -> 9 `i `uc
 -> -> 25 `i `uc
@@ -8675,7 +8680,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 70 `i `uc
 ..
 :U ..
-"71
+"72
 -> -> 70 `i `uc
 -> -> 73 `i `uc
 -> -> 73 `i `uc
@@ -8683,7 +8688,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 49 `i `uc
 ..
 :U ..
-"72
+"73
 -> -> 1 `i `uc
 -> -> 1 `i `uc
 -> -> 127 `i `uc
@@ -8691,23 +8696,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 1 `i `uc
 ..
 :U ..
-"73
--> -> 63 `i `uc
--> -> 64 `i `uc
--> -> 64 `i `uc
--> -> 64 `i `uc
--> -> 63 `i `uc
-..
-:U ..
 "74
--> -> 31 `i `uc
--> -> 32 `i `uc
+-> -> 63 `i `uc
 -> -> 64 `i `uc
--> -> 32 `i `uc
--> -> 31 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+-> -> 63 `i `uc
 ..
 :U ..
 "75
+-> -> 31 `i `uc
+-> -> 32 `i `uc
+-> -> 64 `i `uc
+-> -> 32 `i `uc
+-> -> 31 `i `uc
+..
+:U ..
+"76
 -> -> 63 `i `uc
 -> -> 64 `i `uc
 -> -> 56 `i `uc
@@ -8715,7 +8720,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 63 `i `uc
 ..
 :U ..
-"76
+"77
 -> -> 99 `i `uc
 -> -> 20 `i `uc
 -> -> 8 `i `uc
@@ -8723,7 +8728,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 99 `i `uc
 ..
 :U ..
-"77
+"78
 -> -> 7 `i `uc
 -> -> 8 `i `uc
 -> -> 112 `i `uc
@@ -8731,7 +8736,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 7 `i `uc
 ..
 :U ..
-"78
+"79
 -> -> 97 `i `uc
 -> -> 81 `i `uc
 -> -> 73 `i `uc
@@ -8739,7 +8744,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 67 `i `uc
 ..
 :U ..
-"79
+"80
 -> -> 0 `i `uc
 -> -> 127 `i `uc
 -> -> 65 `i `uc
@@ -8747,7 +8752,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"80
+"81
 -> -> 2 `i `uc
 -> -> 4 `i `uc
 -> -> 8 `i `uc
@@ -8755,7 +8760,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 32 `i `uc
 ..
 :U ..
-"81
+"82
 -> -> 0 `i `uc
 -> -> 65 `i `uc
 -> -> 65 `i `uc
@@ -8763,23 +8768,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"82
+"83
 -> -> 4 `i `uc
 -> -> 2 `i `uc
 -> -> 1 `i `uc
 -> -> 2 `i `uc
 -> -> 4 `i `uc
-..
-:U ..
-"83
--> -> 64 `i `uc
--> -> 64 `i `uc
--> -> 64 `i `uc
--> -> 64 `i `uc
--> -> 64 `i `uc
 ..
 :U ..
 "84
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+..
+:U ..
+"85
 -> -> 0 `i `uc
 -> -> 1 `i `uc
 -> -> 2 `i `uc
@@ -8787,7 +8792,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"85
+"86
 -> -> 32 `i `uc
 -> -> 84 `i `uc
 -> -> 84 `i `uc
@@ -8795,7 +8800,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 120 `i `uc
 ..
 :U ..
-"86
+"87
 -> -> 127 `i `uc
 -> -> 72 `i `uc
 -> -> 68 `i `uc
@@ -8803,7 +8808,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 56 `i `uc
 ..
 :U ..
-"87
+"88
 -> -> 56 `i `uc
 -> -> 68 `i `uc
 -> -> 68 `i `uc
@@ -8811,7 +8816,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 32 `i `uc
 ..
 :U ..
-"88
+"89
 -> -> 56 `i `uc
 -> -> 68 `i `uc
 -> -> 68 `i `uc
@@ -8819,7 +8824,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 127 `i `uc
 ..
 :U ..
-"89
+"90
 -> -> 56 `i `uc
 -> -> 84 `i `uc
 -> -> 84 `i `uc
@@ -8827,7 +8832,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 24 `i `uc
 ..
 :U ..
-"90
+"91
 -> -> 8 `i `uc
 -> -> 126 `i `uc
 -> -> 9 `i `uc
@@ -8835,7 +8840,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 2 `i `uc
 ..
 :U ..
-"91
+"92
 -> -> 12 `i `uc
 -> -> 82 `i `uc
 -> -> 82 `i `uc
@@ -8843,7 +8848,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 62 `i `uc
 ..
 :U ..
-"92
+"93
 -> -> 127 `i `uc
 -> -> 8 `i `uc
 -> -> 4 `i `uc
@@ -8851,7 +8856,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 120 `i `uc
 ..
 :U ..
-"93
+"94
 -> -> 0 `i `uc
 -> -> 68 `i `uc
 -> -> 125 `i `uc
@@ -8859,7 +8864,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"94
+"95
 -> -> 32 `i `uc
 -> -> 64 `i `uc
 -> -> 68 `i `uc
@@ -8867,7 +8872,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"95
+"96
 -> -> 127 `i `uc
 -> -> 16 `i `uc
 -> -> 40 `i `uc
@@ -8875,7 +8880,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"96
+"97
 -> -> 0 `i `uc
 -> -> 65 `i `uc
 -> -> 127 `i `uc
@@ -8883,23 +8888,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"97
+"98
 -> -> 124 `i `uc
 -> -> 4 `i `uc
 -> -> 24 `i `uc
--> -> 4 `i `uc
--> -> 120 `i `uc
-..
-:U ..
-"98
--> -> 124 `i `uc
--> -> 8 `i `uc
--> -> 4 `i `uc
 -> -> 4 `i `uc
 -> -> 120 `i `uc
 ..
 :U ..
 "99
+-> -> 124 `i `uc
+-> -> 8 `i `uc
+-> -> 4 `i `uc
+-> -> 4 `i `uc
+-> -> 120 `i `uc
+..
+:U ..
+"100
 -> -> 56 `i `uc
 -> -> 68 `i `uc
 -> -> 68 `i `uc
@@ -8907,7 +8912,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 56 `i `uc
 ..
 :U ..
-"100
+"101
 -> -> 124 `i `uc
 -> -> 20 `i `uc
 -> -> 20 `i `uc
@@ -8915,7 +8920,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 8 `i `uc
 ..
 :U ..
-"101
+"102
 -> -> 8 `i `uc
 -> -> 20 `i `uc
 -> -> 20 `i `uc
@@ -8923,7 +8928,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 124 `i `uc
 ..
 :U ..
-"102
+"103
 -> -> 124 `i `uc
 -> -> 8 `i `uc
 -> -> 4 `i `uc
@@ -8931,7 +8936,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 8 `i `uc
 ..
 :U ..
-"103
+"104
 -> -> 72 `i `uc
 -> -> 84 `i `uc
 -> -> 84 `i `uc
@@ -8939,7 +8944,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 32 `i `uc
 ..
 :U ..
-"104
+"105
 -> -> 4 `i `uc
 -> -> 63 `i `uc
 -> -> 68 `i `uc
@@ -8947,7 +8952,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 32 `i `uc
 ..
 :U ..
-"105
+"106
 -> -> 60 `i `uc
 -> -> 64 `i `uc
 -> -> 64 `i `uc
@@ -8955,7 +8960,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 124 `i `uc
 ..
 :U ..
-"106
+"107
 -> -> 28 `i `uc
 -> -> 32 `i `uc
 -> -> 64 `i `uc
@@ -8963,7 +8968,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 28 `i `uc
 ..
 :U ..
-"107
+"108
 -> -> 60 `i `uc
 -> -> 64 `i `uc
 -> -> 48 `i `uc
@@ -8971,7 +8976,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 60 `i `uc
 ..
 :U ..
-"108
+"109
 -> -> 68 `i `uc
 -> -> 40 `i `uc
 -> -> 16 `i `uc
@@ -8979,7 +8984,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 68 `i `uc
 ..
 :U ..
-"109
+"110
 -> -> 12 `i `uc
 -> -> 80 `i `uc
 -> -> 80 `i `uc
@@ -8987,7 +8992,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 60 `i `uc
 ..
 :U ..
-"110
+"111
 -> -> 68 `i `uc
 -> -> 100 `i `uc
 -> -> 84 `i `uc
@@ -8995,7 +9000,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 68 `i `uc
 ..
 :U ..
-"111
+"112
 -> -> 0 `i `uc
 -> -> 8 `i `uc
 -> -> 54 `i `uc
@@ -9003,7 +9008,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"112
+"113
 -> -> 0 `i `uc
 -> -> 0 `i `uc
 -> -> 127 `i `uc
@@ -9011,7 +9016,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"113
+"114
 -> -> 0 `i `uc
 -> -> 65 `i `uc
 -> -> 54 `i `uc
@@ -9019,7 +9024,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 :U ..
-"114
+"115
 -> -> 16 `i `uc
 -> -> 8 `i `uc
 -> -> 8 `i `uc
@@ -9027,7 +9032,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 8 `i `uc
 ..
 :U ..
-"115
+"116
 -> -> 120 `i `uc
 -> -> 70 `i `uc
 -> -> 65 `i `uc
@@ -9036,104 +9041,104 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-[; ;NokiaLCD.h: 19: const char FONTLOOKUP [][5]= {
-[; ;NokiaLCD.h: 20: {0x00, 0x00, 0x00, 0x00, 0x00}
-[; ;NokiaLCD.h: 21: ,{0x00, 0x00, 0x5f, 0x00, 0x00}
-[; ;NokiaLCD.h: 22: ,{0x00, 0x07, 0x00, 0x07, 0x00}
-[; ;NokiaLCD.h: 23: ,{0x14, 0x7f, 0x14, 0x7f, 0x14}
-[; ;NokiaLCD.h: 24: ,{0x24, 0x2a, 0x7f, 0x2a, 0x12}
-[; ;NokiaLCD.h: 25: ,{0x23, 0x13, 0x08, 0x64, 0x62}
-[; ;NokiaLCD.h: 26: ,{0x36, 0x49, 0x55, 0x22, 0x50}
-[; ;NokiaLCD.h: 27: ,{0x00, 0x05, 0x03, 0x00, 0x00}
-[; ;NokiaLCD.h: 28: ,{0x00, 0x1c, 0x22, 0x41, 0x00}
-[; ;NokiaLCD.h: 29: ,{0x00, 0x41, 0x22, 0x1c, 0x00}
-[; ;NokiaLCD.h: 30: ,{0x14, 0x08, 0x3e, 0x08, 0x14}
-[; ;NokiaLCD.h: 31: ,{0x08, 0x08, 0x3e, 0x08, 0x08}
-[; ;NokiaLCD.h: 32: ,{0x00, 0x50, 0x30, 0x00, 0x00}
-[; ;NokiaLCD.h: 33: ,{0x08, 0x08, 0x08, 0x08, 0x08}
-[; ;NokiaLCD.h: 34: ,{0x00, 0x60, 0x60, 0x00, 0x00}
-[; ;NokiaLCD.h: 35: ,{0x20, 0x10, 0x08, 0x04, 0x02}
-[; ;NokiaLCD.h: 36: ,{0x3e, 0x51, 0x49, 0x45, 0x3e}
-[; ;NokiaLCD.h: 37: ,{0x00, 0x42, 0x7f, 0x40, 0x00}
-[; ;NokiaLCD.h: 38: ,{0x42, 0x61, 0x51, 0x49, 0x46}
-[; ;NokiaLCD.h: 39: ,{0x21, 0x41, 0x45, 0x4b, 0x31}
-[; ;NokiaLCD.h: 40: ,{0x18, 0x14, 0x12, 0x7f, 0x10}
-[; ;NokiaLCD.h: 41: ,{0x27, 0x45, 0x45, 0x45, 0x39}
-[; ;NokiaLCD.h: 42: ,{0x3c, 0x4a, 0x49, 0x49, 0x30}
-[; ;NokiaLCD.h: 43: ,{0x01, 0x71, 0x09, 0x05, 0x03}
-[; ;NokiaLCD.h: 44: ,{0x36, 0x49, 0x49, 0x49, 0x36}
-[; ;NokiaLCD.h: 45: ,{0x06, 0x49, 0x49, 0x29, 0x1e}
-[; ;NokiaLCD.h: 46: ,{0x00, 0x36, 0x36, 0x00, 0x00}
-[; ;NokiaLCD.h: 47: ,{0x00, 0x56, 0x36, 0x00, 0x00}
-[; ;NokiaLCD.h: 48: ,{0x08, 0x14, 0x22, 0x41, 0x00}
-[; ;NokiaLCD.h: 49: ,{0x14, 0x14, 0x14, 0x14, 0x14}
-[; ;NokiaLCD.h: 50: ,{0x00, 0x41, 0x22, 0x14, 0x08}
-[; ;NokiaLCD.h: 51: ,{0x02, 0x01, 0x51, 0x09, 0x06}
-[; ;NokiaLCD.h: 52: ,{0x32, 0x49, 0x79, 0x41, 0x3e}
-[; ;NokiaLCD.h: 53: ,{0x7e, 0x11, 0x11, 0x11, 0x7e}
-[; ;NokiaLCD.h: 54: ,{0x7f, 0x49, 0x49, 0x49, 0x36}
-[; ;NokiaLCD.h: 55: ,{0x3e, 0x41, 0x41, 0x41, 0x22}
-[; ;NokiaLCD.h: 56: ,{0x7f, 0x41, 0x41, 0x22, 0x1c}
-[; ;NokiaLCD.h: 57: ,{0x7f, 0x49, 0x49, 0x49, 0x41}
-[; ;NokiaLCD.h: 58: ,{0x7f, 0x09, 0x09, 0x09, 0x01}
-[; ;NokiaLCD.h: 59: ,{0x3e, 0x41, 0x49, 0x49, 0x7a}
-[; ;NokiaLCD.h: 60: ,{0x7f, 0x08, 0x08, 0x08, 0x7f}
-[; ;NokiaLCD.h: 61: ,{0x00, 0x41, 0x7f, 0x41, 0x00}
-[; ;NokiaLCD.h: 62: ,{0x20, 0x40, 0x41, 0x3f, 0x01}
-[; ;NokiaLCD.h: 63: ,{0x7f, 0x08, 0x14, 0x22, 0x41}
-[; ;NokiaLCD.h: 64: ,{0x7f, 0x40, 0x40, 0x40, 0x40}
-[; ;NokiaLCD.h: 65: ,{0x7f, 0x02, 0x0c, 0x02, 0x7f}
-[; ;NokiaLCD.h: 66: ,{0x7f, 0x04, 0x08, 0x10, 0x7f}
-[; ;NokiaLCD.h: 67: ,{0x3e, 0x41, 0x41, 0x41, 0x3e}
-[; ;NokiaLCD.h: 68: ,{0x7f, 0x09, 0x09, 0x09, 0x06}
-[; ;NokiaLCD.h: 69: ,{0x3e, 0x41, 0x51, 0x21, 0x5e}
-[; ;NokiaLCD.h: 70: ,{0x7f, 0x09, 0x19, 0x29, 0x46}
-[; ;NokiaLCD.h: 71: ,{0x46, 0x49, 0x49, 0x49, 0x31}
-[; ;NokiaLCD.h: 72: ,{0x01, 0x01, 0x7f, 0x01, 0x01}
-[; ;NokiaLCD.h: 73: ,{0x3f, 0x40, 0x40, 0x40, 0x3f}
-[; ;NokiaLCD.h: 74: ,{0x1f, 0x20, 0x40, 0x20, 0x1f}
-[; ;NokiaLCD.h: 75: ,{0x3f, 0x40, 0x38, 0x40, 0x3f}
-[; ;NokiaLCD.h: 76: ,{0x63, 0x14, 0x08, 0x14, 0x63}
-[; ;NokiaLCD.h: 77: ,{0x07, 0x08, 0x70, 0x08, 0x07}
-[; ;NokiaLCD.h: 78: ,{0x61, 0x51, 0x49, 0x45, 0x43}
-[; ;NokiaLCD.h: 79: ,{0x00, 0x7f, 0x41, 0x41, 0x00}
-[; ;NokiaLCD.h: 80: ,{0x02, 0x04, 0x08, 0x10, 0x20}
-[; ;NokiaLCD.h: 81: ,{0x00, 0x41, 0x41, 0x7f, 0x00}
-[; ;NokiaLCD.h: 82: ,{0x04, 0x02, 0x01, 0x02, 0x04}
-[; ;NokiaLCD.h: 83: ,{0x40, 0x40, 0x40, 0x40, 0x40}
-[; ;NokiaLCD.h: 84: ,{0x00, 0x01, 0x02, 0x04, 0x00}
-[; ;NokiaLCD.h: 85: ,{0x20, 0x54, 0x54, 0x54, 0x78}
-[; ;NokiaLCD.h: 86: ,{0x7f, 0x48, 0x44, 0x44, 0x38}
-[; ;NokiaLCD.h: 87: ,{0x38, 0x44, 0x44, 0x44, 0x20}
-[; ;NokiaLCD.h: 88: ,{0x38, 0x44, 0x44, 0x48, 0x7f}
-[; ;NokiaLCD.h: 89: ,{0x38, 0x54, 0x54, 0x54, 0x18}
-[; ;NokiaLCD.h: 90: ,{0x08, 0x7e, 0x09, 0x01, 0x02}
-[; ;NokiaLCD.h: 91: ,{0x0c, 0x52, 0x52, 0x52, 0x3e}
-[; ;NokiaLCD.h: 92: ,{0x7f, 0x08, 0x04, 0x04, 0x78}
-[; ;NokiaLCD.h: 93: ,{0x00, 0x44, 0x7d, 0x40, 0x00}
-[; ;NokiaLCD.h: 94: ,{0x20, 0x40, 0x44, 0x3d, 0x00}
-[; ;NokiaLCD.h: 95: ,{0x7f, 0x10, 0x28, 0x44, 0x00}
-[; ;NokiaLCD.h: 96: ,{0x00, 0x41, 0x7f, 0x40, 0x00}
-[; ;NokiaLCD.h: 97: ,{0x7c, 0x04, 0x18, 0x04, 0x78}
-[; ;NokiaLCD.h: 98: ,{0x7c, 0x08, 0x04, 0x04, 0x78}
-[; ;NokiaLCD.h: 99: ,{0x38, 0x44, 0x44, 0x44, 0x38}
-[; ;NokiaLCD.h: 100: ,{0x7c, 0x14, 0x14, 0x14, 0x08}
-[; ;NokiaLCD.h: 101: ,{0x08, 0x14, 0x14, 0x18, 0x7c}
-[; ;NokiaLCD.h: 102: ,{0x7c, 0x08, 0x04, 0x04, 0x08}
-[; ;NokiaLCD.h: 103: ,{0x48, 0x54, 0x54, 0x54, 0x20}
-[; ;NokiaLCD.h: 104: ,{0x04, 0x3f, 0x44, 0x40, 0x20}
-[; ;NokiaLCD.h: 105: ,{0x3c, 0x40, 0x40, 0x20, 0x7c}
-[; ;NokiaLCD.h: 106: ,{0x1c, 0x20, 0x40, 0x20, 0x1c}
-[; ;NokiaLCD.h: 107: ,{0x3c, 0x40, 0x30, 0x40, 0x3c}
-[; ;NokiaLCD.h: 108: ,{0x44, 0x28, 0x10, 0x28, 0x44}
-[; ;NokiaLCD.h: 109: ,{0x0c, 0x50, 0x50, 0x50, 0x3c}
-[; ;NokiaLCD.h: 110: ,{0x44, 0x64, 0x54, 0x4c, 0x44}
-[; ;NokiaLCD.h: 111: ,{0x00, 0x08, 0x36, 0x41, 0x00}
-[; ;NokiaLCD.h: 112: ,{0x00, 0x00, 0x7f, 0x00, 0x00}
-[; ;NokiaLCD.h: 113: ,{0x00, 0x41, 0x36, 0x08, 0x00}
-[; ;NokiaLCD.h: 114: ,{0x10, 0x08, 0x08, 0x10, 0x08}
-[; ;NokiaLCD.h: 115: ,{0x78, 0x46, 0x41, 0x46, 0x78}
-[; ;NokiaLCD.h: 116: };
+[; ;NokiaLCD.h: 20: const char FONTLOOKUP [][5]= {
+[; ;NokiaLCD.h: 21: {0x00, 0x00, 0x00, 0x00, 0x00}
+[; ;NokiaLCD.h: 22: ,{0x00, 0x00, 0x5f, 0x00, 0x00}
+[; ;NokiaLCD.h: 23: ,{0x00, 0x07, 0x00, 0x07, 0x00}
+[; ;NokiaLCD.h: 24: ,{0x14, 0x7f, 0x14, 0x7f, 0x14}
+[; ;NokiaLCD.h: 25: ,{0x24, 0x2a, 0x7f, 0x2a, 0x12}
+[; ;NokiaLCD.h: 26: ,{0x23, 0x13, 0x08, 0x64, 0x62}
+[; ;NokiaLCD.h: 27: ,{0x36, 0x49, 0x55, 0x22, 0x50}
+[; ;NokiaLCD.h: 28: ,{0x00, 0x05, 0x03, 0x00, 0x00}
+[; ;NokiaLCD.h: 29: ,{0x00, 0x1c, 0x22, 0x41, 0x00}
+[; ;NokiaLCD.h: 30: ,{0x00, 0x41, 0x22, 0x1c, 0x00}
+[; ;NokiaLCD.h: 31: ,{0x14, 0x08, 0x3e, 0x08, 0x14}
+[; ;NokiaLCD.h: 32: ,{0x08, 0x08, 0x3e, 0x08, 0x08}
+[; ;NokiaLCD.h: 33: ,{0x00, 0x50, 0x30, 0x00, 0x00}
+[; ;NokiaLCD.h: 34: ,{0x08, 0x08, 0x08, 0x08, 0x08}
+[; ;NokiaLCD.h: 35: ,{0x00, 0x60, 0x60, 0x00, 0x00}
+[; ;NokiaLCD.h: 36: ,{0x20, 0x10, 0x08, 0x04, 0x02}
+[; ;NokiaLCD.h: 37: ,{0x3e, 0x51, 0x49, 0x45, 0x3e}
+[; ;NokiaLCD.h: 38: ,{0x00, 0x42, 0x7f, 0x40, 0x00}
+[; ;NokiaLCD.h: 39: ,{0x42, 0x61, 0x51, 0x49, 0x46}
+[; ;NokiaLCD.h: 40: ,{0x21, 0x41, 0x45, 0x4b, 0x31}
+[; ;NokiaLCD.h: 41: ,{0x18, 0x14, 0x12, 0x7f, 0x10}
+[; ;NokiaLCD.h: 42: ,{0x27, 0x45, 0x45, 0x45, 0x39}
+[; ;NokiaLCD.h: 43: ,{0x3c, 0x4a, 0x49, 0x49, 0x30}
+[; ;NokiaLCD.h: 44: ,{0x01, 0x71, 0x09, 0x05, 0x03}
+[; ;NokiaLCD.h: 45: ,{0x36, 0x49, 0x49, 0x49, 0x36}
+[; ;NokiaLCD.h: 46: ,{0x06, 0x49, 0x49, 0x29, 0x1e}
+[; ;NokiaLCD.h: 47: ,{0x00, 0x36, 0x36, 0x00, 0x00}
+[; ;NokiaLCD.h: 48: ,{0x00, 0x56, 0x36, 0x00, 0x00}
+[; ;NokiaLCD.h: 49: ,{0x08, 0x14, 0x22, 0x41, 0x00}
+[; ;NokiaLCD.h: 50: ,{0x14, 0x14, 0x14, 0x14, 0x14}
+[; ;NokiaLCD.h: 51: ,{0x00, 0x41, 0x22, 0x14, 0x08}
+[; ;NokiaLCD.h: 52: ,{0x02, 0x01, 0x51, 0x09, 0x06}
+[; ;NokiaLCD.h: 53: ,{0x32, 0x49, 0x79, 0x41, 0x3e}
+[; ;NokiaLCD.h: 54: ,{0x7e, 0x11, 0x11, 0x11, 0x7e}
+[; ;NokiaLCD.h: 55: ,{0x7f, 0x49, 0x49, 0x49, 0x36}
+[; ;NokiaLCD.h: 56: ,{0x3e, 0x41, 0x41, 0x41, 0x22}
+[; ;NokiaLCD.h: 57: ,{0x7f, 0x41, 0x41, 0x22, 0x1c}
+[; ;NokiaLCD.h: 58: ,{0x7f, 0x49, 0x49, 0x49, 0x41}
+[; ;NokiaLCD.h: 59: ,{0x7f, 0x09, 0x09, 0x09, 0x01}
+[; ;NokiaLCD.h: 60: ,{0x3e, 0x41, 0x49, 0x49, 0x7a}
+[; ;NokiaLCD.h: 61: ,{0x7f, 0x08, 0x08, 0x08, 0x7f}
+[; ;NokiaLCD.h: 62: ,{0x00, 0x41, 0x7f, 0x41, 0x00}
+[; ;NokiaLCD.h: 63: ,{0x20, 0x40, 0x41, 0x3f, 0x01}
+[; ;NokiaLCD.h: 64: ,{0x7f, 0x08, 0x14, 0x22, 0x41}
+[; ;NokiaLCD.h: 65: ,{0x7f, 0x40, 0x40, 0x40, 0x40}
+[; ;NokiaLCD.h: 66: ,{0x7f, 0x02, 0x0c, 0x02, 0x7f}
+[; ;NokiaLCD.h: 67: ,{0x7f, 0x04, 0x08, 0x10, 0x7f}
+[; ;NokiaLCD.h: 68: ,{0x3e, 0x41, 0x41, 0x41, 0x3e}
+[; ;NokiaLCD.h: 69: ,{0x7f, 0x09, 0x09, 0x09, 0x06}
+[; ;NokiaLCD.h: 70: ,{0x3e, 0x41, 0x51, 0x21, 0x5e}
+[; ;NokiaLCD.h: 71: ,{0x7f, 0x09, 0x19, 0x29, 0x46}
+[; ;NokiaLCD.h: 72: ,{0x46, 0x49, 0x49, 0x49, 0x31}
+[; ;NokiaLCD.h: 73: ,{0x01, 0x01, 0x7f, 0x01, 0x01}
+[; ;NokiaLCD.h: 74: ,{0x3f, 0x40, 0x40, 0x40, 0x3f}
+[; ;NokiaLCD.h: 75: ,{0x1f, 0x20, 0x40, 0x20, 0x1f}
+[; ;NokiaLCD.h: 76: ,{0x3f, 0x40, 0x38, 0x40, 0x3f}
+[; ;NokiaLCD.h: 77: ,{0x63, 0x14, 0x08, 0x14, 0x63}
+[; ;NokiaLCD.h: 78: ,{0x07, 0x08, 0x70, 0x08, 0x07}
+[; ;NokiaLCD.h: 79: ,{0x61, 0x51, 0x49, 0x45, 0x43}
+[; ;NokiaLCD.h: 80: ,{0x00, 0x7f, 0x41, 0x41, 0x00}
+[; ;NokiaLCD.h: 81: ,{0x02, 0x04, 0x08, 0x10, 0x20}
+[; ;NokiaLCD.h: 82: ,{0x00, 0x41, 0x41, 0x7f, 0x00}
+[; ;NokiaLCD.h: 83: ,{0x04, 0x02, 0x01, 0x02, 0x04}
+[; ;NokiaLCD.h: 84: ,{0x40, 0x40, 0x40, 0x40, 0x40}
+[; ;NokiaLCD.h: 85: ,{0x00, 0x01, 0x02, 0x04, 0x00}
+[; ;NokiaLCD.h: 86: ,{0x20, 0x54, 0x54, 0x54, 0x78}
+[; ;NokiaLCD.h: 87: ,{0x7f, 0x48, 0x44, 0x44, 0x38}
+[; ;NokiaLCD.h: 88: ,{0x38, 0x44, 0x44, 0x44, 0x20}
+[; ;NokiaLCD.h: 89: ,{0x38, 0x44, 0x44, 0x48, 0x7f}
+[; ;NokiaLCD.h: 90: ,{0x38, 0x54, 0x54, 0x54, 0x18}
+[; ;NokiaLCD.h: 91: ,{0x08, 0x7e, 0x09, 0x01, 0x02}
+[; ;NokiaLCD.h: 92: ,{0x0c, 0x52, 0x52, 0x52, 0x3e}
+[; ;NokiaLCD.h: 93: ,{0x7f, 0x08, 0x04, 0x04, 0x78}
+[; ;NokiaLCD.h: 94: ,{0x00, 0x44, 0x7d, 0x40, 0x00}
+[; ;NokiaLCD.h: 95: ,{0x20, 0x40, 0x44, 0x3d, 0x00}
+[; ;NokiaLCD.h: 96: ,{0x7f, 0x10, 0x28, 0x44, 0x00}
+[; ;NokiaLCD.h: 97: ,{0x00, 0x41, 0x7f, 0x40, 0x00}
+[; ;NokiaLCD.h: 98: ,{0x7c, 0x04, 0x18, 0x04, 0x78}
+[; ;NokiaLCD.h: 99: ,{0x7c, 0x08, 0x04, 0x04, 0x78}
+[; ;NokiaLCD.h: 100: ,{0x38, 0x44, 0x44, 0x44, 0x38}
+[; ;NokiaLCD.h: 101: ,{0x7c, 0x14, 0x14, 0x14, 0x08}
+[; ;NokiaLCD.h: 102: ,{0x08, 0x14, 0x14, 0x18, 0x7c}
+[; ;NokiaLCD.h: 103: ,{0x7c, 0x08, 0x04, 0x04, 0x08}
+[; ;NokiaLCD.h: 104: ,{0x48, 0x54, 0x54, 0x54, 0x20}
+[; ;NokiaLCD.h: 105: ,{0x04, 0x3f, 0x44, 0x40, 0x20}
+[; ;NokiaLCD.h: 106: ,{0x3c, 0x40, 0x40, 0x20, 0x7c}
+[; ;NokiaLCD.h: 107: ,{0x1c, 0x20, 0x40, 0x20, 0x1c}
+[; ;NokiaLCD.h: 108: ,{0x3c, 0x40, 0x30, 0x40, 0x3c}
+[; ;NokiaLCD.h: 109: ,{0x44, 0x28, 0x10, 0x28, 0x44}
+[; ;NokiaLCD.h: 110: ,{0x0c, 0x50, 0x50, 0x50, 0x3c}
+[; ;NokiaLCD.h: 111: ,{0x44, 0x64, 0x54, 0x4c, 0x44}
+[; ;NokiaLCD.h: 112: ,{0x00, 0x08, 0x36, 0x41, 0x00}
+[; ;NokiaLCD.h: 113: ,{0x00, 0x00, 0x7f, 0x00, 0x00}
+[; ;NokiaLCD.h: 114: ,{0x00, 0x41, 0x36, 0x08, 0x00}
+[; ;NokiaLCD.h: 115: ,{0x10, 0x08, 0x08, 0x10, 0x08}
+[; ;NokiaLCD.h: 116: ,{0x78, 0x46, 0x41, 0x46, 0x78}
+[; ;NokiaLCD.h: 117: };
 "12 main.c
 [v _Start `i ~T0 @X0 1 e ]
 [i _Start
@@ -9167,40 +9172,44 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 48: Delay(100);
 "48
 [e ( _Delay (1 -> -> 100 `i `l ]
-[; ;main.c: 49: clearLcd();
-"49
-[e ( _clearLcd ..  ]
-[; ;main.c: 50: respondECU();
+[; ;main.c: 50: clearLcd();
 "50
-[e ( _respondECU ..  ]
-[; ;main.c: 52: do { LATA3 = 1; } while(0);
+[e ( _clearLcd ..  ]
+[; ;main.c: 51: Splash();
+"51
+[e ( _Splash ..  ]
+[; ;main.c: 52: while(SetBMM());
 "52
+[e $U 1179  ]
+[e :U 1180 ]
+[e :U 1179 ]
+[e $ != -> ( _SetBMM ..  `i -> -> -> 0 `i `uc `i 1180  ]
 [e :U 1181 ]
+[; ;main.c: 54: do { LATA3 = 1; } while(0);
+"54
+[e :U 1184 ]
 {
 [e = _LATA3 -> -> 1 `i `b ]
 }
-[e :U 1180 ]
-[; ;main.c: 53: while(1){
-"53
 [e :U 1183 ]
-{
-[; ;main.c: 54: respondECU();
-"54
-[e ( _respondECU ..  ]
-[; ;main.c: 55: updateComms();
+[; ;main.c: 55: while(1){
 "55
-[e ( _updateComms ..  ]
-[; ;main.c: 56: ledDebug();
+[e :U 1186 ]
+{
+[; ;main.c: 56: updateComms();
 "56
-[e ( _ledDebug ..  ]
+[e ( _updateComms ..  ]
+[; ;main.c: 57: ledDebug();
 "57
-}
-[e :U 1182 ]
-"53
-[e $U 1183  ]
-[e :U 1184 ]
-[; ;main.c: 57: }
-[; ;main.c: 58: }
+[e ( _ledDebug ..  ]
 "58
+}
+[e :U 1185 ]
+"55
+[e $U 1186  ]
+[e :U 1187 ]
+[; ;main.c: 58: }
+[; ;main.c: 59: }
+"59
 [e :UE 1178 ]
 }
