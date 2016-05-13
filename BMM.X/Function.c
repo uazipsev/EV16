@@ -3,6 +3,7 @@
 #include "timers.h"
 #include "Communications.h"
 #include "BatteryManagment.h"
+#include "spi2.h"
 #include "UART1.h"
 #include "PinDef.h"
 
@@ -55,7 +56,8 @@ void Setup(void) {
 
     //begin1(receiveArray1, sizeof (receiveArray1), BMM_MASTER_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);
      UART1_init();
-     Start_BMS();
+     //Start_BMS();
+     SPI2_Initialize();
    // i2c_init();
     //PWM_Init();
 }
@@ -111,8 +113,9 @@ void PinSetMode(void) {
 //        } else if (x == 4) {
 //            x = 0;
 //        }
-            ReadCurrentVolt();
+            //ReadCurrentVolt();
             time_Set(LEDTM, 0);
+            SPI2_Exchange8bit(0xAA);
         }
     }
 
