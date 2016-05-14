@@ -725,9 +725,9 @@ void LTC6804_rdaux_reg(int reg,
 
 //TODO the reading stat is not accurate quie yet need to figure out over/under voltage.
 int LTC6804_rdStat(int reg,
-					 int total_ic,
-					 int Stat_codes[][8] //every Over Voltage and  every Under voltage of each cell will be combined in two flags. 
-					 )
+        int total_ic,
+        int Stat_codes[][8] //every Over Voltage and  every Under voltage of each cell will be combined in two flags. 
+        )
 {
  
     int cell_reg = 0;

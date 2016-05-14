@@ -41,10 +41,10 @@
 /*
  *    LT6020 CS & EN
  */
-#define LT6020_1_CS PORTAbits.RA0
-#define LT6020_2_CS PORTAbits.RA0
-#define LT6020_1_EN PORTAbits.RA0
-#define LT6020_2_EN PORTAbits.RA0
+#define LT6020_1_CS PORTAbits.RA4
+#define LT6020_2_CS PORTAbits.RA8
+#define LT6020_1_EN PORTAbits.RA9
+#define LT6020_2_EN PORTBbits.RB4
 
 /*
  

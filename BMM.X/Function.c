@@ -77,6 +77,7 @@ void PinSetMode(void) {
 
     TRISAbits.TRISA4 = OUTPUT;
     TRISAbits.TRISA7 = OUTPUT;
+    TRISAbits.TRISA8 = OUTPUT;
     TRISBbits.TRISB13 = OUTPUT; // RS485 Direction Pin OUTPUT
     LATBbits.LATB13 = 0;
     //SS CLEAR AND SET
@@ -84,7 +85,8 @@ void PinSetMode(void) {
     TRISBbits.TRISB0=OUTPUT;
     TRISBbits.TRISB2 = OUTPUT;
     TRISBbits.TRISB3 = OUTPUT;
-    
+    TRISAbits.TRISA9= OUTPUT;
+     TRISBbits.TRISB4 = OUTPUT;
     LATCbits.LATC6=1;
     LATCbits.LATC7=1;
     
@@ -102,6 +104,7 @@ void PinSetMode(void) {
         if (time_get(LEDTM) > 500) {
             INDICATOR = !INDICATOR;
             printf("ADC: %d , %d , %d", CurrentGet(0,1),CurrentGet(0,2),CurrentGet(0,3));
+           // printf(SetUnderOverVoltage(5,8));
 //            if (x == 0) {
 //            Saftey_Relay_Reset = 0;
 //        } else if (x == 1) {
@@ -116,7 +119,7 @@ void PinSetMode(void) {
             //ReadCurrentVolt();
             time_Set(LEDTM, 0);
             LT6020_1_CS = 0;
-            SPI2_Exchange8bit(0xAA);
+            //SPI2_Exchange8bit(0xAA);
             LT6020_1_CS = 0;
         }
     }

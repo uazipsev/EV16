@@ -22,6 +22,7 @@ int main(int argc, char** argv) {
 
     while (1) { 
         updateTimers();
+      // Initalize_LT6804b(); FOR TESTING DElETE WHEN FINISHED
 //        if (time_get(ADCTM) > 50) {
 //            static int counter = 0;
 //            if (counter < 4){
