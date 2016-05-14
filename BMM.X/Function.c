@@ -12,9 +12,9 @@ void Setup(void) {
     INDICATOR = 1;
     // setup internal clock for 72MHz/36MIPS
     // 12 /2 = 6  *46 = 144 / 2=72
-    CLKDIVbits.PLLPRE = 1; // PLLPRE (N2) 0=/2c
+    CLKDIVbits.PLLPRE = 0; // PLLPRE (N2) 0=/2c
     CLKDIVbits.DOZE = 0;
-    PLLFBD = 46; // pll multiplier (M) = +2
+    PLLFBD = 22; // pll multiplier (M) = +2
     CLKDIVbits.PLLPOST = 0; // PLLPOST (N1) 0=/2 
     // Initiate Clock Switch to Primary Oscillator with PLL (NOSC = 0b011)
     __builtin_write_OSCCONH(0x03);
