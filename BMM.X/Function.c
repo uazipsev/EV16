@@ -11,7 +11,7 @@ void Setup(void) {
     PinSetMode();
     INDICATOR = 1;
     // setup internal clock for 72MHz/36MIPS
-    // 12 /2 = 6  *24 = 144 / 2=72
+    // 12 /2 = 6  *46 = 144 / 2=72
     CLKDIVbits.PLLPRE = 1; // PLLPRE (N2) 0=/2c
     CLKDIVbits.DOZE = 0;
     PLLFBD = 46; // pll multiplier (M) = +2
@@ -115,7 +115,9 @@ void PinSetMode(void) {
 //        }
             //ReadCurrentVolt();
             time_Set(LEDTM, 0);
+            LT6020_1_CS = 0;
             SPI2_Exchange8bit(0xAA);
+            LT6020_1_CS = 0;
         }
     }
 
