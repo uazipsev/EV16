@@ -4,13 +4,14 @@
 #include "FastTransferPrivate.h"
 #include "FastTransfer.h"
 #include "PinDef.h"
+#include "Function.h"
 
 
 
 
 //Captures address of receive array, the max data address, the address of the module, true/false if AKNAKs are wanted and the Serial address
 
-void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void)) {
+void begin(char * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void)) {
     receiveArrayAddress = ptr;
     moduleAddress = givenAddress;
     serial_write = stufftosend;

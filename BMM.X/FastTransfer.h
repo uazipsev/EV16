@@ -11,7 +11,7 @@
 //the capital D is so there is no interference with the lower case d of EasyTransfer
 #define Details(name) (int*)&name,sizeof(name)
 
-void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
+void begin(char * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
 void sendData(unsigned char whereToSend);
 bool receiveData();
 void ToSend(const unsigned char where, const unsigned int what);

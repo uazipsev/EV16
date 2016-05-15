@@ -10,16 +10,16 @@
 
 #include <stdbool.h>
 
-unsigned int IdleI2C(void);
-unsigned int StartI2C(void);
-unsigned int WriteI2C(unsigned char);
-unsigned int StopI2C(void);
-unsigned int RestartI2C(void);
-unsigned int getsI2C(char*, unsigned char);
-unsigned int NotAckI2C(void);
-unsigned int InitI2C(void);
-unsigned int ACKStatus(void);
-unsigned int getI2C(void);
+void IdleI2C(void);
+void StartI2C(void);
+void WriteI2C(unsigned char);
+char StopI2C(void);
+void RestartI2C(void);
+char getsI2C(char*, unsigned char);
+void NotAckI2C(void);
+void InitI2C(void);
+char ACKStatus(void);
+char getI2C(void);
 void AckI2C(void);
 unsigned int EEAckPolling(unsigned char);
 unsigned int putstringI2C(unsigned char*);

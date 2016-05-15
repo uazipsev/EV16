@@ -16,12 +16,12 @@ char receiveArray[100];
 
 bool pendingSend = false;
 
-extern struct UART_ring_buff {
-    unsigned char buf[UART_BUFFER_SIZE];
-    int head;
-    int tail;
-    int count;
-};
+//extern struct UART_ring_buff {
+//    unsigned char buf[UART_BUFFER_SIZE];
+//    int head;
+//    int tail;
+//    int count;
+//};
 
 //extern struct UART_ring_buff input_buffer;
 //extern void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);

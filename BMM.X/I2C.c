@@ -14,7 +14,8 @@
 *
 * Note:			Sets up Master mode, No slew rate control, 100Khz
 ********************************************************************/
-unsigned int InitI2C(void)
+
+void InitI2C(void)
 {	
 	//This function will initialize the I2C(1) peripheral.
 	//First set the I2C(1) BRG Baud Rate.
@@ -53,7 +54,7 @@ unsigned int InitI2C(void)
 *
 * Note:			None
 ********************************************************************/
-unsigned int StartI2C(void)
+void StartI2C(void)
 {
 	//This function generates an I2C start condition and returns status 
 	//of the Start.
@@ -75,7 +76,7 @@ unsigned int StartI2C(void)
 *
 * Note:			None
 ********************************************************************/
-unsigned int RestartI2C(void)
+void RestartI2C(void)
 {
 	//This function generates an I2C Restart condition and returns status 
 	//of the Restart.
@@ -97,7 +98,7 @@ unsigned int RestartI2C(void)
 *
 * Note:			None
 ********************************************************************/
-unsigned int StopI2C(void)
+char StopI2C(void)
 {
 	//This function generates an I2C stop condition and returns status 
 	//of the Stop.
@@ -119,7 +120,7 @@ unsigned int StopI2C(void)
 *
 * Note:			None
 ********************************************************************/
-unsigned int WriteI2C(unsigned char byte)
+void WriteI2C(unsigned char byte)
 {
 	//This function transmits the byte passed to the function
 	//while (I2C1STATbits.TRSTAT);	//Wait for bus to be idle
@@ -140,7 +141,7 @@ unsigned int WriteI2C(unsigned char byte)
 *
 * Note:			None
 ********************************************************************/
-unsigned int IdleI2C(void)
+void IdleI2C(void)
 {
 	while (I2C1STATbits.TRSTAT);		//Wait for bus Idle
 }
@@ -157,7 +158,7 @@ unsigned int IdleI2C(void)
 *
 * Note:			None
 ********************************************************************/
-unsigned int ACKStatus(void)
+char ACKStatus(void)
 {
 	return (!I2C1STATbits.ACKSTAT);		//Return Ack Status
 }
@@ -174,7 +175,7 @@ unsigned int ACKStatus(void)
 *
 * Note:			None
 ********************************************************************/
-unsigned int NotAckI2C(void)
+void NotAckI2C(void)
 {
 	I2C1CONbits.ACKDT = 1;			//Set for NotACk
 	I2C1CONbits.ACKEN = 1;
@@ -213,7 +214,7 @@ void AckI2C(void)
 *
 * Note:			None
 ********************************************************************/
-unsigned int getsI2C(char *rdptr, unsigned char Length)
+char getsI2C(char *rdptr, unsigned char Length)
 {
 	while (Length --)
 	{
@@ -221,7 +222,7 @@ unsigned int getsI2C(char *rdptr, unsigned char Length)
 		
 		if(I2C1STATbits.BCL)		//Test for Bus collision
 		{
-			return(-1);
+			return(1);
 		}
 
 		if(Length)
@@ -244,7 +245,7 @@ unsigned int getsI2C(char *rdptr, unsigned char Length)
 *
 * Note:			None
 ********************************************************************/
-unsigned int getI2C(void)
+char getI2C(void)
 {
 	I2C1CONbits.RCEN = 1;			//Enable Master receive
 	Nop();
@@ -253,64 +254,6 @@ unsigned int getI2C(void)
 }
 
 
-/*********************************************************************
-* Function:        EEAckPolling()
-*
-* Input:		Control byte.
-*
-* Output:		error state.
-*
-* Overview:		polls the bus for an Acknowledge from device
-*
-* Note:			None
-********************************************************************/
-unsigned int EEAckPolling(unsigned char control)
-{
-	IdleI2C();				//wait for bus Idle
-	StartI2C();				//Generate Start condition
-	
-	if(I2C1STATbits.BCL)
-	{
-		return(-1);			//Bus collision, return
-	}
-
-	else
-	{
-		if(WriteI2C(control))
-		{
-			return(-3);		//error return
-		}
-
-		IdleI2C();			//wait for bus idle
-		if(I2C1STATbits.BCL)
-		{
-			return(-1);		//error return
-		}
-
-		while(ACKStatus())
-		{
-			RestartI2C();	//generate restart
-			if(I2C1STATbits.BCL)
-			{
-				return(-1);	//error return
-			}
-
-			if(WriteI2C(control))
-			{
-				return(-3);
-			}
-
-			IdleI2C();
-		}
-	}
-	StopI2C();				//send stop condition
-	if(I2C1STATbits.BCL)
-	{
-		return(-1);
-	}
-	return(0);
-}
-
 void i2c_wait(unsigned int cnt) {
     while (--cnt) {
         asm("nop");
@@ -318,48 +261,48 @@ void i2c_wait(unsigned int cnt) {
     }
 }
 
-void i2c_Write(char address, bool read_write, char *data, int numofbytes) {
-    int DataSz;
-    int Index = 0;
-    DataSz = numofbytes;
-
-    StartI2C1(); //Send the Start Bit
-    IdleI2C1(); //Wait to complete
-    if (read_write == 1) //write address
-    {
-        MasterWriteI2C1(((address << 1) | 0));
-        IdleI2C1(); //Wait to complete    
-        while (DataSz) {
-            MasterWriteI2C1(data[Index++]);
-            IdleI2C1(); //Wait to complete
-
-            DataSz--;
-
-            //ACKSTAT is 0 when slave acknowledge,
-            //if 1 then slave has not acknowledge the data.
-            if (I2C1STATbits.ACKSTAT)
-                break;
-        }
-    } else //read address
-    {
-        MasterWriteI2C1(((address << 1) | 1));
-        IdleI2C1(); //Wait to complete
-        while (DataSz) {
-            data[Index++]=MasterReadI2C1();
-            AckI2C1();
-            IdleI2C1(); //Wait to complete
-
-            DataSz--;
-
-            //ACKSTAT is 0 when slave acknowledge,
-            //if 1 then slave has not acknowledge the data.
+//void i2c_Write(char address, bool read_write, char *data, int numofbytes) {
+//    int DataSz;
+//    int Index = 0;
+//    DataSz = numofbytes;
+//
+//    StartI2C1(); //Send the Start Bit
+//    IdleI2C1(); //Wait to complete
+//    if (read_write == 1) //write address
+//    {
+//        MasterWriteI2C1(((address << 1) | 0));
+//        IdleI2C1(); //Wait to complete    
+//        while (DataSz) {
+//            MasterWriteI2C1(data[Index++]);
+//            IdleI2C1(); //Wait to complete
+//
+//            DataSz--;
+//
+//            //ACKSTAT is 0 when slave acknowledge,
+//            //if 1 then slave has not acknowledge the data.
 //            if (I2C1STATbits.ACKSTAT)
 //                break;
-        }
-    }
-
-
-
-    StopI2C1(); //Send the Stop condition
-    IdleI2C1(); //Wait to complete   
-}
+//        }
+//    } else //read address
+//    {
+//        MasterWriteI2C1(((address << 1) | 1));
+//        IdleI2C1(); //Wait to complete
+//        while (DataSz) {
+//            data[Index++]=MasterReadI2C1();
+//            AckI2C1();
+//            IdleI2C1(); //Wait to complete
+//
+//            DataSz--;
+//
+//            //ACKSTAT is 0 when slave acknowledge,
+//            //if 1 then slave has not acknowledge the data.
+////            if (I2C1STATbits.ACKSTAT)
+////                break;
+//        }
+//    }
+//
+//
+//
+//    StopI2C1(); //Send the Stop condition
+//    IdleI2C1(); //Wait to complete   
+//}

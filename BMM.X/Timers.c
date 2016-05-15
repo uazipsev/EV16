@@ -74,6 +74,7 @@ int time_get(char WhatTime){
     else if(WhatTime == 4){
         return ADCTime;
     }
+    return -1;
 }
 
 void time_Set(char WhatTime, int value){
