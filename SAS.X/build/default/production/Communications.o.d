@@ -2,4 +2,5 @@ build/default/production/Communications.o:  \
 Communications.c  \
  Communications.h  \
 PinDef.h  \
-ADDRESSING.h 
+ADDRESSING.h  \
+ADC.h 

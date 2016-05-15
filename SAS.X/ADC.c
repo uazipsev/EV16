@@ -1,6 +1,30 @@
 #include "ADC.h"
 #include <xc.h>
 #include <math.h>
+#include <stdbool.h>
+
+
+void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt(void);
+volatile unsigned int ADCTime = 0;
+volatile bool ADCSamp = true;
+volatile unsigned int ADCbuffer[6];
+volatile bool ADCDataReady = false;
+extern volatile unsigned int ADCbuffer[6];
+float throttle1val, throttle2val, brake1val, brake2val;
+
+#define FILTERCOUNTS 20
+
+int ThrottleArray1[FILTERCOUNTS];
+int ThrottleArray2[FILTERCOUNTS];
+int BrakeArray1[FILTERCOUNTS];
+int BrakeArray2[FILTERCOUNTS];
+
+float Throttle1Total = 0;
+float Throttle2Total = 0;
+float BrakeArray1Total = 0;
+float BrakeArray2Total = 0;
+
+value RequestValue;
 
 void initADC(void) {
     AD1CON1 = AD1CON1 & 0X0000;
@@ -44,7 +68,7 @@ void initADC(void) {
 }
 
 int ADC = 0;
-int ADCPorts[3] = {0, 1, 4};
+int ADCPorts[4] = {0, 1, 3, 4};
 
 void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt(void) {
     if (!ADCDataReady) {
@@ -52,7 +76,7 @@ void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt(void) {
         ADC++;
         //IEC0bits.AD1IE = 0;
     }
-    if (ADC > 2) {
+    if (ADC > 3) {
         ADCTime = 0;
         ADCDataReady = 1;
         ADC = 0;
@@ -61,21 +85,54 @@ void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt(void) {
     AD1CHS0bits.CH0SA = ADCPorts[ADC];
     AD1CON1bits.SAMP = 1;
     IFS0bits.AD1IF = 0; // clear ADC interrupt flag
+    FilterADC();
 }
 
-void GetADC(void) {
-
+void FilterADC(){
+    int k = 0;
+    for (k = FILTERCOUNTS; k > 1; k--) 
+    {   
+        ThrottleArray1[k]=ThrottleArray1[k-1];
+        ThrottleArray1[k]=ThrottleArray1[k-1];
+        BrakeArray1[k]=BrakeArray1[k-1];
+        BrakeArray2[k]=BrakeArray2[k-1];
+        Throttle1Total += ThrottleArray1[k];
+        Throttle2Total += ThrottleArray2[k];
+        BrakeArray1Total += BrakeArray1[k];
+        BrakeArray2Total += BrakeArray2[k];
+    }
+    ThrottleArray1[0] = ADCbuffer[0];
+    ThrottleArray1[0] = ADCbuffer[1];
+    BrakeArray1[0] = ADCbuffer[2]; 
+    BrakeArray2[0] = ADCbuffer[3];
+    Throttle1Total += ThrottleArray1[0];
+    Throttle2Total += ThrottleArray2[0];
+    BrakeArray1Total += BrakeArray1[0];
+    BrakeArray2Total += BrakeArray2[0];
+    throttle1val = Throttle1Total / FILTERCOUNTS;
+    throttle2val = Throttle2Total / FILTERCOUNTS;
+    brake1val = BrakeArray1Total / FILTERCOUNTS;
+    brake2val = BrakeArray2Total / FILTERCOUNTS;
+    throttle1val = throttle1val * 0.02;
+    throttle2val = throttle2val * 0.02;
+    brake1val = brake1val * 0.02;
+    brake2val = brake2val * 0.02;
 }
 
-void SetADC(void) {
-
-}
-
-void handleADCValues() {
-    throttle1 = ((throttle1 * 3) + (1-ADCbuffer[0]) * throttle1);
-    throttle2 = ((throttle2 * 3) + (1-ADCbuffer[1]) * throttle2);
-    brake = ((brake * 3) + (1-ADCbuffer[2]) * brake);
-    throttle1 = throttle1 * 0.02;
-    throttle1 = throttle2 * 0.02;
-    brake = brake * 0.02;
+float GetADC(value RequestValue){
+    switch (RequestValue){
+        case Throttle1:
+            return  throttle1val;
+            break;
+        case Throttle2 :
+            return throttle2val;
+            break;
+        case Brake1 :
+            return brake1val;
+            break;
+        case Brake2 :
+            return brake2val;
+            break;
+    }
+    return -1;
 }

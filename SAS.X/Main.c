@@ -15,7 +15,6 @@ int main(void) {
         updateComms();
         if ((ADCDataReady) && (ADCTime > 0)) {
             ADCDataReady = false;
-            handleADCValues();
             IEC0bits.AD1IE = 1;
             //AD1CON1bits.ADON = 1;
             ADCTime = 0;
