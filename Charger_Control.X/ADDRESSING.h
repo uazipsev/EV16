@@ -15,6 +15,7 @@
 #define MCS_ADDRESS 4
 #define PDU_ADDRESS 5
 #define BMM_ADDRESS 6
+#define CHARGER_ADDRESS 7
 
 
     //ECU Data
@@ -54,6 +55,8 @@
 
     //BMM Receive
 #define BMM_COMM_STATE          1
+#define CHARGER_POWER_STATE     2
+#define FAULT_STATE             3
 
     //Charger Receive
 #define CHARGE                  1

@@ -130,3 +130,7 @@ void SetMux(char channel){
             time_Set(LEDTM, 0);
         }
     }
+ 
+ bool GetPowerState(){
+     return PowerOn;
+ }

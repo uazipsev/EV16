@@ -10,6 +10,7 @@ void Precharge(bool OnOff);
 void SetCharger(char mode, char Current, char Voltage);
 void SetMux(char channel);
 void ledDebug();
+bool GetPowerState();
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -10568,8 +10569,10 @@ void TMR0_ISR(void);
 # 320
 void TMR0_CallBack(void);
 
-# 10 "Functions.c"
+# 11 "Functions.c"
 char ChargerData[9] = {'M', ',', 0, ',', 0, ',', 0, ',', 'E'};
+
+bool PowerOn = 0;
 
 void Delay(long int wait) {
 long int i = 0;
@@ -10578,7 +10581,7 @@ _delay((unsigned long)((1)*(16000000/4000.0)));
 }
 }
 
-# 26
+# 29
 void Precharge(bool OnOff){
 if(OnOff){
 do { LATC1 = 1; } while(0);
@@ -10589,6 +10592,7 @@ Delay(1000);
 do { LATB4 = 1; } while(0);
 do { LATC0 = 1; } while(0);
 do { LATB5 = 1; } while(0);
+PowerOn = 0;
 }
 
 else{
@@ -10600,10 +10604,11 @@ Delay(1000);
 }
 do { LATC1 = 0; } while(0);
 do { LATB5 = 0; } while(0);
+PowerOn = 1;
 }
 }
 
-# 59
+# 64
 void SetCharger(char mode, char Current, char Voltage){
 if(mode == 1){
 
@@ -10629,7 +10634,7 @@ printf("%s",ChargerData);
 }
 }
 
-# 91
+# 96
 void SetMux(char channel){
 switch (channel){
 case 1:
@@ -10654,10 +10659,14 @@ break;
 }
 }
 
-
+# 127
 void ledDebug() {
 if (time_get(1) > 500) {
 do { LATA3 = ~LATA3; } while(0);
 time_Set(1, 0);
 }
+}
+
+bool GetPowerState(){
+return PowerOn;
 }

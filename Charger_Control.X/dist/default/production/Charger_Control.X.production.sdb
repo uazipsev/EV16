@@ -33,9 +33,9 @@
 [v ___lmul __lmul `(ul  1 e 4 0 ]
 "12 C:\EV16.git\trunk\Charger_Control.X\Communications.c
 [v _updateComms updateComms `(v  1 e 0 0 ]
-"31
+"38
 [v _respondChargerAsECU respondChargerAsECU `(v  1 e 0 0 ]
-"41
+"56
 [v _SetBMM SetBMM `(uc  1 e 1 0 ]
 "34 C:\EV16.git\trunk\Charger_Control.X\FastTransfer.c
 [v _CRC8 CRC8 `(uc  1 e 1 0 ]
@@ -59,16 +59,18 @@
 [v _crcBufS_get crcBufS_get `(uc  1 e 1 0 ]
 "373
 [v _CRCcheck CRCcheck `(v  1 e 0 0 ]
-"12 C:\EV16.git\trunk\Charger_Control.X\Functions.c
+"15 C:\EV16.git\trunk\Charger_Control.X\Functions.c
 [v _Delay Delay `(v  1 e 0 0 ]
-"26
+"29
 [v _Precharge Precharge `(v  1 e 0 0 ]
-"59
+"64
 [v _SetCharger SetCharger `(v  1 e 0 0 ]
-"91
+"96
 [v _SetMux SetMux `(v  1 e 0 0 ]
-"116
+"127
 [v _ledDebug ledDebug `(v  1 e 0 0 ]
+"134
+[v _GetPowerState GetPowerState `(uc  1 e 1 0 ]
 "16 C:\EV16.git\trunk\Charger_Control.X\main.c
 [v _main main `(v  1 e 0 0 ]
 "76 C:\EV16.git\trunk\Charger_Control.X\mcc_generated_files/eusart2.c
@@ -197,7 +199,7 @@
 [v _LATA LATA `VEuc  1 e 1 @3977 ]
 "7908
 [v _LATB LATB `VEuc  1 e 1 @3978 ]
-[s S1735 . 1 `uc 1 LATB0 1 0 :1:0 
+[s S1837 . 1 `uc 1 LATB0 1 0 :1:0 
 `uc 1 LATB1 1 0 :1:1 
 `uc 1 LATB2 1 0 :1:2 
 `uc 1 LATB3 1 0 :1:3 
@@ -207,34 +209,34 @@
 `uc 1 LATB7 1 0 :1:7 
 ]
 "7956
-[s S1744 . 1 `uc 1 LB0 1 0 :1:0 
+[s S1846 . 1 `uc 1 LB0 1 0 :1:0 
 ]
-[s S1746 . 1 `uc 1 . 1 0 :1:0 
+[s S1848 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 LB1 1 0 :1:1 
 ]
-[s S1749 . 1 `uc 1 . 1 0 :2:0 
+[s S1851 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LB2 1 0 :1:2 
 ]
-[s S1752 . 1 `uc 1 . 1 0 :3:0 
+[s S1854 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 LB3 1 0 :1:3 
 ]
-[s S1755 . 1 `uc 1 . 1 0 :4:0 
+[s S1857 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 LB4 1 0 :1:4 
 ]
-[s S1758 . 1 `uc 1 . 1 0 :5:0 
+[s S1860 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 LB5 1 0 :1:5 
 ]
-[s S1761 . 1 `uc 1 . 1 0 :6:0 
+[s S1863 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 LB6 1 0 :1:6 
 ]
-[s S1764 . 1 `uc 1 . 1 0 :7:0 
+[s S1866 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 LB7 1 0 :1:7 
 ]
-[u S1767 . 1 `S1735 1 . 1 0 `S1744 1 . 1 0 `S1746 1 . 1 0 `S1749 1 . 1 0 `S1752 1 . 1 0 `S1755 1 . 1 0 `S1758 1 . 1 0 `S1761 1 . 1 0 `S1764 1 . 1 0 ]
-[v _LATBbits LATBbits `VES1767  1 e 1 @3978 ]
+[u S1869 . 1 `S1837 1 . 1 0 `S1846 1 . 1 0 `S1848 1 . 1 0 `S1851 1 . 1 0 `S1854 1 . 1 0 `S1857 1 . 1 0 `S1860 1 . 1 0 `S1863 1 . 1 0 `S1866 1 . 1 0 ]
+[v _LATBbits LATBbits `VES1869  1 e 1 @3978 ]
 "8040
 [v _LATC LATC `VEuc  1 e 1 @3979 ]
-[s S1150 . 1 `uc 1 LATC0 1 0 :1:0 
+[s S1253 . 1 `uc 1 LATC0 1 0 :1:0 
 `uc 1 LATC1 1 0 :1:1 
 `uc 1 LATC2 1 0 :1:2 
 `uc 1 LATC3 1 0 :1:3 
@@ -244,31 +246,31 @@
 `uc 1 LATC7 1 0 :1:7 
 ]
 "8088
-[s S1159 . 1 `uc 1 LC0 1 0 :1:0 
+[s S1262 . 1 `uc 1 LC0 1 0 :1:0 
 ]
-[s S1161 . 1 `uc 1 . 1 0 :1:0 
+[s S1264 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 LC1 1 0 :1:1 
 ]
-[s S1164 . 1 `uc 1 . 1 0 :2:0 
+[s S1267 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LC2 1 0 :1:2 
 ]
-[s S1167 . 1 `uc 1 . 1 0 :3:0 
+[s S1270 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 LC3 1 0 :1:3 
 ]
-[s S1170 . 1 `uc 1 . 1 0 :4:0 
+[s S1273 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 LC4 1 0 :1:4 
 ]
-[s S1173 . 1 `uc 1 . 1 0 :5:0 
+[s S1276 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 LC5 1 0 :1:5 
 ]
-[s S1176 . 1 `uc 1 . 1 0 :6:0 
+[s S1279 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 LC6 1 0 :1:6 
 ]
-[s S1179 . 1 `uc 1 . 1 0 :7:0 
+[s S1282 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 LC7 1 0 :1:7 
 ]
-[u S1182 . 1 `S1150 1 . 1 0 `S1159 1 . 1 0 `S1161 1 . 1 0 `S1164 1 . 1 0 `S1167 1 . 1 0 `S1170 1 . 1 0 `S1173 1 . 1 0 `S1176 1 . 1 0 `S1179 1 . 1 0 ]
-[v _LATCbits LATCbits `VES1182  1 e 1 @3979 ]
+[u S1285 . 1 `S1253 1 . 1 0 `S1262 1 . 1 0 `S1264 1 . 1 0 `S1267 1 . 1 0 `S1270 1 . 1 0 `S1273 1 . 1 0 `S1276 1 . 1 0 `S1279 1 . 1 0 `S1282 1 . 1 0 ]
+[v _LATCbits LATCbits `VES1285  1 e 1 @3979 ]
 "8172
 [v _LATD LATD `VEuc  1 e 1 @3980 ]
 "8304
@@ -277,7 +279,7 @@
 [v _TRISA TRISA `VEuc  1 e 1 @3986 ]
 "8627
 [v _TRISB TRISB `VEuc  1 e 1 @3987 ]
-[s S1690 . 1 `uc 1 TRISB0 1 0 :1:0 
+[s S1792 . 1 `uc 1 TRISB0 1 0 :1:0 
 `uc 1 TRISB1 1 0 :1:1 
 `uc 1 TRISB2 1 0 :1:2 
 `uc 1 TRISB3 1 0 :1:3 
@@ -287,7 +289,7 @@
 `uc 1 TRISB7 1 0 :1:7 
 ]
 "8659
-[s S1699 . 1 `uc 1 RB0 1 0 :1:0 
+[s S1801 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
 `uc 1 RB2 1 0 :1:2 
 `uc 1 RB3 1 0 :1:3 
@@ -296,8 +298,8 @@
 `uc 1 RB6 1 0 :1:6 
 `uc 1 RB7 1 0 :1:7 
 ]
-[u S1708 . 1 `S1690 1 . 1 0 `S1699 1 . 1 0 ]
-[v _TRISBbits TRISBbits `VES1708  1 e 1 @3987 ]
+[u S1810 . 1 `S1792 1 . 1 0 `S1801 1 . 1 0 ]
+[v _TRISBbits TRISBbits `VES1810  1 e 1 @3987 ]
 "8848
 [v _TRISC TRISC `VEuc  1 e 1 @3988 ]
 "9069
@@ -425,7 +427,7 @@
 "10698
 [v _RC1STA RC1STA `VEuc  1 e 1 @4011 ]
 "11041
-[s S1506 . 1 `uc 1 RX9D1 1 0 :1:0 
+[s S1613 . 1 `uc 1 RX9D1 1 0 :1:0 
 `uc 1 OERR1 1 0 :1:1 
 `uc 1 FERR1 1 0 :1:2 
 `uc 1 ADDEN1 1 0 :1:3 
@@ -434,19 +436,19 @@
 `uc 1 RX91 1 0 :1:6 
 `uc 1 SPEN1 1 0 :1:7 
 ]
-[s S1515 . 1 `uc 1 . 1 0 :6:0 
+[s S1622 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC8_9 1 0 :1:6 
 ]
-[s S1518 . 1 `uc 1 . 1 0 :6:0 
+[s S1625 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC9 1 0 :1:6 
 ]
-[s S1521 . 1 `uc 1 RCD8 1 0 :1:0 
+[s S1628 . 1 `uc 1 RCD8 1 0 :1:0 
 ]
-[s S1523 . 1 `uc 1 . 1 0 :5:0 
+[s S1630 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 SRENA 1 0 :1:5 
 ]
-[u S1526 . 1 `S95 1 . 1 0 `S104 1 . 1 0 `S1506 1 . 1 0 `S1515 1 . 1 0 `S1518 1 . 1 0 `S1521 1 . 1 0 `S1523 1 . 1 0 ]
-[v _RC1STAbits RC1STAbits `VES1526  1 e 1 @4011 ]
+[u S1633 . 1 `S95 1 . 1 0 `S104 1 . 1 0 `S1613 1 . 1 0 `S1622 1 . 1 0 `S1625 1 . 1 0 `S1628 1 . 1 0 `S1630 1 . 1 0 ]
+[v _RC1STAbits RC1STAbits `VES1633  1 e 1 @4011 ]
 "11159
 [v _TX1STA TX1STA `VEuc  1 e 1 @4012 ]
 "11530
@@ -650,7 +652,7 @@
 [v _OSCCON OSCCON `VEuc  1 e 1 @4051 ]
 "16831
 [v _T0CON T0CON `VEuc  1 e 1 @4053 ]
-[s S1910 . 1 `uc 1 T0PS 1 0 :3:0 
+[s S1090 . 1 `uc 1 T0PS 1 0 :3:0 
 `uc 1 PSA 1 0 :1:3 
 `uc 1 T0SE 1 0 :1:4 
 `uc 1 T0CS 1 0 :1:5 
@@ -658,12 +660,12 @@
 `uc 1 TMR0ON 1 0 :1:7 
 ]
 "16851
-[s S1917 . 1 `uc 1 T0PS0 1 0 :1:0 
+[s S1097 . 1 `uc 1 T0PS0 1 0 :1:0 
 `uc 1 T0PS1 1 0 :1:1 
 `uc 1 T0PS2 1 0 :1:2 
 ]
-[u S1921 . 1 `S1910 1 . 1 0 `S1917 1 . 1 0 ]
-[v _T0CONbits T0CONbits `VES1921  1 e 1 @4053 ]
+[u S1101 . 1 `S1090 1 . 1 0 `S1097 1 . 1 0 ]
+[v _T0CONbits T0CONbits `VES1101  1 e 1 @4053 ]
 "16906
 [v _TMR0L TMR0L `VEuc  1 e 1 @4054 ]
 "16925
@@ -777,17 +779,19 @@
 [v _dataAdressErrorCounter dataAdressErrorCounter `ui  1 e 2 0 ]
 "44
 [v _rx_address rx_address `uc  1 e 1 0 ]
-[s S1252 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[s S1359 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
 "58
-[v _ring_buffer ring_buffer `S1252  1 e 206 0 ]
-[u S1257 stuff 2 `[2]uc 1 parts 2 0 `ui 1 integer 2 0 ]
+[v _ring_buffer ring_buffer `S1359  1 e 206 0 ]
+[u S1364 stuff 2 `[2]uc 1 parts 2 0 `ui 1 integer 2 0 ]
 "64
-[v _group group `S1257  1 e 2 0 ]
-[s S1260 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
+[v _group group `S1364  1 e 2 0 ]
+[s S1367 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
 "70
-[v _crc_buffer crc_buffer `S1260  1 e 17 0 ]
-"10 C:\EV16.git\trunk\Charger_Control.X\Functions.c
+[v _crc_buffer crc_buffer `S1367  1 e 17 0 ]
+"11 C:\EV16.git\trunk\Charger_Control.X\Functions.c
 [v _ChargerData ChargerData `[9]uc  1 e 9 0 ]
+"13
+[v _PowerOn PowerOn `uc  1 e 1 0 ]
 "62 C:\EV16.git\trunk\Charger_Control.X\mcc_generated_files/eusart2.c
 [v _eusart2TxHead eusart2TxHead `uc  1 s 1 eusart2TxHead ]
 "63
@@ -812,49 +816,54 @@
 [v _time time `ul  1 e 4 0 ]
 "20 C:\EV16.git\trunk\Charger_Control.X\NokiaLCD.h
 [v _FONTLOOKUP FONTLOOKUP `C[96][5]uc  1 e 480 0 ]
-[s S1453 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[s S1560 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
 "109 C:\EV16.git\trunk\Charger_Control.X\UART.h
-[v _input_buffer input_buffer `S1453  1 e 206 0 ]
+[v _input_buffer input_buffer `S1560  1 e 206 0 ]
 "110
-[v _output_buffer output_buffer `S1453  1 e 206 0 ]
+[v _output_buffer output_buffer `S1560  1 e 206 0 ]
 "112
 [v _Transmit_stall Transmit_stall `uc  1 e 1 0 ]
 "16 C:\EV16.git\trunk\Charger_Control.X\main.c
 [v _main main `(v  1 e 0 0 ]
 {
-"59
+"60
 } 0
 "12 C:\EV16.git\trunk\Charger_Control.X\Communications.c
 [v _updateComms updateComms `(v  1 e 0 0 ]
 {
 "18
 } 0
-"31
+"38
 [v _respondChargerAsECU respondChargerAsECU `(v  1 e 0 0 ]
 {
-"39
+"47
 } 0
-"59 C:\EV16.git\trunk\Charger_Control.X\Functions.c
+"134 C:\EV16.git\trunk\Charger_Control.X\Functions.c
+[v _GetPowerState GetPowerState `(uc  1 e 1 0 ]
+{
+"136
+} 0
+"64
 [v _SetCharger SetCharger `(v  1 e 0 0 ]
 {
 [v SetCharger@mode mode `uc  1 a 1 wreg ]
 [v SetCharger@mode mode `uc  1 a 1 wreg ]
-[v SetCharger@Current Current `uc  1 p 1 0 ]
-[v SetCharger@Voltage Voltage `uc  1 p 1 1 ]
-[v SetCharger@mode mode `uc  1 a 1 2 ]
-"82
+[v SetCharger@Current Current `uc  1 p 1 32 ]
+[v SetCharger@Voltage Voltage `uc  1 p 1 33 ]
+[v SetCharger@mode mode `uc  1 a 1 34 ]
+"87
 } 0
 "464 C:\Program Files (x86)\Microchip\xc8\v1.35\sources\common\doprnt.c
 [v _printf printf `(i  1 e 2 0 ]
 {
 "530
-[v printf@cp cp `*.35Cuc  1 a 2 36 ]
+[v printf@cp cp `*.35Cuc  1 a 2 4 ]
 "466
-[v printf@ap ap `[1]*.39v  1 a 2 33 ]
+[v printf@ap ap `[1]*.39v  1 a 2 1 ]
 "499
-[v printf@c c `c  1 a 1 35 ]
+[v printf@c c `c  1 a 1 3 ]
 "508
-[v printf@flag flag `uc  1 a 1 32 ]
+[v printf@flag flag `uc  1 a 1 0 ]
 "464
 [v printf@f f `*.25Cuc  1 p 2 28 ]
 "1541
@@ -875,31 +884,31 @@
 [v EUSART2_Write@txData txData `uc  1 a 1 26 ]
 "145
 } 0
-"91 C:\EV16.git\trunk\Charger_Control.X\Functions.c
+"96 C:\EV16.git\trunk\Charger_Control.X\Functions.c
 [v _SetMux SetMux `(v  1 e 0 0 ]
 {
 [v SetMux@channel channel `uc  1 a 1 wreg ]
 [v SetMux@channel channel `uc  1 a 1 wreg ]
 [v SetMux@channel channel `uc  1 a 1 26 ]
-"113
+"118
 } 0
-"26
+"29
 [v _Precharge Precharge `(v  1 e 0 0 ]
 {
 [v Precharge@OnOff OnOff `uc  1 a 1 wreg ]
-"42
-[v Precharge@i_1680 i `i  1 a 2 3 ]
-"30
+"46
+[v Precharge@i_1779 i `i  1 a 2 3 ]
+"33
 [v Precharge@i i `i  1 a 2 1 ]
-"26
+"29
 [v Precharge@OnOff OnOff `uc  1 a 1 wreg ]
 [v Precharge@OnOff OnOff `uc  1 a 1 0 ]
-"48
+"53
 } 0
-"116
+"127
 [v _ledDebug ledDebug `(v  1 e 0 0 ]
 {
-"121
+"132
 } 0
 "156 C:\EV16.git\trunk\Charger_Control.X\mcc_generated_files/tmr0.c
 [v _time_get time_get `(i  1 e 2 0 ]
@@ -935,7 +944,7 @@
 "128
 [v _NokiaStr NokiaStr `(v  1 e 0 0 ]
 {
-[v NokiaStr@str str `*.25uc  1 p 2 36 ]
+[v NokiaStr@str str `*.25uc  1 p 2 3 ]
 "133
 } 0
 "111
@@ -960,29 +969,29 @@
 [v ___wmul@multiplicand multiplicand `ui  1 p 2 28 ]
 "53
 } 0
-"41 C:\EV16.git\trunk\Charger_Control.X\Communications.c
+"56 C:\EV16.git\trunk\Charger_Control.X\Communications.c
 [v _SetBMM SetBMM `(uc  1 e 1 0 ]
 {
-"54
+"69
 } 0
 "53 C:\EV16.git\trunk\Charger_Control.X\FastTransfer.c
 [v _sendData sendData `(v  1 e 0 0 ]
 {
 [v sendData@whereToSend whereToSend `uc  1 a 1 wreg ]
 "66
-[v sendData@i i `i  1 a 2 3 ]
+[v sendData@i i `i  1 a 2 6 ]
 "53
-[v sendData@CS CS `uc  1 a 1 2 ]
+[v sendData@CS CS `uc  1 a 1 5 ]
 [v sendData@whereToSend whereToSend `uc  1 a 1 wreg ]
 "56
-[v sendData@whereToSend whereToSend `uc  1 a 1 1 ]
+[v sendData@whereToSend whereToSend `uc  1 a 1 4 ]
 "80
 } 0
 "321
 [v _crcBufS_put crcBufS_put `(v  1 e 0 0 ]
 {
-[s S1260 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
-[v crcBufS_put@_this _this `*.39S1260  1 p 2 26 ]
+[s S1367 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
+[v crcBufS_put@_this _this `*.39S1367  1 p 2 26 ]
 [v crcBufS_put@address address `uc  1 p 1 28 ]
 [v crcBufS_put@oldCRC oldCRC `uc  1 p 1 29 ]
 [v crcBufS_put@status status `uc  1 p 1 30 ]
@@ -991,9 +1000,9 @@
 "261
 [v _FastTransfer_buffer_flush FastTransfer_buffer_flush `(v  1 e 0 0 ]
 {
-[s S1252 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
-[v FastTransfer_buffer_flush@_this _this `*.39S1252  1 p 2 34 ]
-[v FastTransfer_buffer_flush@clearBuffer clearBuffer `Ci  1 p 2 36 ]
+[s S1359 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[v FastTransfer_buffer_flush@_this _this `*.39S1359  1 p 2 0 ]
+[v FastTransfer_buffer_flush@clearBuffer clearBuffer `Ci  1 p 2 2 ]
 "268
 } 0
 "8 C:\Program Files (x86)\Microchip\xc8\v1.35\sources\common\memset.c
@@ -1011,30 +1020,30 @@
 [v _receiveData receiveData `(uc  1 e 1 0 ]
 {
 "185
-[v receiveData@holder_1388 holder `[3]uc  1 a 3 18 ]
+[v receiveData@holder_1495 holder `[3]uc  1 a 3 20 ]
 "189
-[v receiveData@crcHolder_1389 crcHolder `uc  1 a 1 14 ]
+[v receiveData@crcHolder_1496 crcHolder `uc  1 a 1 16 ]
 "160
-[v receiveData@holder holder `[3]uc  1 a 3 15 ]
+[v receiveData@holder holder `[3]uc  1 a 3 17 ]
 "164
-[v receiveData@crcHolder crcHolder `uc  1 a 1 13 ]
+[v receiveData@crcHolder crcHolder `uc  1 a 1 15 ]
 "106
-[v receiveData@u u `i  1 a 2 21 ]
+[v receiveData@u u `i  1 a 2 23 ]
 "147
-[v receiveData@r r `i  1 a 2 23 ]
+[v receiveData@r r `i  1 a 2 25 ]
 "211
 } 0
 "373
 [v _CRCcheck CRCcheck `(v  1 e 0 0 ]
 {
 "387
-[v CRCcheck@rt rt `i  1 a 2 5 ]
+[v CRCcheck@rt rt `i  1 a 2 7 ]
 "377
-[v CRCcheck@arrayHolder arrayHolder `[3]uc  1 a 3 2 ]
+[v CRCcheck@arrayHolder arrayHolder `[3]uc  1 a 3 4 ]
 "382
-[v CRCcheck@calculatedCRC calculatedCRC `uc  1 a 1 1 ]
+[v CRCcheck@calculatedCRC calculatedCRC `uc  1 a 1 3 ]
 "381
-[v CRCcheck@SentCRC SentCRC `uc  1 a 1 0 ]
+[v CRCcheck@SentCRC SentCRC `uc  1 a 1 2 ]
 "404
 } 0
 "336
@@ -1042,9 +1051,9 @@
 {
 "341
 [v crcBufS_status_put@wantedTime wantedTime `i  1 a 2 34 ]
-[s S1260 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
+[s S1367 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
 "336
-[v crcBufS_status_put@_this _this `*.39S1260  1 p 2 26 ]
+[v crcBufS_status_put@_this _this `*.39S1367  1 p 2 26 ]
 [v crcBufS_status_put@time time `uc  1 p 1 28 ]
 [v crcBufS_status_put@status status `uc  1 p 1 29 ]
 "348
@@ -1053,10 +1062,10 @@
 [v _crcBufS_get crcBufS_get `(uc  1 e 1 0 ]
 {
 "361
-[v crcBufS_get@wantedTime wantedTime `i  1 a 2 36 ]
-[s S1260 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
+[v crcBufS_get@wantedTime wantedTime `i  1 a 2 0 ]
+[s S1367 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
 "353
-[v crcBufS_get@_this _this `*.39S1260  1 p 2 26 ]
+[v crcBufS_get@_this _this `*.39S1367  1 p 2 26 ]
 [v crcBufS_get@time time `uc  1 p 1 28 ]
 [v crcBufS_get@space space `uc  1 p 1 29 ]
 "368
@@ -1083,14 +1092,14 @@
 [v ToSend@where where `uc  1 a 1 wreg ]
 [v ToSend@where where `uc  1 a 1 wreg ]
 [v ToSend@what what `ui  1 p 2 2 ]
-[v ToSend@where where `uc  1 a 1 37 ]
+[v ToSend@where where `uc  1 a 1 4 ]
 "218
 } 0
 "223
 [v _FastTransfer_buffer_put FastTransfer_buffer_put `(v  1 e 0 0 ]
 {
-[s S1252 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
-[v FastTransfer_buffer_put@_this _this `*.39S1252  1 p 2 32 ]
+[s S1359 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[v FastTransfer_buffer_put@_this _this `*.39S1359  1 p 2 32 ]
 [v FastTransfer_buffer_put@towhere towhere `uc  1 p 1 34 ]
 [v FastTransfer_buffer_put@towhat towhat `ui  1 p 2 35 ]
 "240
@@ -1175,14 +1184,14 @@
 {
 "76
 } 0
-"12 C:\EV16.git\trunk\Charger_Control.X\Functions.c
+"15 C:\EV16.git\trunk\Charger_Control.X\Functions.c
 [v _Delay Delay `(v  1 e 0 0 ]
 {
-"13
+"16
 [v Delay@i i `l  1 a 4 31 ]
-"12
+"15
 [v Delay@wait wait `l  1 p 4 26 ]
-"17
+"20
 } 0
 "68 C:\EV16.git\trunk\Charger_Control.X\mcc_generated_files/interrupt_manager.c
 [v _INTERRUPT_InterruptManager INTERRUPT_InterruptManager `II(v  1 e 0 0 ]
@@ -1207,8 +1216,8 @@
 "102
 [v _UART_buff_size UART_buff_size `(i  1 e 2 0 ]
 {
-[s S1453 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
-[v UART_buff_size@_this _this `*.39S1453  1 p 2 0 ]
+[s S1560 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[v UART_buff_size@_this _this `*.39S1560  1 p 2 0 ]
 "104
 } 0
 "81
@@ -1216,9 +1225,9 @@
 {
 "82
 [v UART_buff_get@c c `uc  1 a 1 10 ]
-[s S1453 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[s S1560 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
 "81
-[v UART_buff_get@_this _this `*.39S1453  1 p 2 6 ]
+[v UART_buff_get@_this _this `*.39S1560  1 p 2 6 ]
 "91
 } 0
 "139
@@ -1231,8 +1240,8 @@
 "68
 [v _UART_buff_put UART_buff_put `(v  1 e 0 0 ]
 {
-[s S1453 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
-[v UART_buff_put@_this _this `*.39S1453  1 p 2 6 ]
+[s S1560 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[v UART_buff_put@_this _this `*.39S1560  1 p 2 6 ]
 [v UART_buff_put@c c `Cuc  1 p 1 8 ]
 "79
 } 0

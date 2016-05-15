@@ -8251,6 +8251,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;functions.h: 15: void SetCharger(char mode, char Current, char Voltage);
 [; ;functions.h: 16: void SetMux(char channel);
 [; ;functions.h: 17: void ledDebug();
+[; ;functions.h: 18: bool GetPowerState();
 [; ;Communications.h: 11: extern volatile int receiveArray[20];
 [; ;Communications.h: 12: void updateComms();
 [; ;Communications.h: 13: extern void sendData(unsigned char whereToSend);
@@ -8266,9 +8267,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;NokiaLCD.h: 16: void NokiaStr( char *str);
 [; ;NokiaLCD.h: 17: void LCDwrite(bool mode, char data);
 [; ;NokiaLCD.h: 18: void Splash();
-[v F8934 `Cuc ~T0 @X0 -> 5 `i t ]
+[v F8935 `Cuc ~T0 @X0 -> 5 `i t ]
 "20 NokiaLCD.h
-[v _FONTLOOKUP `F8934 ~T0 @X0 -> 0 `x e ]
+[v _FONTLOOKUP `F8935 ~T0 @X0 -> 0 `x e ]
 [i _FONTLOOKUP
 :U ..
 :U ..
@@ -9178,38 +9179,38 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 51: Splash();
 "51
 [e ( _Splash ..  ]
-[; ;main.c: 52: while(SetBMM());
-"52
+[; ;main.c: 53: while(SetBMM());
+"53
 [e $U 1179  ]
 [e :U 1180 ]
 [e :U 1179 ]
 [e $ != -> ( _SetBMM ..  `i -> -> -> 0 `i `uc `i 1180  ]
 [e :U 1181 ]
-[; ;main.c: 54: do { LATA3 = 1; } while(0);
-"54
+[; ;main.c: 55: do { LATA3 = 1; } while(0);
+"55
 [e :U 1184 ]
 {
 [e = _LATA3 -> -> 1 `i `b ]
 }
 [e :U 1183 ]
-[; ;main.c: 55: while(1){
-"55
+[; ;main.c: 56: while(1){
+"56
 [e :U 1186 ]
 {
-[; ;main.c: 56: updateComms();
-"56
-[e ( _updateComms ..  ]
-[; ;main.c: 57: ledDebug();
+[; ;main.c: 57: updateComms();
 "57
-[e ( _ledDebug ..  ]
+[e ( _updateComms ..  ]
+[; ;main.c: 58: ledDebug();
 "58
+[e ( _ledDebug ..  ]
+"59
 }
 [e :U 1185 ]
-"55
+"56
 [e $U 1186  ]
 [e :U 1187 ]
-[; ;main.c: 58: }
 [; ;main.c: 59: }
-"59
+[; ;main.c: 60: }
+"60
 [e :UE 1178 ]
 }

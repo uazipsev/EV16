@@ -1,7 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F8771 `(v ~T0 @X0 1 tf1`ul ]
+[v F8772 `(v ~T0 @X0 1 tf1`ul ]
 "152 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18.h
-[v __delay `JF8771 ~T0 @X0 0 e ]
+[v __delay `JF8772 ~T0 @X0 0 e ]
 [p i __delay ]
 "19009 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
 [v _LATC1 `Vb ~T0 @X0 0 e@31833 ]
@@ -33,6 +33,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Functions.h: 15: void SetCharger(char mode, char Current, char Voltage);
 [; ;Functions.h: 16: void SetMux(char channel);
 [; ;Functions.h: 17: void ledDebug();
+[; ;Functions.h: 18: bool GetPowerState();
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -8251,7 +8252,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr0.h: 284: void TMR0_Reload16bit(void);
 [; ;tmr0.h: 302: void TMR0_ISR(void);
 [; ;tmr0.h: 320: void TMR0_CallBack(void);
-"10 Functions.c
+"11 Functions.c
 [v _ChargerData `uc ~T0 @X0 -> 9 `i e ]
 [i _ChargerData
 :U ..
@@ -8266,68 +8267,74 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 69 `ui `uc
 ..
 ]
-[; ;Functions.c: 10: char ChargerData[9] = {'M', ',', 0, ',', 0, ',', 0, ',', 'E'};
-"12
+[; ;Functions.c: 11: char ChargerData[9] = {'M', ',', 0, ',', 0, ',', 0, ',', 'E'};
+"13
+[v _PowerOn `uc ~T0 @X0 1 e ]
+[i _PowerOn
+-> -> 0 `i `uc
+]
+[; ;Functions.c: 13: bool PowerOn = 0;
+"15
 [v _Delay `(v ~T0 @X0 1 ef1`l ]
 {
-[; ;Functions.c: 12: void Delay(long int wait) {
+[; ;Functions.c: 15: void Delay(long int wait) {
 [e :U _Delay ]
 [v _wait `l ~T0 @X0 1 r1 ]
 [f ]
-"13
+"16
 [v _i `l ~T0 @X0 1 a ]
-[; ;Functions.c: 13: long int i = 0;
+[; ;Functions.c: 16: long int i = 0;
 [e = _i -> -> 0 `i `l ]
-[; ;Functions.c: 14: for (; wait > i; i++) {
-"14
+[; ;Functions.c: 17: for (; wait > i; i++) {
+"17
 {
 [e $U 1182  ]
 [e :U 1179 ]
 {
-[; ;Functions.c: 15: _delay((unsigned long)((1)*(16000000/4000.0)));
-"15
+[; ;Functions.c: 18: _delay((unsigned long)((1)*(16000000/4000.0)));
+"18
 [e ( __delay (1 -> * -> -> 1 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"16
+"19
 }
-"14
+"17
 [e ++ _i -> -> 1 `i `l ]
 [e :U 1182 ]
 [e $ > _wait _i 1179  ]
 [e :U 1180 ]
-"16
+"19
 }
-[; ;Functions.c: 16: }
-[; ;Functions.c: 17: }
-"17
+[; ;Functions.c: 19: }
+[; ;Functions.c: 20: }
+"20
 [e :UE 1178 ]
 }
-"26
+"29
 [v _Precharge `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;Functions.c: 26: void Precharge(bool OnOff){
+[; ;Functions.c: 29: void Precharge(bool OnOff){
 [e :U _Precharge ]
 [v _OnOff `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;Functions.c: 27: if(OnOff){
-"27
+[; ;Functions.c: 30: if(OnOff){
+"30
 [e $ ! != -> _OnOff `i -> -> -> 0 `i `uc `i 1184  ]
 {
-[; ;Functions.c: 28: do { LATC1 = 1; } while(0);
-"28
+[; ;Functions.c: 31: do { LATC1 = 1; } while(0);
+"31
 [e :U 1187 ]
 {
 [e = _LATC1 -> -> 1 `i `b ]
 }
 [e :U 1186 ]
-[; ;Functions.c: 29: do { LATB3 = 1; } while(0);
-"29
+[; ;Functions.c: 32: do { LATB3 = 1; } while(0);
+"32
 [e :U 1190 ]
 {
 [e = _LATB3 -> -> 1 `i `b ]
 }
 [e :U 1189 ]
-[; ;Functions.c: 30: for(int i = 0;i<5;i++){
-"30
+[; ;Functions.c: 33: for(int i = 0;i<5;i++){
+"33
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
@@ -8335,70 +8342,73 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 1192  ]
 [e :U 1191 ]
 {
-[; ;Functions.c: 31: Delay(1000);
-"31
+[; ;Functions.c: 34: Delay(1000);
+"34
 [e ( _Delay (1 -> -> 1000 `i `l ]
-"32
+"35
 }
-"30
+"33
 [e ++ _i -> 1 `i ]
 [e $ < _i -> 5 `i 1191  ]
 [e :U 1192 ]
-"32
+"35
 }
-[; ;Functions.c: 32: }
-[; ;Functions.c: 33: do { LATB4 = 1; } while(0);
-"33
+[; ;Functions.c: 35: }
+[; ;Functions.c: 36: do { LATB4 = 1; } while(0);
+"36
 [e :U 1196 ]
 {
 [e = _LATB4 -> -> 1 `i `b ]
 }
 [e :U 1195 ]
-[; ;Functions.c: 34: do { LATC0 = 1; } while(0);
-"34
+[; ;Functions.c: 37: do { LATC0 = 1; } while(0);
+"37
 [e :U 1199 ]
 {
 [e = _LATC0 -> -> 1 `i `b ]
 }
 [e :U 1198 ]
-[; ;Functions.c: 35: do { LATB5 = 1; } while(0);
-"35
+[; ;Functions.c: 38: do { LATB5 = 1; } while(0);
+"38
 [e :U 1202 ]
 {
 [e = _LATB5 -> -> 1 `i `b ]
 }
 [e :U 1201 ]
-"36
-}
-[; ;Functions.c: 36: }
-[e $U 1203  ]
-"38
-[e :U 1184 ]
-[; ;Functions.c: 38: else{
-{
-[; ;Functions.c: 39: do { LATB4 = 0; } while(0);
+[; ;Functions.c: 39: PowerOn = 0;
 "39
+[e = _PowerOn -> -> 0 `i `uc ]
+"40
+}
+[; ;Functions.c: 40: }
+[e $U 1203  ]
+"42
+[e :U 1184 ]
+[; ;Functions.c: 42: else{
+{
+[; ;Functions.c: 43: do { LATB4 = 0; } while(0);
+"43
 [e :U 1206 ]
 {
 [e = _LATB4 -> -> 0 `i `b ]
 }
 [e :U 1205 ]
-[; ;Functions.c: 40: do { LATB3 = 0; } while(0);
-"40
+[; ;Functions.c: 44: do { LATB3 = 0; } while(0);
+"44
 [e :U 1209 ]
 {
 [e = _LATB3 -> -> 0 `i `b ]
 }
 [e :U 1208 ]
-[; ;Functions.c: 41: do { LATC0 = 0; } while(0);
-"41
+[; ;Functions.c: 45: do { LATC0 = 0; } while(0);
+"45
 [e :U 1212 ]
 {
 [e = _LATC0 -> -> 0 `i `b ]
 }
 [e :U 1211 ]
-[; ;Functions.c: 42: for(int i = 0;i<5;i++){
-"42
+[; ;Functions.c: 46: for(int i = 0;i<5;i++){
+"46
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
@@ -8406,240 +8416,257 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 1214  ]
 [e :U 1213 ]
 {
-[; ;Functions.c: 43: Delay(1000);
-"43
+[; ;Functions.c: 47: Delay(1000);
+"47
 [e ( _Delay (1 -> -> 1000 `i `l ]
-"44
+"48
 }
-"42
+"46
 [e ++ _i -> 1 `i ]
 [e $ < _i -> 5 `i 1213  ]
 [e :U 1214 ]
-"44
+"48
 }
-[; ;Functions.c: 44: }
-[; ;Functions.c: 45: do { LATC1 = 0; } while(0);
-"45
+[; ;Functions.c: 48: }
+[; ;Functions.c: 49: do { LATC1 = 0; } while(0);
+"49
 [e :U 1218 ]
 {
 [e = _LATC1 -> -> 0 `i `b ]
 }
 [e :U 1217 ]
-[; ;Functions.c: 46: do { LATB5 = 0; } while(0);
-"46
+[; ;Functions.c: 50: do { LATB5 = 0; } while(0);
+"50
 [e :U 1221 ]
 {
 [e = _LATB5 -> -> 0 `i `b ]
 }
 [e :U 1220 ]
-"47
+[; ;Functions.c: 51: PowerOn = 1;
+"51
+[e = _PowerOn -> -> 1 `i `uc ]
+"52
 }
 [e :U 1203 ]
-[; ;Functions.c: 47: }
-[; ;Functions.c: 48: }
-"48
+[; ;Functions.c: 52: }
+[; ;Functions.c: 53: }
+"53
 [e :UE 1183 ]
 }
-"59
+"64
 [v _SetCharger `(v ~T0 @X0 1 ef3`uc`uc`uc ]
 {
-[; ;Functions.c: 59: void SetCharger(char mode, char Current, char Voltage){
+[; ;Functions.c: 64: void SetCharger(char mode, char Current, char Voltage){
 [e :U _SetCharger ]
 [v _mode `uc ~T0 @X0 1 r1 ]
 [v _Current `uc ~T0 @X0 1 r2 ]
 [v _Voltage `uc ~T0 @X0 1 r3 ]
 [f ]
-[; ;Functions.c: 60: if(mode == 1){
-"60
+[; ;Functions.c: 65: if(mode == 1){
+"65
 [e $ ! == -> _mode `i -> 1 `i 1223  ]
 {
-[; ;Functions.c: 62: SetMux(1);
-"62
-[e ( _SetMux (1 -> -> 1 `i `uc ]
-[; ;Functions.c: 65: ChargerData[2] = 001;
-"65
-[e = *U + &U _ChargerData * -> -> -> 2 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux -> -> 1 `i `uc ]
-[; ;Functions.c: 66: ChargerData[4] = 000;
-"66
-[e = *U + &U _ChargerData * -> -> -> 4 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux -> -> 0 `i `uc ]
-[; ;Functions.c: 67: ChargerData[6] = 001;
+[; ;Functions.c: 67: SetMux(1);
 "67
-[e = *U + &U _ChargerData * -> -> -> 6 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux -> -> 1 `i `uc ]
-[; ;Functions.c: 69: printf("%s",ChargerData);
-"69
-[e ( _printf , (. :s 1C -> &U _ChargerData `*Cuc ]
+[e ( _SetMux (1 -> -> 1 `i `uc ]
+[; ;Functions.c: 70: ChargerData[2] = 001;
 "70
+[e = *U + &U _ChargerData * -> -> -> 2 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux -> -> 1 `i `uc ]
+[; ;Functions.c: 71: ChargerData[4] = 000;
+"71
+[e = *U + &U _ChargerData * -> -> -> 4 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux -> -> 0 `i `uc ]
+[; ;Functions.c: 72: ChargerData[6] = 001;
+"72
+[e = *U + &U _ChargerData * -> -> -> 6 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux -> -> 1 `i `uc ]
+[; ;Functions.c: 74: printf("%s",ChargerData);
+"74
+[e ( _printf , (. :s 1C -> &U _ChargerData `*Cuc ]
+"75
 }
 [e :U 1223 ]
-[; ;Functions.c: 70: }
-[; ;Functions.c: 71: if(mode == 2){
-"71
+[; ;Functions.c: 75: }
+[; ;Functions.c: 76: if(mode == 2){
+"76
 [e $ ! == -> _mode `i -> 2 `i 1224  ]
 {
-[; ;Functions.c: 73: SetMux(1);
-"73
-[e ( _SetMux (1 -> -> 1 `i `uc ]
-[; ;Functions.c: 75: ChargerData[2] = Current;
-"75
-[e = *U + &U _ChargerData * -> -> -> 2 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux _Current ]
-[; ;Functions.c: 76: ChargerData[4] = Voltage;
-"76
-[e = *U + &U _ChargerData * -> -> -> 4 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux _Voltage ]
-[; ;Functions.c: 78: ChargerData[6] = (Current + Voltage)%1,000;
+[; ;Functions.c: 78: SetMux(1);
 "78
-[e ; = *U + &U _ChargerData * -> -> -> 6 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux -> % + -> _Current `i -> _Voltage `i -> 1 `i `uc -> 0 `i ]
-[; ;Functions.c: 80: printf("%s",ChargerData);
+[e ( _SetMux (1 -> -> 1 `i `uc ]
+[; ;Functions.c: 80: ChargerData[2] = Current;
 "80
-[e ( _printf , (. :s 2C -> &U _ChargerData `*Cuc ]
+[e = *U + &U _ChargerData * -> -> -> 2 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux _Current ]
+[; ;Functions.c: 81: ChargerData[4] = Voltage;
 "81
+[e = *U + &U _ChargerData * -> -> -> 4 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux _Voltage ]
+[; ;Functions.c: 83: ChargerData[6] = (Current + Voltage)%1,000;
+"83
+[e ; = *U + &U _ChargerData * -> -> -> 6 `i `ui `ux -> -> # *U &U _ChargerData `ui `ux -> % + -> _Current `i -> _Voltage `i -> 1 `i `uc -> 0 `i ]
+[; ;Functions.c: 85: printf("%s",ChargerData);
+"85
+[e ( _printf , (. :s 2C -> &U _ChargerData `*Cuc ]
+"86
 }
 [e :U 1224 ]
-[; ;Functions.c: 81: }
-[; ;Functions.c: 82: }
-"82
+[; ;Functions.c: 86: }
+[; ;Functions.c: 87: }
+"87
 [e :UE 1222 ]
 }
-"91
+"96
 [v _SetMux `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;Functions.c: 91: void SetMux(char channel){
+[; ;Functions.c: 96: void SetMux(char channel){
 [e :U _SetMux ]
 [v _channel `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;Functions.c: 92: switch (channel){
-"92
+[; ;Functions.c: 97: switch (channel){
+"97
 [e $U 1227  ]
 {
-[; ;Functions.c: 93: case 1:
-"93
+[; ;Functions.c: 98: case 1:
+"98
 [e :U 1228 ]
-[; ;Functions.c: 94: do { LATB0 = 0; } while(0);
-"94
+[; ;Functions.c: 99: do { LATB0 = 0; } while(0);
+"99
 [e :U 1231 ]
 {
 [e = _LATB0 -> -> 0 `i `b ]
 }
 [e :U 1230 ]
-[; ;Functions.c: 95: do { LATB1 = 0; } while(0);
-"95
+[; ;Functions.c: 100: do { LATB1 = 0; } while(0);
+"100
 [e :U 1234 ]
 {
 [e = _LATB1 -> -> 0 `i `b ]
 }
 [e :U 1233 ]
-[; ;Functions.c: 96: break;
-"96
+[; ;Functions.c: 101: break;
+"101
 [e $U 1226  ]
-[; ;Functions.c: 97: case 2:
-"97
+[; ;Functions.c: 102: case 2:
+"102
 [e :U 1235 ]
-[; ;Functions.c: 98: do { LATB0 = 1; } while(0);
-"98
+[; ;Functions.c: 103: do { LATB0 = 1; } while(0);
+"103
 [e :U 1238 ]
 {
 [e = _LATB0 -> -> 1 `i `b ]
 }
 [e :U 1237 ]
-[; ;Functions.c: 99: do { LATB1 = 0; } while(0);
-"99
+[; ;Functions.c: 104: do { LATB1 = 0; } while(0);
+"104
 [e :U 1241 ]
 {
 [e = _LATB1 -> -> 0 `i `b ]
 }
 [e :U 1240 ]
-[; ;Functions.c: 100: break;
-"100
+[; ;Functions.c: 105: break;
+"105
 [e $U 1226  ]
-[; ;Functions.c: 101: case 3:
-"101
+[; ;Functions.c: 106: case 3:
+"106
 [e :U 1242 ]
-[; ;Functions.c: 102: do { LATB0 = 0; } while(0);
-"102
+[; ;Functions.c: 107: do { LATB0 = 0; } while(0);
+"107
 [e :U 1245 ]
 {
 [e = _LATB0 -> -> 0 `i `b ]
 }
 [e :U 1244 ]
-[; ;Functions.c: 103: do { LATB1 = 1; } while(0);
-"103
+[; ;Functions.c: 108: do { LATB1 = 1; } while(0);
+"108
 [e :U 1248 ]
 {
 [e = _LATB1 -> -> 1 `i `b ]
 }
 [e :U 1247 ]
-[; ;Functions.c: 104: break;
-"104
+[; ;Functions.c: 109: break;
+"109
 [e $U 1226  ]
-[; ;Functions.c: 105: case 4:
-"105
+[; ;Functions.c: 110: case 4:
+"110
 [e :U 1249 ]
-[; ;Functions.c: 106: do { LATB0 = 1; } while(0);
-"106
+[; ;Functions.c: 111: do { LATB0 = 1; } while(0);
+"111
 [e :U 1252 ]
 {
 [e = _LATB0 -> -> 1 `i `b ]
 }
 [e :U 1251 ]
-[; ;Functions.c: 107: do { LATB1 = 1; } while(0);
-"107
+[; ;Functions.c: 112: do { LATB1 = 1; } while(0);
+"112
 [e :U 1255 ]
 {
 [e = _LATB1 -> -> 1 `i `b ]
 }
 [e :U 1254 ]
-[; ;Functions.c: 108: break;
-"108
+[; ;Functions.c: 113: break;
+"113
 [e $U 1226  ]
-[; ;Functions.c: 109: default:
-"109
+[; ;Functions.c: 114: default:
+"114
 [e :U 1256 ]
-[; ;Functions.c: 111: break;
-"111
+[; ;Functions.c: 116: break;
+"116
 [e $U 1226  ]
-"112
+"117
 }
-[; ;Functions.c: 112: }
+[; ;Functions.c: 117: }
 [e $U 1226  ]
-"92
+"97
 [e :U 1227 ]
 [e [\ _channel , $ -> -> 1 `i `uc 1228
  , $ -> -> 2 `i `uc 1235
  , $ -> -> 3 `i `uc 1242
  , $ -> -> 4 `i `uc 1249
  1256 ]
-"112
+"117
 [e :U 1226 ]
-[; ;Functions.c: 113: }
-"113
+[; ;Functions.c: 118: }
+"118
 [e :UE 1225 ]
 }
-"116
+"127
 [v _ledDebug `(v ~T0 @X0 1 ef ]
 {
-[; ;Functions.c: 116: void ledDebug() {
+[; ;Functions.c: 127: void ledDebug() {
 [e :U _ledDebug ]
 [f ]
-[; ;Functions.c: 117: if (time_get(1) > 500) {
-"117
+[; ;Functions.c: 128: if (time_get(1) > 500) {
+"128
 [e $ ! > ( _time_get (1 -> -> 1 `i `uc -> 500 `i 1258  ]
 {
-[; ;Functions.c: 118: do { LATA3 = ~LATA3; } while(0);
-"118
+[; ;Functions.c: 129: do { LATA3 = ~LATA3; } while(0);
+"129
 [e :U 1261 ]
 {
 [e = _LATA3 -> ~ -> _LATA3 `ui `b ]
 }
 [e :U 1260 ]
-[; ;Functions.c: 119: time_Set(1, 0);
-"119
+[; ;Functions.c: 130: time_Set(1, 0);
+"130
 [e ( _time_Set (2 , -> -> 1 `i `uc -> 0 `i ]
-"120
+"131
 }
 [e :U 1258 ]
-[; ;Functions.c: 120: }
-[; ;Functions.c: 121: }
-"121
+[; ;Functions.c: 131: }
+[; ;Functions.c: 132: }
+"132
 [e :UE 1257 ]
+}
+"134
+[v _GetPowerState `(uc ~T0 @X0 1 ef ]
+{
+[; ;Functions.c: 134: bool GetPowerState(){
+[e :U _GetPowerState ]
+[f ]
+[; ;Functions.c: 135: return PowerOn;
+"135
+[e ) _PowerOn ]
+[e $UE 1262  ]
+[; ;Functions.c: 136: }
+"136
+[e :UE 1262 ]
 }
 [p f _printf 8650752 ]
 [a 1C 37 115 0 ]

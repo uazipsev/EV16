@@ -43,7 +43,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LATCbits `VS488 ~T0 @X0 0 e@3979 ]
 "15 Communications.h
 [v _ToSend `(v ~T0 @X0 0 ef2`Cuc`Cui ]
-"13 Functions.h
+"18 Functions.h
+[v _GetPowerState `(uc ~T0 @X0 0 ef ]
+"13
 [v _Delay `(v ~T0 @X0 0 ef1`l ]
 "13 Communications.h
 [v _sendData `(v ~T0 @X0 0 ef1`uc ]
@@ -8191,6 +8193,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Functions.h: 15: void SetCharger(char mode, char Current, char Voltage);
 [; ;Functions.h: 16: void SetMux(char channel);
 [; ;Functions.h: 17: void ledDebug();
+[; ;Functions.h: 18: bool GetPowerState();
 "12 Communications.c
 [v _updateComms `(v ~T0 @X0 1 ef ]
 {
@@ -8218,86 +8221,89 @@ Version 3.2 HI-TECH Software Intermediate Code
 "18
 [e :UE 1177 ]
 }
-"31
+"38
 [v _respondChargerAsECU `(v ~T0 @X0 1 ef ]
 {
-[; ;Communications.c: 31: void respondChargerAsECU() {
+[; ;Communications.c: 38: void respondChargerAsECU() {
 [e :U _respondChargerAsECU ]
 [f ]
-[; ;Communications.c: 32: LATCbits.LATC5 = 1;
-"32
-[e = . . _LATCbits 0 5 -> -> 1 `i `uc ]
-[; ;Communications.c: 33: ToSend(0, 1);
-"33
-[e ( _ToSend (2 , -> -> 0 `i `uc -> -> 1 `i `ui ]
-[; ;Communications.c: 34: ToSend(1, 1);
-"34
-[e ( _ToSend (2 , -> -> 1 `i `uc -> -> 1 `i `ui ]
-[; ;Communications.c: 35: Delay(5);
-"35
-[e ( _Delay (1 -> -> 5 `i `l ]
-[; ;Communications.c: 36: sendData(6);
-"36
-[e ( _sendData (1 -> -> 6 `i `uc ]
-[; ;Communications.c: 37: Delay(3);
-"37
-[e ( _Delay (1 -> -> 3 `i `l ]
-[; ;Communications.c: 38: LATCbits.LATC5 = 0;
-"38
-[e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
-[; ;Communications.c: 39: }
+[; ;Communications.c: 39: LATCbits.LATC5 = 1;
 "39
+[e = . . _LATCbits 0 5 -> -> 1 `i `uc ]
+[; ;Communications.c: 40: ToSend(0, 7);
+"40
+[e ( _ToSend (2 , -> -> 0 `i `uc -> -> 7 `i `ui ]
+[; ;Communications.c: 41: ToSend(2, GetPowerState());
+"41
+[e ( _ToSend (2 , -> -> 2 `i `uc -> ( _GetPowerState ..  `ui ]
+[; ;Communications.c: 42: ToSend(3, GetPowerState());
+"42
+[e ( _ToSend (2 , -> -> 3 `i `uc -> ( _GetPowerState ..  `ui ]
+[; ;Communications.c: 43: Delay(5);
+"43
+[e ( _Delay (1 -> -> 5 `i `l ]
+[; ;Communications.c: 44: sendData(6);
+"44
+[e ( _sendData (1 -> -> 6 `i `uc ]
+[; ;Communications.c: 45: Delay(3);
+"45
+[e ( _Delay (1 -> -> 3 `i `l ]
+[; ;Communications.c: 46: LATCbits.LATC5 = 0;
+"46
+[e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
+[; ;Communications.c: 47: }
+"47
 [e :UE 1179 ]
 }
-"41
+"56
 [v _SetBMM `(uc ~T0 @X0 1 ef ]
 {
-[; ;Communications.c: 41: bool SetBMM() {
+[; ;Communications.c: 56: bool SetBMM() {
 [e :U _SetBMM ]
 [f ]
-[; ;Communications.c: 42: LATCbits.LATC5 = 1;
-"42
+[; ;Communications.c: 57: LATCbits.LATC5 = 1;
+"57
 [e = . . _LATCbits 0 5 -> -> 1 `i `uc ]
-[; ;Communications.c: 43: ToSend(0, 1);
-"43
+[; ;Communications.c: 58: ToSend(0, 1);
+"58
 [e ( _ToSend (2 , -> -> 0 `i `uc -> -> 1 `i `ui ]
-[; ;Communications.c: 44: ToSend(1, 1);
-"44
+[; ;Communications.c: 59: ToSend(1, 1);
+"59
 [e ( _ToSend (2 , -> -> 1 `i `uc -> -> 1 `i `ui ]
-[; ;Communications.c: 45: Delay(5);
-"45
+[; ;Communications.c: 60: Delay(5);
+"60
 [e ( _Delay (1 -> -> 5 `i `l ]
-[; ;Communications.c: 46: sendData(6);
-"46
+[; ;Communications.c: 61: sendData(6);
+"61
 [e ( _sendData (1 -> -> 6 `i `uc ]
-[; ;Communications.c: 47: Delay(3);
-"47
+[; ;Communications.c: 62: Delay(3);
+"62
 [e ( _Delay (1 -> -> 3 `i `l ]
-[; ;Communications.c: 48: LATCbits.LATC5 = 0;
-"48
+[; ;Communications.c: 63: LATCbits.LATC5 = 0;
+"63
 [e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
-[; ;Communications.c: 49: Delay(100);
-"49
+[; ;Communications.c: 64: Delay(100);
+"64
 [e ( _Delay (1 -> -> 100 `i `l ]
-[; ;Communications.c: 50: if (receiveData()){
-"50
+[; ;Communications.c: 65: if (receiveData()){
+"65
 [e $ ! != -> ( _receiveData ..  `i -> -> -> 0 `i `uc `i 1181  ]
 {
-[; ;Communications.c: 51: return 0;
-"51
+[; ;Communications.c: 66: return 0;
+"66
 [e ) -> -> 0 `i `uc ]
 [e $UE 1180  ]
-"52
+"67
 }
-[; ;Communications.c: 52: }
+[; ;Communications.c: 67: }
 [e $U 1182  ]
-"53
+"68
 [e :U 1181 ]
-[; ;Communications.c: 53: else return 1;
+[; ;Communications.c: 68: else return 1;
 [e ) -> -> 1 `i `uc ]
 [e $UE 1180  ]
 [e :U 1182 ]
-[; ;Communications.c: 54: }
-"54
+[; ;Communications.c: 69: }
+"69
 [e :UE 1180 ]
 }

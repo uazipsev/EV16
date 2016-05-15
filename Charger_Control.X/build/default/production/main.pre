@@ -10538,6 +10538,7 @@ void Precharge(bool OnOff);
 void SetCharger(char mode, char Current, char Voltage);
 void SetMux(char channel);
 void ledDebug();
+bool GetPowerState();
 
 # 11 "Communications.h"
 extern volatile int receiveArray[20];
@@ -10678,6 +10679,7 @@ Delay(100);
 
 clearLcd();
 Splash();
+
 while(SetBMM());
 
 do { LATA3 = 1; } while(0);

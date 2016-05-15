@@ -15,6 +15,7 @@ void Precharge(bool OnOff);
 void SetCharger(char mode, char Current, char Voltage);
 void SetMux(char channel);
 void ledDebug();
+bool GetPowerState();
 
 #endif	/* FUNCTIONS_H */
 

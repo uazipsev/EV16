@@ -10342,6 +10342,7 @@ void Precharge(bool OnOff);
 void SetCharger(char mode, char Current, char Voltage);
 void SetMux(char channel);
 void ledDebug();
+bool GetPowerState();
 
 # 12 "Communications.c"
 void updateComms() {
@@ -10352,17 +10353,19 @@ respondChargerAsECU();
 }
 }
 
-# 31
+# 38
 void respondChargerAsECU() {
 LATCbits.LATC5 = 1;
-ToSend(0, 1);
-ToSend(1, 1);
+ToSend(0, 7);
+ToSend(2, GetPowerState());
+ToSend(3, GetPowerState());
 Delay(5);
 sendData(6);
 Delay(3);
 LATCbits.LATC5 = 0;
 }
 
+# 56
 bool SetBMM() {
 LATCbits.LATC5 = 1;
 ToSend(0, 1);

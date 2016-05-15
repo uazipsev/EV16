@@ -37,8 +37,9 @@ void updateComms() {
 
 void respondChargerAsECU() {
     LATCbits.LATC5 = 1;
-    ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
-    ToSend(BMM_COMM_STATE, 1);
+    ToSend(RESPONSE_ADDRESS, CHARGER_ADDRESS);
+    ToSend(CHARGER_POWER_STATE, GetPowerState());
+    ToSend(FAULT_STATE, GetPowerState());
     Delay(5);
     sendData(BMM_ADDRESS);
     Delay(3);
