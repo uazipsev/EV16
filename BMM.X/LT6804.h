@@ -238,7 +238,7 @@ int LTC6804_rdaux(int reg, int nIC, int aux_codes[][6]);
 
 void LTC6804_rdaux_reg(int reg, int nIC, int *data);
 
-int LTC6804_rdStat(int reg, int total_ic, int Stat_codes[][8]); // Similar function as above but read stats. Custom code not from LT
+int LTC6804_rdStat(int reg, int total_ic, int Stat_codes[][6]); // Similar function as above but read stats. Custom code not from LT
 
 void LTC6804_rdStat_reg(int reg, int total_ic, int *data); //This is used for the LTC6804_rdStat. Custom code not from LT
 
@@ -260,8 +260,6 @@ void spi_write_array(int length, int *data);
 
 void spi_write_read(int *TxData, int TXlen, int *rx_data, int RXlen);
 
-//Andrew File
-//void Setting_Config_Register( int GPIO ,int Ref,int SWTRD,int ADCOPT, int VOV, int VUV, int Cell_Dis[] ,int DCTO );
 #endif
 
 

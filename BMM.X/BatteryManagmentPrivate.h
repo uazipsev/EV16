@@ -74,8 +74,8 @@ int cell_codes_Bank1[NUMBEROFIC][12];
 int cell_codes_Bank2[NUMBEROFIC][12];
 int Aux_codes_Bank1[NUMBEROFIC][6];
 int Aux_codes_Bank2[NUMBEROFIC][6];
-int Stat_codes_Bank1[NUMBEROFIC][8];
-int Stat_codes_Bank2[NUMBEROFIC][8];
+int Stat_codes_Bank1[NUMBEROFIC][6];
+int Stat_codes_Bank2[NUMBEROFIC][6];
 /*!< 
   The cell codes will be stored in the cell_codes[][12] array in the following format:
   
@@ -96,7 +96,7 @@ int aux_codes_Bank2[NUMBEROFIC][6];
 void Charge_Mode(int command);
 void Run_Mode();
 void Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]);
-void Read_Total_Voltage(int cell_codesBank1[][12], int cell_codesBank2[][12]);
+int Read_Total_Voltage(int cell_codesBank1[][12], int cell_codesBank2[][12]);
 int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12]);
 
 //Configuration set functions
@@ -108,8 +108,8 @@ int Set_DCTO_Mode_OFF(int bank, int ic); // This is to set all the DCTO (Time to
 int Set_REFON_Pin(int bank, int ic, bool REFON_Mode); //This is to set the Refrence voltage on and off based on mode  1=on 0=off
 int SetBypass(int bank, int ic, int cell, bool value); //This sets the bypass for a cell on. This is so it can discharge the cell. This is placed in the configuration register to be sent. 
 
-int Startuptests(int Stat_codes[NUMBEROFIC][8]); //This function is to test the LTC6804 to make sure everything is in check.
-
+int Startuptests(int Stat_codes[NUMBEROFIC][6]); //This function is to test the LTC6804 to make sure everything is in check.
+int CheckTestReading(int Stat_codes[NUMBEROFIC][6]); //Actually Checks the test from the data.
 
 //Fault Functions
 void CheckFault(int FaultValue); //This function looks and determines if it is a valid funcion.

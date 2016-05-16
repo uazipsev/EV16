@@ -726,79 +726,78 @@ void LTC6804_rdaux_reg(int reg,
 //TODO the reading stat is not accurate quie yet need to figure out over/under voltage.
 int LTC6804_rdStat(int reg,
         int total_ic,
-        int Stat_codes[][8] //every Over Voltage and  every Under voltage of each cell will be combined in two flags. 
+        int Stat_codes[][6] //every Over Voltage and  every Under voltage of each cell will be combined in two flags. 
         )
-{
- 
-    int cell_reg = 0;
-    int current_cell = 0;
-  const int NUM_RX_BYT = 8;
+
+{ const int NUM_RX_BYT = 8;
   const int BYT_IN_REG = 6;
-  const int CELL_IN_REG = 3;
-  
-  int *Stat_data;
-  int pec_error = 0;
-  int parsed_cell;
+  const int GPIO_IN_REG = 3;
+  int gpio_reg = 0;
+  int current_gpio = 0;
+  int *data;
+  int data_counter = 0; 
+  int8_t pec_error = 0;
   int received_pec;
   int data_pec;
-  int data_counter=0; //data counter
-  Stat_data = (int *) malloc((NUM_RX_BYT*total_ic)*sizeof(int));
+  data = (int *) malloc((NUM_RX_BYT*total_ic)*sizeof(int));
   //1.a
   if (reg == 0)
   {
-    //a.i
-    for(cell_reg = 1; cell_reg<3; cell_reg++)         			 //executes once for each of the LTC6804 cell voltage registers
+	//a.i
+    for(gpio_reg = 1; gpio_reg<3; gpio_reg++)		 	   		 //executes once for each of the LTC6804 aux voltage registers
     {
       data_counter = 0;
-      LTC6804_rdStat_reg(cell_reg, total_ic,Stat_data);
-      for (current_ic = 0 ; current_ic < total_ic; current_ic++) // executes for every LTC6804 in the stack
-      {																 	  // current_ic is used as an IC counter
+      LTC6804_rdaux_reg(gpio_reg, total_ic,data);
+      for (current_ic = 0 ; current_ic < total_ic; current_ic++) // This loop executes once for each LTC6804
+      {									  								 // current_ic is used as an IC counter
         //a.ii
-		for(current_cell = 0; current_cell<CELL_IN_REG; current_cell++)	 								  // This loop parses the read back data. Loops 
-        {														   		  // once for each cell voltages in the register 
-          parsed_cell = Stat_data[data_counter] + (Stat_data[data_counter + 1] << 8);
-          Stat_codes[current_ic][current_cell  + ((cell_reg - 1) * CELL_IN_REG)] = parsed_cell;
-          data_counter = data_counter + 2;
+		for(current_gpio = 0; current_gpio< GPIO_IN_REG; current_gpio++)	// This loop parses GPIO voltages stored in the register
+        {								   													
+          
+          Stat_codes[current_ic][current_gpio +((gpio_reg-1)*GPIO_IN_REG)] = data[data_counter] + (data[data_counter+1]<<8);
+          data_counter=data_counter+2;
+		  
         }
 		//a.iii
-        received_pec = (Stat_data[data_counter] << 8) + Stat_data[data_counter+1];
-        data_pec = pec15_calc(BYT_IN_REG, &Stat_data[current_ic * NUM_RX_BYT ]);
+        received_pec = (data[data_counter]<<8)+ data[data_counter+1];
+        data_pec = pec15_calc(BYT_IN_REG, &data[current_ic*NUM_RX_BYT*(gpio_reg-1)]);
         if(received_pec != data_pec)
         {
-          pec_error--;//pec_error = -1;
+          pec_error = -1;
         }
+       
         data_counter=data_counter+2;
       }
+   
+
     }
+  
   }
- //1.b
   else
   {
 	//b.i
-	
-    LTC6804_rdStat_reg(reg, total_ic,Stat_data);
+    LTC6804_rdaux_reg(reg, total_ic, data);
     for (current_ic = 0 ; current_ic < total_ic; current_ic++) // executes for every LTC6804 in the stack
-    {							   									// current_ic is used as an IC counter
+    {							   // current_ic is used as an IC counter
 		//b.ii
-		for(current_cell = 0; current_cell < CELL_IN_REG; current_cell++)   									// This loop parses the read back data. Loops 
-		{						   									// once for each cell voltage in the register 
-			parsed_cell = Stat_data[data_counter] + (Stat_data[data_counter+1]<<8);
-			Stat_codes[current_ic][current_cell + ((reg - 1) * CELL_IN_REG)] = 0x0000FFFF & parsed_cell;
-			data_counter= data_counter + 2;
+		for(current_gpio = 0; current_gpio<GPIO_IN_REG; current_gpio++)   // This loop parses the read back data. Loops 
+		{						   // once for each aux voltage in the register 
+			Stat_codes[current_ic][current_gpio +((reg-1)*GPIO_IN_REG)] = 0x0000FFFF & (data[data_counter] + (data[data_counter+1]<<8));
+			data_counter=data_counter+2;
 		}
 		//b.iii
-	    received_pec = (Stat_data[data_counter] << 8 )+ Stat_data[data_counter + 1];
-        data_pec = pec15_calc(BYT_IN_REG, &Stat_data[current_ic * NUM_RX_BYT * (reg-1)]);
-		if(received_pec != data_pec)
-		{
-			pec_error--;//pec_error = -1;
-		}
+		received_pec = (data[data_counter]<<8) + data[data_counter+1];
+        data_pec = pec15_calc(6, &data[current_ic*8*(reg-1)]);
+        if(received_pec != data_pec)
+        {
+          pec_error = -1;
+        }
 	}
   }
- free(Stat_data);
- //2
-return(pec_error);
+  free(data);
+  return (pec_error);
 }
+
 /*
 	LTC6804_rdStat Sequence
 	
