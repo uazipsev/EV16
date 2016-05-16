@@ -1,0 +1,84 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[; ;Global.h: 5: extern char Temp_Aquire;
+[; ;Global.h: 6: extern char Volt_Aquire;
+[; ;Global.h: 7: extern char Current_Aquire;
+[; ;Global.h: 8: extern int Battery_Adc[10];
+[; ;Global.h: 9: extern int Temp_Adc[10];
+[; ;Global.h: 10: extern int Current_Adc[10];
+[; ;Global.h: 11: extern int ADC_Buffer_Point;
+[; ;Global.h: 12: extern int Volt_Done;
+[; ;Global.h: 13: extern int Temp_Done;
+[; ;Global.h: 14: extern int Current_Done;
+[; ;Global.h: 15: extern char CodeRuning;
+"13 Global.c
+[v _Temp_Aquire `uc ~T0 @X0 1 e ]
+[i _Temp_Aquire
+-> -> 0 `i `uc
+]
+[; ;Global.c: 13: char Temp_Aquire = 0;
+"14
+[v _Volt_Aquire `uc ~T0 @X0 1 e ]
+[i _Volt_Aquire
+-> -> 0 `i `uc
+]
+[; ;Global.c: 14: char Volt_Aquire = 0;
+"15
+[v _Current_Aquire `uc ~T0 @X0 1 e ]
+[i _Current_Aquire
+-> -> 0 `i `uc
+]
+[; ;Global.c: 15: char Current_Aquire = 0;
+"16
+[v _Battery_Adc `i ~T0 @X0 -> 10 `i e ]
+[i _Battery_Adc
+:U ..
+-> 0 `i
+..
+]
+[; ;Global.c: 16: int Battery_Adc[10] = 0;
+"17
+[v _Temp_Adc `i ~T0 @X0 -> 10 `i e ]
+[i _Temp_Adc
+:U ..
+-> 0 `i
+..
+]
+[; ;Global.c: 17: int Temp_Adc[10] = 0;
+"18
+[v _Current_Adc `i ~T0 @X0 -> 10 `i e ]
+[i _Current_Adc
+:U ..
+-> 0 `i
+..
+]
+[; ;Global.c: 18: int Current_Adc[10] = 0;
+"19
+[v _ADC_Buffer_Point `i ~T0 @X0 1 e ]
+[i _ADC_Buffer_Point
+-> 0 `i
+]
+[; ;Global.c: 19: int ADC_Buffer_Point = 0;
+"20
+[v _Temp_Done `i ~T0 @X0 1 e ]
+[i _Temp_Done
+-> 0 `i
+]
+[; ;Global.c: 20: int Temp_Done = 0;
+"21
+[v _Volt_Done `i ~T0 @X0 1 e ]
+[i _Volt_Done
+-> 0 `i
+]
+[; ;Global.c: 21: int Volt_Done = 0;
+"22
+[v _Current_Done `i ~T0 @X0 1 e ]
+[i _Current_Done
+-> 0 `i
+]
+[; ;Global.c: 22: int Current_Done = 0;
+"23
+[v _CodeRuning `uc ~T0 @X0 1 e ]
+[i _CodeRuning
+-> -> 0 `i `uc
+]
+[; ;Global.c: 23: char CodeRuning = 0;
