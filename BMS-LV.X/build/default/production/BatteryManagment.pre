@@ -10355,15 +10355,143 @@ extern __nonreentrant void _delay3(unsigned char);
 # 11 "Functions.h"
 extern void Delay(int wait);
 
+# 13 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\stdint.h"
+typedef signed char int8_t;
+
+# 20
+typedef signed int int16_t;
+
+# 28
+typedef signed short long int int24_t;
+
+# 36
+typedef signed long int int32_t;
+
+# 43
+typedef unsigned char uint8_t;
+
+# 49
+typedef unsigned int uint16_t;
+
+# 56
+typedef unsigned short long int uint24_t;
+
+# 63
+typedef unsigned long int uint32_t;
+
+# 71
+typedef signed char int_least8_t;
+
+# 78
+typedef signed int int_least16_t;
+
+# 90
+typedef signed short long int int_least24_t;
+
+# 98
+typedef signed long int int_least32_t;
+
+# 105
+typedef unsigned char uint_least8_t;
+
+# 111
+typedef unsigned int uint_least16_t;
+
+# 121
+typedef unsigned short long int uint_least24_t;
+
+# 128
+typedef unsigned long int uint_least32_t;
+
+# 137
+typedef signed char int_fast8_t;
+
+# 144
+typedef signed int int_fast16_t;
+
+# 156
+typedef signed short long int int_fast24_t;
+
+# 164
+typedef signed long int int_fast32_t;
+
+# 171
+typedef unsigned char uint_fast8_t;
+
+# 177
+typedef unsigned int uint_fast16_t;
+
+# 187
+typedef unsigned short long int uint_fast24_t;
+
+# 194
+typedef unsigned long int uint_fast32_t;
+
+# 200
+typedef int32_t intmax_t;
+
+
+
+
+typedef uint32_t uintmax_t;
+
+
+
+
+typedef int16_t intptr_t;
+
+
+
+
+typedef uint16_t uintptr_t;
+
 # 12 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\stdbool.h"
 typedef unsigned char bool;
+
+# 72 "mcc_generated_files/adc.h"
+typedef uint16_t adc_result_t;
+
+# 86
+typedef enum
+{
+TEMP1 = 0x1,
+TEMP2 = 0x2,
+TEMP3 = 0x3,
+TEMP4 = 0x4,
+TEMP5 = 0x5,
+TEMP6 = 0x6,
+TEMP7 = 0x7,
+VEXT = 0x9,
+CURRENT = 0xB,
+channel_CTMU = 0x1D,
+channel_DAC = 0x1E,
+channel_FVRBuf2 = 0x1F
+} adc_channel_t;
+
+# 135
+void ADC_Initialize(void);
+
+# 164
+void ADC_StartConversion(adc_channel_t channel);
+
+# 196
+bool ADC_IsConversionDone();
+
+# 229
+adc_result_t ADC_GetConversionResult(void);
+
+# 259
+adc_result_t ADC_GetConversion(adc_channel_t channel);
+
+# 275
+void ADC_ISR(void);
 
 # 12 "BatteryManagment.h"
 void Start_BMS();
 void ChargerEN();
 void ReadCurrentVolt();
 void ReadVoltToCurrent();
-int CurrentGet(bool total, char channel);
+int CurrentGet();
 int Read_Battery(int BatteryPlacement,int cell_codes[][12] );
 extern void CurrentCoulombCount(int tme);
 int UpdateLT6804(int bank);
@@ -10584,10 +10712,10 @@ void spi_write_array(int length, int *data);
 
 void spi_write_read(int *TxData, int TXlen, int *rx_data, int RXlen);
 
-# 17 "BatteryManagment.c"
+# 18 "BatteryManagment.c"
 int Read_Status_INC = 0;
 
-# 30
+# 31
 void Start_BMS() {
 LTC6804_initialize();
 
@@ -10928,7 +11056,7 @@ else if (Error_Value == 0) {
 return Error_Value;
 }
 
-# 377
+# 378
 int Read_Battery(int BatteryPlacement, int cell_codes[1][12]) {
 int Read_Status = 0;
 
@@ -10980,7 +11108,7 @@ break;
 return Read_Status;
 }
 
-# 439
+# 440
 int Read_GPIO(int BatteryPlacement, int aux_codes[1][6]) {
 int Read_Status = 0;
 switch (BatteryPlacement) {
@@ -11028,7 +11156,7 @@ break;
 return Read_Status;
 }
 
-# 495
+# 496
 int SetBypass(int bank, int ic, int cell, bool value) {
 int fault_value = 0;
 if (value) {
@@ -11058,7 +11186,7 @@ fault_value = 18;
 return fault_value;
 }
 
-# 530
+# 531
 int RunBypass_Set(int bank, int ic, int cell_codes[][12]) {
 int cellbyp = 0;
 int voltstat = 0;
@@ -11090,7 +11218,7 @@ UpdateLT6804(bank);
 return cellbyp;
 }
 
-# 569
+# 570
 int SetTempEnable(int bank, int ic, bool value) {
 int fault_value = 0;
 if (value) {
@@ -11110,12 +11238,12 @@ return fault_value = 18;
 return fault_value;
 }
 
-# 595
+# 596
 int CheckUnderOverVoltageFlag() {
 return 1;
 }
 
-# 608
+# 609
 int SetUnderOverVoltage(int VUV, int VOV, int bank, int ic) {
 int fault_value = 0;
 
@@ -11138,7 +11266,7 @@ fault_value = 18;
 return fault_value;
 }
 
-# 639
+# 640
 int Set_ADC_Mode(int bank, int ic, bool ADCOPT_Mode) {
 int fault_value = 0;
 if (ADCOPT_Mode) {
@@ -11216,18 +11344,18 @@ fault_value = 18;
 return fault_value;
 }
 
-# 723
+# 724
 void ReadCurrentVolt() {
+ADC_GetConversion(CURRENT);
 ReadVoltToCurrent();
 }
 
-# 734
+# 736
 void ReadVolt() {
-Volt1 = (Volt1 / 4095)*5 * 158.18;
-Volt2 = (Volt2 / 4095)*5 * 158.18;
+Volt1 = (ADC_GetConversion(VEXT) / 4095)*5 * 5;
 }
 
-# 747
+# 748
 void ReadVoltToCurrent() {
 for (k = 0; k < 5; k++) {
 
@@ -11235,12 +11363,12 @@ Current[k] = ((CVolt[k] / 4095)*5);
 }
 }
 
-# 761
+# 762
 void ChargerEN() {
 CarOn = 0;
 }
 
-# 772
+# 773
 void CurrentCoulombCount(int tme) {
 if (CarOn) {
 CC1 = CC1 - (Current[0] * tme);
@@ -11253,41 +11381,7 @@ CC3 = CC3 + (Current[5] * tme);
 }
 }
 
-# 791
-int CurrentGet(bool total, char channel) {
-if (total) {
-if (CarOn) {
-return Current[0] + Current[2] + Current[4];
-} else {
-return Current[1] + Current[3] + Current[5];
-}
-} else {
-if (CarOn) {
-switch (channel) {
-case 1:
-return Current[0];
-break;
-case 2:
-return Current[2];
-break;
-case 3:
-return Current[4];
-break;
-}
-} else {
-switch (channel) {
-case 1:
-return Current[1];
-break;
-case 2:
-return Current[3];
-break;
-case 3:
-return Current[5];
-break;
-}
-}
-
-}
+# 792
+int CurrentGet() {
 return -1;
 }

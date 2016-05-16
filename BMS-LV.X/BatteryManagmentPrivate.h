@@ -59,7 +59,7 @@ int Under_Voltage_Value = 0x7CF; // Compare Voltage = (Under_Voltage_Value +1) *
 #define DCTO 0 
 #define Cell_Per_Bank 1
 #define CURRENTGAIN 40
-#define VOLTAGERATIO 158.18
+#define VOLTAGERATIO 5
 #define SHUNTOHMS 0.0001
 #define ADCBIT 4095
 #define Bypass_High_Limit 100 //Needs configuration

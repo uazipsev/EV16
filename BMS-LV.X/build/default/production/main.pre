@@ -10673,14 +10673,7 @@ extern void Temp_Filter();
 extern void Temp_Convert();
 extern float Tempeture_Get(int channelnum);
 
-# 13 "Current.h"
-extern float Current_Get();
-void Current_Convert();
-void Current_Filter();
-void Current_Read();
-extern char Current_Fault();
-
-# 29 "Main.c"
+# 28 "Main.c"
 char fault[3] = 0;
 char fault_flag = 0;
 char infault = 0;
@@ -10692,13 +10685,13 @@ do { LATD6 = 1; } while(0);
 Delay(120);
 do { LATD6 = 0; } while(0);
 
-# 56
+# 55
 (INTCONbits.GIE = 1);
 
 
 (INTCONbits.PEIE = 1);
 
-# 68
+# 67
 LATCbits.LATC5 =1;
 printf("BOOT");
 while (1)

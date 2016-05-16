@@ -7,6 +7,7 @@
 #include <math.h>
 #include <xc.h>
 #include "Functions.h"
+#include "mcc_generated_files/adc.h"
 #include "BatteryManagment.h"
 #include "BatteryManagmentPrivate.h"
 #include "mcc_generated_files/pin_manager.h"
@@ -721,6 +722,7 @@ int UpdateLT6804(int bank) {
  *******************************************************************/
 
 void ReadCurrentVolt() {
+    ADC_GetConversion(CURRENT);
     ReadVoltToCurrent(); //Converts ADC counts to amps
 }
 
@@ -732,8 +734,7 @@ void ReadCurrentVolt() {
  *******************************************************************/
 
 void ReadVolt() {
-    Volt1 = (Volt1 / ADCBIT)*5 * VOLTAGERATIO;
-    Volt2 = (Volt2 / ADCBIT)*5 * VOLTAGERATIO;
+    Volt1 = (ADC_GetConversion(VEXT) / ADCBIT)*5 * VOLTAGERATIO;
 }
 
 /*******************************************************************
@@ -788,40 +789,6 @@ void CurrentCoulombCount(int tme) {
  * @note            This can give you a different response depending on input
  *******************************************************************/
 
-int CurrentGet(bool total, char channel) {
-    if (total) {
-        if (CarOn) {
-            return Current[0] + Current[2] + Current[4];
-        } else {
-            return Current[1] + Current[3] + Current[5];
-        }
-    } else {
-        if (CarOn) {
-            switch (channel) {
-                case 1:
-                    return Current[0];
-                    break;
-                case 2:
-                    return Current[2];
-                    break;
-                case 3:
-                    return Current[4];
-                    break;
-            }
-        } else {
-            switch (channel) {
-                case 1:
-                    return Current[1];
-                    break;
-                case 2:
-                    return Current[3];
-                    break;
-                case 3:
-                    return Current[5];
-                    break;
-            }
-        }
-
-    }
+int CurrentGet() {
     return -1;
 }

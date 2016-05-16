@@ -24,7 +24,6 @@
 #include "Functions.h"
 #include "Tempeture.h"
 #include "Functions.h"
-#include "Current.h"
 
 char fault[3] = 0;
 char fault_flag = 0;

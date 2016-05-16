@@ -8354,90 +8354,85 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Tempeture.h: 15: extern void Temp_Filter();
 [; ;Tempeture.h: 16: extern void Temp_Convert();
 [; ;Tempeture.h: 17: extern float Tempeture_Get(int channelnum);
-[; ;Current.h: 13: extern float Current_Get();
-[; ;Current.h: 14: void Current_Convert();
-[; ;Current.h: 15: void Current_Filter();
-[; ;Current.h: 16: void Current_Read();
-[; ;Current.h: 17: extern char Current_Fault();
-"29 Main.c
+"28 Main.c
 [v _fault `uc ~T0 @X0 -> 3 `i e ]
 [i _fault
 :U ..
 -> -> 0 `i `uc
 ..
 ]
-[; ;Main.c: 29: char fault[3] = 0;
-"30
+[; ;Main.c: 28: char fault[3] = 0;
+"29
 [v _fault_flag `uc ~T0 @X0 1 e ]
 [i _fault_flag
 -> -> 0 `i `uc
 ]
-[; ;Main.c: 30: char fault_flag = 0;
-"31
+[; ;Main.c: 29: char fault_flag = 0;
+"30
 [v _infault `uc ~T0 @X0 1 e ]
 [i _infault
 -> -> 0 `i `uc
 ]
-[; ;Main.c: 31: char infault = 0;
-"33
+[; ;Main.c: 30: char infault = 0;
+"32
 [v _main `(i ~T0 @X0 1 ef2`i`**uc ]
 {
-[; ;Main.c: 33: int main(int argc, char** argv) {
+[; ;Main.c: 32: int main(int argc, char** argv) {
 [e :U _main ]
 [v _argc `i ~T0 @X0 1 r1 ]
 [v _argv `**uc ~T0 @X0 1 r2 ]
 [f ]
-[; ;Main.c: 35: SYSTEM_Initialize();
-"35
+[; ;Main.c: 34: SYSTEM_Initialize();
+"34
 [e ( _SYSTEM_Initialize ..  ]
-[; ;Main.c: 36: do { LATD6 = 1; } while(0);
-"36
+[; ;Main.c: 35: do { LATD6 = 1; } while(0);
+"35
 [e :U 1185 ]
 {
 [e = _LATD6 -> -> 1 `i `b ]
 }
 [e :U 1184 ]
-[; ;Main.c: 37: Delay(120);
-"37
+[; ;Main.c: 36: Delay(120);
+"36
 [e ( _Delay (1 -> 120 `i ]
-[; ;Main.c: 38: do { LATD6 = 0; } while(0);
-"38
+[; ;Main.c: 37: do { LATD6 = 0; } while(0);
+"37
 [e :U 1188 ]
 {
 [e = _LATD6 -> -> 0 `i `b ]
 }
 [e :U 1187 ]
-[; ;Main.c: 56: (INTCONbits.GIE = 1);
-"56
+[; ;Main.c: 55: (INTCONbits.GIE = 1);
+"55
 [e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-[; ;Main.c: 59: (INTCONbits.PEIE = 1);
-"59
+[; ;Main.c: 58: (INTCONbits.PEIE = 1);
+"58
 [e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
-[; ;Main.c: 68: LATCbits.LATC5 =1;
-"68
+[; ;Main.c: 67: LATCbits.LATC5 =1;
+"67
 [e = . . _LATCbits 0 5 -> -> 1 `i `uc ]
-[; ;Main.c: 69: printf("BOOT");
-"69
+[; ;Main.c: 68: printf("BOOT");
+"68
 [e ( _printf :s 1C ]
-[; ;Main.c: 70: while (1)
-"70
+[; ;Main.c: 69: while (1)
+"69
 [e :U 1190 ]
-[; ;Main.c: 71: {
-"71
+[; ;Main.c: 70: {
+"70
 {
-"74
+"73
 }
 [e :U 1189 ]
-"70
+"69
 [e $U 1190  ]
 [e :U 1191 ]
-[; ;Main.c: 74: }
-[; ;Main.c: 75: return (0);
-"75
+[; ;Main.c: 73: }
+[; ;Main.c: 74: return (0);
+"74
 [e ) -> 0 `i ]
 [e $UE 1182  ]
-[; ;Main.c: 76: }
-"76
+[; ;Main.c: 75: }
+"75
 [e :UE 1182 ]
 }
 [p f _printf 8388608 ]
