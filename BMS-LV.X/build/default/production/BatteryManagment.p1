@@ -62,7 +62,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F9162 `i ~T0 @X0 -> 6 `i t ]
 "249
 [v _LTC6804_wrcfg `(v ~T0 @X0 0 ef2`i`*F9162 ]
-"725 BatteryManagment.c
+"730 BatteryManagment.c
 [c E8858 1 2 3 4 5 6 7 9 11 29 30 31 .. ]
 [n E8858 . TEMP1 TEMP2 TEMP3 TEMP4 TEMP5 TEMP6 TEMP7 VEXT CURRENT channel_CTMU channel_DAC channel_FVRBuf2  ]
 "259 mcc_generated_files/adc.h
@@ -10996,126 +10996,149 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;BatteryManagment.c: 724: void ReadCurrentVolt() {
 [e :U _ReadCurrentVolt ]
 [f ]
-[; ;BatteryManagment.c: 725: ADC_GetConversion(CURRENT);
 "725
-[e ( _ADC_GetConversion (1 . `E8858 8 ]
-[; ;BatteryManagment.c: 726: ReadVoltToCurrent();
-"726
-[e ( _ReadVoltToCurrent ..  ]
-[; ;BatteryManagment.c: 727: }
+[v _i `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 725: int i;
+[; ;BatteryManagment.c: 727: for(i=6;i<1;i--){
 "727
+{
+[e = _i -> 6 `i ]
+[e $ < _i -> 1 `i 1389  ]
+[e $U 1390  ]
+[e :U 1389 ]
+{
+[; ;BatteryManagment.c: 728: CVolt[i] = CVolt[i-1];
+"728
+[e = *U + &U _CVolt * -> -> _i `ui `ux -> -> # *U &U _CVolt `ui `ux *U + &U _CVolt * -> -> - _i -> 1 `i `ui `ux -> -> # *U &U _CVolt `ui `ux ]
+"729
+}
+"727
+[e -- _i -> 1 `i ]
+[e $ < _i -> 1 `i 1389  ]
+[e :U 1390 ]
+"729
+}
+[; ;BatteryManagment.c: 729: }
+[; ;BatteryManagment.c: 730: CVolt[0] = ADC_GetConversion(CURRENT);
+"730
+[e = *U + &U _CVolt * -> -> -> 0 `i `ui `ux -> -> # *U &U _CVolt `ui `ux -> ( _ADC_GetConversion (1 . `E8858 8 `f ]
+[; ;BatteryManagment.c: 731: ReadVoltToCurrent();
+"731
+[e ( _ReadVoltToCurrent ..  ]
+[; ;BatteryManagment.c: 732: }
+"732
 [e :UE 1388 ]
 }
-"736
+"741
 [v _ReadVolt `(v ~T0 @X0 1 ef ]
 {
-[; ;BatteryManagment.c: 736: void ReadVolt() {
+[; ;BatteryManagment.c: 741: void ReadVolt() {
 [e :U _ReadVolt ]
 [f ]
-[; ;BatteryManagment.c: 737: Volt1 = (ADC_GetConversion(VEXT) / 4095)*5 * 5;
-"737
+[; ;BatteryManagment.c: 742: Volt1 = (ADC_GetConversion(VEXT) / 4095)*5 * 5;
+"742
 [e = _Volt1 -> * * / ( _ADC_GetConversion (1 . `E8858 7 -> -> 4095 `i `ui -> -> 5 `i `ui -> -> 5 `i `ui `f ]
-[; ;BatteryManagment.c: 738: }
-"738
-[e :UE 1389 ]
+[; ;BatteryManagment.c: 743: }
+"743
+[e :UE 1392 ]
 }
-"748
+"753
 [v _ReadVoltToCurrent `(v ~T0 @X0 1 ef ]
 {
-[; ;BatteryManagment.c: 748: void ReadVoltToCurrent() {
+[; ;BatteryManagment.c: 753: void ReadVoltToCurrent() {
 [e :U _ReadVoltToCurrent ]
 [f ]
-[; ;BatteryManagment.c: 749: for (k = 0; k < 5; k++) {
-"749
+[; ;BatteryManagment.c: 754: for (k = 0; k < 5; k++) {
+"754
 {
 [e = _k -> 0 `i ]
-[e $ < _k -> 5 `i 1391  ]
-[e $U 1392  ]
-[e :U 1391 ]
+[e $ < _k -> 5 `i 1394  ]
+[e $U 1395  ]
+[e :U 1394 ]
 {
-[; ;BatteryManagment.c: 751: Current[k] = ((CVolt[k] / 4095)*5);
-"751
+[; ;BatteryManagment.c: 756: Current[k] = ((CVolt[k] / 4095)*5);
+"756
 [e = *U + &U _Current * -> -> _k `ui `ux -> -> # *U &U _Current `ui `ux -> * / *U + &U _CVolt * -> -> _k `ui `ux -> -> # *U &U _CVolt `ui `ux -> -> 4095 `i `f -> -> 5 `i `f `i ]
-"752
+"757
 }
-"749
+"754
 [e ++ _k -> 1 `i ]
-[e $ < _k -> 5 `i 1391  ]
-[e :U 1392 ]
-"752
+[e $ < _k -> 5 `i 1394  ]
+[e :U 1395 ]
+"757
 }
-[; ;BatteryManagment.c: 752: }
-[; ;BatteryManagment.c: 753: }
-"753
-[e :UE 1390 ]
+[; ;BatteryManagment.c: 757: }
+[; ;BatteryManagment.c: 758: }
+"758
+[e :UE 1393 ]
 }
-"762
+"767
 [v _ChargerEN `(v ~T0 @X0 1 ef ]
 {
-[; ;BatteryManagment.c: 762: void ChargerEN() {
+[; ;BatteryManagment.c: 767: void ChargerEN() {
 [e :U _ChargerEN ]
 [f ]
-[; ;BatteryManagment.c: 763: CarOn = 0;
-"763
+[; ;BatteryManagment.c: 768: CarOn = 0;
+"768
 [e = _CarOn -> -> 0 `i `uc ]
-[; ;BatteryManagment.c: 764: }
-"764
-[e :UE 1394 ]
+[; ;BatteryManagment.c: 769: }
+"769
+[e :UE 1397 ]
 }
-"773
+"778
 [v _CurrentCoulombCount `(v ~T0 @X0 1 ef1`i ]
 {
-[; ;BatteryManagment.c: 773: void CurrentCoulombCount(int tme) {
+[; ;BatteryManagment.c: 778: void CurrentCoulombCount(int tme) {
 [e :U _CurrentCoulombCount ]
 [v _tme `i ~T0 @X0 1 r1 ]
 [f ]
-[; ;BatteryManagment.c: 774: if (CarOn) {
-"774
-[e $ ! != -> _CarOn `i -> -> -> 0 `i `uc `i 1396  ]
-{
-[; ;BatteryManagment.c: 775: CC1 = CC1 - (Current[0] * tme);
-"775
-[e = _CC1 - _CC1 -> * *U + &U _Current * -> -> -> 0 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
-[; ;BatteryManagment.c: 776: CC2 = CC2 - (Current[2] * tme);
-"776
-[e = _CC2 - _CC2 -> * *U + &U _Current * -> -> -> 2 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
-[; ;BatteryManagment.c: 777: CC3 = CC3 - (Current[4] * tme);
-"777
-[e = _CC3 - _CC3 -> * *U + &U _Current * -> -> -> 4 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
-"778
-}
-[; ;BatteryManagment.c: 778: } else {
-[e $U 1397  ]
-[e :U 1396 ]
-{
-[; ;BatteryManagment.c: 779: CC1 = CC1 + (Current[1] * tme);
+[; ;BatteryManagment.c: 779: if (CarOn) {
 "779
-[e = _CC1 + _CC1 -> * *U + &U _Current * -> -> -> 1 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
-[; ;BatteryManagment.c: 780: CC2 = CC2 + (Current[3] * tme);
+[e $ ! != -> _CarOn `i -> -> -> 0 `i `uc `i 1399  ]
+{
+[; ;BatteryManagment.c: 780: CC1 = CC1 - (Current[0] * tme);
 "780
-[e = _CC2 + _CC2 -> * *U + &U _Current * -> -> -> 3 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
-[; ;BatteryManagment.c: 781: CC3 = CC3 + (Current[5] * tme);
+[e = _CC1 - _CC1 -> * *U + &U _Current * -> -> -> 0 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
+[; ;BatteryManagment.c: 781: CC2 = CC2 - (Current[2] * tme);
 "781
-[e = _CC3 + _CC3 -> * *U + &U _Current * -> -> -> 5 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
+[e = _CC2 - _CC2 -> * *U + &U _Current * -> -> -> 2 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
+[; ;BatteryManagment.c: 782: CC3 = CC3 - (Current[4] * tme);
 "782
-}
-[e :U 1397 ]
-[; ;BatteryManagment.c: 782: }
-[; ;BatteryManagment.c: 783: }
+[e = _CC3 - _CC3 -> * *U + &U _Current * -> -> -> 4 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
 "783
-[e :UE 1395 ]
 }
-"792
+[; ;BatteryManagment.c: 783: } else {
+[e $U 1400  ]
+[e :U 1399 ]
+{
+[; ;BatteryManagment.c: 784: CC1 = CC1 + (Current[1] * tme);
+"784
+[e = _CC1 + _CC1 -> * *U + &U _Current * -> -> -> 1 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
+[; ;BatteryManagment.c: 785: CC2 = CC2 + (Current[3] * tme);
+"785
+[e = _CC2 + _CC2 -> * *U + &U _Current * -> -> -> 3 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
+[; ;BatteryManagment.c: 786: CC3 = CC3 + (Current[5] * tme);
+"786
+[e = _CC3 + _CC3 -> * *U + &U _Current * -> -> -> 5 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
+"787
+}
+[e :U 1400 ]
+[; ;BatteryManagment.c: 787: }
+[; ;BatteryManagment.c: 788: }
+"788
+[e :UE 1398 ]
+}
+"797
 [v _CurrentGet `(i ~T0 @X0 1 ef ]
 {
-[; ;BatteryManagment.c: 792: int CurrentGet() {
+[; ;BatteryManagment.c: 797: int CurrentGet() {
 [e :U _CurrentGet ]
 [f ]
-[; ;BatteryManagment.c: 793: return -1;
-"793
+[; ;BatteryManagment.c: 798: return -1;
+"798
 [e ) -U -> 1 `i ]
-[e $UE 1398  ]
-[; ;BatteryManagment.c: 794: }
-"794
-[e :UE 1398 ]
+[e $UE 1401  ]
+[; ;BatteryManagment.c: 799: }
+"799
+[e :UE 1401 ]
 }

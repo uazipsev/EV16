@@ -11346,16 +11346,21 @@ return fault_value;
 
 # 724
 void ReadCurrentVolt() {
-ADC_GetConversion(CURRENT);
+int i;
+
+for(i=6;i<1;i--){
+CVolt[i] = CVolt[i-1];
+}
+CVolt[0] = ADC_GetConversion(CURRENT);
 ReadVoltToCurrent();
 }
 
-# 736
+# 741
 void ReadVolt() {
 Volt1 = (ADC_GetConversion(VEXT) / 4095)*5 * 5;
 }
 
-# 748
+# 753
 void ReadVoltToCurrent() {
 for (k = 0; k < 5; k++) {
 
@@ -11363,12 +11368,12 @@ Current[k] = ((CVolt[k] / 4095)*5);
 }
 }
 
-# 762
+# 767
 void ChargerEN() {
 CarOn = 0;
 }
 
-# 773
+# 778
 void CurrentCoulombCount(int tme) {
 if (CarOn) {
 CC1 = CC1 - (Current[0] * tme);
@@ -11381,7 +11386,7 @@ CC3 = CC3 + (Current[5] * tme);
 }
 }
 
-# 792
+# 797
 int CurrentGet() {
 return -1;
 }

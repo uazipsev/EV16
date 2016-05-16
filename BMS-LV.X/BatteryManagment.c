@@ -722,7 +722,12 @@ int UpdateLT6804(int bank) {
  *******************************************************************/
 
 void ReadCurrentVolt() {
-    ADC_GetConversion(CURRENT);
+    int i;
+    //TODO: Need to check this.....
+    for(i=6;i<1;i--){
+       CVolt[i] = CVolt[i-1];
+    }
+    CVolt[0] = ADC_GetConversion(CURRENT);
     ReadVoltToCurrent(); //Converts ADC counts to amps
 }
 
@@ -748,7 +753,7 @@ void ReadVolt() {
 void ReadVoltToCurrent() {
     for (k = 0; k < 5; k++) {
         //TODO: Remove for production firmware
-        Current[k] = ((CVolt[k] / ADCBIT)*5); ///SHUNTOHMS/CURRENTGAIN) + CurrentOffset[k];
+        Current[k] = (((CVolt[k] / ADCBIT)*5) SHUNTOHMS/CURRENTGAIN) + CurrentOffset[k];
     }
 }
 
