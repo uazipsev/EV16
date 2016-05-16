@@ -50,14 +50,14 @@ int Under_Voltage_Value = 0x7CF; // Compare Voltage = (Under_Voltage_Value +1) *
 #define VD   0x04 //Digital Power Supply
 #define Discharge_Time_Out_Value 0x000 // For chart refering to values Refer to 680412fb data sheet, Page 51,  Variable DCTO
 
-#define NUMBEROFIC 12
+#define NUMBEROFIC 1
 #define NUMBEROFCH 2
 #define NUMBEROFDATA 6
 #define bank_1 0
 #define bank_2 1
 //Discharge time out value 
 #define DCTO 0 
-#define Cell_Per_Bank 12
+#define Cell_Per_Bank 1
 #define CURRENTGAIN 40
 #define VOLTAGERATIO 158.18
 #define SHUNTOHMS 0.0001

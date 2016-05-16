@@ -8,20 +8,20 @@
     interrupt_manager.c
 
   @Summary:
-    This is the Interrupt Manager file generated using MPLAB® Code Configurator
+    This is the Interrupt Manager file generated using MPLAB(c) Code Configurator
 
   @Description:
     This header file provides implementations for global interrupt handling.
     For individual peripheral handlers please see the peripheral driver for
     all modules selected in the GUI.
     Generation Information :
-        Product Revision  :  MPLAB® Code Configurator - v2.25.2
+        Product Revision  :  MPLAB(c) Code Configurator - v3.00
         Device            :  PIC18F45K22
         Driver Version    :  1.02
     The generated drivers are tested against the following:
-        Compiler          :  XC8 v1.34
-        MPLAB             :  MPLAB X v2.35 or v3.00
- */
+        Compiler          :  XC8 1.35
+        MPLAB             :  MPLAB X 3.20
+*/
 
 /*
 Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
@@ -49,37 +49,48 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "interrupt_manager.h"
 #include "mcc.h"
 
-void INTERRUPT_Initialize(void) {
+void  INTERRUPT_Initialize (void)
+{
     // Disable Interrupt Priority Vectors (16CXXX Compatibility Mode)
     RCONbits.IPEN = 0;
 
     // Clear peripheral interrupt priority bits (default reset value)
 
-    // RCI
-    IPR1bits.RC1IP = 0;
     // ADI
     IPR1bits.ADIP = 0;
+    // TMRI
+    INTCON2bits.TMR0IP = 0;
     // TXI
     IPR1bits.TX1IP = 0;
-    // TMRI
-    IPR1bits.TMR1IP = 0;
+    // RCI
+    IPR1bits.RC1IP = 0;
 }
 
-void interrupt INTERRUPT_InterruptManager(void) {
-    // interrupt handler
-    if (PIE1bits.RC1IE == 1 && PIR1bits.RC1IF == 1) {
-        EUSART1_Receive_ISR();
-    } else if (PIE1bits.ADIE == 1 && PIR1bits.ADIF == 1) {
+void interrupt INTERRUPT_InterruptManager (void)
+{
+   // interrupt handler
+    if(PIE1bits.ADIE == 1 && PIR1bits.ADIF == 1)
+    {
         ADC_ISR();
-    } else if (PIE1bits.TX1IE == 1 && PIR1bits.TX1IF == 1) {
+    }
+    else if(INTCONbits.TMR0IE == 1 && INTCONbits.TMR0IF == 1)
+    {
+        TMR0_ISR();
+    }
+    else if(PIE1bits.TX1IE == 1 && PIR1bits.TX1IF == 1)
+    {
         EUSART1_Transmit_ISR();
-    } else if (PIE1bits.TMR1IE == 1 && PIR1bits.TMR1IF == 1) {
-        TMR1_ISR();
-    } else {
+    }
+    else if(PIE1bits.RC1IE == 1 && PIR1bits.RC1IF == 1)
+    {
+        EUSART1_Receive_ISR();
+    }
+    else
+    {
         //Unhandled Interrupt
     }
 }
 
 /**
  End of File
- */
+*/

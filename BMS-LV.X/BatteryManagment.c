@@ -5,9 +5,11 @@
  * @note            The lib is writen for US
  *******************************************************************/
 #include <math.h>
+#include <xc.h>
+#include "Functions.h"
 #include "BatteryManagment.h"
 #include "BatteryManagmentPrivate.h"
-#include "ADS1015.h"
+#include "mcc_generated_files/pin_manager.h"
 #include "LT6804.h"
 #include "Timers.h"
 #include <stdbool.h>
@@ -27,7 +29,7 @@ int Read_Status_INC = 0;
 
 void Start_BMS() {
     LTC6804_initialize();
-    ADS1015Begin();
+    //ADS1015Begin();
 }
 
 void Charge_Mode(int command) {
@@ -93,8 +95,10 @@ void CheckFault(int FaultValue) {
 
 int addressFault(int FaultNum) {
     //need to determine the fault number
-    //TODO Check if this is accurate this may break the board.
-    Saftey_Relay_Set = 1;
+    //TODO Check if this is accurate this may break the board. (This will, needs toggled - RJ)
+    SET_SetHigh();
+    Delay(120);
+    SET_SetLow();
     //Once the error has been addressed the error is then cleared. 
     FaultNum = 0;
     return 1; //If success return a 1
@@ -716,15 +720,7 @@ int UpdateLT6804(int bank) {
  * @note            This populates the array with raw ADC values
  *******************************************************************/
 
-// FIXME Need to change I2C address!
-
 void ReadCurrentVolt() {
-    CVolt[0] = ADS1015readADC_SingleEnded(0, 0x48); //Set channel and IC
-    CVolt[1] = ADS1015readADC_SingleEnded(1, 0x48);
-    CVolt[2] = ADS1015readADC_SingleEnded(2, 0x48);
-    CVolt[3] = ADS1015readADC_SingleEnded(3, 0x48);
-    CVolt[4] = ADS1015readADC_SingleEnded(0, 0x4B);
-    CVolt[5] = ADS1015readADC_SingleEnded(1, 0x4B);
     ReadVoltToCurrent(); //Converts ADC counts to amps
 }
 
@@ -736,8 +732,6 @@ void ReadCurrentVolt() {
  *******************************************************************/
 
 void ReadVolt() {
-    Volt1 = ADS1015readADC_SingleEnded(2, 0x02);
-    Volt2 = ADS1015readADC_SingleEnded(3, 0x02);
     Volt1 = (Volt1 / ADCBIT)*5 * VOLTAGERATIO;
     Volt2 = (Volt2 / ADCBIT)*5 * VOLTAGERATIO;
 }

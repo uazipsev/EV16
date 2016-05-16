@@ -8,7 +8,6 @@
 #ifndef FUNCTIONS_H
 #define	FUNCTIONS_H
 
-extern void Set_4051(int Channel,char enable);
 extern void Delay(int wait);
 
 #endif	/* FUNCTIONS_H */

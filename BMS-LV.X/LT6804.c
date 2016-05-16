@@ -61,10 +61,11 @@ Copyright 2013 Linear Technology Corp. (LTC)
 */
 
 #include <stdint.h>
-#include "spi2.h"
+#include <xc.h>
+#include "mcc_generated_files/spi2.h"
 #include "LT6804.h"
-#include "PinDef.h"
-#include "Function.h"
+#include "mcc_generated_files/pin_manager.h"
+#include "Functions.h"
 
 
 /*
@@ -190,9 +191,9 @@ void LTC6804_adcv()
   wakeup_idle (); //This will guarantee that the LTC6804 isoSPI port is awake. This command can be removed.
   
   //4
-  LT6020_1_CS = 0;
+  LTC6804CS_LAT = 0;
   spi_write_array(4,cmd);
-  LT6020_1_CS = 1;
+  LTC6804CS_LAT = 1;
 
 }
 /*
@@ -228,9 +229,9 @@ void LTC6804_adax()
   cmd[3] = (int)(temp_pec);
  
   wakeup_idle (); //This will guarantee that the LTC6804 isoSPI port is awake. This command can be removed.
-  LT6020_1_CS = 0;
+  LTC6804CS_LAT = 0;
   spi_write_array(4,cmd);
-  LT6020_1_CS = 1;
+  LTC6804CS_LAT = 1;
 
 }
 /*
@@ -269,9 +270,9 @@ void LTC6804_ADSTAT()
   //3
   wakeup_idle (); //This will guarantee that the LTC6804 isoSPI port is awake. This command can be removed.
   //4
-  LT6020_1_CS = 0;
+  LTC6804CS_LAT = 0;
   spi_write_array(4,cmd);
-  LT6020_1_CS = 1;
+  LTC6804CS_LAT = 1;
 }
 
 /*
@@ -482,9 +483,9 @@ void LTC6804_rdcv_reg(int reg,
     temp_pec = pec15_calc(2, cmd);
 	cmd[2] = (int)(temp_pec >> 8);
 	cmd[3] = (int)(temp_pec); 
-	LT6020_1_CS = 0;
+	LTC6804CS_LAT = 0;
 	spi_write_read(cmd,4,&data[current_ic*8],8);
-	LT6020_1_CS = 1;
+	LTC6804CS_LAT = 1;
   }
 }
 /*
@@ -674,9 +675,9 @@ void LTC6804_rdaux_reg(int reg,
     cmd_pec = pec15_calc(2, cmd);
 	cmd[2] = (int)(cmd_pec >> 8);
 	cmd[3] = (int)(cmd_pec); 
-	LT6020_1_CS = 0;
+	LTC6804CS_LAT = 0;
 	spi_write_read(cmd,4,&data[current_ic*8],8);
-	LT6020_1_CS = 1;
+	LTC6804CS_LAT = 1;
   }
 }
 /*
@@ -866,9 +867,9 @@ void LTC6804_rdStat_reg(int reg,
     temp_pec = pec15_calc(2, cmd);
 	cmd[2] = (int)(temp_pec >> 8);
 	cmd[3] = (int)(temp_pec); 
-	LT6020_1_CS = 0;
+	LTC6804CS_LAT = 0;
 	spi_write_read(cmd,4,&data[current_ic*8],8);
-	LT6020_1_CS = 1;
+	LTC6804CS_LAT = 1;
   }
 }
 /*
@@ -917,9 +918,9 @@ void LTC6804_clrcell()
   wakeup_idle (); //This will guarantee that the LTC6804 isoSPI port is awake. This command can be removed.
   
   //4
-  LT6020_1_CS = 0;
+  LTC6804CS_LAT = 0;
   spi_write_read(cmd,4,0,0);
-  LT6020_1_CS = 1;
+  LTC6804CS_LAT = 1;
 }
 /*
   LTC6804_clrcell Function sequence:
@@ -955,9 +956,9 @@ void LTC6804_clraux()
   //3
   wakeup_idle (); //This will guarantee that the LTC6804 isoSPI port is awake.This command can be removed.
   //4
-  LT6020_1_CS = 0;
+  LTC6804CS_LAT = 0;
   //spi_write_read(cmd,4,0,0);
-  LT6020_1_CS = 1;
+  LTC6804CS_LAT = 1;
 }
 /*
   LTC6804_clraux Function sequence:
@@ -1030,10 +1031,10 @@ void LTC6804_wrcfg(int total_ic,int config[][6])
     temp_pec = pec15_calc(2, cmd);
 	cmd[2] = (int)(temp_pec >> 8);
 	cmd[3] = (int)(temp_pec); 
-	LT6020_1_CS = 0;
+	LTC6804CS_LAT = 0;
 	spi_write_array(4,cmd);
 	spi_write_array(8,&cmd[4+(8*current_ic)]);
-	LT6020_1_CS = 1;
+	LTC6804CS_LAT = 1;
   }
   free(cmd);
 }
@@ -1092,9 +1093,9 @@ int LTC6804_rdcfg(int total_ic, int r_config[][8])
     data_pec = pec15_calc(2, cmd);
 	cmd[2] = (int)(data_pec >> 8);
 	cmd[3] = (int)(data_pec); 
-	LT6020_1_CS = 0;
+	LTC6804CS_LAT = 0;
 	spi_write_read(cmd,4,&rx_data[current_ic*8],8);
-	LT6020_1_CS = 1;
+	LTC6804CS_LAT = 1;
   }
  
   for (current_ic = 0; current_ic < total_ic; current_ic++) //executes for each LTC6804 in the stack
@@ -1133,9 +1134,9 @@ int LTC6804_rdcfg(int total_ic, int r_config[][8])
  *****************************************************/
 void wakeup_idle()
 {
-  LT6020_1_CS = 0;
-  delay_ms(10); //Guarantees the isoSPI will be in ready mode
-  LT6020_1_CS = 1;
+  LTC6804CS_LAT = 0;
+  Delay(10); //Guarantees the isoSPI will be in ready mode
+  LTC6804CS_LAT = 1;
 }
 
 /*!****************************************************
@@ -1145,9 +1146,9 @@ void wakeup_idle()
  *****************************************************/
 void wakeup_sleep()
 {
-  LT6020_1_CS = 0;
+  LTC6804CS_LAT = 0;
   Delay(1); // Guarantees the LTC6804 will be in standby
-  LT6020_1_CS = 1;
+  LTC6804CS_LAT = 1;
 }
 /*!**********************************************************
  \brief calaculates  and returns the CRC15

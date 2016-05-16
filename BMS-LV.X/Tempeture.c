@@ -1,7 +1,6 @@
 
 #include "Define.h"
 #include "Tempeture.h"
-#include "Global.h"
 #include "mcc_generated_files/adc.h"
 #include "../math.h"
 
@@ -25,11 +24,11 @@ char Temp_Fault()
 
 void Temp_Read()
 {
-  //Set the ADC interupt to start to fill in the Battery ADC Buffer
-  ADC_Buffer_Point = 0;
-  Temp_Aquire = 1;
-  ADCON1 = 0x80; //Set up to run ADC from VDD to VSS
-  ADC_StartConversion(Temp1);
+//  //Set the ADC interupt to start to fill in the Battery ADC Buffer
+//  ADC_Buffer_Point = 0;
+//  Temp_Aquire = 1;
+//  ADCON1 = 0x80; //Set up to run ADC from VDD to VSS
+//  ADC_StartConversion(Temp1);
 }
 
 void Temp_Filter()
@@ -47,7 +46,7 @@ void Temp_Convert()
    float steinhart;
    for(int x = 0; x < NUMOFBATT; x++)
    {
-       steinhart = (SERIESRESISTOR / ((1023.0 / Temp_Adc[x]) - 1)) / THERMISTORNOMINAL;  //Convert ADC counts to resistance/Ro
+       //steinhart = (SERIESRESISTOR / ((1023.0 / Temp_Adc[x]) - 1)) / THERMISTORNOMINAL;  //Convert ADC counts to resistance/Ro
        steinhart = log(steinhart);                       // ln(R/Ro)
        steinhart /= BCOEFFICIENT;                        // 1/B * ln(R/Ro)
        steinhart += 1.0 / (TEMPERATURENOMINAL + 273.15); // + (1/To)

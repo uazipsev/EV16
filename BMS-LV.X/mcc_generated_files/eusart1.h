@@ -8,18 +8,18 @@
     eusart1.h
 
   @Summary
-    This is the generated header file for the EUSART1 driver using MPLAB® Code Configurator
+    This is the generated header file for the EUSART1 driver using MPLAB(c) Code Configurator
 
   @Description
     This header file provides APIs for driver for EUSART1.
     Generation Information :
-        Product Revision  :  MPLAB® Code Configurator - v2.25.2
+        Product Revision  :  MPLAB(c) Code Configurator - v3.00
         Device            :  PIC18F45K22
         Driver Version    :  2.00
     The generated drivers are tested against the following:
-        Compiler          :  XC8 v1.34
-        MPLAB             :  MPLAB X v2.35 or v3.00
- */
+        Compiler          :  XC8 1.35
+        MPLAB             :  MPLAB X 3.20
+*/
 
 /*
 Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
@@ -49,7 +49,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 /**
   Section: Included Files
- */
+*/
 
 #include <xc.h>
 #include <stdbool.h>
@@ -58,177 +58,177 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #ifdef __cplusplus  // Provide C++ Compatibility
 
-extern "C" {
+    extern "C" {
 
 #endif
 
-    /**
-      Section: Macro Declarations
-     */
+/**
+  Section: Macro Declarations
+*/
 
 #define EUSART1_DataReady  (eusart1RxCount)
 
-    /**
-      Section: Data Type Definitions
-     */
+/**
+  Section: Data Type Definitions
+*/
 
-    /**
-     Section: Global variables
-     */
-    extern volatile uint8_t eusart1TxBufferRemaining;
-    extern volatile uint8_t eusart1RxCount;
+/**
+ Section: Global variables
+ */
+extern volatile uint8_t eusart1TxBufferRemaining;
+extern volatile uint8_t eusart1RxCount;
 
 
-    /**
-      Section: EUSART1 APIs
-     */
+/**
+  Section: EUSART1 APIs
+*/
 
-    /**
-      @Summary
-        Initialization routine that takes inputs from the EUSART1 GUI.
+/**
+  @Summary
+    Initialization routine that takes inputs from the EUSART1 GUI.
 
-      @Description
-        This routine initializes the EUSART1 driver.
-        This routine must be called before any other EUSART1 routine is called.
+  @Description
+    This routine initializes the EUSART1 driver.
+    This routine must be called before any other EUSART1 routine is called.
 
-      @Preconditions
-        None
+  @Preconditions
+    None
 
-      @Param
-        None
+  @Param
+    None
 
-      @Returns
-        None
+  @Returns
+    None
 
-      @Comment
+  @Comment
 
-      @Example
-     */
-    void EUSART1_Initialize(void);
+  @Example
+*/
+void EUSART1_Initialize(void);
 
-    /**
-      @Summary
-        Read a byte of data from the EUSART1.
+/**
+  @Summary
+    Read a byte of data from the EUSART1.
 
-      @Description
-        This routine reads a byte of data from the EUSART1.
+  @Description
+    This routine reads a byte of data from the EUSART1.
 
-      @Preconditions
-        EUSART1_Initialize() function should have been called
-        before calling this function. The transfer status should be checked to see
-        if the receiver is not empty before calling this function.
+  @Preconditions
+    EUSART1_Initialize() function should have been called
+    before calling this function. The transfer status should be checked to see
+    if the receiver is not empty before calling this function.
 	
-        EUSART1_DataReady is a macro which checks if any byte is received.
-        Call this macro before using this function.
+	EUSART1_DataReady is a macro which checks if any byte is received.
+	Call this macro before using this function.
 
-      @Param
-        None
+  @Param
+    None
 
-      @Returns
-        A data byte received by the driver.
+  @Returns
+    A data byte received by the driver.
 	
-      @Example
-        <code>
-                void main(void) {
-                                    // initialize the device
-                                    SYSTEM_Initialize();
-                                    uint8_t data;
+  @Example
+	<code>
+            void main(void) {
+								// initialize the device
+								SYSTEM_Initialize();
+								uint8_t data;
 								
-                                    // Enable the Global Interrupts
-                                    INTERRUPT_GlobalInterruptEnable();
+								// Enable the Global Interrupts
+								INTERRUPT_GlobalInterruptEnable();
 								
-                                    // Enable the Peripheral Interrupts
-                                    INTERRUPT_PeripheralInterruptEnable();
+								// Enable the Peripheral Interrupts
+								INTERRUPT_PeripheralInterruptEnable();
 								
-                                    printf("\t\tTEST CODE\n\r");		//Enable redirect STDIO to USART before using printf statements
-                                    printf("\t\t---- ----\n\r");
-                                    printf("\t\tECHO TEST\n\r");
-                                    printf("\t\t---- ----\n\n\r");
-                                    printf("Enter any string: ");
-                                    do{
-                                    data = EUSART1_Read();		// Read data received
-                                    EUSART_Write(data);			// Echo back the data received
-                                    }while(!EUSART1_DataReady);		//check if any data is received
+								printf("\t\tTEST CODE\n\r");		//Enable redirect STDIO to USART before using printf statements
+								printf("\t\t---- ----\n\r");
+								printf("\t\tECHO TEST\n\r");
+								printf("\t\t---- ----\n\n\r");
+								printf("Enter any string: ");
+								do{
+								data = EUSART1_Read();		// Read data received
+								EUSART_Write(data);			// Echo back the data received
+								}while(!EUSART1_DataReady);		//check if any data is received
 								
-                                }
-        </code>
-     */
-    uint8_t EUSART1_Read(void);
+							}
+    </code>
+*/
+uint8_t EUSART1_Read(void);
 
-    /**
-     @Summary
-       Writes a byte of data to the EUSART1.
+ /**
+  @Summary
+    Writes a byte of data to the EUSART1.
 
-     @Description
-       This routine writes a byte of data to the EUSART1.
+  @Description
+    This routine writes a byte of data to the EUSART1.
 
-     @Preconditions
-       EUSART1_Initialize() function should have been called
-       before calling this function. The transfer status should be checked to see
-       if transmitter is not busy before calling this function.
+  @Preconditions
+    EUSART1_Initialize() function should have been called
+    before calling this function. The transfer status should be checked to see
+    if transmitter is not busy before calling this function.
 
-     @Param
-       txData  - Data byte to write to the EUSART1
+  @Param
+    txData  - Data byte to write to the EUSART1
 
-     @Returns
-       None
+  @Returns
+    None
   
-     @Example
-         <code>
-             Refer to EUSART1_Read() for an example	
-         </code>
-     */
-    void EUSART1_Write(uint8_t txData);
+  @Example
+      <code>
+          Refer to EUSART1_Read() for an example	
+      </code>
+*/
+void EUSART1_Write(uint8_t txData);
 
-    /**
-      @Summary
-        Maintains the driver's transmitter state machine and implements its ISR.
+/**
+  @Summary
+    Maintains the driver's transmitter state machine and implements its ISR.
 
-      @Description
-        This routine is used to maintain the driver's internal transmitter state
-        machine.This interrupt service routine is called when the state of the
-        transmitter needs to be maintained in a non polled manner.
+  @Description
+    This routine is used to maintain the driver's internal transmitter state
+    machine.This interrupt service routine is called when the state of the
+    transmitter needs to be maintained in a non polled manner.
 
-      @Preconditions
-        EUSART1_Initialize() function should have been called
-        for the ISR to execute correctly.
+  @Preconditions
+    EUSART1_Initialize() function should have been called
+    for the ISR to execute correctly.
 
-      @Param
-        None
+  @Param
+    None
 
-      @Returns
-        None
-     */
-    void EUSART1_Transmit_ISR(void);
+  @Returns
+    None
+*/
+void EUSART1_Transmit_ISR(void);
 
-    /**
-      @Summary
-        Maintains the driver's receiver state machine and implements its ISR
+/**
+  @Summary
+    Maintains the driver's receiver state machine and implements its ISR
 
-      @Description
-        This routine is used to maintain the driver's internal receiver state
-        machine.This interrupt service routine is called when the state of the
-        receiver needs to be maintained in a non polled manner.
+  @Description
+    This routine is used to maintain the driver's internal receiver state
+    machine.This interrupt service routine is called when the state of the
+    receiver needs to be maintained in a non polled manner.
 
-      @Preconditions
-        EUSART1_Initialize() function should have been called
-        for the ISR to execute correctly.
+  @Preconditions
+    EUSART1_Initialize() function should have been called
+    for the ISR to execute correctly.
 
-      @Param
-        None
+  @Param
+    None
 
-      @Returns
-        None
-     */
-    void EUSART1_Receive_ISR(void);
+  @Returns
+    None
+*/
+void EUSART1_Receive_ISR(void);
 
 #ifdef __cplusplus  // Provide C++ Compatibility
 
-}
+    }
 
 #endif
 
 #endif  // _EUSART1_H
 /**
  End of File
- */
+*/
