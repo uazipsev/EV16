@@ -12,7 +12,7 @@
 #include "Timers.h"
 #include <stdbool.h>
 //TODO Need to make a fault status and a use with var
-int Read_Status_INC = 0;
+
 int FaultValue=0;
 //|r_config[0]|r_config[1]|r_config[2]|r_config[3]|r_config[4]|r_config[5]|r_config[6]  |r_config[7] |r_config[8]|r_config[9]|  .....    |
 //|-----------|-----------|-----------|-----------|-----------|-----------|-------------|------------|-----------|-----------|-----------|
@@ -59,7 +59,7 @@ void Initalize_LT6804b() {
             Set_DCC_Mode_OFF(bank, IC);
             Set_DCTO_Mode_OFF(bank, IC);
             SetTempEnable(bank, IC, 0);
-            SetUnderOverVoltage(79, 83, bank, IC);
+            SetUnderOverVoltage(Under_Voltage_Value, Over_Voltage_Value, bank, IC);
             IC++;
         };
         bank++;
@@ -72,6 +72,7 @@ void Initalize_LT6804b() {
 //TODO figure out fault function of bank 1 and 2
 
 void Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
+    int Read_Status_INC = 0;
     //To detect error values
     int Error_Value = 0;
     //Bank1
@@ -103,9 +104,7 @@ int Startuptests(int Stat_codes[NUMBEROFIC][6]) {
     int CriticalReadError = 0; // If over 10 Send a Critical Error to be dealt with. 
     Set_Stat(MD_NORMAL, All_Stats);
     LTC6804_ADSTAT();
-    ReadErrorValue = LTC6804_rdStat(0, NUMBEROFIC, Stat_codes);
-
-    while (ReadErrorValue == -1 && ErrorCount < 10) {
+    while (ReadErrorValue != 0 && ErrorCount < 10) {
         LTC6804_ADSTAT();
         ReadErrorValue = LTC6804_rdStat(0, NUMBEROFIC, Stat_codes);
     }
@@ -120,11 +119,11 @@ int Startuptests(int Stat_codes[NUMBEROFIC][6]) {
     if (ErrorCount > 10) {
         return CriticalReadError;
     }
-    return -1;
+    return -1; // If this happends something wrong happened in the function.
 }
 
 int CheckTestReading(int Stat_codes[NUMBEROFIC][6]) {
-    int TestError = 0;
+    int TestError = 0; //This error will bring up the first error it sees. 
     int IC = 0;
     while (IC < NUMBEROFIC) {
 
@@ -134,14 +133,15 @@ int CheckTestReading(int Stat_codes[NUMBEROFIC][6]) {
         soc = Stat_codes[NUMBEROFIC][0];
         Sum_Of_Cells = (soc * (100 * pow(10, -6))*20);
         //Vminus Pin ask Richard what this means
-
+        if (TestError==0){
         //Internal Die Temprature
         int itmp = 0;
         double Internal_Die_Temprature = 0;
         itmp = Stat_codes[NUMBEROFIC][1];
         Internal_Die_Temprature = (itmp * ((100 * pow(10, -6)) / (7.5 * pow(10, -3))) - 273);
         //TODO ask Richard what the temprature needs to be.
-
+        }
+        if (TestError==0){
         //Analog Power Supply 
         int va = 0;
         int Analog_Supply_Power = 0;
@@ -150,7 +150,8 @@ int CheckTestReading(int Stat_codes[NUMBEROFIC][6]) {
         if ((Analog_Supply_Power < 4.5) || (Analog_Supply_Power > 5.5)) {
             TestError = AnalogPowerSupplyFault;
         }
-
+        }
+        if (TestError==0){
         //Digital Power Supply 
         int vd = 0;
         int Digital_Supply_Power = 0;
@@ -159,7 +160,8 @@ int CheckTestReading(int Stat_codes[NUMBEROFIC][6]) {
         if ((Digital_Supply_Power < 2.7) || (Digital_Supply_Power > 3.6)) {
             TestError = DigitalPowerSupplyFault;
         }
-
+        }
+        if (TestError==0){
         //Under and Over Voltage errors
         int BoolValues = 0; // Bools values of the cells to indicate if there is a over/under voltage fault.
         BoolValues = Stat_codes[NUMBEROFIC][4];
@@ -242,14 +244,17 @@ int CheckTestReading(int Stat_codes[NUMBEROFIC][6]) {
 
             }
             incrementer = incrementer + 1;
+            if (CheckValue==1){
+            return TestError;}
             CheckValue = 0;
         }
-
+        }
+if (TestError==0){
         //Under and Over Voltage errors and muxFail and THSD
-        BoolValues = 0; // Bools values of the cells to indicate if there is a over/under voltage or other faults
-        BoolValues = Stat_codes[NUMBEROFIC][4];
+        int BoolValues = 0; // Bools values of the cells to indicate if there is a over/under voltage or other faults
+        BoolValues = Stat_codes[NUMBEROFIC][5];
         //Going through each bit and determining a fault. 
-        incrementer = 0;
+       int incrementer = 0;
         while (incrementer <= 8) {
             bool CheckValue = BoolValues && ((0x1) << incrementer);
 
@@ -303,9 +308,15 @@ int CheckTestReading(int Stat_codes[NUMBEROFIC][6]) {
 
             }
             incrementer = incrementer + 1;
+            if (CheckValue==1){
+            return TestError;}
             CheckValue = 0;
         }
+}
         IC = IC + 1;
+        if (TestError!=0){
+        return TestError;
+        }
     }
     return TestError;
 
@@ -313,6 +324,7 @@ int CheckTestReading(int Stat_codes[NUMBEROFIC][6]) {
 
     ;
 }
+
 int CheckThresholdsBank(int test,int IC, int cell_codes[][12]) {
     int CurrentIC = 0;
     int cell = 0;
@@ -349,14 +361,19 @@ int CheckThresholds(int test, int data) {
 }
 
 int Read_Total_Voltage(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
-
+int Read_Status_INC = 0;
     int Error_Value = 0;
+    int FaultNum=0;
     do {
         Error_Value = Read_Battery(0, cell_codes_Bank1);
         if (Error_Value != 0) {
             Read_Status_INC = Read_Status_INC + 1;
         }
     } while (Error_Value != 0 && Read_Status_INC <= 10);
+        if (Read_Status_INC > 10) {
+        FaultNum = ReadVoltRegFault;
+    }
+    Read_Status_INC = 0;
     do {
         Error_Value = Read_Battery(0, cell_codesBank2);
         if (Error_Value != 0) {
@@ -365,15 +382,15 @@ int Read_Total_Voltage(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
 
     } while (Error_Value != 0 && Read_Status_INC <= 10);
     if (Read_Status_INC > 10) {
-        Error_Value = ReadVoltRegFault;
+        FaultNum = ReadVoltRegFault;
     }
     else if (Error_Value == 0) {
-        Error_Value=CheckThresholdsBank( OverVoltageFault,NUMBEROFIC , cell_codes_Bank1);
-        Error_Value=CheckThresholdsBank( UnderVoltageFault, NUMBEROFIC, cell_codes_Bank1);
-        Error_Value=CheckThresholdsBank( OverVoltageFault, NUMBEROFIC, cell_codesBank2);
-       Error_Value=CheckThresholdsBank( UnderVoltageFault, NUMBEROFIC, cell_codesBank2);
+        FaultNum=CheckThresholdsBank( OverVoltageFault,NUMBEROFIC , cell_codes_Bank1);
+        FaultNum=CheckThresholdsBank( UnderVoltageFault, NUMBEROFIC, cell_codes_Bank1);
+        FaultNum=CheckThresholdsBank( OverVoltageFault, NUMBEROFIC, cell_codesBank2);
+       FaultNum=CheckThresholdsBank( UnderVoltageFault, NUMBEROFIC, cell_codesBank2);
     }
-    return Error_Value;
+    return FaultNum;
 }
 /*******************************************************************
  * @brief           Read_Battery

@@ -3,4 +3,5 @@ FastTransfer.c  \
  FastTransferPrivate.h  \
 FastTransfer.h  \
 PinDef.h  \
-Function.h 
+Function.h  \
+
