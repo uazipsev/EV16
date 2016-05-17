@@ -22,7 +22,7 @@
 
     void initTimerTwo(void);
     void initTimerOne(void);
-   void initTimerThree(void);
+    void initTimerThree(void);
     int time_get(char WhatTime);
     void updateTimers();
     void TalkTimeSet(int value);
