@@ -6,7 +6,7 @@
 unsigned long int slaveTime,time,ADCTime;
 unsigned long int LEDtime = 0, talkTime = 0, time =0;
 static unsigned long int lastLEDTime=0, lastTalkTime=0, lastSlaveTime=0,lastADCTime=0;// TODO could be issue with timer was intilized in update timers with not decleration. 
-
+int FaultValueHistory=0;
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     time++;
     IFS0bits.T1IF = 0; // clear interrupt flag
@@ -16,6 +16,18 @@ void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void) {
     
     
     CurrentCoulombCount(time);
+    IFS0bits.T2IF = 0; // clear timer interrupt flag
+}
+
+void __attribute__((interrupt, no_auto_psv)) _T3Interrupt(void) {
+//    if (count>=100){
+//        if (INDICATOR==0){
+//    INDICATOR = 1;}
+//        else { 
+//            INDICATOR = 0;}
+//    count=0;}
+//    
+//    count=count+1;
     IFS0bits.T2IF = 0; // clear timer interrupt flag
 }
 
@@ -43,6 +55,20 @@ void initTimerTwo(void) {
     IEC0bits.T2IE = 1; // enable timer2 interrupt
     T2CONbits.TON = 1; //enable timer 2
 }
+
+void initTimerThree(void) {
+    // timer 3 Fault Timer
+    T3CONbits.TON = 0; //disable timer 2
+    T3CONbits.TCS = 0; //internal instruction clock (36,000,000 Hertz)
+    T3CONbits.TGATE = 0; //disable gated timer mode
+    T3CONbits.TCKPS = 0b11; // 1:256 prescalar    36MHz/256= 140.625KHz (7.111us)
+    TMR3 = 0x00; //clear timer register
+    PR3 = 65535; //- set to 279 ms per overflow (7.111us * x)= 100 ms 14063
+    IFS0bits.T3IF = 0; // clear timer2 interrupt flag
+    IEC0bits.T3IE = 1; // enable timer 3 interrupt
+    T3CONbits.TON = 1; //enable timer 3
+}
+
 
 void updateTimers() {
     //if (lastLEDTime != time) {
@@ -95,3 +121,15 @@ void time_Set(char WhatTime, int value){
 void TalkTimeSet(int value){
     talkTime = value;
 }
+void CheckFault(void) {
+    if (FaultValue != 0) {   
+    Saftey_Relay_Set = 1;
+    //TODO Need Delay
+    Saftey_Relay_Set=0;
+    }
+    FaultValueHistory=FaultValue;
+    FaultValue=0;
+    while(1){
+    ;}
+}
+

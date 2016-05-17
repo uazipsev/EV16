@@ -10,6 +10,7 @@
 void Setup(void) {
     PinSetMode();
     INDICATOR = 1;
+    FaultValue=0;
     // setup internal clock for 72MHz/36MIPS
     // 12 /2 = 6  *46 = 144 / 2=72
     CLKDIVbits.PLLPRE = 0; // PLLPRE (N2) 0=/2c
@@ -52,6 +53,7 @@ void Setup(void) {
     
     initTimerOne();
     initTimerTwo();
+    initTimerThree();
     CommStart();
 
     //begin1(receiveArray1, sizeof (receiveArray1), BMM_MASTER_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);

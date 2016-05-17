@@ -22,9 +22,13 @@
 
     void initTimerTwo(void);
     void initTimerOne(void);
+   void initTimerThree(void);
     int time_get(char WhatTime);
     void updateTimers();
     void TalkTimeSet(int value);
     void time_Set(char WhatTime, int value);
+    void CheckFault(void); //This function looks and determines if it is a valid funcion.Currently it SHUTS THE CAR OFF.
+    
+    
 #endif	/* TIMERS_H */
 

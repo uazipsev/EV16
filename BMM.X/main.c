@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
 //            else counter = 0;
 //            ADCTime = 0;
 //        }
-        ledDebug();
+       ledDebug();
         updateComms();
     }
 

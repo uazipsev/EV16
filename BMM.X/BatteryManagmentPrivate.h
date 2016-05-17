@@ -9,7 +9,6 @@
 #define	BATTERYMANAGMENTPRIVATE_H
 
 #include <stdbool.h>
-int faultvalue = 0;
 bool CarOn = 1;
 bool CurrentDir = 1; //Discharge by default
 
@@ -110,10 +109,11 @@ int SetBypass(int bank, int ic, int cell, bool value); //This sets the bypass fo
 
 int Startuptests(int Stat_codes[NUMBEROFIC][6]); //This function is to test the LTC6804 to make sure everything is in check.
 int CheckTestReading(int Stat_codes[NUMBEROFIC][6]); //Actually Checks the test from the data.
-
+int CheckThresholdsBank(int test,int IC, int cell_codes[][12]); // Checks the voltage of a bank if one cell has a error it will break out and present the error.  
+int CheckThresholds(int test, int data);// Checks each cell to see if the data is over the threshold.
+void Initalize_LT6804b();  //Setups the config registers to be sent the LT6804B.
 //Fault Functions
-void CheckFault(int FaultValue); //This function looks and determines if it is a valid funcion.
-int addressFault(int FaultNum); //This functions looks at the fault and address the fault currently it SHUTS THE CAR OFF.
+
 
 //Fault Control Number
 #define UnderVoltageFault 1
