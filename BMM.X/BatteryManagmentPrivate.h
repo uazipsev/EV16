@@ -9,10 +9,12 @@
 #define	BATTERYMANAGMENTPRIVATE_H
 
 #include <stdbool.h>
+#include <math.h>
 bool CarOn = 1;
 bool CurrentDir = 1; //Discharge by default
 
-
+#define NUMBEROFIC 12
+#define NUMBEROFCH 2
 int k = 0;
 int j = 0;
 
@@ -32,7 +34,14 @@ char CFGR3 = 0;
 char CFGR4 = 0;
 char CFGR5 = 0;
 
-
+  double TempK=0;
+  double TempCBank1[NUMBEROFIC][6];
+  double TempCBank2[NUMBEROFIC][6];
+   int Vin;
+int VoltageDividerResistance =10000;
+#define A_Constant 8.42961857*pow(10,-4)
+#define B_Constant 2.5924208*pow(10,-4)
+#define C_Constant 1.578649669*pow(10,-7)
 int Over_Voltage_Value = 0x9C4; // Compare Voltage = Over_Voltage_Value*16*100uV  
 //Default Over_Voltage_Value=4.0 4.0=2500*16*100*10^-6
 // 2500=0x7CF
@@ -49,8 +58,7 @@ int Under_Voltage_Value = 0x7CF; // Compare Voltage = (Under_Voltage_Value +1) *
 #define VD   0x04 //Digital Power Supply
 #define Discharge_Time_Out_Value 0x000 // For chart refering to values Refer to 680412fb data sheet, Page 51,  Variable DCTO
 
-#define NUMBEROFIC 12
-#define NUMBEROFCH 2
+
 #define NUMBEROFDATA 6
 #define bank_1 0
 #define bank_2 1

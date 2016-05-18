@@ -5,5 +5,4 @@ BatteryManagmentPrivate.h  \
 ADS1015.h  \
 LT6804.h  \
 Timers.h  \
- PinDef.h  \
-
+ PinDef.h 

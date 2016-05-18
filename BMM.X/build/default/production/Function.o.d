@@ -7,5 +7,4 @@ Communications.h  \
 ADDRESSING.h  \
 BatteryManagment.h  \
 spi2.h  \
-UART1.h  \
-
+UART1.h 

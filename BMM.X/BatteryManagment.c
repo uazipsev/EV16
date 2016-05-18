@@ -516,6 +516,34 @@ int Read_GPIO(int BatteryPlacement, int aux_codes[NUMBEROFIC][6]) {
  * @note            
  *******************************************************************/
 
+
+
+double CalculateTemp(int bank, int auxcodes[NUMBEROFIC][6]){
+    //TODO need to know what Vin is 
+    //Might need to calaculate adc to Voltage first
+    
+   
+    int ic=0; //The IC we are currently reading
+   int sensenum=0; //The senesor we are currently reading. 
+   while(ic<NUMBEROFIC){
+       while(sensenum<6){
+    int Volt_Of_GPIO=0;
+    double Resist_Of_GPIO=0;
+           Volt_Of_GPIO=auxcodes[ic][sensenum];
+           Resist_Of_GPIO=(Volt_Of_GPIO*VoltageDividerResistance)*(Vin-Volt_Of_GPIO);   //Through Voltage Divider
+    TempK= A_Constant + B_Constant*log(Resist_Of_GPIO)+ C_Constant*(pow(log(Resist_Of_GPIO),3));
+    if (bank==1){
+    TempCBank1[ic][sensenum]=TempK-273.15;
+    }
+    else if (bank==2){
+    TempCBank2[ic][sensenum]=TempK-273.15;
+    }
+      sensenum=sensenum+1; }
+   ic=ic+1;}
+   return sensenum; //TODO Not accurate just getting rid of warning.
+}
+
+
 //Update
 
 int SetBypass(int bank, int ic, int cell, bool value) {
@@ -542,7 +570,7 @@ int SetBypass(int bank, int ic, int cell, bool value) {
         LTC6804_DATA_ConfigBank2[ic][5] = (CFGR5) + (DCTO << 4);
     }// Combined DCTO and the Last 4 bits of DCC}
     else {
-        fault_value = NoBankselected;
+      fault_value = NoBankselected;
     }
     return fault_value;
 }
@@ -609,17 +637,6 @@ int SetTempEnable(int bank, int ic, bool value) {
     }
 
     return fault_value;
-}
-
-/*******************************************************************
- * @brief           CheckUnderOverVoltageFlag
- * @brief           This will respond (true?)if there is a OV/UV 
- * @return          The flag true if there is a fault
- * @note            
- *******************************************************************/
-
-int CheckUnderOverVoltageFlag() {
-    return 1;
 }
 
 /*******************************************************************
