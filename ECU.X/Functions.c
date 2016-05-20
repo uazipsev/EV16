@@ -35,12 +35,12 @@ void Setup(void) {
 
     PPSUnLock;
     //RX0/TX0  -- RS485-1 (U3) --SAS -DDS
-    Pin_42_Output = TX1_Output;
-    RX1_Pin_Map = 43;
+    Pin_42_Output = TX2_Output;
+    RX1_Pin_Map = 48;
 
     //RX1/TX1  -- RS485-2 (U1) --BMM -MCS
-    Pin_49_Output = TX2_Output;
-    RX2_Pin_Map = 48;
+    Pin_49_Output = TX1_Output;
+    RX2_Pin_Map = 43;
 
     //RX/TX  --SWITCH becomes RX3/TX3 (USB) -> RX4/TX4 (WIRELESS)
     Pin_55_Output = TX3_Output;

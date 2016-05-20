@@ -42,10 +42,10 @@
 #define INPUT  1
 #define TALK   1
 #define LISTEN 0
-#define RS485_1_Direction_Tris TRISCbits.TRISC2
-#define RS485_2_Direction_Tris TRISFbits.TRISF1
-#define RS485_1_Direction   LATCbits.LATC2
-#define RS485_2_Direction   LATFbits.LATF1
+#define RS485_2_Direction_Tris TRISCbits.TRISC2
+#define RS485_1_Direction_Tris TRISFbits.TRISF1
+#define RS485_2_Direction   LATCbits.LATC2
+#define RS485_1_Direction   LATFbits.LATF1
 #define RX0_Tris TRISBbits.TRISB11
 #define TX0_Tris TRISBbits.TRISB10
 #define RX1_Tris TRISCbits.TRISC0
