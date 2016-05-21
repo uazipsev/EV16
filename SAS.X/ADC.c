@@ -89,42 +89,50 @@ void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt(void) {
 
 void FilterADC(){
     int k = 0;
-    for (k = FILTERCOUNTS; k > 1; k--) 
-    {   
-        ThrottleArray1[k]=ThrottleArray1[k-1];
-        ThrottleArray1[k]=ThrottleArray1[k-1];
-        BrakeArray1[k]=BrakeArray1[k-1];
-        BrakeArray2[k]=BrakeArray2[k-1];
-        Throttle1Total += ThrottleArray1[k];
-        Throttle2Total += ThrottleArray2[k];
-        BrakeArray1Total += BrakeArray1[k];
-        BrakeArray2Total += BrakeArray2[k];
-    }
-    ThrottleArray1[0] = ADCbuffer[0];
-    ThrottleArray1[0] = ADCbuffer[1];
-    BrakeArray1[0] = ADCbuffer[2]; 
-    BrakeArray2[0] = ADCbuffer[3];
-    Throttle1Total += ThrottleArray1[0];
-    Throttle2Total += ThrottleArray2[0];
-    BrakeArray1Total += BrakeArray1[0];
-    BrakeArray2Total += BrakeArray2[0];
-    throttle1val = Throttle1Total / FILTERCOUNTS;
-    throttle2val = Throttle2Total / FILTERCOUNTS;
-    brake1val = BrakeArray1Total / FILTERCOUNTS;
-    brake2val = BrakeArray2Total / FILTERCOUNTS;
-    throttle1val = throttle1val * 0.02;
-    throttle2val = throttle2val * 0.02;
-    brake1val = brake1val * 0.02;
-    brake2val = brake2val * 0.02;
+//    Throttle1Total = 0;
+//    Throttle2Total = 0;
+//    BrakeArray1Total = 0;
+//    BrakeArray2Total = 0;
+//    for (k = FILTERCOUNTS; k > 1; k--) 
+//    {   
+//        ThrottleArray1[k]=ThrottleArray1[k-1];
+//        ThrottleArray2[k]=ThrottleArray2[k-1];
+//        BrakeArray1[k]=BrakeArray1[k-1];
+//        BrakeArray2[k]=BrakeArray2[k-1];
+//        Throttle1Total += ThrottleArray1[k];
+//        Throttle2Total += ThrottleArray2[k];
+//        BrakeArray1Total += BrakeArray1[k];
+//        BrakeArray2Total += BrakeArray2[k];
+//    }
+//    ThrottleArray1[0] = ADCbuffer[0];
+//    ThrottleArray1[0] = ADCbuffer[1];
+//    BrakeArray1[0] = ADCbuffer[2]; 
+//    BrakeArray2[0] = ADCbuffer[3];
+//    Throttle1Total += ThrottleArray1[0];
+//    Throttle2Total += ThrottleArray2[0];
+//    BrakeArray1Total += BrakeArray1[0];
+//    BrakeArray2Total += BrakeArray2[0];
+//    throttle1val = Throttle1Total / FILTERCOUNTS;
+//    throttle2val = Throttle2Total / FILTERCOUNTS;
+//    brake1val = BrakeArray1Total / FILTERCOUNTS;
+//    brake2val = BrakeArray2Total / FILTERCOUNTS;
+//    throttle1val = throttle1val * 0.02;
+//    throttle2val = throttle2val * 0.02;
+//    brake1val = brake1val * 0.02;
+//    brake2val = brake2val * 0.02;
+    throttle1val = ADCbuffer[0] * 0.02;
+    throttle2val = ADCbuffer[1] * 0.02;
+    brake1val = ADCbuffer[2] * 0.02;
+    brake2val = ADCbuffer[3] * 0.02;
 }
 
 float GetADC(value RequestValue){
     switch (RequestValue){
         case Throttle1:
-            return  throttle1val;
+            return  throttle1val++;
             break;
         case Throttle2 :
-            return throttle2val;
+            return throttle2val++;
             break;
         case Brake1 :
             return brake1val;
