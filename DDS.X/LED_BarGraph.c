@@ -13,7 +13,9 @@ void LEDsetValue(int value, int color) {
     if (value < 0) value = 0;
     int k;
     for (k = 0; k < 24; k++) {
-        if (k < value) LEDsetBar(k, color);
+        if (k < value){ 
+             LATC1 = ~LATC1;
+            LEDsetBar(k, color);}
         else LEDsetBar(k, LED_OFF);
     }
     return;

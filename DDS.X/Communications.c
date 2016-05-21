@@ -5,6 +5,7 @@
 #include "ADDRESSING.h"
 
 void updateComms() {
+  
     if (receiveData()) {
         //if (receiveArray[RESPONSE_ADDRESS] == ECU_ADDRESS) {
         respondECU();
