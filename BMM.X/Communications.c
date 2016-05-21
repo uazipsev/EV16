@@ -123,7 +123,7 @@ void updateComms() {
                 break;
         }
         sendData(ECU_ADDRESS);
-        pendingSend = false;
+        pendingSend = true;
 
         TalkTimeSet(0);
     }
@@ -132,9 +132,11 @@ void updateComms() {
 
 void checkCommDirection() {
     //you have finished send and time has elapsed.. start listen
-    if (GetTxStall() && (time_get(TLKTM) > 12) && (RS485_Port == TALK) && portClosed && !pendingSend) {
+    //if (GetTxStall() && (time_get(TLKTM) > 12) && (RS485_Port == TALK) && portClosed && !pendingSend) {
+    if ((time_get(TLKTM) > 12) && (pendingSend) && (RS485_Port == TALK)) {
         RS485_Port = LISTEN;
         portClosed = false;
+        pendingSend = false;
     }
 }
 
