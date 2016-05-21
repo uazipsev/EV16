@@ -131,22 +131,22 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #define Button6_SetAnalogMode()   do { ANSA0 = 1; } while(0)
 #define Button6_SetDigitalMode()   do { ANSA0 = 0; } while(0)
 // get/set LED1 aliases
-#define LED1_TRIS               TRISB5
-#define LED1_LAT                LATB5
-#define LED1_PORT               PORTBbits.RB5
-#define LED1_WPU                WPUB5
-#define LED1_ANS                ANSB5
-#define LED1_SetHigh()    do { LATB5 = 1; } while(0)
-#define LED1_SetLow()   do { LATB5 = 0; } while(0)
-#define LED1_Toggle()   do { LATB5 = ~LATB5; } while(0)
-#define LED1_GetValue()         PORTBbits.RB5
-#define LED1_SetDigitalInput()    do { TRISB5 = 1; } while(0)
-#define LED1_SetDigitalOutput()   do { TRISB5 = 0; } while(0)
+#define LED1_TRIS               TRISA6
+#define LED1_LAT                LATA6
+#define LED1_PORT               PORTAbits.RA6
+#define LED1_WPU                WPUA6
+#define LED1_ANS                ANSA6
+#define LED1_SetHigh()    do { LATA6 = 1; } while(0)
+#define LED1_SetLow()   do { LATA6 = 0; } while(0)
+#define LED1_Toggle()   do { LATA6 = ~LATA6; } while(0)
+#define LED1_GetValue()         PORTAbits.RA6
+#define LED1_SetDigitalInput()    do { TRISA6 = 1; } while(0)
+#define LED1_SetDigitalOutput()   do { TRISA6 = 0; } while(0)
 
-#define LED1_SetPullup()    do { WPUB5 = 1; } while(0)
-#define LED1_ResetPullup()   do { WPUB5 = 0; } while(0)
-#define LED1_SetAnalogMode()   do { ANSB5 = 1; } while(0)
-#define LED1_SetDigitalMode()   do { ANSB5 = 0; } while(0)
+#define LED1_SetPullup()    do { WPUA6 = 1; } while(0)
+#define LED1_ResetPullup()   do { WPUA6 = 0; } while(0)
+#define LED1_SetAnalogMode()   do { ANSA6 = 1; } while(0)
+#define LED1_SetDigitalMode()   do { ANSA6 = 0; } while(0)
 // get/set Button5 aliases
 #define Button5_TRIS               TRISB4
 #define Button5_LAT                LATB4
@@ -165,22 +165,22 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #define Button5_SetAnalogMode()   do { ANSB4 = 1; } while(0)
 #define Button5_SetDigitalMode()   do { ANSB4 = 0; } while(0)
 // get/set LED0 aliases
-#define LED0_TRIS               TRISB3
-#define LED0_LAT                LATB3
-#define LED0_PORT               PORTBbits.RB3
-#define LED0_WPU                WPUB3
-#define LED0_ANS                ANSB3
-#define LED0_SetHigh()    do { LATB3 = 1; } while(0)
-#define LED0_SetLow()   do { LATB3 = 0; } while(0)
-#define LED0_Toggle()   do { LATB3 = ~LATB3; } while(0)
-#define LED0_GetValue()         PORTBbits.RB3
-#define LED0_SetDigitalInput()    do { TRISB3 = 1; } while(0)
-#define LED0_SetDigitalOutput()   do { TRISB3 = 0; } while(0)
+#define LED0_TRIS               TRISC1
+#define LED0_LAT                LATC1
+#define LED0_PORT               PORTCbits.RC1
+#define LED0_WPU                WPUC1
+#define LED0_ANS                ANSC1
+#define LED0_SetHigh()    do { LATC1 = 1; } while(0)
+#define LED0_SetLow()   do { LATC1 = 0; } while(0)
+#define LED0_Toggle()   do { LATC1 = ~LATC1; } while(0)
+#define LED0_GetValue()         PORTCbits.RC1
+#define LED0_SetDigitalInput()    do { TRISC1 = 1; } while(0)
+#define LED0_SetDigitalOutput()   do { TRISC1 = 0; } while(0)
 
-#define LED0_SetPullup()    do { WPUB3 = 1; } while(0)
-#define LED0_ResetPullup()   do { WPUB3 = 0; } while(0)
-#define LED0_SetAnalogMode()   do { ANSB3 = 1; } while(0)
-#define LED0_SetDigitalMode()   do { ANSB3 = 0; } while(0)
+#define LED0_SetPullup()    do { WPUC1 = 1; } while(0)
+#define LED0_ResetPullup()   do { WPUC1 = 0; } while(0)
+#define LED0_SetAnalogMode()   do { ANSC1 = 1; } while(0)
+#define LED0_SetDigitalMode()   do { ANSC1 = 0; } while(0)
 // get/set Button4 aliases
 #define Button4_TRIS               TRISB2
 #define Button4_LAT                LATB2
@@ -317,19 +317,19 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #define Button1_SetAnalogMode()   do { ANSD5 = 1; } while(0)
 #define Button1_SetDigitalMode()   do { ANSD5 = 0; } while(0)
 // get/set LED2 aliases
-#define LED2_TRIS               TRISD1
-#define LED2_LAT                LATD1
-#define LED2_PORT               PORTDbits.RD1
-#define LED2_ANS                ANSD1
-#define LED2_SetHigh()    do { LATD1 = 1; } while(0)
-#define LED2_SetLow()   do { LATD1 = 0; } while(0)
-#define LED2_Toggle()   do { LATD1 = ~LATD1; } while(0)
-#define LED2_GetValue()         PORTDbits.RD1
-#define LED2_SetDigitalInput()    do { TRISD1 = 1; } while(0)
-#define LED2_SetDigitalOutput()   do { TRISD1 = 0; } while(0)
+#define LED2_TRIS               TRISA7
+#define LED2_LAT                LATA7
+#define LED2_PORT               PORTAbits.RA7
+#define LED2_ANS                ANSA7
+#define LED2_SetHigh()    do { LATA7 = 1; } while(0)
+#define LED2_SetLow()   do { LATA7 = 0; } while(0)
+#define LED2_Toggle()   do { LATA7 = ~LATA7; } while(0)
+#define LED2_GetValue()         PORTAbits.RA7
+#define LED2_SetDigitalInput()    do { TRISA7 = 1; } while(0)
+#define LED2_SetDigitalOutput()   do { TRISA7 = 0; } while(0)
 
-#define LED2_SetAnalogMode()   do { ANSD1 = 1; } while(0)
-#define LED2_SetDigitalMode()   do { ANSD1 = 0; } while(0)
+#define LED2_SetAnalogMode()   do { ANSA7 = 1; } while(0)
+#define LED2_SetDigitalMode()   do { ANSA7 = 0; } while(0)
 // get/set LED3 aliases
 #define LED3_TRIS               TRISE2
 #define LED3_LAT                LATE2
