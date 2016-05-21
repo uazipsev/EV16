@@ -43,100 +43,110 @@ void CommStart(){
 }
 
 void updateComms() {
-    //checkSlaveCommDirection();
-    //updateSlaveCommunications();
-//    if (receiveData()) {
-//        UART_buff_flush(&input_buffer,1);
-//        talkTime = 0;
-//        COMM_STATE = receiveArray[BMM_COMM_STATE];
-//        pendingSend = true;
-//        ToSend(2, 12);
-//    }
+    if (receiveData()) {
+        INDICATOR = !INDICATOR;
+        //TODO: need to remove this and make the arrays static :(
+        //UART_buff_flush(&input_buffer,1);
+        time_Set(TLKTM,0);
+        COMM_STATE = receiveArray[BMM_COMM_STATE];
+        pendingSend = true;
+        //ToSend(2, 12);
+    }
     if (!portClosed && pendingSend && time_get(TLKTM) > 5) {
         RS485_Port = TALK;
         portClosed = true;
     }
     if (pendingSend && time_get(TLKTM)> 6 && portClosed) {
-        ToSend(2, 12);
-        static int lastCommState = 0;
-        switch (COMM_STATE) {
-            case BATTERY_VOLTS:
-                ToSend(2, 12);
-                if (lastCommState != COMM_STATE) {
-                    lastCommState = COMM_STATE;
-                    slaveaddr = 0;
-                }
-                populateBatteryV(slaveaddr++);
-               // if (slaveaddr >= NUMSLAVES1) slaveaddr = 0;
-                break;
-            case BATTERY_TEMPS:
-                if (lastCommState != COMM_STATE) {
-                    lastCommState = COMM_STATE;
-                    slaveaddr = 0;
-                }
-                populateBatteryT(slaveaddr++);
-                ToSend(2, 12);
-               // if (slaveaddr >= NUMSLAVES1) slaveaddr = 0;
-                break;
-            case BATTERY_POWER:
-                if (lastCommState != COMM_STATE) {
-                    lastCommState = COMM_STATE;
+        if(ChargerVal()){
+            ToSend(2, 12);
+            static int lastCommState = 0;
+            switch (COMM_STATE) {
+                case BATTERY_VOLTS:
                     ToSend(2, 12);
+                    if (lastCommState != COMM_STATE) {
+                        lastCommState = COMM_STATE;
+                        slaveaddr = 0;
+                    }
+                    populateBatteryV(slaveaddr++);
+                   // if (slaveaddr >= NUMSLAVES1) slaveaddr = 0;
+                    break;
+                case BATTERY_TEMPS:
+                    if (lastCommState != COMM_STATE) {
+                        lastCommState = COMM_STATE;
+                        slaveaddr = 0;
+                    }
+                    populateBatteryT(slaveaddr++);
                     ToSend(2, 12);
+                   // if (slaveaddr >= NUMSLAVES1) slaveaddr = 0;
+                    break;
+                case BATTERY_POWER:
+                    if (lastCommState != COMM_STATE) {
+                        lastCommState = COMM_STATE;
+                        ToSend(2, 12);
+                        ToSend(2, 12);
+                        ToSend(2, 12);
+                        ToSend(2, 12);
+                    }
+                    break;
+                case BATTERY_FAULT:
+                    if (lastCommState != COMM_STATE) {
+                        lastCommState = COMM_STATE;
+                    }
                     ToSend(2, 12);
+                    break;
+//                case 6:
+//                    if (lastCommState != COMM_STATE) {
+//                        lastCommState = COMM_STATE;
+//                    }
+//                    ChargerEN();
+//                    ToSend(2, 12);
+//                    break;
+                default:
                     ToSend(2, 12);
-                }
-                break;
-            case BATTERY_FAULT:
-                if (lastCommState != COMM_STATE) {
-                    lastCommState = COMM_STATE;
-                }
-                ToSend(2, 12);
-                break;
+                    break;
 
-            default:
-                ToSend(2, 12);
-                break;
+            }
+            ToSend(2, 12);
+            switch (faultFlag) {
+                case 0:
+                    LATBbits.LATB0=1;
+                    Delay(1);
+                    LATBbits.LATB0=0;
+                    //faultingBattery = 0;
+                    ToSend(2, 12);
+                    break;
 
+                case LOW_VOLTAGE_FLAG:
+                    ToSend(2, 12);
+                case HIGH_TEMPERATURE_FLAG:
+                    ToSend(2, 12);
+                case COMMUNICATIONS_FAULT:
+                    ToSend(2, 12);
+                    LATAbits.LATA1=1;
+                    Delay(1);
+                    LATAbits.LATA1=0;
+                default:
+                    ToSend(2, 12);
+                    break;
+            }
+            sendData(ECU_ADDRESS);
+            pendingSend = false;
+
+            TalkTimeSet(0);
         }
-        ToSend(2, 12);
-        switch (faultFlag) {
-            case 0:
-                LATBbits.LATB0=1;
-                Delay(1);
-                LATBbits.LATB0=0;
-                //faultingBattery = 0;
-                ToSend(2, 12);
-                break;
-                
-            case LOW_VOLTAGE_FLAG:
-                ToSend(2, 12);
-            case HIGH_TEMPERATURE_FLAG:
-                ToSend(2, 12);
-            case COMMUNICATIONS_FAULT:
-                ToSend(2, 12);
-                LATAbits.LATA1=1;
-                Delay(1);
-                LATAbits.LATA1=0;
-            default:
-                ToSend(2, 12);
-                break;
-        }
-        sendData(ECU_ADDRESS);
-        pendingSend = true;
-
-        TalkTimeSet(0);
+//        else(){
+//            //This is where we add info for the charger communication 
+//            
+//        }
     }
     checkCommDirection();
 }
 
 void checkCommDirection() {
     //you have finished send and time has elapsed.. start listen
-    //if (GetTxStall() && (time_get(TLKTM) > 12) && (RS485_Port == TALK) && portClosed && !pendingSend) {
-    if ((time_get(TLKTM) > 12) && (pendingSend) && (RS485_Port == TALK)) {
+    if (GetTxStall() && (time_get(TLKTM) > 20) && (RS485_Port == TALK) && portClosed && !pendingSend) {
         RS485_Port = LISTEN;
         portClosed = false;
-        pendingSend = false;
     }
 }
 

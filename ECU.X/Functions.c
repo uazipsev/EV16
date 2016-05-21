@@ -50,7 +50,7 @@ void Setup(void) {
     Pin_70_Output = TX4_Output;
     RX4_Pin_Map = 57;
 
-    PPSout(_OC1, _RP37);
+    //PPSout(_OC1, _RP37);
     PPSLock;
 
     UART_init();
@@ -63,7 +63,7 @@ void Setup(void) {
     begin2(receiveArray2, sizeof (receiveArray2), ECU_ADDRESS, false, Send_put2, Receive_get2, Receive_available2, Receive_peek2);
     begin3(receiveArray3, sizeof (receiveArray3), ECU_ADDRESS, false, Send_put3, Receive_get3, Receive_available3, Receive_peek3);
 
-    PWM_Init();
+    //PWM_Init();
     initTimerOne();
 }
 
@@ -106,7 +106,7 @@ void ledDebug(){
     if (time > 1000) {
             INDICATOR ^= 1;
            // HORN_EN ^=1;
-            BRAKELT ^= 1;
+           // BRAKELT ^= 1;
            // SS_RELAY ^= 1;
             time = 0;
         }

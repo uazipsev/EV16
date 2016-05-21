@@ -15,7 +15,7 @@
 #include "ADDRESSING.h"
    
 
-#define RS485_Port LATBbits.LATB13
+#define RS485_Port LATBbits.LATB7
 #define TALK 1
 #define LISTEN 0
     //extern volatile unsigned int talkTime;

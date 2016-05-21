@@ -29,7 +29,7 @@ void StartUp595() {
  * The fcn can't augment the array so you need to make sure the array is big enugh for the application
  * This is ajusted in the .h file with num_of_595s
  */
-void SetPin595(int Reg, int pin, int value) {
+void SetPin595(char Reg, char pin, char value) {
     registers[((Reg - 1)*8) + pin] = value;
 }
 

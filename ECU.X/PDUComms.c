@@ -23,18 +23,18 @@ bool requestPDUData() {
             readyToSendPDU = false;
         }
         PDUTimer = 0;
-        RS485_Direction1(TALK);
-        ToSend1(RESPONSE_ADDRESS, ECU_ADDRESS);
+        RS485_Direction2(TALK);
+        ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
         if (powerChange())
-            ToSend1(POWER_RAILS, constructPowerSet());
-        sendData1(PDU_ADDRESS);
+            ToSend(POWER_RAILS, constructPowerSet());
+        sendData(PDU_ADDRESS);
     }
     return true;
 }
 
 bool receiveCommPDU() {
-    if (receiveData1()) {
-        if (receiveArray1[RESPONSE_ADDRESS] == PDU_ADDRESS) {
+    if (receiveData()) {
+        if (receiveArray[RESPONSE_ADDRESS] == PDU_ADDRESS) {
             readyToSendPDU = true;
             PDUTimer = 0;
             return true;

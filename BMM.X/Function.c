@@ -78,8 +78,8 @@ void PinSetMode(void) {
     TRISAbits.TRISA4 = OUTPUT;
     TRISAbits.TRISA7 = OUTPUT;
     TRISAbits.TRISA8 = OUTPUT;
-    TRISBbits.TRISB13 = OUTPUT; // RS485 Direction Pin OUTPUT
-    LATBbits.LATB13 = 0;
+    TRISBbits.TRISB7 = OUTPUT; // RS485 Direction Pin OUTPUT
+    LATBbits.LATB7 = 0;
     //SS CLEAR AND SET
     TRISAbits.TRISA1=OUTPUT;
     TRISBbits.TRISB0=OUTPUT;
@@ -102,7 +102,7 @@ void PinSetMode(void) {
  void ledDebug() {
      //int x=0;
         if (time_get(LEDTM) > 500) {
-            INDICATOR = !INDICATOR;
+            //INDICATOR = !INDICATOR;
             printf("ADC: %d , %d , %d", CurrentGet(0,1),CurrentGet(0,2),CurrentGet(0,3));
            // printf(SetUnderOverVoltage(5,8));
 //            if (x == 0) {

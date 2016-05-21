@@ -783,8 +783,8 @@ void ReadCurrentVolt() {
  *******************************************************************/
 
 void ReadVolt() {
-    Volt1 = ADS1015readADC_SingleEnded(2, 0x02);
-    Volt2 = ADS1015readADC_SingleEnded(3, 0x02);
+    Volt1 = ADS1015readADC_SingleEnded(2, 0x4B);
+    Volt2 = ADS1015readADC_SingleEnded(3, 0x4B);
     Volt1 = (Volt1 / ADCBIT)*5 * VOLTAGERATIO;
     Volt2 = (Volt2 / ADCBIT)*5 * VOLTAGERATIO;
 }
@@ -812,7 +812,12 @@ void ReadVoltToCurrent() {
  *******************************************************************/
 
 void ChargerEN() {
+    
     CarOn = 0;
+}
+
+bool ChargerVal(){
+    return CarOn;
 }
 
 /*******************************************************************

@@ -117,20 +117,20 @@ void bus1Update() {
                 if (receiveCommPDU()) {
                     comms.PDU = true;
                     commsBus1State++;
-                    resetCommTimers();
+                    resetCommTimers2();
                 }
             } else {
                 //FLAG ERROR ON PDU COMMS -- Move on
                 PDU_COMMS_ERROR = true;
                 commsBus1State++;
-                resetCommTimers();
+                resetCommTimers2();
             }
             break;
         case CHECK_STATE1:
-            //Before continuing the comms, send to error state if something is wrong
-            if (DDS_COMMS_ERROR || SAS_COMMS_ERROR || PDU_COMMS_ERROR) {
-                commsBus1State = ERROR_STATE1;
-            } else
+//            //Before continuing the comms, send to error state if something is wrong
+//            if (DDS_COMMS_ERROR || SAS_COMMS_ERROR || PDU_COMMS_ERROR) {
+//                commsBus1State = ERROR_STATE1;
+//            } else
                 //otherwise continue the normal comms update
                 commsBus1State = SAS_UPDATE;
             break;
@@ -153,7 +153,7 @@ void checkCommDirection() {
 void resetCommTimers() {
     SASTimer = 0;
     DDSTimer = 0;
-    PDUTimer = 0;
+    //PDUTimer = 0;
 }
 
 void RS485_Direction1(int T_L) {
@@ -213,10 +213,10 @@ void bus2Update() {
             }
             break;
         case CHECK_STATE2:
-            if (MCS_COMMS_ERROR || BMM_COMMS_ERROR) {
-                commsBus2State = ERROR_STATE2;
-            } else
-                //otherwise continue the normal comms update
+//            if (MCS_COMMS_ERROR || BMM_COMMS_ERROR) {
+//                commsBus2State = ERROR_STATE2;
+//            } else
+//                //otherwise continue the normal comms update
                 commsBus2State = MCS_UPDATE;
             break;
         case ERROR_STATE2:
@@ -238,6 +238,7 @@ void checkCommDirection1() {
 void resetCommTimers2() {
     MCSTimer = 0;
     BMMTimer = 0;
+    PDUTimer = 0;
 }
 
 void RS485_Direction2(int T_L) {

@@ -18,12 +18,12 @@ extern "C" {
 extern int PDU_FAULT_CONDITION;
     extern volatile unsigned int PDUTimer;
 
-    extern void sendData1(unsigned char whereToSend);
-    extern bool receiveData1();
-    extern void ToSend1(const unsigned char where, const unsigned int what);
-    extern volatile int receiveArray1[20];
+    extern void sendData(unsigned char whereToSend);
+    extern bool receiveData();
+    extern void ToSend(const unsigned char where, const unsigned int what);
+    extern volatile int receiveArray[100];
 
-    extern void RS485_Direction1(int T_L);
+    extern void RS485_Direction2(int T_L);
 #ifdef	__cplusplus
 }
 #endif

@@ -11,6 +11,7 @@
 
 void Start_BMS();
 void ChargerEN();
+bool ChargerVal();
 void ReadCurrentVolt();
 void ReadVoltToCurrent();
 int CurrentGet(bool total, char channel);
