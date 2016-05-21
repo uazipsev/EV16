@@ -52,11 +52,11 @@ void updateComms() {
         pendingSend = true;
         //ToSend(2, 12);
     }
-    if (!portClosed && pendingSend && time_get(TLKTM) > 5) {
+    if (!portClosed && !pendingSend ) {
         RS485_Port = TALK;
         portClosed = true;
     }
-    if (pendingSend && time_get(TLKTM)> 6 && portClosed) {
+    if (!pendingSend && time_get(TLKTM)> 6 && portClosed) {
         if(ChargerVal()){
             ToSend(2, 12);
             static int lastCommState = 0;
@@ -130,7 +130,7 @@ void updateComms() {
                     break;
             }
             sendData(ECU_ADDRESS);
-            pendingSend = false;
+            pendingSend = true;
 
             TalkTimeSet(0);
         }
@@ -144,9 +144,11 @@ void updateComms() {
 
 void checkCommDirection() {
     //you have finished send and time has elapsed.. start listen
-    if (GetTxStall() && (time_get(TLKTM) > 20) && (RS485_Port == TALK) && portClosed && !pendingSend) {
+    //if (GetTxStall() && (time_get(TLKTM) > 20) && (RS485_Port == TALK) && portClosed && !pendingSend) {
+    if ((time_get(TLKTM) > 20) && (RS485_Port == TALK) && pendingSend) {
         RS485_Port = LISTEN;
         portClosed = false;
+        pendingSend = false;
     }
 }
 
