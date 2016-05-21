@@ -22,7 +22,9 @@ enum debugStates {
     BATTERY_DEBUG_TEMPS = 3,
     BATTERY_DEBUG_POWER = 4,
     FAULT_RECOVERY = 5,
-    NUM_DEBUG_STATES = 6
+    NUM_DEBUG_STATES = 6,
+            Find_State =7,
+            State_fault=8
 };
 
     extern unsigned int throttle1, throttle2, brake;
@@ -32,7 +34,8 @@ enum debugStates {
     extern void sendData2(unsigned char whereToSend);
     extern bool receiveData2();
     extern void ToSend2(const unsigned char where, const unsigned int what);
-
+extern int getstate();
+extern int getstatefault();
 
 
 #ifdef	__cplusplus

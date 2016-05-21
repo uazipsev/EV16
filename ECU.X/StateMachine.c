@@ -30,7 +30,14 @@ int faultChecker();
 #define SOFT_FAULT 2
 #define THROTTLE_SANITY_CHECK 1
 #define THROTTLE_BRAKE_CHECK  2
+int getstate(void){
 
+return currentState;
+ }
+int getstatefault(void){
+    
+    return faultChecker();
+}
 void updateECUState() {
     static enum ECUstates previousState = NUM_STATES;
     switch (currentState) {

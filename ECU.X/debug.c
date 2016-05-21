@@ -32,7 +32,9 @@ struct commsStates {
     int PDU_SEND;
 };
 extern struct commsStates comms;
-extern unsigned int t1Raw, t2Raw, bRaw;
+ extern unsigned int t1Raw, t2Raw, bRaw;
+               extern int State_Value =0;
+               extern int StateFault_Value=0;
 enum debugStates debugState;
 extern int DDS_FAULT_CONDITION, MCS_FAULT_CONDITION, SAS_FAULT_CONDITION, BMM_FAULT_CONDITION, PDU_FAULT_CONDITION, ECU_FAULT_CONDITION;
 extern int faultingBattery;
@@ -184,6 +186,16 @@ void handleDebugRequests() {
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
                 }
+                break;
+            case Find_State:
+                State_Value=getstate();
+                printf("State On ECU State Machine\n");
+                printf("The Current State Is %d\n", State_Value);
+                break;
+            case State_fault:
+                StateFault_Value=getstatefault();
+                printf("Fault Value On State Machine\n");
+                printf("The Current Fault On The State Machine Is %d\n", StateFault_Value);
                 break;
         }
         DebugTimer = 0;
