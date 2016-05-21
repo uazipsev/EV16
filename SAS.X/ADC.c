@@ -85,7 +85,6 @@ void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt(void) {
     AD1CHS0bits.CH0SA = ADCPorts[ADC];
     AD1CON1bits.SAMP = 1;
     IFS0bits.AD1IF = 0; // clear ADC interrupt flag
-    FilterADC();
 }
 
 void FilterADC(){

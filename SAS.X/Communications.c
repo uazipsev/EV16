@@ -6,7 +6,9 @@ bool pendingSend = false;
 bool portClosed=true;
 void updateComms() {
     checkCommDirection();
+    //LED ^= 1;
     if (receiveData() && !pendingSend) {
+        //LED ^= 1;
         talkTime = 0;
         pendingSend = true;
         portClosed=true;

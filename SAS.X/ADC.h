@@ -20,7 +20,7 @@ typedef enum{
 void initADC(void);
 void FilterADC();
 float GetADC(value RequestValue);
-
+//bool ADCFinish();
 
 #endif	/* ADC_H */
 

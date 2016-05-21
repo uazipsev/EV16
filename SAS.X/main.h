@@ -16,12 +16,7 @@ extern "C" {
     extern volatile bool ADCDataReady;
     extern volatile unsigned int LEDtime, ADCTime;
 
-    void ledDebug() {
-        if (LEDtime > 1000) {
-            LED ^= 1;
-            LEDtime = 0;
-        }
-    }
+
     extern void updateComms();
     extern void Delay(int ms);
     extern void Setup(void);

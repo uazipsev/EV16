@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "FastTransfer.h"
+#include "PinDef.h"
 
 
 
@@ -78,8 +79,10 @@ bool receiveData() {
     if (rx_len == 0) {
         //this size check may be redundant due to the size check below, but for now I'll leave it the way it is.
         if (serial_available() > 4) {
+            //LED ^= 1;
             //this will block until a 0x06 is found or buffer size becomes less then 3.
             while (serial_read() != 0x06) {
+                //LED ^= 1;
                 //This will trash any preamble junk in the serial buffer
                 //but we need to make sure there is enough in the buffer to process while we trash the rest
                 //if the buffer becomes too empty, we will escape and try again on the next call
@@ -88,6 +91,7 @@ bool receiveData() {
                     return false;
             }
             if (serial_read() == 0x85) {
+                
                 rx_address = serial_read(); // pulls the address
                 returnAddress = serial_read(); // pulls where the message came from
                 rx_len = serial_read(); // pulls the length
