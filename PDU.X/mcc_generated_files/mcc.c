@@ -118,7 +118,6 @@ void SYSTEM_Initialize(void)
     PWM4_Initialize();
     TMR2_Initialize();
     ADC_Initialize();
-    CCP5_Initialize();
 }
 
 void OSCILLATOR_Initialize(void)

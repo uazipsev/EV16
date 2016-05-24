@@ -53,7 +53,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "interrupt_manager.h"
 #include "adc.h"
 #include "pwm4.h"
-#include "ccp5.h"
 #include "memory.h"
 #include "tmr2.h"
 

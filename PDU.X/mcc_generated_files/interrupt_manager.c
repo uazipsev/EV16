@@ -58,8 +58,6 @@ void  INTERRUPT_Initialize (void)
 
     // ADI
     IPR1bits.ADIP = 0;
-    // CCPI
-    IPR4bits.CCP5IP = 0;
 }
 
 void interrupt INTERRUPT_InterruptManager (void)
@@ -68,10 +66,6 @@ void interrupt INTERRUPT_InterruptManager (void)
     if(PIE1bits.ADIE == 1 && PIR1bits.ADIF == 1)
     {
         ADC_ISR();
-    }
-    else if(PIE4bits.CCP5IE == 1 && PIR4bits.CCP5IF == 1)
-    {
-        CCP5_CaptureISR();
     }
     else
     {

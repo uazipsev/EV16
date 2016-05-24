@@ -55,7 +55,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
   Section: Macro Declarations
 */
 
-#define PWM4_INITIALIZE_DUTY_VALUE    511
+#define PWM4_INITIALIZE_DUTY_VALUE    499
 
 /**
   Section: PWM Module APIs
@@ -68,8 +68,8 @@ void PWM4_Initialize(void)
     // CCP4M PWM; DC4B 3; 
     CCP4CON = 0x3C;
     
-    // CCPR4L 127; 
-    CCPR4L = 0x7F;
+    // CCPR4L 124; 
+    CCPR4L = 0x7C;
     
     // CCPR4H 0; 
     CCPR4H = 0x00;
