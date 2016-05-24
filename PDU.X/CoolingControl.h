@@ -9,11 +9,11 @@
 #define	COOLINGCONTROL_H
 
 #define TempSetMax 70
-#define pumpMAX 20
+#define pumpMAX 32
 #define fanMAX 75
 
 #define fanStart 20
-#define pumpStart 40
+#define pumpStart 32
 
 void CoolingStart(void);
 

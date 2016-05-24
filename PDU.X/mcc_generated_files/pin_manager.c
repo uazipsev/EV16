@@ -64,6 +64,10 @@ void PIN_MANAGER_Initialize(void)
     TRISB = 0xC6;
     TRISC = 0xDF;
     TRISA = 0xE7;
+    
+    TRISBbits.RB3 = 0;
+    TRISBbits.RB4 = 0;
+    TRISBbits.RB5 = 0;
 
     INTCON2bits.nRBPU = 0x1;
 
