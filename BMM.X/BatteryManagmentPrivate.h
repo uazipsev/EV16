@@ -42,6 +42,7 @@ int VoltageDividerResistance =10000;
 #define A_Constant 8.42961857*pow(10,-4)
 #define B_Constant 2.5924208*pow(10,-4)
 #define C_Constant 1.578649669*pow(10,-7)
+int Over_Temp_Value=0; // TODO create number for this.
 int Over_Voltage_Value = 0x9C4; // Compare Voltage = Over_Voltage_Value*16*100uV  
 //Default Over_Voltage_Value=4.0 4.0=2500*16*100*10^-6
 // 2500=0x7CF
@@ -60,8 +61,8 @@ int Under_Voltage_Value = 0x7CF; // Compare Voltage = (Under_Voltage_Value +1) *
 
 
 #define NUMBEROFDATA 6
-#define bank_1 0
-#define bank_2 1
+#define bank_1 1
+#define bank_2 2
 //Discharge time out value 
 #define DCTO 0 
 #define Cell_Per_Bank 12
@@ -77,10 +78,7 @@ int Aux_data[1][6];
 //LOGIC FOR BANK IS 1 and 2 Not 1 and 0
 int LTC6804_DATA_ConfigBank1[NUMBEROFIC][NUMBEROFDATA];
 int LTC6804_DATA_ConfigBank2[NUMBEROFIC][NUMBEROFDATA];
-int cell_codes_Bank1[NUMBEROFIC][12];
-int cell_codes_Bank2[NUMBEROFIC][12];
-int Aux_codes_Bank1[NUMBEROFIC][6];
-int Aux_codes_Bank2[NUMBEROFIC][6];
+
 int Stat_codes_Bank1[NUMBEROFIC][6];
 int Stat_codes_Bank2[NUMBEROFIC][6];
 /*!< 
@@ -100,12 +98,13 @@ int aux_codes_Bank2[NUMBEROFIC][6];
  |-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|---------------|-----------|
  |IC1 GPIO1        |IC1 GPIO2        |IC1 GPIO3        |IC1 GPIO4        |IC1 GPIO5        |IC1 Vref2        |IC2 GPIO1        |IC2 GPIO2      |  .....    |
  */
-void Charge_Mode(int command);
+#define Start_Run_Mode 1
+#define Start_Charge_Mode 2
+void Charge_Mode();
 void Run_Mode();
 void Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]);
-int Read_Total_Voltage(int cell_codesBank1[][12], int cell_codesBank2[][12]);
 int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12]);
-
+int Test_Temp_Sensors(int Aux_codes_Bank1[][6], int Aux_codes_Bank2[][6]);
 //Configuration set functions
 int SetTempEnable(int bank, int ic, bool value); //This sets the temp sensor on GPIO 5 to be  enabled or not  the bool will determine the value.
 int SetUnderOverVoltage(int VUV, int VOV, int bank, int ic); //This sets the under voltage and overvoltage flag of the ltc6804. The values are #defines
@@ -142,5 +141,6 @@ void Initalize_LT6804b();  //Setups the config registers to be sent the LT6804B.
 #define ReadVoltRegFault 16
 #define ReadAuxRegFault 17
 #define NoBankselected 18
+#define Loose_Slave_Fault 19
 #endif	/* BATTERYMANAGMENTPRIVATE_H */
 

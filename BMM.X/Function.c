@@ -50,8 +50,7 @@ void Setup(void) {
     
     
     initTimerOne();
-    initTimerTwo();
-    //initTimerThree();
+    initTimerThree();
     CommStart();
 
     //begin1(receiveArray1, sizeof (receiveArray1), BMM_MASTER_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);

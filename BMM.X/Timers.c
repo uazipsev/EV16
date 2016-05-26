@@ -13,9 +13,13 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
 }
 
 void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void) {
-    
-    
+   FaultValue=Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2);
+   if (FaultValue==0){
+    FaultValue=Read_Total_GPIO(Aux_codes_Bank1,Aux_codes_Bank2);
+   //Temprature sensors.
+   }
     CurrentCoulombCount(time);
+    
     IFS0bits.T2IF = 0; // clear timer interrupt flag
 }
 

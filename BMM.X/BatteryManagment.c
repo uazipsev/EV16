@@ -14,6 +14,10 @@
 //TODO Need to make a fault status and a use with var
 
 int FaultValue=0;
+ int cell_codes_Bank1[NUMBEROFIC][12]={0};
+ int cell_codes_Bank2[NUMBEROFIC][12]={0};
+ int Aux_codes_Bank1[NUMBEROFIC][6]={0};
+ int Aux_codes_Bank2[NUMBEROFIC][6]={0};
 //|r_config[0]|r_config[1]|r_config[2]|r_config[3]|r_config[4]|r_config[5]|r_config[6]  |r_config[7] |r_config[8]|r_config[9]|  .....    |
 //|-----------|-----------|-----------|-----------|-----------|-----------|-------------|------------|-----------|-----------|-----------|
 //|IC1 CFGR0  |IC1 CFGR1  |IC1 CFGR2  |IC1 CFGR3  |IC1 CFGR4  |IC1 CFGR5  |IC1 PEC High |IC1 PEC Low |IC2 CFGR0  |IC2 CFGR1  |  .....    |
@@ -25,12 +29,19 @@ int FaultValue=0;
  * @note            
  *******************************************************************/
 
-void Start_BMS() {
+void Start_BMS(int mode) {
+    //TODO need to have a mode to make sure all slaves are up in running.
     LTC6804_initialize();
     ADS1015Begin();
+    if (mode ==1){
+        Run_Mode();
+    }
+    else if (mode==2){
+        Charge_Mode();
+    }
 }
 
-void Charge_Mode(int command) {
+void Charge_Mode() {
     //if in charge mode 
     Run_ByPass(cell_codes_Bank1, cell_codes_Bank2);
 
@@ -45,10 +56,12 @@ void Run_Mode() {
         CheckFault();
     }
     else {
-    Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2);}
+    }
     
 }
-
+void Run_GPIO_Temp_ColumbCounting_Timer(){
+    initTimerTwo();
+    }
 void Initalize_LT6804b() {
     int IC = 0;
     int bank = 1;
@@ -392,6 +405,40 @@ int Read_Status_INC = 0;
     }
     return FaultNum;
 }
+
+
+
+
+int Read_Total_GPIO(int Aux_codes_Bank1[][6], int Aux_codes_Bank2[][6]) {
+int Read_Status_INC = 0;
+    int Error_Value = 0;
+    int FaultNum=0;
+    do {
+        Error_Value = Read_GPIO(0, Aux_codes_Bank1);
+        if (Error_Value != 0) {
+            Read_Status_INC = Read_Status_INC + 1;
+        }
+    } while (Error_Value != 0 && Read_Status_INC <= 10);
+        if (Read_Status_INC > 10) {
+        FaultNum = ReadAuxRegFault;
+    }
+    Read_Status_INC = 0;
+    do {
+        Error_Value = Read_GPIO(0, Aux_codes_Bank2);
+        if (Error_Value != 0) {
+            Read_Status_INC = Read_Status_INC + 1;
+        }
+
+    } while (Error_Value != 0 && Read_Status_INC <= 10);
+    if (Read_Status_INC > 10) {
+        FaultNum = ReadAuxRegFault;
+    }
+    else if (Error_Value == 0) {
+        FaultNum=Test_Temp_Sensors( Aux_codes_Bank1,Aux_codes_Bank2);
+    }
+    return FaultNum;
+}
+
 /*******************************************************************
  * @brief           Read_Battery
  * @brief           Reads battery voltage of each cell 
@@ -543,7 +590,39 @@ double CalculateTemp(int bank, int auxcodes[NUMBEROFIC][6]){
    return sensenum; //TODO Not accurate just getting rid of warning.
 }
 
-
+int Test_Temp_Sensors(int Aux_codes_Bank1[][6], int Aux_codes_Bank2[][6]){
+   int Fault=0;
+    int IC_Counter;
+    int TempSense_Counter;
+CalculateTemp(bank_1,Aux_codes_Bank1);
+CalculateTemp(bank_2,Aux_codes_Bank1);
+for (IC_Counter=0;IC_Counter<NUMBEROFIC;IC_Counter++){
+for (TempSense_Counter=0;TempSense_Counter<6;TempSense_Counter++){
+    if (Aux_codes_Bank1[IC_Counter][TempSense_Counter]>=Over_Temp_Value){
+        Fault=OverTempratureThreshold;
+    }
+    if (Fault==OverTempratureThreshold){
+        //If any of the temps are over this threshold exit out of loop and report.
+        TempSense_Counter=6;  
+        IC_Counter= NUMBEROFIC;
+    }
+    //For Bank 2
+    //If there is no fault for Bank1
+    if (Fault!=OverTempratureThreshold){
+      if (Aux_codes_Bank1[IC_Counter][TempSense_Counter]>=Over_Temp_Value){
+        Fault=OverTempratureThreshold;
+    }
+    if (Fault==OverTempratureThreshold){
+        //If any of the temps are over this threshold exit out of loop and report.
+        TempSense_Counter=6;  
+        IC_Counter= NUMBEROFIC;
+    }
+    }
+    
+}
+}
+return Fault;
+}
 //Update
 
 int SetBypass(int bank, int ic, int cell, bool value) {

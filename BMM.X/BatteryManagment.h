@@ -8,8 +8,9 @@
 #define	READ_BATTERY_LEVEL_H
 
 #include <stdbool.h>
-
-void Start_BMS();
+#define NUMBEROFIC 12
+#define NUMBEROFCH 2
+void Start_BMS(int mode);
 void ChargerEN();
 bool ChargerVal();
 void ReadCurrentVolt();
@@ -18,6 +19,12 @@ int CurrentGet(bool total, char channel);
 int Read_Battery(int BatteryPlacement,int cell_codes[][12] );// Amount of IC's, amount of cells per IC
 extern void CurrentCoulombCount(int tme);
 int UpdateLT6804(int bank); //Updates Lt6804 configuration sends a fault if a error is detected.
+extern int Read_Total_Voltage(int cell_codesBank1[][12], int cell_codesBank2[][12]);
+extern int Read_Total_GPIO(int Aux_codes_Bank1[][6], int Aux_codes_Bank2[][6]);
   extern int FaultValue;// TODO IS THIs THE RIGHT WAY FOR A GLOBAL VARIABLE?
+  extern int cell_codes_Bank1[NUMBEROFIC][12];
+ extern int cell_codes_Bank2[NUMBEROFIC][12];
+  extern int Aux_codes_Bank1[NUMBEROFIC][6];
+  extern int Aux_codes_Bank2[NUMBEROFIC][6];
 #endif	/* READ_BATTERY_LEVEL_H */
 
