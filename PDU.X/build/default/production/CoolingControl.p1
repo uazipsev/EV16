@@ -1,5 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"11 DigiPot.h
+"12 DigiPot.h
+[v _PotClear `(v ~T0 @X0 0 ef ]
+"11
 [v _PotSetpoint `(v ~T0 @X0 0 ef1`i ]
 "124 mcc_generated_files/pwm4.h
 [v _PWM4_LoadDutyValue `(v ~T0 @X0 0 ef1`ui ]
@@ -7469,23 +7471,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;CoolingControl.c: 19: void CoolingStart() {
 [e :U _CoolingStart ]
 [f ]
-[; ;CoolingControl.c: 20: PotSetpoint(32);
-"20
-[e ( _PotSetpoint (1 -> 32 `i ]
-[; ;CoolingControl.c: 21: PWM4_LoadDutyValue(20);
+[; ;CoolingControl.c: 21: PotClear();
 "21
-[e ( _PWM4_LoadDutyValue (1 -> -> 20 `i `ui ]
-[; ;CoolingControl.c: 22: }
+[e ( _PotClear ..  ]
+[; ;CoolingControl.c: 22: PotSetpoint(15);
 "22
+[e ( _PotSetpoint (1 -> 15 `i ]
+[; ;CoolingControl.c: 23: PWM4_LoadDutyValue(700);
+"23
+[e ( _PWM4_LoadDutyValue (1 -> -> 700 `i `ui ]
+[; ;CoolingControl.c: 24: }
+"24
 [e :UE 1140 ]
 }
-"24
+"26
 [v _CoolingUpdate `(v ~T0 @X0 1 ef ]
 {
-[; ;CoolingControl.c: 24: void CoolingUpdate(void) {
+[; ;CoolingControl.c: 26: void CoolingUpdate(void) {
 [e :U _CoolingUpdate ]
 [f ]
-[; ;CoolingControl.c: 26: }
-"26
+[; ;CoolingControl.c: 28: }
+"28
 [e :UE 1141 ]
 }

@@ -12,6 +12,7 @@
 #include "xc.h"
 #include "MCC_Generated_Files/pin_manager.h"
 #include "DigiPot.h"
+#include "Functions.h"
 
 int prev_pos = 0;
 
@@ -44,14 +45,15 @@ void PotSetpoint(int new_point) {
         DIGI_UP_DN_LAT = 0;
         set_point = prev_pos - new_pos;
     }
+    Delay(1);
 
     int x;
     //clock to move it desired steps
     for (x = 0; x < set_point; x++) {
         DIGI_INC_LAT = 1;
-        //Delay(1);
+        Delay(1);
         DIGI_INC_LAT = 0;
-        //Delay(1);
+        Delay(1);
     }
     //We are done, let it go
     DIGI_CS_LAT = 1;
@@ -62,19 +64,23 @@ void PotSetpoint(int new_point) {
 //zeros output of device
 
 void PotClear(void) {
+    Delay(1);
     //!CS this Bitch
     DIGI_CS_LAT = 0;
-    //Delay(1);
+    Delay(1);
     DIGI_UP_DN_LAT = 0;
-    //Delay(1);
+    Delay(1);
     int x;
     for (x = 0; x < 32; x++) {
         DIGI_INC_LAT = 1;
-        //Delay(1);
+        Delay(1);
         DIGI_INC_LAT = 0;
-        //Delay(1);
+        Delay(1);
     }
+    DIGI_INC_LAT = 1;
+    Delay(1);
     //We are done, let it go
     DIGI_CS_LAT = 1;
     prev_pos = 0;
+    Delay(1);
 }

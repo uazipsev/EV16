@@ -89,7 +89,9 @@ void main(void)
     while (1)
     {
         // Add your application code
-        updateComms();
+        //updateComms();
+        Delay(1000);
+        LED_1_Toggle();
     }
 }
 /**

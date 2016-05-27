@@ -66,10 +66,10 @@ void PWM4_Initialize(void)
     // Set the PWM to the options selected in the MPLAB(c) Code Configurator
 
     // CCP4M PWM; DC4B 3; 
-    CCP4CON = 0x3C;
+    CCP4CON = 0x3C; //3C
     
     // CCPR4L 124; 
-    CCPR4L = 0x7C;
+    CCPR4L = 0x7C; //7C
     
     // CCPR4H 0; 
     CCPR4H = 0x00;

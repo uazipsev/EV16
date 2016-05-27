@@ -9326,7 +9326,10 @@ void PIN_MANAGER_IOC(void);
 void PotSetpoint(int new_point);
 void PotClear(void);
 
-# 16 "DigiPot.c"
+# 11 "Functions.h"
+extern void Delay(long int wait);
+
+# 17 "DigiPot.c"
 int prev_pos = 0;
 
 
@@ -9358,14 +9361,15 @@ if (new_pos < prev_pos) {
 LATB3 = 0;
 set_point = prev_pos - new_pos;
 }
+Delay(1);
 
 int x;
 
 for (x = 0; x < set_point; x++) {
 LATB4 = 1;
-
+Delay(1);
 LATB4 = 0;
-
+Delay(1);
 }
 
 LATB5 = 1;
@@ -9376,19 +9380,23 @@ prev_pos = new_pos;
 
 
 void PotClear(void) {
+Delay(1);
 
 LATB5 = 0;
-
+Delay(1);
 LATB3 = 0;
-
+Delay(1);
 int x;
 for (x = 0; x < 32; x++) {
 LATB4 = 1;
-
+Delay(1);
 LATB4 = 0;
-
+Delay(1);
 }
+LATB4 = 1;
+Delay(1);
 
 LATB5 = 1;
 prev_pos = 0;
+Delay(1);
 }

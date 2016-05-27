@@ -69,16 +69,16 @@ channel_FVRBuf2 31
 [v ___wmul __wmul `(ui  1 e 2 0 ]
 "15 C:\Program Files (x86)\Microchip\xc8\v1.35\sources\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
-"21 C:\EV16.git\trunk\PDU.X\Communications.c
-[v _updateComms updateComms `(v  1 e 0 0 ]
-"33
+"33 C:\EV16.git\trunk\PDU.X\Communications.c
 [v _processPowerRequest processPowerRequest `(v  1 e 0 0 ]
 "48
 [v _respondECU respondECU `(v  1 e 0 0 ]
 "19 C:\EV16.git\trunk\PDU.X\CoolingControl.c
 [v _CoolingStart CoolingStart `(v  1 e 0 0 ]
-"20 C:\EV16.git\trunk\PDU.X\DigiPot.c
+"21 C:\EV16.git\trunk\PDU.X\DigiPot.c
 [v _PotSetpoint PotSetpoint `(v  1 e 0 0 ]
+"66
+[v _PotClear PotClear `(v  1 e 0 0 ]
 "34 C:\EV16.git\trunk\PDU.X\FastTransfer.c
 [v _CRC8 CRC8 `(uc  1 e 1 0 ]
 "53
@@ -111,15 +111,11 @@ channel_FVRBuf2 31
 [v _ADC_GetConversion ADC_GetConversion `(ui  1 e 2 0 ]
 "128
 [v _ADC_ISR ADC_ISR `(v  1 e 0 0 ]
-"58 C:\EV16.git\trunk\PDU.X\mcc_generated_files/ccp5.c
-[v _CCP5_Initialize CCP5_Initialize `(v  1 e 0 0 ]
-"81
-[v _CCP5_CaptureISR CCP5_CaptureISR `(v  1 e 0 0 ]
-"96
+"96 C:\EV16.git\trunk\PDU.X\mcc_generated_files/ccp5.c
 [v _CCP5_CallBack CCP5_CallBack `(v  1 e 0 0 ]
 "52 C:\EV16.git\trunk\PDU.X\mcc_generated_files/interrupt_manager.c
 [v _INTERRUPT_Initialize INTERRUPT_Initialize `(v  1 e 0 0 ]
-"65
+"63
 [v _INTERRUPT_InterruptManager INTERRUPT_InterruptManager `II(v  1 e 0 0 ]
 "112 C:\EV16.git\trunk\PDU.X\mcc_generated_files/mcc.c
 [v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 0 0 ]
@@ -224,22 +220,13 @@ channel_FVRBuf2 31
 "6202
 [u S350 . 1 `S346 1 . 1 0 ]
 [v _PIR4bits PIR4bits `VES350  1 e 1 @3963 ]
-[s S757 . 1 `uc 1 CCP3IP 1 0 :1:0 
-`uc 1 CCP4IP 1 0 :1:1 
-`uc 1 CCP5IP 1 0 :1:2 
-]
-"6236
-[s S761 . 1 `uc 1 CCIP3IP 1 0 :1:0 
-]
-[u S763 . 1 `S757 1 . 1 0 `S761 1 . 1 0 ]
-[v _IPR4bits IPR4bits `VES763  1 e 1 @3964 ]
 "7776
 [v _LATA LATA `VEuc  1 e 1 @3977 ]
 "7908
 [v _LATB LATB `VEuc  1 e 1 @3978 ]
 "8040
 [v _LATC LATC `VEuc  1 e 1 @3979 ]
-[s S981 . 1 `uc 1 LATC0 1 0 :1:0 
+[s S995 . 1 `uc 1 LATC0 1 0 :1:0 
 `uc 1 LATC1 1 0 :1:1 
 `uc 1 LATC2 1 0 :1:2 
 `uc 1 LATC3 1 0 :1:3 
@@ -249,31 +236,31 @@ channel_FVRBuf2 31
 `uc 1 LATC7 1 0 :1:7 
 ]
 "8088
-[s S990 . 1 `uc 1 LC0 1 0 :1:0 
+[s S1004 . 1 `uc 1 LC0 1 0 :1:0 
 ]
-[s S992 . 1 `uc 1 . 1 0 :1:0 
+[s S1006 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 LC1 1 0 :1:1 
 ]
-[s S995 . 1 `uc 1 . 1 0 :2:0 
+[s S1009 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LC2 1 0 :1:2 
 ]
-[s S998 . 1 `uc 1 . 1 0 :3:0 
+[s S1012 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 LC3 1 0 :1:3 
 ]
-[s S1001 . 1 `uc 1 . 1 0 :4:0 
+[s S1015 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 LC4 1 0 :1:4 
 ]
-[s S1004 . 1 `uc 1 . 1 0 :5:0 
+[s S1018 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 LC5 1 0 :1:5 
 ]
-[s S1007 . 1 `uc 1 . 1 0 :6:0 
+[s S1021 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 LC6 1 0 :1:6 
 ]
-[s S1010 . 1 `uc 1 . 1 0 :7:0 
+[s S1024 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 LC7 1 0 :1:7 
 ]
-[u S1013 . 1 `S981 1 . 1 0 `S990 1 . 1 0 `S992 1 . 1 0 `S995 1 . 1 0 `S998 1 . 1 0 `S1001 1 . 1 0 `S1004 1 . 1 0 `S1007 1 . 1 0 `S1010 1 . 1 0 ]
-[v _LATCbits LATCbits `VES1013  1 e 1 @3979 ]
+[u S1027 . 1 `S995 1 . 1 0 `S1004 1 . 1 0 `S1006 1 . 1 0 `S1009 1 . 1 0 `S1012 1 . 1 0 `S1015 1 . 1 0 `S1018 1 . 1 0 `S1021 1 . 1 0 `S1024 1 . 1 0 ]
+[v _LATCbits LATCbits `VES1027  1 e 1 @3979 ]
 "8172
 [v _LATD LATD `VEuc  1 e 1 @3980 ]
 "8304
@@ -282,6 +269,27 @@ channel_FVRBuf2 31
 [v _TRISA TRISA `VEuc  1 e 1 @3986 ]
 "8627
 [v _TRISB TRISB `VEuc  1 e 1 @3987 ]
+[s S418 . 1 `uc 1 TRISB0 1 0 :1:0 
+`uc 1 TRISB1 1 0 :1:1 
+`uc 1 TRISB2 1 0 :1:2 
+`uc 1 TRISB3 1 0 :1:3 
+`uc 1 TRISB4 1 0 :1:4 
+`uc 1 TRISB5 1 0 :1:5 
+`uc 1 TRISB6 1 0 :1:6 
+`uc 1 TRISB7 1 0 :1:7 
+]
+"8659
+[s S427 . 1 `uc 1 RB0 1 0 :1:0 
+`uc 1 RB1 1 0 :1:1 
+`uc 1 RB2 1 0 :1:2 
+`uc 1 RB3 1 0 :1:3 
+`uc 1 RB4 1 0 :1:4 
+`uc 1 RB5 1 0 :1:5 
+`uc 1 RB6 1 0 :1:6 
+`uc 1 RB7 1 0 :1:7 
+]
+[u S436 . 1 `S418 1 . 1 0 `S427 1 . 1 0 ]
+[v _TRISBbits TRISBbits `VES436  1 e 1 @3987 ]
 "8848
 [v _TRISC TRISC `VEuc  1 e 1 @3988 ]
 "9069
@@ -290,7 +298,7 @@ channel_FVRBuf2 31
 [v _TRISE TRISE `VEuc  1 e 1 @3990 ]
 "9405
 [v _OSCTUNE OSCTUNE `VEuc  1 e 1 @3995 ]
-[s S518 . 1 `uc 1 TMR1IE 1 0 :1:0 
+[s S566 . 1 `uc 1 TMR1IE 1 0 :1:0 
 `uc 1 TMR2IE 1 0 :1:1 
 `uc 1 CCP1IE 1 0 :1:2 
 `uc 1 SSP1IE 1 0 :1:3 
@@ -299,13 +307,13 @@ channel_FVRBuf2 31
 `uc 1 ADIE 1 0 :1:6 
 ]
 "9775
-[s S526 . 1 `uc 1 . 1 0 :3:0 
+[s S574 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 SSPIE 1 0 :1:3 
 `uc 1 TXIE 1 0 :1:4 
 `uc 1 RCIE 1 0 :1:5 
 ]
-[u S531 . 1 `S518 1 . 1 0 `S526 1 . 1 0 ]
-[v _PIE1bits PIE1bits `VES531  1 e 1 @3997 ]
+[u S579 . 1 `S566 1 . 1 0 `S574 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES579  1 e 1 @3997 ]
 [s S240 . 1 `uc 1 TMR1IF 1 0 :1:0 
 `uc 1 TMR2IF 1 0 :1:1 
 `uc 1 CCP1IF 1 0 :1:2 
@@ -322,7 +330,7 @@ channel_FVRBuf2 31
 ]
 [u S253 . 1 `S240 1 . 1 0 `S248 1 . 1 0 ]
 [v _PIR1bits PIR1bits `VES253  1 e 1 @3998 ]
-[s S727 . 1 `uc 1 TMR1IP 1 0 :1:0 
+[s S775 . 1 `uc 1 TMR1IP 1 0 :1:0 
 `uc 1 TMR2IP 1 0 :1:1 
 `uc 1 CCP1IP 1 0 :1:2 
 `uc 1 SSP1IP 1 0 :1:3 
@@ -331,13 +339,13 @@ channel_FVRBuf2 31
 `uc 1 ADIP 1 0 :1:6 
 ]
 "9927
-[s S735 . 1 `uc 1 . 1 0 :3:0 
+[s S783 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 SSPIP 1 0 :1:3 
 `uc 1 TXIP 1 0 :1:4 
 `uc 1 RCIP 1 0 :1:5 
 ]
-[u S740 . 1 `S727 1 . 1 0 `S735 1 . 1 0 ]
-[v _IPR1bits IPR1bits `VES740  1 e 1 @3999 ]
+[u S788 . 1 `S775 1 . 1 0 `S783 1 . 1 0 ]
+[v _IPR1bits IPR1bits `VES788  1 e 1 @3999 ]
 [s S148 . 1 `uc 1 CCP2IF 1 0 :1:0 
 `uc 1 TMR3IF 1 0 :1:1 
 `uc 1 HLVDIF 1 0 :1:2 
@@ -380,7 +388,7 @@ channel_FVRBuf2 31
 [v _EEADR EEADR `VEuc  1 e 1 @4009 ]
 "10698
 [v _RC1STA RC1STA `VEuc  1 e 1 @4011 ]
-[s S1448 . 1 `uc 1 RX9D 1 0 :1:0 
+[s S1463 . 1 `uc 1 RX9D 1 0 :1:0 
 `uc 1 OERR 1 0 :1:1 
 `uc 1 FERR 1 0 :1:2 
 `uc 1 ADDEN 1 0 :1:3 
@@ -390,10 +398,10 @@ channel_FVRBuf2 31
 `uc 1 SPEN 1 0 :1:7 
 ]
 "11041
-[s S1457 . 1 `uc 1 . 1 0 :3:0 
+[s S1472 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 ADEN 1 0 :1:3 
 ]
-[s S1460 . 1 `uc 1 RX9D1 1 0 :1:0 
+[s S1475 . 1 `uc 1 RX9D1 1 0 :1:0 
 `uc 1 OERR1 1 0 :1:1 
 `uc 1 FERR1 1 0 :1:2 
 `uc 1 ADDEN1 1 0 :1:3 
@@ -402,19 +410,19 @@ channel_FVRBuf2 31
 `uc 1 RX91 1 0 :1:6 
 `uc 1 SPEN1 1 0 :1:7 
 ]
-[s S1469 . 1 `uc 1 . 1 0 :6:0 
+[s S1484 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC8_9 1 0 :1:6 
 ]
-[s S1472 . 1 `uc 1 . 1 0 :6:0 
+[s S1487 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC9 1 0 :1:6 
 ]
-[s S1475 . 1 `uc 1 RCD8 1 0 :1:0 
+[s S1490 . 1 `uc 1 RCD8 1 0 :1:0 
 ]
-[s S1477 . 1 `uc 1 . 1 0 :5:0 
+[s S1492 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 SRENA 1 0 :1:5 
 ]
-[u S1480 . 1 `S1448 1 . 1 0 `S1457 1 . 1 0 `S1460 1 . 1 0 `S1469 1 . 1 0 `S1472 1 . 1 0 `S1475 1 . 1 0 `S1477 1 . 1 0 ]
-[v _RC1STAbits RC1STAbits `VES1480  1 e 1 @4011 ]
+[u S1495 . 1 `S1463 1 . 1 0 `S1472 1 . 1 0 `S1475 1 . 1 0 `S1484 1 . 1 0 `S1487 1 . 1 0 `S1490 1 . 1 0 `S1492 1 . 1 0 ]
+[v _RC1STAbits RC1STAbits `VES1495  1 e 1 @4011 ]
 "11159
 [v _TX1STA TX1STA `VEuc  1 e 1 @4012 ]
 "11530
@@ -454,15 +462,15 @@ channel_FVRBuf2 31
 [v _ADCON1 ADCON1 `VEuc  1 e 1 @4033 ]
 "14051
 [v _ADCON0 ADCON0 `VEuc  1 e 1 @4034 ]
-[s S555 . 1 `uc 1 . 1 0 :1:0 
+[s S603 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO_NOT_DONE 1 0 :1:1 
 ]
 "14096
-[s S558 . 1 `uc 1 ADON 1 0 :1:0 
+[s S606 . 1 `uc 1 ADON 1 0 :1:0 
 `uc 1 GO_nDONE 1 0 :1:1 
 `uc 1 CHS 1 0 :5:2 
 ]
-[s S562 . 1 `uc 1 . 1 0 :1:0 
+[s S610 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO 1 0 :1:1 
 `uc 1 CHS0 1 0 :1:2 
 `uc 1 CHS1 1 0 :1:3 
@@ -470,43 +478,43 @@ channel_FVRBuf2 31
 `uc 1 CHS3 1 0 :1:5 
 `uc 1 CHS4 1 0 :1:6 
 ]
-[s S570 . 1 `uc 1 . 1 0 :1:0 
+[s S618 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 DONE 1 0 :1:1 
 ]
-[s S573 . 1 `uc 1 . 1 0 :1:0 
+[s S621 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 NOT_DONE 1 0 :1:1 
 ]
-[s S576 . 1 `uc 1 . 1 0 :1:0 
+[s S624 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 nDONE 1 0 :1:1 
 ]
-[s S579 . 1 `uc 1 . 1 0 :1:0 
+[s S627 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO_DONE 1 0 :1:1 
 ]
-[s S582 . 1 `uc 1 . 1 0 :1:0 
+[s S630 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GODONE 1 0 :1:1 
 ]
-[u S585 . 1 `S555 1 . 1 0 `S558 1 . 1 0 `S562 1 . 1 0 `S570 1 . 1 0 `S573 1 . 1 0 `S576 1 . 1 0 `S579 1 . 1 0 `S582 1 . 1 0 ]
-[v _ADCON0bits ADCON0bits `VES585  1 e 1 @4034 ]
+[u S633 . 1 `S603 1 . 1 0 `S606 1 . 1 0 `S610 1 . 1 0 `S618 1 . 1 0 `S621 1 . 1 0 `S624 1 . 1 0 `S627 1 . 1 0 `S630 1 . 1 0 ]
+[v _ADCON0bits ADCON0bits `VES633  1 e 1 @4034 ]
 "14181
 [v _ADRESL ADRESL `VEuc  1 e 1 @4035 ]
 "14200
 [v _ADRESH ADRESH `VEuc  1 e 1 @4036 ]
-[s S660 . 1 `uc 1 NOT_BOR 1 0 :1:0 
+[s S708 . 1 `uc 1 NOT_BOR 1 0 :1:0 
 ]
 "16577
-[s S662 . 1 `uc 1 . 1 0 :1:0 
+[s S710 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 NOT_POR 1 0 :1:1 
 ]
-[s S665 . 1 `uc 1 . 1 0 :2:0 
+[s S713 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 NOT_PD 1 0 :1:2 
 ]
-[s S668 . 1 `uc 1 . 1 0 :3:0 
+[s S716 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 NOT_TO 1 0 :1:3 
 ]
-[s S671 . 1 `uc 1 . 1 0 :4:0 
+[s S719 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 NOT_RI 1 0 :1:4 
 ]
-[s S674 . 1 `uc 1 nBOR 1 0 :1:0 
+[s S722 . 1 `uc 1 nBOR 1 0 :1:0 
 `uc 1 nPOR 1 0 :1:1 
 `uc 1 nPD 1 0 :1:2 
 `uc 1 nTO 1 0 :1:3 
@@ -515,23 +523,23 @@ channel_FVRBuf2 31
 `uc 1 SBOREN 1 0 :1:6 
 `uc 1 IPEN 1 0 :1:7 
 ]
-[s S683 . 1 `uc 1 BOR 1 0 :1:0 
+[s S731 . 1 `uc 1 BOR 1 0 :1:0 
 `uc 1 POR 1 0 :1:1 
 `uc 1 PD 1 0 :1:2 
 `uc 1 TO 1 0 :1:3 
 `uc 1 RI 1 0 :1:4 
 ]
-[u S689 . 1 `S660 1 . 1 0 `S662 1 . 1 0 `S665 1 . 1 0 `S668 1 . 1 0 `S671 1 . 1 0 `S674 1 . 1 0 `S683 1 . 1 0 ]
-[v _RCONbits RCONbits `VES689  1 e 1 @4048 ]
+[u S737 . 1 `S708 1 . 1 0 `S710 1 . 1 0 `S713 1 . 1 0 `S716 1 . 1 0 `S719 1 . 1 0 `S722 1 . 1 0 `S731 1 . 1 0 ]
+[v _RCONbits RCONbits `VES737  1 e 1 @4048 ]
 "16693
 [v _OSCCON2 OSCCON2 `VEuc  1 e 1 @4050 ]
 "16749
 [v _OSCCON OSCCON `VEuc  1 e 1 @4051 ]
-[s S418 . 1 `uc 1 . 1 0 :7:0 
+[s S458 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 NOT_RBPU 1 0 :1:7 
 ]
 "17559
-[s S421 . 1 `uc 1 RBIP 1 0 :1:0 
+[s S461 . 1 `uc 1 RBIP 1 0 :1:0 
 `uc 1 . 1 0 :1:1 
 `uc 1 TMR0IP 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -540,11 +548,11 @@ channel_FVRBuf2 31
 `uc 1 INTEDG0 1 0 :1:6 
 `uc 1 nRBPU 1 0 :1:7 
 ]
-[s S430 . 1 `uc 1 . 1 0 :7:0 
+[s S470 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 RBPU 1 0 :1:7 
 ]
-[u S433 . 1 `S418 1 . 1 0 `S421 1 . 1 0 `S430 1 . 1 0 ]
-[v _INTCON2bits INTCON2bits `VES433  1 e 1 @4081 ]
+[u S473 . 1 `S458 1 . 1 0 `S461 1 . 1 0 `S470 1 . 1 0 ]
+[v _INTCON2bits INTCON2bits `VES473  1 e 1 @4081 ]
 [s S31 . 1 `uc 1 RBIF 1 0 :1:0 
 `uc 1 INT0IF 1 0 :1:1 
 `uc 1 TMR0IF 1 0 :1:2 
@@ -578,6 +586,8 @@ channel_FVRBuf2 31
 [v _TBLPTRH TBLPTRH `VEuc  1 e 1 @4087 ]
 "17843
 [v _TBLPTRU TBLPTRU `VEuc  1 e 1 @4088 ]
+"18981
+[v _LATA3 LATA3 `VEb  1 e 0 @31819 ]
 "18991
 [v _LATB0 LATB0 `VEb  1 e 0 @31824 ]
 "18997
@@ -594,7 +604,7 @@ channel_FVRBuf2 31
 [v _LATD6 LATD6 `VEb  1 e 0 @31846 ]
 "19037
 [v _LATD7 LATD7 `VEb  1 e 0 @31847 ]
-"16 C:\EV16.git\trunk\PDU.X\DigiPot.c
+"17 C:\EV16.git\trunk\PDU.X\DigiPot.c
 [v _prev_pos prev_pos `i  1 e 2 0 ]
 "24 C:\EV16.git\trunk\PDU.X\FastTransfer.h
 [v _receiveArray receiveArray `VE[20]i  1 e 40 0 ]
@@ -636,15 +646,15 @@ channel_FVRBuf2 31
 [v _dataAdressErrorCounter dataAdressErrorCounter `ui  1 e 2 0 ]
 "44
 [v _rx_address rx_address `uc  1 e 1 0 ]
-[s S1113 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[s S1128 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
 "58
-[v _ring_buffer ring_buffer `S1113  1 e 206 0 ]
-[u S1118 stuff 2 `[2]uc 1 parts 2 0 `ui 1 integer 2 0 ]
+[v _ring_buffer ring_buffer `S1128  1 e 206 0 ]
+[u S1133 stuff 2 `[2]uc 1 parts 2 0 `ui 1 integer 2 0 ]
 "64
-[v _group group `S1118  1 e 2 0 ]
-[s S1121 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
+[v _group group `S1133  1 e 2 0 ]
+[s S1136 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
 "70
-[v _crc_buffer crc_buffer `S1121  1 e 17 0 ]
+[v _crc_buffer crc_buffer `S1136  1 e 17 0 ]
 "13 C:\EV16.git\trunk\PDU.X\PDU.h
 [v _Currentcomp Currentcomp `[6]i  1 e 12 0 ]
 "14
@@ -655,175 +665,17 @@ channel_FVRBuf2 31
 [v _Current Current `[6]i  1 e 12 0 ]
 "14 C:\EV16.git\trunk\PDU.X\Shift595.h
 [v _registers registers `[24]uc  1 e 24 0 ]
-[s S1407 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[s S1422 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
 "109 C:\EV16.git\trunk\PDU.X\UART.h
-[v _input_buffer input_buffer `S1407  1 e 206 0 ]
+[v _input_buffer input_buffer `S1422  1 e 206 0 ]
 "110
-[v _output_buffer output_buffer `S1407  1 e 206 0 ]
+[v _output_buffer output_buffer `S1422  1 e 206 0 ]
 "112
 [v _Transmit_stall Transmit_stall `uc  1 e 1 0 ]
 "55 C:\EV16.git\trunk\PDU.X\main.c
 [v _main main `(v  1 e 0 0 ]
 {
-"94
-} 0
-"21 C:\EV16.git\trunk\PDU.X\Communications.c
-[v _updateComms updateComms `(v  1 e 0 0 ]
-{
-"23
-[v updateComms@previousPowerState previousPowerState `i  1 s 2 previousPowerState ]
-"30
-} 0
-"48
-[v _respondECU respondECU `(v  1 e 0 0 ]
-{
-"57
-} 0
-"53 C:\EV16.git\trunk\PDU.X\FastTransfer.c
-[v _sendData sendData `(v  1 e 0 0 ]
-{
-[v sendData@whereToSend whereToSend `uc  1 a 1 wreg ]
-"66
-[v sendData@i i `i  1 a 2 33 ]
-"53
-[v sendData@CS CS `uc  1 a 1 32 ]
-[v sendData@whereToSend whereToSend `uc  1 a 1 wreg ]
-"56
-[v sendData@whereToSend whereToSend `uc  1 a 1 31 ]
-"80
-} 0
-"321
-[v _crcBufS_put crcBufS_put `(v  1 e 0 0 ]
-{
-[s S1121 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
-[v crcBufS_put@_this _this `*.39S1121  1 p 2 18 ]
-[v crcBufS_put@address address `uc  1 p 1 20 ]
-[v crcBufS_put@oldCRC oldCRC `uc  1 p 1 21 ]
-[v crcBufS_put@status status `uc  1 p 1 22 ]
-"331
-} 0
-"261
-[v _FastTransfer_buffer_flush FastTransfer_buffer_flush `(v  1 e 0 0 ]
-{
-[s S1113 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
-[v FastTransfer_buffer_flush@_this _this `*.39S1113  1 p 2 26 ]
-[v FastTransfer_buffer_flush@clearBuffer clearBuffer `Ci  1 p 2 28 ]
-"268
-} 0
-"8 C:\Program Files (x86)\Microchip\xc8\v1.35\sources\common\memset.c
-[v _memset memset `(*.39v  1 e 2 0 ]
-{
-"15
-[v memset@p p `*.39uc  1 a 2 24 ]
-"8
-[v memset@p1 p1 `*.39v  1 p 2 18 ]
-[v memset@c c `i  1 p 2 20 ]
-[v memset@n n `ui  1 p 2 22 ]
-"22
-} 0
-"216 C:\EV16.git\trunk\PDU.X\FastTransfer.c
-[v _ToSend ToSend `(v  1 e 0 0 ]
-{
-[v ToSend@where where `uc  1 a 1 wreg ]
-[v ToSend@where where `uc  1 a 1 wreg ]
-[v ToSend@what what `ui  1 p 2 31 ]
-[v ToSend@where where `uc  1 a 1 33 ]
-"218
-} 0
-"223
-[v _FastTransfer_buffer_put FastTransfer_buffer_put `(v  1 e 0 0 ]
-{
-[s S1113 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
-[v FastTransfer_buffer_put@_this _this `*.39S1113  1 p 2 24 ]
-[v FastTransfer_buffer_put@towhere towhere `uc  1 p 1 26 ]
-[v FastTransfer_buffer_put@towhat towhat `ui  1 p 2 27 ]
-"240
-} 0
-"273
-[v _FastTransfer_buffer_modulo_inc FastTransfer_buffer_modulo_inc `(ui  1 e 2 0 ]
-{
-"274
-[v FastTransfer_buffer_modulo_inc@my_value my_value `ui  1 a 2 22 ]
-"273
-[v FastTransfer_buffer_modulo_inc@value value `Cui  1 p 2 18 ]
-[v FastTransfer_buffer_modulo_inc@modulus modulus `Cui  1 p 2 20 ]
-"279
-} 0
-"82
-[v _receiveData receiveData `(uc  1 e 1 0 ]
-{
-"185
-[v receiveData@holder_1249 holder `[3]uc  1 a 3 11 ]
-"189
-[v receiveData@crcHolder_1250 crcHolder `uc  1 a 1 7 ]
-"160
-[v receiveData@holder holder `[3]uc  1 a 3 8 ]
-"164
-[v receiveData@crcHolder crcHolder `uc  1 a 1 6 ]
-"106
-[v receiveData@u u `i  1 a 2 14 ]
-"147
-[v receiveData@r r `i  1 a 2 16 ]
-"211
-} 0
-"373
-[v _CRCcheck CRCcheck `(v  1 e 0 0 ]
-{
-"387
-[v CRCcheck@rt rt `i  1 a 2 35 ]
-"377
-[v CRCcheck@arrayHolder arrayHolder `[3]uc  1 a 3 32 ]
-"382
-[v CRCcheck@calculatedCRC calculatedCRC `uc  1 a 1 31 ]
-"381
-[v CRCcheck@SentCRC SentCRC `uc  1 a 1 30 ]
-"404
-} 0
-"336
-[v _crcBufS_status_put crcBufS_status_put `(v  1 e 0 0 ]
-{
-"341
-[v crcBufS_status_put@wantedTime wantedTime `i  1 a 2 26 ]
-[s S1121 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
-"336
-[v crcBufS_status_put@_this _this `*.39S1121  1 p 2 18 ]
-[v crcBufS_status_put@time time `uc  1 p 1 20 ]
-[v crcBufS_status_put@status status `uc  1 p 1 21 ]
-"348
-} 0
-"353
-[v _crcBufS_get crcBufS_get `(uc  1 e 1 0 ]
-{
-"361
-[v crcBufS_get@wantedTime wantedTime `i  1 a 2 28 ]
-[s S1121 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
-"353
-[v crcBufS_get@_this _this `*.39S1121  1 p 2 18 ]
-[v crcBufS_get@time time `uc  1 p 1 20 ]
-[v crcBufS_get@space space `uc  1 p 1 21 ]
-"368
-} 0
-"34
-[v _CRC8 CRC8 `(uc  1 e 1 0 ]
-{
-"40
-[v CRC8@sum sum `uc  1 a 1 21 ]
-"38
-[v CRC8@tempI tempI `uc  1 a 1 23 ]
-"37
-[v CRC8@extract extract `uc  1 a 1 22 ]
-"35
-[v CRC8@crc crc `uc  1 a 1 24 ]
-"34
-[v CRC8@data data `*.39Cuc  1 p 2 18 ]
-[v CRC8@len len `uc  1 p 1 20 ]
-"49
-} 0
-"33 C:\EV16.git\trunk\PDU.X\Communications.c
-[v _processPowerRequest processPowerRequest `(v  1 e 0 0 ]
-{
-[v processPowerRequest@powerSet powerSet `i  1 p 2 32 ]
-"46
+"96
 } 0
 "112 C:\EV16.git\trunk\PDU.X\mcc_generated_files/mcc.c
 [v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 0 0 ]
@@ -848,7 +700,7 @@ channel_FVRBuf2 31
 "49 C:\EV16.git\trunk\PDU.X\mcc_generated_files/pin_manager.c
 [v _PIN_MANAGER_Initialize PIN_MANAGER_Initialize `(v  1 e 0 0 ]
 {
-"73
+"77
 } 0
 "124 C:\EV16.git\trunk\PDU.X\mcc_generated_files/mcc.c
 [v _OSCILLATOR_Initialize OSCILLATOR_Initialize `(v  1 e 0 0 ]
@@ -858,12 +710,7 @@ channel_FVRBuf2 31
 "52 C:\EV16.git\trunk\PDU.X\mcc_generated_files/interrupt_manager.c
 [v _INTERRUPT_Initialize INTERRUPT_Initialize `(v  1 e 0 0 ]
 {
-"63
-} 0
-"58 C:\EV16.git\trunk\PDU.X\mcc_generated_files/ccp5.c
-[v _CCP5_Initialize CCP5_Initialize `(v  1 e 0 0 ]
-{
-"79
+"61
 } 0
 "59 C:\EV16.git\trunk\PDU.X\mcc_generated_files/adc.c
 [v _ADC_Initialize ADC_Initialize `(v  1 e 0 0 ]
@@ -889,34 +736,25 @@ channel_FVRBuf2 31
 [v _Clear595 Clear595 `(v  1 e 0 0 ]
 {
 "40
-[v Clear595@i i `i  1 a 2 32 ]
+[v Clear595@i i `i  1 a 2 8 ]
 "45
 } 0
 "50
 [v _writeRegisters writeRegisters `(v  1 e 0 0 ]
 {
 "52
-[v writeRegisters@i i `i  1 a 2 30 ]
+[v writeRegisters@i i `i  1 a 2 6 ]
 "51
-[v writeRegisters@val val `i  1 a 2 28 ]
+[v writeRegisters@val val `i  1 a 2 4 ]
 "71
-} 0
-"9 C:\EV16.git\trunk\PDU.X\Functions.c
-[v _Delay Delay `(v  1 e 0 0 ]
-{
-"10
-[v Delay@i i `l  1 a 4 23 ]
-"9
-[v Delay@wait wait `l  1 p 4 18 ]
-"14
 } 0
 "32 C:\EV16.git\trunk\PDU.X\PDU.c
 [v _EnableSlavePower EnableSlavePower `(v  1 e 0 0 ]
 {
 [v EnableSlavePower@slave slave `E5  1 a 1 wreg ]
 [v EnableSlavePower@slave slave `E5  1 a 1 wreg ]
-[v EnableSlavePower@onof onof `i  1 p 2 25 ]
-[v EnableSlavePower@slave slave `E5  1 a 1 27 ]
+[v EnableSlavePower@onof onof `i  1 p 2 0 ]
+[v EnableSlavePower@slave slave `E5  1 a 1 2 ]
 "53
 } 0
 "32 C:\EV16.git\trunk\PDU.X\Shift595.c
@@ -924,16 +762,16 @@ channel_FVRBuf2 31
 {
 [v SetPin595@Reg Reg `uc  1 a 1 wreg ]
 [v SetPin595@Reg Reg `uc  1 a 1 wreg ]
-[v SetPin595@pin pin `uc  1 p 1 18 ]
-[v SetPin595@value value `uc  1 p 1 19 ]
-[v SetPin595@Reg Reg `uc  1 a 1 24 ]
+[v SetPin595@pin pin `uc  1 p 1 14 ]
+[v SetPin595@value value `uc  1 p 1 15 ]
+[v SetPin595@Reg Reg `uc  1 a 1 20 ]
 "34
 } 0
 "94 C:\EV16.git\trunk\PDU.X\PDU.c
 [v _ComputeStorageData ComputeStorageData `(v  1 e 0 0 ]
 {
 "95
-[v ComputeStorageData@i i `i  1 a 2 21 ]
+[v ComputeStorageData@i i `i  1 a 2 17 ]
 "105
 } 0
 "189 C:\EV16.git\trunk\PDU.X\mcc_generated_files/memory.c
@@ -942,53 +780,53 @@ channel_FVRBuf2 31
 [v DATAEE_ReadByte@bAdd bAdd `uc  1 a 1 wreg ]
 [v DATAEE_ReadByte@bAdd bAdd `uc  1 a 1 wreg ]
 "191
-[v DATAEE_ReadByte@bAdd bAdd `uc  1 a 1 18 ]
+[v DATAEE_ReadByte@bAdd bAdd `uc  1 a 1 14 ]
 "199
 } 0
 "19 C:\EV16.git\trunk\PDU.X\CoolingControl.c
 [v _CoolingStart CoolingStart `(v  1 e 0 0 ]
 {
-"22
+"24
 } 0
-"20 C:\EV16.git\trunk\PDU.X\DigiPot.c
+"21 C:\EV16.git\trunk\PDU.X\DigiPot.c
 [v _PotSetpoint PotSetpoint `(v  1 e 0 0 ]
 {
-"30
-[v PotSetpoint@new_pos new_pos `i  1 a 2 26 ]
-"48
-[v PotSetpoint@x x `i  1 a 2 24 ]
+"31
+[v PotSetpoint@new_pos new_pos `i  1 a 2 10 ]
+"50
+[v PotSetpoint@x x `i  1 a 2 8 ]
+"22
+[v PotSetpoint@set_point set_point `i  1 a 2 6 ]
 "21
-[v PotSetpoint@set_point set_point `i  1 a 2 22 ]
-"20
-[v PotSetpoint@new_point new_point `i  1 p 2 18 ]
-"60
+[v PotSetpoint@new_point new_point `i  1 p 2 19 ]
+"62
+} 0
+"66
+[v _PotClear PotClear `(v  1 e 0 0 ]
+{
+"73
+[v PotClear@x x `i  1 a 2 19 ]
+"86
+} 0
+"9 C:\EV16.git\trunk\PDU.X\Functions.c
+[v _Delay Delay `(v  1 e 0 0 ]
+{
+"10
+[v Delay@i i `l  1 a 4 0 ]
+"9
+[v Delay@wait wait `l  1 p 4 14 ]
+"14
 } 0
 "81 C:\EV16.git\trunk\PDU.X\mcc_generated_files/pwm4.c
 [v _PWM4_LoadDutyValue PWM4_LoadDutyValue `(v  1 e 0 0 ]
 {
-[v PWM4_LoadDutyValue@dutyValue dutyValue `ui  1 p 2 18 ]
+[v PWM4_LoadDutyValue@dutyValue dutyValue `ui  1 p 2 14 ]
 "88
 } 0
-"65 C:\EV16.git\trunk\PDU.X\mcc_generated_files/interrupt_manager.c
+"63 C:\EV16.git\trunk\PDU.X\mcc_generated_files/interrupt_manager.c
 [v _INTERRUPT_InterruptManager INTERRUPT_InterruptManager `II(v  1 e 0 0 ]
 {
-"80
-} 0
-"81 C:\EV16.git\trunk\PDU.X\mcc_generated_files/ccp5.c
-[v _CCP5_CaptureISR CCP5_CaptureISR `(v  1 e 0 0 ]
-{
-[s S368 . 2 `uc 1 ccpr5l 1 0 `uc 1 ccpr5h 1 1 ]
-"83
-[s S371 . 2 `ui 1 ccpr5_16Bit 2 0 ]
-[u S373 CCPR5Reg_tag 2 `S368 1 . 2 0 `S371 1 . 2 0 ]
-[v CCP5_CaptureISR@module module `S373  1 a 2 2 ]
-"94
-} 0
-"96
-[v _CCP5_CallBack CCP5_CallBack `(v  1 e 0 0 ]
-{
-[v CCP5_CallBack@capturedValue capturedValue `ui  1 p 2 0 ]
-"99
+"74
 } 0
 "128 C:\EV16.git\trunk\PDU.X\mcc_generated_files/adc.c
 [v _ADC_ISR ADC_ISR `(v  1 e 0 0 ]

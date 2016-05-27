@@ -9424,8 +9424,10 @@ void PWM4_LoadDutyValue(uint16_t dutyValue);
 
 # 19 "CoolingControl.c"
 void CoolingStart() {
-PotSetpoint(32);
-PWM4_LoadDutyValue(20);
+
+PotClear();
+PotSetpoint(15);
+PWM4_LoadDutyValue(700);
 }
 
 void CoolingUpdate(void) {

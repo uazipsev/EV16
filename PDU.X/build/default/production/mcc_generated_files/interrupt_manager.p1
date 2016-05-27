@@ -36,17 +36,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S567 . . . ]
 "9927
 [v _IPR1bits `VS567 ~T0 @X0 0 e@3999 ]
-"6227
-[s S390 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S390 . CCP3IP CCP4IP CCP5IP ]
-"6232
-[s S391 :1 `uc 1 ]
-[n S391 . CCIP3IP ]
-"6226
-[u S389 `S390 1 `S391 1 ]
-[n S389 . . . ]
-"6236
-[v _IPR4bits `VS389 ~T0 @X0 0 e@3964 ]
 "9759
 [s S562 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S562 . TMR1IE TMR2IE CCP1IE SSP1IE TX1IE RC1IE ADIE ]
@@ -71,24 +60,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PIR1bits `VS564 ~T0 @X0 0 e@3998 ]
 "269 mcc_generated_files/adc.h
 [v _ADC_ISR `(v ~T0 @X0 0 ef ]
-"6165 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
-[s S386 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S386 . CCP3IE CCP4IE CCP5IE ]
-"6164
-[u S385 `S386 1 ]
-[n S385 . . ]
-"6171
-[v _PIE4bits `VS385 ~T0 @X0 0 e@3962 ]
-"6196
-[s S388 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S388 . CCP3IF CCP4IF CCP5IF ]
-"6195
-[u S387 `S388 1 ]
-[n S387 . . ]
-"6202
-[v _PIR4bits `VS387 ~T0 @X0 0 e@3963 ]
-"134 mcc_generated_files/ccp5.h
-[v _CCP5_CaptureISR `(v ~T0 @X0 0 ef ]
 [; ;interrupt_manager.h: 110: void INTERRUPT_Initialize (void);
 [; ;interrupt_manager.h: 122: void interrupt INTERRUPT_InterruptManager (void);
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -7566,21 +7537,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;adc.h: 269: void ADC_ISR(void);
 [; ;pwm4.h: 97: void PWM4_Initialize(void);
 [; ;pwm4.h: 124: void PWM4_LoadDutyValue(uint16_t dutyValue);
-[; ;ccp5.h: 75: typedef union CCPR5Reg_tag
-[; ;ccp5.h: 76: {
-[; ;ccp5.h: 77: struct
-[; ;ccp5.h: 78: {
-[; ;ccp5.h: 79: uint8_t ccpr5l;
-[; ;ccp5.h: 80: uint8_t ccpr5h;
-[; ;ccp5.h: 81: };
-[; ;ccp5.h: 82: struct
-[; ;ccp5.h: 83: {
-[; ;ccp5.h: 84: uint16_t ccpr5_16Bit;
-[; ;ccp5.h: 85: };
-[; ;ccp5.h: 86: } CCP_PERIOD_REG_T ;
-[; ;ccp5.h: 118: void CCP5_Initialize(void);
-[; ;ccp5.h: 134: void CCP5_CaptureISR(void);
-[; ;ccp5.h: 155: void CCP5_CallBack(uint16_t capturedValue);
 [; ;memory.h: 99: uint8_t FLASH_ReadByte(uint32_t flashAddr);
 [; ;memory.h: 125: uint16_t FLASH_ReadWord(uint32_t flashAddr);
 [; ;memory.h: 157: void FLASH_WriteByte(uint32_t flashAddr, uint8_t *flashRdBufPtr, uint8_t byte);
@@ -7595,8 +7551,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.h: 238: void TMR2_WriteTimer(uint8_t timerVal);
 [; ;tmr2.h: 290: void TMR2_LoadPeriodRegister(uint8_t periodVal);
 [; ;tmr2.h: 325: bool TMR2_HasOverflowOccured(void);
-[; ;mcc.h: 73: void SYSTEM_Initialize(void);
-[; ;mcc.h: 86: void OSCILLATOR_Initialize(void);
+[; ;mcc.h: 72: void SYSTEM_Initialize(void);
+[; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
 "52 mcc_generated_files/interrupt_manager.c
 [v _INTERRUPT_Initialize `(v ~T0 @X0 1 ef ]
 "53
@@ -7611,61 +7567,43 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interrupt_manager.c: 60: IPR1bits.ADIP = 0;
 "60
 [e = . . _IPR1bits 0 6 -> -> 0 `i `uc ]
-[; ;interrupt_manager.c: 62: IPR4bits.CCP5IP = 0;
-"62
-[e = . . _IPR4bits 0 2 -> -> 0 `i `uc ]
-[; ;interrupt_manager.c: 63: }
-"63
-[e :UE 1143 ]
+[; ;interrupt_manager.c: 61: }
+"61
+[e :UE 1140 ]
 }
 [v F5 `(v ~T0 @X0 1 tf ]
-"65
+"63
 [v _INTERRUPT_InterruptManager `IF5 ~T0 @X0 1 e ]
-"66
+"64
 {
-[; ;interrupt_manager.c: 65: void interrupt INTERRUPT_InterruptManager (void)
-[; ;interrupt_manager.c: 66: {
+[; ;interrupt_manager.c: 63: void interrupt INTERRUPT_InterruptManager (void)
+[; ;interrupt_manager.c: 64: {
 [e :U _INTERRUPT_InterruptManager ]
 [f ]
-[; ;interrupt_manager.c: 68: if(PIE1bits.ADIE == 1 && PIR1bits.ADIF == 1)
+[; ;interrupt_manager.c: 66: if(PIE1bits.ADIE == 1 && PIR1bits.ADIF == 1)
+"66
+[e $ ! && == -> . . _PIE1bits 0 6 `i -> 1 `i == -> . . _PIR1bits 0 6 `i -> 1 `i 1142  ]
+[; ;interrupt_manager.c: 67: {
+"67
+{
+[; ;interrupt_manager.c: 68: ADC_ISR();
 "68
-[e $ ! && == -> . . _PIE1bits 0 6 `i -> 1 `i == -> . . _PIR1bits 0 6 `i -> 1 `i 1145  ]
-[; ;interrupt_manager.c: 69: {
-"69
-{
-[; ;interrupt_manager.c: 70: ADC_ISR();
-"70
 [e ( _ADC_ISR ..  ]
+"69
+}
+[; ;interrupt_manager.c: 69: }
+[e $U 1143  ]
+"70
+[e :U 1142 ]
+[; ;interrupt_manager.c: 70: else
+[; ;interrupt_manager.c: 71: {
 "71
-}
-[; ;interrupt_manager.c: 71: }
-[e $U 1146  ]
-"72
-[e :U 1145 ]
-[; ;interrupt_manager.c: 72: else if(PIE4bits.CCP5IE == 1 && PIR4bits.CCP5IF == 1)
-[e $ ! && == -> . . _PIE4bits 0 2 `i -> 1 `i == -> . . _PIR4bits 0 2 `i -> 1 `i 1147  ]
-[; ;interrupt_manager.c: 73: {
+{
 "73
-{
-[; ;interrupt_manager.c: 74: CCP5_CaptureISR();
+}
+[e :U 1143 ]
+[; ;interrupt_manager.c: 73: }
+[; ;interrupt_manager.c: 74: }
 "74
-[e ( _CCP5_CaptureISR ..  ]
-"75
-}
-[; ;interrupt_manager.c: 75: }
-[e $U 1148  ]
-"76
-[e :U 1147 ]
-[; ;interrupt_manager.c: 76: else
-[; ;interrupt_manager.c: 77: {
-"77
-{
-"79
-}
-[e :U 1148 ]
-[e :U 1146 ]
-[; ;interrupt_manager.c: 79: }
-[; ;interrupt_manager.c: 80: }
-"80
-[e :UE 1144 ]
+[e :UE 1141 ]
 }

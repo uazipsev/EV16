@@ -118,6 +118,7 @@ void SYSTEM_Initialize(void)
     PWM4_Initialize();
     TMR2_Initialize();
     ADC_Initialize();
+    DIGI_INC_LAT = 1;
 }
 
 void OSCILLATOR_Initialize(void)

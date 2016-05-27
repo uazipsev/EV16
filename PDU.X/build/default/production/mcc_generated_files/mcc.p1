@@ -3,7 +3,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _INTERRUPT_Initialize `(v ~T0 @X0 0 ef ]
 "309 mcc_generated_files/pin_manager.h
 [v _PIN_MANAGER_Initialize `(v ~T0 @X0 0 ef ]
-"86 mcc_generated_files/mcc.h
+"85 mcc_generated_files/mcc.h
 [v _OSCILLATOR_Initialize `(v ~T0 @X0 0 ef ]
 "97 mcc_generated_files/pwm4.h
 [v _PWM4_Initialize `(v ~T0 @X0 0 ef ]
@@ -11,9 +11,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TMR2_Initialize `(v ~T0 @X0 0 ef ]
 "129 mcc_generated_files/adc.h
 [v _ADC_Initialize `(v ~T0 @X0 0 ef ]
-"118 mcc_generated_files/ccp5.h
-[v _CCP5_Initialize `(v ~T0 @X0 0 ef ]
-"16749 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
+"18999 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
+[v _LATB4 `Vb ~T0 @X0 0 e@31828 ]
+"16749
 [v _OSCCON `Vuc ~T0 @X0 0 e@4051 ]
 "16693
 [v _OSCCON2 `Vuc ~T0 @X0 0 e@4050 ]
@@ -7574,21 +7574,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;adc.h: 269: void ADC_ISR(void);
 [; ;pwm4.h: 97: void PWM4_Initialize(void);
 [; ;pwm4.h: 124: void PWM4_LoadDutyValue(uint16_t dutyValue);
-[; ;ccp5.h: 75: typedef union CCPR5Reg_tag
-[; ;ccp5.h: 76: {
-[; ;ccp5.h: 77: struct
-[; ;ccp5.h: 78: {
-[; ;ccp5.h: 79: uint8_t ccpr5l;
-[; ;ccp5.h: 80: uint8_t ccpr5h;
-[; ;ccp5.h: 81: };
-[; ;ccp5.h: 82: struct
-[; ;ccp5.h: 83: {
-[; ;ccp5.h: 84: uint16_t ccpr5_16Bit;
-[; ;ccp5.h: 85: };
-[; ;ccp5.h: 86: } CCP_PERIOD_REG_T ;
-[; ;ccp5.h: 118: void CCP5_Initialize(void);
-[; ;ccp5.h: 134: void CCP5_CaptureISR(void);
-[; ;ccp5.h: 155: void CCP5_CallBack(uint16_t capturedValue);
 [; ;memory.h: 99: uint8_t FLASH_ReadByte(uint32_t flashAddr);
 [; ;memory.h: 125: uint16_t FLASH_ReadWord(uint32_t flashAddr);
 [; ;memory.h: 157: void FLASH_WriteByte(uint32_t flashAddr, uint8_t *flashRdBufPtr, uint8_t byte);
@@ -7603,8 +7588,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.h: 238: void TMR2_WriteTimer(uint8_t timerVal);
 [; ;tmr2.h: 290: void TMR2_LoadPeriodRegister(uint8_t periodVal);
 [; ;tmr2.h: 325: bool TMR2_HasOverflowOccured(void);
-[; ;mcc.h: 73: void SYSTEM_Initialize(void);
-[; ;mcc.h: 86: void OSCILLATOR_Initialize(void);
+[; ;mcc.h: 72: void SYSTEM_Initialize(void);
+[; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
 "112 mcc_generated_files/mcc.c
 [v _SYSTEM_Initialize `(v ~T0 @X0 1 ef ]
 "113
@@ -7631,12 +7616,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mcc.c: 120: ADC_Initialize();
 "120
 [e ( _ADC_Initialize ..  ]
-[; ;mcc.c: 121: CCP5_Initialize();
+[; ;mcc.c: 121: LATB4 = 1;
 "121
-[e ( _CCP5_Initialize ..  ]
+[e = _LATB4 -> -> 1 `i `b ]
 [; ;mcc.c: 122: }
 "122
-[e :UE 1143 ]
+[e :UE 1140 ]
 }
 "124
 [v _OSCILLATOR_Initialize `(v ~T0 @X0 1 ef ]
@@ -7657,5 +7642,5 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _OSCTUNE -> -> 0 `i `uc ]
 [; ;mcc.c: 134: }
 "134
-[e :UE 1144 ]
+[e :UE 1141 ]
 }

@@ -17,6 +17,8 @@
 //The system needs to be started to minimum values.
 
 void CoolingStart() {
+    
+    PotClear();
     PotSetpoint(pumpStart);
     PWM4_LoadDutyValue(fanStart);
 }

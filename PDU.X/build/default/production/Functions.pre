@@ -9462,29 +9462,6 @@ void PWM4_Initialize(void);
 # 124
 void PWM4_LoadDutyValue(uint16_t dutyValue);
 
-# 75 "mcc_generated_files/ccp5.h"
-typedef union CCPR5Reg_tag
-{
-struct
-{
-uint8_t ccpr5l;
-uint8_t ccpr5h;
-};
-struct
-{
-uint16_t ccpr5_16Bit;
-};
-} CCP_PERIOD_REG_T ;
-
-# 118
-void CCP5_Initialize(void);
-
-# 134
-void CCP5_CaptureISR(void);
-
-# 155
-void CCP5_CallBack(uint16_t capturedValue);
-
 # 99 "mcc_generated_files/memory.h"
 uint8_t FLASH_ReadByte(uint32_t flashAddr);
 
@@ -9527,10 +9504,10 @@ void TMR2_LoadPeriodRegister(uint8_t periodVal);
 # 325
 bool TMR2_HasOverflowOccured(void);
 
-# 73 "mcc_generated_files/mcc.h"
+# 72 "mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
 
-# 86
+# 85
 void OSCILLATOR_Initialize(void);
 
 # 9 "Functions.c"
