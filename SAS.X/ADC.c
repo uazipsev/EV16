@@ -68,7 +68,7 @@ void initADC(void) {
 }
 
 int ADC = 0;
-int ADCPorts[4] = {0, 1, 3, 4};
+int ADCPorts[4] = {4, 5, 0, 1};
 
 void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt(void) {
     if (!ADCDataReady) {
@@ -129,10 +129,10 @@ void FilterADC(){
 float GetADC(value RequestValue){
     switch (RequestValue){
         case Throttle1:
-            return  throttle1val++;
+            return  throttle1val;
             break;
         case Throttle2 :
-            return throttle2val++;
+            return throttle2val;
             break;
         case Brake1 :
             return brake1val;

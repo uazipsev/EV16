@@ -2,6 +2,7 @@
 #include "Communications.h"
 #include "ADC.h"
 
+float i = 0;
 bool pendingSend = false;
 bool portClosed=true;
 void updateComms() {
@@ -28,7 +29,7 @@ void updateComms() {
 void prepAndSendData() {
     static int sender;
     ToSend(RESPONSE_ADDRESS, SAS_ADDRESS);
-    ToSend(THROTTLE1_SAS, i++); //GetADC(Throttle1)
+    ToSend(THROTTLE1_SAS, GetADC(Throttle1)); //GetADC(Throttle1)
     ToSend(THROTTLE2_SAS, GetADC(Throttle2));
     ToSend(BRAKE_SAS, GetADC(Brake1));
     ToSend(WHEELSPEED1_SAS, sender++);
