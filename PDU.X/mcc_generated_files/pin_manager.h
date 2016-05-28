@@ -242,6 +242,25 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #define CLK_SetAnalogMode()   do { ANSD7 = 1; } while(0)
 #define CLK_SetDigitalMode()   do { ANSD7 = 0; } while(0)
 
+// get/set DIGI_UP_DN aliases
+#define DIGI_UP_DN_TRIS               TRISB3
+#define DIGI_UP_DN_LAT                LATB3
+#define DIGI_UP_DN_PORT               RB3
+#define DIGI_UP_DN_WPU                WPUB3
+#define DIGI_UP_DN_ANS                ANSB3
+#define DIGI_UP_DN_SetHigh()    do { LATB3 = 1; } while(0)
+#define DIGI_UP_DN_SetLow()   do { LATB3 = 0; } while(0)
+#define DIGI_UP_DN_Toggle()   do { LATB3 = ~LATB3; } while(0)
+#define DIGI_UP_DN_GetValue()         RB3
+#define DIGI_UP_DN_SetDigitalInput()    do { TRISB3 = 1; } while(0)
+#define DIGI_UP_DN_SetDigitalOutput()   do { TRISB3 = 0; } while(0)
+
+#define DIGI_UP_DN_SetPullup()    do { WPUB3 = 1; } while(0)
+#define DIGI_UP_DN_ResetPullup()   do { WPUB3 = 0; } while(0)
+#define DIGI_UP_DN_SetAnalogMode()   do { ANSB3 = 1; } while(0)
+#define DIGI_UP_DN_SetDigitalMode()   do { ANSB3 = 0; } while(0)
+
+
 // get/set DIGI_INC aliases
 #define DIGI_INC_TRIS               TRISB4
 #define DIGI_INC_LAT                LATB4
@@ -259,6 +278,25 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #define DIGI_INC_ResetPullup()   do { WPUB4 = 0; } while(0)
 #define DIGI_INC_SetAnalogMode()   do { ANSB4 = 1; } while(0)
 #define DIGI_INC_SetDigitalMode()   do { ANSB4 = 0; } while(0)
+
+
+// get/set DIGI_CS aliases
+#define DIGI_CS_TRIS               TRISB5
+#define DIGI_CS_LAT                LATB5
+#define DIGI_CS_PORT               RB5
+#define DIGI_CS_WPU                WPUB5
+#define DIGI_CS_ANS                ANSB5
+#define DIGI_CS_SetHigh()    do { LATB5 = 1; } while(0)
+#define DIGI_CS_SetLow()   do { LATB5 = 0; } while(0)
+#define DIGI_CS_Toggle()   do { LATB5 = ~LATB5; } while(0)
+#define DIGI_CS_GetValue()         RB5
+#define DIGI_CS_SetDigitalInput()    do { TRISB5 = 1; } while(0)
+#define DIGI_CS_SetDigitalOutput()   do { TRISB5 = 0; } while(0)
+
+#define DIGI_CS_SetPullup()    do { WPUB5 = 1; } while(0)
+#define DIGI_CS_ResetPullup()   do { WPUB5 = 0; } while(0)
+#define DIGI_CS_SetAnalogMode()   do { ANSB5 = 1; } while(0)
+#define DIGI_CS_SetDigitalMode()   do { ANSB5 = 0; } while(0)
 
 /**
  * @Param

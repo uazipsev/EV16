@@ -1,58 +1,12 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"14 Communications.h
-[v _receiveData `(uc ~T0 @X0 0 ef ]
-"11
-[v _receiveArray `Vi ~T0 @X0 -> 0 `x e ]
-"18 Communications.c
-[v _processPowerRequest `(v ~T0 @X0 0 ef1`i ]
-"19
-[v _respondECU `(v ~T0 @X0 0 ef ]
-"35
-[c E7840 1 2 3 4 5 6 1 0 .. ]
-[n E7840 . DDS MCS SAS BMM TSS AUX ON OFF  ]
-"30 PDU.h
-[v _EnableSlavePower `(v ~T0 @X0 0 ef2`E7840`i ]
-"33
-[v _Update `(v ~T0 @X0 0 ef ]
-"8046 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
-[s S489 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S489 . LATC0 LATC1 LATC2 LATC3 LATC4 LATC5 LATC6 LATC7 ]
-"8056
-[s S490 :1 `uc 1 ]
-[n S490 . LC0 ]
-"8059
-[s S491 :1 `uc 1 :1 `uc 1 ]
-[n S491 . . LC1 ]
-"8063
-[s S492 :2 `uc 1 :1 `uc 1 ]
-[n S492 . . LC2 ]
-"8067
-[s S493 :3 `uc 1 :1 `uc 1 ]
-[n S493 . . LC3 ]
-"8071
-[s S494 :4 `uc 1 :1 `uc 1 ]
-[n S494 . . LC4 ]
-"8075
-[s S495 :5 `uc 1 :1 `uc 1 ]
-[n S495 . . LC5 ]
-"8079
-[s S496 :6 `uc 1 :1 `uc 1 ]
-[n S496 . . LC6 ]
-"8083
-[s S497 :7 `uc 1 :1 `uc 1 ]
-[n S497 . . LC7 ]
-"8045
-[u S488 `S489 1 `S490 1 `S491 1 `S492 1 `S493 1 `S494 1 `S495 1 `S496 1 `S497 1 ]
-[n S488 . . . . . . . . . . ]
-"8088
-[v _LATCbits `VS488 ~T0 @X0 0 e@3979 ]
-"15 Communications.h
-[v _ToSend `(v ~T0 @X0 0 ef2`Cuc`Cui ]
+"19001 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
+[v _LATB5 `Vb ~T0 @X0 0 e@31829 ]
+"18997
+[v _LATB3 `Vb ~T0 @X0 0 e@31827 ]
 "11 Functions.h
 [v _Delay `(v ~T0 @X0 0 ef1`l ]
-"13 Communications.h
-[v _sendData `(v ~T0 @X0 0 ef1`uc ]
-[; ;stdbool.h: 12: typedef unsigned char bool;
+"18999 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
+[v _LATB4 `Vb ~T0 @X0 0 e@31828 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -7479,191 +7433,198 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 152: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 154: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 156: extern __nonreentrant void _delay3(unsigned char);
-[; ;Communications.h: 11: extern volatile int receiveArray[20];
-[; ;Communications.h: 12: void updateComms();
-[; ;Communications.h: 13: extern void sendData(unsigned char whereToSend);
-[; ;Communications.h: 14: extern bool receiveData();
-[; ;Communications.h: 15: extern void ToSend(const unsigned char where, const unsigned int what);
+[; ;pin_manager.h: 311: void PIN_MANAGER_Initialize (void);
+[; ;pin_manager.h: 323: void PIN_MANAGER_IOC(void);
+[; ;DigiPot.h: 11: void PotSetpoint(int new_point);
+[; ;DigiPot.h: 12: void PotClear(void);
 [; ;Functions.h: 11: extern void Delay(long int wait);
-"13 PDU.h
-[v _Currentcomp `i ~T0 @X0 -> 6 `i e ]
-[i _Currentcomp
-:U ..
+"17 DigiPot.c
+[v _prev_pos `i ~T0 @X0 1 e ]
+[i _prev_pos
 -> 0 `i
-..
 ]
-[; ;PDU.h: 13: int Currentcomp[6] = 0;
-"14
-[v _data `uc ~T0 @X0 -> 12 `i e ]
-[i _data
-:U ..
--> -> 0 `i `uc
-..
-]
-[; ;PDU.h: 14: char data[12] = 0;
-"15
-[v _CurrentADC `i ~T0 @X0 -> 6 `i e ]
-[i _CurrentADC
-:U ..
--> 0 `i
-..
-]
-[; ;PDU.h: 15: int CurrentADC[6] = 0;
-"16
-[v _Current `i ~T0 @X0 -> 6 `i e ]
-[i _Current
-:U ..
--> 0 `i
-..
-]
-[; ;PDU.h: 16: int Current[6] = 0;
-[; ;PDU.h: 18: typedef enum {
-[; ;PDU.h: 19: DDS = 1,
-[; ;PDU.h: 20: MCS = 2,
-[; ;PDU.h: 21: SAS = 3,
-[; ;PDU.h: 22: BMM = 4,
-[; ;PDU.h: 23: TSS = 5,
-[; ;PDU.h: 24: AUX = 6,
-[; ;PDU.h: 25: ON = 1,
-[; ;PDU.h: 26: OFF = 0
-[; ;PDU.h: 27: } device;
-[; ;PDU.h: 29: extern void PDUStartup(void);
-[; ;PDU.h: 30: void EnableSlavePower(device slave, int onof);
-[; ;PDU.h: 31: void ComputeStorageData(void);
-[; ;PDU.h: 32: void ReadCurrent(char gather);
-[; ;PDU.h: 33: void Update(void);
-[; ;Communications.c: 18: void processPowerRequest(int powerSet);
-[; ;Communications.c: 19: void respondECU();
-"21 Communications.c
-[v _updateComms `(v ~T0 @X0 1 ef ]
+[; ;DigiPot.c: 17: int prev_pos = 0;
+"21
+[v _PotSetpoint `(v ~T0 @X0 1 ef1`i ]
 {
-[; ;Communications.c: 21: void updateComms() {
-[e :U _updateComms ]
+[; ;DigiPot.c: 21: void PotSetpoint(int new_point) {
+[e :U _PotSetpoint ]
+[v _new_point `i ~T0 @X0 1 r1 ]
 [f ]
-[; ;Communications.c: 22: if (receiveData()) {
 "22
-[e $ ! != -> ( _receiveData ..  `i -> -> -> 0 `i `uc `i 1141  ]
-{
-"23
-[v F7864 `i ~T0 @X0 1 s previousPowerState ]
-[; ;Communications.c: 23: static int previousPowerState;
-[; ;Communications.c: 24: if (previousPowerState != receiveArray[1]) {
+[v _set_point `i ~T0 @X0 1 a ]
+[; ;DigiPot.c: 22: int set_point;
+[; ;DigiPot.c: 24: if (new_point > 32) {
 "24
-[e $ ! != F7864 *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux 1142  ]
+[e $ ! > _new_point -> 32 `i 1141  ]
 {
-[; ;Communications.c: 25: previousPowerState = receiveArray[1];
+[; ;DigiPot.c: 25: new_point = 32;
 "25
-[e = F7864 *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux ]
-[; ;Communications.c: 26: processPowerRequest(previousPowerState);
+[e = _new_point -> 32 `i ]
 "26
-[e ( _processPowerRequest (1 F7864 ]
-"27
-}
-[e :U 1142 ]
-[; ;Communications.c: 27: }
-[; ;Communications.c: 28: respondECU();
-"28
-[e ( _respondECU ..  ]
-"29
 }
 [e :U 1141 ]
-[; ;Communications.c: 29: }
-[; ;Communications.c: 30: }
-"30
+[; ;DigiPot.c: 26: }
+[; ;DigiPot.c: 27: if (new_point <= 0) {
+"27
+[e $ ! <= _new_point -> 0 `i 1142  ]
+{
+[; ;DigiPot.c: 28: new_point = 0;
+"28
+[e = _new_point -> 0 `i ]
+"29
+}
+[e :U 1142 ]
+"31
+[v _new_pos `i ~T0 @X0 1 a ]
+[; ;DigiPot.c: 29: }
+[; ;DigiPot.c: 31: int new_pos = new_point;
+[e = _new_pos _new_point ]
+[; ;DigiPot.c: 35: LATB5 = 0;
+"35
+[e = _LATB5 -> -> 0 `i `b ]
+[; ;DigiPot.c: 38: if (new_pos > prev_pos) {
+"38
+[e $ ! > _new_pos _prev_pos 1143  ]
+{
+[; ;DigiPot.c: 40: LATB3 = 1;
+"40
+[e = _LATB3 -> -> 1 `i `b ]
+[; ;DigiPot.c: 41: set_point = new_pos - prev_pos;
+"41
+[e = _set_point - _new_pos _prev_pos ]
+"42
+}
+[e :U 1143 ]
+[; ;DigiPot.c: 42: }
+[; ;DigiPot.c: 43: if (new_pos < prev_pos) {
+"43
+[e $ ! < _new_pos _prev_pos 1144  ]
+{
+[; ;DigiPot.c: 45: LATB3 = 0;
+"45
+[e = _LATB3 -> -> 0 `i `b ]
+[; ;DigiPot.c: 46: set_point = prev_pos - new_pos;
+"46
+[e = _set_point - _prev_pos _new_pos ]
+"47
+}
+[e :U 1144 ]
+[; ;DigiPot.c: 47: }
+[; ;DigiPot.c: 48: Delay(1);
+"48
+[e ( _Delay (1 -> -> 1 `i `l ]
+"50
+[v _x `i ~T0 @X0 1 a ]
+[; ;DigiPot.c: 50: int x;
+[; ;DigiPot.c: 52: for (x = 0; x < set_point; x++) {
+"52
+{
+[e = _x -> 0 `i ]
+[e $U 1148  ]
+[e :U 1145 ]
+{
+[; ;DigiPot.c: 53: LATB4 = 1;
+"53
+[e = _LATB4 -> -> 1 `i `b ]
+[; ;DigiPot.c: 54: Delay(1);
+"54
+[e ( _Delay (1 -> -> 1 `i `l ]
+[; ;DigiPot.c: 55: LATB4 = 0;
+"55
+[e = _LATB4 -> -> 0 `i `b ]
+[; ;DigiPot.c: 56: Delay(1);
+"56
+[e ( _Delay (1 -> -> 1 `i `l ]
+"57
+}
+"52
+[e ++ _x -> 1 `i ]
+[e :U 1148 ]
+[e $ < _x _set_point 1145  ]
+[e :U 1146 ]
+"57
+}
+[; ;DigiPot.c: 57: }
+[; ;DigiPot.c: 59: LATB5 = 1;
+"59
+[e = _LATB5 -> -> 1 `i `b ]
+[; ;DigiPot.c: 60: prev_pos = new_pos;
+"60
+[e = _prev_pos _new_pos ]
+[; ;DigiPot.c: 62: }
+"62
 [e :UE 1140 ]
 }
-"33
-[v _processPowerRequest `(v ~T0 @X0 1 ef1`i ]
+"66
+[v _PotClear `(v ~T0 @X0 1 ef ]
 {
-[; ;Communications.c: 33: void processPowerRequest(int powerSet) {
-[e :U _processPowerRequest ]
-[v _powerSet `i ~T0 @X0 1 r1 ]
+[; ;DigiPot.c: 66: void PotClear(void) {
+[e :U _PotClear ]
 [f ]
-[; ;Communications.c: 35: if (powerSet & 0x01) EnableSlavePower(BMM, ON);
-"35
-[e $ ! != & _powerSet -> 1 `i -> 0 `i 1144  ]
-[e ( _EnableSlavePower (2 , . `E7840 3 -> . `E7840 6 `i ]
-[e $U 1145  ]
-"36
-[e :U 1144 ]
-[; ;Communications.c: 36: else EnableSlavePower(BMM, OFF);
-[e ( _EnableSlavePower (2 , . `E7840 3 -> . `E7840 7 `i ]
-[e :U 1145 ]
-[; ;Communications.c: 37: if (powerSet & 0x02) EnableSlavePower(MCS, ON);
-"37
-[e $ ! != & _powerSet -> 2 `i -> 0 `i 1146  ]
-[e ( _EnableSlavePower (2 , . `E7840 1 -> . `E7840 6 `i ]
-[e $U 1147  ]
-"38
-[e :U 1146 ]
-[; ;Communications.c: 38: else EnableSlavePower(MCS,OFF);
-[e ( _EnableSlavePower (2 , . `E7840 1 -> . `E7840 7 `i ]
-[e :U 1147 ]
-[; ;Communications.c: 39: if (powerSet & 0x04) EnableSlavePower(DDS,ON);
-"39
-[e $ ! != & _powerSet -> 4 `i -> 0 `i 1148  ]
-[e ( _EnableSlavePower (2 , . `E7840 0 -> . `E7840 6 `i ]
-[e $U 1149  ]
-"40
-[e :U 1148 ]
-[; ;Communications.c: 40: else EnableSlavePower(DDS,OFF);
-[e ( _EnableSlavePower (2 , . `E7840 0 -> . `E7840 7 `i ]
-[e :U 1149 ]
-[; ;Communications.c: 41: if(powerSet & 0x08) EnableSlavePower(SAS,ON);
-"41
-[e $ ! != & _powerSet -> 8 `i -> 0 `i 1150  ]
-[e ( _EnableSlavePower (2 , . `E7840 2 -> . `E7840 6 `i ]
+[; ;DigiPot.c: 67: Delay(1);
+"67
+[e ( _Delay (1 -> -> 1 `i `l ]
+[; ;DigiPot.c: 69: LATB5 = 0;
+"69
+[e = _LATB5 -> -> 0 `i `b ]
+[; ;DigiPot.c: 70: Delay(1);
+"70
+[e ( _Delay (1 -> -> 1 `i `l ]
+[; ;DigiPot.c: 71: LATB3 = 0;
+"71
+[e = _LATB3 -> -> 0 `i `b ]
+[; ;DigiPot.c: 72: Delay(1);
+"72
+[e ( _Delay (1 -> -> 1 `i `l ]
+"73
+[v _x `i ~T0 @X0 1 a ]
+[; ;DigiPot.c: 73: int x;
+[; ;DigiPot.c: 74: for (x = 0; x < 32; x++) {
+"74
+{
+[e = _x -> 0 `i ]
+[e $ < _x -> 32 `i 1150  ]
 [e $U 1151  ]
-"42
 [e :U 1150 ]
-[; ;Communications.c: 42: else EnableSlavePower(SAS,OFF);
-[e ( _EnableSlavePower (2 , . `E7840 2 -> . `E7840 7 `i ]
-[e :U 1151 ]
-[; ;Communications.c: 43: if(powerSet & 0x10) EnableSlavePower(TSS, ON);
-"43
-[e $ ! != & _powerSet -> 16 `i -> 0 `i 1152  ]
-[e ( _EnableSlavePower (2 , . `E7840 4 -> . `E7840 6 `i ]
-[e $U 1153  ]
-"44
-[e :U 1152 ]
-[; ;Communications.c: 44: else EnableSlavePower(TSS,OFF);
-[e ( _EnableSlavePower (2 , . `E7840 4 -> . `E7840 7 `i ]
-[e :U 1153 ]
-[; ;Communications.c: 45: Update();
-"45
-[e ( _Update ..  ]
-[; ;Communications.c: 46: }
-"46
-[e :UE 1143 ]
-}
-"48
-[v _respondECU `(v ~T0 @X0 1 ef ]
 {
-[; ;Communications.c: 48: void respondECU() {
-[e :U _respondECU ]
-[f ]
-[; ;Communications.c: 49: LATCbits.LATC5 = 1;
-"49
-[e = . . _LATCbits 0 5 -> -> 1 `i `uc ]
-[; ;Communications.c: 50: ToSend(0, 5);
-"50
-[e ( _ToSend (2 , -> -> 0 `i `uc -> -> 5 `i `ui ]
-[; ;Communications.c: 51: ToSend(9, 5);
-"51
-[e ( _ToSend (2 , -> -> 9 `i `uc -> -> 5 `i `ui ]
-[; ;Communications.c: 52: Delay(5);
-"52
-[e ( _Delay (1 -> -> 5 `i `l ]
-[; ;Communications.c: 54: sendData(1);
-"54
-[e ( _sendData (1 -> -> 1 `i `uc ]
-[; ;Communications.c: 55: Delay(3);
-"55
-[e ( _Delay (1 -> -> 3 `i `l ]
-[; ;Communications.c: 56: LATCbits.LATC5 = 0;
-"56
-[e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
-[; ;Communications.c: 57: }
-"57
-[e :UE 1154 ]
+[; ;DigiPot.c: 75: LATB4 = 1;
+"75
+[e = _LATB4 -> -> 1 `i `b ]
+[; ;DigiPot.c: 76: Delay(1);
+"76
+[e ( _Delay (1 -> -> 1 `i `l ]
+[; ;DigiPot.c: 77: LATB4 = 0;
+"77
+[e = _LATB4 -> -> 0 `i `b ]
+[; ;DigiPot.c: 78: Delay(1);
+"78
+[e ( _Delay (1 -> -> 1 `i `l ]
+"79
+}
+"74
+[e ++ _x -> 1 `i ]
+[e $ < _x -> 32 `i 1150  ]
+[e :U 1151 ]
+"79
+}
+[; ;DigiPot.c: 79: }
+[; ;DigiPot.c: 80: LATB4 = 1;
+"80
+[e = _LATB4 -> -> 1 `i `b ]
+[; ;DigiPot.c: 81: Delay(1);
+"81
+[e ( _Delay (1 -> -> 1 `i `l ]
+[; ;DigiPot.c: 83: LATB5 = 1;
+"83
+[e = _LATB5 -> -> 1 `i `b ]
+[; ;DigiPot.c: 84: prev_pos = 0;
+"84
+[e = _prev_pos -> 0 `i ]
+[; ;DigiPot.c: 85: Delay(1);
+"85
+[e ( _Delay (1 -> -> 1 `i `l ]
+[; ;DigiPot.c: 86: }
+"86
+[e :UE 1149 ]
 }

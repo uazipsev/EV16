@@ -1,8 +1,5 @@
 
-# 1 "Communications.c"
-
-# 12 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\stdbool.h"
-typedef unsigned char bool;
+# 1 "DigiPot.c"
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -9319,77 +9316,87 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 11 "Communications.h"
-extern volatile int receiveArray[20];
-void updateComms();
-extern void sendData(unsigned char whereToSend);
-extern bool receiveData();
-extern void ToSend(const unsigned char where, const unsigned int what);
+# 311 "MCC_Generated_Files/pin_manager.h"
+void PIN_MANAGER_Initialize (void);
+
+# 323
+void PIN_MANAGER_IOC(void);
+
+# 11 "DigiPot.h"
+void PotSetpoint(int new_point);
+void PotClear(void);
 
 # 11 "Functions.h"
 extern void Delay(long int wait);
 
-# 13 "PDU.h"
-int Currentcomp[6] = 0;
-char data[12] = 0;
-int CurrentADC[6] = 0;
-int Current[6] = 0;
+# 17 "DigiPot.c"
+int prev_pos = 0;
 
-typedef enum {
-DDS = 1,
-MCS = 2,
-SAS = 3,
-BMM = 4,
-TSS = 5,
-AUX = 6,
-ON = 1,
-OFF = 0
-} device;
 
-extern void PDUStartup(void);
-void EnableSlavePower(device slave, int onof);
-void ComputeStorageData(void);
-void ReadCurrent(char gather);
-void Update(void);
 
-# 18 "Communications.c"
-void processPowerRequest(int powerSet);
-void respondECU();
+void PotSetpoint(int new_point) {
+int set_point;
 
-void updateComms() {
-if (receiveData()) {
-static int previousPowerState;
-if (previousPowerState != receiveArray[1]) {
-previousPowerState = receiveArray[1];
-processPowerRequest(previousPowerState);
+if (new_point > 32) {
+new_point = 32;
 }
-respondECU();
-}
+if (new_point <= 0) {
+new_point = 0;
 }
 
+int new_pos = new_point;
 
-void processPowerRequest(int powerSet) {
 
-if (powerSet & 0x01) EnableSlavePower(BMM, ON);
-else EnableSlavePower(BMM, OFF);
-if (powerSet & 0x02) EnableSlavePower(MCS, ON);
-else EnableSlavePower(MCS,OFF);
-if (powerSet & 0x04) EnableSlavePower(DDS,ON);
-else EnableSlavePower(DDS,OFF);
-if(powerSet & 0x08) EnableSlavePower(SAS,ON);
-else EnableSlavePower(SAS,OFF);
-if(powerSet & 0x10) EnableSlavePower(TSS, ON);
-else EnableSlavePower(TSS,OFF);
-Update();
+
+LATB5 = 0;
+
+
+if (new_pos > prev_pos) {
+
+LATB3 = 1;
+set_point = new_pos - prev_pos;
+}
+if (new_pos < prev_pos) {
+
+LATB3 = 0;
+set_point = prev_pos - new_pos;
+}
+Delay(1);
+
+int x;
+
+for (x = 0; x < set_point; x++) {
+LATB4 = 1;
+Delay(1);
+LATB4 = 0;
+Delay(1);
 }
 
-void respondECU() {
-LATCbits.LATC5 = 1;
-ToSend(0, 5);
-ToSend(9, 5);
-Delay(5);
+LATB5 = 1;
+prev_pos = new_pos;
 
-sendData(1);
-Delay(3);
-LATCbits.LATC5 = 0;
+}
+
+
+
+void PotClear(void) {
+Delay(1);
+
+LATB5 = 0;
+Delay(1);
+LATB3 = 0;
+Delay(1);
+int x;
+for (x = 0; x < 32; x++) {
+LATB4 = 1;
+Delay(1);
+LATB4 = 0;
+Delay(1);
+}
+LATB4 = 1;
+Delay(1);
+
+LATB5 = 1;
+prev_pos = 0;
+Delay(1);
 }

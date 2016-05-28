@@ -1,8 +1,12 @@
 
-# 1 "Communications.c"
+# 1 "CoolingControl.c"
 
-# 12 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\stdbool.h"
-typedef unsigned char bool;
+# 18 "CoolingControl.h"
+void CoolingStart(void);
+
+# 11 "DigiPot.h"
+void PotSetpoint(int new_point);
+void PotClear(void);
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -9319,77 +9323,113 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 11 "Communications.h"
-extern volatile int receiveArray[20];
-void updateComms();
-extern void sendData(unsigned char whereToSend);
-extern bool receiveData();
-extern void ToSend(const unsigned char where, const unsigned int what);
+# 13 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\stdint.h"
+typedef signed char int8_t;
 
-# 11 "Functions.h"
-extern void Delay(long int wait);
+# 20
+typedef signed int int16_t;
 
-# 13 "PDU.h"
-int Currentcomp[6] = 0;
-char data[12] = 0;
-int CurrentADC[6] = 0;
-int Current[6] = 0;
+# 28
+typedef signed short long int int24_t;
 
-typedef enum {
-DDS = 1,
-MCS = 2,
-SAS = 3,
-BMM = 4,
-TSS = 5,
-AUX = 6,
-ON = 1,
-OFF = 0
-} device;
+# 36
+typedef signed long int int32_t;
 
-extern void PDUStartup(void);
-void EnableSlavePower(device slave, int onof);
-void ComputeStorageData(void);
-void ReadCurrent(char gather);
-void Update(void);
+# 43
+typedef unsigned char uint8_t;
 
-# 18 "Communications.c"
-void processPowerRequest(int powerSet);
-void respondECU();
+# 49
+typedef unsigned int uint16_t;
 
-void updateComms() {
-if (receiveData()) {
-static int previousPowerState;
-if (previousPowerState != receiveArray[1]) {
-previousPowerState = receiveArray[1];
-processPowerRequest(previousPowerState);
+# 56
+typedef unsigned short long int uint24_t;
+
+# 63
+typedef unsigned long int uint32_t;
+
+# 71
+typedef signed char int_least8_t;
+
+# 78
+typedef signed int int_least16_t;
+
+# 90
+typedef signed short long int int_least24_t;
+
+# 98
+typedef signed long int int_least32_t;
+
+# 105
+typedef unsigned char uint_least8_t;
+
+# 111
+typedef unsigned int uint_least16_t;
+
+# 121
+typedef unsigned short long int uint_least24_t;
+
+# 128
+typedef unsigned long int uint_least32_t;
+
+# 137
+typedef signed char int_fast8_t;
+
+# 144
+typedef signed int int_fast16_t;
+
+# 156
+typedef signed short long int int_fast24_t;
+
+# 164
+typedef signed long int int_fast32_t;
+
+# 171
+typedef unsigned char uint_fast8_t;
+
+# 177
+typedef unsigned int uint_fast16_t;
+
+# 187
+typedef unsigned short long int uint_fast24_t;
+
+# 194
+typedef unsigned long int uint_fast32_t;
+
+# 200
+typedef int32_t intmax_t;
+
+
+
+
+typedef uint32_t uintmax_t;
+
+
+
+
+typedef int16_t intptr_t;
+
+
+
+
+typedef uint16_t uintptr_t;
+
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\stdbool.h"
+typedef unsigned char bool;
+
+# 97 "mcc_generated_files/pwm4.h"
+void PWM4_Initialize(void);
+
+# 124
+void PWM4_LoadDutyValue(uint16_t dutyValue);
+
+# 19 "CoolingControl.c"
+void CoolingStart() {
+
+PotClear();
+PotSetpoint(15);
+PWM4_LoadDutyValue(700);
 }
-respondECU();
-}
-}
 
+void CoolingUpdate(void) {
 
-void processPowerRequest(int powerSet) {
-
-if (powerSet & 0x01) EnableSlavePower(BMM, ON);
-else EnableSlavePower(BMM, OFF);
-if (powerSet & 0x02) EnableSlavePower(MCS, ON);
-else EnableSlavePower(MCS,OFF);
-if (powerSet & 0x04) EnableSlavePower(DDS,ON);
-else EnableSlavePower(DDS,OFF);
-if(powerSet & 0x08) EnableSlavePower(SAS,ON);
-else EnableSlavePower(SAS,OFF);
-if(powerSet & 0x10) EnableSlavePower(TSS, ON);
-else EnableSlavePower(TSS,OFF);
-Update();
-}
-
-void respondECU() {
-LATCbits.LATC5 = 1;
-ToSend(0, 5);
-ToSend(9, 5);
-Delay(5);
-
-sendData(1);
-Delay(3);
-LATCbits.LATC5 = 0;
 }

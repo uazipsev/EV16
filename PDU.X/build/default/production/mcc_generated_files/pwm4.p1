@@ -1,58 +1,21 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"14 Communications.h
-[v _receiveData `(uc ~T0 @X0 0 ef ]
-"11
-[v _receiveArray `Vi ~T0 @X0 -> 0 `x e ]
-"18 Communications.c
-[v _processPowerRequest `(v ~T0 @X0 0 ef1`i ]
-"19
-[v _respondECU `(v ~T0 @X0 0 ef ]
-"35
-[c E7840 1 2 3 4 5 6 1 0 .. ]
-[n E7840 . DDS MCS SAS BMM TSS AUX ON OFF  ]
-"30 PDU.h
-[v _EnableSlavePower `(v ~T0 @X0 0 ef2`E7840`i ]
-"33
-[v _Update `(v ~T0 @X0 0 ef ]
-"8046 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
-[s S489 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S489 . LATC0 LATC1 LATC2 LATC3 LATC4 LATC5 LATC6 LATC7 ]
-"8056
-[s S490 :1 `uc 1 ]
-[n S490 . LC0 ]
-"8059
-[s S491 :1 `uc 1 :1 `uc 1 ]
-[n S491 . . LC1 ]
-"8063
-[s S492 :2 `uc 1 :1 `uc 1 ]
-[n S492 . . LC2 ]
-"8067
-[s S493 :3 `uc 1 :1 `uc 1 ]
-[n S493 . . LC3 ]
-"8071
-[s S494 :4 `uc 1 :1 `uc 1 ]
-[n S494 . . LC4 ]
-"8075
-[s S495 :5 `uc 1 :1 `uc 1 ]
-[n S495 . . LC5 ]
-"8079
-[s S496 :6 `uc 1 :1 `uc 1 ]
-[n S496 . . LC6 ]
-"8083
-[s S497 :7 `uc 1 :1 `uc 1 ]
-[n S497 . . LC7 ]
-"8045
-[u S488 `S489 1 `S490 1 `S491 1 `S492 1 `S493 1 `S494 1 `S495 1 `S496 1 `S497 1 ]
-[n S488 . . . . . . . . . . ]
-"8088
-[v _LATCbits `VS488 ~T0 @X0 0 e@3979 ]
-"15 Communications.h
-[v _ToSend `(v ~T0 @X0 0 ef2`Cuc`Cui ]
-"11 Functions.h
-[v _Delay `(v ~T0 @X0 0 ef1`l ]
-"13 Communications.h
-[v _sendData `(v ~T0 @X0 0 ef1`uc ]
-[; ;stdbool.h: 12: typedef unsigned char bool;
+"2016 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
+[v _CCP4CON `Vuc ~T0 @X0 0 e@3927 ]
+"2085
+[v _CCPR4L `Vuc ~T0 @X0 0 e@3928 ]
+"2104
+[v _CCPR4H `Vuc ~T0 @X0 0 e@3929 ]
+"1327
+[s S60 :2 `uc 1 :2 `uc 1 ]
+[n S60 . C4TSEL C5TSEL ]
+"1331
+[s S61 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S61 . C4TSEL0 C4TSEL1 C5TSEL0 C5TSEL1 ]
+"1326
+[u S59 `S60 1 `S61 1 ]
+[n S59 . . . ]
+"1338
+[v _CCPTMRS1bits `VS59 ~T0 @X0 0 e@3912 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -7479,191 +7442,79 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 152: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 154: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 156: extern __nonreentrant void _delay3(unsigned char);
-[; ;Communications.h: 11: extern volatile int receiveArray[20];
-[; ;Communications.h: 12: void updateComms();
-[; ;Communications.h: 13: extern void sendData(unsigned char whereToSend);
-[; ;Communications.h: 14: extern bool receiveData();
-[; ;Communications.h: 15: extern void ToSend(const unsigned char where, const unsigned int what);
-[; ;Functions.h: 11: extern void Delay(long int wait);
-"13 PDU.h
-[v _Currentcomp `i ~T0 @X0 -> 6 `i e ]
-[i _Currentcomp
-:U ..
--> 0 `i
-..
-]
-[; ;PDU.h: 13: int Currentcomp[6] = 0;
-"14
-[v _data `uc ~T0 @X0 -> 12 `i e ]
-[i _data
-:U ..
--> -> 0 `i `uc
-..
-]
-[; ;PDU.h: 14: char data[12] = 0;
-"15
-[v _CurrentADC `i ~T0 @X0 -> 6 `i e ]
-[i _CurrentADC
-:U ..
--> 0 `i
-..
-]
-[; ;PDU.h: 15: int CurrentADC[6] = 0;
-"16
-[v _Current `i ~T0 @X0 -> 6 `i e ]
-[i _Current
-:U ..
--> 0 `i
-..
-]
-[; ;PDU.h: 16: int Current[6] = 0;
-[; ;PDU.h: 18: typedef enum {
-[; ;PDU.h: 19: DDS = 1,
-[; ;PDU.h: 20: MCS = 2,
-[; ;PDU.h: 21: SAS = 3,
-[; ;PDU.h: 22: BMM = 4,
-[; ;PDU.h: 23: TSS = 5,
-[; ;PDU.h: 24: AUX = 6,
-[; ;PDU.h: 25: ON = 1,
-[; ;PDU.h: 26: OFF = 0
-[; ;PDU.h: 27: } device;
-[; ;PDU.h: 29: extern void PDUStartup(void);
-[; ;PDU.h: 30: void EnableSlavePower(device slave, int onof);
-[; ;PDU.h: 31: void ComputeStorageData(void);
-[; ;PDU.h: 32: void ReadCurrent(char gather);
-[; ;PDU.h: 33: void Update(void);
-[; ;Communications.c: 18: void processPowerRequest(int powerSet);
-[; ;Communications.c: 19: void respondECU();
-"21 Communications.c
-[v _updateComms `(v ~T0 @X0 1 ef ]
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef signed short long int int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 43: typedef unsigned char uint8_t;
+[; ;stdint.h: 49: typedef unsigned int uint16_t;
+[; ;stdint.h: 56: typedef unsigned short long int uint24_t;
+[; ;stdint.h: 63: typedef unsigned long int uint32_t;
+[; ;stdint.h: 71: typedef signed char int_least8_t;
+[; ;stdint.h: 78: typedef signed int int_least16_t;
+[; ;stdint.h: 90: typedef signed short long int int_least24_t;
+[; ;stdint.h: 98: typedef signed long int int_least32_t;
+[; ;stdint.h: 105: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 111: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 121: typedef unsigned short long int uint_least24_t;
+[; ;stdint.h: 128: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 137: typedef signed char int_fast8_t;
+[; ;stdint.h: 144: typedef signed int int_fast16_t;
+[; ;stdint.h: 156: typedef signed short long int int_fast24_t;
+[; ;stdint.h: 164: typedef signed long int int_fast32_t;
+[; ;stdint.h: 171: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 177: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 187: typedef unsigned short long int uint_fast24_t;
+[; ;stdint.h: 194: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 200: typedef int32_t intmax_t;
+[; ;stdint.h: 205: typedef uint32_t uintmax_t;
+[; ;stdint.h: 210: typedef int16_t intptr_t;
+[; ;stdint.h: 215: typedef uint16_t uintptr_t;
+[; ;stdbool.h: 12: typedef unsigned char bool;
+[; ;pwm4.h: 97: void PWM4_Initialize(void);
+[; ;pwm4.h: 124: void PWM4_LoadDutyValue(uint16_t dutyValue);
+"64 mcc_generated_files/pwm4.c
+[v _PWM4_Initialize `(v ~T0 @X0 1 ef ]
+"65
 {
-[; ;Communications.c: 21: void updateComms() {
-[e :U _updateComms ]
+[; ;pwm4.c: 64: void PWM4_Initialize(void)
+[; ;pwm4.c: 65: {
+[e :U _PWM4_Initialize ]
 [f ]
-[; ;Communications.c: 22: if (receiveData()) {
-"22
-[e $ ! != -> ( _receiveData ..  `i -> -> -> 0 `i `uc `i 1141  ]
-{
-"23
-[v F7864 `i ~T0 @X0 1 s previousPowerState ]
-[; ;Communications.c: 23: static int previousPowerState;
-[; ;Communications.c: 24: if (previousPowerState != receiveArray[1]) {
-"24
-[e $ ! != F7864 *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux 1142  ]
-{
-[; ;Communications.c: 25: previousPowerState = receiveArray[1];
-"25
-[e = F7864 *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux ]
-[; ;Communications.c: 26: processPowerRequest(previousPowerState);
-"26
-[e ( _processPowerRequest (1 F7864 ]
-"27
-}
-[e :U 1142 ]
-[; ;Communications.c: 27: }
-[; ;Communications.c: 28: respondECU();
-"28
-[e ( _respondECU ..  ]
-"29
-}
-[e :U 1141 ]
-[; ;Communications.c: 29: }
-[; ;Communications.c: 30: }
-"30
+[; ;pwm4.c: 69: CCP4CON = 0x3C;
+"69
+[e = _CCP4CON -> -> 60 `i `uc ]
+[; ;pwm4.c: 72: CCPR4L = 0x7C;
+"72
+[e = _CCPR4L -> -> 124 `i `uc ]
+[; ;pwm4.c: 75: CCPR4H = 0x00;
+"75
+[e = _CCPR4H -> -> 0 `i `uc ]
+[; ;pwm4.c: 78: CCPTMRS1bits.C4TSEL = 0x0;
+"78
+[e = . . _CCPTMRS1bits 0 0 -> -> 0 `i `uc ]
+[; ;pwm4.c: 79: }
+"79
 [e :UE 1140 ]
 }
-"33
-[v _processPowerRequest `(v ~T0 @X0 1 ef1`i ]
+"81
+[v _PWM4_LoadDutyValue `(v ~T0 @X0 1 ef1`ui ]
+"82
 {
-[; ;Communications.c: 33: void processPowerRequest(int powerSet) {
-[e :U _processPowerRequest ]
-[v _powerSet `i ~T0 @X0 1 r1 ]
+[; ;pwm4.c: 81: void PWM4_LoadDutyValue(uint16_t dutyValue)
+[; ;pwm4.c: 82: {
+[e :U _PWM4_LoadDutyValue ]
+"81
+[v _dutyValue `ui ~T0 @X0 1 r1 ]
+"82
 [f ]
-[; ;Communications.c: 35: if (powerSet & 0x01) EnableSlavePower(BMM, ON);
-"35
-[e $ ! != & _powerSet -> 1 `i -> 0 `i 1144  ]
-[e ( _EnableSlavePower (2 , . `E7840 3 -> . `E7840 6 `i ]
-[e $U 1145  ]
-"36
-[e :U 1144 ]
-[; ;Communications.c: 36: else EnableSlavePower(BMM, OFF);
-[e ( _EnableSlavePower (2 , . `E7840 3 -> . `E7840 7 `i ]
-[e :U 1145 ]
-[; ;Communications.c: 37: if (powerSet & 0x02) EnableSlavePower(MCS, ON);
-"37
-[e $ ! != & _powerSet -> 2 `i -> 0 `i 1146  ]
-[e ( _EnableSlavePower (2 , . `E7840 1 -> . `E7840 6 `i ]
-[e $U 1147  ]
-"38
-[e :U 1146 ]
-[; ;Communications.c: 38: else EnableSlavePower(MCS,OFF);
-[e ( _EnableSlavePower (2 , . `E7840 1 -> . `E7840 7 `i ]
-[e :U 1147 ]
-[; ;Communications.c: 39: if (powerSet & 0x04) EnableSlavePower(DDS,ON);
-"39
-[e $ ! != & _powerSet -> 4 `i -> 0 `i 1148  ]
-[e ( _EnableSlavePower (2 , . `E7840 0 -> . `E7840 6 `i ]
-[e $U 1149  ]
-"40
-[e :U 1148 ]
-[; ;Communications.c: 40: else EnableSlavePower(DDS,OFF);
-[e ( _EnableSlavePower (2 , . `E7840 0 -> . `E7840 7 `i ]
-[e :U 1149 ]
-[; ;Communications.c: 41: if(powerSet & 0x08) EnableSlavePower(SAS,ON);
-"41
-[e $ ! != & _powerSet -> 8 `i -> 0 `i 1150  ]
-[e ( _EnableSlavePower (2 , . `E7840 2 -> . `E7840 6 `i ]
-[e $U 1151  ]
-"42
-[e :U 1150 ]
-[; ;Communications.c: 42: else EnableSlavePower(SAS,OFF);
-[e ( _EnableSlavePower (2 , . `E7840 2 -> . `E7840 7 `i ]
-[e :U 1151 ]
-[; ;Communications.c: 43: if(powerSet & 0x10) EnableSlavePower(TSS, ON);
-"43
-[e $ ! != & _powerSet -> 16 `i -> 0 `i 1152  ]
-[e ( _EnableSlavePower (2 , . `E7840 4 -> . `E7840 6 `i ]
-[e $U 1153  ]
-"44
-[e :U 1152 ]
-[; ;Communications.c: 44: else EnableSlavePower(TSS,OFF);
-[e ( _EnableSlavePower (2 , . `E7840 4 -> . `E7840 7 `i ]
-[e :U 1153 ]
-[; ;Communications.c: 45: Update();
-"45
-[e ( _Update ..  ]
-[; ;Communications.c: 46: }
-"46
-[e :UE 1143 ]
-}
-"48
-[v _respondECU `(v ~T0 @X0 1 ef ]
-{
-[; ;Communications.c: 48: void respondECU() {
-[e :U _respondECU ]
-[f ]
-[; ;Communications.c: 49: LATCbits.LATC5 = 1;
-"49
-[e = . . _LATCbits 0 5 -> -> 1 `i `uc ]
-[; ;Communications.c: 50: ToSend(0, 5);
-"50
-[e ( _ToSend (2 , -> -> 0 `i `uc -> -> 5 `i `ui ]
-[; ;Communications.c: 51: ToSend(9, 5);
-"51
-[e ( _ToSend (2 , -> -> 9 `i `uc -> -> 5 `i `ui ]
-[; ;Communications.c: 52: Delay(5);
-"52
-[e ( _Delay (1 -> -> 5 `i `l ]
-[; ;Communications.c: 54: sendData(1);
-"54
-[e ( _sendData (1 -> -> 1 `i `uc ]
-[; ;Communications.c: 55: Delay(3);
-"55
-[e ( _Delay (1 -> -> 3 `i `l ]
-[; ;Communications.c: 56: LATCbits.LATC5 = 0;
-"56
-[e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
-[; ;Communications.c: 57: }
-"57
-[e :UE 1154 ]
+[; ;pwm4.c: 84: CCPR4L = ((dutyValue & 0x03FC)>>2);
+"84
+[e = _CCPR4L -> >> & _dutyValue -> -> 1020 `i `ui -> 2 `i `uc ]
+[; ;pwm4.c: 87: CCP4CON = (CCP4CON & 0xCF) | ((dutyValue & 0x0003)<<4);
+"87
+[e = _CCP4CON -> | -> & -> _CCP4CON `i -> 207 `i `ui << & _dutyValue -> -> 3 `i `ui -> 4 `i `uc ]
+[; ;pwm4.c: 88: }
+"88
+[e :UE 1141 ]
 }
