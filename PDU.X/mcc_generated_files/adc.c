@@ -8,17 +8,17 @@
     adc.c
 
   @Summary
-    This is the generated driver implementation file for the ADC driver using MPLAB(c) Code Configurator
+    This is the generated driver implementation file for the ADC driver using MPLAB® Code Configurator
 
   @Description
     This source file provides implementations for driver APIs for ADC.
     Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - v3.00
+        Product Revision  :  MPLAB® Code Configurator - v2.25
         Device            :  PIC18F45K22
         Driver Version    :  2.00
     The generated drivers are tested against the following:
-        Compiler          :  XC8 1.35
-        MPLAB             :  MPLAB X 3.20
+        Compiler          :  XC8 v1.34
+        MPLAB             :  MPLAB X v2.35 or v3.00
 */
 
 /*
@@ -42,7 +42,7 @@ INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
 CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
 SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
- */
+*/
 
 /**
   Section: Included Files
@@ -63,16 +63,16 @@ void ADC_Initialize(void)
     // GO_nDONE stop; ADON enabled; CHS AN0; 
     ADCON0 = 0x01;
     
-    // TRIGSEL CCP5; NVCFG VSS; PVCFG VDD; 
-    ADCON1 = 0x00;
+    // PVCFG VDD; TRIGSEL CTMU; NVCFG VSS; 
+    ADCON1 = 0x80;
     
-    // ADFM left; ACQT 2; ADCS FOSC/16; 
-    ADCON2 = 0x0D;
+    // ADFM left; ADCS FOSC/32; ACQT 4; 
+    ADCON2 = 0x12;
     
-    // ADRESL 0; 
+    // ADRESL 0x0; 
     ADRESL = 0x00;
     
-    // ADRESH 0; 
+    // ADRESH 0x0; 
     ADRESH = 0x00;
     
     // Enabling ADC interrupt.
@@ -82,14 +82,14 @@ void ADC_Initialize(void)
 void ADC_StartConversion(adc_channel_t channel)
 {
     // select the A/D channel
-    ADCON0bits.CHS = channel;    
+    ADCON0bits.CHS = channel;
+
     // Turn on the ADC module
     ADCON0bits.ADON = 1;
 
-
+    
     // Start the conversion
     ADCON0bits.GO_nDONE = 1;
-    
 }
 
 bool ADC_IsConversionDone()
@@ -106,8 +106,8 @@ adc_result_t ADC_GetConversionResult(void)
 
 adc_result_t ADC_GetConversion(adc_channel_t channel)
 {
-    // select the A/D channel
-    ADCON0bits.CHS = channel;    
+    // Select the A/D channel
+    ADCON0bits.CHS = channel;
 
     // Turn on the ADC module
     ADCON0bits.ADON = 1;

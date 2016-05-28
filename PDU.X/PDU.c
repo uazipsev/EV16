@@ -19,9 +19,9 @@ void PDUStartup(void) {
     //now enable SAS and DDS
     EnableSlavePower(SAS, ON);
     EnableSlavePower(DDS, ON);
-    EnableSlavePower(MCS, OFF);
-    EnableSlavePower(BMM, OFF);
-    EnableSlavePower(TSS, OFF);
+    EnableSlavePower(MCS, ON);
+    EnableSlavePower(BMM, ON);
+    EnableSlavePower(TSS, ON);
     Update();
     //Lets pull Prev values out of memory for control
     ComputeStorageData();
@@ -67,9 +67,9 @@ void ReadCurrent(char gather) {
         SetPin595(3, 3, OFF);
         SetPin595(3, 2, OFF);
         Update();
-        CurrentADC[0] = ADC_GetConversion(channel_AN16);
-        CurrentADC[2] = ADC_GetConversion(channel_AN22);
-        CurrentADC[4] = ADC_GetConversion(channel_AN23);
+        CurrentADC[0] = ADC_GetConversion(U5Multisense);
+        CurrentADC[2] = ADC_GetConversion(U8Multisense);
+        CurrentADC[4] = ADC_GetConversion(U10Multisense);
     } else {
         //read the second three
         SetPin595(1, 4, ON);
@@ -82,9 +82,9 @@ void ReadCurrent(char gather) {
         SetPin595(3, 3, OFF);
         SetPin595(3, 2, ON);
         Update();
-        CurrentADC[1] = ADC_GetConversion(channel_AN16);
-        CurrentADC[3] = ADC_GetConversion(channel_AN22);
-        CurrentADC[5] = ADC_GetConversion(channel_AN23);
+        CurrentADC[1] = ADC_GetConversion(U5Multisense);
+        CurrentADC[3] = ADC_GetConversion(U8Multisense);
+        CurrentADC[5] = ADC_GetConversion(U10Multisense);
     }
 }
 

@@ -1,5 +1,5 @@
 /**
-  @Generated MPLAB(c) Code Configurator Header File
+  @Generated MPLAB® Code Configurator Header File
 
   @Company:
     Microchip Technology Inc.
@@ -8,18 +8,18 @@
     mcc.h
 
   @Summary:
-    This is the mcc.h file generated using MPLAB(c) Code Configurator
+    This is the mcc.h file generated using MPLAB® Code Configurator
 
   @Description:
     This header file provides implementations for driver APIs for all modules selected in the GUI.
     Generation Information :
-        Product Revision  :  MPLAB(c) Code Configurator - v3.00
+        Product Revision  :  MPLAB® Code Configurator - v2.25
         Device            :  PIC18F45K22
         Version           :  1.02
     The generated drivers are tested against the following:
-        Compiler          :  XC8 1.35
-        MPLAB             :  MPLAB X 3.20
-*/
+        Compiler          :  XC8 v1.34
+        MPLAB             :  MPLAB X v2.35 or v3.00
+ */
 
 /*
 Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
@@ -51,12 +51,13 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include <stdint.h>
 #include <stdbool.h>
 #include "interrupt_manager.h"
+#include "..\UART.h"
 #include "adc.h"
-#include "pwm4.h"
+#include "../pwm4.h"
 #include "memory.h"
-#include "tmr2.h"
+#include "../tmr2.h"
 
-#define _XTAL_FREQ  16000000
+#define _XTAL_FREQ  8000000
 
 /**
  * @Param
@@ -84,8 +85,19 @@ void SYSTEM_Initialize(void);
  */
 void OSCILLATOR_Initialize(void);
 
+//extern void EUSART1_Initialize(void);
+//extern void EUSART1_Transmit_ISR(void);
+//extern void EUSART1_Receive_ISR(void);
 
+extern void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
+
+extern unsigned char Receive_peek(void);
+extern int Receive_available(void);
+extern unsigned char Receive_get(void);
+extern void Send_put(unsigned char _data);
+
+extern volatile int receiveArray[20];
 #endif	/* MCC_H */
 /**
  End of File
-*/
+ */
