@@ -15,6 +15,7 @@ int main(int argc, char** argv) {
         updateComms(); // Runs the COMS system 
         updateECUState(); // State MSN for CAR 
         updateBrakeLight(); // Runs Brake light!
+        handleDebugRequests(); //This runs debug systems
         //Delay(10);
     }
     return (EXIT_SUCCESS);
