@@ -15,8 +15,8 @@ extern "C" {
 #include "ADDRESSING.h"
 #include <stdbool.h>
 
-#define TRIP_THROTTLE 10
-#define TRIP_BRAKE    10
+#define TRIP_THROTTLE 40
+#define TRIP_BRAKE    40
 
 
 extern int SAS_FAULT_CONDITION;

@@ -7,6 +7,7 @@
 #include "main.h"
 
 int main(int argc, char** argv) {
+    ReadReset();
     Setup(); //Setup the I/O system
     Delay(1000); // Wait for everything to get up and running
     Boot(100);    // Boot horn 

@@ -7,8 +7,8 @@
 #define BMS_LED        5
 #define ACTIVE_LED     3
 #define IMD_INDICATOR  2
-#define START_BUTTON   2
-#define DEBUG_BUTTON   1
+#define START_BUTTON   4
+#define DEBUG_BUTTON   6
 
 struct powerStates {
     bool DDS;
@@ -54,7 +54,7 @@ extern enum debugStates debugState;
 void doStuff();
 
 void updateStoppedState() {
-    handleDebugRequests();
+    //handleDebugRequests();
     //If start button is depressed, do start system request, show on LED
     switch (seekButtonChange()) {
 

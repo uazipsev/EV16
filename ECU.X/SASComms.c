@@ -55,18 +55,18 @@ bool checkSASInputs(unsigned int t1, unsigned int t2, unsigned int b) {
 }
 
 void storeSASInputs() {
-    if (t1Raw < 2650 && t1Raw > 1575) {
-        throttle1 = (t1Raw - 1575) * (100.0 / 1075);
+    if (t1Raw < 100 && t1Raw > 0) {
+        throttle1 = t1Raw;
         if (throttle1 < 0) throttle1 = 0;
         if (throttle1 > 100) throttle1 = 100;
     } else throttle1 = 0;
-    if (t2Raw < 2650 && t2Raw > 1650) {
-        throttle2 = (t2Raw - 1575) * (100.0 / 1075);
+    if (t2Raw < 100 && t2Raw > 0) {
+        throttle2 =t2Raw;
         if (throttle2 < 0) throttle2 = 0;
         if (throttle2 > 100) throttle2 = 100;
     } else throttle2 = 0;
-    if (bRaw < 745 && bRaw > 510) {
-        brake = (bRaw - 510) * (100.0 / 235);
+    if (bRaw < 100 && bRaw > 0) {
+        brake = bRaw;
         if (brake < 0) brake = 0;
         if (brake > 100) brake = 100;
     } else brake = 0;

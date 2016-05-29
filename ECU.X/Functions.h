@@ -36,6 +36,8 @@
 #define TX3_Output 27
 #define TX4_Output 29
 
+void ReadReset();
+int GetResetValue();
 
 extern void UART_init(void);
 extern unsigned char Receive_peek(void);

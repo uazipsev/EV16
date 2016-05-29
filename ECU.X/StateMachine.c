@@ -15,7 +15,7 @@ extern enum debugStates debugState;
 //Record and report fault conditions
 struct faultStates faults;
 //Record and control ECU states
-enum ECUstates currentState = startup;// TODO make back to start
+enum ECUstates currentState = stopped;// TODO make back to start
 //Record and control comm states
 struct commsStates comms;
 //Control the power rails on the PDU
@@ -30,14 +30,18 @@ int faultChecker();
 #define SOFT_FAULT 2
 #define THROTTLE_SANITY_CHECK 1
 #define THROTTLE_BRAKE_CHECK  2
+
 int getstate(void){
 
-return currentState;
+    return currentState;
  }
+
 int getstatefault(void){
     
     return faultChecker();
 }
+
+
 void updateECUState() {
     static enum ECUstates previousState = NUM_STATES;
     switch (currentState) {
@@ -51,8 +55,8 @@ void updateECUState() {
                 previousState = currentState;
                 powerSet.DDS = true;
                 powerSet.SAS = true;
-                powerSet.BMM = true;  //TODO Change back to false
-                powerSet.MCS = true;   //TODO Change back to false
+                powerSet.BMM = false;  //TODO Change back to false
+                powerSet.MCS = false;   //TODO Change back to false
                 carActive = false;
                 SS_RELAY = 0;
             }
@@ -78,14 +82,13 @@ void updateECUState() {
                     currentState--;
                 }
             }
-            break;
-
             //Wait for complete or for timeout
             if (bootSequenceCompleted()){
-                RTD(5);
+                RTD(500);
                 currentState++;
             }
             else checkForBootupTimeout();
+            break;
         case startup:
             //Means this is your first time in this state
             if (previousState != currentState) {
@@ -106,14 +109,14 @@ void updateECUState() {
                     currentState--;
                 }
             }
-            break;
+            
 
             //Wait for complete or for timeout
             if (StartSequenceCompleted()){
                 currentState++;
             }
             else checkForBootupTimeout();
-
+            break;
             //CAR IS RUNNING BREAK ON FAULTS OR ON BUTTON
         case running:
             //Means this is your first time in this state
@@ -184,7 +187,7 @@ void updateECUState() {
                 powerSet.DDS = true;
                 powerSet.SAS = true;
                 powerSet.BMM = true;
-                powerSet.MCS = false;
+                powerSet.MCS = true;
                 carActive = false;
                 SS_RELAY = 0;
             }
@@ -243,12 +246,12 @@ int faultChecker() {
 }
 
 bool StartSequenceCompleted() {
-    if ((BootTimer > 3000) && PORTBbits.RB10 ) return true;
+    if ((BootTimer > 3000) ) return true; //&& PORTAbits.RA4 
     else return false;
 }
 
 bool bootSequenceCompleted() {
-    if ((BootTimer > 1000) && comms.MCS ) return true;
+    if ((BootTimer > 1000) && comms.MCS ) return true; 
     else return false;
 }
 

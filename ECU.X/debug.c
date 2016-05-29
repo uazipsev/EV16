@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "ADDRESSING.h"
 #include "SlaveAddressing.h"
+#include "Functions.h"
 
 #define LOW_VOLTAGE_FLAG 1
 #define HIGH_TEMPERATURE_FLAG 2
@@ -75,7 +76,7 @@ void handleDebugRequests() {
                 //This is the first time through the loop
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
-                    comms.BMM_SEND = BATTERY_FAULT;
+                    //comms.BMM_SEND = BATTERY_FAULT;
                 }
                 printf("\n-----Throttle Brake Raw Debug----\n");
                 printf("Throttle1:      %d\n", t1Raw);
@@ -90,7 +91,7 @@ void handleDebugRequests() {
                 //This is the first time through the loop
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
-                    comms.BMM_SEND = BATTERY_VOLTS;
+                    //comms.BMM_SEND = BATTERY_VOLTS;
                     batterySlaveNumberV = 0;
                 }
                 if (comms.BMM) {
@@ -108,7 +109,7 @@ void handleDebugRequests() {
                 //This is the first time through the loop
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
-                    comms.BMM_SEND = BATTERY_TEMPS;
+                    //comms.BMM_SEND = BATTERY_TEMPS;
                     batterySlaveNumber = 0;
                 }
                 printf("\n----Slave #%d Bat Temp Info---- \n", batterySlaveNumber + 1);
@@ -123,7 +124,7 @@ void handleDebugRequests() {
                 //This is the first time through the loop
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
-                    comms.BMM_SEND = BATTERY_POWER;
+                    //comms.BMM_SEND = BATTERY_POWER;
                 }
                 printf("\n----BMM Power Signal Debug----\n");
                 printf("BMMADC[0]:      %d\n", BMMADC[0]);
@@ -142,7 +143,7 @@ void handleDebugRequests() {
                 }
                 printf("\n----Fault Reporting/Recovery Mode----\n");
                 if (MCS_FAULT_CONDITION) {
-
+                    printf("\n----MCS FALUT----\n");
                 }
                 if (BMM_FAULT_CONDITION) {
                     switch (BMM_FAULT_CONDITION) {
@@ -163,7 +164,7 @@ void handleDebugRequests() {
                     }
                 }
                 if (SAS_FAULT_CONDITION) {
-
+                    printf("\n----SAS FALUT----\n");
                     switch (SAS_FAULT_CONDITION){
                         case THROTTLE_SANITY_CHECK:
 
@@ -173,9 +174,11 @@ void handleDebugRequests() {
                     }
                 }
                 if (DDS_FAULT_CONDITION) {
+                    printf("\n----DDS FALUT----\n");
 
                 }
                 if (PDU_FAULT_CONDITION) {
+                    printf("\n----PDU FALUT----\n");
 
                 }
                 if (ECU_FAULT_CONDITION) {
@@ -188,14 +191,26 @@ void handleDebugRequests() {
                 }
                 break;
             case Find_State:
+                if (lastDebugState != debugState) {
+                    lastDebugState = debugState;
+                }
                 State_Value=getstate();
                 printf("State On ECU State Machine\n");
                 printf("The Current State Is %d\n", State_Value);
                 break;
             case State_fault:
+                if (lastDebugState != debugState) {
+                    lastDebugState = debugState;
+                }
                 StateFault_Value=getstatefault();
                 printf("Fault Value On State Machine\n");
                 printf("The Current Fault On The State Machine Is %d\n", StateFault_Value);
+                break;
+            case Reset:
+                if (lastDebugState != debugState) {
+                    lastDebugState = debugState;
+                }
+                printf("The reset value is %d\n", GetResetValue());
                 break;
         }
         DebugTimer = 0;
