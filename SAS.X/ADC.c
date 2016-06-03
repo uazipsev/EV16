@@ -2,6 +2,7 @@
 #include <xc.h>
 #include <math.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 
 void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt(void);
@@ -11,6 +12,7 @@ volatile unsigned int ADCbuffer[6];
 volatile bool ADCDataReady = false;
 extern volatile unsigned int ADCbuffer[6];
 float throttle1val, throttle2val, brake1val, brake2val;
+float data = 0;
 
 #define FILTERCOUNTS 5
 
@@ -124,6 +126,8 @@ void FilterADC(){
 //    throttle2val = ADCbuffer[1] * 0.02;
 //    brake1val = ADCbuffer[2] * 0.02;
 //    brake2val = ADCbuffer[3] * 0.02;
+    
+    //printf("T1: %f T2: %f",throttle1val,throttle2val);
 }
 
 float GetADC(value RequestValue){
@@ -135,7 +139,7 @@ float GetADC(value RequestValue){
             return throttle2val;
             break;
         case Brake1 :
-            return brake1val;
+            return brake2val;
             break;
         case Brake2 :
             return brake2val;

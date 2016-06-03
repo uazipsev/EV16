@@ -6,6 +6,8 @@
 #include "main.h"
 #include "ADDRESSING.h"
 #include "ADC.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void ledDebug();
 
@@ -17,8 +19,8 @@ int main(void) {
         //Comms handling
         updateComms();
         if ((ADCDataReady) && (ADCTime > 0)) {
-            ADCDataReady = false;
             FilterADC();
+            ADCDataReady = false;
             IEC0bits.AD1IE = 1;
             //AD1CON1bits.ADON = 1;
             ADCTime = 0;
@@ -29,7 +31,8 @@ int main(void) {
 void ledDebug() {
     if (LEDtime > 1000) {
         LED ^= 1;
-        //printf("hi");
+        printf("T1: %0.2f T2: %0.2f \n", GetADC(Throttle1), GetADC(Throttle2));
+        printf("B1: %0.2f B2: %0.2f \n", GetADC(Brake1), GetADC(Brake2));
         LEDtime = 0;
     }
 }

@@ -18,6 +18,9 @@
 #include <libpic30.h>
 #endif
 
+#define PPSin(fn,pin)    iPPSInput(IN_FN_PPS##fn,IN_PIN_PPS##pin)
+#define PPSout(fn,pin)    iPPSOutput(OUT_PIN_PPS##pin,OUT_FN_PPS##fn)
+
 void Delay(int ms);
 void Setup(void);
 void PinSetMode(void);

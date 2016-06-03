@@ -6,6 +6,8 @@
 #include "pps.h"
 #include "ADDRESSING.h"
 #include "Functions.h"
+#include <stdio.h>
+#include "pps.h"
 
 void Setup(void) {
 
@@ -30,7 +32,7 @@ void Setup(void) {
     //timerTwo();
     begin(receiveArray, sizeof (receiveArray), SAS_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
     UART_init();
-    //UART1_init();
+    UART1_init();
     //begin(receiveArray1, sizeof (receiveArray1), SAS_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);
 
 }
@@ -114,8 +116,8 @@ void PinSetMode(void) {
     Pin_23_Output = TX1_OUTPUT;
     RX1_Pin_Map = 22;
 
-    Pin_8_Output = TX2_OUTPUT;
-    RX2_Pin_Map = 7;
+    PPSin(_U2RX, _RP8);
+    PPSout(_U2TX, _RP7);
 
     PPSLock;
 }

@@ -46,7 +46,7 @@ extern void ToSend(const unsigned char where, const unsigned int what);
 
 #define RX2_Pin_Map RPINR19bits.U2RXR
 #define Pin_8_Output RPOR4bits.RP8R
-#define TX2_OUTPUT 5
+#define TX2_OUTPUT 7
 
 
 #endif	/* PINDEF_H */
