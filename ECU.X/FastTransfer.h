@@ -7,13 +7,13 @@
 
 #ifndef FASTTRANSFER_H
 #define	FASTTRANSFER_H
-
+#define RX_BUFFER_SIZE 250
 //the capital D is so there is no interference with the lower case d of EasyTransfer
 #define Details(name) (int*)&name,sizeof(name)
 
 void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
 void sendData(unsigned char whereToSend);
-bool receiveData();
+bool receiveData(void);
 void ToSend(const unsigned char where, const unsigned int what);
 unsigned char AKNAK(unsigned char module);
 unsigned int alignError(void);
@@ -27,7 +27,7 @@ void (*serial_write)(unsigned char);
 unsigned char (*serial_read)(void);
 int (*serial_available)(void);
 unsigned char (*serial_peek)(void);
-unsigned char * rx_buffer; //address for temporary storage and parsing buffer
+unsigned char rx_buffer[RX_BUFFER_SIZE]; //address for temporary storage and parsing buffer
 unsigned char rx_array_inx; //index for RX parsing buffer
 unsigned char rx_len; //RX packet length according to the packet
 unsigned char calc_CS; //calculated Checksum

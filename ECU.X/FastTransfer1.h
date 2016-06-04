@@ -11,7 +11,7 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
-
+#define RX_BUFFER_SIZE1 250
     //the capital D is so there is no interference with the lower case d of EasyTransfer
 #define Details(name) (int*)&name,sizeof(name)
 
@@ -25,7 +25,7 @@ extern "C" {
     //PUBLIC METHODS/VARIABLES HERE
     void begin1(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
     void sendData1(unsigned char whereToSend);
-    bool receiveData1();
+    bool receiveData1(void);
     void ToSend1(const unsigned char where, const unsigned int what);
 
     volatile int receiveArray1[20];
@@ -40,7 +40,7 @@ extern "C" {
     unsigned char (*serial_read1)(void);
     int (*serial_available1)(void);
     unsigned char (*serial_peek1)(void);
-    unsigned char * rx_buffer1; //address for temporary storage and parsing buffer
+    unsigned char rx_buffer1[RX_BUFFER_SIZE1]; //address for temporary storage and parsing buffer
     unsigned char rx_array_inx1; //index for RX parsing buffer
     unsigned char rx_len1; //RX packet length according to the packet
     unsigned char calc_CS1; //calculated Checksum

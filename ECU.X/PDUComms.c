@@ -1,5 +1,8 @@
 #include "PDUComms.h"
 #include "StateMachine.h"
+#include <xc.h>
+#include "PinDef.h"
+#include "xc.h"
 
 bool requestPDUData();
 int constructPowerSet();
@@ -37,6 +40,7 @@ bool receiveCommPDU() {
         if (receiveArray[RESPONSE_ADDRESS] == PDU_ADDRESS) {
             readyToSendPDU = true;
             PDUTimer = 0;
+            INDICATOR ^= 1;
             return true;
         } else return false;
     } else return false;

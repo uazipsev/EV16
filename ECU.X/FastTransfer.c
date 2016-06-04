@@ -10,7 +10,16 @@
 #include <stdlib.h>
 #include "FastTransfer.h"
 
-
+void wipeRxBuffer(void)
+{
+	int i=0;
+	for(i=0;i<RX_BUFFER_SIZE;i++)
+	{
+		rx_buffer[i]=0;
+		
+	}
+	
+}
 
 
 //Captures address of receive array, the max data address, the address of the module, true/false if AKNAKs are wanted and the Serial address
@@ -112,7 +121,7 @@ bool receiveData() {
                     return false;
                 }
                 // if the address matches the a dynamic buffer is created to store the received data
-                rx_buffer = (unsigned char*) malloc(rx_len + 1);
+                //rx_buffer = (unsigned char*) malloc(rx_len + 1);
             }
         }
     }
@@ -127,7 +136,8 @@ bool receiveData() {
                 CRCcheck();
                 rx_len = 0;
                 rx_array_inx = 0;
-                free(rx_buffer);
+                wipeRxBuffer();
+                //free(rx_buffer);
                 return receiveData();
             }
         }
@@ -180,7 +190,8 @@ bool receiveData() {
 
                 rx_len = 0;
                 rx_array_inx = 0;
-                free(rx_buffer);
+                wipeRxBuffer();
+                //free(rx_buffer);
                 return true;
             } else {
                 crcErrorCounter++; //increments the counter every time a crc fails
@@ -205,7 +216,8 @@ bool receiveData() {
                 //failed checksum, need to clear this out
                 rx_len = 0;
                 rx_array_inx = 0;
-                free(rx_buffer);
+                wipeRxBuffer();
+                //free(rx_buffer);
                 return false;
             }
         }

@@ -68,7 +68,7 @@ void handleDebugRequests() {
                 //This is the first time through the loop
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
-                    comms.BMM_SEND = BATTERY_FAULT;
+                   // comms.BMM_SEND = BATTERY_FAULT;
 
                 }
                 break;

@@ -9,6 +9,18 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "FastTransfer2.h"
+#include "PinDef.h"
+
+void wipeRxBuffer2(void)
+{
+	int i=0;
+	for(i=0;i<RX_BUFFER_SIZE2;i++)
+	{
+		rx_buffer2[i]=0;
+		
+	}
+	
+}
 
 //Captures address of receive array, the max data address, the address of the module, true/false if AKNAKs are wanted and the Serial address
 
@@ -82,6 +94,7 @@ bool receiveData2() {
     if (rx_len2 == 0) {
         //this size check may be redundant due to the size check below, but for now I'll leave it the way it is.
         if (serial_available2() > 4) {
+            
             //this will block until a 0x06 is found or buffer size becomes less then 3.
             while (serial_read2() != 0x06) {
                 //This will trash any preamble junk in the serial buffer
@@ -108,7 +121,7 @@ bool receiveData2() {
                     return false;
                 }
                 // if the address matches the a dynamic buffer is created to store the received data
-                rx_buffer2 = (unsigned char*) malloc(rx_len2 + 1);
+                //rx_buffer2 = (unsigned char*) malloc(rx_len2 + 1);
             }
         }
     }
@@ -123,7 +136,8 @@ bool receiveData2() {
                 CRCcheck2();
                 rx_len2 = 0;
                 rx_array_inx2 = 0;
-                free(rx_buffer2);
+                wipeRxBuffer2();
+                //free(rx_buffer2);
                 return receiveData2();
             }
         }
@@ -176,7 +190,8 @@ bool receiveData2() {
 
                 rx_len2 = 0;
                 rx_array_inx2 = 0;
-                free(rx_buffer2);
+                wipeRxBuffer2();
+                //free(rx_buffer2);
                 return true;
             } else {
                 crcErrorCounter2++; //increments the counter every time a crc fails
@@ -201,7 +216,8 @@ bool receiveData2() {
                 //failed checksum, need to clear this out
                 rx_len2 = 0;
                 rx_array_inx2 = 0;
-                free(rx_buffer2);
+                wipeRxBuffer2();
+                //free(rx_buffer2);
                 return false;
             }
         }

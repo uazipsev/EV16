@@ -1,5 +1,5 @@
 #include "SASComms.h"
-
+#include "PinDef.h"
 unsigned int throttle1, throttle2, brake;
 unsigned int t1Raw, t2Raw, bRaw;
 bool receiveCommSAS();
@@ -81,7 +81,9 @@ void storeSASInputs() {
 
 bool receiveCommSAS() {
     if (receiveData1()) {
+        //INDICATOR ^= 1;
         if (receiveArray1[RESPONSE_ADDRESS] == SAS_ADDRESS) {
+           // INDICATOR ^= 1;
             if (checkSASInputs(receiveArray1[THROTTLE1_SAS], receiveArray1[THROTTLE2_SAS], receiveArray1[BRAKE_SAS])) {
                 storeSASInputs();
             }

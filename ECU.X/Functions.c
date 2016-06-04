@@ -20,7 +20,7 @@ int read= 0;
 
 void Setup(void) {
 
-                   __C30_UART=2;
+                  // __C30_UART=2;
     PinSetMode();
     // setup internal clock for 72MHz/36MIPS
     // 12/2=6*24=132/2=72
@@ -108,7 +108,7 @@ void PinSetMode(void) {
 
 void ledDebug(){
     if (time > 1000) {
-            INDICATOR ^= 1;
+            //INDICATOR ^= 1;
            // HORN_EN ^=1;
            // BRAKELT ^= 1;
            // SS_RELAY ^= 1;

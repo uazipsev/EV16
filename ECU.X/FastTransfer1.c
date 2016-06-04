@@ -10,6 +10,18 @@
 #include <stdlib.h>
 #include "FastTransfer1.h"
 
+
+void wipeRxBuffer1(void)
+{
+	int i=0;
+	for(i=0;i<RX_BUFFER_SIZE1;i++)
+	{
+		rx_buffer1[i]=0;
+		
+	}
+	
+}
+
 //Captures address of receive array, the max data address, the address of the module, true/false if AKNAKs are wanted and the Serial address
 
 void begin1(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void)) {
@@ -108,7 +120,7 @@ bool receiveData1() {
                     return false;
                 }
                 // if the address matches the a dynamic buffer is created to store the received data
-                rx_buffer1 = (unsigned char*) malloc(rx_len1 + 1);
+                //rx_buffer1 = (unsigned char*) malloc(rx_len1 + 1);
             }
         }
     }
@@ -123,7 +135,8 @@ bool receiveData1() {
                 CRCcheck1();
                 rx_len1 = 0;
                 rx_array_inx1 = 0;
-                free(rx_buffer1);
+                wipeRxBuffer1();
+                //free(rx_buffer1);
                 return receiveData1();
             }
         }
@@ -176,7 +189,8 @@ bool receiveData1() {
 
                 rx_len1 = 0;
                 rx_array_inx1 = 0;
-                free(rx_buffer1);
+                wipeRxBuffer1();
+                //free(rx_buffer1);
                 return true;
             } else {
                 crcErrorCounter1++; //increments the counter every time a crc fails
@@ -201,7 +215,8 @@ bool receiveData1() {
                 //failed checksum, need to clear this out
                 rx_len1 = 0;
                 rx_array_inx1 = 0;
-                free(rx_buffer1);
+                wipeRxBuffer1();
+                //free(rx_buffer1);
                 return false;
             }
         }

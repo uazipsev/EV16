@@ -11,6 +11,16 @@
 #include "FastTransfer3.h"
 
 
+void wipeRxBuffer3(void)
+{
+	int i=0;
+	for(i=0;i<RX_BUFFER_SIZE3;i++)
+	{
+		rx_buffer3[i]=0;
+		
+	}
+	
+}
 struct ringBufS3 { // this is where the send data is stored before sending
     unsigned char buf[BUFFER_SIZE];
     int head;
@@ -140,7 +150,7 @@ bool receiveData3() {
                     return false;
                 }
                 // if the address matches the a dynamic buffer is created to store the received data
-                rx_buffer3 = (unsigned char*) malloc(rx_len3 + 1);
+                //rx_buffer3 = (unsigned char*) malloc(rx_len3 + 1);
             }
         }
     }
@@ -155,7 +165,8 @@ bool receiveData3() {
                 CRCcheck3();
                 rx_len3 = 0;
                 rx_array_inx3 = 0;
-                free(rx_buffer3);
+                 wipeRxBuffer3();
+                //free(rx_buffer3);
                 return receiveData3();
             }
         }
@@ -208,7 +219,8 @@ bool receiveData3() {
 
                 rx_len3 = 0;
                 rx_array_inx3 = 0;
-                free(rx_buffer3);
+                wipeRxBuffer3();
+                //free(rx_buffer3);
                 return true;
             } else {
                 crcErrorCounter3++; //increments the counter every time a crc fails
@@ -233,7 +245,8 @@ bool receiveData3() {
                 //failed checksum, need to clear this out
                 rx_len3 = 0;
                 rx_array_inx3 = 0;
-                free(rx_buffer3);
+                wipeRxBuffer3();
+               // free(rx_buffer3);
                 return false;
             }
         }
