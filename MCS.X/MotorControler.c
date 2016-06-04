@@ -16,7 +16,6 @@
 #include "PinDef.h"
 #include "Function.h"
 #include "MCP4725.h"
-#include "GetParameter.h"
 #include <xc.h>
 //#include "UART2.h" Not working HELP
 
@@ -30,7 +29,7 @@ void SetMotorDefaults() {
 
 void MotorEnable() {
     LATAbits.LATA0=1;
-    BRAKE =1;
+    BRAKE = 1;
     DC12ENABLE;
     Delay(100);
     IGNEN = 1;
@@ -38,7 +37,7 @@ void MotorEnable() {
 }
 
 void MotorDisable() {
-    BRAKE =0;
+    BRAKE = 0;
     Delay(100);
     DACRELAY = 0;
     DC12DISABLE;

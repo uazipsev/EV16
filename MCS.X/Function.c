@@ -1,11 +1,10 @@
 
 #include "xc.h"
 #include <libpic30.h>
-#include <pps.h>
+#include "pps.h"
 #include <stdbool.h>
 #include "Function.h"
 #include "I2C.h"
-#include "pwm.h"
 #include "MotorControler.h"
 #include "PinDef.h"
 #include "ADDRESSING.h"
@@ -61,22 +60,17 @@ void ledDebug() {
     
 
 void PinSetMode(void) {
-    AD1PCFGLbits.PCFG11 = 1;
-
-    LATCbits.LATC6 = 1;
 
     TRISBbits.TRISB13 = 0;
     LATBbits.LATB13 = 0;
 
     TRISBbits.TRISB1 = 0; //Set LED as output
-    TRISAbits.TRISA0 = 0; //DAC relay OUT
+    TRISBbits.TRISB5 = 0; //DAC relay OUT
     TRISAbits.TRISA10 = 0; //Set 12v DC/DC enable OUT
 
     TRISBbits.TRISB15 = 0; //DigiPot CS OUT
     TRISBbits.TRISB14 = 0; //DigiPot INC OUT
     TRISAbits.TRISA7 = 0; //DigiPot UP_DN OUT
-
-    TRISBbits.TRISB5 = 0; //Fan control OUT
     
     FORWARD_TRIS =0;
     REVERSE_TRIS =0;
@@ -85,5 +79,4 @@ void PinSetMode(void) {
     REGENEN_TRIS =0;
     IGNEN_TRIS = 0;
     DACRELAY_TRIS = 0;
-    
 }
