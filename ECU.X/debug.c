@@ -167,9 +167,10 @@ void handleDebugRequests() {
                     printf("\n----SAS FALUT----\n");
                     switch (SAS_FAULT_CONDITION){
                         case THROTTLE_SANITY_CHECK:
-
+                            printf("\n----THROTTLE_SANITY_CHECK----\n");
                             break;
                         case THROTTLE_BRAKE_CHECK:
+                            printf("\n----THROTTLE_BRAKE_CHECK----\n");
                             break;
                     }
                 }
@@ -211,6 +212,23 @@ void handleDebugRequests() {
                     lastDebugState = debugState;
                 }
                 printf("The reset value is %d\n", GetResetValue());
+                break;
+            case comm_on:
+                if (lastDebugState != debugState) {
+                    lastDebugState = debugState;
+                }
+                if(!comms.BMM){
+                    printf("No BMM comms\n");
+                }
+                if(!comms.DDS){
+                    printf("No DDS comms\n");
+                }
+                if(!comms.SAS){
+                    printf("No SAS comms\n");
+                }
+                if(!comms.MCS){
+                    printf("No MCS comms\n");
+                }
                 break;
         }
         DebugTimer = 0;
