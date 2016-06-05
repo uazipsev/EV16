@@ -26,13 +26,11 @@ void Setup(void) {
 
     PPSUnLock;
 
-    PPSout(_U2TX, _RP7);
-    PPSout(_OC1, _RP5);
+    PPSout(_U1TX, _RP22);
+    PPSin(_U1RX, _RP23);
 
-    PPSin(_U2RX, _RP6);
-
-    Pin_23_Output = TX1_OUTPUT;
-    RX1_Pin_Map = 22;
+    //Pin_23_Output = TX1_OUTPUT;
+    //RX1_Pin_Map = 22;
     PPSLock;
     
     PinSetMode();
@@ -54,29 +52,27 @@ void Delay(int wait) {
 void ledDebug() {
     if (getLEDTime() > 1000) {
         ClearLEDTime();
-        INDICATOR ^= 1;
+        //INDICATOR ^= 1;
     }
 }
     
 
 void PinSetMode(void) {
-
-    TRISBbits.TRISB13 = 0;
-    LATBbits.LATB13 = 0;
-
-    TRISBbits.TRISB1 = 0; //Set LED as output
-    TRISBbits.TRISB5 = 0; //DAC relay OUT
-    TRISAbits.TRISA10 = 0; //Set 12v DC/DC enable OUT
-
-    TRISBbits.TRISB15 = 0; //DigiPot CS OUT
-    TRISBbits.TRISB14 = 0; //DigiPot INC OUT
-    TRISAbits.TRISA7 = 0; //DigiPot UP_DN OUT
+    INDICATOR_TRIS = OUTPUT;
     
-    FORWARD_TRIS =0;
-    REVERSE_TRIS =0;
-    BRAKE_TRIS   =0;
-    PROGEN_TRIS  =0;
-    REGENEN_TRIS =0;
-    IGNEN_TRIS = 0;
-    DACRELAY_TRIS = 0;
+    //RX1_Pin_Tris = INPUT;
+    //TX1_Pin_Tris = OUTPUT;        
+    
+    DC12_TRIS = OUTPUT;
+
+    DACRELAY_TRIS = OUTPUT;
+    
+    RS485_1_Tris = OUTPUT;
+    FORWARD_TRIS = OUTPUT;
+    REVERSE_TRIS = OUTPUT;
+    BRAKE_TRIS   = OUTPUT;
+    PROGEN_TRIS  = OUTPUT;
+    REGENEN_TRIS = OUTPUT;
+    IGNEN_TRIS = OUTPUT;
+    DACRELAY_TRIS = OUTPUT;
 }

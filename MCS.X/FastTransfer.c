@@ -75,7 +75,7 @@ void sendData(unsigned char whereToSend) {
 }
 
 bool receiveData() {
-
+    
     //start off by looking for the header bytes. If they were already found in a previous call, skip it.
     if (rx_len == 0) {
         //this size check may be redundant due to the size check below, but for now I'll leave it the way it is.
@@ -90,6 +90,7 @@ bool receiveData() {
                     return false;
             }
             if (serial_read() == 0x85) {
+                //INDICATOR ^= 1;
                 rx_address = serial_read(); // pulls the address
                 returnAddress = serial_read(); // pulls where the message came from
                 rx_len = serial_read(); // pulls the length
@@ -128,6 +129,7 @@ bool receiveData() {
         if (rx_len == (rx_array_inx - 1)) {
             //seem to have got whole message
             //last uint8_t is CS
+            //INDICATOR ^= 1;
             calc_CS = CRC8(rx_buffer, rx_len);
 
 

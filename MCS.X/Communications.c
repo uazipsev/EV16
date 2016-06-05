@@ -14,6 +14,7 @@ void updateComms() {
     if (receiveData()) {
         static bool carActive = false; 
         //If the packet says that the car should be active
+        //INDICATOR ^= 1;
         if (receiveArray[OUTPUT_ACTIVE]||carActive) {
             //if we havent made a record of this being active yet
             if(!carActive){
@@ -75,6 +76,7 @@ void updateComms() {
         talkTime = 0;
         portClosed = false;
         RS485_1_Port = TALK;
+        
     }
     
     

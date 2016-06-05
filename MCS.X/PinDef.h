@@ -14,12 +14,13 @@
 /*
  *  RS485 Flow control
  */
-#define RS_RE_DE PORTBbits.RB0
+#define RS_RE_DE LATCbits.LATC8
 
 /*
  *    LED :)
  */
 #define INDICATOR _LATB1
+#define INDICATOR_TRIS TRISBbits.TRISB1
 
 /*
  *   Motor Control Pins
@@ -52,6 +53,7 @@
  */
 #define DC12DISABLE LATAbits.LATA10=0
 #define DC12ENABLE  LATAbits.LATA10=1
+#define DC12_TRIS   TRISAbits.TRISA10
 /*
  *    Relay
  */
@@ -59,18 +61,21 @@
 #define DACRELAY_TRIS TRISBbits.TRISB5 
 
 
-#define RX1_Pin_Tris TRISCbits.TRISC6
-#define TX1_Pin_Tris TRISCbits.TRISC7
-#define RX1_Pin_Port PORTCbits.RC6
-#define TX1_Pin_Port PORTCbits.RC7
+#define RX1_Pin_Tris TRISCbits.TRISC7
+#define TX1_Pin_Tris TRISCbits.TRISC6
+#define RS485_1_Tris TRISCbits.TRISC8
+#define RX1_Pin_Port PORTCbits.RC7
+#define TX1_Pin_Port PORTCbits.RC6
 #define RX1_Pin_Map RPINR18bits.U1RXR
-#define RX1_PIN_SET 22
-#define Pin_22_Output RPOR11bits.RP22R
-#define Pin_23_Output RPOR11bits.RP23R
+#define RX1_PIN_SET 23
+#define Pin_22_Output RPOR11bits.RP23R
+#define Pin_23_Output RPOR11bits.RP22R
 #define TX1_OUTPUT 3
-#define RS485_1_Port LATBbits.LATB13
+#define RS485_1_Port LATCbits.LATC8
 #define TALK 1
 #define LISTEN 0
+#define OUTPUT 0
+#define INPUT 1
 
 #endif	/* PINDEF_H */
 

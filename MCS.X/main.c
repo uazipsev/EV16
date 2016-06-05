@@ -12,25 +12,42 @@
 #include "Communications.h"
 #include "ADDRESSING.h"
 #include "Function.h"
+#include "MotorControler.h"
 /*
  * 
  */
+
+void MCStest();
+
+
 int main(int argc, char** argv) {
     
     Setup();
-    //RS485 direction
-    LATBbits.LATB13 = 0;
-    //DAC relay
-    LATAbits.LATA0 = 1;
-    //TRISCbits.TRISC2=0;
-   //     LATCbits.LATC2=0;
-    //while(1){
-   // }
+    Delay(500);
     while (1) {
         updateComms();
         ledDebug();
+        //MCStest();
+        //Delay(1000);
+        
     }
 
     return (EXIT_SUCCESS);
+}
+
+void MCStest(){
+    MotorEnable();
+    Delay(5000);
+    SetMotor(0, forward);
+    Delay(5000);
+    int i = 0;
+    for(i = 0;i<70;i++){
+        SetMotor(i, forward); 
+        Delay(1000);
+    }
+    Delay(5000);
+    SetMotor(0, forward);
+    Delay(5000);
+    MotorDisable();
 }
 

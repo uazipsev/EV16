@@ -3,4 +3,5 @@ main.c  \
 PinDef.h  \
 Communications.h  \
  ADDRESSING.h  \
-Function.h 
+Function.h  \
+MotorControler.h 

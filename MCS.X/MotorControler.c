@@ -28,7 +28,6 @@ void SetMotorDefaults() {
 }
 
 void MotorEnable() {
-    LATAbits.LATA0=1;
     BRAKE = 1;
     DC12ENABLE;
     Delay(100);
@@ -37,7 +36,7 @@ void MotorEnable() {
 }
 
 void MotorDisable() {
-    BRAKE = 0;
+    BRAKE = 1;
     Delay(100);
     DACRELAY = 0;
     DC12DISABLE;
@@ -46,8 +45,8 @@ void MotorDisable() {
 //sets the direction of the motor and sets speed
 
 void SetMotor(int speed, int direction) {
-    //directionMismatchCheck(direction);
-    SetDAC2(speed);
+    directionMismatchCheck(direction);
+    SetDAC1(speed*40.9);
     DACRELAY = 1;
 }
 
