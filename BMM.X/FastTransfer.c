@@ -95,7 +95,9 @@ bool receiveData() {
                 if (serial_available() < 5)
                     return false;
             }
+            
             if (serial_read() == 0x85) {
+                
                 rx_address = serial_read(); // pulls the address
                 returnAddress = serial_read(); // pulls where the message came from
                 rx_len = serial_read(); // pulls the length

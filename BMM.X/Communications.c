@@ -12,6 +12,8 @@
 #define COMMUNICATIONS_FAULT 3
 #define UART_BUFFER_SIZE 200
 
+int x = 0;
+
 char receiveArray[100];
 
 bool pendingSend = false;
@@ -58,16 +60,15 @@ void updateComms() {
     }
     if (!pendingSend && time_get(TLKTM)> 6 && portClosed) {
         if(ChargerVal()){
-            ToSend(2, 12);
+            ToSend(RESPONSE_ADDRESS, MCS_ADDRESS);
             static int lastCommState = 0;
             switch (COMM_STATE) {
                 case BATTERY_VOLTS:
-                    ToSend(2, 12);
                     if (lastCommState != COMM_STATE) {
                         lastCommState = COMM_STATE;
                         slaveaddr = 0;
                     }
-                    populateBatteryV(slaveaddr++);
+                    populateBatteryV(slaveaddr);
                    // if (slaveaddr >= NUMSLAVES1) slaveaddr = 0;
                     break;
                 case BATTERY_TEMPS:
@@ -76,23 +77,18 @@ void updateComms() {
                         slaveaddr = 0;
                     }
                     populateBatteryT(slaveaddr++);
-                    ToSend(2, 12);
                    // if (slaveaddr >= NUMSLAVES1) slaveaddr = 0;
                     break;
                 case BATTERY_POWER:
                     if (lastCommState != COMM_STATE) {
                         lastCommState = COMM_STATE;
-                        ToSend(2, 12);
-                        ToSend(2, 12);
-                        ToSend(2, 12);
-                        ToSend(2, 12);
+                        
                     }
                     break;
                 case BATTERY_FAULT:
                     if (lastCommState != COMM_STATE) {
                         lastCommState = COMM_STATE;
                     }
-                    ToSend(2, 12);
                     break;
 //                case 6:
 //                    if (lastCommState != COMM_STATE) {
@@ -102,31 +98,28 @@ void updateComms() {
 //                    ToSend(2, 12);
 //                    break;
                 default:
-                    ToSend(2, 12);
                     break;
 
             }
-            ToSend(2, 12);
             switch (faultFlag) {
                 case 0:
                     LATBbits.LATB0=1;
                     Delay(1);
                     LATBbits.LATB0=0;
                     //faultingBattery = 0;
-                    ToSend(2, 12);
                     break;
 
                 case LOW_VOLTAGE_FLAG:
-                    ToSend(2, 12);
+
                 case HIGH_TEMPERATURE_FLAG:
-                    ToSend(2, 12);
+
                 case COMMUNICATIONS_FAULT:
-                    ToSend(2, 12);
+
                     LATAbits.LATA1=1;
                     Delay(1);
                     LATAbits.LATA1=0;
                 default:
-                    ToSend(2, 12);
+
                     break;
             }
             sendData(ECU_ADDRESS);
@@ -153,19 +146,11 @@ void checkCommDirection() {
 }
 
 void populateBatteryT(int slave) {
-//    ToSend(SLAVE_ADDRESS_SEND, slave);
-//    int j = 0;
-//    for (j = 0; j < BATTPERSLAVE; j++) {
-//        ToSend(BATTERYT_ECU + j, BTemps[slave][j]);
-//    }
+    ToSend(slave, x++);
 }
 
 void populateBatteryV(int slave) {
-//    ToSend(SLAVE_ADDRESS_SEND, slave);
-//    int j = 0;
-//    for (j = 0; j < BATTPERSLAVE; j++) {
-//        ToSend(BATTERYV_ECU + j, BVolts[slave][j]);
-//    }
+     ToSend(slave, x++);
 }
 
 
