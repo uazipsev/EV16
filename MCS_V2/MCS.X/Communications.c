@@ -2,10 +2,15 @@
 #include "Timers.h"
 #include "MotorControler.h"
 #include "PinDef.h"
+#include "UART.h"
+#include "FastTransfer.h"
+
 int throttleOut = 0, brakeOut = 0;
 bool pendingSend = false;
 bool portClosed = true;
-static bool started=false;
+//static bool started=false;
+
+int receiveArray[20];
 
 void commSafety();
 void updateComms() {
@@ -21,7 +26,7 @@ void updateComms() {
             //if we havent made a record of this being active yet
             if(!carActive){
                 //reset the bootTimer to 0
-                bootTime=0;   
+                ClearBootTime();   
                 //Enable the motor
                 MotorEnable();
                 //Store a flag that the car has been processed as active
@@ -67,18 +72,18 @@ void updateComms() {
             carActive=false;
             //Relay control.
             //LATAbits.LATA0=0;
-            bootTime=0;
+            ClearBootTime();  
             
         }
-        talkTime = 0;
-        safetyTime = 0;
+        ClearTalkTime();
+        ClearSafetyTime();
         pendingSend = true;
     }
     
     
     //Control the RS485 Direction pin based on time and sending
-    if (pendingSend && portClosed && talkTime > 5) {
-        talkTime = 0;
+    if (pendingSend && portClosed && GetTalkTime() > 5) {
+        ClearTalkTime();
         portClosed = false;
         RS485_1_Port = TALK;
         
@@ -86,8 +91,8 @@ void updateComms() {
     
     
     //Respond to the ECU when the portHas been open for a short time
-    if (pendingSend && talkTime > 1 && !portClosed) {
-        talkTime = 0;
+    if (pendingSend && GetTalkTime() > 1 && !portClosed) {
+        ClearTalkTime();
         respondECU();
         pendingSend = false;
     }
@@ -99,7 +104,7 @@ void updateComms() {
 
 //If the safety timer overruns 200 then shut off outputs and set DACs to 0
 void commSafety() {
-    if (safetyTime > 1000) {
+    if (GetSafetyTime() > 1000) {
         SetMotor(0, 1);
         SetRegen(0);
         //Motor controller 12V
@@ -112,13 +117,18 @@ void commSafety() {
 void respondECU() {
     ToSend(RESPONSE_ADDRESS, MCS_ADDRESS);
     sendData(ECU_ADDRESS);
-    talkTime = 0;
+    ClearTalkTime();
 }
 
 void checkCommDirection() {
     //you have finished send and time has elapsed.. start listen
-    if (Transmit_stall && (talkTime > 5) && (RS485_1_Port == TALK)) {
+    if (GetTXStall() && (GetTalkTime() > 5) && (RS485_1_Port == TALK)) {
         RS485_1_Port = LISTEN;
         portClosed = true;
     }
+}
+
+void CommStartup(){
+    UART_init();
+    begin(receiveArray, sizeof (receiveArray), MCS_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
 }

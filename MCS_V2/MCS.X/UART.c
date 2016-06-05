@@ -3,8 +3,11 @@
 #include <stdlib.h>
 #include "UART.h"
 #include "PinDef.h"
-#define ON         0
-#define OFF        1
+
+struct UART_ring_buff input_buffer;
+struct UART_ring_buff output_buffer;
+
+bool Transmit_stall = true;
 
 void UART_init(void) {
     // UART config                  FUCK YOU
@@ -124,4 +127,8 @@ void __attribute__((interrupt, no_auto_psv)) _U1TXInterrupt(void) {
         Transmit_stall = true;
     }
     IFS0bits.U1TXIF = 0; // Clear TX interrupt flag
+}
+
+bool GetTXStall(){
+    return Transmit_stall;
 }

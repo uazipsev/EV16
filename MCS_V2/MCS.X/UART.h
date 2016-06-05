@@ -15,7 +15,6 @@
 #define UART_BUFFER_SIZE 200
 #define CLOCK_RATE   36000000
 #define BAUD_RATE (((CLOCK_RATE/BAUD_SET)/16)-1)
-void *memset(void *s, int c, size_t n);
 
 struct UART_ring_buff {
     unsigned char buf[UART_BUFFER_SIZE];
@@ -23,11 +22,6 @@ struct UART_ring_buff {
     int tail;
     int count;
 };
-
-struct UART_ring_buff input_buffer;
-struct UART_ring_buff output_buffer;
-
-bool Transmit_stall = true;
 
 void UART_init(void);
 void UART_buff_init(struct UART_ring_buff* _this);
@@ -43,6 +37,8 @@ unsigned char Receive_peek(void);
 int Receive_available(void);
 unsigned char Receive_get(void);
 void Send_put(unsigned char _data);
+
+bool GetTXStall();
 
 #endif	/* UART_HANDLER_H */
 

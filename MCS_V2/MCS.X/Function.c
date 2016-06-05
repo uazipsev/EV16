@@ -9,6 +9,7 @@
 #include "PinDef.h"
 #include "ADDRESSING.h"
 #include "Timers.h"
+#include "Communications.h"
 
 void Setup(void) {
     MotorDisable();
@@ -34,8 +35,7 @@ void Setup(void) {
     PPSLock;
     
     PinSetMode();
-    UART_init();
-    begin(receiveArray, sizeof (receiveArray), MCS_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
+    CommStartup();
 
     i2c_init();
     timerOne();
