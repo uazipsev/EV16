@@ -57,47 +57,46 @@ void updateStoppedState() {
     //handleDebugRequests();
     //If start button is depressed, do start system request, show on LED
     switch (seekButtonChange()) {
-
-        case DEBUG_BUTTON:
-            switch (buttonArray[DEBUG_BUTTON]) {
-                case 0:
-                    doStuff();
-                    if (debugState < NUM_DEBUG_STATES - 1) {
-                        debugState++;
-                    } else debugState = 0;
-                    switch (debugState) {
-                        case NO_DEBUG:
-                            comms.BMM_SEND = BATTERY_FAULT;
-                            break;
-                        case THROTTLE_BRAKE:
-                            break;
-                        case BATTERY_DEBUG_VOLTS:
-                            comms.BMM_SEND = BATTERY_VOLTS;
-                            break;
-                        case BATTERY_DEBUG_TEMPS:
-                            comms.BMM_SEND = BATTERY_TEMPS;
-                            break;
-                        case BATTERY_DEBUG_POWER:
-                            comms.BMM_SEND = BATTERY_POWER;
-                            break;
-                        case FAULT_RECOVERY:
-                            break;
-                        case NUM_DEBUG_STATES:
-                            break;
-                    }
-                    break;
-                case 1:
-
-                    break;
-            }
-
-            break;
+//        case DEBUG_BUTTON:
+//            switch (buttonArray[DEBUG_BUTTON]) {
+//                case 0:
+//                    //doStuff();
+//                    if (debugState < NUM_DEBUG_STATES - 1) {
+//                        debugState++;
+//                    } else debugState = 0;
+//                    switch (debugState) {
+//                        case NO_DEBUG:
+//                            comms.BMM_SEND = BATTERY_FAULT;
+//                            break;
+//                        case THROTTLE_BRAKE:
+//                            break;
+//                        case BATTERY_DEBUG_VOLTS:
+//                            comms.BMM_SEND = BATTERY_VOLTS;
+//                            break;
+//                        case BATTERY_DEBUG_TEMPS:
+//                            comms.BMM_SEND = BATTERY_TEMPS;
+//                            break;
+//                        case BATTERY_DEBUG_POWER:
+//                            comms.BMM_SEND = BATTERY_POWER;
+//                            break;
+//                        case FAULT_RECOVERY:
+//                            break;
+//                        case NUM_DEBUG_STATES:
+//                            break;
+//                    }
+//                    break;
+//                case 1:
+//
+//                    break;
+//            }
+//
+//            break;
         case START_BUTTON:
             if (!buttonArray[START_BUTTON]) {
                 changeLEDState(ACTIVE_LED, !buttonArray[START_BUTTON]);
                 currentState++;
             }
-            doStuff();
+            //doStuff();
             break;
     }
 }
