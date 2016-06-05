@@ -82,7 +82,7 @@ void PinSetMode(void) {
     TRISEbits.TRISE13 = OUTPUT; //Set LED as output
     TRISBbits.TRISB6 = OUTPUT; //Set Brake Light as OUTPUT
     TRISBbits.TRISB5 = OUTPUT; //Set HORN PWM as OUTPUT
-    SS_state_TRS = OUTPUT;     //Set Safty feedback as input
+    SS_state_TRS = INPUT;     //Set Safty feedback as input
     RS485_1_Direction_Tris = OUTPUT;
     RS485_2_Direction_Tris = OUTPUT;
     RS485_1_Direction = LISTEN;
@@ -91,9 +91,9 @@ void PinSetMode(void) {
     TRISCbits.TRISC4=OUTPUT;
     TRISCbits.TRISC3=OUTPUT;
     TRISAbits.TRISA9=OUTPUT;
-    TRISAbits.TRISA4=INPUT;
     LATCbits.LATC10 = 0;
     ANSELCbits.ANSC0 = 0;
+    ANSELAbits.ANSA4 = 1;
     ANSELCbits.ANSC3 = 1;
     //RX0_Tris=OUTPUT;
     //TX0_Tris=OUTPUT;

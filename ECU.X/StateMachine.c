@@ -246,7 +246,7 @@ int faultChecker() {
 }
 
 bool StartSequenceCompleted() {
-    if ((BootTimer > 3000) ) return true; //&& PORTAbits.RA4 
+    if ((BootTimer > 3000)) return true; //&& PORTAbits.RA4 
     else return false;
 }
 

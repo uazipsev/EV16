@@ -23,8 +23,8 @@ bool requestMCSData() {
         }
         ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
         ToSend(OUTPUT_ACTIVE, carActive);
-        ToSend(THROTTLE_OUTPUT, throttle1 * 40.95);
-        ToSend(BRAKE_OUTPUT, brake * 40.95);
+        ToSend(THROTTLE_OUTPUT, throttle1);
+        ToSend(BRAKE_OUTPUT, brake);
         sendData(MCS_ADDRESS);
         MCSTimer = 0;
     }

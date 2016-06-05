@@ -47,8 +47,8 @@ bool checkSASInputs(unsigned int t1, unsigned int t2, unsigned int b) {
 
     //throttle consistency check
         if (!(((t1*1.1) > t2) && ((t1 *0.9) < t2))) {
-            SAS_FAULT_CONDITION = THROTTLE_SANITY_CHECK;
-            return false;
+            //SAS_FAULT_CONDITION = THROTTLE_SANITY_CHECK; TODO: fix 
+            //return false;
         }
 
     return true;
@@ -72,10 +72,10 @@ void storeSASInputs() {
     } else brake = 0;
     //    //Brake vs. throttle safety
         if ((((throttle1 + throttle2) / 2) > TRIP_THROTTLE) && (brake > TRIP_BRAKE)) {
-            SAS_FAULT_CONDITION = THROTTLE_BRAKE_CHECK;
-            throttle1=0;
-            throttle2=0;
-            brake=0;
+            //SAS_FAULT_CONDITION = THROTTLE_BRAKE_CHECK;  TODO: Fix me
+            //throttle1=0;
+            //throttle2=0;
+            //brake=0;
         }
 }
 
