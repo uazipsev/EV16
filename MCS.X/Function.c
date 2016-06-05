@@ -52,7 +52,7 @@ void Delay(int wait) {
 void ledDebug() {
     if (getLEDTime() > 1000) {
         ClearLEDTime();
-        //INDICATOR ^= 1;
+            INDICATOR ^= 1;
     }
 }
     

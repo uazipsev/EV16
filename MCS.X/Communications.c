@@ -1,6 +1,7 @@
 #include "Communications.h"
 #include "Timers.h"
 #include "MotorControler.h"
+#include "PinDef.h"
 int throttleOut = 0, brakeOut = 0;
 bool pendingSend = false;
 bool portClosed = true;
@@ -12,6 +13,7 @@ void updateComms() {
     
     //If a new packet has arrived
     if (receiveData()) {
+        
         static bool carActive = false; 
         //If the packet says that the car should be active
         //INDICATOR ^= 1;
@@ -33,10 +35,13 @@ void updateComms() {
 //                    //Note that we have finished boot
 //                    started=true;
                     //if the current output is not what we received, set it correctly 
+                
                     if (throttleOut != receiveArray[THROTTLE_OUTPUT]) {
+                        //INDICATOR ^= 1;
                         throttleOut = receiveArray[THROTTLE_OUTPUT];
                         SetMotor(throttleOut, forward);
-                    }
+                   }
+                        
                     //if the current output is not what we received, set it correctly 
                     if (brakeOut != receiveArray[BRAKE_OUTPUT]) {
                         brakeOut = receiveArray[BRAKE_OUTPUT];
