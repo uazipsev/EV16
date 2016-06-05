@@ -217,6 +217,7 @@ void handleDebugRequests() {
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
                 }
+                printf("Comms:\n");
                 if(!comms.BMM){
                     printf("No BMM comms\n");
                 }

@@ -55,7 +55,7 @@ void updateECUState() {
                 previousState = currentState;
                 powerSet.DDS = true;
                 powerSet.SAS = true;
-                powerSet.BMM = false;  //TODO Change back to false
+                powerSet.BMM = true;  //TODO Change back to false
                 powerSet.MCS = true;   //TODO Change back to false
                 carActive = false;
                 SS_RELAY = 0;
