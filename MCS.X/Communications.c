@@ -23,7 +23,7 @@ void updateComms() {
                 //reset the bootTimer to 0
                 bootTime=0;   
                 //Enable the motor
-                MotorEnable();
+                //MotorEnable();
                 //Store a flag that the car has been processed as active
                 carActive=receiveArray[OUTPUT_ACTIVE];
             }
@@ -39,7 +39,7 @@ void updateComms() {
                     if (throttleOut != receiveArray[THROTTLE_OUTPUT]) {
                         //INDICATOR ^= 1;
                         throttleOut = receiveArray[THROTTLE_OUTPUT];
-                        SetMotor(throttleOut, forward);
+                        //SetMotor(throttleOut, forward);
                    }
                         
                     //if the current output is not what we received, set it correctly 
@@ -55,15 +55,15 @@ void updateComms() {
             //if brake is non-zero, wipe it
             if(brakeOut!=0){
                 brakeOut = 0;
-                SetRegen(0);
+                //SetRegen(0);
             }
             //if throttle is non-zero, wipe it
             if(throttleOut != 0){
                 throttleOut=0;
-                SetMotor(0,1);
+                //SetMotor(0,1);
             }
             //Turn of motor contoller
-            MotorDisable();
+            //MotorDisable();
             carActive=false;
             //Relay control.
             //LATAbits.LATA0=0;
@@ -100,8 +100,8 @@ void updateComms() {
 //If the safety timer overruns 200 then shut off outputs and set DACs to 0
 void commSafety() {
     if (safetyTime > 1000) {
-        SetMotor(0, 1);
-        SetRegen(0);
+        //SetMotor(0, 1);
+        //SetRegen(0);
         //Motor controller 12V
         //LATAbits.LATA10=0;
         //Relay for DAC
