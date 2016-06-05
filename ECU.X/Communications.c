@@ -112,20 +112,6 @@ void bus1Update() {
                 resetCommTimers();
             }
             break;
-        case PDU_UPDATE:
-            if (requestPDUData()) {
-                if (receiveCommPDU()) {
-                    comms.PDU = true;
-                    commsBus1State++;
-                    resetCommTimers2();
-                }
-            } else {
-                //FLAG ERROR ON PDU COMMS -- Move on
-                PDU_COMMS_ERROR = true;
-                commsBus1State++;
-                resetCommTimers2();
-            }
-            break;
         case CHECK_STATE1:
 //            //Before continuing the comms, send to error state if something is wrong
 //            if (DDS_COMMS_ERROR || SAS_COMMS_ERROR || PDU_COMMS_ERROR) {
@@ -208,6 +194,20 @@ void bus2Update() {
             } else {
                 //FLAG ERROR ON MCS COMMS -- Move on
                 BMM_COMMS_ERROR = true;
+                commsBus2State++;
+                resetCommTimers2();
+            }
+            break;
+                case PDU_UPDATE:
+            if (requestPDUData()) {
+                if (receiveCommPDU()) {
+                    comms.PDU = true;
+                    commsBus2State++;
+                    resetCommTimers2();
+                }
+            } else {
+                //FLAG ERROR ON PDU COMMS -- Move on
+                PDU_COMMS_ERROR = true;
                 commsBus2State++;
                 resetCommTimers2();
             }

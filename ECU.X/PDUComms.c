@@ -13,7 +13,7 @@ bool powerChange();
 extern struct powerStates powerSet;
 
 bool requestPDUData() {
-    if (((PDUTimer > BOARD_RESEND_MIN) && (readyToSendPDU)) || (PDUTimer > BOARD_TIMEOUT)) {
+    if (((PDUTimer > BOARD_RESEND_MIN) && (readyToSendPDU)) || (PDUTimer > BOARD_TIMEOUT)) { // if (((PDUTimer > BOARD_RESEND_MIN) && (readyToSendPDU)) || (PDUTimer > BOARD_TIMEOUT)) {
         static int PDUErrorCounter = 0;
         if (!readyToSendPDU) {
             PDUErrorCounter++;

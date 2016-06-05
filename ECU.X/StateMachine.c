@@ -55,8 +55,8 @@ void updateECUState() {
                 previousState = currentState;
                 powerSet.DDS = true;
                 powerSet.SAS = true;
-                powerSet.BMM = true;  //TODO Change back to false
-                powerSet.MCS = true;   //TODO Change back to false
+                powerSet.BMM = false;  //TODO Change back to false
+                powerSet.MCS = false;   //TODO Change back to false
                 carActive = false;
                 SS_RELAY = 0;
             }
@@ -69,7 +69,7 @@ void updateECUState() {
                 carActive = false;
                 previousState = currentState;
                 //Power up the MCS
-                powerSet.BMM = true;
+               powerSet.BMM = true;
                 powerSet.MCS = true;
                 //reset timeout timer
                 BootTimer = 0;
@@ -251,7 +251,7 @@ bool StartSequenceCompleted() {
 }
 
 bool bootSequenceCompleted() {
-    if ((BootTimer > 1000) && comms.MCS ) return true; 
+    if ((BootTimer > 1500) && comms.MCS) return true; 
     else return false;
 }
 

@@ -47,7 +47,7 @@ extern "C" {
     extern void updateComms();
 
     enum bus1CommState {
-        SAS_UPDATE = 0, DDS_UPDATE = 1, PDU_UPDATE = 2, CHECK_STATE1 = 3, ERROR_STATE1 = 4, NUM_STATES1 = 5
+        SAS_UPDATE = 0, DDS_UPDATE = 1, CHECK_STATE1 = 2, ERROR_STATE1 = 3, NUM_STATES1 = 4
     };
     enum bus1CommState commsBus1State = SAS_UPDATE;
     void checkCommDirection();
@@ -57,7 +57,7 @@ extern "C" {
     void sendErrorCode();
 
     enum bus2CommState {
-        MCS_UPDATE = 0, BMM_UPDATE = 1, CHECK_STATE2 = 2, ERROR_STATE2 = 3, NUM_STATES2 = 4
+        MCS_UPDATE = 0, BMM_UPDATE = 1,  PDU_UPDATE = 2, CHECK_STATE2 = 3, ERROR_STATE2 = 4, NUM_STATES2 = 5
     };
     enum bus2CommState commsBus2State = MCS_UPDATE;
     void checkCommDirection1();

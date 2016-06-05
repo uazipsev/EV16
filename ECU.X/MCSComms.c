@@ -21,10 +21,11 @@ bool requestMCSData() {
             readyToSendMCS = false;
             MCSErrorCounter = 0;
         }
+        
         ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
         ToSend(OUTPUT_ACTIVE, carActive);
-        ToSend(THROTTLE_OUTPUT, throttle1);
-        ToSend(BRAKE_OUTPUT, brake);
+        ToSend(THROTTLE_OUTPUT, throttle1 );//TODO may need to add 40.95 if mcs gets rid of theres
+        ToSend(BRAKE_OUTPUT, brake); //TODO may need to add 40.95 if mcs gets rid of theres
         sendData(MCS_ADDRESS);
         MCSTimer = 0;
     }
