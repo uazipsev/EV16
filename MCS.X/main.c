@@ -17,37 +17,27 @@
  * 
  */
 
-void MCStest();
 
 
 int main(int argc, char** argv) {
     
     Setup();
-    Delay(500);
+    MotorUpdate();
+    Delay(100);
+    MotorMode(GetMotorMode()+1);
+    MotorUpdate();
+    Delay(100);
+    MotorMode(GetMotorMode()+1);
+    MotorUpdate();
+    Delay(100);
     while (1) {
         updateComms();
         ledDebug();
-        //MCStest();
+        MotorUpdate();
         //Delay(1000);
         
     }
 
     return (EXIT_SUCCESS);
-}
-
-void MCStest(){
-    MotorEnable();
-    Delay(5000);
-    SetMotor(0, forward);
-    Delay(5000);
-    int i = 0;
-    for(i = 0;i<70;i++){
-        SetMotor(i, forward); 
-        Delay(1000);
-    }
-    Delay(5000);
-    SetMotor(0, forward);
-    Delay(5000);
-    MotorDisable();
 }
 

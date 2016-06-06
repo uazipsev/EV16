@@ -19,79 +19,71 @@
 #include <xc.h>
 //#include "UART2.h" Not working HELP
 
+int MotorState, spd, brk = 0;
+char dir = 0;
 
-
-void SetMotorDefaults() {
-    DACRELAY = 0;
-    SetDAC1(0);
-    SetDAC2(0);   
-}
-
-void MotorEnable() {
-    BRAKE = 1;
-    DC12ENABLE;
-    Delay(100);
-    IGNEN = 1;
-    DACRELAY = 0;
-}
-
-void MotorDisable() {
-    BRAKE = 1;
-    Delay(100);
-    DACRELAY = 0;
-    DC12DISABLE;
-}
-
-//sets the direction of the motor and sets speed
-
-void SetMotor(int speed, int direction) {
-    directionMismatchCheck(direction);
-    SetDAC1(speed*40.9);
-    DACRELAY = 1;
-}
-
-bool motorControllerValuesCheck(int t, int b) {
-    //As long as the brake and gas are not both applied heavily
-    if (b > 75 && t > 75) {
-        return false;
-    }
-    return true;
-}
-
-void directionMismatchCheck(int direction) {
-    static int past_direction = backward;
-    if ((direction == forward) && (past_direction == backward)) {
-        SetDAC2(0);
-        Delay(10);
-        REVERSE = 0;
-        Delay(10);
-        FORWARD = 1;
-        past_direction = direction;
-        
-        //BRAKE =0;
-    } else if ((direction == backward) && (past_direction == forward)) {
-        SetDAC2(0);
-        Delay(10);
-        FORWARD = 0;
-        Delay(100);
-        //REVERSE = 1;
-        past_direction = direction;
+void MotorUpdate(){
+    switch(MotorState){
+        case turnon:
+            DACRELAY = 0;
+            SetDAC1(0);
+            SetDAC2(0);   
+            BRAKE = 1;
+            DC12ENABLE;
+            break;
+        case startup:
+            IGNEN = 1;
+            break;
+        case wait:
+            DACRELAY = 0;
+            break;
+        case set:
+            if(dir == forward){
+                REVERSE = 0;
+                FORWARD = 1;
+            }
+            if(dir == backward){
+                FORWARD = 0;
+                REVERSE = 1; 
+            }
+            DACRELAY = 1;
+            break;
+        case run:
+            SetDAC1(spd*40.9);
+            SetDAC2(brk*40.9);
+            break;
+        case stoping:
+            BRAKE = 0;
+            DACRELAY = 0;
+            DC12DISABLE;
+            SetDAC1(0);
+            SetDAC2(0);
+            break;
     }
 }
 
-//Set Regen amout ( to DAC)
-
-void SetRegen(int amount) {
-    static int lastRegen;
-    if(amount != lastRegen){
-    SetDAC1(amount);
-    lastRegen=amount;
-    }
+void MotorMode(int value){
+    MotorState = value;
 }
 
+int GetMotorMode(){
+   return MotorState;
+}
+
+void SetDirection(int direction){
+    dir = direction;
+}
+
+void SetSpeed(int value){
+    spd = value;
+}
+
+void SetRegen(int value){
+    brk = value;
+}
 // toggles regen
 
-void Regen(bool enable) {
+void RegenEn(bool enable) {
     if (enable == 1) {
         REGENEN = 1;
     } else

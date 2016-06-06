@@ -5,7 +5,7 @@
 int throttleOut = 0, brakeOut = 0;
 bool pendingSend = false;
 bool portClosed = true;
-static bool started=false;
+//static bool started=false;
 
 void commSafety();
 void updateComms() {
@@ -23,29 +23,25 @@ void updateComms() {
                 //reset the bootTimer to 0
                 bootTime=0;   
                 //Enable the motor
-                //MotorEnable();
+                MotorMode(set);
                 //Store a flag that the car has been processed as active
                 carActive=receiveArray[OUTPUT_ACTIVE];
             }
             else if(receiveArray[OUTPUT_ACTIVE]){
                 //flag for timerOverride after timer completes
-                
-//                //if bootTime has completed before now and the car is supposed to be active
-//                if(((bootTime>5000)||started) && carActive){
-//                    //Note that we have finished boot
-//                    started=true;
-                    //if the current output is not what we received, set it correctly 
-                
+                 
+                    MotorMode(run);
+                    
                     if (throttleOut != receiveArray[THROTTLE_OUTPUT]) {
                         //INDICATOR ^= 1;
                         throttleOut = receiveArray[THROTTLE_OUTPUT];
-                        //SetMotor(throttleOut, forward);
+                        SetSpeed(throttleOut);
                    }
                         
                     //if the current output is not what we received, set it correctly 
                     if (brakeOut != receiveArray[BRAKE_OUTPUT]) {
                         brakeOut = receiveArray[BRAKE_OUTPUT];
-                        //SetRegen(brakeOut);
+                        SetRegen(brakeOut);
                     }
                 //}
             }
@@ -53,15 +49,7 @@ void updateComms() {
         //else carActive is false
         else{
             //if brake is non-zero, wipe it
-            if(brakeOut!=0){
-                brakeOut = 0;
-                //SetRegen(0);
-            }
-            //if throttle is non-zero, wipe it
-            if(throttleOut != 0){
-                throttleOut=0;
-                //SetMotor(0,1);
-            }
+            MotorMode(stoping);
             //Turn of motor contoller
             //MotorDisable();
             carActive=false;
@@ -100,12 +88,7 @@ void updateComms() {
 //If the safety timer overruns 200 then shut off outputs and set DACs to 0
 void commSafety() {
     if (safetyTime > 1000) {
-        //SetMotor(0, 1);
-        //SetRegen(0);
-        //Motor controller 12V
-        //LATAbits.LATA10=0;
-        //Relay for DAC
-        //LATAbits.LATA0=0;
+        MotorMode(stoping);
     }
 }
 //Shoot a packet to the ECU
