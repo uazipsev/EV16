@@ -11,6 +11,7 @@
 #include "Timers.h"
 
 void Setup(void) {
+    //MotorDisable();
     // setup internal clock for 66MHz/33MIPS
     // 12/2=6*22=132/2=66
     CLKDIVbits.PLLPRE = 0; // PLLPRE (N2) 0=/2
@@ -38,7 +39,7 @@ void Setup(void) {
 
     i2c_init();
     timerOne();
-    MotorMode(turnon);
+    //SetMotorDefaults();
 }
 
 void Delay(int wait) {
