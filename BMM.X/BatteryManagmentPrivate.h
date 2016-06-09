@@ -102,7 +102,7 @@ int aux_codes_Bank2[NUMBEROFIC][6];
 #define Start_Charge_Mode 2
 void Charge_Mode();
 void Run_Mode();
-void Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]);
+int Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]);
 int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12]);
 int Test_Temp_Sensors(int Aux_codes_Bank1[][6], int Aux_codes_Bank2[][6]);
 //Configuration set functions
@@ -119,6 +119,10 @@ int CheckTestReading(int Stat_codes[NUMBEROFIC][6]); //Actually Checks the test 
 int CheckThresholdsBank(int test,int IC, int cell_codes[][12]); // Checks the voltage of a bank if one cell has a error it will break out and present the error.  
 int CheckThresholds(int test, int data);// Checks each cell to see if the data is over the threshold.
 void Initalize_LT6804b();  //Setups the config registers to be sent the LT6804B.
+int RunBypass_Set(int bank, int cell_codesBank[][12]);
+void Run_GPIO_Temp_ColumbCounting_Timer();
+int Read_GPIO(int BatteryPlacement, int aux_codes[NUMBEROFIC][6]);
+void Open_All_ByPass(); 
 //Fault Functions
 
 

@@ -21,7 +21,7 @@
     void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void);
     void initTimerTwo(void);
     void initTimerOne(void);
-    void initTimerThree(void);
+    void initTimerThree(int Mode);
     int time_get(char WhatTime);
     void updateTimers();
     void TalkTimeSet(int value);

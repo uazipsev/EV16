@@ -12,12 +12,12 @@
 #include "Timers.h"
 #include <stdbool.h>
 //TODO Need to make a fault status and a use with var
-
+int Battery_Is_Charging_Flag=0;
 int FaultValue=0;
- int cell_codes_Bank1[NUMBEROFIC][12]={0};
- int cell_codes_Bank2[NUMBEROFIC][12]={0};
- int Aux_codes_Bank1[NUMBEROFIC][6]={0};
- int Aux_codes_Bank2[NUMBEROFIC][6]={0};
+ int cell_codes_Bank1[NUMBEROFIC][12];
+ int cell_codes_Bank2[NUMBEROFIC][12];
+ int Aux_codes_Bank1[NUMBEROFIC][6];
+ int Aux_codes_Bank2[NUMBEROFIC][6];
 //|r_config[0]|r_config[1]|r_config[2]|r_config[3]|r_config[4]|r_config[5]|r_config[6]  |r_config[7] |r_config[8]|r_config[9]|  .....    |
 //|-----------|-----------|-----------|-----------|-----------|-----------|-------------|------------|-----------|-----------|-----------|
 //|IC1 CFGR0  |IC1 CFGR1  |IC1 CFGR2  |IC1 CFGR3  |IC1 CFGR4  |IC1 CFGR5  |IC1 PEC High |IC1 PEC Low |IC2 CFGR0  |IC2 CFGR1  |  .....    |
@@ -35,28 +35,34 @@ void Start_BMS(int mode) {
     ADS1015Begin();
     if (mode ==1){
         Run_Mode();
+            initTimerThree(mode);
     }
     else if (mode==2){
         Charge_Mode();
+            initTimerThree(mode);
     }
 }
 
 void Charge_Mode() {
     //if in charge mode 
-    Run_ByPass(cell_codes_Bank1, cell_codes_Bank2);
+     Initalize_LT6804b();
+    Battery_Is_Charging_Flag=1;
+    FaultValue=Run_ByPass(cell_codes_Bank1, cell_codes_Bank2);
+    Open_All_ByPass();
 
 }
 
 void Run_Mode() {
     Initalize_LT6804b();
     
-    FaultValue=Startuptests(Stat_codes_Bank1);
-    FaultValue=Startuptests(Stat_codes_Bank2);
-    if (FaultValue!=0){
-        CheckFault();
-    }
-    else {
-    }
+//    FaultValue=Startuptests(Stat_codes_Bank1);
+//    FaultValue=Startuptests(Stat_codes_Bank2);
+//    if (FaultValue!=0){
+//        CheckFault();
+//    }
+//    else {
+//        Run_GPIO_Temp_ColumbCounting_Timer();
+//    }
     
 }
 void Run_GPIO_Temp_ColumbCounting_Timer(){
@@ -82,9 +88,9 @@ void Initalize_LT6804b() {
     UpdateLT6804(2);
 }
 
-//TODO figure out fault function of bank 1 and 2
-
-void Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
+int Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
+    while (Battery_Is_Charging_Flag==1){
+        Battery_Is_Charging_Flag=0;// If this flag is tripped that means there is a cell that need more voltage. 
     int Read_Status_INC = 0;
     //To detect error values
     int Error_Value = 0;
@@ -94,18 +100,49 @@ void Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
         if (Error_Value != 0) {
             Read_Status_INC = Read_Status_INC + 1;
         }
-    } while (Error_Value != 0);
-    //RunBypass_Set(bank_1,NUMBEROFIC,cell_codes_Bank1);
-
-    //Bank2
+    } while (Error_Value != 0 && Read_Status_INC < 10);
+    if (Read_Status_INC >= 10) {
+        return ReadVoltRegFault;
+    } 
+    else if (Read_Status_INC < 10) {
+        Read_Status_INC = 0;
+    }
+     //Bank2
     do {
         Error_Value = Read_Battery(0, cell_codesBank2);
         if (Error_Value != 0) {
             Read_Status_INC = Read_Status_INC + 1;
         }
-    } while (Error_Value != 0);
-    // RunBypass_Set(bank_2,NUMBEROFIC,cell_codesBank2);
+    } while (Error_Value != 0 && Read_Status_INC < 10);
+    
+     if (Read_Status_INC >= 10) {
+        return ReadVoltRegFault;
+    } 
+    //RunBypass
+    RunBypass_Set(bank_1, cell_codes_Bank1);
+    RunBypass_Set(bank_2,cell_codesBank2);
+    Delay(1000); //Delay a second this is not accurate
+    }
+    T3CONbits.TON = 0;
+    //hold LED HIGH that indicates charging
+     return 0;
 
+}
+
+void Open_All_ByPass()//This function is to open all ByPasses
+{
+    int Ic = 0; // Increment for IC
+    int Cell = 0; // Increment for Cells
+    int bank = 0;
+    for (bank = 1; bank < 3; bank++) {
+        for (Ic = 0; Ic < NUMBEROFIC; Ic++) {
+
+            for (Cell = 0; Cell < Cell_Per_Bank; Cell++) // runs threw num of batteries
+            {
+                SetBypass(bank, Ic, Cell, false); // sets bypass off
+            }
+        }
+    }
 }
 
 
@@ -116,22 +153,23 @@ int Startuptests(int Stat_codes[NUMBEROFIC][6]) {
     int ErrorCount = 0; //How many times in a row was there a error this can indicate a loop that is stuck.
     int CriticalReadError = 0; // If over 10 Send a Critical Error to be dealt with. 
     Set_Stat(MD_NORMAL, All_Stats);
-    LTC6804_ADSTAT();
-    while (ReadErrorValue != 0 && ErrorCount < 10) {
+     do {
         LTC6804_ADSTAT();
         ReadErrorValue = LTC6804_rdStat(0, NUMBEROFIC, Stat_codes);
+        if (ReadErrorValue != 0){
+        ErrorCount=ErrorCount+1;}
     }
+    while (ReadErrorValue != 0 && ErrorCount < 10);
+    
     if (ErrorCount >= 10) {
         CriticalReadError = ReadstatRegFault;
+        return CriticalReadError; 
     }
-
     if (ReadErrorValue == 0) {
        FaultValue= CheckTestReading(Stat_codes);
         return FaultValue;
     }
-    if (ErrorCount > 10) {
-        return CriticalReadError;
-    }
+    //This should never get down here.
     return -1; // If this happends something wrong happened in the function.
 }
 
@@ -169,7 +207,7 @@ int CheckTestReading(int Stat_codes[NUMBEROFIC][6]) {
         int vd = 0;
         int Digital_Supply_Power = 0;
         vd = Stat_codes[NUMBEROFIC][3];
-        Digital_Supply_Power = (soc * (100 * pow(10, -6)));
+        Digital_Supply_Power = (soc * (100 * pow(10, -6))); //TODO CHECK WHY THERE IS SOC
         if ((Digital_Supply_Power < 2.7) || (Digital_Supply_Power > 3.6)) {
             TestError = DigitalPowerSupplyFault;
         }
@@ -398,12 +436,15 @@ int Read_Status_INC = 0;
         FaultNum = ReadVoltRegFault;
     }
     else if (Error_Value == 0) {
-        FaultNum=CheckThresholdsBank( OverVoltageFault,NUMBEROFIC , cell_codes_Bank1);
-        FaultNum=CheckThresholdsBank( UnderVoltageFault, NUMBEROFIC, cell_codes_Bank1);
-        FaultNum=CheckThresholdsBank( OverVoltageFault, NUMBEROFIC, cell_codesBank2);
-       FaultNum=CheckThresholdsBank( UnderVoltageFault, NUMBEROFIC, cell_codesBank2);
+        Error_Value=CheckThresholdsBank( OverVoltageFault,NUMBEROFIC , cell_codes_Bank1);
+        if (Error_Value != 0){return Error_Value;}
+        Error_Value=CheckThresholdsBank( UnderVoltageFault, NUMBEROFIC, cell_codes_Bank1);
+        if (Error_Value != 0){return Error_Value;}
+        Error_Value=CheckThresholdsBank( OverVoltageFault, NUMBEROFIC, cell_codesBank2);
+        if (Error_Value != 0){return Error_Value;}
+       Error_Value=CheckThresholdsBank( UnderVoltageFault, NUMBEROFIC, cell_codesBank2);
     }
-    return FaultNum;
+    return Error_Value;
 }
 
 
@@ -660,31 +701,29 @@ int SetBypass(int bank, int ic, int cell, bool value) {
  * @return          none
  * @note            
  *******************************************************************/
-int RunBypass_Set(int bank, int ic, int cell_codes[][12]) {
+int RunBypass_Set(int bank,int cell_codes[][12]) {
     int cellbyp = 0;
-    int voltstat = 0;
     int batvolt = 0;
-    int i; // Increment for IC
-    int c; // Increment for Cells
+    int Ic; // Increment for IC
+    int Cell; // Increment for Cells
     // Want to make a function for all Batterys Right now it works with just 1 IC
     // Need to understand how he Bank IC and Cell system works 
 
-    for (i = 0; i <= NUMBEROFIC; i++) {
+    for (Ic = 0; Ic < NUMBEROFIC; Ic++) {
 
-        for (c = 0; c <= Cell_Per_Bank; c++) // runs threw num of batteries
+        for (Cell = 0; Cell < Cell_Per_Bank; Cell++) // runs threw num of batteries
         {
-            //voltstat = CheckUnderOverVoltageFlag();
-            if (voltstat == 0) {
-                if (batvolt >= Bypass_High_Limit) // if bypass needs enabled..
+            batvolt = CheckThresholds(OverVoltageFault,cell_codes[Ic][Cell]);
+                if (batvolt == 0) // if bypass needs enabled..
                 {
-                    SetBypass(bank, ic, c, true); // sets bypass on
+                    SetBypass(bank, Ic, Cell, true); // sets bypass on
                     cellbyp = 1;
+                    Battery_Is_Charging_Flag=1;
                 }
-                if (batvolt <= Bypass_Low_Limit) //if bypass needs turned off...
+                if (batvolt == OverVoltageFault) //if bypass needs turned off...
                 {
-                    SetBypass(bank, ic, c, false); // sets bypass off
+                    SetBypass(bank, Ic, Cell, false); // sets bypass off
                 }
-            }
         }
     }
     UpdateLT6804(bank);
