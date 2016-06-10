@@ -10,10 +10,10 @@
 
 #define TempSetMax 70
 #define pumpMAX 32
-#define fanMAX 75
+#define fanMAX 1000
 
-#define fanStart 700
-#define pumpStart 15
+#define fanStart 1000
+#define pumpStart 40
 
 void CoolingStart(void);
 

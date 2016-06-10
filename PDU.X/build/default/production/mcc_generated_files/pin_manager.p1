@@ -96,6 +96,29 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1105 . . . . ]
 "17559
 [v _INTCON2bits `VS1105 ~T0 @X0 0 e@4081 ]
+"20153
+[v _TRISB4 `Vb ~T0 @X0 0 e@31900 ]
+"20151
+[v _TRISB3 `Vb ~T0 @X0 0 e@31899 ]
+"20155
+[v _TRISB5 `Vb ~T0 @X0 0 e@31901 ]
+"9080
+[s S537 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S537 . TRISD0 TRISD1 TRISD2 TRISD3 TRISD4 TRISD5 TRISD6 TRISD7 ]
+"9090
+[s S538 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S538 . RD0 RD1 RD2 RD3 RD4 RD5 RD6 RD7 ]
+"9079
+[u S536 `S537 1 `S538 1 ]
+[n S536 . . . ]
+"9101
+[v _TRISDbits `VS536 ~T0 @X0 0 e@3989 ]
+"18243
+[v _ANSB3 `Vb ~T0 @X0 0 e@31179 ]
+"18275
+[v _ANSD7 `Vb ~T0 @X0 0 e@31199 ]
+"18245
+[v _ANSB4 `Vb ~T0 @X0 0 e@31180 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -7610,7 +7633,52 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pin_manager.c: 82: INTCON2bits.nRBPU = 0x01;
 "82
 [e = . . _INTCON2bits 1 7 -> -> 1 `i `uc ]
-[; ;pin_manager.c: 85: }
+[; ;pin_manager.c: 84: do { TRISB4 = 0; } while(0);
+"84
+[e :U 1143 ]
+{
+[e = _TRISB4 -> -> 0 `i `b ]
+}
+[e :U 1142 ]
+[; ;pin_manager.c: 85: do { TRISB3 = 0; } while(0);
 "85
+[e :U 1146 ]
+{
+[e = _TRISB3 -> -> 0 `i `b ]
+}
+[e :U 1145 ]
+[; ;pin_manager.c: 86: do { TRISB5 = 0; } while(0);
+"86
+[e :U 1149 ]
+{
+[e = _TRISB5 -> -> 0 `i `b ]
+}
+[e :U 1148 ]
+[; ;pin_manager.c: 88: TRISDbits.RD1 = 0;
+"88
+[e = . . _TRISDbits 1 1 -> -> 0 `i `uc ]
+[; ;pin_manager.c: 90: do { ANSB3 = 0; } while(0);
+"90
+[e :U 1152 ]
+{
+[e = _ANSB3 -> -> 0 `i `b ]
+}
+[e :U 1151 ]
+[; ;pin_manager.c: 91: do { ANSD7 = 0; } while(0);
+"91
+[e :U 1155 ]
+{
+[e = _ANSD7 -> -> 0 `i `b ]
+}
+[e :U 1154 ]
+[; ;pin_manager.c: 92: do { ANSB4 = 0; } while(0);
+"92
+[e :U 1158 ]
+{
+[e = _ANSB4 -> -> 0 `i `b ]
+}
+[e :U 1157 ]
+[; ;pin_manager.c: 96: }
+"96
 [e :UE 1140 ]
 }

@@ -3,6 +3,7 @@
 #include "PDU.h"
 #include "Communications.h"
 #include "CoolingControl.h"
+#include "DigiPot.h"
 /*
                          Main application
  */
@@ -40,6 +41,7 @@ void main(void) {
     //INTERRUPT_PeripheralInterruptDisable();
 
     LATCbits.LATC5 = 0;
+    int i = 0;
     while (1) {
         //Delay(50);
         //LED2_SetLow();
@@ -48,6 +50,10 @@ void main(void) {
         //printf("ADC Volume = %d");
         // Add your application code
         updateComms();
+        PotSetpoint(i++);
+        if (i>32){
+            i = 0;
+        }
     }
 }
 /**

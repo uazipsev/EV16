@@ -80,7 +80,18 @@ void PIN_MANAGER_Initialize(void)
     ANSELCbits.ANSC7 =0;
 
     INTCON2bits.nRBPU = 0x01;
-
+    
+    DIGI_INC_SetDigitalOutput();
+    DIGI_UP_DN_SetDigitalOutput();
+    DIGI_CS_SetDigitalOutput();
+    
+    TRISDbits.RD1 = 0; //Set FAN PWM as a output
+    
+    DIGI_UP_DN_SetDigitalMode();
+    CLK_SetDigitalMode();
+    DIGI_INC_SetDigitalMode();
+    
+    
         
 }
 /**

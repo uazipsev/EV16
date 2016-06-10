@@ -7453,31 +7453,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 "22
 [v _set_point `i ~T0 @X0 1 a ]
-[; ;DigiPot.c: 22: int set_point;
-[; ;DigiPot.c: 24: if (new_point > 32) {
-"24
-[e $ ! > _new_point -> 32 `i 1141  ]
-{
-[; ;DigiPot.c: 25: new_point = 32;
-"25
-[e = _new_point -> 32 `i ]
-"26
-}
-[e :U 1141 ]
-[; ;DigiPot.c: 26: }
-[; ;DigiPot.c: 27: if (new_point <= 0) {
-"27
-[e $ ! <= _new_point -> 0 `i 1142  ]
-{
-[; ;DigiPot.c: 28: new_point = 0;
-"28
-[e = _new_point -> 0 `i ]
-"29
-}
-[e :U 1142 ]
 "31
 [v _new_pos `i ~T0 @X0 1 a ]
-[; ;DigiPot.c: 29: }
+[; ;DigiPot.c: 22: int set_point;
 [; ;DigiPot.c: 31: int new_pos = new_point;
 [e = _new_pos _new_point ]
 [; ;DigiPot.c: 35: LATB5 = 0;
@@ -7485,7 +7463,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _LATB5 -> -> 0 `i `b ]
 [; ;DigiPot.c: 38: if (new_pos > prev_pos) {
 "38
-[e $ ! > _new_pos _prev_pos 1143  ]
+[e $ ! > _new_pos _prev_pos 1141  ]
 {
 [; ;DigiPot.c: 40: LATB3 = 1;
 "40
@@ -7495,11 +7473,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _set_point - _new_pos _prev_pos ]
 "42
 }
-[e :U 1143 ]
+[e :U 1141 ]
 [; ;DigiPot.c: 42: }
 [; ;DigiPot.c: 43: if (new_pos < prev_pos) {
 "43
-[e $ ! < _new_pos _prev_pos 1144  ]
+[e $ ! < _new_pos _prev_pos 1142  ]
 {
 [; ;DigiPot.c: 45: LATB3 = 0;
 "45
@@ -7509,7 +7487,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _set_point - _prev_pos _new_pos ]
 "47
 }
-[e :U 1144 ]
+[e :U 1142 ]
 [; ;DigiPot.c: 47: }
 [; ;DigiPot.c: 48: Delay(1);
 "48
@@ -7521,8 +7499,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 "52
 {
 [e = _x -> 0 `i ]
-[e $U 1148  ]
-[e :U 1145 ]
+[e $U 1146  ]
+[e :U 1143 ]
 {
 [; ;DigiPot.c: 53: LATB4 = 1;
 "53
@@ -7540,9 +7518,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 "52
 [e ++ _x -> 1 `i ]
-[e :U 1148 ]
-[e $ < _x _set_point 1145  ]
 [e :U 1146 ]
+[e $ < _x _set_point 1143  ]
+[e :U 1144 ]
 "57
 }
 [; ;DigiPot.c: 57: }
@@ -7584,9 +7562,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "74
 {
 [e = _x -> 0 `i ]
-[e $ < _x -> 32 `i 1150  ]
-[e $U 1151  ]
-[e :U 1150 ]
+[e $ < _x -> 32 `i 1148  ]
+[e $U 1149  ]
+[e :U 1148 ]
 {
 [; ;DigiPot.c: 75: LATB4 = 1;
 "75
@@ -7604,8 +7582,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 "74
 [e ++ _x -> 1 `i ]
-[e $ < _x -> 32 `i 1150  ]
-[e :U 1151 ]
+[e $ < _x -> 32 `i 1148  ]
+[e :U 1149 ]
 "79
 }
 [; ;DigiPot.c: 79: }
@@ -7626,5 +7604,5 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Delay (1 -> -> 1 `i `l ]
 [; ;DigiPot.c: 86: }
 "86
-[e :UE 1149 ]
+[e :UE 1147 ]
 }

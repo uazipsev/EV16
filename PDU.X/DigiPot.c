@@ -21,12 +21,12 @@ int prev_pos = 0;
 void PotSetpoint(int new_point) {
     int set_point;
     //bound the input to the fcn
-    if (new_point > 32) {
-        new_point = 32;
-    }
-    if (new_point <= 0) {
-        new_point = 0;
-    }
+//    if (new_point > 32) {
+//        new_point = 32;
+//    }
+//    if (new_point <= 0) {
+//        new_point = 0;
+//    }
 
     int new_pos = new_point; //(new_point/100)*32;
     //I am bit banging the control to this

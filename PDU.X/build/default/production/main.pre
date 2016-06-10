@@ -9730,25 +9730,34 @@ extern void ToSend(const unsigned char where, const unsigned int what);
 # 18 "CoolingControl.h"
 void CoolingStart(void);
 
-# 9 "main.c"
+# 11 "DigiPot.h"
+void PotSetpoint(int new_point);
+void PotClear(void);
+
+# 10 "main.c"
 void main(void) {
 
 SYSTEM_Initialize();
 PDUStartup();
 CoolingStart();
 
-# 31
+# 32
 (INTCONbits.GIE = 1);
 
 
 (INTCONbits.PEIE = 1);
 
-# 42
+# 43
 LATCbits.LATC5 = 0;
+int i = 0;
 while (1) {
 
-# 50
+# 52
 updateComms();
+PotSetpoint(i++);
+if (i>32){
+i = 0;
+}
 }
 }
 

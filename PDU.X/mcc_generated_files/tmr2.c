@@ -59,11 +59,11 @@ void TMR2_Initialize(void)
 {
     // Set TMR2 to the options selected in the User Interface
 
-    // T2CKPS 1:4; T2OUTPS 1:6; TMR2ON off; 
-    T2CON = 0x29;
+    // T2CKPS 1:16; T2OUTPS 1:4; TMR2ON off; 
+    T2CON = 0x1A;
 
-    // PR2 249; 
-    PR2 = 0xF9;
+    // PR2 124; 
+    PR2 = 0x7C;
 
     // TMR2 0; 
     TMR2 = 0x00;

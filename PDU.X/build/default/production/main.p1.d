@@ -5,6 +5,7 @@ mcc_generated_files/mcc.h  \
 mcc_generated_files/../UART.h  \
 CoolingControl.h  \
 Functions.h  \
+DigiPot.h  \
 mcc_generated_files/../tmr2.h  \
 mcc_generated_files/adc.h  \
 mcc_generated_files/memory.h  \
