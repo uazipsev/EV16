@@ -224,7 +224,7 @@ void LTC6804_initialize();
 void set_adc(int MD, int DCP, int CH, int CHG);
 void Set_Stat(int MD, int CHST); // // Similar function as above but sets stats/tests. Custom code not from LT
 
-void LTC6804_adcv();
+void LTC6804_adcv(int bank);
 
 void LTC6804_adax();
 
@@ -246,7 +246,7 @@ void LTC6804_clrcell();
 
 void LTC6804_clraux();
 
-void LTC6804_wrcfg(int nIC, int config[][6]);
+void LTC6804_wrcfg(int nIC, int config[][6], int bank);
 
 int LTC6804_rdcfg(int nIC, int r_config[][8]);
 

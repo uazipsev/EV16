@@ -10,6 +10,7 @@
 void Setup(void) {
     PinSetMode();
     INDICATOR = 1;
+
     FaultValue=0;
     // setup internal clock for 72MHz/36MIPS
     // 12 /2 = 6  *46 = 144 / 2=72
@@ -23,6 +24,8 @@ void Setup(void) {
     // Wait for Clock switch to occur
     while (OSCCONbits.COSC != 0b011);
     while (!OSCCONbits.LOCK); // wait for PLL ready
+    
+     
     TRISBbits.TRISB9=0;
     TRISBbits.TRISB8=0;
     TRISBbits.TRISB7=0;
@@ -50,11 +53,11 @@ void Setup(void) {
     
     
     initTimerOne();
-    CommStart();
+    //CommStart();
 
     //begin1(receiveArray1, sizeof (receiveArray1), BMM_MASTER_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);
      UART1_init();
-     //Start_BMS();
+     //Start_BMS(1);
      SPI2_Initialize();
    // i2c_init();
     //PWM_Init();

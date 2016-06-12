@@ -171,7 +171,7 @@ void Set_Stat(int MD, //ADC Mode
  | DCP    | Determines if Discharge is Permitted	     |
   
 ***********************************************************************************************/
-void LTC6804_adcv()
+void LTC6804_adcv(int bank)
 {
 
   int cmd[4];
@@ -190,10 +190,16 @@ void LTC6804_adcv()
   wakeup_idle (); //This will guarantee that the LTC6804 isoSPI port is awake. This command can be removed.
   
   //4
+  if (bank==1){
   LT6020_1_CS = 0;
   spi_write_array(4,cmd);
   LT6020_1_CS = 1;
-
+  }
+  else if (bank==2){
+  LT6020_2_CS = 0;
+  spi_write_array(4,cmd);
+  LT6020_2_CS = 1;
+  }
 }
 /*
   LTC6804_adcv Function sequence:
@@ -989,7 +995,7 @@ void LTC6804_clraux()
  The function will calculate the needed PEC codes for the write data
  and then transmit data to the ICs on a stack.
 ********************************************************/
-void LTC6804_wrcfg(int total_ic,int config[][6])
+void LTC6804_wrcfg(int total_ic,int config[][6], int bank)
 {
   const int BYTES_IN_REG = 6;
   const int CMD_LEN = 4+(8*total_ic);
@@ -1030,10 +1036,16 @@ void LTC6804_wrcfg(int total_ic,int config[][6])
     temp_pec = pec15_calc(2, cmd);
 	cmd[2] = (int)(temp_pec >> 8);
 	cmd[3] = (int)(temp_pec); 
+    if (bank==1){
 	LT6020_1_CS = 0;
 	spi_write_array(4,cmd);
 	spi_write_array(8,&cmd[4+(8*current_ic)]);
-	LT6020_1_CS = 1;
+	LT6020_1_CS = 1;}
+    if (bank==2){
+	LT6020_2_CS = 0;
+	spi_write_array(4,cmd);
+	spi_write_array(8,&cmd[4+(8*current_ic)]);
+	LT6020_2_CS = 1;}
   }
   free(cmd);
 }
@@ -1134,8 +1146,9 @@ int LTC6804_rdcfg(int total_ic, int r_config[][8])
 void wakeup_idle()
 {
   LT6020_1_CS = 0;
-  delay_ms(10); //Guarantees the isoSPI will be in ready mode
+  Delay(1); //Guarantees the isoSPI will be in ready mode
   LT6020_1_CS = 1;
+  Delay(1);
 }
 
 /*!****************************************************
@@ -1148,6 +1161,7 @@ void wakeup_sleep()
   LT6020_1_CS = 0;
   Delay(1); // Guarantees the LTC6804 will be in standby
   LT6020_1_CS = 1;
+  Delay(1);
 }
 /*!**********************************************************
  \brief calaculates  and returns the CRC15
@@ -1184,12 +1198,28 @@ int pec15_calc(int len, int *data)
 void spi_write_array(int len, // Option: Number of bytes to be written on the SPI port
 					 int data[] //Array of bytes to be written on the SPI port
 					 )
-{
+{ 
   for(i = 0; i < len; i++)
   {
      SPI2_Exchange8bit((char)data[i]);
   }
 }
+
+
+
+
+void spi_write_array2(int len, // Option: Number of bytes to be written on the SPI port
+					 char data[] //Array of bytes to be written on the SPI port
+					 )
+{  LT6020_1_CS = 0;
+  for(i = 0; i < len; i++)
+  {
+     SPI2_Exchange8bit(data[i]);
+  }
+  LT6020_1_CS = 1;
+}
+
+
 /*!
  \brief Writes and read a set number of bytes using the SPI port.
 
@@ -1209,14 +1239,14 @@ void spi_write_read(int tx_Data[],//array of data to be written on SPI port
     
   for(i = 0; i < tx_len; i++)
   {
-   rx_data[i] = SPI2_Exchange8bit(tx_Data[i]);
+   SPI2_Exchange8bit(tx_Data[i]);
 
   }
 
-//  for(int i = 0; i < rx_len; i++)
-//  {
-//    rx_data[i] = (int)spi_read(0xFF);
-//  }
+  for( i = 0; i < rx_len; i++)
+  {
+    rx_data[i] = (int)SPI2_Exchange8bit(0xFF);
+  }
 
 }
 

@@ -103,7 +103,7 @@ int aux_codes_Bank2[NUMBEROFIC][6];
 void Charge_Mode();
 void Run_Mode();
 int Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]);
-int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12]);
+int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12],int bank);
 int Test_Temp_Sensors(int Aux_codes_Bank1[][6], int Aux_codes_Bank2[][6]);
 //Configuration set functions
 int SetTempEnable(int bank, int ic, bool value); //This sets the temp sensor on GPIO 5 to be  enabled or not  the bool will determine the value.
