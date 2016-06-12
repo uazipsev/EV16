@@ -259,6 +259,7 @@ int pec15_calc(int len, int *data);
 void spi_write_array(int length, int *data);
 
 void spi_write_read(int *TxData, int TXlen, int *rx_data, int RXlen);
+int Voltage_data[1][12];
 
 #endif
 

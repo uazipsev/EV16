@@ -1,6 +1,7 @@
  build/default/production/LT6804.d  \
  build/default/production/LT6804.p1:  \
  LT6804.c  \
+BatteryManagment.h  \
 Functions.h  \
 mcc_generated_files/spi2.h  \
 LT6804.h  \

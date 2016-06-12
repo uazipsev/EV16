@@ -8,7 +8,9 @@
 #define	READ_BATTERY_LEVEL_H
 
 #include <stdbool.h>
-
+#define NUMBEROFIC 1
+#define NUMBEROFCH 2
+#define NUMBEROFDATA 6
 void Start_BMS();
 void ChargerEN();
 void ReadCurrentVolt();

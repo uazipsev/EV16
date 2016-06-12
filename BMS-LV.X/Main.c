@@ -67,12 +67,12 @@ int main(int argc, char** argv) {
     //INDICATOR_SetHigh();
     LATCbits.LATC5 =1;
     printf("BOOT");
-  // Start_BMS();
+   Start_BMS();
      //*IC=54;
     while (1)
     {
-      // Run_Mode();
-     
+      Run_Mode();
+      Delay(500);
     }
     return (EXIT_SUCCESS);
 }

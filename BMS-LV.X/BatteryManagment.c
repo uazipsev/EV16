@@ -42,9 +42,11 @@ void Charge_Mode(int command) {
 }
 
 void Run_Mode() {
-   
-      Read_Total_Voltage(cell_codes_Bank);
-    //printf ("Voltage: %d \n", cell_codes_Bank[0][0]);
+cell_codes_Bank[0][0]=4535;
+      Read_Battery(0,cell_codes_Bank);
+      
+      //int th=5;
+      printf ("Voltage: %i \n", cell_codes_Bank[0][0]);
  
    // Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2);
 }
@@ -52,7 +54,7 @@ void Run_Mode() {
 void Initalize_LT6804b() {
     int IC = 0;
  
-    CFGR0=0;
+    CFGR0=0xFE;
     CFGR1=0;
     CFGR2=0;
     CFGR3=0;
@@ -66,11 +68,11 @@ void Initalize_LT6804b() {
             Set_DCC_Mode_OFF(IC);
             Set_DCTO_Mode_OFF(IC);
             SetTempEnable(IC, 0);
-            SetUnderOverVoltage(Under_Voltage_Value, Over_Voltage_Value,  IC);
+            //SetUnderOverVoltage(Under_Voltage_Value, Over_Voltage_Value,  IC);
             IC++;
         };
     
-
+    wakeup_sleep();
     UpdateLT6804();
     
     //UpdateLT6804(1);
@@ -402,6 +404,9 @@ int Read_Status_INC = 0;
  * @note            
  *******************************************************************/
 //TODO Need to Reference the Bat array
+int getcell(){
+    return cell_codes_Bank;
+;}
 
 int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12]) {
     int Read_Status = 0;

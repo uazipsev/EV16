@@ -67,6 +67,7 @@ Copyright 2013 Linear Technology Corp. (LTC)
 #include "mcc_generated_files/pin_manager.h"
 #include "Functions.h"
 #include <stdlib.h>
+#include "BatteryManagment.h"
 
 
 /*
@@ -332,19 +333,22 @@ void LTC6804_ADSTAT()
   
 	-1: PEC error detected, retry read
  *************************************************/
+
+
+
 int LTC6804_rdcv(int reg,
 					 int total_ic,
 					 int cell_codes[][12]
 					 )
 {
- 
+    int hi=cell_codes[0][0];
     int cell_reg = 0;
     int current_cell = 0;
   const int NUM_RX_BYT = 8;
   const int BYT_IN_REG = 6;
   const int CELL_IN_REG = 3;
   //int x[50];
-  int cell_data[120];
+  int cell_data[10];
   int pec_error = 0;
   int parsed_cell;
   int received_pec;
@@ -405,6 +409,9 @@ int LTC6804_rdcv(int reg,
 	}
   }
  //2
+  hi=5543;
+  cell_codes[0][0]=hi;
+  hi=0;
 return(pec_error);
 }
 /*
