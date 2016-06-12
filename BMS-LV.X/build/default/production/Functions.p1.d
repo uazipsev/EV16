@@ -8,5 +8,4 @@ mcc_generated_files/adc.h  \
 mcc_generated_files/spi2.h  \
 mcc_generated_files/interrupt_manager.h  \
 mcc_generated_files/tmr0.h  \
-mcc_generated_files/pin_manager.h  \
-
+mcc_generated_files/pin_manager.h 

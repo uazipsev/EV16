@@ -66,6 +66,7 @@ Copyright 2013 Linear Technology Corp. (LTC)
 #include "LT6804.h"
 #include "mcc_generated_files/pin_manager.h"
 #include "Functions.h"
+#include <stdlib.h>
 
 
 /*
@@ -188,7 +189,10 @@ void LTC6804_adcv()
   cmd[3] = (int)(temp_pec);
   
   //3
-  wakeup_idle (); //This will guarantee that the LTC6804 isoSPI port is awake. This command can be removed.
+  LTC6804CS_LAT = 0;
+      SPI2_Exchange8bit(0);
+      LTC6804CS_LAT = 1;
+  //wakeup_idle (); //This will guarantee that the LTC6804 isoSPI port is awake. This command can be removed.
   
   //4
   LTC6804CS_LAT = 0;
@@ -339,17 +343,18 @@ int LTC6804_rdcv(int reg,
   const int NUM_RX_BYT = 8;
   const int BYT_IN_REG = 6;
   const int CELL_IN_REG = 3;
-  
-  int *cell_data;
+  //int x[50];
+  int cell_data[120];
   int pec_error = 0;
   int parsed_cell;
   int received_pec;
   int data_pec;
   int data_counter=0; //data counter
-  cell_data = (int *) malloc((NUM_RX_BYT*total_ic)*sizeof(int));
   //1.a
   if (reg == 0)
-  {
+  {LTC6804CS_LAT = 0;
+      SPI2_Exchange8bit(0);
+      LTC6804CS_LAT = 1;
     //a.i
     for(cell_reg = 1; cell_reg<5; cell_reg++)         			 //executes once for each of the LTC6804 cell voltage registers
     {
@@ -399,7 +404,6 @@ int LTC6804_rdcv(int reg,
 		}
 	}
   }
- free(cell_data);
  //2
 return(pec_error);
 }
@@ -475,7 +479,7 @@ void LTC6804_rdcv_reg(int reg,
   
   //3
   wakeup_idle (); //This will guarantee that the LTC6804 isoSPI port is awake. This command can be removed.
-  
+  	LTC6804CS_LAT = 1;
   //4
   for(current_ic = 0; current_ic<total_ic; current_ic++)
   {
@@ -648,12 +652,12 @@ void LTC6804_rdaux_reg(int reg,
   //1
   if (reg == 1)
   {
-    cmd[1] = 0x0C;
+    cmd[1] = 0x10;
     cmd[0] = 0x00;
   }
   else if(reg == 2)
   {
-    cmd[1] = 0x0e;
+    cmd[1] = 0x12;
     cmd[0] = 0x00;
   } 
   else
@@ -735,12 +739,12 @@ int LTC6804_rdStat(int reg,
   const int GPIO_IN_REG = 3;
   int gpio_reg = 0;
   int current_gpio = 0;
-  int *data;
+  int data [75];
   int data_counter = 0; 
   int8_t pec_error = 0;
   int received_pec;
   int data_pec;
-  data = (int *) malloc((NUM_RX_BYT*total_ic)*sizeof(int));
+ 
   //1.a
   if (reg == 0)
   {
@@ -795,7 +799,6 @@ int LTC6804_rdStat(int reg,
         }
 	}
   }
-  free(data);
   return (pec_error);
 }
 
@@ -993,12 +996,10 @@ void LTC6804_clraux()
 void LTC6804_wrcfg(int total_ic,int config[][6])
 {
   const int BYTES_IN_REG = 6;
-  const int CMD_LEN = 4+(8*total_ic);
-  int *cmd;
+  int cmd[100];
   int temp_pec;
   int cmd_index; //command counter
   
-  cmd = (int *)malloc(CMD_LEN*sizeof(int));
   //1
   cmd[0] = 0x00;
   cmd[1] = 0x01;
@@ -1036,7 +1037,6 @@ void LTC6804_wrcfg(int total_ic,int config[][6])
 	spi_write_array(8,&cmd[4+(8*current_ic)]);
 	LTC6804CS_LAT = 1;
   }
-  free(cmd);
 }
 /*
 	1. Load cmd array with the write configuration command and PEC
@@ -1134,9 +1134,16 @@ int LTC6804_rdcfg(int total_ic, int r_config[][8])
  *****************************************************/
 void wakeup_idle()
 {
+
   LTC6804CS_LAT = 0;
-  Delay(10); //Guarantees the isoSPI will be in ready mode
+ // spi_write_array(1,0);
+    DelayMicro(10); //Guarantees the isoSPI will be in ready mode
   LTC6804CS_LAT = 1;
+//  LTC6804CS_LAT = 0;
+//   
+
+//  LTC6804CS_LAT = 1;
+    
 }
 
 /*!****************************************************
@@ -1146,7 +1153,10 @@ void wakeup_idle()
  *****************************************************/
 void wakeup_sleep()
 {
+    
+
   LTC6804CS_LAT = 0;
+   spi_write_array(1,0);
   Delay(1); // Guarantees the LTC6804 will be in standby
   LTC6804CS_LAT = 1;
 }
@@ -1210,14 +1220,14 @@ void spi_write_read(int tx_Data[],//array of data to be written on SPI port
     
   for(i = 0; i < tx_len; i++)
   {
-   rx_data[i] = SPI2_Exchange8bit(tx_Data[i]);
+    SPI2_Exchange8bit(tx_Data[i]);
 
   }
 
-//  for(int i = 0; i < rx_len; i++)
-//  {
-//    rx_data[i] = (int)spi_read(0xFF);
-//  }
+  for(int i = 0; i < rx_len; i++)
+  {
+     rx_data[i] =SPI2_Exchange8bit(0xFF);
+  }
 
 }
 

@@ -9,6 +9,6 @@
 #define	FUNCTIONS_H
 
 extern void Delay(int wait);
-
+extern void DelayMicro(int wait);
 #endif	/* FUNCTIONS_H */
 

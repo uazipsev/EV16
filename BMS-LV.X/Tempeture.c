@@ -2,7 +2,7 @@
 #include "Define.h"
 #include "Tempeture.h"
 #include "mcc_generated_files/adc.h"
-#include "../math.h"
+#include <math.h>
 
 float Temp_DegF[8] = 0;
 float TmpTemp_DegF[8] = 0;

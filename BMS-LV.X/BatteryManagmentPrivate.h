@@ -68,14 +68,10 @@ int Voltage_data[1][12];
 int Aux_data[1][6];
 
 //LOGIC FOR BANK IS 1 and 2 Not 1 and 0
-int LTC6804_DATA_ConfigBank1[NUMBEROFIC][NUMBEROFDATA];
-int LTC6804_DATA_ConfigBank2[NUMBEROFIC][NUMBEROFDATA];
-int cell_codes_Bank1[NUMBEROFIC][12];
-int cell_codes_Bank2[NUMBEROFIC][12];
-int Aux_codes_Bank1[NUMBEROFIC][6];
-int Aux_codes_Bank2[NUMBEROFIC][6];
-int Stat_codes_Bank1[NUMBEROFIC][6];
-int Stat_codes_Bank2[NUMBEROFIC][6];
+int LTC6804_DATA_ConfigBank[NUMBEROFIC][NUMBEROFDATA];
+int cell_codes_Bank[NUMBEROFIC][12];
+int Aux_codes_Bank[NUMBEROFIC][6];
+int Stat_codes_Bank[NUMBEROFIC][6];
 /*!< 
   The cell codes will be stored in the cell_codes[][12] array in the following format:
   
@@ -96,18 +92,20 @@ int aux_codes_Bank2[NUMBEROFIC][6];
 void Charge_Mode(int command);
 void Run_Mode();
 void Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]);
-int Read_Total_Voltage(int cell_codesBank1[][12], int cell_codesBank2[][12]);
+void Initalize_LT6804b();
+int Read_Total_Voltage(int cell_codesBank1[][12]);
 int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12]);
 
 //Configuration set functions
-int SetTempEnable(int bank, int ic, bool value); //This sets the temp sensor on GPIO 5 to be  enabled or not  the bool will determine the value.
-int SetUnderOverVoltage(int VUV, int VOV, int bank, int ic); //This sets the under voltage and overvoltage flag of the ltc6804. The values are #defines
-int Set_ADC_Mode(int bank, int ic, bool ADCOPT_Mode); //This sets which adc modes are available for the MD Parameter one mode picks 3 available ADC while the the other one will pick the other ADC's
-int Set_DCC_Mode_OFF(int bank, int ic); //This is to send all the DCC modes (Short the cell) off. This option is used when the car is operating normally. 
-int Set_DCTO_Mode_OFF(int bank, int ic); // This is to set all the DCTO (Time to discharge  ) to 0. This works with DCC to 0 so the car can operate normally. 
-int Set_REFON_Pin(int bank, int ic, bool REFON_Mode); //This is to set the Refrence voltage on and off based on mode  1=on 0=off
+int SetTempEnable(int ic, bool value); //This sets the temp sensor on GPIO 5 to be  enabled or not  the bool will determine the value.
+int SetUnderOverVoltage(int VUV, int VOV, int ic); //This sets the under voltage and overvoltage flag of the ltc6804. The values are #defines
+int Set_ADC_Mode( int ic, bool ADCOPT_Mode); //This sets which adc modes are available for the MD Parameter one mode picks 3 available ADC while the the other one will pick the other ADC's
+void Set_DCC_Mode_OFF(int ic); //This is to send all the DCC modes (Short the cell) off. This option is used when the car is operating normally. 
+int Set_DCTO_Mode_OFF(int ic); // This is to set all the DCTO (Time to discharge  ) to 0. This works with DCC to 0 so the car can operate normally. 
+int Set_REFON_Pin(int ic, bool REFON_Mode); //This is to set the Refrence voltage on and off based on mode  1=on 0=off
 int SetBypass(int bank, int ic, int cell, bool value); //This sets the bypass for a cell on. This is so it can discharge the cell. This is placed in the configuration register to be sent. 
-
+int CheckThresholds(int test, int data);
+int CheckThresholdsBank(int test,int IC, int cell_codes[][12]);
 int Startuptests(int Stat_codes[NUMBEROFIC][6]); //This function is to test the LTC6804 to make sure everything is in check.
 int CheckTestReading(int Stat_codes[NUMBEROFIC][6]); //Actually Checks the test from the data.
 

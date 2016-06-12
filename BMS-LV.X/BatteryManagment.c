@@ -12,8 +12,8 @@
 #include "BatteryManagmentPrivate.h"
 #include "mcc_generated_files/pin_manager.h"
 #include "LT6804.h"
-#include "Timers.h"
 #include <stdbool.h>
+#include <stdio.h>
 //TODO Need to make a fault status and a use with var
 int Read_Status_INC = 0;
 
@@ -29,37 +29,50 @@ int Read_Status_INC = 0;
  *******************************************************************/
 
 void Start_BMS() {
-    LTC6804_initialize();
+  
+    //Run_Mode();
+    Initalize_LT6804b();
     //ADS1015Begin();
 }
 
 void Charge_Mode(int command) {
     //if in charge mode 
-    Run_ByPass(cell_codes_Bank1, cell_codes_Bank2);
+    //Run_ByPass(cell_codes_Bank1, cell_codes_Bank2);
 
 }
 
 void Run_Mode() {
-    Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2);
+   
+      Read_Total_Voltage(cell_codes_Bank);
+    //printf ("Voltage: %d \n", cell_codes_Bank[0][0]);
+ 
+   // Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2);
 }
 
 void Initalize_LT6804b() {
     int IC = 0;
-    int bank = 1;
-    while (bank <= NUMBEROFCH) {
+ 
+    CFGR0=0;
+    CFGR1=0;
+    CFGR2=0;
+    CFGR3=0;
+    CFGR4=0;
+    CFGR5=0;
+    
+    
         while (IC < NUMBEROFIC) {
-            Set_REFON_Pin(bank, IC, 0);
-            Set_ADC_Mode(bank, IC, 1);
-            Set_DCC_Mode_OFF(bank, IC);
-            Set_DCTO_Mode_OFF(bank, IC);
-            SetTempEnable(bank, IC, 0);
-            SetUnderOverVoltage(79, 83, bank, IC);
+            Set_REFON_Pin(IC, 1);
+            Set_ADC_Mode(IC, 1);
+            Set_DCC_Mode_OFF(IC);
+            Set_DCTO_Mode_OFF(IC);
+            SetTempEnable(IC, 0);
+            SetUnderOverVoltage(Under_Voltage_Value, Over_Voltage_Value,  IC);
             IC++;
         };
-        bank++;
-    }
+    
 
-    UpdateLT6804(1);
+    UpdateLT6804();
+    
     //UpdateLT6804(1);
 }
 
@@ -70,7 +83,7 @@ void Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
     int Error_Value = 0;
     //Bank1
     do {
-        Error_Value = Read_Battery(0, cell_codes_Bank1);
+        Error_Value = Read_Battery(0, cell_codes_Bank);
         if (Error_Value != 0) {
             Read_Status_INC = Read_Status_INC + 1;
         }
@@ -79,7 +92,7 @@ void Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
 
     //Bank2
     do {
-        Error_Value = Read_Battery(0, cell_codesBank2);
+        Error_Value = Read_Battery(0, cell_codes_Bank);
         if (Error_Value != 0) {
             Read_Status_INC = Read_Status_INC + 1;
         }
@@ -323,7 +336,25 @@ int CheckTestReading(int Stat_codes[NUMBEROFIC][6]) {
 
     ;
 }
+int CheckThresholdsBank(int test,int IC, int cell_codes[][12]) {
+    int CurrentIC = 0;
+    int cell = 0;
+    int Error_Value = 0;
+    while (CurrentIC < IC) {
+        while (cell < 12) {
 
+            Error_Value = CheckThresholds(test, cell_codes[CurrentIC][cell]);
+            if (Error_Value != 0) {
+                return Error_Value;
+            }
+            cell = cell + 1;
+        }
+
+        cell = 0;
+        CurrentIC = CurrentIC + 1;
+    }
+    return Error_Value;
+}
 int CheckThresholds(int test, int data) {
     int FaultIndicator = 0;
     switch (test) {
@@ -340,30 +371,27 @@ int CheckThresholds(int test, int data) {
     return FaultIndicator;
 }
 
-int Read_Total_Voltage(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
-
+int Read_Total_Voltage(int cell_codesBank[][12]) {
+int Read_Status_INC = 0;
     int Error_Value = 0;
+    int FaultNum=0;
     do {
-        Error_Value = Read_Battery(0, cell_codes_Bank1);
+        Error_Value = Read_Battery(0, cell_codesBank);
         if (Error_Value != 0) {
             Read_Status_INC = Read_Status_INC + 1;
         }
-    } while (Error_Value != 0 && Read_Status_INC <= 10);
-    do {
-        Error_Value = Read_Battery(0, cell_codesBank2);
-        if (Error_Value != 0) {
-            Read_Status_INC = Read_Status_INC + 1;
-        }
-
     } while (Error_Value != 0 && Read_Status_INC <= 10);
     if (Read_Status_INC > 10) {
-        Error_Value = ReadVoltRegFault;
+        FaultNum = ReadVoltRegFault;
     }
     else if (Error_Value == 0) {
-        //Error_Value=CheckThresholds( OverVoltageFault,  cell_codes_Bank1);
-        //Error_Value=CheckThresholds( UnderVoltageFault,  cell_codes_Bank1);
-        //Error_Value=CheckThresholds( OverVoltageFault,  cell_codesBank2);
-        //Error_Value=CheckThresholds( UnderVoltageFault,  cell_codesBank2);
+        Error_Value=CheckThresholdsBank( OverVoltageFault,NUMBEROFIC , cell_codesBank);
+        if (Error_Value != 0){return Error_Value;}
+        Error_Value=CheckThresholdsBank( UnderVoltageFault, NUMBEROFIC, cell_codesBank);
+        if (Error_Value != 0){return Error_Value;}
+        Error_Value=CheckThresholdsBank( OverVoltageFault, NUMBEROFIC, cell_codesBank);
+        if (Error_Value != 0){return Error_Value;}
+       Error_Value=CheckThresholdsBank( UnderVoltageFault, NUMBEROFIC, cell_codesBank);
     }
     return Error_Value;
 }
@@ -382,23 +410,27 @@ int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12]) {
         case 0:
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
             LTC6804_adcv();
+            Delay(10);
             Read_Status = LTC6804_rdcv(0, NUMBEROFIC, cell_codes);
             break;
         case 1:
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_1and7, AUX_CH_ALL);
             LTC6804_adcv();
+            Delay(10);
             Read_Status = LTC6804_rdcv(1, 3, cell_codes); //Cell 1
             Read_Status = LTC6804_rdcv(3, 3, cell_codes); //Cell 7
             break;
         case 2:
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_2and8, AUX_CH_ALL);
             LTC6804_adcv();
+            Delay(10);
             Read_Status = LTC6804_rdcv(0, NUMBEROFIC, cell_codes); // Cell 2
             Read_Status = LTC6804_rdcv(3, NUMBEROFIC, cell_codes); //Cell 8
             break;
         case 3:
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_3and9, AUX_CH_ALL);
             LTC6804_adcv();
+            Delay(10);
             Read_Status = LTC6804_rdcv(0, NUMBEROFIC, cell_codes); // Cell 3
             Read_Status = LTC6804_rdcv(3, NUMBEROFIC, cell_codes); //Cell 9
             break;
@@ -411,12 +443,14 @@ int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12]) {
         case 5:
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_5and11, AUX_CH_ALL);
             LTC6804_adcv();
+            Delay(10);
             Read_Status = LTC6804_rdcv(2, NUMBEROFIC, cell_codes); // Cell 5
             Read_Status = LTC6804_rdcv(4, NUMBEROFIC, cell_codes); //Cell 11
             break;
         case 6:
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_6and12, AUX_CH_ALL);
             LTC6804_adcv();
+            Delay(10);
             Read_Status = LTC6804_rdcv(2, NUMBEROFIC, cell_codes); // Cell 6
             Read_Status = LTC6804_rdcv(4, NUMBEROFIC, cell_codes); //Cell 12
             break;
@@ -509,12 +543,12 @@ int SetBypass(int bank, int ic, int cell, bool value) {
         }
     }
     if (bank == 1) {
-        LTC6804_DATA_ConfigBank1[ic][4] = CFGR4 & 0xFF; //First  8 Bits of DCC
-        LTC6804_DATA_ConfigBank1[ic][5] = (CFGR5) + (DCTO << 4);
+        LTC6804_DATA_ConfigBank[ic][4] = CFGR4 & 0xFF; //First  8 Bits of DCC
+        LTC6804_DATA_ConfigBank[ic][5] = (CFGR5) + (DCTO << 4);
     }// Combined DCTO and the Last 4 bits of DCC
     else if (bank == 2) {
-        LTC6804_DATA_ConfigBank2[ic][4] = CFGR4 & 0xFF; //First  8 Bits of DCC
-        LTC6804_DATA_ConfigBank2[ic][5] = (CFGR5) + (DCTO << 4);
+        LTC6804_DATA_ConfigBank[ic][4] = CFGR4 & 0xFF; //First  8 Bits of DCC
+        LTC6804_DATA_ConfigBank[ic][5] = (CFGR5) + (DCTO << 4);
     }// Combined DCTO and the Last 4 bits of DCC}
     else {
         fault_value = NoBankselected;
@@ -555,7 +589,7 @@ int RunBypass_Set(int bank, int ic, int cell_codes[][12]) {
             }
         }
     }
-    UpdateLT6804(bank);
+    UpdateLT6804();
     return cellbyp;
 }
 
@@ -567,7 +601,7 @@ int RunBypass_Set(int bank, int ic, int cell_codes[][12]) {
  *******************************************************************/
 
 
-int SetTempEnable(int bank, int ic, bool value) {
+int SetTempEnable( int ic, bool value) {
     int fault_value = 0;
     if (value) {
         CFGR0 = CFGR0 | (1 << 7); //Turn on GPIO 5
@@ -575,13 +609,8 @@ int SetTempEnable(int bank, int ic, bool value) {
         CFGR0 = CFGR0 & ~(1 << 7); //Turn off GPIO 5
     }
 
-    if (bank == 1) {
-        LTC6804_DATA_ConfigBank1[ic][0] = CFGR0;
-    } else if (bank == 2) {
-        LTC6804_DATA_ConfigBank2[ic][0] = CFGR0;
-    } else {
-        return fault_value = NoBankselected;
-    }
+        LTC6804_DATA_ConfigBank[ic][0] = CFGR0;
+  
 
     return fault_value;
 }
@@ -606,7 +635,7 @@ int CheckUnderOverVoltageFlag() {
 
 //Update Under and over voltages. 
 
-int SetUnderOverVoltage(int VUV, int VOV, int bank, int ic) {
+int SetUnderOverVoltage(int VUV, int VOV, int ic) {
     int fault_value = 0;
     //LTC6804 - PG: 49 
     CFGR1 = VUV & 0xFF; // Ands with the First 8 bits
@@ -614,18 +643,13 @@ int SetUnderOverVoltage(int VUV, int VOV, int bank, int ic) {
     CFGR3 = (VOV & 0xFF0) >> 4; // Finish VOV setup
 
     // load up static reg
-    if (bank == 1) {
-        LTC6804_DATA_ConfigBank1[ic][1] = CFGR1;
-        LTC6804_DATA_ConfigBank1[ic][2] = CFGR2;
-        LTC6804_DATA_ConfigBank1[ic][3] = CFGR3;
-    } else if (bank == 2) {
-        LTC6804_DATA_ConfigBank2[ic][1] = CFGR1;
-        LTC6804_DATA_ConfigBank2[ic][2] = CFGR2;
-        LTC6804_DATA_ConfigBank2[ic][3] = CFGR3;
-    } else {
-        fault_value = NoBankselected;
-    }
-    return fault_value;
+        LTC6804_DATA_ConfigBank[ic][1] = CFGR1;
+        LTC6804_DATA_ConfigBank[ic][2] = CFGR2;
+        LTC6804_DATA_ConfigBank[ic][3] = CFGR3;
+        LTC6804_DATA_ConfigBank[ic][1] = CFGR1;
+        LTC6804_DATA_ConfigBank[ic][2] = CFGR2;
+        LTC6804_DATA_ConfigBank[ic][3] = CFGR3;
+  
 }
 
 /*******************************************************************
@@ -637,81 +661,54 @@ int SetUnderOverVoltage(int VUV, int VOV, int bank, int ic) {
 
 //Not Sure how this  LTC6804_DATA works however will copy for consistency 
 
-int Set_ADC_Mode(int bank, int ic, bool ADCOPT_Mode) {
+int Set_ADC_Mode(int ic, bool ADCOPT_Mode) {
     int fault_value = 0;
     if (ADCOPT_Mode) {
         CFGR0 = CFGR0 | ADC_MODE_BIT_14k_3k_2k;
     } else {
         CFGR0 = CFGR0 & ~ADC_MODE_BIT_14k_3k_2k; //ADC_MODE_BIT_27k_7k_26
     }
-    if (bank == 1) {
-        LTC6804_DATA_ConfigBank1[ic][0] = CFGR0;
-    } else if (bank == 2) {
-        LTC6804_DATA_ConfigBank2[ic][0] = CFGR0;
-    } else {
-        fault_value = NoBankselected;
-    }
+   
+        LTC6804_DATA_ConfigBank[ic][0] = CFGR0;
+    
     return fault_value;
 }
 
-int Set_DCC_Mode_OFF(int bank, int ic) {
+void Set_DCC_Mode_OFF(int ic) {
     int fault_value = 0;
     CFGR4 = 0;
     CFGR5 = CFGR5 &~(0xF);
-    if (bank == 1) {
-        LTC6804_DATA_ConfigBank1[ic][4] = CFGR4;
-        LTC6804_DATA_ConfigBank1[ic][5] = CFGR5;
-    } else if (bank == 2) {
-        LTC6804_DATA_ConfigBank2[ic][4] = CFGR4;
-        LTC6804_DATA_ConfigBank2[ic][5] = CFGR5;
-    } else {
-        fault_value = NoBankselected;
-    }
-    return fault_value;
+        LTC6804_DATA_ConfigBank[ic][4] = CFGR4;
+        LTC6804_DATA_ConfigBank[ic][5] = CFGR5;
+    
+    
 }
 
-int Set_DCTO_Mode_OFF(int bank, int ic) {
+int Set_DCTO_Mode_OFF(int ic) {
     int fault_value = 0;
     CFGR5 = CFGR5 &~(0xF0);
-    if (bank == 1) {
-        LTC6804_DATA_ConfigBank1[ic][5] = CFGR5;
-    } else if (bank == 2) {
-        LTC6804_DATA_ConfigBank2[ic][5] = CFGR5;
-    } else {
-        fault_value = NoBankselected;
-    }
+        LTC6804_DATA_ConfigBank[ic][5] = CFGR5;
     return fault_value;
 }
 
 //Not Sure how this  LTC6804_DATA works however will copy for consistency 
 
-int Set_REFON_Pin(int bank, int ic, bool REFON_Mode) {
+int Set_REFON_Pin(int ic, bool REFON_Mode) {
     int fault_value = 0;
     if (REFON_Mode) {
         CFGR0 = CFGR0 | REFON_TURN_ON;
     } else {
         CFGR0 = CFGR0 & ~REFON_TURN_ON; //REFOFF_TURN_OFF
     }
-    if (bank == 1) {
-        LTC6804_DATA_ConfigBank1[ic][0] = CFGR0;
-    } else if (bank == 2) {
-        LTC6804_DATA_ConfigBank2[ic][0] = CFGR0;
-    } else {
-        fault_value = NoBankselected;
-    }
+    
+        LTC6804_DATA_ConfigBank[ic][0] = CFGR0;
     return fault_value;
 }
 
-int UpdateLT6804(int bank) {
-    int fault_value = 0;
-    if (bank == 1) {
-        LTC6804_wrcfg(NUMBEROFIC, LTC6804_DATA_ConfigBank1);
-    } else if (bank == 2) {
-        LTC6804_wrcfg(NUMBEROFIC, LTC6804_DATA_ConfigBank2);
-    } else {
-        fault_value = NoBankselected;
-    }
-    return fault_value;
+void UpdateLT6804() {
+  
+        LTC6804_wrcfg(NUMBEROFIC, LTC6804_DATA_ConfigBank);
+   
 }
 
 /*******************************************************************
@@ -753,7 +750,7 @@ void ReadVolt() {
 void ReadVoltToCurrent() {
     for (k = 0; k < 5; k++) {
         //TODO: Remove for production firmware
-        Current[k] = (((CVolt[k] / ADCBIT)*5) SHUNTOHMS/CURRENTGAIN) + CurrentOffset[k];
+       // Current[k] = (((CVolt[k] / ADCBIT)*5) SHUNTOHMS/CURRENTGAIN) + CurrentOffset[k];
     }
 }
 

@@ -14,3 +14,11 @@ void Delay(int wait)
        __delay_ms(1);
     }
 }
+void DelayMicro(int wait)
+{
+    int x;
+    for(x = 0;x<wait;x++)
+    {
+       __delay_us(1);
+    }
+}

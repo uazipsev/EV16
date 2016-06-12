@@ -64,7 +64,8 @@ void PIN_MANAGER_Initialize(void)
     TRISB = 0xFF;
     TRISC = 0x9F;
     TRISA = 0xFE;
-
+LTC6804CS_TRIS=0;
+LTC6804CS_SetHigh();
     INTCON2bits.nRBPU = 0x1;
 
     // enable interrupt-on-change globally

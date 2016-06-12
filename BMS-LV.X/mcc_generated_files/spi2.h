@@ -149,7 +149,7 @@ void SPI2_Initialize(void);
     readData = SPI2_Exchange8bit(DUMMY_DATA);
     </code>
  */
-uint8_t SPI2_Exchange8bit(uint8_t data);
+char SPI2_Exchange8bit(char stuff);
 
  /**
   @Summary

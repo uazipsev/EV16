@@ -16,7 +16,7 @@ void ReadVoltToCurrent();
 int CurrentGet();
 int Read_Battery(int BatteryPlacement,int cell_codes[][12] );// Amount of IC's, amount of cells per IC
 extern void CurrentCoulombCount(int tme);
-int UpdateLT6804(int bank); //Updates Lt6804 configuration sends a fault if a error is detected.
+void UpdateLT6804(); //Updates Lt6804 configuration.
             
 #endif	/* READ_BATTERY_LEVEL_H */
 

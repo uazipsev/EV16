@@ -69,18 +69,17 @@ void SPI2_Initialize(void)
     SSP2STAT = 0x40;
     
     // SSPEN enabled; WCOL no_collision; CKP Idle:High, Active:Low; SSPM FOSC/16; SSPOV no_overflow; 
-    SSP2CON1 = 0x31;
+    SSP2CON1 = 0x22;
     
     // SSPADD 0; 
     SSP2ADD = 0x00;
 }
 
-uint8_t SPI2_Exchange8bit(uint8_t data)
+char SPI2_Exchange8bit(char stuff)
 {
     // Clear the Write Collision flag, to allow writing
-    SSP2CON1bits.WCOL = 0;
-
-    SSP2BUF = data;
+   // SSP2CON1bits.WCOL = 0;
+    SSP2BUF = stuff;
 
     while(SSP2STATbits.BF == SPI_RX_IN_PROGRESS)
     {

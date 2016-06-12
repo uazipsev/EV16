@@ -119,6 +119,11 @@ void SYSTEM_Initialize(void)
     ADC_Initialize();
     TMR0_Initialize();
     EUSART1_Initialize();
+    
+    TRISDbits.RD4 = 0;  //MOSI
+    TRISDbits.RD1 = 1; //MISO
+    TRISDbits.RD0 = 0; //CLK
+    
 }
 
 void OSCILLATOR_Initialize(void)

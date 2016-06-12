@@ -18,12 +18,13 @@
  */
 
 #include "mcc_generated_files/mcc.h"
-
+#include "BatteryManagment.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "Functions.h"
 #include "Tempeture.h"
-#include "Functions.h"
+
+
 
 char fault[3] = 0;
 char fault_flag = 0;
@@ -66,10 +67,12 @@ int main(int argc, char** argv) {
     //INDICATOR_SetHigh();
     LATCbits.LATC5 =1;
     printf("BOOT");
+  // Start_BMS();
+     //*IC=54;
     while (1)
     {
-       
-        
+      // Run_Mode();
+     
     }
     return (EXIT_SUCCESS);
 }
