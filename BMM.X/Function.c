@@ -10,22 +10,19 @@
 void Setup(void) {
     PinSetMode();
     INDICATOR = 1;
-
     FaultValue=0;
     // setup internal clock for 72MHz/36MIPS
     // 12 /2 = 6  *46 = 144 / 2=72
     CLKDIVbits.PLLPRE = 0; // PLLPRE (N2) 0=/2c
     CLKDIVbits.DOZE = 0;
-    PLLFBD = 22; // pll multiplier (M) = +2
-    CLKDIVbits.PLLPOST = 0; // PLLPOST (N1) 0=/2 
+    PLLFBD = 19; // pll multiplier (M) = +2
+    CLKDIVbits.PLLPOST = 0x3; // PLLPOST (N1) 0=/2 
     // Initiate Clock Switch to Primary Oscillator with PLL (NOSC = 0b011)
     __builtin_write_OSCCONH(0x03);
     __builtin_write_OSCCONL(OSCCON | 0x01);
     // Wait for Clock switch to occur
     while (OSCCONbits.COSC != 0b011);
     while (!OSCCONbits.LOCK); // wait for PLL ready
-    
-     
     TRISBbits.TRISB9=0;
     TRISBbits.TRISB8=0;
     TRISBbits.TRISB7=0;
@@ -53,11 +50,11 @@ void Setup(void) {
     
     
     initTimerOne();
-    //CommStart();
+    CommStart();
 
     //begin1(receiveArray1, sizeof (receiveArray1), BMM_MASTER_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);
      UART1_init();
-     //Start_BMS(1);
+     //Start_BMS();
      SPI2_Initialize();
    // i2c_init();
     //PWM_Init();

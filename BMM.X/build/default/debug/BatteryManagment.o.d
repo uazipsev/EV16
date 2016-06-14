@@ -1,4 +1,4 @@
-build/default/production/BatteryManagment.o:  \
+build/default/debug/BatteryManagment.o:  \
 BatteryManagment.c  \
  BatteryManagment.h  \
 BatteryManagmentPrivate.h  \

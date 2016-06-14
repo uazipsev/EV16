@@ -11,7 +11,6 @@
 #include "LT6804.h"
 #include "Timers.h"
 #include <stdbool.h>
-#include "spi2.h"
 //TODO Need to make a fault status and a use with var
 int Battery_Is_Charging_Flag=0;
 int FaultValue=0;
@@ -19,7 +18,6 @@ int FaultValue=0;
  int cell_codes_Bank2[NUMBEROFIC][12];
  int Aux_codes_Bank1[NUMBEROFIC][6];
  int Aux_codes_Bank2[NUMBEROFIC][6];
- char testarray[11]={ 0x00,0x03, 0xE0, 0xE0,0xB0, 0x4A,0x00, 0x80,0x04,0x77, 0xD6};
 //|r_config[0]|r_config[1]|r_config[2]|r_config[3]|r_config[4]|r_config[5]|r_config[6]  |r_config[7] |r_config[8]|r_config[9]|  .....    |
 //|-----------|-----------|-----------|-----------|-----------|-----------|-------------|------------|-----------|-----------|-----------|
 //|IC1 CFGR0  |IC1 CFGR1  |IC1 CFGR2  |IC1 CFGR3  |IC1 CFGR4  |IC1 CFGR5  |IC1 PEC High |IC1 PEC Low |IC2 CFGR0  |IC2 CFGR1  |  .....    |
@@ -34,7 +32,7 @@ int FaultValue=0;
 void Start_BMS(int mode) {
     //TODO need to have a mode to make sure all slaves are up in running.
     LTC6804_initialize();
-    //ADS1015Begin();
+    ADS1015Begin();
     if (mode ==1){
         Run_Mode();
             initTimerThree(mode);
@@ -55,48 +53,51 @@ void Charge_Mode() {
 }
 
 void Run_Mode() {
-int i;
-//      LT6020_1_CS = 0;
-//
-//      for(i = 0; i < 11; i++)
-//  {
-//     SPI2_Exchange8bit(testarray[i]);
-//  }
-//  LT6020_1_CS = 1;
-    //Initalize_LT6804b();
-   //Read_Battery(0, cell_codes_Bank1,bank_1);
-      set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
-      LTC6804_adcv(bank_1);
+    int i;
+    for ( i = 0; i<NUMBEROFIC; i++)
+  {
+    LTC6804_DATA_ConfigBank1[i][0] = 0xFE;
+    LTC6804_DATA_ConfigBank1[i][1] = 0x00 ;
+    LTC6804_DATA_ConfigBank1[i][2] = 0x00 ;
+    LTC6804_DATA_ConfigBank1[i][3] = 0x00 ;
+    LTC6804_DATA_ConfigBank1[i][4] = 0x00 ;
+    LTC6804_DATA_ConfigBank1[i][5] = 0x00 ;
+  }
+    set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
+    wakeup_sleep();
+      LTC6804_wrcfg(NUMBEROFIC,LTC6804_DATA_ConfigBank1);
+      while (1)
+      {
+        wakeup_idle();
+        LTC6804_adcv();
         Delay(10);
-        LTC6804_rdcv(0, NUMBEROFIC, cell_codes_Bank1);
+        wakeup_idle();
+        LTC6804_rdcv(0, NUMBEROFIC,cell_codes_Bank1);
+        
+        Delay(500);
+      }
+      
+    Read_Battery(0,cell_codes_Bank1);
 //    FaultValue=Startuptests(Stat_codes_Bank1);
 //    FaultValue=Startuptests(Stat_codes_Bank2);
 //    if (FaultValue!=0){
 //        CheckFault();
 //    }
 //    else {
-//     Run_GPIO_Temp_ColumbCounting_Timer();
+//        Run_GPIO_Temp_ColumbCounting_Timer();
 //    }
-    Delay(500);
     
 }
 void Run_GPIO_Temp_ColumbCounting_Timer(){
     initTimerTwo();
     }
 void Initalize_LT6804b() {
-    Delay(50);
-    char IC = 0;
+    int IC = 0;
     int bank = 1;
-    CFGR0=0;
-    CFGR1=0;
-    CFGR2=0;
-    CFGR3=0;
-    CFGR4=0;
-    CFGR5=0;
     while (bank <= NUMBEROFCH) {
         while (IC < NUMBEROFIC) {
-            Set_REFON_Pin(bank, IC, 0);
-            Set_ADC_Mode(bank, IC, 1);
+            Set_REFON_Pin(bank, IC, 1);
+            Set_ADC_Mode(bank, IC, 0);
             Set_DCC_Mode_OFF(bank, IC);
             Set_DCTO_Mode_OFF(bank, IC);
             SetTempEnable(bank, IC, 0);
@@ -107,7 +108,7 @@ void Initalize_LT6804b() {
     }
 
     UpdateLT6804(1);
-//    UpdateLT6804(2);
+    //UpdateLT6804(2);
 }
 
 int Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
@@ -118,7 +119,7 @@ int Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
     int Error_Value = 0;
     //Bank1
     do {
-        Error_Value = Read_Battery(0, cell_codes_Bank1, bank_1);
+        Error_Value = Read_Battery(0, cell_codes_Bank1);
         if (Error_Value != 0) {
             Read_Status_INC = Read_Status_INC + 1;
         }
@@ -131,7 +132,7 @@ int Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
     }
      //Bank2
     do {
-        Error_Value = Read_Battery(0, cell_codesBank2, bank_2);
+        Error_Value = Read_Battery(0, cell_codesBank2);
         if (Error_Value != 0) {
             Read_Status_INC = Read_Status_INC + 1;
         }
@@ -438,7 +439,7 @@ int Read_Status_INC = 0;
     int Error_Value = 0;
     int FaultNum=0;
     do {
-        Error_Value = Read_Battery(0, cell_codes_Bank1,bank_1);
+        Error_Value = Read_Battery(0, cell_codes_Bank1);
         if (Error_Value != 0) {
             Read_Status_INC = Read_Status_INC + 1;
         }
@@ -448,7 +449,7 @@ int Read_Status_INC = 0;
     }
     Read_Status_INC = 0;
     do {
-        Error_Value = Read_Battery(0, cell_codesBank2,bank_2);
+        Error_Value = Read_Battery(0, cell_codesBank2);
         if (Error_Value != 0) {
             Read_Status_INC = Read_Status_INC + 1;
         }
@@ -510,54 +511,48 @@ int Read_Status_INC = 0;
  *******************************************************************/
 //TODO Need to Reference the Bat array
 
-int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12], int bank) {
+int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12]) {
     int Read_Status = 0;
 
     switch (BatteryPlacement) {
         case 0:
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
-            LTC6804_adcv(bank);
-            Delay(10);
+            set_adc(MD_FILTERED, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
+            LTC6804_adcv();
             Read_Status = LTC6804_rdcv(0, NUMBEROFIC, cell_codes);
             break;
         case 1:
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_1and7, AUX_CH_ALL);
-            LTC6804_adcv(bank);
-            Delay(10);
+            LTC6804_adcv();
             Read_Status = LTC6804_rdcv(1, 3, cell_codes); //Cell 1
             Read_Status = LTC6804_rdcv(3, 3, cell_codes); //Cell 7
             break;
         case 2:
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_2and8, AUX_CH_ALL);
-            LTC6804_adcv(bank);
-            Delay(10);
+            LTC6804_adcv();
             Read_Status = LTC6804_rdcv(0, NUMBEROFIC, cell_codes); // Cell 2
             Read_Status = LTC6804_rdcv(3, NUMBEROFIC, cell_codes); //Cell 8
             break;
         case 3:
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_3and9, AUX_CH_ALL);
-            LTC6804_adcv(bank);
-            Delay(10);
+            LTC6804_adcv();
             Read_Status = LTC6804_rdcv(0, NUMBEROFIC, cell_codes); // Cell 3
             Read_Status = LTC6804_rdcv(3, NUMBEROFIC, cell_codes); //Cell 9
             break;
         case 4:
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_4and10, AUX_CH_ALL);
-            LTC6804_adcv(bank);
+            LTC6804_adcv();
             Read_Status = LTC6804_rdcv(2, NUMBEROFIC, cell_codes); // Cell 4
             Read_Status = LTC6804_rdcv(4, NUMBEROFIC, cell_codes); //Cell 10
             break;
         case 5:
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_5and11, AUX_CH_ALL);
-            LTC6804_adcv(bank);
-            Delay(10);
+            LTC6804_adcv();
             Read_Status = LTC6804_rdcv(2, NUMBEROFIC, cell_codes); // Cell 5
             Read_Status = LTC6804_rdcv(4, NUMBEROFIC, cell_codes); //Cell 11
             break;
         case 6:
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_6and12, AUX_CH_ALL);
-            LTC6804_adcv(bank);
-            Delay(10);
+            LTC6804_adcv();
             Read_Status = LTC6804_rdcv(2, NUMBEROFIC, cell_codes); // Cell 6
             Read_Status = LTC6804_rdcv(4, NUMBEROFIC, cell_codes); //Cell 12
             break;
@@ -578,7 +573,7 @@ int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12], int bank)
 
 //TODO Need to Reference the Aux array
 
-int Read_GPIO(int BatteryPlacement, int aux_codes[NUMBEROFIC][6] ) {
+int Read_GPIO(int BatteryPlacement, int aux_codes[NUMBEROFIC][6]) {
     int Read_Status = 0;
     switch (BatteryPlacement) {
         case 0:
@@ -893,10 +888,9 @@ int Set_REFON_Pin(int bank, int ic, bool REFON_Mode) {
 int UpdateLT6804(int bank) {
     int fault_value = 0;
     if (bank == 1) {
-        
-        LTC6804_wrcfg(NUMBEROFIC, LTC6804_DATA_ConfigBank1,bank);
+        LTC6804_wrcfg(NUMBEROFIC, LTC6804_DATA_ConfigBank1);
     } else if (bank == 2) {
-        LTC6804_wrcfg(NUMBEROFIC, LTC6804_DATA_ConfigBank2,bank);
+        LTC6804_wrcfg(NUMBEROFIC, LTC6804_DATA_ConfigBank2);
     } else {
         fault_value = NoBankselected;
     }

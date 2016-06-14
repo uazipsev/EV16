@@ -17,7 +17,7 @@
 void SPI2_Initialize(void)
 {
     // Set the SPI2 module to the options selected in the User Interface
-    SPI1CON1 = 0x0034;  //34 //This ets SPRE and PPRE to a 1:64 prescale   
+    SPI1CON1 = 0x0063;   //23  //This ets SPRE and PPRE to a 1:64 prescale   
     SPI1CON2 = 0x0000;
     SPI1STAT = 0x8000;    //Enables the module
 
@@ -29,7 +29,7 @@ uint8_t SPI2_Exchange8bit(uint8_t data)
     while(SPI1STATbits.SPITBF);
     data = SPI1BUF;               //Avoiding overflow when reading
     SPI1STATbits.SPIROV = 0;
-    SPI1BUF = 0x00;                  // initiate bus cycle 
+    //SPI1BUF = 0x00;                  // initiate bus cycle 
     while(!SPI1STATbits.SPIRBF);
      /* Check for Receive buffer full status bit of status register*/
     if (SPI1STATbits.SPIRBF)

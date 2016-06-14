@@ -19,9 +19,8 @@
 int main(int argc, char** argv) {
     Setup();
     //printf("Start");
-      Initalize_LT6804b(); 
+    //Initalize_LT6804b();
    while (1) { 
-       Run_Mode();
         updateTimers();
       // Initalize_LT6804b(); FOR TESTING DElETE WHEN FINISHED
 //        if (time_get(ADCTM) > 50) {
@@ -32,8 +31,9 @@ int main(int argc, char** argv) {
 //            else counter = 0;
 //            ADCTime = 0;
 //        }
-       ledDebug();
-       //updateComms();
+       //ledDebug();
+       Run_Mode();
+        //updateComms();
     }
 
     return (EXIT_SUCCESS);

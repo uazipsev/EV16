@@ -16,7 +16,7 @@ bool ChargerVal();
 void ReadCurrentVolt();
 void ReadVoltToCurrent();
 int CurrentGet(bool total, char channel);
-int Read_Battery(int BatteryPlacement,int cell_codes[][12], int bank );// Amount of IC's, amount of cells per IC
+int Read_Battery(int BatteryPlacement,int cell_codes[][12] );// Amount of IC's, amount of cells per IC
 extern void CurrentCoulombCount(int tme);
 int UpdateLT6804(int bank); //Updates Lt6804 configuration sends a fault if a error is detected.
 extern int Read_Total_Voltage(int cell_codesBank1[][12], int cell_codesBank2[][12]);
