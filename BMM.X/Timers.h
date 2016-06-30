@@ -27,7 +27,7 @@
     void TalkTimeSet(int value);
     void time_Set(char WhatTime, int value);
     void CheckFault(void); //This function looks and determines if it is a valid funcion.Currently it SHUTS THE CAR OFF.
-    
+    extern int *Sample_Number;
     
 #endif	/* TIMERS_H */
 

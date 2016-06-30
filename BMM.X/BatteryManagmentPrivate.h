@@ -34,13 +34,15 @@ char CFGR3 = 0;
 char CFGR4 = 0;
 char CFGR5 = 0;
 
-  double TempK=0;
+  long double TempK=0;
   double TempCBank1[NUMBEROFIC][6];
   double TempCBank2[NUMBEROFIC][6];
-   int Vin;
+  double TempBank1[NUMBEROFIC][6];
+  double TempBank2[NUMBEROFIC][6];
+   double Vin=3.2;
 int VoltageDividerResistance =10000;
 #define A_Constant 8.42961857*pow(10,-4)
-#define B_Constant 2.5924208*pow(10,-4)
+#define B_Constant .000291205591
 #define C_Constant 1.578649669*pow(10,-7)
 int Over_Temp_Value=0; // TODO create number for this.
 int Over_Voltage_Value = 0x9C4; // Compare Voltage = Over_Voltage_Value*16*100uV  
@@ -78,7 +80,8 @@ int Aux_data[1][6];
 //LOGIC FOR BANK IS 1 and 2 Not 1 and 0
 int LTC6804_DATA_ConfigBank1[NUMBEROFIC][NUMBEROFDATA];
 int LTC6804_DATA_ConfigBank2[NUMBEROFIC][NUMBEROFDATA];
-
+int LTC6804_DATA_ConfigBank1Read[NUMBEROFIC][NUMBEROFDATA];
+int LTC6804_DATA_ConfigBank2Read[NUMBEROFIC][NUMBEROFDATA];
 int Stat_codes_Bank1[NUMBEROFIC][6];
 int Stat_codes_Bank2[NUMBEROFIC][6];
 /*!< 
@@ -123,6 +126,7 @@ int RunBypass_Set(int bank, int cell_codesBank[][12]);
 void Run_GPIO_Temp_ColumbCounting_Timer();
 int Read_GPIO(int BatteryPlacement, int aux_codes[NUMBEROFIC][6]);
 void Open_All_ByPass(); 
+
 //Fault Functions
 
 

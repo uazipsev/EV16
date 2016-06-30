@@ -12,7 +12,7 @@
 
 #define BAUD_SET 38400
 #define UART_BUFFER_SIZE 200
-#define CLOCK_RATE   36000000
+#define CLOCK_RATE   32000000
 #define BAUD_RATE (((CLOCK_RATE/BAUD_SET)/16)-1)
 
 void UART1_init(void);

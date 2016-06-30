@@ -18,6 +18,11 @@ int FaultValue=0;
  int cell_codes_Bank2[NUMBEROFIC][12];
  int Aux_codes_Bank1[NUMBEROFIC][6];
  int Aux_codes_Bank2[NUMBEROFIC][6];
+// int cell_codes_Bank1_Filtered[Amount_Of_Samples][NUMBEROFIC][12];
+ //int cell_codes_Bank2_Filtered[Amount_Of_Samples][NUMBEROFIC][12];
+ int Average_cell_codes_Bank1[NUMBEROFIC][12];
+ int Average_cell_codes_Bank2[NUMBEROFIC][12];
+ bool StartSample=1;
 //|r_config[0]|r_config[1]|r_config[2]|r_config[3]|r_config[4]|r_config[5]|r_config[6]  |r_config[7] |r_config[8]|r_config[9]|  .....    |
 //|-----------|-----------|-----------|-----------|-----------|-----------|-------------|------------|-----------|-----------|-----------|
 //|IC1 CFGR0  |IC1 CFGR1  |IC1 CFGR2  |IC1 CFGR3  |IC1 CFGR4  |IC1 CFGR5  |IC1 PEC High |IC1 PEC Low |IC2 CFGR0  |IC2 CFGR1  |  .....    |
@@ -53,31 +58,50 @@ void Charge_Mode() {
 }
 
 void Run_Mode() {
-    int i;
-    for ( i = 0; i<NUMBEROFIC; i++)
-  {
-    LTC6804_DATA_ConfigBank1[i][0] = 0xFE;
-    LTC6804_DATA_ConfigBank1[i][1] = 0x00 ;
-    LTC6804_DATA_ConfigBank1[i][2] = 0x00 ;
-    LTC6804_DATA_ConfigBank1[i][3] = 0x00 ;
-    LTC6804_DATA_ConfigBank1[i][4] = 0x00 ;
-    LTC6804_DATA_ConfigBank1[i][5] = 0x00 ;
-  }
-    set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
-    wakeup_sleep();
-      LTC6804_wrcfg(NUMBEROFIC,LTC6804_DATA_ConfigBank1);
+    Initalize_LT6804b();
+    
+//    int i;
+//    for ( i = 0; i<NUMBEROFIC; i++)
+//  {
+//    LTC6804_DATA_ConfigBank1[i][0] = 0xFE;
+//    LTC6804_DATA_ConfigBank1[i][1] = 0x00 ;
+//    LTC6804_DATA_ConfigBank1[i][2] = 0x00 ;
+//    LTC6804_DATA_ConfigBank1[i][3] = 0x00 ;
+//    LTC6804_DATA_ConfigBank1[i][4] = 0x00 ;
+//    LTC6804_DATA_ConfigBank1[i][5] = 0x00 ;
+//  }
+    //set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
+  //  wakeup_sleep();
+      //LTC6804_wrcfg(NUMBEROFIC,LTC6804_DATA_ConfigBank1);
       while (1)
       {
-        wakeup_idle();
-        LTC6804_adcv();
-        Delay(10);
-        wakeup_idle();
-        LTC6804_rdcv(0, NUMBEROFIC,cell_codes_Bank1);
-        
+       // wakeup_idle();
+//Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2,1);
+        // LTC6804_rdcfg(NUMBEROFIC, LTC6804_DATA_ConfigBank1Read);
+//           Read_GPIO(1, Aux_codes_Bank1);
+//            Read_GPIO(2, Aux_codes_Bank1);
+//             Read_GPIO(3, Aux_codes_Bank1);
+//              Read_GPIO(4, Aux_codes_Bank1);
+             // Read_Total_GPIO( Aux_codes_Bank1,Aux_codes_Bank2);
+              //LTC6804_rdcv(0,NUMBEROFIC,LTC6804_DATA_ConfigBank1Read);
+//        LTC6804_adcv();
+//        Delay(10);
+//        wakeup_idle();
+//        LTC6804_rdcv(0, NUMBEROFIC,cell_codes_Bank1);
+          
+          
+          Read_Total_GPIO(Aux_codes_Bank1,Aux_codes_Bank2);
+//    wakeup_sleep();
+//    LTC6804_adax();
+//    Delay(3);
+//    wakeup_idle();
+//    LTC6804_rdaux(0,NUMBEROFIC,Aux_codes_Bank1);
+                       Read_Battery(0,cell_codes_Bank1);
+        printf("temp %d ", TempCBank1[1][0]);
         Delay(500);
       }
       
-    Read_Battery(0,cell_codes_Bank1);
+   
 //    FaultValue=Startuptests(Stat_codes_Bank1);
 //    FaultValue=Startuptests(Stat_codes_Bank2);
 //    if (FaultValue!=0){
@@ -94,14 +118,18 @@ void Run_GPIO_Temp_ColumbCounting_Timer(){
 void Initalize_LT6804b() {
     int IC = 0;
     int bank = 1;
+//      for ( i = 0; i<NUMBEROFIC; i++)  {
+//      LTC6804_DATA_ConfigBank1[i][0]= CFGR0 | }
     while (bank <= NUMBEROFCH) {
         while (IC < NUMBEROFIC) {
             Set_REFON_Pin(bank, IC, 1);
             Set_ADC_Mode(bank, IC, 0);
             Set_DCC_Mode_OFF(bank, IC);
             Set_DCTO_Mode_OFF(bank, IC);
-            SetTempEnable(bank, IC, 0);
+            //SetTempEnable(bank, IC, 1);
             SetUnderOverVoltage(Under_Voltage_Value, Over_Voltage_Value, bank, IC);
+            LTC6804_DATA_ConfigBank1[IC][0] = 0xFE;
+            LTC6804_DATA_ConfigBank2[IC][0] = 0xFE;
             IC++;
         };
         bank++;
@@ -434,7 +462,7 @@ int CheckThresholds(int test, int data) {
     return FaultIndicator;
 }
 
-int Read_Total_Voltage(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
+int Read_Total_Voltage(int cell_codesBank1[][12], int cell_codesBank2[][12], int *Sample_Num) {
 int Read_Status_INC = 0;
     int Error_Value = 0;
     int FaultNum=0;
@@ -459,17 +487,83 @@ int Read_Status_INC = 0;
         FaultNum = ReadVoltRegFault;
     }
     else if (Error_Value == 0) {
-        Error_Value=CheckThresholdsBank( OverVoltageFault,NUMBEROFIC , cell_codes_Bank1);
+        Convert_Voltage(cell_codes_Bank1,cell_codes_Bank2);
+        if ( StartSample==1){
+             Updated_Cell_Array(cell_codes_Bank1,cell_codes_Bank2,1);
+        StartSample=0;
+        }
+        else if (StartSample==0){
+            //AverageCellReading(cell_codes_Bank1_Filtered,cell_codes_Bank2_Filtered);
+            Updated_Cell_Array(cell_codes_Bank1,cell_codes_Bank2,0);
+        Error_Value=CheckThresholdsBank( OverVoltageFault,NUMBEROFIC , Average_cell_codes_Bank1);
         if (Error_Value != 0){return Error_Value;}
-        Error_Value=CheckThresholdsBank( UnderVoltageFault, NUMBEROFIC, cell_codes_Bank1);
+        Error_Value=CheckThresholdsBank( UnderVoltageFault, NUMBEROFIC, Average_cell_codes_Bank1);
         if (Error_Value != 0){return Error_Value;}
-        Error_Value=CheckThresholdsBank( OverVoltageFault, NUMBEROFIC, cell_codesBank2);
+        Error_Value=CheckThresholdsBank( OverVoltageFault, NUMBEROFIC, Average_cell_codes_Bank2);
         if (Error_Value != 0){return Error_Value;}
-       Error_Value=CheckThresholdsBank( UnderVoltageFault, NUMBEROFIC, cell_codesBank2);
+       Error_Value=CheckThresholdsBank( UnderVoltageFault, NUMBEROFIC, Average_cell_codes_Bank2);
+       *Sample_Num=0;
+        }
     }
     return Error_Value;
 }
 
+void Updated_Cell_Array(int cell_codesBank1[][12], int cell_codesBank2[][12], int firstsamp){
+    int Ic=0;
+    int cell=0;
+    if (firstsamp==1){
+    while (Ic<NUMBEROFIC){
+        while(cell< Cell_Per_Bank){
+     Average_cell_codes_Bank1[NUMBEROFIC][Cell_Per_Bank] =cell_codesBank1[NUMBEROFIC][Cell_Per_Bank];
+     Average_cell_codes_Bank2[NUMBEROFIC][Cell_Per_Bank] =cell_codesBank2[NUMBEROFIC][Cell_Per_Bank];
+         cell=cell+1;
+        }
+
+        cell=0;
+        
+        Ic=Ic+1;
+    }}
+    
+    else if (firstsamp==0){
+    while (Ic<NUMBEROFIC){
+        while(cell< Cell_Per_Bank){
+     Average_cell_codes_Bank1[NUMBEROFIC][Cell_Per_Bank] =(.8*(Average_cell_codes_Bank1[NUMBEROFIC][Cell_Per_Bank])+ (.2*cell_codesBank1[NUMBEROFIC][Cell_Per_Bank]));
+     Average_cell_codes_Bank2[NUMBEROFIC][Cell_Per_Bank] =(.8*(Average_cell_codes_Bank2[NUMBEROFIC][Cell_Per_Bank]) +(.5*cell_codesBank2[NUMBEROFIC][Cell_Per_Bank]));
+         cell=cell++;
+        }
+
+        cell=0;
+        
+        Ic=Ic++;
+    }}
+    
+    }
+
+
+//void AverageCellReading(int cell_codes_Bank1_Filter[Amount_Of_Samples][NUMBEROFIC][12],int cell_codes_Bank2_Filter[Amount_Of_Samples][NUMBEROFIC][12]) {
+//    int bank1_total = 0;
+//    int bank2_total = 0;
+//    int Ic = 0;
+//    int cell = 0;
+//    int count = 0;
+//
+//    while (Ic < NUMBEROFIC) {
+//        while (cell < Cell_Per_Bank) {
+//            while (count < 10) {
+//                bank1_total = bank1_total + cell_codes_Bank1_Filter[count][Ic][cell];
+//                bank1_total = bank2_total + cell_codes_Bank2_Filter[count][Ic][cell];
+//                count = count + 1;
+//                cell_codes_Bank1_Filter[count][Ic][cell]=0;
+//                cell_codes_Bank2_Filter[count][Ic][cell]=0;
+//            }
+//            cell_codes_Bank1[Ic][cell] = (bank1_total / 10);
+//            cell_codes_Bank2[Ic][cell] = (bank2_total / 10);
+//            count = 0;
+//        }
+//        cell = 0;
+//        Ic = Ic++;
+//    }
+//}
 
 
 
@@ -477,31 +571,40 @@ int Read_Total_GPIO(int Aux_codes_Bank1[][6], int Aux_codes_Bank2[][6]) {
 int Read_Status_INC = 0;
     int Error_Value = 0;
     int FaultNum=0;
-    do {
-        Error_Value = Read_GPIO(0, Aux_codes_Bank1);
-        if (Error_Value != 0) {
-            Read_Status_INC = Read_Status_INC + 1;
-        }
-    } while (Error_Value != 0 && Read_Status_INC <= 10);
-        if (Read_Status_INC > 10) {
-        FaultNum = ReadAuxRegFault;
-    }
-    Read_Status_INC = 0;
-    do {
-        Error_Value = Read_GPIO(0, Aux_codes_Bank2);
-        if (Error_Value != 0) {
-            Read_Status_INC = Read_Status_INC + 1;
-        }
+    //do {
+        Read_GPIO(0, Aux_codes_Bank1);
+//        Read_GPIO(2, Aux_codes_Bank1);
+//        Read_GPIO(3, Aux_codes_Bank1);
+//        Read_GPIO(4, Aux_codes_Bank1);
+        //Error_Value = LTC6804_rdaux(0, NUMBEROFIC, Aux_codes_Bank1); // All GPIO and Ref
+//        if (Error_Value != 0) {
+//            Read_Status_INC = Read_Status_INC + 1;
+//        }
+    // while (Error_Value != 0 && Read_Status_INC <= 10);
+//        if (Read_Status_INC > 10) {
+//        FaultNum = ReadAuxRegFault;
+//    }
+//    Read_Status_INC = 0;
+//    do {
+        Read_GPIO(0, Aux_codes_Bank2);
+//        Read_GPIO(2, Aux_codes_Bank2);
+//        Read_GPIO(3, Aux_codes_Bank2);
+//        Read_GPIO(4, Aux_codes_Bank2);
+       // Error_Value = LTC6804_rdaux(0, NUMBEROFIC, Aux_codes_Bank2); // All GPIO and Ref
+//        if (Error_Value != 0) {
+//            Read_Status_INC = Read_Status_INC + 1;
+//        }
 
-    } while (Error_Value != 0 && Read_Status_INC <= 10);
-    if (Read_Status_INC > 10) {
-        FaultNum = ReadAuxRegFault;
-    }
-    else if (Error_Value == 0) {
-        FaultNum=Test_Temp_Sensors( Aux_codes_Bank1,Aux_codes_Bank2);
-    }
+//    } while (Error_Value != 0 && Read_Status_INC <= 10);
+//    if (Read_Status_INC > 10) {
+//        FaultNum = ReadAuxRegFault;
+//    }
+//    else if (Error_Value == 0) {
+        FaultNum=Test_Temp_Sensors(Aux_codes_Bank1,Aux_codes_Bank2);
+    //}
     return FaultNum;
 }
+
 
 /*******************************************************************
  * @brief           Read_Battery
@@ -511,52 +614,87 @@ int Read_Status_INC = 0;
  *******************************************************************/
 //TODO Need to Reference the Bat array
 
+void Convert_Voltage(int cell_codesBank1[NUMBEROFIC][12], int cell_codesBank2[NUMBEROFIC][12]){
+    int Ic=0;
+    int cell=0;
+    int Temp_Val=0;
+    while (Ic<NUMBEROFIC){
+        while(cell< Cell_Per_Bank){
+            Temp_Val=cell_codesBank1[Ic][cell]*.0001;
+            cell_codesBank1[Ic][cell]=Temp_Val;
+            Temp_Val=cell_codesBank2[Ic][cell]*.0001;
+            cell_codesBank2[Ic][cell]=Temp_Val;
+        }}
+}
+
+
 int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12]) {
     int Read_Status = 0;
-
     switch (BatteryPlacement) {
         case 0:
             set_adc(MD_FILTERED, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
+            wakeup_idle();
             LTC6804_adcv();
+            Delay(10);
+            wakeup_idle();
             Read_Status = LTC6804_rdcv(0, NUMBEROFIC, cell_codes);
             break;
         case 1:
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_1and7, AUX_CH_ALL);
+            wakeup_idle();
             LTC6804_adcv();
+            Delay(10);
+            wakeup_idle();
             Read_Status = LTC6804_rdcv(1, 3, cell_codes); //Cell 1
             Read_Status = LTC6804_rdcv(3, 3, cell_codes); //Cell 7
             break;
         case 2:
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_2and8, AUX_CH_ALL);
+            wakeup_idle();
             LTC6804_adcv();
+            Delay(10);
+            wakeup_idle();
             Read_Status = LTC6804_rdcv(0, NUMBEROFIC, cell_codes); // Cell 2
             Read_Status = LTC6804_rdcv(3, NUMBEROFIC, cell_codes); //Cell 8
             break;
         case 3:
+            wakeup_idle();
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_3and9, AUX_CH_ALL);
             LTC6804_adcv();
+            Delay(10);
+            wakeup_idle();
             Read_Status = LTC6804_rdcv(0, NUMBEROFIC, cell_codes); // Cell 3
             Read_Status = LTC6804_rdcv(3, NUMBEROFIC, cell_codes); //Cell 9
             break;
         case 4:
+            wakeup_idle();
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_4and10, AUX_CH_ALL);
             LTC6804_adcv();
+            Delay(10);
+            wakeup_idle();
             Read_Status = LTC6804_rdcv(2, NUMBEROFIC, cell_codes); // Cell 4
             Read_Status = LTC6804_rdcv(4, NUMBEROFIC, cell_codes); //Cell 10
             break;
         case 5:
+            wakeup_idle();
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_5and11, AUX_CH_ALL);
             LTC6804_adcv();
+            Delay(10);
+            wakeup_idle();
             Read_Status = LTC6804_rdcv(2, NUMBEROFIC, cell_codes); // Cell 5
             Read_Status = LTC6804_rdcv(4, NUMBEROFIC, cell_codes); //Cell 11
             break;
         case 6:
+            wakeup_idle();
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_6and12, AUX_CH_ALL);
             LTC6804_adcv();
+            Delay(10);
+            wakeup_idle();
             Read_Status = LTC6804_rdcv(2, NUMBEROFIC, cell_codes); // Cell 6
             Read_Status = LTC6804_rdcv(4, NUMBEROFIC, cell_codes); //Cell 12
             break;
         default:
+           Read_Status= ReadVoltRegFault;
             break;
     }
     return Read_Status;
@@ -572,48 +710,67 @@ int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12]) {
 
 
 //TODO Need to Reference the Aux array
-
 int Read_GPIO(int BatteryPlacement, int aux_codes[NUMBEROFIC][6]) {
     int Read_Status = 0;
     switch (BatteryPlacement) {
         case 0:
+            wakeup_idle();
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
             LTC6804_adax();
-            // What Cells to read,amount of IC,Data
+            Delay(10);
+            wakeup_idle();
             Read_Status = LTC6804_rdaux(0, NUMBEROFIC, aux_codes); // All GPIO and Ref
-
             break;
         case 1:
+            wakeup_idle();
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO1);
             LTC6804_adax();
-            Read_Status = LTC6804_rdaux(1, NUMBEROFIC, aux_codes); //GPIO 1
+            Delay(10);
+            wakeup_idle();
+            //Read_Status = LTC6804_rdaux(1, NUMBEROFIC, aux_codes); //GPIO 1
             break;
         case 2:
+            wakeup_idle();
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO2);
             LTC6804_adax();
-            Read_Status = LTC6804_rdaux(1, NUMBEROFIC, aux_codes); //GPIO 2
+            Delay(10);
+            wakeup_idle();
+            //Read_Status = LTC6804_rdaux(1, NUMBEROFIC, aux_codes); //GPIO 2
             break;
         case 3:
+            wakeup_idle();
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO3);
             LTC6804_adax();
-            Read_Status = LTC6804_rdaux(1, NUMBEROFIC, aux_codes); //GPIO 3
+            Delay(10);
+            wakeup_idle();
+           // Read_Status = LTC6804_rdaux(1, NUMBEROFIC, aux_codes); //GPIO 3
             break;
         case 4:
+            wakeup_idle();
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO4);
             LTC6804_adax();
-            Read_Status = LTC6804_rdaux(2, NUMBEROFIC, aux_codes); //GPIO 4
+            Delay(10);
+            wakeup_idle();
+            //Read_Status = LTC6804_rdaux(2, NUMBEROFIC, aux_codes); //GPIO 4
             break;
         case 5:
+            wakeup_idle();
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO5);
             LTC6804_adax();
-            Read_Status = LTC6804_rdaux(2, NUMBEROFIC, aux_codes); //GPIO 5
+            Delay(10);
+            wakeup_idle();
+            //Read_Status = LTC6804_rdaux(2, NUMBEROFIC, aux_codes); //GPIO 5
             break;
         case 6:
+            wakeup_idle();
             set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_VREF2);
             LTC6804_adax();
-            Read_Status = LTC6804_rdaux(2, NUMBEROFIC, aux_codes); //GPIO 6
+            Delay(10);
+            wakeup_idle();
+           // Read_Status = LTC6804_rdaux(2, NUMBEROFIC, aux_codes); //GPIO 6
             break;
         default:
+            Read_Status= ReadAuxRegFault;
             break;
     }
 
@@ -629,29 +786,31 @@ int Read_GPIO(int BatteryPlacement, int aux_codes[NUMBEROFIC][6]) {
 
 
 
-double CalculateTemp(int bank, int auxcodes[NUMBEROFIC][6]){
-    //TODO need to know what Vin is 
-    //Might need to calaculate adc to Voltage first
-    
-   
+void CalculateTemp(int bank, int auxcodes[NUMBEROFIC][6]){
     int ic=0; //The IC we are currently reading
    int sensenum=0; //The senesor we are currently reading. 
    while(ic<NUMBEROFIC){
        while(sensenum<6){
-    int Volt_Of_GPIO=0;
-    double Resist_Of_GPIO=0;
-           Volt_Of_GPIO=auxcodes[ic][sensenum];
-           Resist_Of_GPIO=(Volt_Of_GPIO*VoltageDividerResistance)*(Vin-Volt_Of_GPIO);   //Through Voltage Divider
-    TempK= A_Constant + B_Constant*log(Resist_Of_GPIO)+ C_Constant*(pow(log(Resist_Of_GPIO),3));
-    if (bank==1){
+    float Volt_Of_GPIO=0;
+    float Resist_Of_GPIO=0;
+           Volt_Of_GPIO=auxcodes[ic][sensenum]; //v2 vin v1 rgpio thermo r2  r1 10k
+           Volt_Of_GPIO=Volt_Of_GPIO*0.0001;
+           Resist_Of_GPIO=(Volt_Of_GPIO*10000); //TOTAL EQUATION R2=(VO*R1)/(Vin-Vo)   CHECK DEBUG ADDING ARTifact
+           Resist_Of_GPIO=Resist_Of_GPIO /(Vin-Volt_Of_GPIO);   //Through Voltage Divider  TOTAL EQUATION R2=(VO*R1)/(Vin-Vo)
+           
+           TempK=4;
+    TempK= (1/298.15)*5000+ B_Constant*(log(Resist_Of_GPIO/10000))*5000; //log is ln
+   TempK=TempK/5000;
+    TempK=(1/TempK);
+    if (bank==1){   
     TempCBank1[ic][sensenum]=TempK-273.15;
     }
     else if (bank==2){
     TempCBank2[ic][sensenum]=TempK-273.15;
     }
       sensenum=sensenum+1; }
+     sensenum=0; 
    ic=ic+1;}
-   return sensenum; //TODO Not accurate just getting rid of warning.
 }
 
 int Test_Temp_Sensors(int Aux_codes_Bank1[][6], int Aux_codes_Bank2[][6]){
@@ -659,10 +818,10 @@ int Test_Temp_Sensors(int Aux_codes_Bank1[][6], int Aux_codes_Bank2[][6]){
     int IC_Counter;
     int TempSense_Counter;
 CalculateTemp(bank_1,Aux_codes_Bank1);
-CalculateTemp(bank_2,Aux_codes_Bank1);
+CalculateTemp(bank_2,Aux_codes_Bank2);
 for (IC_Counter=0;IC_Counter<NUMBEROFIC;IC_Counter++){
 for (TempSense_Counter=0;TempSense_Counter<6;TempSense_Counter++){
-    if (Aux_codes_Bank1[IC_Counter][TempSense_Counter]>=Over_Temp_Value){
+    if (TempCBank1[IC_Counter][TempSense_Counter]>=Over_Temp_Value){
         Fault=OverTempratureThreshold;
     }
     if (Fault==OverTempratureThreshold){
@@ -673,7 +832,7 @@ for (TempSense_Counter=0;TempSense_Counter<6;TempSense_Counter++){
     //For Bank 2
     //If there is no fault for Bank1
     if (Fault!=OverTempratureThreshold){
-      if (Aux_codes_Bank1[IC_Counter][TempSense_Counter]>=Over_Temp_Value){
+      if (TempCBank2[IC_Counter][TempSense_Counter]>=Over_Temp_Value){
         Fault=OverTempratureThreshold;
     }
     if (Fault==OverTempratureThreshold){
@@ -687,7 +846,6 @@ for (TempSense_Counter=0;TempSense_Counter<6;TempSense_Counter++){
 }
 return Fault;
 }
-//Update
 
 int SetBypass(int bank, int ic, int cell, bool value) {
     int fault_value = 0;
