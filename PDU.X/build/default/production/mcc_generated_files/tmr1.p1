@@ -67,7 +67,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1019 . . . . . ]
 "16314
 [v _T1GCONbits `VS1019 ~T0 @X0 0 e@4044 ]
-"32 mcc_generated_files/../PDU.h
+"34 mcc_generated_files/../PDU.h
 [v _ReadCurrent `(v ~T0 @X0 0 ef1`uc ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
@@ -7533,53 +7533,54 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr1.h: 288: void TMR1_StartSinglePulseAcquisition(void);
 [; ;tmr1.h: 329: uint8_t TMR1_CheckGateValueStatus(void);
 [; ;tmr1.h: 345: void TMR1_ISR(void);
-"13 mcc_generated_files/../PDU.h
+"15 mcc_generated_files/../PDU.h
 [v _Currentcomp `i ~T0 @X0 -> 6 `i e ]
 [i _Currentcomp
 :U ..
 -> 0 `i
 ..
 ]
-[; ;PDU.h: 13: int Currentcomp[6] = 0;
-"14
+[; ;PDU.h: 15: int Currentcomp[6] = 0;
+"16
 [v _data `uc ~T0 @X0 -> 12 `i e ]
 [i _data
 :U ..
 -> -> 0 `i `uc
 ..
 ]
-[; ;PDU.h: 14: char data[12] = 0;
-"15
+[; ;PDU.h: 16: char data[12] = 0;
+"17
 [v _CurrentADC `i ~T0 @X0 -> 6 `i e ]
 [i _CurrentADC
 :U ..
 -> 0 `i
 ..
 ]
-[; ;PDU.h: 15: int CurrentADC[6] = 0;
-"16
+[; ;PDU.h: 17: int CurrentADC[6] = 0;
+"18
 [v _Current `i ~T0 @X0 -> 6 `i e ]
 [i _Current
 :U ..
 -> 0 `i
 ..
 ]
-[; ;PDU.h: 16: int Current[6] = 0;
-[; ;PDU.h: 18: typedef enum {
-[; ;PDU.h: 19: DDS = 1,
-[; ;PDU.h: 20: MCS = 2,
-[; ;PDU.h: 21: SAS = 3,
-[; ;PDU.h: 22: BMM = 4,
-[; ;PDU.h: 23: TSS = 5,
-[; ;PDU.h: 24: AUX = 6,
-[; ;PDU.h: 25: ON = 1,
-[; ;PDU.h: 26: OFF = 0
-[; ;PDU.h: 27: } device;
-[; ;PDU.h: 29: extern void PDUStartup(void);
-[; ;PDU.h: 30: void EnableSlavePower(device slave, int onof);
-[; ;PDU.h: 31: void ComputeStorageData(void);
-[; ;PDU.h: 32: void ReadCurrent(char gather);
-[; ;PDU.h: 33: void Update(void);
+[; ;PDU.h: 18: int Current[6] = 0;
+[; ;PDU.h: 20: typedef enum {
+[; ;PDU.h: 21: DDS = 1,
+[; ;PDU.h: 22: MCS = 2,
+[; ;PDU.h: 23: SAS = 3,
+[; ;PDU.h: 24: BMM = 4,
+[; ;PDU.h: 25: TSS = 5,
+[; ;PDU.h: 26: AUX = 6,
+[; ;PDU.h: 27: ON = 1,
+[; ;PDU.h: 28: OFF = 0
+[; ;PDU.h: 29: } device;
+[; ;PDU.h: 31: extern void PDUStartup(void);
+[; ;PDU.h: 32: void EnableSlavePower(device slave, int onof);
+[; ;PDU.h: 33: void ComputeStorageData(void);
+[; ;PDU.h: 34: void ReadCurrent(char gather);
+[; ;PDU.h: 35: void Update(void);
+[; ;PDU.h: 36: bool CoolingCheck();
 "58 mcc_generated_files/tmr1.c
 [v _timer1ReloadVal `Vui ~T0 @X0 1 e ]
 [; ;tmr1.c: 58: volatile uint16_t timer1ReloadVal;

@@ -23,8 +23,8 @@ AUX 6
 ON 1
 OFF 0
 ]
-"20 C:\EV16.git\trunk\PDU.X\PDU.c
-[e E5 . `uc
+"22 C:\EV16.git\trunk\PDU.X\PDU.c
+[e E6 . `uc
 DDS 1
 MCS 2
 SAS 3
@@ -34,8 +34,8 @@ AUX 6
 ON 1
 OFF 0
 ]
-"70
-[e E7895 . `uc
+"73
+[e E7896 . `uc
 channel_CTMU 29
 channel_DAC 30
 channel_FVRBuf2 31
@@ -77,6 +77,8 @@ U10Multisense 23
 [v _respondECU respondECU `(v  1 e 0 0 ]
 "19 C:\EV16.git\trunk\PDU.X\CoolingControl.c
 [v _CoolingStart CoolingStart `(v  1 e 0 0 ]
+"30
+[v _CoolingStop CoolingStop `(v  1 e 0 0 ]
 "21 C:\EV16.git\trunk\PDU.X\DigiPot.c
 [v _PotSetpoint PotSetpoint `(v  1 e 0 0 ]
 "66
@@ -143,16 +145,18 @@ U10Multisense 23
 [v _TMR2_Initialize TMR2_Initialize `(v  1 e 0 0 ]
 "78
 [v _TMR2_StartTimer TMR2_StartTimer `(v  1 e 0 0 ]
-"15 C:\EV16.git\trunk\PDU.X\PDU.c
+"17 C:\EV16.git\trunk\PDU.X\PDU.c
 [v _PDUStartup PDUStartup `(v  1 e 0 0 ]
-"32
+"34
 [v _EnableSlavePower EnableSlavePower `(v  1 e 0 0 ]
-"57
+"60
 [v _ReadCurrent ReadCurrent `(v  1 e 0 0 ]
-"94
+"97
 [v _ComputeStorageData ComputeStorageData `(v  1 e 0 0 ]
-"142
+"145
 [v _Update Update `(v  1 e 0 0 ]
+"149
+[v _CoolingCheck CoolingCheck `(uc  1 e 1 0 ]
 "10 C:\EV16.git\trunk\PDU.X\Shift595.c
 [v _StartUp595 StartUp595 `(v  1 e 0 0 ]
 "32
@@ -401,7 +405,7 @@ U10Multisense 23
 [v _EEADR EEADR `VEuc  1 e 1 @4009 ]
 "10698
 [v _RC1STA RC1STA `VEuc  1 e 1 @4011 ]
-[s S1599 . 1 `uc 1 RX9D 1 0 :1:0 
+[s S1601 . 1 `uc 1 RX9D 1 0 :1:0 
 `uc 1 OERR 1 0 :1:1 
 `uc 1 FERR 1 0 :1:2 
 `uc 1 ADDEN 1 0 :1:3 
@@ -411,10 +415,10 @@ U10Multisense 23
 `uc 1 SPEN 1 0 :1:7 
 ]
 "11041
-[s S1608 . 1 `uc 1 . 1 0 :3:0 
+[s S1610 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 ADEN 1 0 :1:3 
 ]
-[s S1611 . 1 `uc 1 RX9D1 1 0 :1:0 
+[s S1613 . 1 `uc 1 RX9D1 1 0 :1:0 
 `uc 1 OERR1 1 0 :1:1 
 `uc 1 FERR1 1 0 :1:2 
 `uc 1 ADDEN1 1 0 :1:3 
@@ -423,19 +427,19 @@ U10Multisense 23
 `uc 1 RX91 1 0 :1:6 
 `uc 1 SPEN1 1 0 :1:7 
 ]
-[s S1620 . 1 `uc 1 . 1 0 :6:0 
+[s S1622 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC8_9 1 0 :1:6 
 ]
-[s S1623 . 1 `uc 1 . 1 0 :6:0 
+[s S1625 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC9 1 0 :1:6 
 ]
-[s S1626 . 1 `uc 1 RCD8 1 0 :1:0 
+[s S1628 . 1 `uc 1 RCD8 1 0 :1:0 
 ]
-[s S1628 . 1 `uc 1 . 1 0 :5:0 
+[s S1630 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 SRENA 1 0 :1:5 
 ]
-[u S1631 . 1 `S1599 1 . 1 0 `S1608 1 . 1 0 `S1611 1 . 1 0 `S1620 1 . 1 0 `S1623 1 . 1 0 `S1626 1 . 1 0 `S1628 1 . 1 0 ]
-[v _RC1STAbits RC1STAbits `VES1631  1 e 1 @4011 ]
+[u S1633 . 1 `S1601 1 . 1 0 `S1610 1 . 1 0 `S1613 1 . 1 0 `S1622 1 . 1 0 `S1625 1 . 1 0 `S1628 1 . 1 0 `S1630 1 . 1 0 ]
+[v _RC1STAbits RC1STAbits `VES1633  1 e 1 @4011 ]
 "11159
 [v _TX1STA TX1STA `VEuc  1 e 1 @4012 ]
 "11530
@@ -748,22 +752,26 @@ U10Multisense 23
 [v _timer1ReloadVal timer1ReloadVal `VEui  1 e 2 0 ]
 "59
 [v _readwhat readwhat `i  1 e 2 0 ]
-"13 C:\EV16.git\trunk\PDU.X\PDU.h
+"15 C:\EV16.git\trunk\PDU.X\PDU.c
+[v _MCSOn MCSOn `uc  1 e 1 0 ]
+"15 C:\EV16.git\trunk\PDU.X\PDU.h
 [v _Currentcomp Currentcomp `[6]i  1 e 12 0 ]
-"14
-[v _data data `[12]uc  1 e 12 0 ]
-"15
-[v _CurrentADC CurrentADC `[6]i  1 e 12 0 ]
 "16
+[v _data data `[12]uc  1 e 12 0 ]
+"17
+[v _CurrentADC CurrentADC `[6]i  1 e 12 0 ]
+"18
 [v _Current Current `[6]i  1 e 12 0 ]
 "14 C:\EV16.git\trunk\PDU.X\Shift595.h
 [v _registers registers `[24]i  1 e 48 0 ]
 "10 C:\EV16.git\trunk\PDU.X\main.c
 [v _main main `(v  1 e 0 0 ]
 {
-"44
+"45
 [v main@i i `i  1 a 2 25 ]
-"58
+"46
+[v main@UP UP `uc  1 a 1 27 ]
+"64
 } 0
 "21 C:\EV16.git\trunk\PDU.X\Communications.c
 [v _updateComms updateComms `(v  1 e 0 0 ]
@@ -814,7 +822,7 @@ U10Multisense 23
 [v ToSend@where where `uc  1 a 1 wreg ]
 [v ToSend@where where `uc  1 a 1 wreg ]
 [v ToSend@what what `ui  1 p 2 0 ]
-[v ToSend@where where `uc  1 a 1 2 ]
+[v ToSend@where where `uc  1 a 1 39 ]
 "218
 } 0
 "223
@@ -1066,15 +1074,15 @@ U10Multisense 23
 {
 "80
 } 0
-"15 C:\EV16.git\trunk\PDU.X\PDU.c
+"17 C:\EV16.git\trunk\PDU.X\PDU.c
 [v _PDUStartup PDUStartup `(v  1 e 0 0 ]
 {
-"28
+"30
 } 0
-"142
+"145
 [v _Update Update `(v  1 e 0 0 ]
 {
-"144
+"147
 } 0
 "10 C:\EV16.git\trunk\PDU.X\Shift595.c
 [v _StartUp595 StartUp595 `(v  1 e 0 0 ]
@@ -1097,14 +1105,14 @@ U10Multisense 23
 [v writeRegisters@val val `i  1 a 2 35 ]
 "71
 } 0
-"32 C:\EV16.git\trunk\PDU.X\PDU.c
+"34 C:\EV16.git\trunk\PDU.X\PDU.c
 [v _EnableSlavePower EnableSlavePower `(v  1 e 0 0 ]
 {
-[v EnableSlavePower@slave slave `E5  1 a 1 wreg ]
-[v EnableSlavePower@slave slave `E5  1 a 1 wreg ]
+[v EnableSlavePower@slave slave `E6  1 a 1 wreg ]
+[v EnableSlavePower@slave slave `E6  1 a 1 wreg ]
 [v EnableSlavePower@onof onof `i  1 p 2 36 ]
-[v EnableSlavePower@slave slave `E5  1 a 1 38 ]
-"53
+[v EnableSlavePower@slave slave `E6  1 a 1 38 ]
+"56
 } 0
 "32 C:\EV16.git\trunk\PDU.X\Shift595.c
 [v _SetPin595 SetPin595 `(v  1 e 0 0 ]
@@ -1114,12 +1122,12 @@ U10Multisense 23
 [v SetPin595@value value `i  1 p 2 30 ]
 "34
 } 0
-"94 C:\EV16.git\trunk\PDU.X\PDU.c
+"97 C:\EV16.git\trunk\PDU.X\PDU.c
 [v _ComputeStorageData ComputeStorageData `(v  1 e 0 0 ]
 {
-"95
+"98
 [v ComputeStorageData@i i `i  1 a 2 29 ]
-"105
+"108
 } 0
 "143 C:\EV16.git\trunk\PDU.X\mcc_generated_files/memory.c
 [v _DATAEE_ReadByte DATAEE_ReadByte `(uc  1 e 1 0 ]
@@ -1130,7 +1138,12 @@ U10Multisense 23
 [v DATAEE_ReadByte@bAdd bAdd `uc  1 a 1 26 ]
 "153
 } 0
-"19 C:\EV16.git\trunk\PDU.X\CoolingControl.c
+"30 C:\EV16.git\trunk\PDU.X\CoolingControl.c
+[v _CoolingStop CoolingStop `(v  1 e 0 0 ]
+{
+"33
+} 0
+"19
 [v _CoolingStart CoolingStart `(v  1 e 0 0 ]
 {
 "24
@@ -1169,6 +1182,11 @@ U10Multisense 23
 {
 [v PWM4_LoadDutyValue@dutyValue dutyValue `ui  1 p 2 26 ]
 "88
+} 0
+"149 C:\EV16.git\trunk\PDU.X\PDU.c
+[v _CoolingCheck CoolingCheck `(uc  1 e 1 0 ]
+{
+"151
 } 0
 "67 C:\EV16.git\trunk\PDU.X\mcc_generated_files/interrupt_manager.c
 [v _INTERRUPT_InterruptManager INTERRUPT_InterruptManager `II(v  1 e 0 0 ]

@@ -73,33 +73,33 @@ void main(void) {
         //printf("ADC Volume = %d",ADCNT);
 
         if (time > 1) {
-                    
             LEDsetValue((throttle)*(24.0 / 100.0), LED_RED);
             LEDwriteDisplay(0x70);
             LEDsetValue((brake)*(24.0 / 100.0), LED_RED);
             LEDwriteDisplay(0x71);
-            INDICATOR_Toggle();
+            //INDICATOR_Toggle();
             time = 0;
         }
-//                for (uint8_t b=0; b<24; b++) {
-//                   LEDsetBar(b, LED_YELLOW);
-//                   LEDwriteDisplay(0x70);
-//                   LEDwriteDisplay(0x71);
-//                   LEDsetBar(b, LED_OFF);
-//                   LEDwriteDisplay(0x70);
-//                   LEDwriteDisplay(0x71);
-//                 }
-//                  for (uint8_t b=0; b<24; b++) {
-//                   LEDsetBar(b, LED_GREEN);
-//                   LEDwriteDisplay(0x70);
-//                   LEDwriteDisplay(0x71);
-//                   LEDsetBar(b, LED_OFF);
-//                   LEDwriteDisplay(0x70);
-//                   LEDwriteDisplay(0x71);
-//                 }
+        //        for (uint8_t b=0; b<24; b++) {
+        //           LEDsetBar(b, LED_YELLOW);
+        //           LEDwriteDisplay(0x70);
+        //           LEDwriteDisplay(0x71);
+        //           Delay(100);
+        //           LEDsetBar(b, LED_OFF);
+        //           LEDwriteDisplay(0x70);
+        //           LEDwriteDisplay(0x71);
+        //         }
+        //          for (uint8_t b=0; b<24; b++) {
+        //           LEDsetBar(b, LED_GREEN);
+        //           LEDwriteDisplay(0x70);
+        //           LEDwriteDisplay(0x71);
+        //           Delay(100);
+        //           LEDsetBar(b, LED_OFF);
+        //           LEDwriteDisplay(0x70);
+        //           LEDwriteDisplay(0x71);
+        //         }
 
         //INDICATOR_Toggle();
-        
 
         /*
         SetLEDOut(ADCNT++);
@@ -107,10 +107,10 @@ void main(void) {
             ADCNT = 0;
         }
          */
-//               if(GetButtonState(4) ==1)
-//               {
-//                   Delay(500);
-//               }
+              if(GetButtonState(4) == 0)
+              {
+                  INDICATOR_Toggle();
+              }
     }
 }
 

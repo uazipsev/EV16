@@ -3,6 +3,7 @@
 
 # 18 "CoolingControl.h"
 void CoolingStart(void);
+void CoolingStop(void);
 
 # 11 "DigiPot.h"
 void PotSetpoint(int new_point);
@@ -9432,4 +9433,9 @@ PWM4_LoadDutyValue(1000);
 
 void CoolingUpdate(void) {
 
+}
+
+void CoolingStop(void){
+PotClear();
+PWM4_LoadDutyValue(0);
 }

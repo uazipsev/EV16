@@ -66,7 +66,7 @@ void SPI2_Initialize(void)
     // Set the SPI2 module to the options selected in the User Interface
     
     // R_nW write_noTX; P stopbit_notdetected; S startbit_notdetected; BF RCinprocess_TXcomplete; SMP Middle; UA dontupdate; CKE Active to Idle; D_nA lastbyte_address; 
-    SSP2STAT = 0x40;
+    SSP2STAT = 0b01000000; //0x40;
     
     // SSPEN enabled; WCOL no_collision; CKP Idle:High, Active:Low; SSPM FOSC/16; SSPOV no_overflow; 
     SSP2CON1 = 0x22;
@@ -77,15 +77,17 @@ void SPI2_Initialize(void)
 
 char SPI2_Exchange8bit(char stuff)
 {
+    char data = 0;
     // Clear the Write Collision flag, to allow writing
-   // SSP2CON1bits.WCOL = 0;
+    data = SSP2BUF;
+    PIR1bits.SSP1IF =0;
+    
+    //SSP2CON1bits.WCOL = 0;
     SSP2BUF = stuff;
-
-    while(SSP2STATbits.BF == SPI_RX_IN_PROGRESS)
-    {
-    }
-
-    return (SSP2BUF);
+    while(!SSP2STATbits.BF);
+    //while(!PIR1bits.SSP1IF);
+    data = SSP2BUF;
+    return (data);
 }
 
 uint8_t SPI2_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut)

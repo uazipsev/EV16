@@ -17,7 +17,7 @@ extern "C" {
 
 
 
-#define START_BUTTON 0
+//#define START_BUTTON 0
 #define START_LED  0
 #define DASH_LED2  1
 

@@ -1,75 +1,77 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "16 Shift595.h
 [v _StartUp595 `(v ~T0 @X0 0 ef ]
-"20 PDU.c
-[c E5 1 2 3 4 5 6 1 0 .. ]
-[n E5 . DDS MCS SAS BMM TSS AUX ON OFF  ]
-"30 PDU.h
-[v _EnableSlavePower `(v ~T0 @X0 0 ef2`E5`i ]
-"33
+"22 PDU.c
+[c E6 1 2 3 4 5 6 1 0 .. ]
+[n E6 . DDS MCS SAS BMM TSS AUX ON OFF  ]
+"32 PDU.h
+[v _EnableSlavePower `(v ~T0 @X0 0 ef2`E6`i ]
+"35
 [v _Update `(v ~T0 @X0 0 ef ]
-"31
+"33
 [v _ComputeStorageData `(v ~T0 @X0 0 ef ]
 "17 Shift595.h
 [v _SetPin595 `(v ~T0 @X0 0 ef3`i`i`i ]
-"70 PDU.c
-[c E7895 29 30 31 16 22 23 .. ]
-[n E7895 . channel_CTMU channel_DAC channel_FVRBuf2 U5Multisense U8Multisense U10Multisense  ]
+"73 PDU.c
+[c E7896 29 30 31 16 22 23 .. ]
+[n E7896 . channel_CTMU channel_DAC channel_FVRBuf2 U5Multisense U8Multisense U10Multisense  ]
 "253 mcc_generated_files/adc.h
-[v _ADC_GetConversion `(ui ~T0 @X0 0 ef1`E7895 ]
+[v _ADC_GetConversion `(ui ~T0 @X0 0 ef1`E7896 ]
 "231 mcc_generated_files/memory.h
 [v _DATAEE_ReadByte `(uc ~T0 @X0 0 ef1`uc ]
 "18981 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
 [v _LATA3 `Vb ~T0 @X0 0 e@31819 ]
 "19 Shift595.h
 [v _writeRegisters `(v ~T0 @X0 0 ef ]
-"13 PDU.h
+[; ;stdbool.h: 12: typedef unsigned char bool;
+"15 PDU.h
 [v _Currentcomp `i ~T0 @X0 -> 6 `i e ]
 [i _Currentcomp
 :U ..
 -> 0 `i
 ..
 ]
-[; ;PDU.h: 13: int Currentcomp[6] = 0;
-"14
+[; ;PDU.h: 15: int Currentcomp[6] = 0;
+"16
 [v _data `uc ~T0 @X0 -> 12 `i e ]
 [i _data
 :U ..
 -> -> 0 `i `uc
 ..
 ]
-[; ;PDU.h: 14: char data[12] = 0;
-"15
+[; ;PDU.h: 16: char data[12] = 0;
+"17
 [v _CurrentADC `i ~T0 @X0 -> 6 `i e ]
 [i _CurrentADC
 :U ..
 -> 0 `i
 ..
 ]
-[; ;PDU.h: 15: int CurrentADC[6] = 0;
-"16
+[; ;PDU.h: 17: int CurrentADC[6] = 0;
+"18
 [v _Current `i ~T0 @X0 -> 6 `i e ]
 [i _Current
 :U ..
 -> 0 `i
 ..
 ]
-[; ;PDU.h: 16: int Current[6] = 0;
-[; ;PDU.h: 18: typedef enum {
-[; ;PDU.h: 19: DDS = 1,
-[; ;PDU.h: 20: MCS = 2,
-[; ;PDU.h: 21: SAS = 3,
-[; ;PDU.h: 22: BMM = 4,
-[; ;PDU.h: 23: TSS = 5,
-[; ;PDU.h: 24: AUX = 6,
-[; ;PDU.h: 25: ON = 1,
-[; ;PDU.h: 26: OFF = 0
-[; ;PDU.h: 27: } device;
-[; ;PDU.h: 29: extern void PDUStartup(void);
-[; ;PDU.h: 30: void EnableSlavePower(device slave, int onof);
-[; ;PDU.h: 31: void ComputeStorageData(void);
-[; ;PDU.h: 32: void ReadCurrent(char gather);
-[; ;PDU.h: 33: void Update(void);
+[; ;PDU.h: 18: int Current[6] = 0;
+[; ;PDU.h: 20: typedef enum {
+[; ;PDU.h: 21: DDS = 1,
+[; ;PDU.h: 22: MCS = 2,
+[; ;PDU.h: 23: SAS = 3,
+[; ;PDU.h: 24: BMM = 4,
+[; ;PDU.h: 25: TSS = 5,
+[; ;PDU.h: 26: AUX = 6,
+[; ;PDU.h: 27: ON = 1,
+[; ;PDU.h: 28: OFF = 0
+[; ;PDU.h: 29: } device;
+[; ;PDU.h: 31: extern void PDUStartup(void);
+[; ;PDU.h: 32: void EnableSlavePower(device slave, int onof);
+[; ;PDU.h: 33: void ComputeStorageData(void);
+[; ;PDU.h: 34: void ReadCurrent(char gather);
+[; ;PDU.h: 35: void Update(void);
+[; ;PDU.h: 36: bool CoolingCheck();
 "14 Shift595.h
 [v _registers `i ~T0 @X0 * -> 3 `i -> 8 `i e ]
 [; ;Shift595.h: 14: int registers[3 * 8];
@@ -7533,7 +7535,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 205: typedef uint32_t uintmax_t;
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
-[; ;stdbool.h: 12: typedef unsigned char bool;
 [; ;adc.h: 72: typedef uint16_t adc_result_t;
 [; ;adc.h: 86: typedef enum
 [; ;adc.h: 87: {
@@ -7558,235 +7559,244 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;memory.h: 205: void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
 [; ;memory.h: 231: uint8_t DATAEE_ReadByte(uint8_t bAdd);
 "15 PDU.c
+[v _MCSOn `uc ~T0 @X0 1 e ]
+[i _MCSOn
+-> -> 0 `i `uc
+]
+[; ;PDU.c: 15: bool MCSOn = 0;
+"17
 [v _PDUStartup `(v ~T0 @X0 1 ef ]
 {
-[; ;PDU.c: 15: void PDUStartup(void) {
+[; ;PDU.c: 17: void PDUStartup(void) {
 [e :U _PDUStartup ]
 [f ]
-[; ;PDU.c: 18: StartUp595();
-"18
-[e ( _StartUp595 ..  ]
-[; ;PDU.c: 20: EnableSlavePower(SAS, OFF);
+[; ;PDU.c: 20: StartUp595();
 "20
-[e ( _EnableSlavePower (2 , . `E5 2 -> . `E5 7 `i ]
-[; ;PDU.c: 21: EnableSlavePower(DDS, OFF);
-"21
-[e ( _EnableSlavePower (2 , . `E5 0 -> . `E5 7 `i ]
-[; ;PDU.c: 22: EnableSlavePower(MCS, OFF);
+[e ( _StartUp595 ..  ]
+[; ;PDU.c: 22: EnableSlavePower(SAS, OFF);
 "22
-[e ( _EnableSlavePower (2 , . `E5 1 -> . `E5 7 `i ]
-[; ;PDU.c: 23: EnableSlavePower(BMM, OFF);
+[e ( _EnableSlavePower (2 , . `E6 2 -> . `E6 7 `i ]
+[; ;PDU.c: 23: EnableSlavePower(DDS, OFF);
 "23
-[e ( _EnableSlavePower (2 , . `E5 3 -> . `E5 7 `i ]
-[; ;PDU.c: 24: EnableSlavePower(TSS, OFF);
+[e ( _EnableSlavePower (2 , . `E6 0 -> . `E6 7 `i ]
+[; ;PDU.c: 24: EnableSlavePower(MCS, OFF);
 "24
-[e ( _EnableSlavePower (2 , . `E5 4 -> . `E5 7 `i ]
-[; ;PDU.c: 25: Update();
+[e ( _EnableSlavePower (2 , . `E6 1 -> . `E6 7 `i ]
+[; ;PDU.c: 25: EnableSlavePower(BMM, OFF);
 "25
-[e ( _Update ..  ]
-[; ;PDU.c: 27: ComputeStorageData();
+[e ( _EnableSlavePower (2 , . `E6 3 -> . `E6 7 `i ]
+[; ;PDU.c: 26: EnableSlavePower(TSS, OFF);
+"26
+[e ( _EnableSlavePower (2 , . `E6 4 -> . `E6 7 `i ]
+[; ;PDU.c: 27: Update();
 "27
+[e ( _Update ..  ]
+[; ;PDU.c: 29: ComputeStorageData();
+"29
 [e ( _ComputeStorageData ..  ]
-[; ;PDU.c: 28: }
-"28
+[; ;PDU.c: 30: }
+"30
 [e :UE 1140 ]
 }
-"32
-[v _EnableSlavePower `(v ~T0 @X0 1 ef2`E5`i ]
+"34
+[v _EnableSlavePower `(v ~T0 @X0 1 ef2`E6`i ]
 {
-[; ;PDU.c: 32: void EnableSlavePower(device slave, int onof) {
+[; ;PDU.c: 34: void EnableSlavePower(device slave, int onof) {
 [e :U _EnableSlavePower ]
-[v _slave `E5 ~T0 @X0 1 r1 ]
+[v _slave `E6 ~T0 @X0 1 r1 ]
 [v _onof `i ~T0 @X0 1 r2 ]
 [f ]
-[; ;PDU.c: 33: switch (slave) {
-"33
+[; ;PDU.c: 35: switch (slave) {
+"35
 [e $U 1143  ]
 {
-[; ;PDU.c: 34: case SAS:
-"34
-[e :U 1144 ]
-[; ;PDU.c: 35: SetPin595(2, 6, onof);
-"35
-[e ( _SetPin595 (3 , , -> 2 `i -> 6 `i _onof ]
-[; ;PDU.c: 36: break;
+[; ;PDU.c: 36: case SAS:
 "36
-[e $U 1142  ]
-[; ;PDU.c: 37: case BMM:
+[e :U 1144 ]
+[; ;PDU.c: 37: SetPin595(2, 6, onof);
 "37
-[e :U 1145 ]
-[; ;PDU.c: 38: SetPin595(1, 1, onof);
+[e ( _SetPin595 (3 , , -> 2 `i -> 6 `i _onof ]
+[; ;PDU.c: 38: break;
 "38
-[e ( _SetPin595 (3 , , -> 1 `i -> 1 `i _onof ]
-[; ;PDU.c: 39: break;
+[e $U 1142  ]
+[; ;PDU.c: 39: case BMM:
 "39
-[e $U 1142  ]
-[; ;PDU.c: 40: case MCS:
+[e :U 1145 ]
+[; ;PDU.c: 40: SetPin595(1, 1, onof);
 "40
-[e :U 1146 ]
-[; ;PDU.c: 41: SetPin595(1, 6, onof);
+[e ( _SetPin595 (3 , , -> 1 `i -> 1 `i _onof ]
+[; ;PDU.c: 41: break;
 "41
-[e ( _SetPin595 (3 , , -> 1 `i -> 6 `i _onof ]
-[; ;PDU.c: 42: break;
-"42
 [e $U 1142  ]
-[; ;PDU.c: 43: case DDS:
+[; ;PDU.c: 42: case MCS:
+"42
+[e :U 1146 ]
+[; ;PDU.c: 43: SetPin595(1, 6, onof);
 "43
-[e :U 1147 ]
-[; ;PDU.c: 44: SetPin595(2, 1, onof);
+[e ( _SetPin595 (3 , , -> 1 `i -> 6 `i _onof ]
+[; ;PDU.c: 44: MCSOn = onof;
 "44
-[e ( _SetPin595 (3 , , -> 2 `i -> 1 `i _onof ]
+[e = _MCSOn -> _onof `uc ]
 [; ;PDU.c: 45: break;
 "45
 [e $U 1142  ]
-[; ;PDU.c: 46: case TSS:
+[; ;PDU.c: 46: case DDS:
 "46
-[e :U 1148 ]
-[; ;PDU.c: 47: SetPin595(3, 6, onof);
+[e :U 1147 ]
+[; ;PDU.c: 47: SetPin595(2, 1, onof);
 "47
-[e ( _SetPin595 (3 , , -> 3 `i -> 6 `i _onof ]
+[e ( _SetPin595 (3 , , -> 2 `i -> 1 `i _onof ]
 [; ;PDU.c: 48: break;
 "48
 [e $U 1142  ]
-[; ;PDU.c: 49: case AUX:
+[; ;PDU.c: 49: case TSS:
 "49
-[e :U 1149 ]
-[; ;PDU.c: 50: SetPin595(3, 1, onof);
+[e :U 1148 ]
+[; ;PDU.c: 50: SetPin595(3, 6, onof);
 "50
-[e ( _SetPin595 (3 , , -> 3 `i -> 1 `i _onof ]
+[e ( _SetPin595 (3 , , -> 3 `i -> 6 `i _onof ]
 [; ;PDU.c: 51: break;
 "51
 [e $U 1142  ]
+[; ;PDU.c: 52: case AUX:
 "52
-}
-[; ;PDU.c: 52: }
-[e $U 1142  ]
-"33
-[e :U 1143 ]
-[e [\ _slave , $ . `E5 2 1144
- , $ . `E5 3 1145
- , $ . `E5 1 1146
- , $ . `E5 0 1147
- , $ . `E5 4 1148
- , $ . `E5 5 1149
- 1142 ]
-"52
-[e :U 1142 ]
-[; ;PDU.c: 53: }
+[e :U 1149 ]
+[; ;PDU.c: 53: SetPin595(3, 1, onof);
 "53
+[e ( _SetPin595 (3 , , -> 3 `i -> 1 `i _onof ]
+[; ;PDU.c: 54: break;
+"54
+[e $U 1142  ]
+"55
+}
+[; ;PDU.c: 55: }
+[e $U 1142  ]
+"35
+[e :U 1143 ]
+[e [\ _slave , $ . `E6 2 1144
+ , $ . `E6 3 1145
+ , $ . `E6 1 1146
+ , $ . `E6 0 1147
+ , $ . `E6 4 1148
+ , $ . `E6 5 1149
+ 1142 ]
+"55
+[e :U 1142 ]
+[; ;PDU.c: 56: }
+"56
 [e :UE 1141 ]
 }
-"57
+"60
 [v _ReadCurrent `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;PDU.c: 57: void ReadCurrent(char gather) {
+[; ;PDU.c: 60: void ReadCurrent(char gather) {
 [e :U _ReadCurrent ]
 [v _gather `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;PDU.c: 58: if (gather) {
-"58
+[; ;PDU.c: 61: if (gather) {
+"61
 [e $ ! != -> _gather `i -> -> -> 0 `i `uc `i 1151  ]
 {
-[; ;PDU.c: 60: SetPin595(1, 4, ON);
-"60
-[e ( _SetPin595 (3 , , -> 1 `i -> 4 `i -> . `E5 6 `i ]
-[; ;PDU.c: 61: SetPin595(1, 3, OFF);
-"61
-[e ( _SetPin595 (3 , , -> 1 `i -> 3 `i -> . `E5 7 `i ]
-[; ;PDU.c: 62: SetPin595(1, 2, OFF);
-"62
-[e ( _SetPin595 (3 , , -> 1 `i -> 2 `i -> . `E5 7 `i ]
-[; ;PDU.c: 63: SetPin595(2, 4, ON);
+[; ;PDU.c: 63: SetPin595(1, 4, ON);
 "63
-[e ( _SetPin595 (3 , , -> 2 `i -> 4 `i -> . `E5 6 `i ]
-[; ;PDU.c: 64: SetPin595(2, 3, OFF);
+[e ( _SetPin595 (3 , , -> 1 `i -> 4 `i -> . `E6 6 `i ]
+[; ;PDU.c: 64: SetPin595(1, 3, OFF);
 "64
-[e ( _SetPin595 (3 , , -> 2 `i -> 3 `i -> . `E5 7 `i ]
-[; ;PDU.c: 65: SetPin595(2, 2, OFF);
+[e ( _SetPin595 (3 , , -> 1 `i -> 3 `i -> . `E6 7 `i ]
+[; ;PDU.c: 65: SetPin595(1, 2, OFF);
 "65
-[e ( _SetPin595 (3 , , -> 2 `i -> 2 `i -> . `E5 7 `i ]
-[; ;PDU.c: 66: SetPin595(3, 4, ON);
+[e ( _SetPin595 (3 , , -> 1 `i -> 2 `i -> . `E6 7 `i ]
+[; ;PDU.c: 66: SetPin595(2, 4, ON);
 "66
-[e ( _SetPin595 (3 , , -> 3 `i -> 4 `i -> . `E5 6 `i ]
-[; ;PDU.c: 67: SetPin595(3, 3, OFF);
+[e ( _SetPin595 (3 , , -> 2 `i -> 4 `i -> . `E6 6 `i ]
+[; ;PDU.c: 67: SetPin595(2, 3, OFF);
 "67
-[e ( _SetPin595 (3 , , -> 3 `i -> 3 `i -> . `E5 7 `i ]
-[; ;PDU.c: 68: SetPin595(3, 2, OFF);
+[e ( _SetPin595 (3 , , -> 2 `i -> 3 `i -> . `E6 7 `i ]
+[; ;PDU.c: 68: SetPin595(2, 2, OFF);
 "68
-[e ( _SetPin595 (3 , , -> 3 `i -> 2 `i -> . `E5 7 `i ]
-[; ;PDU.c: 69: Update();
+[e ( _SetPin595 (3 , , -> 2 `i -> 2 `i -> . `E6 7 `i ]
+[; ;PDU.c: 69: SetPin595(3, 4, ON);
 "69
-[e ( _Update ..  ]
-[; ;PDU.c: 70: CurrentADC[0] = ADC_GetConversion(U5Multisense);
+[e ( _SetPin595 (3 , , -> 3 `i -> 4 `i -> . `E6 6 `i ]
+[; ;PDU.c: 70: SetPin595(3, 3, OFF);
 "70
-[e = *U + &U _CurrentADC * -> -> -> 0 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7895 3 `i ]
-[; ;PDU.c: 71: CurrentADC[2] = ADC_GetConversion(U8Multisense);
+[e ( _SetPin595 (3 , , -> 3 `i -> 3 `i -> . `E6 7 `i ]
+[; ;PDU.c: 71: SetPin595(3, 2, OFF);
 "71
-[e = *U + &U _CurrentADC * -> -> -> 2 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7895 4 `i ]
-[; ;PDU.c: 72: CurrentADC[4] = ADC_GetConversion(U10Multisense);
+[e ( _SetPin595 (3 , , -> 3 `i -> 2 `i -> . `E6 7 `i ]
+[; ;PDU.c: 72: Update();
 "72
-[e = *U + &U _CurrentADC * -> -> -> 4 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7895 5 `i ]
+[e ( _Update ..  ]
+[; ;PDU.c: 73: CurrentADC[0] = ADC_GetConversion(U5Multisense);
 "73
+[e = *U + &U _CurrentADC * -> -> -> 0 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7896 3 `i ]
+[; ;PDU.c: 74: CurrentADC[2] = ADC_GetConversion(U8Multisense);
+"74
+[e = *U + &U _CurrentADC * -> -> -> 2 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7896 4 `i ]
+[; ;PDU.c: 75: CurrentADC[4] = ADC_GetConversion(U10Multisense);
+"75
+[e = *U + &U _CurrentADC * -> -> -> 4 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7896 5 `i ]
+"76
 }
-[; ;PDU.c: 73: } else {
+[; ;PDU.c: 76: } else {
 [e $U 1152  ]
 [e :U 1151 ]
 {
-[; ;PDU.c: 75: SetPin595(1, 4, ON);
-"75
-[e ( _SetPin595 (3 , , -> 1 `i -> 4 `i -> . `E5 6 `i ]
-[; ;PDU.c: 76: SetPin595(1, 3, OFF);
-"76
-[e ( _SetPin595 (3 , , -> 1 `i -> 3 `i -> . `E5 7 `i ]
-[; ;PDU.c: 77: SetPin595(1, 2, ON);
-"77
-[e ( _SetPin595 (3 , , -> 1 `i -> 2 `i -> . `E5 6 `i ]
-[; ;PDU.c: 78: SetPin595(2, 4, ON);
+[; ;PDU.c: 78: SetPin595(1, 4, ON);
 "78
-[e ( _SetPin595 (3 , , -> 2 `i -> 4 `i -> . `E5 6 `i ]
-[; ;PDU.c: 79: SetPin595(2, 3, OFF);
+[e ( _SetPin595 (3 , , -> 1 `i -> 4 `i -> . `E6 6 `i ]
+[; ;PDU.c: 79: SetPin595(1, 3, OFF);
 "79
-[e ( _SetPin595 (3 , , -> 2 `i -> 3 `i -> . `E5 7 `i ]
-[; ;PDU.c: 80: SetPin595(2, 2, ON);
+[e ( _SetPin595 (3 , , -> 1 `i -> 3 `i -> . `E6 7 `i ]
+[; ;PDU.c: 80: SetPin595(1, 2, ON);
 "80
-[e ( _SetPin595 (3 , , -> 2 `i -> 2 `i -> . `E5 6 `i ]
-[; ;PDU.c: 81: SetPin595(3, 4, ON);
+[e ( _SetPin595 (3 , , -> 1 `i -> 2 `i -> . `E6 6 `i ]
+[; ;PDU.c: 81: SetPin595(2, 4, ON);
 "81
-[e ( _SetPin595 (3 , , -> 3 `i -> 4 `i -> . `E5 6 `i ]
-[; ;PDU.c: 82: SetPin595(3, 3, OFF);
+[e ( _SetPin595 (3 , , -> 2 `i -> 4 `i -> . `E6 6 `i ]
+[; ;PDU.c: 82: SetPin595(2, 3, OFF);
 "82
-[e ( _SetPin595 (3 , , -> 3 `i -> 3 `i -> . `E5 7 `i ]
-[; ;PDU.c: 83: SetPin595(3, 2, ON);
+[e ( _SetPin595 (3 , , -> 2 `i -> 3 `i -> . `E6 7 `i ]
+[; ;PDU.c: 83: SetPin595(2, 2, ON);
 "83
-[e ( _SetPin595 (3 , , -> 3 `i -> 2 `i -> . `E5 6 `i ]
-[; ;PDU.c: 84: Update();
+[e ( _SetPin595 (3 , , -> 2 `i -> 2 `i -> . `E6 6 `i ]
+[; ;PDU.c: 84: SetPin595(3, 4, ON);
 "84
-[e ( _Update ..  ]
-[; ;PDU.c: 85: CurrentADC[1] = ADC_GetConversion(U5Multisense);
+[e ( _SetPin595 (3 , , -> 3 `i -> 4 `i -> . `E6 6 `i ]
+[; ;PDU.c: 85: SetPin595(3, 3, OFF);
 "85
-[e = *U + &U _CurrentADC * -> -> -> 1 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7895 3 `i ]
-[; ;PDU.c: 86: CurrentADC[3] = ADC_GetConversion(U8Multisense);
+[e ( _SetPin595 (3 , , -> 3 `i -> 3 `i -> . `E6 7 `i ]
+[; ;PDU.c: 86: SetPin595(3, 2, ON);
 "86
-[e = *U + &U _CurrentADC * -> -> -> 3 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7895 4 `i ]
-[; ;PDU.c: 87: CurrentADC[5] = ADC_GetConversion(U10Multisense);
+[e ( _SetPin595 (3 , , -> 3 `i -> 2 `i -> . `E6 6 `i ]
+[; ;PDU.c: 87: Update();
 "87
-[e = *U + &U _CurrentADC * -> -> -> 5 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7895 5 `i ]
+[e ( _Update ..  ]
+[; ;PDU.c: 88: CurrentADC[1] = ADC_GetConversion(U5Multisense);
 "88
+[e = *U + &U _CurrentADC * -> -> -> 1 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7896 3 `i ]
+[; ;PDU.c: 89: CurrentADC[3] = ADC_GetConversion(U8Multisense);
+"89
+[e = *U + &U _CurrentADC * -> -> -> 3 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7896 4 `i ]
+[; ;PDU.c: 90: CurrentADC[5] = ADC_GetConversion(U10Multisense);
+"90
+[e = *U + &U _CurrentADC * -> -> -> 5 `i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> ( _ADC_GetConversion (1 . `E7896 5 `i ]
+"91
 }
 [e :U 1152 ]
-[; ;PDU.c: 88: }
-[; ;PDU.c: 89: }
-"89
+[; ;PDU.c: 91: }
+[; ;PDU.c: 92: }
+"92
 [e :UE 1150 ]
 }
-"94
+"97
 [v _ComputeStorageData `(v ~T0 @X0 1 ef ]
 {
-[; ;PDU.c: 94: void ComputeStorageData(void) {
+[; ;PDU.c: 97: void ComputeStorageData(void) {
 [e :U _ComputeStorageData ]
 [f ]
-[; ;PDU.c: 95: for (int i = 0; i < 12; i++) {
-"95
+[; ;PDU.c: 98: for (int i = 0; i < 12; i++) {
+"98
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
@@ -7794,48 +7804,48 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 1155  ]
 [e :U 1154 ]
 {
-[; ;PDU.c: 96: data[i] = DATAEE_ReadByte(i);
-"96
+[; ;PDU.c: 99: data[i] = DATAEE_ReadByte(i);
+"99
 [e = *U + &U _data * -> -> _i `ui `ux -> -> # *U &U _data `ui `ux ( _DATAEE_ReadByte (1 -> _i `uc ]
-"97
+"100
 }
-"95
+"98
 [e ++ _i -> 1 `i ]
 [e $ < _i -> 12 `i 1154  ]
 [e :U 1155 ]
-"97
-}
-[; ;PDU.c: 97: }
-[; ;PDU.c: 98: Currentcomp[0] = ((data[0] << 8) | data[1]);
-"98
-[e = *U + &U _Currentcomp * -> -> -> 0 `i `ui `ux -> -> # *U &U _Currentcomp `ui `ux | << -> *U + &U _data * -> -> -> 0 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 1 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
-[; ;PDU.c: 99: Currentcomp[1] = ((data[2] << 8) | data[3]);
-"99
-[e = *U + &U _Currentcomp * -> -> -> 1 `i `ui `ux -> -> # *U &U _Currentcomp `ui `ux | << -> *U + &U _data * -> -> -> 2 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 3 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
-[; ;PDU.c: 100: Currentcomp[2] = ((data[4] << 8) | data[5]);
 "100
-[e = *U + &U _Currentcomp * -> -> -> 2 `i `ui `ux -> -> # *U &U _Currentcomp `ui `ux | << -> *U + &U _data * -> -> -> 4 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 5 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
-[; ;PDU.c: 101: Currentcomp[3] = ((data[6] << 8) | data[7]);
+}
+[; ;PDU.c: 100: }
+[; ;PDU.c: 101: Currentcomp[0] = ((data[0] << 8) | data[1]);
 "101
-[e = *U + &U _Currentcomp * -> -> -> 3 `i `ui `ux -> -> # *U &U _Currentcomp `ui `ux | << -> *U + &U _data * -> -> -> 6 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 7 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
-[; ;PDU.c: 102: Currentcomp[4] = ((data[8] << 8) | data[9]);
+[e = *U + &U _Currentcomp * -> -> -> 0 `i `ui `ux -> -> # *U &U _Currentcomp `ui `ux | << -> *U + &U _data * -> -> -> 0 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 1 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
+[; ;PDU.c: 102: Currentcomp[1] = ((data[2] << 8) | data[3]);
 "102
-[e = *U + &U _Currentcomp * -> -> -> 4 `i `ui `ux -> -> # *U &U _Currentcomp `ui `ux | << -> *U + &U _data * -> -> -> 8 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 9 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
-[; ;PDU.c: 103: Currentcomp[5] = ((data[10] << 8) | data[11]);
+[e = *U + &U _Currentcomp * -> -> -> 1 `i `ui `ux -> -> # *U &U _Currentcomp `ui `ux | << -> *U + &U _data * -> -> -> 2 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 3 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
+[; ;PDU.c: 103: Currentcomp[2] = ((data[4] << 8) | data[5]);
 "103
-[e = *U + &U _Currentcomp * -> -> -> 5 `i `ui `ux -> -> # *U &U _Currentcomp `ui `ux | << -> *U + &U _data * -> -> -> 10 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 11 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
-[; ;PDU.c: 105: }
+[e = *U + &U _Currentcomp * -> -> -> 2 `i `ui `ux -> -> # *U &U _Currentcomp `ui `ux | << -> *U + &U _data * -> -> -> 4 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 5 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
+[; ;PDU.c: 104: Currentcomp[3] = ((data[6] << 8) | data[7]);
+"104
+[e = *U + &U _Currentcomp * -> -> -> 3 `i `ui `ux -> -> # *U &U _Currentcomp `ui `ux | << -> *U + &U _data * -> -> -> 6 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 7 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
+[; ;PDU.c: 105: Currentcomp[4] = ((data[8] << 8) | data[9]);
 "105
+[e = *U + &U _Currentcomp * -> -> -> 4 `i `ui `ux -> -> # *U &U _Currentcomp `ui `ux | << -> *U + &U _data * -> -> -> 8 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 9 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
+[; ;PDU.c: 106: Currentcomp[5] = ((data[10] << 8) | data[11]);
+"106
+[e = *U + &U _Currentcomp * -> -> -> 5 `i `ui `ux -> -> # *U &U _Currentcomp `ui `ux | << -> *U + &U _data * -> -> -> 10 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 11 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
+[; ;PDU.c: 108: }
+"108
 [e :UE 1153 ]
 }
-"109
+"112
 [v _FuseSystem `(v ~T0 @X0 1 ef ]
 {
-[; ;PDU.c: 109: void FuseSystem() {
+[; ;PDU.c: 112: void FuseSystem() {
 [e :U _FuseSystem ]
 [f ]
-[; ;PDU.c: 110: for (int i = 0; i < 6; i++) {
-"110
+[; ;PDU.c: 113: for (int i = 0; i < 6; i++) {
+"113
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
@@ -7843,20 +7853,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 1159  ]
 [e :U 1158 ]
 {
-[; ;PDU.c: 111: Current[i] = CurrentADC[i]*146;
-"111
+[; ;PDU.c: 114: Current[i] = CurrentADC[i]*146;
+"114
 [e = *U + &U _Current * -> -> _i `ui `ux -> -> # *U &U _Current `ui `ux * *U + &U _CurrentADC * -> -> _i `ui `ux -> -> # *U &U _CurrentADC `ui `ux -> 146 `i ]
-"113
+"116
 }
-"110
+"113
 [e ++ _i -> 1 `i ]
 [e $ < _i -> 6 `i 1158  ]
 [e :U 1159 ]
-"113
+"116
 }
-[; ;PDU.c: 113: }
-[; ;PDU.c: 114: for (int i = 0; i < 6; i++) {
-"114
+[; ;PDU.c: 116: }
+[; ;PDU.c: 117: for (int i = 0; i < 6; i++) {
+"117
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
@@ -7864,80 +7874,80 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 1162  ]
 [e :U 1161 ]
 {
-[; ;PDU.c: 115: if (Current[i] > Currentcomp[i]) {
-"115
+[; ;PDU.c: 118: if (Current[i] > Currentcomp[i]) {
+"118
 [e $ ! > *U + &U _Current * -> -> _i `ui `ux -> -> # *U &U _Current `ui `ux *U + &U _Currentcomp * -> -> _i `ui `ux -> -> # *U &U _Currentcomp `ui `ux 1164  ]
 {
-[; ;PDU.c: 117: do { LATA3 = 1; } while(0);
-"117
+[; ;PDU.c: 120: do { LATA3 = 1; } while(0);
+"120
 [e :U 1167 ]
 {
 [e = _LATA3 -> -> 1 `i `b ]
 }
 [e :U 1166 ]
-[; ;PDU.c: 118: switch(i){
-"118
+[; ;PDU.c: 121: switch(i){
+"121
 [e $U 1169  ]
 {
-[; ;PDU.c: 119: case 0:
-"119
-[e :U 1170 ]
-[; ;PDU.c: 120: EnableSlavePower(SAS, 0);
-"120
-[e ( _EnableSlavePower (2 , . `E5 2 -> 0 `i ]
-[; ;PDU.c: 121: break;
-"121
-[e $U 1168  ]
-[; ;PDU.c: 122: case 1:
+[; ;PDU.c: 122: case 0:
 "122
-[e :U 1171 ]
-[; ;PDU.c: 123: EnableSlavePower(BMM, 0);
+[e :U 1170 ]
+[; ;PDU.c: 123: EnableSlavePower(SAS, 0);
 "123
-[e ( _EnableSlavePower (2 , . `E5 3 -> 0 `i ]
+[e ( _EnableSlavePower (2 , . `E6 2 -> 0 `i ]
 [; ;PDU.c: 124: break;
 "124
 [e $U 1168  ]
-[; ;PDU.c: 125: case 2:
+[; ;PDU.c: 125: case 1:
 "125
-[e :U 1172 ]
-[; ;PDU.c: 126: EnableSlavePower(MCS, 0);
+[e :U 1171 ]
+[; ;PDU.c: 126: EnableSlavePower(BMM, 0);
 "126
-[e ( _EnableSlavePower (2 , . `E5 1 -> 0 `i ]
+[e ( _EnableSlavePower (2 , . `E6 3 -> 0 `i ]
 [; ;PDU.c: 127: break;
 "127
 [e $U 1168  ]
-[; ;PDU.c: 128: case 3:
+[; ;PDU.c: 128: case 2:
 "128
-[e :U 1173 ]
-[; ;PDU.c: 129: EnableSlavePower(DDS, 0);
+[e :U 1172 ]
+[; ;PDU.c: 129: EnableSlavePower(MCS, 0);
 "129
-[e ( _EnableSlavePower (2 , . `E5 0 -> 0 `i ]
+[e ( _EnableSlavePower (2 , . `E6 1 -> 0 `i ]
 [; ;PDU.c: 130: break;
 "130
 [e $U 1168  ]
-[; ;PDU.c: 131: case 4:
+[; ;PDU.c: 131: case 3:
 "131
-[e :U 1174 ]
-[; ;PDU.c: 132: EnableSlavePower(TSS, 0);
+[e :U 1173 ]
+[; ;PDU.c: 132: EnableSlavePower(DDS, 0);
 "132
-[e ( _EnableSlavePower (2 , . `E5 4 -> 0 `i ]
+[e ( _EnableSlavePower (2 , . `E6 0 -> 0 `i ]
 [; ;PDU.c: 133: break;
 "133
 [e $U 1168  ]
-[; ;PDU.c: 134: case 5:
+[; ;PDU.c: 134: case 4:
 "134
-[e :U 1175 ]
-[; ;PDU.c: 135: EnableSlavePower(AUX, 0);
+[e :U 1174 ]
+[; ;PDU.c: 135: EnableSlavePower(TSS, 0);
 "135
-[e ( _EnableSlavePower (2 , . `E5 5 -> 0 `i ]
+[e ( _EnableSlavePower (2 , . `E6 4 -> 0 `i ]
 [; ;PDU.c: 136: break;
 "136
 [e $U 1168  ]
+[; ;PDU.c: 137: case 5:
 "137
-}
-[; ;PDU.c: 137: }
+[e :U 1175 ]
+[; ;PDU.c: 138: EnableSlavePower(AUX, 0);
+"138
+[e ( _EnableSlavePower (2 , . `E6 5 -> 0 `i ]
+[; ;PDU.c: 139: break;
+"139
 [e $U 1168  ]
-"118
+"140
+}
+[; ;PDU.c: 140: }
+[e $U 1168  ]
+"121
 [e :U 1169 ]
 [e [\ _i , $ -> 0 `i 1170
  , $ -> 1 `i 1171
@@ -7946,35 +7956,49 @@ Version 3.2 HI-TECH Software Intermediate Code
  , $ -> 4 `i 1174
  , $ -> 5 `i 1175
  1168 ]
-"137
+"140
 [e :U 1168 ]
-"138
+"141
 }
 [e :U 1164 ]
-"139
+"142
 }
-"114
+"117
 [e ++ _i -> 1 `i ]
 [e $ < _i -> 6 `i 1161  ]
 [e :U 1162 ]
-"139
+"142
 }
-[; ;PDU.c: 138: }
-[; ;PDU.c: 139: }
-[; ;PDU.c: 140: }
-"140
+[; ;PDU.c: 141: }
+[; ;PDU.c: 142: }
+[; ;PDU.c: 143: }
+"143
 [e :UE 1157 ]
 }
-"142
+"145
 [v _Update `(v ~T0 @X0 1 ef ]
 {
-[; ;PDU.c: 142: void Update(void) {
+[; ;PDU.c: 145: void Update(void) {
 [e :U _Update ]
 [f ]
-[; ;PDU.c: 143: writeRegisters();
-"143
+[; ;PDU.c: 146: writeRegisters();
+"146
 [e ( _writeRegisters ..  ]
-[; ;PDU.c: 144: }
-"144
+[; ;PDU.c: 147: }
+"147
 [e :UE 1176 ]
+}
+"149
+[v _CoolingCheck `(uc ~T0 @X0 1 ef ]
+{
+[; ;PDU.c: 149: bool CoolingCheck(){
+[e :U _CoolingCheck ]
+[f ]
+[; ;PDU.c: 150: return MCSOn;
+"150
+[e ) _MCSOn ]
+[e $UE 1177  ]
+[; ;PDU.c: 151: }
+"151
+[e :UE 1177 ]
 }

@@ -3,4 +3,5 @@
  Communications.c  \
 ADDRESSING.h  \
 FastTransfer.h  \
+mcc_generated_files/pin_manager.h  \
 Communications.h 

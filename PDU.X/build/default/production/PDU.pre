@@ -1,7 +1,10 @@
 
 # 1 "PDU.c"
 
-# 13 "PDU.h"
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\stdbool.h"
+typedef unsigned char bool;
+
+# 15 "PDU.h"
 int Currentcomp[6] = 0;
 char data[12] = 0;
 int CurrentADC[6] = 0;
@@ -23,6 +26,7 @@ void EnableSlavePower(device slave, int onof);
 void ComputeStorageData(void);
 void ReadCurrent(char gather);
 void Update(void);
+bool CoolingCheck();
 
 # 14 "Shift595.h"
 int registers[3 * 8];
@@ -9443,9 +9447,6 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "C:\Program Files (x86)\Microchip\xc8\v1.35\include\stdbool.h"
-typedef unsigned char bool;
-
 # 72 "mcc_generated_files/adc.h"
 typedef uint16_t adc_result_t;
 
@@ -9500,6 +9501,8 @@ void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
 uint8_t DATAEE_ReadByte(uint8_t bAdd);
 
 # 15 "PDU.c"
+bool MCSOn = 0;
+
 void PDUStartup(void) {
 
 
@@ -9527,6 +9530,7 @@ SetPin595(1, 1, onof);
 break;
 case MCS:
 SetPin595(1, 6, onof);
+MCSOn = onof;
 break;
 case DDS:
 SetPin595(2, 1, onof);
@@ -9629,4 +9633,8 @@ break;
 
 void Update(void) {
 writeRegisters();
+}
+
+bool CoolingCheck(){
+return MCSOn;
 }

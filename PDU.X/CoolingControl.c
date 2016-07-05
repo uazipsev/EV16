@@ -26,3 +26,8 @@ void CoolingStart() {
 void CoolingUpdate(void) {
 
 }
+
+void CoolingStop(void){
+   PotClear(); 
+   PWM4_LoadDutyValue(0);
+}

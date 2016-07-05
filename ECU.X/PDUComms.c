@@ -40,7 +40,7 @@ bool receiveCommPDU() {
         if (receiveArray[RESPONSE_ADDRESS] == PDU_ADDRESS) {
             readyToSendPDU = true;
             PDUTimer = 0;
-            INDICATOR ^= 1;
+            //INDICATOR ^= 1;
             return true;
         } else return false;
     } else return false;

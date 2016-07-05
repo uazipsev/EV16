@@ -3,10 +3,12 @@
 #include "FastTransfer.h"
 #include "Communications.h"
 #include "ADDRESSING.h"
+#include "mcc_generated_files/pin_manager.h"
 
 void updateComms() {
   
     if (receiveData()) {
+        //INDICATOR_Toggle();
         //if (receiveArray[RESPONSE_ADDRESS] == ECU_ADDRESS) {
         respondECU();
         //}

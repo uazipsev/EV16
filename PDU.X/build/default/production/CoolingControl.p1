@@ -6,6 +6,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "124 mcc_generated_files/pwm4.h
 [v _PWM4_LoadDutyValue `(v ~T0 @X0 0 ef1`ui ]
 [; ;CoolingControl.h: 18: void CoolingStart(void);
+[; ;CoolingControl.h: 19: void CoolingStop(void);
 [; ;DigiPot.h: 11: void PotSetpoint(int new_point);
 [; ;DigiPot.h: 12: void PotClear(void);
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -7493,4 +7494,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;CoolingControl.c: 28: }
 "28
 [e :UE 1141 ]
+}
+"30
+[v _CoolingStop `(v ~T0 @X0 1 ef ]
+{
+[; ;CoolingControl.c: 30: void CoolingStop(void){
+[e :U _CoolingStop ]
+[f ]
+[; ;CoolingControl.c: 31: PotClear();
+"31
+[e ( _PotClear ..  ]
+[; ;CoolingControl.c: 32: PWM4_LoadDutyValue(0);
+"32
+[e ( _PWM4_LoadDutyValue (1 -> -> 0 `i `ui ]
+[; ;CoolingControl.c: 33: }
+"33
+[e :UE 1142 ]
 }

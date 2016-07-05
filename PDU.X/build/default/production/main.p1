@@ -5,10 +5,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p mainexit ]
 "73 mcc_generated_files/mcc.h
 [v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
-"29 PDU.h
+"31 PDU.h
 [v _PDUStartup `(v ~T0 @X0 0 ef ]
-"18 CoolingControl.h
-[v _CoolingStart `(v ~T0 @X0 0 ef ]
 "17609 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
 [s S1110 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S1110 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
@@ -29,7 +27,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1109 . . . . . . ]
 "17650
 [v _INTCONbits `VS1109 ~T0 @X0 0 e@4082 ]
-"8046
+"11 DigiPot.h
+[v _PotSetpoint `(v ~T0 @X0 0 ef1`i ]
+"124 mcc_generated_files/../pwm4.h
+[v _PWM4_LoadDutyValue `(v ~T0 @X0 0 ef1`ui ]
+"8046 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
 [s S489 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S489 . LATC0 LATC1 LATC2 LATC3 LATC4 LATC5 LATC6 LATC7 ]
 "8056
@@ -63,8 +65,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LATCbits `VS488 ~T0 @X0 0 e@3979 ]
 "12 Communications.h
 [v _updateComms `(v ~T0 @X0 0 ef ]
-"11 DigiPot.h
-[v _PotSetpoint `(v ~T0 @X0 0 ef1`i ]
+"36 PDU.h
+[v _CoolingCheck `(uc ~T0 @X0 0 ef ]
+"18 CoolingControl.h
+[v _CoolingStart `(v ~T0 @X0 0 ef ]
+"19
+[v _CoolingStop `(v ~T0 @X0 0 ef ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -7683,59 +7689,61 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mcc.h: 97: extern void Send_put(unsigned char _data);
 [; ;mcc.h: 99: extern volatile int receiveArray[20];
 [; ;Functions.h: 11: extern void Delay(long int wait);
-"13 PDU.h
+"15 PDU.h
 [v _Currentcomp `i ~T0 @X0 -> 6 `i e ]
 [i _Currentcomp
 :U ..
 -> 0 `i
 ..
 ]
-[; ;PDU.h: 13: int Currentcomp[6] = 0;
-"14
+[; ;PDU.h: 15: int Currentcomp[6] = 0;
+"16
 [v _data `uc ~T0 @X0 -> 12 `i e ]
 [i _data
 :U ..
 -> -> 0 `i `uc
 ..
 ]
-[; ;PDU.h: 14: char data[12] = 0;
-"15
+[; ;PDU.h: 16: char data[12] = 0;
+"17
 [v _CurrentADC `i ~T0 @X0 -> 6 `i e ]
 [i _CurrentADC
 :U ..
 -> 0 `i
 ..
 ]
-[; ;PDU.h: 15: int CurrentADC[6] = 0;
-"16
+[; ;PDU.h: 17: int CurrentADC[6] = 0;
+"18
 [v _Current `i ~T0 @X0 -> 6 `i e ]
 [i _Current
 :U ..
 -> 0 `i
 ..
 ]
-[; ;PDU.h: 16: int Current[6] = 0;
-[; ;PDU.h: 18: typedef enum {
-[; ;PDU.h: 19: DDS = 1,
-[; ;PDU.h: 20: MCS = 2,
-[; ;PDU.h: 21: SAS = 3,
-[; ;PDU.h: 22: BMM = 4,
-[; ;PDU.h: 23: TSS = 5,
-[; ;PDU.h: 24: AUX = 6,
-[; ;PDU.h: 25: ON = 1,
-[; ;PDU.h: 26: OFF = 0
-[; ;PDU.h: 27: } device;
-[; ;PDU.h: 29: extern void PDUStartup(void);
-[; ;PDU.h: 30: void EnableSlavePower(device slave, int onof);
-[; ;PDU.h: 31: void ComputeStorageData(void);
-[; ;PDU.h: 32: void ReadCurrent(char gather);
-[; ;PDU.h: 33: void Update(void);
+[; ;PDU.h: 18: int Current[6] = 0;
+[; ;PDU.h: 20: typedef enum {
+[; ;PDU.h: 21: DDS = 1,
+[; ;PDU.h: 22: MCS = 2,
+[; ;PDU.h: 23: SAS = 3,
+[; ;PDU.h: 24: BMM = 4,
+[; ;PDU.h: 25: TSS = 5,
+[; ;PDU.h: 26: AUX = 6,
+[; ;PDU.h: 27: ON = 1,
+[; ;PDU.h: 28: OFF = 0
+[; ;PDU.h: 29: } device;
+[; ;PDU.h: 31: extern void PDUStartup(void);
+[; ;PDU.h: 32: void EnableSlavePower(device slave, int onof);
+[; ;PDU.h: 33: void ComputeStorageData(void);
+[; ;PDU.h: 34: void ReadCurrent(char gather);
+[; ;PDU.h: 35: void Update(void);
+[; ;PDU.h: 36: bool CoolingCheck();
 [; ;Communications.h: 11: extern volatile int receiveArray[20];
 [; ;Communications.h: 12: void updateComms();
 [; ;Communications.h: 13: extern void sendData(unsigned char whereToSend);
 [; ;Communications.h: 14: extern bool receiveData();
 [; ;Communications.h: 15: extern void ToSend(const unsigned char where, const unsigned int what);
 [; ;CoolingControl.h: 18: void CoolingStart(void);
+[; ;CoolingControl.h: 19: void CoolingStop(void);
 [; ;DigiPot.h: 11: void PotSetpoint(int new_point);
 [; ;DigiPot.h: 12: void PotClear(void);
 "10 main.c
@@ -7750,51 +7758,72 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 13: PDUStartup();
 "13
 [e ( _PDUStartup ..  ]
-[; ;main.c: 14: CoolingStart();
-"14
-[e ( _CoolingStart ..  ]
 [; ;main.c: 32: (INTCONbits.GIE = 1);
 "32
 [e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
 [; ;main.c: 35: (INTCONbits.PEIE = 1);
 "35
 [e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
-[; ;main.c: 43: LATCbits.LATC5 = 0;
+[; ;main.c: 42: PotSetpoint(0);
+"42
+[e ( _PotSetpoint (1 -> 0 `i ]
+[; ;main.c: 43: PWM4_LoadDutyValue(0);
 "43
-[e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
+[e ( _PWM4_LoadDutyValue (1 -> -> 0 `i `ui ]
+[; ;main.c: 44: LATCbits.LATC5 = 0;
 "44
-[v _i `i ~T0 @X0 1 a ]
-[; ;main.c: 44: int i = 0;
-[e = _i -> 0 `i ]
-[; ;main.c: 45: while (1) {
+[e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
 "45
+[v _i `i ~T0 @X0 1 a ]
+[; ;main.c: 45: int i = 0;
+[e = _i -> 0 `i ]
+"46
+[v _UP `uc ~T0 @X0 1 a ]
+[; ;main.c: 46: bool UP = 0;
+[e = _UP -> -> 0 `i `uc ]
+[; ;main.c: 47: while (1) {
+"47
 [e :U 1148 ]
 {
-[; ;main.c: 52: updateComms();
-"52
-[e ( _updateComms ..  ]
-[; ;main.c: 53: PotSetpoint(i++);
-"53
-[e ( _PotSetpoint (1 ++ _i -> 1 `i ]
-[; ;main.c: 54: if (i>32){
+[; ;main.c: 54: updateComms();
 "54
-[e $ ! > _i -> 32 `i 1150  ]
-{
-[; ;main.c: 55: i = 0;
+[e ( _updateComms ..  ]
+[; ;main.c: 55: if(CoolingCheck() && UP == 0){
 "55
-[e = _i -> 0 `i ]
+[e $ ! && != -> ( _CoolingCheck ..  `i -> -> -> 0 `i `uc `i == -> _UP `i -> 0 `i 1150  ]
+{
+[; ;main.c: 56: UP = 1;
 "56
+[e = _UP -> -> 1 `i `uc ]
+[; ;main.c: 57: CoolingStart();
+"57
+[e ( _CoolingStart ..  ]
+"58
 }
 [e :U 1150 ]
-"57
+[; ;main.c: 58: }
+[; ;main.c: 59: if(!CoolingCheck() && UP == 1){
+"59
+[e $ ! && ! != -> ( _CoolingCheck ..  `i -> -> -> 0 `i `uc `i == -> _UP `i -> 1 `i 1151  ]
+{
+[; ;main.c: 60: UP = 0;
+"60
+[e = _UP -> -> 0 `i `uc ]
+[; ;main.c: 61: CoolingStop();
+"61
+[e ( _CoolingStop ..  ]
+"62
+}
+[e :U 1151 ]
+"63
 }
 [e :U 1147 ]
-"45
+"47
 [e $U 1148  ]
 [e :U 1149 ]
-[; ;main.c: 56: }
-[; ;main.c: 57: }
-[; ;main.c: 58: }
-"58
+[; ;main.c: 62: }
+[; ;main.c: 63: }
+[; ;main.c: 64: }
+"64
 [e :UE 1146 ]
 }

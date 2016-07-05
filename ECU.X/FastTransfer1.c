@@ -81,10 +81,10 @@ void sendData1(unsigned char whereToSend) {
     serial_write1(CS);
 
     //record the sent message data for aknak check later
-    crcBufS_put1(&crc_buffer1, whereToSend, CS, 0);
+   // crcBufS_put1(&crc_buffer1, whereToSend, CS, 0);
 
     // clears the buffer after a sending
-    FastTransfer_buffer_flush1(&ring_buffer1, 1);
+    FastTransfer_buffer_flush1(&ring_buffer1, 0);
 
 }
 
@@ -279,7 +279,7 @@ void FastTransfer_buffer_flush1(struct ringBufS1* _this, const int clearBuffer) 
     _this->head = 0;
     _this->tail = 0;
     if (clearBuffer) {
-        memset(_this->buf, 0, sizeof (_this->buf));
+        //memset(_this->buf, 0, sizeof (_this->buf)); //TODO: this may be causing issues
     }
 }
 

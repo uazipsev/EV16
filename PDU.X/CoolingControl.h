@@ -16,6 +16,7 @@
 #define pumpStart 40
 
 void CoolingStart(void);
+void CoolingStop(void);
 
 #endif	/* COOLINGCONTROL_H */
 

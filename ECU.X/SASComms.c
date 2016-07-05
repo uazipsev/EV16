@@ -46,36 +46,36 @@ bool checkSASInputs(unsigned int t1, unsigned int t2, unsigned int b) {
     bRaw = b;
 
     //throttle consistency check
-        if (!(((t1*1.1) > t2) && ((t1 *0.9) < t2))) {
-            //SAS_FAULT_CONDITION = THROTTLE_SANITY_CHECK; TODO: fix 
-            //return false;
-        }
+//        if (!(((t1*1.45) > t2) && ((t1 *0.45) < t2))) {
+//            SAS_FAULT_CONDITION = THROTTLE_SANITY_CHECK; // TODO: This is erroring out - need filtering!
+//            return false;
+//        }
 
     return true;
 }
 
 void storeSASInputs() {
-    if (t1Raw < 100 && t1Raw > 0) {
+//    if (t1Raw < 100 && t1Raw > 0) {
         throttle1 = t1Raw;
-        if (throttle1 < 0) throttle1 = 0;
-        if (throttle1 > 100) throttle1 = 100;
-    } else throttle1 = 0;
-    if (t2Raw < 100 && t2Raw > 0) {
+//        if (throttle1 < 0) throttle1 = 0;
+//        if (throttle1 > 100) throttle1 = 100;
+//    } else throttle1 = 0;
+//    if (t2Raw < 100 && t2Raw > 0) {
         throttle2 =t2Raw;
-        if (throttle2 < 0) throttle2 = 0;
-        if (throttle2 > 100) throttle2 = 100;
-    } else throttle2 = 0;
-    if (bRaw < 100 && bRaw > 0) {
+//        if (throttle2 < 0) throttle2 = 0;
+//        if (throttle2 > 100) throttle2 = 100;
+//    } else throttle2 = 0;
+//    if (bRaw < 100 && bRaw > 0) {
         brake = bRaw;
-        if (brake < 0) brake = 0;
-        if (brake > 100) brake = 100;
-    } else brake = 0;
+//        if (brake < 0) brake = 0;
+//        if (brake > 100) brake = 100;
+//    } else brake = 0;
     //    //Brake vs. throttle safety
         if ((((throttle1 + throttle2) / 2) > TRIP_THROTTLE) && (brake > TRIP_BRAKE)) {
-            //SAS_FAULT_CONDITION = THROTTLE_BRAKE_CHECK;  TODO: Fix me
-            //throttle1=0;
-            //throttle2=0;
-            //brake=0;
+            SAS_FAULT_CONDITION = THROTTLE_BRAKE_CHECK;  //  TODO: Fix me
+            throttle1=0;
+            throttle2=0;
+            brake=0;
         }
 }
 

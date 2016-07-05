@@ -5,12 +5,14 @@
  * Created on May 11, 2015, 11:19 PM
  */
 #include "main.h"
+#include "PinDef.h"
 
 int main(int argc, char** argv) {
     ReadReset();
     Setup(); //Setup the I/O system
     Delay(1000); // Wait for everything to get up and running
     Boot(100);    // Boot horn 
+    INDICATOR = 1;
     while (1) {
         ledDebug(); //This runs off a timer and blinks status LED
         updateComms(); // Runs the COMS system 

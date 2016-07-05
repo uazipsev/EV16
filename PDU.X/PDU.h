@@ -8,6 +8,8 @@
 #ifndef PDU_H
 #define	PDU_H
 
+#include <stdbool.h>
+
 #define NUMOFBYTES 12  //8-1
 
 int Currentcomp[6] = 0;
@@ -31,6 +33,6 @@ void EnableSlavePower(device slave, int onof);
 void ComputeStorageData(void);
 void ReadCurrent(char gather);
 void Update(void);
-
+bool CoolingCheck();
 #endif	/* PDU_H */
 

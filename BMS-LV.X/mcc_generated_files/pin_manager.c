@@ -67,6 +67,13 @@ void PIN_MANAGER_Initialize(void)
 LTC6804CS_TRIS=0;
 LTC6804CS_SetHigh();
     INTCON2bits.nRBPU = 0x1;
+    TRISDbits.TRISD1 = 1;
+    ANSELD = 0;
+    //ANSELA = 0;
+    ANSELE = 0;
+    ANSELC = 0;
+    ANSELB = 0;
+    SLRCON =0;
 
     // enable interrupt-on-change globally
     // interrupts-on-change are globally disabled

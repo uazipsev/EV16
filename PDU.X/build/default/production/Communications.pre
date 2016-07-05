@@ -9329,7 +9329,7 @@ extern void ToSend(const unsigned char where, const unsigned int what);
 # 11 "Functions.h"
 extern void Delay(long int wait);
 
-# 13 "PDU.h"
+# 15 "PDU.h"
 int Currentcomp[6] = 0;
 char data[12] = 0;
 int CurrentADC[6] = 0;
@@ -9351,6 +9351,7 @@ void EnableSlavePower(device slave, int onof);
 void ComputeStorageData(void);
 void ReadCurrent(char gather);
 void Update(void);
+bool CoolingCheck();
 
 # 18 "Communications.c"
 void processPowerRequest(int powerSet);

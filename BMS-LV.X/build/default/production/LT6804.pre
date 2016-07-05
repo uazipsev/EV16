@@ -10726,7 +10726,7 @@ const int NUM_RX_BYT = 8;
 const int BYT_IN_REG = 6;
 const int CELL_IN_REG = 3;
 
-int cell_data[120];
+int cell_data[10];
 int pec_error = 0;
 int parsed_cell;
 int received_pec;
@@ -10748,8 +10748,7 @@ for (current_ic = 0 ; current_ic < total_ic; current_ic++)
 for(current_cell = 0; current_cell<CELL_IN_REG; current_cell++)
 {
 parsed_cell = cell_data[data_counter] + (cell_data[data_counter + 1] << 8);
-
-cell_codes[0][0]=parsed_cell;
+cell_codes[current_ic][current_cell + ((cell_reg - 1) * CELL_IN_REG)] = parsed_cell;
 data_counter = data_counter + 2;
 }
 
@@ -10791,7 +10790,7 @@ pec_error--;
 return(pec_error);
 }
 
-# 452
+# 451
 void LTC6804_rdcv_reg(int reg,
 int total_ic,
 int *data
@@ -10822,7 +10821,7 @@ cmd[1] = 0x0A;
 cmd[0] = 0x00;
 }
 
-# 486
+# 485
 wakeup_idle ();
 LATD3 = 1;
 
@@ -10838,7 +10837,7 @@ LATD3 = 1;
 }
 }
 
-# 540
+# 539
 int LTC6804_rdaux(int reg,
 int total_ic,
 int aux_codes[][6]
@@ -10915,7 +10914,7 @@ free(data);
 return (pec_error);
 }
 
-# 649
+# 648
 void LTC6804_rdaux_reg(int reg,
 int total_ic,
 int *data
@@ -10960,7 +10959,7 @@ LATD3 = 1;
 }
 }
 
-# 737
+# 736
 int LTC6804_rdStat(int reg,
 int total_ic,
 int Stat_codes[][6]
@@ -11034,7 +11033,7 @@ pec_error = -1;
 return (pec_error);
 }
 
-# 844
+# 843
 void LTC6804_rdStat_reg(int reg,
 int total_ic,
 int *data
@@ -11055,7 +11054,7 @@ cmd[1] = 0x12;
 cmd[0] = 0x00;
 }
 
-# 869
+# 868
 wakeup_idle ();
 
 
@@ -11071,7 +11070,7 @@ LATD3 = 1;
 }
 }
 
-# 911
+# 910
 void LTC6804_clrcell()
 {
 int cmd[4];
@@ -11095,7 +11094,7 @@ spi_write_read(cmd,4,0,0);
 LATD3 = 1;
 }
 
-# 950
+# 949
 void LTC6804_clraux()
 {
 int cmd[4];
@@ -11118,7 +11117,7 @@ LATD3 = 0;
 LATD3 = 1;
 }
 
-# 1001
+# 1000
 void LTC6804_wrcfg(int total_ic,int config[][6])
 {
 const int BYTES_IN_REG = 6;
@@ -11165,7 +11164,7 @@ LATD3 = 1;
 }
 }
 
-# 1077
+# 1076
 int LTC6804_rdcfg(int total_ic, int r_config[][8])
 {
 const int BYTES_IN_REG = 8;
@@ -11215,7 +11214,7 @@ free(rx_data);
 return(pec_error);
 }
 
-# 1140
+# 1139
 void wakeup_idle()
 {
 
@@ -11224,21 +11223,21 @@ LATD3 = 0;
 DelayMicro(10);
 LATD3 = 1;
 
-# 1152
+# 1151
 }
 
-# 1159
+# 1158
 void wakeup_sleep()
 {
 
 
 LATD3 = 0;
-spi_write_array(1,0);
-Delay(1);
+
+DelayMicro(10);
 LATD3 = 1;
 }
 
-# 1179
+# 1178
 int pec15_calc(int len, int *data)
 {
 int remainder,addr;
@@ -11252,7 +11251,7 @@ remainder = (remainder<<8)^crc15Table[addr];
 return(remainder*2);
 }
 
-# 1200
+# 1199
 void spi_write_array(int len,
 int data[]
 )
@@ -11263,7 +11262,8 @@ SPI2_Exchange8bit((char)data[i]);
 }
 }
 
-# 1219
+# 1217
+retrn[8] = {0x0F,0x94,0xC3,0x93,0x62,0x90,0x89,0xC8};
 void spi_write_read(int tx_Data[],
 int tx_len,
 int *rx_data,
@@ -11274,12 +11274,11 @@ int rx_len
 for(i = 0; i < tx_len; i++)
 {
 SPI2_Exchange8bit(tx_Data[i]);
-
 }
 
 for(int i = 0; i < rx_len; i++)
 {
-rx_data[i] =SPI2_Exchange8bit(0xFF);
+rx_data[i] = SPI2_Exchange8bit(0x00);
 }
 
 }

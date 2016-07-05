@@ -7,6 +7,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _SSP2ADD `Vuc ~T0 @X0 0 e@3950 ]
 "4318
 [v _SSP2BUF `Vuc ~T0 @X0 0 e@3951 ]
+"9835
+[s S565 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S565 . TMR1IF TMR2IF CCP1IF SSP1IF TX1IF RC1IF ADIF ]
+"9844
+[s S566 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S566 . . SSPIF TXIF RCIF ]
+"9834
+[u S564 `S565 1 `S566 1 ]
+[n S564 . . . ]
+"9851
+[v _PIR1bits `VS564 ~T0 @X0 0 e@3998 ]
 "3842
 [s S209 :2 `uc 1 :1 `uc 1 ]
 [n S209 . . R_NOT_W ]
@@ -8323,7 +8334,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;spi2.c: 65: {
 [e :U _SPI2_Initialize ]
 [f ]
-[; ;spi2.c: 69: SSP2STAT = 0x40;
+[; ;spi2.c: 69: SSP2STAT = 0b01000000;
 "69
 [e = _SSP2STAT -> -> 64 `i `uc ]
 [; ;spi2.c: 72: SSP2CON1 = 0x22;
@@ -8347,203 +8358,209 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _stuff `uc ~T0 @X0 1 r1 ]
 "79
 [f ]
-[; ;spi2.c: 82: SSP2BUF = stuff;
+"80
+[v _data `uc ~T0 @X0 1 a ]
+[; ;spi2.c: 80: char data = 0;
+[e = _data -> -> 0 `i `uc ]
+[; ;spi2.c: 82: data = SSP2BUF;
 "82
+[e = _data _SSP2BUF ]
+[; ;spi2.c: 83: PIR1bits.SSP1IF =0;
+"83
+[e = . . _PIR1bits 0 3 -> -> 0 `i `uc ]
+[; ;spi2.c: 86: SSP2BUF = stuff;
+"86
 [e = _SSP2BUF _stuff ]
-[; ;spi2.c: 84: while(SSP2STATbits.BF == 0x0)
-"84
+[; ;spi2.c: 87: while(!SSP2STATbits.BF);
+"87
 [e $U 1179  ]
 [e :U 1180 ]
-[; ;spi2.c: 85: {
-"85
-{
-"86
-}
 [e :U 1179 ]
-"84
-[e $ == -> . . _SSP2STATbits 2 0 `i -> 0 `i 1180  ]
+[e $ ! != -> . . _SSP2STATbits 2 0 `i -> -> -> 0 `i `Vuc `i 1180  ]
 [e :U 1181 ]
-[; ;spi2.c: 86: }
-[; ;spi2.c: 88: return (SSP2BUF);
-"88
-[e ) _SSP2BUF ]
-[e $UE 1178  ]
-[; ;spi2.c: 89: }
+[; ;spi2.c: 89: data = SSP2BUF;
 "89
+[e = _data _SSP2BUF ]
+[; ;spi2.c: 90: return (data);
+"90
+[e ) _data ]
+[e $UE 1178  ]
+[; ;spi2.c: 91: }
+"91
 [e :UE 1178 ]
 }
-"91
+"93
 [v _SPI2_Exchange8bitBuffer `(uc ~T0 @X0 1 ef3`*uc`uc`*uc ]
-"92
+"94
 {
-[; ;spi2.c: 91: uint8_t SPI2_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut)
-[; ;spi2.c: 92: {
+[; ;spi2.c: 93: uint8_t SPI2_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut)
+[; ;spi2.c: 94: {
 [e :U _SPI2_Exchange8bitBuffer ]
-"91
+"93
 [v _dataIn `*uc ~T0 @X0 1 r1 ]
 [v _bufLen `uc ~T0 @X0 1 r2 ]
 [v _dataOut `*uc ~T0 @X0 1 r3 ]
-"92
+"94
 [f ]
-"93
-[v _bytesWritten `uc ~T0 @X0 1 a ]
-[; ;spi2.c: 93: uint8_t bytesWritten = 0;
-[e = _bytesWritten -> -> 0 `i `uc ]
-[; ;spi2.c: 95: if(bufLen != 0)
 "95
-[e $ ! != -> _bufLen `i -> 0 `i 1183  ]
-[; ;spi2.c: 96: {
-"96
-{
-[; ;spi2.c: 97: if(dataIn != (0))
+[v _bytesWritten `uc ~T0 @X0 1 a ]
+[; ;spi2.c: 95: uint8_t bytesWritten = 0;
+[e = _bytesWritten -> -> 0 `i `uc ]
+[; ;spi2.c: 97: if(bufLen != 0)
 "97
-[e $ ! != _dataIn -> -> 0 `i `*uc 1184  ]
+[e $ ! != -> _bufLen `i -> 0 `i 1183  ]
 [; ;spi2.c: 98: {
 "98
 {
-[; ;spi2.c: 99: while(bytesWritten < bufLen)
+[; ;spi2.c: 99: if(dataIn != (0))
 "99
-[e $U 1185  ]
-[e :U 1186 ]
+[e $ ! != _dataIn -> -> 0 `i `*uc 1184  ]
 [; ;spi2.c: 100: {
 "100
 {
-[; ;spi2.c: 101: if(dataOut == (0))
+[; ;spi2.c: 101: while(bytesWritten < bufLen)
 "101
-[e $ ! == _dataOut -> -> 0 `i `*uc 1188  ]
+[e $U 1185  ]
+[e :U 1186 ]
 [; ;spi2.c: 102: {
 "102
 {
-[; ;spi2.c: 103: SPI2_Exchange8bit(dataIn[bytesWritten]);
+[; ;spi2.c: 103: if(dataOut == (0))
 "103
-[e ( _SPI2_Exchange8bit (1 *U + _dataIn * -> _bytesWritten `ux -> -> # *U _dataIn `ui `ux ]
+[e $ ! == _dataOut -> -> 0 `i `*uc 1188  ]
+[; ;spi2.c: 104: {
 "104
-}
-[; ;spi2.c: 104: }
-[e $U 1189  ]
-"105
-[e :U 1188 ]
-[; ;spi2.c: 105: else
-[; ;spi2.c: 106: {
-"106
 {
-[; ;spi2.c: 107: dataOut[bytesWritten] = SPI2_Exchange8bit(dataIn[bytesWritten]);
+[; ;spi2.c: 105: SPI2_Exchange8bit(dataIn[bytesWritten]);
+"105
+[e ( _SPI2_Exchange8bit (1 *U + _dataIn * -> _bytesWritten `ux -> -> # *U _dataIn `ui `ux ]
+"106
+}
+[; ;spi2.c: 106: }
+[e $U 1189  ]
 "107
-[e = *U + _dataOut * -> _bytesWritten `ux -> -> # *U _dataOut `ui `ux ( _SPI2_Exchange8bit (1 *U + _dataIn * -> _bytesWritten `ux -> -> # *U _dataIn `ui `ux ]
+[e :U 1188 ]
+[; ;spi2.c: 107: else
+[; ;spi2.c: 108: {
 "108
+{
+[; ;spi2.c: 109: dataOut[bytesWritten] = SPI2_Exchange8bit(dataIn[bytesWritten]);
+"109
+[e = *U + _dataOut * -> _bytesWritten `ux -> -> # *U _dataOut `ui `ux ( _SPI2_Exchange8bit (1 *U + _dataIn * -> _bytesWritten `ux -> -> # *U _dataIn `ui `ux ]
+"110
 }
 [e :U 1189 ]
-[; ;spi2.c: 108: }
-[; ;spi2.c: 110: bytesWritten++;
-"110
+[; ;spi2.c: 110: }
+[; ;spi2.c: 112: bytesWritten++;
+"112
 [e ++ _bytesWritten -> -> 1 `i `uc ]
-"111
+"113
 }
 [e :U 1185 ]
-"99
+"101
 [e $ < -> _bytesWritten `i -> _bufLen `i 1186  ]
 [e :U 1187 ]
-"112
-}
-[; ;spi2.c: 111: }
-[; ;spi2.c: 112: }
-[e $U 1190  ]
-"113
-[e :U 1184 ]
-[; ;spi2.c: 113: else
-[; ;spi2.c: 114: {
 "114
-{
-[; ;spi2.c: 115: if(dataOut != (0))
+}
+[; ;spi2.c: 113: }
+[; ;spi2.c: 114: }
+[e $U 1190  ]
 "115
-[e $ ! != _dataOut -> -> 0 `i `*uc 1191  ]
+[e :U 1184 ]
+[; ;spi2.c: 115: else
 [; ;spi2.c: 116: {
 "116
 {
-[; ;spi2.c: 117: while(bytesWritten < bufLen )
+[; ;spi2.c: 117: if(dataOut != (0))
 "117
-[e $U 1192  ]
-[e :U 1193 ]
+[e $ ! != _dataOut -> -> 0 `i `*uc 1191  ]
 [; ;spi2.c: 118: {
 "118
 {
-[; ;spi2.c: 119: dataOut[bytesWritten] = SPI2_Exchange8bit(0x0);
+[; ;spi2.c: 119: while(bytesWritten < bufLen )
 "119
-[e = *U + _dataOut * -> _bytesWritten `ux -> -> # *U _dataOut `ui `ux ( _SPI2_Exchange8bit (1 -> -> 0 `i `uc ]
-[; ;spi2.c: 121: bytesWritten++;
+[e $U 1192  ]
+[e :U 1193 ]
+[; ;spi2.c: 120: {
+"120
+{
+[; ;spi2.c: 121: dataOut[bytesWritten] = SPI2_Exchange8bit(0x0);
 "121
-[e ++ _bytesWritten -> -> 1 `i `uc ]
-"122
-}
-[e :U 1192 ]
-"117
-[e $ < -> _bytesWritten `i -> _bufLen `i 1193  ]
-[e :U 1194 ]
+[e = *U + _dataOut * -> _bytesWritten `ux -> -> # *U _dataOut `ui `ux ( _SPI2_Exchange8bit (1 -> -> 0 `i `uc ]
+[; ;spi2.c: 123: bytesWritten++;
 "123
-}
-[e :U 1191 ]
+[e ++ _bytesWritten -> -> 1 `i `uc ]
 "124
 }
-[e :U 1190 ]
+[e :U 1192 ]
+"119
+[e $ < -> _bytesWritten `i -> _bufLen `i 1193  ]
+[e :U 1194 ]
 "125
 }
+[e :U 1191 ]
+"126
+}
+[e :U 1190 ]
+"127
+}
 [e :U 1183 ]
-[; ;spi2.c: 122: }
-[; ;spi2.c: 123: }
 [; ;spi2.c: 124: }
 [; ;spi2.c: 125: }
-[; ;spi2.c: 127: return bytesWritten;
-"127
+[; ;spi2.c: 126: }
+[; ;spi2.c: 127: }
+[; ;spi2.c: 129: return bytesWritten;
+"129
 [e ) _bytesWritten ]
 [e $UE 1182  ]
-[; ;spi2.c: 128: }
-"128
+[; ;spi2.c: 130: }
+"130
 [e :UE 1182 ]
 }
-"130
+"132
 [v _SPI2_IsBufferFull `(uc ~T0 @X0 1 ef ]
-"131
+"133
 {
-[; ;spi2.c: 130: bool SPI2_IsBufferFull(void)
-[; ;spi2.c: 131: {
+[; ;spi2.c: 132: bool SPI2_IsBufferFull(void)
+[; ;spi2.c: 133: {
 [e :U _SPI2_IsBufferFull ]
 [f ]
-[; ;spi2.c: 132: return (SSP2STATbits.BF);
-"132
+[; ;spi2.c: 134: return (SSP2STATbits.BF);
+"134
 [e ) . . _SSP2STATbits 2 0 ]
 [e $UE 1195  ]
-[; ;spi2.c: 133: }
-"133
+[; ;spi2.c: 135: }
+"135
 [e :UE 1195 ]
 }
-"135
+"137
 [v _SPI2_HasWriteCollisionOccured `(uc ~T0 @X0 1 ef ]
-"136
+"138
 {
-[; ;spi2.c: 135: bool SPI2_HasWriteCollisionOccured(void)
-[; ;spi2.c: 136: {
+[; ;spi2.c: 137: bool SPI2_HasWriteCollisionOccured(void)
+[; ;spi2.c: 138: {
 [e :U _SPI2_HasWriteCollisionOccured ]
 [f ]
-[; ;spi2.c: 137: return (SSP2CON1bits.WCOL);
-"137
+[; ;spi2.c: 139: return (SSP2CON1bits.WCOL);
+"139
 [e ) . . _SSP2CON1bits 0 4 ]
 [e $UE 1196  ]
-[; ;spi2.c: 138: }
-"138
+[; ;spi2.c: 140: }
+"140
 [e :UE 1196 ]
 }
-"140
+"142
 [v _SPI2_ClearWriteCollisionStatus `(v ~T0 @X0 1 ef ]
-"141
+"143
 {
-[; ;spi2.c: 140: void SPI2_ClearWriteCollisionStatus(void)
-[; ;spi2.c: 141: {
+[; ;spi2.c: 142: void SPI2_ClearWriteCollisionStatus(void)
+[; ;spi2.c: 143: {
 [e :U _SPI2_ClearWriteCollisionStatus ]
 [f ]
-[; ;spi2.c: 142: SSP2CON1bits.WCOL = 0;
-"142
+[; ;spi2.c: 144: SSP2CON1bits.WCOL = 0;
+"144
 [e = . . _SSP2CON1bits 0 4 -> -> 0 `i `uc ]
-[; ;spi2.c: 143: }
-"143
+[; ;spi2.c: 145: }
+"145
 [e :UE 1197 ]
 }

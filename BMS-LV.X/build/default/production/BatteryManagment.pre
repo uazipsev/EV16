@@ -10790,11 +10790,14 @@ void Charge_Mode(int command) {
 }
 
 void Run_Mode() {
-cell_codes_Bank[0][0]=4535;
+
 Read_Battery(0,cell_codes_Bank);
 
 
-printf ("Voltage: %i \n", cell_codes_Bank[0][0]);
+int k = 0;
+for(k;k<12;k++){
+printf(" Cell %d Voltage: %1.2f \n",k, cell_codes_Bank[0][k]*0.00001);
+}
 
 
 }
@@ -10812,7 +10815,7 @@ CFGR5=0;
 
 while (IC < 1) {
 Set_REFON_Pin(IC, 1);
-Set_ADC_Mode(IC, 1);
+Set_ADC_Mode(IC, 0);
 Set_DCC_Mode_OFF(IC);
 Set_DCTO_Mode_OFF(IC);
 SetTempEnable(IC, 0);
@@ -10820,7 +10823,7 @@ SetTempEnable(IC, 0);
 IC++;
 };
 
-wakeup_sleep();
+
 UpdateLT6804();
 
 
@@ -11146,7 +11149,7 @@ Error_Value=CheckThresholdsBank( 1, 1, cell_codesBank);
 return Error_Value;
 }
 
-# 407
+# 410
 int getcell(){
 return cell_codes_Bank;
 ;}
@@ -11156,7 +11159,7 @@ int Read_Status = 0;
 
 switch (BatteryPlacement) {
 case 0:
-set_adc(2, 0, 0, 0);
+set_adc(3, 0, 0, 0);
 LTC6804_adcv();
 Delay(10);
 Read_Status = LTC6804_rdcv(0, 1, cell_codes);
@@ -11208,7 +11211,7 @@ break;
 return Read_Status;
 }
 
-# 479
+# 482
 int Read_GPIO(int BatteryPlacement, int aux_codes[1][6]) {
 int Read_Status = 0;
 switch (BatteryPlacement) {
@@ -11256,7 +11259,7 @@ break;
 return Read_Status;
 }
 
-# 535
+# 538
 int SetBypass(int bank, int ic, int cell, bool value) {
 int fault_value = 0;
 if (value) {
@@ -11286,7 +11289,7 @@ fault_value = 18;
 return fault_value;
 }
 
-# 570
+# 573
 int RunBypass_Set(int bank, int ic, int cell_codes[][12]) {
 int cellbyp = 0;
 int voltstat = 0;
@@ -11318,7 +11321,7 @@ UpdateLT6804();
 return cellbyp;
 }
 
-# 609
+# 612
 int SetTempEnable( int ic, bool value) {
 int fault_value = 0;
 if (value) {
@@ -11333,12 +11336,12 @@ LTC6804_DATA_ConfigBank[ic][0] = CFGR0;
 return fault_value;
 }
 
-# 630
+# 633
 int CheckUnderOverVoltageFlag() {
 return 1;
 }
 
-# 643
+# 646
 int SetUnderOverVoltage(int VUV, int VOV, int ic) {
 int fault_value = 0;
 
@@ -11356,7 +11359,7 @@ LTC6804_DATA_ConfigBank[ic][3] = CFGR3;
 
 }
 
-# 669
+# 672
 int Set_ADC_Mode(int ic, bool ADCOPT_Mode) {
 int fault_value = 0;
 if (ADCOPT_Mode) {
@@ -11407,7 +11410,7 @@ LTC6804_wrcfg(1, LTC6804_DATA_ConfigBank);
 
 }
 
-# 726
+# 729
 void ReadCurrentVolt() {
 int i;
 
@@ -11418,12 +11421,12 @@ CVolt[0] = ADC_GetConversion(CURRENT);
 ReadVoltToCurrent();
 }
 
-# 743
+# 746
 void ReadVolt() {
 Volt1 = (ADC_GetConversion(VEXT) / 4095)*5 * 5;
 }
 
-# 755
+# 758
 void ReadVoltToCurrent() {
 for (k = 0; k < 5; k++) {
 
@@ -11431,12 +11434,12 @@ for (k = 0; k < 5; k++) {
 }
 }
 
-# 769
+# 772
 void ChargerEN() {
 CarOn = 0;
 }
 
-# 780
+# 783
 void CurrentCoulombCount(int tme) {
 if (CarOn) {
 CC1 = CC1 - (Current[0] * tme);
@@ -11449,7 +11452,7 @@ CC3 = CC3 + (Current[5] * tme);
 }
 }
 
-# 799
+# 802
 int CurrentGet() {
 return -1;
 }

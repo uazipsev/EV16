@@ -409,9 +409,6 @@ int LTC6804_rdcv(int reg,
 	}
   }
  //2
-  hi=5543;
-  cell_codes[0][0]=hi;
-  hi=0;
 return(pec_error);
 }
 /*
@@ -1163,8 +1160,8 @@ void wakeup_sleep()
     
 
   LTC6804CS_LAT = 0;
-   spi_write_array(1,0);
-  Delay(1); // Guarantees the LTC6804 will be in standby
+  //spi_write_array(1,0);
+  DelayMicro(10); // Guarantees the LTC6804 will be in standby
   LTC6804CS_LAT = 1;
 }
 /*!**********************************************************
@@ -1217,7 +1214,7 @@ void spi_write_array(int len, // Option: Number of bytes to be written on the SP
 @param[in] int rx_len number of bytes to be read from the SPI port.
 
 */
-
+retrn[8] = {0x0F,0x94,0xC3,0x93,0x62,0x90,0x89,0xC8};
 void spi_write_read(int tx_Data[],//array of data to be written on SPI port 
 					int tx_len, //length of the tx data arry
 					int *rx_data,//Input: array that will store the data read by the SPI port
@@ -1228,12 +1225,11 @@ void spi_write_read(int tx_Data[],//array of data to be written on SPI port
   for(i = 0; i < tx_len; i++)
   {
     SPI2_Exchange8bit(tx_Data[i]);
-
   }
 
   for(int i = 0; i < rx_len; i++)
   {
-     rx_data[i] =SPI2_Exchange8bit(0xFF);
+     rx_data[i] = SPI2_Exchange8bit(0x00);
   }
 
 }

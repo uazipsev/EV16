@@ -12,6 +12,8 @@
 #include "mcc_generated_files/adc.h"
 #include "mcc_generated_files/memory.h"
 
+bool MCSOn = 0;
+
 void PDUStartup(void) {
     //We are assuming the car just started up.
     //Lets shut down all outputs untill told otherwise
@@ -39,6 +41,7 @@ void EnableSlavePower(device slave, int onof) {
             break;
         case MCS:
             SetPin595(1, 6, onof);
+            MCSOn = onof;
             break;
         case DDS:
             SetPin595(2, 1, onof);
@@ -141,4 +144,8 @@ void FuseSystem() {
 
 void Update(void) {
     writeRegisters();
+}
+
+bool CoolingCheck(){
+    return MCSOn;
 }

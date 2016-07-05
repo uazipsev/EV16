@@ -68,41 +68,14 @@ void updateECUState() {
             if (previousState != currentState) {
                 carActive = false;
                 previousState = currentState;
-                //Power up the MCS
-               powerSet.BMM = true;
-                powerSet.MCS = true;
-                //reset timeout timer
-                BootTimer = 0;
-            }
-            
-            //if start button changes to depressed here, exit boot sequence
-            if (seekButtonChange()) {
-                if (!buttonArray[START_BUTTON]) {
-                    changeLEDState(ACTIVE_LED, buttonArray[START_BUTTON]);
-                    currentState--;
-                }
-            }
-            //Wait for complete or for timeout
-            if (bootSequenceCompleted()){
-                RTD(500);
-                currentState++;
-            }
-            else checkForBootupTimeout();
-            break;
-        case startup:
-            //Means this is your first time in this state
-            if (previousState != currentState) {
-                carActive = true;
-                previousState = currentState;
-                //Power up the MCS
-
                 //Set the safety system to boot
                 SS_RELAY = 1;
+                //Turn on the BMM to watch precharge
+                powerSet.BMM = true;
                 //reset timeout timer
                 BootTimer = 0;
             }
-            
-            //if start button changes to depressed here, exit boot sequence
+                        //if start button changes to depressed here, exit boot sequence
             if (seekButtonChange()) {
                 if (!buttonArray[START_BUTTON]) {
                     changeLEDState(ACTIVE_LED, buttonArray[START_BUTTON]);
@@ -116,6 +89,33 @@ void updateECUState() {
                 currentState++;
             }
             else checkForBootupTimeout();
+
+            break;
+        case startup:
+            //Means this is your first time in this state
+            if (previousState != currentState) {
+                carActive = true;
+                previousState = currentState;
+                //Power up the MCS
+               
+                powerSet.MCS = true;
+                //reset timeout timer
+                BootTimer = 0;
+            }
+            //if start button changes to depressed here, exit boot sequence
+            if (seekButtonChange()) {
+                if (!buttonArray[START_BUTTON]) {
+                    changeLEDState(ACTIVE_LED, buttonArray[START_BUTTON]);
+                    currentState == stopped;
+                }
+            }
+            //Wait for complete or for timeout
+            if (bootSequenceCompleted()){
+                RTD(1500);
+                currentState++;
+            }
+            else checkForBootupTimeout();
+           
             break;
             //CAR IS RUNNING BREAK ON FAULTS OR ON BUTTON
         case running:
@@ -147,8 +147,8 @@ void updateECUState() {
                 changeLEDState(ACTIVE_LED, 0);
                 powerSet.DDS = true;
                 powerSet.SAS = true;
-                powerSet.BMM = true;
-                powerSet.MCS = true;
+                powerSet.BMM = false;
+                powerSet.MCS = false;
                 carActive = false;
                 SS_RELAY = 0;
             }

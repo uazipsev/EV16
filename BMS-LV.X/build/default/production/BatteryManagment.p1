@@ -16,8 +16,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Set_DCTO_Mode_OFF `(i ~T0 @X0 0 ef1`i ]
 "100
 [v _SetTempEnable `(i ~T0 @X0 0 ef2`i`uc ]
-"255 LT6804.h
-[v _wakeup_sleep `(v ~T0 @X0 0 ef ]
 "21 BatteryManagment.h
 [v _UpdateLT6804 `(v ~T0 @X0 0 ef ]
 [v F8939 `i ~T0 @X0 -> 12 `i t ]
@@ -52,17 +50,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F9128 `i ~T0 @X0 -> 12 `i t ]
 "233
 [v _LTC6804_rdcv `(i ~T0 @X0 0 ef3`i`i`*F9128 ]
-[v F9291 `i ~T0 @X0 -> 6 `i t ]
+[v F9292 `i ~T0 @X0 -> 6 `i t ]
 "229
 [v _LTC6804_adax `(v ~T0 @X0 0 ef ]
 [v F9137 `i ~T0 @X0 -> 6 `i t ]
 "237
 [v _LTC6804_rdaux `(i ~T0 @X0 0 ef3`i`i`*F9137 ]
-[v F9302 `i ~T0 @X0 -> 12 `i t ]
+[v F9303 `i ~T0 @X0 -> 12 `i t ]
 [v F9156 `i ~T0 @X0 -> 6 `i t ]
 "249
 [v _LTC6804_wrcfg `(v ~T0 @X0 0 ef2`i`*F9156 ]
-"732 BatteryManagment.c
+"735 BatteryManagment.c
 [c E8860 1 2 3 4 5 6 7 9 11 29 30 31 .. ]
 [n E8860 . TEMP1 TEMP2 TEMP3 TEMP4 TEMP5 TEMP6 TEMP7 VEXT CURRENT channel_CTMU channel_DAC channel_FVRBuf2  ]
 "259 mcc_generated_files/adc.h
@@ -8902,1859 +8900,1865 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;BatteryManagment.c: 44: void Run_Mode() {
 [e :U _Run_Mode ]
 [f ]
-[; ;BatteryManagment.c: 45: cell_codes_Bank[0][0]=4535;
-"45
-[e = *U + &U *U + &U _cell_codes_Bank * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _cell_codes_Bank `ui -> -> 12 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _cell_codes_Bank * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _cell_codes_Bank `ui -> -> 12 `i `ui `ux `ui `ux -> 4535 `i ]
 [; ;BatteryManagment.c: 46: Read_Battery(0,cell_codes_Bank);
 "46
 [e ( _Read_Battery (2 , -> 0 `i &U _cell_codes_Bank ]
-[; ;BatteryManagment.c: 49: printf ("Voltage: %i \n", cell_codes_Bank[0][0]);
+[v _k `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 49: int k = 0;
 "49
-[e ( _printf , (. :s 1C *U + &U *U + &U _cell_codes_Bank * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _cell_codes_Bank `ui -> -> 12 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _cell_codes_Bank * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _cell_codes_Bank `ui -> -> 12 `i `ui `ux `ui `ux ]
-[; ;BatteryManagment.c: 52: }
+[e = _k -> 0 `i ]
+[; ;BatteryManagment.c: 50: for(k;k<12;k++){
+"50
+{
+[e _k ]
+[e $ < _k -> 12 `i 1185  ]
+[e $U 1186  ]
+[e :U 1185 ]
+{
+[; ;BatteryManagment.c: 51: printf(" Cell %d Voltage: %1.2f \n",k, cell_codes_Bank[0][k]*0.00001);
+"51
+[e ( _printf , , (. :s 1C _k * -> *U + &U *U + &U _cell_codes_Bank * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _cell_codes_Bank `ui -> -> 12 `i `ui `ux * -> -> _k `ui `ux -> -> # *U &U *U + &U _cell_codes_Bank * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _cell_codes_Bank `ui -> -> 12 `i `ui `ux `ui `ux `d .0.00001 ]
 "52
+}
+"50
+[e ++ _k -> 1 `i ]
+[e $ < _k -> 12 `i 1185  ]
+[e :U 1186 ]
+"52
+}
+[; ;BatteryManagment.c: 52: }
+[; ;BatteryManagment.c: 55: }
+"55
 [e :UE 1184 ]
 }
-"54
+"57
 [v _Initalize_LT6804b `(v ~T0 @X0 1 ef ]
 {
-[; ;BatteryManagment.c: 54: void Initalize_LT6804b() {
+[; ;BatteryManagment.c: 57: void Initalize_LT6804b() {
 [e :U _Initalize_LT6804b ]
 [f ]
-"55
-[v _IC `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 55: int IC = 0;
-[e = _IC -> 0 `i ]
-[; ;BatteryManagment.c: 57: CFGR0=0xFE;
-"57
-[e = _CFGR0 -> -> 254 `i `uc ]
-[; ;BatteryManagment.c: 58: CFGR1=0;
 "58
-[e = _CFGR1 -> -> 0 `i `uc ]
-[; ;BatteryManagment.c: 59: CFGR2=0;
-"59
-[e = _CFGR2 -> -> 0 `i `uc ]
-[; ;BatteryManagment.c: 60: CFGR3=0;
+[v _IC `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 58: int IC = 0;
+[e = _IC -> 0 `i ]
+[; ;BatteryManagment.c: 60: CFGR0=0xFE;
 "60
-[e = _CFGR3 -> -> 0 `i `uc ]
-[; ;BatteryManagment.c: 61: CFGR4=0;
+[e = _CFGR0 -> -> 254 `i `uc ]
+[; ;BatteryManagment.c: 61: CFGR1=0;
 "61
-[e = _CFGR4 -> -> 0 `i `uc ]
-[; ;BatteryManagment.c: 62: CFGR5=0;
+[e = _CFGR1 -> -> 0 `i `uc ]
+[; ;BatteryManagment.c: 62: CFGR2=0;
 "62
+[e = _CFGR2 -> -> 0 `i `uc ]
+[; ;BatteryManagment.c: 63: CFGR3=0;
+"63
+[e = _CFGR3 -> -> 0 `i `uc ]
+[; ;BatteryManagment.c: 64: CFGR4=0;
+"64
+[e = _CFGR4 -> -> 0 `i `uc ]
+[; ;BatteryManagment.c: 65: CFGR5=0;
+"65
 [e = _CFGR5 -> -> 0 `i `uc ]
-[; ;BatteryManagment.c: 65: while (IC < 1) {
-"65
-[e $U 1186  ]
-[e :U 1187 ]
-{
-[; ;BatteryManagment.c: 66: Set_REFON_Pin(IC, 1);
-"66
-[e ( _Set_REFON_Pin (2 , _IC -> -> 1 `i `uc ]
-[; ;BatteryManagment.c: 67: Set_ADC_Mode(IC, 1);
-"67
-[e ( _Set_ADC_Mode (2 , _IC -> -> 1 `i `uc ]
-[; ;BatteryManagment.c: 68: Set_DCC_Mode_OFF(IC);
+[; ;BatteryManagment.c: 68: while (IC < 1) {
 "68
-[e ( _Set_DCC_Mode_OFF (1 _IC ]
-[; ;BatteryManagment.c: 69: Set_DCTO_Mode_OFF(IC);
+[e $U 1189  ]
+[e :U 1190 ]
+{
+[; ;BatteryManagment.c: 69: Set_REFON_Pin(IC, 1);
 "69
-[e ( _Set_DCTO_Mode_OFF (1 _IC ]
-[; ;BatteryManagment.c: 70: SetTempEnable(IC, 0);
+[e ( _Set_REFON_Pin (2 , _IC -> -> 1 `i `uc ]
+[; ;BatteryManagment.c: 70: Set_ADC_Mode(IC, 0);
 "70
-[e ( _SetTempEnable (2 , _IC -> -> 0 `i `uc ]
-[; ;BatteryManagment.c: 72: IC++;
+[e ( _Set_ADC_Mode (2 , _IC -> -> 0 `i `uc ]
+[; ;BatteryManagment.c: 71: Set_DCC_Mode_OFF(IC);
+"71
+[e ( _Set_DCC_Mode_OFF (1 _IC ]
+[; ;BatteryManagment.c: 72: Set_DCTO_Mode_OFF(IC);
 "72
-[e ++ _IC -> 1 `i ]
+[e ( _Set_DCTO_Mode_OFF (1 _IC ]
+[; ;BatteryManagment.c: 73: SetTempEnable(IC, 0);
 "73
-}
-[e :U 1186 ]
-"65
-[e $ < _IC -> 1 `i 1187  ]
-[e :U 1188 ]
-[; ;BatteryManagment.c: 73: };
-[; ;BatteryManagment.c: 75: wakeup_sleep();
+[e ( _SetTempEnable (2 , _IC -> -> 0 `i `uc ]
+[; ;BatteryManagment.c: 75: IC++;
 "75
-[e ( _wakeup_sleep ..  ]
-[; ;BatteryManagment.c: 76: UpdateLT6804();
+[e ++ _IC -> 1 `i ]
 "76
-[e ( _UpdateLT6804 ..  ]
-[; ;BatteryManagment.c: 79: }
-"79
-[e :UE 1185 ]
 }
-"83
+[e :U 1189 ]
+"68
+[e $ < _IC -> 1 `i 1190  ]
+[e :U 1191 ]
+[; ;BatteryManagment.c: 76: };
+[; ;BatteryManagment.c: 79: UpdateLT6804();
+"79
+[e ( _UpdateLT6804 ..  ]
+[; ;BatteryManagment.c: 82: }
+"82
+[e :UE 1188 ]
+}
+"86
 [v _Run_ByPass `(v ~T0 @X0 1 ef2`*F8939`*F8941 ]
 {
-[; ;BatteryManagment.c: 83: void Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
+[; ;BatteryManagment.c: 86: void Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
 [e :U _Run_ByPass ]
-[v F9240 `i ~T0 @X0 -> 12 `i t ]
-[v _cell_codesBank1 `*F9240 ~T0 @X0 1 r1 ]
-[v F9242 `i ~T0 @X0 -> 12 `i t ]
-[v _cell_codesBank2 `*F9242 ~T0 @X0 1 r2 ]
+[v F9241 `i ~T0 @X0 -> 12 `i t ]
+[v _cell_codesBank1 `*F9241 ~T0 @X0 1 r1 ]
+[v F9243 `i ~T0 @X0 -> 12 `i t ]
+[v _cell_codesBank2 `*F9243 ~T0 @X0 1 r2 ]
 [f ]
-"85
-[v _Error_Value `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 85: int Error_Value = 0;
-[e = _Error_Value -> 0 `i ]
-[; ;BatteryManagment.c: 87: do {
-"87
-[e :U 1192 ]
-{
-[; ;BatteryManagment.c: 88: Error_Value = Read_Battery(0, cell_codes_Bank);
 "88
-[e = _Error_Value ( _Read_Battery (2 , -> 0 `i &U _cell_codes_Bank ]
-[; ;BatteryManagment.c: 89: if (Error_Value != 0) {
-"89
-[e $ ! != _Error_Value -> 0 `i 1193  ]
-{
-[; ;BatteryManagment.c: 90: Read_Status_INC = Read_Status_INC + 1;
+[v _Error_Value `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 88: int Error_Value = 0;
+[e = _Error_Value -> 0 `i ]
+[; ;BatteryManagment.c: 90: do {
 "90
-[e = _Read_Status_INC + _Read_Status_INC -> 1 `i ]
-"91
-}
-[e :U 1193 ]
-"92
-}
-[; ;BatteryManagment.c: 91: }
-[; ;BatteryManagment.c: 92: } while (Error_Value != 0);
-[e $ != _Error_Value -> 0 `i 1192  ]
-[e :U 1191 ]
-[; ;BatteryManagment.c: 96: do {
-"96
-[e :U 1196 ]
-{
-[; ;BatteryManagment.c: 97: Error_Value = Read_Battery(0, cell_codes_Bank);
-"97
-[e = _Error_Value ( _Read_Battery (2 , -> 0 `i &U _cell_codes_Bank ]
-[; ;BatteryManagment.c: 98: if (Error_Value != 0) {
-"98
-[e $ ! != _Error_Value -> 0 `i 1197  ]
-{
-[; ;BatteryManagment.c: 99: Read_Status_INC = Read_Status_INC + 1;
-"99
-[e = _Read_Status_INC + _Read_Status_INC -> 1 `i ]
-"100
-}
-[e :U 1197 ]
-"101
-}
-[; ;BatteryManagment.c: 100: }
-[; ;BatteryManagment.c: 101: } while (Error_Value != 0);
-[e $ != _Error_Value -> 0 `i 1196  ]
 [e :U 1195 ]
-[; ;BatteryManagment.c: 104: }
-"104
-[e :UE 1189 ]
+{
+[; ;BatteryManagment.c: 91: Error_Value = Read_Battery(0, cell_codes_Bank);
+"91
+[e = _Error_Value ( _Read_Battery (2 , -> 0 `i &U _cell_codes_Bank ]
+[; ;BatteryManagment.c: 92: if (Error_Value != 0) {
+"92
+[e $ ! != _Error_Value -> 0 `i 1196  ]
+{
+[; ;BatteryManagment.c: 93: Read_Status_INC = Read_Status_INC + 1;
+"93
+[e = _Read_Status_INC + _Read_Status_INC -> 1 `i ]
+"94
 }
-"106
+[e :U 1196 ]
+"95
+}
+[; ;BatteryManagment.c: 94: }
+[; ;BatteryManagment.c: 95: } while (Error_Value != 0);
+[e $ != _Error_Value -> 0 `i 1195  ]
+[e :U 1194 ]
+[; ;BatteryManagment.c: 99: do {
+"99
+[e :U 1199 ]
+{
+[; ;BatteryManagment.c: 100: Error_Value = Read_Battery(0, cell_codes_Bank);
+"100
+[e = _Error_Value ( _Read_Battery (2 , -> 0 `i &U _cell_codes_Bank ]
+[; ;BatteryManagment.c: 101: if (Error_Value != 0) {
+"101
+[e $ ! != _Error_Value -> 0 `i 1200  ]
+{
+[; ;BatteryManagment.c: 102: Read_Status_INC = Read_Status_INC + 1;
+"102
+[e = _Read_Status_INC + _Read_Status_INC -> 1 `i ]
+"103
+}
+[e :U 1200 ]
+"104
+}
+[; ;BatteryManagment.c: 103: }
+[; ;BatteryManagment.c: 104: } while (Error_Value != 0);
+[e $ != _Error_Value -> 0 `i 1199  ]
+[e :U 1198 ]
+[; ;BatteryManagment.c: 107: }
+"107
+[e :UE 1192 ]
+}
+"109
 [v _CheckFault `(v ~T0 @X0 1 ef1`i ]
 {
-[; ;BatteryManagment.c: 106: void CheckFault(int FaultValue) {
+[; ;BatteryManagment.c: 109: void CheckFault(int FaultValue) {
 [e :U _CheckFault ]
 [v _FaultValue `i ~T0 @X0 1 r1 ]
 [f ]
-[; ;BatteryManagment.c: 107: if (FaultValue != 0) {
-"107
-[e $ ! != _FaultValue -> 0 `i 1199  ]
-{
-[; ;BatteryManagment.c: 108: addressFault(FaultValue);
-"108
-[e ( _addressFault (1 _FaultValue ]
-"109
-}
-[e :U 1199 ]
-[; ;BatteryManagment.c: 109: }
-[; ;BatteryManagment.c: 110: }
+[; ;BatteryManagment.c: 110: if (FaultValue != 0) {
 "110
-[e :UE 1198 ]
-}
+[e $ ! != _FaultValue -> 0 `i 1202  ]
+{
+[; ;BatteryManagment.c: 111: addressFault(FaultValue);
+"111
+[e ( _addressFault (1 _FaultValue ]
 "112
+}
+[e :U 1202 ]
+[; ;BatteryManagment.c: 112: }
+[; ;BatteryManagment.c: 113: }
+"113
+[e :UE 1201 ]
+}
+"115
 [v _addressFault `(i ~T0 @X0 1 ef1`i ]
 {
-[; ;BatteryManagment.c: 112: int addressFault(int FaultNum) {
+[; ;BatteryManagment.c: 115: int addressFault(int FaultNum) {
 [e :U _addressFault ]
 [v _FaultNum `i ~T0 @X0 1 r1 ]
 [f ]
-[; ;BatteryManagment.c: 115: do { LATD6 = 1; } while(0);
-"115
-[e :U 1203 ]
+[; ;BatteryManagment.c: 118: do { LATD6 = 1; } while(0);
+"118
+[e :U 1206 ]
 {
 [e = _LATD6 -> -> 1 `i `b ]
 }
-[e :U 1202 ]
-[; ;BatteryManagment.c: 116: Delay(120);
-"116
+[e :U 1205 ]
+[; ;BatteryManagment.c: 119: Delay(120);
+"119
 [e ( _Delay (1 -> 120 `i ]
-[; ;BatteryManagment.c: 117: do { LATD6 = 0; } while(0);
-"117
-[e :U 1206 ]
+[; ;BatteryManagment.c: 120: do { LATD6 = 0; } while(0);
+"120
+[e :U 1209 ]
 {
 [e = _LATD6 -> -> 0 `i `b ]
 }
-[e :U 1205 ]
-[; ;BatteryManagment.c: 119: FaultNum = 0;
-"119
+[e :U 1208 ]
+[; ;BatteryManagment.c: 122: FaultNum = 0;
+"122
 [e = _FaultNum -> 0 `i ]
-[; ;BatteryManagment.c: 120: return 1;
-"120
+[; ;BatteryManagment.c: 123: return 1;
+"123
 [e ) -> 1 `i ]
-[e $UE 1200  ]
-[; ;BatteryManagment.c: 121: }
-"121
-[e :UE 1200 ]
-}
+[e $UE 1203  ]
+[; ;BatteryManagment.c: 124: }
 "124
+[e :UE 1203 ]
+}
+"127
 [v _Startuptests `(i ~T0 @X0 1 ef1`*F8981 ]
 {
-[; ;BatteryManagment.c: 124: int Startuptests(int Stat_codes[1][6]) {
+[; ;BatteryManagment.c: 127: int Startuptests(int Stat_codes[1][6]) {
 [e :U _Startuptests ]
-[v F9247 `i ~T0 @X0 -> 6 `i t ]
-[v _Stat_codes `*F9247 ~T0 @X0 1 r1 ]
+[v F9248 `i ~T0 @X0 -> 6 `i t ]
+[v _Stat_codes `*F9248 ~T0 @X0 1 r1 ]
 [f ]
-"125
-[v _ReadErrorValue `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 125: int ReadErrorValue = 0;
-[e = _ReadErrorValue -> 0 `i ]
-"126
-[v _ErrorCount `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 126: int ErrorCount = 0;
-[e = _ErrorCount -> 0 `i ]
-"127
-[v _CriticalReadError `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 127: int CriticalReadError = 0;
-[e = _CriticalReadError -> 0 `i ]
 "128
-[v _FaultError `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 128: int FaultError = 0;
-[e = _FaultError -> 0 `i ]
-[; ;BatteryManagment.c: 129: Set_Stat(2, 0x000);
+[v _ReadErrorValue `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 128: int ReadErrorValue = 0;
+[e = _ReadErrorValue -> 0 `i ]
 "129
-[e ( _Set_Stat (2 , -> 2 `i -> 0 `i ]
-[; ;BatteryManagment.c: 130: LTC6804_ADSTAT();
+[v _ErrorCount `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 129: int ErrorCount = 0;
+[e = _ErrorCount -> 0 `i ]
 "130
-[e ( _LTC6804_ADSTAT ..  ]
-[; ;BatteryManagment.c: 131: ReadErrorValue = LTC6804_rdStat(0, 1, Stat_codes);
+[v _CriticalReadError `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 130: int CriticalReadError = 0;
+[e = _CriticalReadError -> 0 `i ]
 "131
-[e = _ReadErrorValue ( _LTC6804_rdStat (3 , , -> 0 `i -> 1 `i _Stat_codes ]
-[; ;BatteryManagment.c: 133: while (ReadErrorValue == -1 && ErrorCount < 10) {
+[v _FaultError `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 131: int FaultError = 0;
+[e = _FaultError -> 0 `i ]
+[; ;BatteryManagment.c: 132: Set_Stat(2, 0x000);
+"132
+[e ( _Set_Stat (2 , -> 2 `i -> 0 `i ]
+[; ;BatteryManagment.c: 133: LTC6804_ADSTAT();
 "133
-[e $U 1208  ]
-[e :U 1209 ]
-{
-[; ;BatteryManagment.c: 134: LTC6804_ADSTAT();
-"134
 [e ( _LTC6804_ADSTAT ..  ]
-[; ;BatteryManagment.c: 135: ReadErrorValue = LTC6804_rdStat(0, 1, Stat_codes);
-"135
+[; ;BatteryManagment.c: 134: ReadErrorValue = LTC6804_rdStat(0, 1, Stat_codes);
+"134
 [e = _ReadErrorValue ( _LTC6804_rdStat (3 , , -> 0 `i -> 1 `i _Stat_codes ]
+[; ;BatteryManagment.c: 136: while (ReadErrorValue == -1 && ErrorCount < 10) {
 "136
-}
-[e :U 1208 ]
-"133
-[e $ && == _ReadErrorValue -U -> 1 `i < _ErrorCount -> 10 `i 1209  ]
-[e :U 1210 ]
-[; ;BatteryManagment.c: 136: }
-[; ;BatteryManagment.c: 137: if (ErrorCount >= 10) {
-"137
-[e $ ! >= _ErrorCount -> 10 `i 1211  ]
+[e $U 1211  ]
+[e :U 1212 ]
 {
-[; ;BatteryManagment.c: 138: CriticalReadError = 15;
+[; ;BatteryManagment.c: 137: LTC6804_ADSTAT();
+"137
+[e ( _LTC6804_ADSTAT ..  ]
+[; ;BatteryManagment.c: 138: ReadErrorValue = LTC6804_rdStat(0, 1, Stat_codes);
 "138
-[e = _CriticalReadError -> 15 `i ]
+[e = _ReadErrorValue ( _LTC6804_rdStat (3 , , -> 0 `i -> 1 `i _Stat_codes ]
 "139
 }
 [e :U 1211 ]
+"136
+[e $ && == _ReadErrorValue -U -> 1 `i < _ErrorCount -> 10 `i 1212  ]
+[e :U 1213 ]
 [; ;BatteryManagment.c: 139: }
-[; ;BatteryManagment.c: 141: if (ReadErrorValue == 0) {
+[; ;BatteryManagment.c: 140: if (ErrorCount >= 10) {
+"140
+[e $ ! >= _ErrorCount -> 10 `i 1214  ]
+{
+[; ;BatteryManagment.c: 141: CriticalReadError = 15;
 "141
-[e $ ! == _ReadErrorValue -> 0 `i 1212  ]
-{
-[; ;BatteryManagment.c: 142: CheckTestReading(Stat_codes);
+[e = _CriticalReadError -> 15 `i ]
 "142
-[e ( _CheckTestReading (1 _Stat_codes ]
-[; ;BatteryManagment.c: 143: return FaultError;
-"143
-[e ) _FaultError ]
-[e $UE 1207  ]
-"144
 }
-[e :U 1212 ]
-[; ;BatteryManagment.c: 144: }
-[; ;BatteryManagment.c: 145: if (ErrorCount > 10) {
-"145
-[e $ ! > _ErrorCount -> 10 `i 1213  ]
+[e :U 1214 ]
+[; ;BatteryManagment.c: 142: }
+[; ;BatteryManagment.c: 144: if (ReadErrorValue == 0) {
+"144
+[e $ ! == _ReadErrorValue -> 0 `i 1215  ]
 {
-[; ;BatteryManagment.c: 146: return CriticalReadError;
+[; ;BatteryManagment.c: 145: CheckTestReading(Stat_codes);
+"145
+[e ( _CheckTestReading (1 _Stat_codes ]
+[; ;BatteryManagment.c: 146: return FaultError;
 "146
-[e ) _CriticalReadError ]
-[e $UE 1207  ]
+[e ) _FaultError ]
+[e $UE 1210  ]
 "147
 }
-[e :U 1213 ]
+[e :U 1215 ]
 [; ;BatteryManagment.c: 147: }
-[; ;BatteryManagment.c: 149: }
+[; ;BatteryManagment.c: 148: if (ErrorCount > 10) {
+"148
+[e $ ! > _ErrorCount -> 10 `i 1216  ]
+{
+[; ;BatteryManagment.c: 149: return CriticalReadError;
 "149
-[e :UE 1207 ]
+[e ) _CriticalReadError ]
+[e $UE 1210  ]
+"150
 }
-"151
+[e :U 1216 ]
+[; ;BatteryManagment.c: 150: }
+[; ;BatteryManagment.c: 152: }
+"152
+[e :UE 1210 ]
+}
+"154
 [v _CheckTestReading `(i ~T0 @X0 1 ef1`*F8984 ]
 {
-[; ;BatteryManagment.c: 151: int CheckTestReading(int Stat_codes[1][6]) {
+[; ;BatteryManagment.c: 154: int CheckTestReading(int Stat_codes[1][6]) {
 [e :U _CheckTestReading ]
-[v F9253 `i ~T0 @X0 -> 6 `i t ]
-[v _Stat_codes `*F9253 ~T0 @X0 1 r1 ]
+[v F9254 `i ~T0 @X0 -> 6 `i t ]
+[v _Stat_codes `*F9254 ~T0 @X0 1 r1 ]
 [f ]
-"152
+"155
 [v _TestError `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 152: int TestError = 0;
+[; ;BatteryManagment.c: 155: int TestError = 0;
 [e = _TestError -> 0 `i ]
-"153
+"156
 [v _IC `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 153: int IC = 0;
+[; ;BatteryManagment.c: 156: int IC = 0;
 [e = _IC -> 0 `i ]
-[; ;BatteryManagment.c: 154: while (IC < 1) {
-"154
-[e $U 1215  ]
-[e :U 1216 ]
-{
+[; ;BatteryManagment.c: 157: while (IC < 1) {
 "157
-[v _soc `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 157: int soc = 0;
-[e = _soc -> 0 `i ]
-"158
-[v _Sum_Of_Cells `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 158: int Sum_Of_Cells = 0;
-[e = _Sum_Of_Cells -> 0 `i ]
-[; ;BatteryManagment.c: 159: soc = Stat_codes[1][0];
-"159
-[e = _soc *U + &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x `ui `ux ]
-[; ;BatteryManagment.c: 160: Sum_Of_Cells = (soc * (100 * pow(10, -6))*20);
-"160
-[e = _Sum_Of_Cells -> * * -> _soc `d * -> -> 100 `i `d ( _pow (2 , -> -> 10 `i `d -> -U -> 6 `i `d -> -> 20 `i `d `i ]
-"164
-[v _itmp `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 164: int itmp = 0;
-[e = _itmp -> 0 `i ]
-"165
-[v _Internal_Die_Temprature `d ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 165: double Internal_Die_Temprature = 0;
-[e = _Internal_Die_Temprature -> -> 0 `i `d ]
-[; ;BatteryManagment.c: 166: itmp = Stat_codes[1][1];
-"166
-[e = _itmp *U + &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x `ui `ux ]
-[; ;BatteryManagment.c: 167: Internal_Die_Temprature = (itmp * ((100 * pow(10, -6)) / (7.5 * pow(10, -3))) - 273);
-"167
-[e = _Internal_Die_Temprature - * -> _itmp `d / * -> -> 100 `i `d ( _pow (2 , -> -> 10 `i `d -> -U -> 6 `i `d * .7.5 ( _pow (2 , -> -> 10 `i `d -> -U -> 3 `i `d -> -> 273 `i `d ]
-"171
-[v _va `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 171: int va = 0;
-[e = _va -> 0 `i ]
-"172
-[v _Analog_Supply_Power `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 172: int Analog_Supply_Power = 0;
-[e = _Analog_Supply_Power -> 0 `i ]
-[; ;BatteryManagment.c: 173: va = Stat_codes[1][2];
-"173
-[e = _va *U + &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x * -> -> -> 2 `i `ui `ux -> -> # *U &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x `ui `ux ]
-[; ;BatteryManagment.c: 174: Analog_Supply_Power = (soc * (100 * pow(10, -6)));
-"174
-[e = _Analog_Supply_Power -> * -> _soc `d * -> -> 100 `i `d ( _pow (2 , -> -> 10 `i `d -> -U -> 6 `i `d `i ]
-[; ;BatteryManagment.c: 175: if ((Analog_Supply_Power < 4.5) || (Analog_Supply_Power > 5.5)) {
-"175
-[e $ ! || < -> _Analog_Supply_Power `d .4.5 > -> _Analog_Supply_Power `d .5.5 1218  ]
-{
-[; ;BatteryManagment.c: 176: TestError = 8;
-"176
-[e = _TestError -> 8 `i ]
-"177
-}
-[e :U 1218 ]
-"180
-[v _vd `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 177: }
-[; ;BatteryManagment.c: 180: int vd = 0;
-[e = _vd -> 0 `i ]
-"181
-[v _Digital_Supply_Power `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 181: int Digital_Supply_Power = 0;
-[e = _Digital_Supply_Power -> 0 `i ]
-[; ;BatteryManagment.c: 182: vd = Stat_codes[1][3];
-"182
-[e = _vd *U + &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x * -> -> -> 3 `i `ui `ux -> -> # *U &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x `ui `ux ]
-[; ;BatteryManagment.c: 183: Digital_Supply_Power = (soc * (100 * pow(10, -6)));
-"183
-[e = _Digital_Supply_Power -> * -> _soc `d * -> -> 100 `i `d ( _pow (2 , -> -> 10 `i `d -> -U -> 6 `i `d `i ]
-[; ;BatteryManagment.c: 184: if ((Digital_Supply_Power < 2.7) || (Digital_Supply_Power > 3.6)) {
-"184
-[e $ ! || < -> _Digital_Supply_Power `d .2.7 > -> _Digital_Supply_Power `d .3.6 1219  ]
-{
-[; ;BatteryManagment.c: 185: TestError = 9;
-"185
-[e = _TestError -> 9 `i ]
-"186
-}
+[e $U 1218  ]
 [e :U 1219 ]
-"189
-[v _BoolValues `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 186: }
-[; ;BatteryManagment.c: 189: int BoolValues = 0;
-[e = _BoolValues -> 0 `i ]
-[; ;BatteryManagment.c: 190: BoolValues = Stat_codes[1][4];
-"190
-[e = _BoolValues *U + &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x * -> -> -> 4 `i `ui `ux -> -> # *U &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x `ui `ux ]
-"192
-[v _incrementer `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 192: int incrementer = 0;
-[e = _incrementer -> 0 `i ]
-[; ;BatteryManagment.c: 193: while (incrementer <= 15) {
-"193
-[e $U 1220  ]
+{
+"160
+[v _soc `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 160: int soc = 0;
+[e = _soc -> 0 `i ]
+"161
+[v _Sum_Of_Cells `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 161: int Sum_Of_Cells = 0;
+[e = _Sum_Of_Cells -> 0 `i ]
+[; ;BatteryManagment.c: 162: soc = Stat_codes[1][0];
+"162
+[e = _soc *U + &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x `ui `ux ]
+[; ;BatteryManagment.c: 163: Sum_Of_Cells = (soc * (100 * pow(10, -6))*20);
+"163
+[e = _Sum_Of_Cells -> * * -> _soc `d * -> -> 100 `i `d ( _pow (2 , -> -> 10 `i `d -> -U -> 6 `i `d -> -> 20 `i `d `i ]
+"167
+[v _itmp `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 167: int itmp = 0;
+[e = _itmp -> 0 `i ]
+"168
+[v _Internal_Die_Temprature `d ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 168: double Internal_Die_Temprature = 0;
+[e = _Internal_Die_Temprature -> -> 0 `i `d ]
+[; ;BatteryManagment.c: 169: itmp = Stat_codes[1][1];
+"169
+[e = _itmp *U + &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x `ui `ux ]
+[; ;BatteryManagment.c: 170: Internal_Die_Temprature = (itmp * ((100 * pow(10, -6)) / (7.5 * pow(10, -3))) - 273);
+"170
+[e = _Internal_Die_Temprature - * -> _itmp `d / * -> -> 100 `i `d ( _pow (2 , -> -> 10 `i `d -> -U -> 6 `i `d * .7.5 ( _pow (2 , -> -> 10 `i `d -> -U -> 3 `i `d -> -> 273 `i `d ]
+"174
+[v _va `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 174: int va = 0;
+[e = _va -> 0 `i ]
+"175
+[v _Analog_Supply_Power `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 175: int Analog_Supply_Power = 0;
+[e = _Analog_Supply_Power -> 0 `i ]
+[; ;BatteryManagment.c: 176: va = Stat_codes[1][2];
+"176
+[e = _va *U + &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x * -> -> -> 2 `i `ui `ux -> -> # *U &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x `ui `ux ]
+[; ;BatteryManagment.c: 177: Analog_Supply_Power = (soc * (100 * pow(10, -6)));
+"177
+[e = _Analog_Supply_Power -> * -> _soc `d * -> -> 100 `i `d ( _pow (2 , -> -> 10 `i `d -> -U -> 6 `i `d `i ]
+[; ;BatteryManagment.c: 178: if ((Analog_Supply_Power < 4.5) || (Analog_Supply_Power > 5.5)) {
+"178
+[e $ ! || < -> _Analog_Supply_Power `d .4.5 > -> _Analog_Supply_Power `d .5.5 1221  ]
+{
+[; ;BatteryManagment.c: 179: TestError = 8;
+"179
+[e = _TestError -> 8 `i ]
+"180
+}
 [e :U 1221 ]
+"183
+[v _vd `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 180: }
+[; ;BatteryManagment.c: 183: int vd = 0;
+[e = _vd -> 0 `i ]
+"184
+[v _Digital_Supply_Power `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 184: int Digital_Supply_Power = 0;
+[e = _Digital_Supply_Power -> 0 `i ]
+[; ;BatteryManagment.c: 185: vd = Stat_codes[1][3];
+"185
+[e = _vd *U + &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x * -> -> -> 3 `i `ui `ux -> -> # *U &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x `ui `ux ]
+[; ;BatteryManagment.c: 186: Digital_Supply_Power = (soc * (100 * pow(10, -6)));
+"186
+[e = _Digital_Supply_Power -> * -> _soc `d * -> -> 100 `i `d ( _pow (2 , -> -> 10 `i `d -> -U -> 6 `i `d `i ]
+[; ;BatteryManagment.c: 187: if ((Digital_Supply_Power < 2.7) || (Digital_Supply_Power > 3.6)) {
+"187
+[e $ ! || < -> _Digital_Supply_Power `d .2.7 > -> _Digital_Supply_Power `d .3.6 1222  ]
 {
-"194
-[v _CheckValue `uc ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 194: bool CheckValue = BoolValues && ((0x1) << incrementer);
-[e = _CheckValue -> -> && != _BoolValues -> 0 `i != << -> 1 `i _incrementer -> 0 `i `i `uc ]
-[; ;BatteryManagment.c: 196: switch (incrementer) {
-"196
-[e $U 1224  ]
-{
-[; ;BatteryManagment.c: 197: case 0:
-"197
-[e :U 1225 ]
-[; ;BatteryManagment.c: 198: if (CheckValue == 1) {
-"198
-[e $ ! == -> _CheckValue `i -> 1 `i 1226  ]
-{
-[; ;BatteryManagment.c: 199: TestError = 1;
-"199
-[e = _TestError -> 1 `i ]
-"200
+[; ;BatteryManagment.c: 188: TestError = 9;
+"188
+[e = _TestError -> 9 `i ]
+"189
 }
-[e :U 1226 ]
-[; ;BatteryManagment.c: 200: }
-[; ;BatteryManagment.c: 201: break;
-"201
-[e $U 1223  ]
-[; ;BatteryManagment.c: 202: case 1: if (CheckValue == 1) {
-"202
-[e :U 1227 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1228  ]
-{
-[; ;BatteryManagment.c: 203: TestError = 2;
-"203
-[e = _TestError -> 2 `i ]
-"204
-}
-[e :U 1228 ]
-[; ;BatteryManagment.c: 204: }
-[; ;BatteryManagment.c: 205: break;
-"205
-[e $U 1223  ]
-[; ;BatteryManagment.c: 206: case 2: if (CheckValue == 1) {
-"206
-[e :U 1229 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1230  ]
-{
-[; ;BatteryManagment.c: 207: TestError = 1;
-"207
-[e = _TestError -> 1 `i ]
-"208
-}
-[e :U 1230 ]
-[; ;BatteryManagment.c: 208: }
-[; ;BatteryManagment.c: 209: break;
-"209
-[e $U 1223  ]
-[; ;BatteryManagment.c: 210: case 3: if (CheckValue == 1) {
-"210
-[e :U 1231 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1232  ]
-{
-[; ;BatteryManagment.c: 211: TestError = 2;
-"211
-[e = _TestError -> 2 `i ]
-"212
-}
-[e :U 1232 ]
-[; ;BatteryManagment.c: 212: }
-[; ;BatteryManagment.c: 213: break;
-"213
-[e $U 1223  ]
-[; ;BatteryManagment.c: 214: case 4: if (CheckValue == 1) {
-"214
-[e :U 1233 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1234  ]
-{
-[; ;BatteryManagment.c: 215: TestError = 1;
-"215
-[e = _TestError -> 1 `i ]
-[; ;BatteryManagment.c: 216: ;
-"217
-}
-[e :U 1234 ]
-[; ;BatteryManagment.c: 217: }
-[; ;BatteryManagment.c: 218: break;
-"218
-[e $U 1223  ]
-[; ;BatteryManagment.c: 219: case 5: if (CheckValue == 1) {
-"219
-[e :U 1235 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1236  ]
-{
-[; ;BatteryManagment.c: 220: TestError = 2;
-"220
-[e = _TestError -> 2 `i ]
-"221
-}
-[e :U 1236 ]
-[; ;BatteryManagment.c: 221: }
-[; ;BatteryManagment.c: 222: break;
-"222
-[e $U 1223  ]
-[; ;BatteryManagment.c: 223: case 6: if (CheckValue == 1) {
-"223
-[e :U 1237 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1238  ]
-{
-[; ;BatteryManagment.c: 224: TestError = 1;
-"224
-[e = _TestError -> 1 `i ]
-[; ;BatteryManagment.c: 225: ;
-"226
-}
-[e :U 1238 ]
-[; ;BatteryManagment.c: 226: }
-[; ;BatteryManagment.c: 227: break;
-"227
-[e $U 1223  ]
-[; ;BatteryManagment.c: 228: case 7: if (CheckValue == 1) {
-"228
-[e :U 1239 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1240  ]
-{
-[; ;BatteryManagment.c: 229: TestError = 2;
-"229
-[e = _TestError -> 2 `i ]
-"230
-}
-[e :U 1240 ]
-[; ;BatteryManagment.c: 230: }
-[; ;BatteryManagment.c: 231: break;
-"231
-[e $U 1223  ]
-[; ;BatteryManagment.c: 232: case 8:
-"232
-[e :U 1241 ]
-[; ;BatteryManagment.c: 233: if (CheckValue == 1) {
-"233
-[e $ ! == -> _CheckValue `i -> 1 `i 1242  ]
-{
-[; ;BatteryManagment.c: 234: TestError = 1;
-"234
-[e = _TestError -> 1 `i ]
-"235
-}
-[e :U 1242 ]
-[; ;BatteryManagment.c: 235: }
-[; ;BatteryManagment.c: 236: break;
-"236
-[e $U 1223  ]
-[; ;BatteryManagment.c: 237: case 9: if (CheckValue == 1) {
-"237
-[e :U 1243 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1244  ]
-{
-[; ;BatteryManagment.c: 238: TestError = 2;
-"238
-[e = _TestError -> 2 `i ]
-"239
-}
-[e :U 1244 ]
-[; ;BatteryManagment.c: 239: }
-[; ;BatteryManagment.c: 240: break;
-"240
-[e $U 1223  ]
-[; ;BatteryManagment.c: 241: case 10: if (CheckValue == 1) {
-"241
-[e :U 1245 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1246  ]
-{
-[; ;BatteryManagment.c: 242: TestError = 1;
-"242
-[e = _TestError -> 1 `i ]
-"243
-}
-[e :U 1246 ]
-[; ;BatteryManagment.c: 243: }
-[; ;BatteryManagment.c: 244: break;
-"244
-[e $U 1223  ]
-[; ;BatteryManagment.c: 245: case 11: if (CheckValue == 1) {
-"245
-[e :U 1247 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1248  ]
-{
-[; ;BatteryManagment.c: 246: TestError = 2;
-"246
-[e = _TestError -> 2 `i ]
-"247
-}
-[e :U 1248 ]
-[; ;BatteryManagment.c: 247: }
-[; ;BatteryManagment.c: 248: break;
-"248
-[e $U 1223  ]
-[; ;BatteryManagment.c: 249: case 12: if (CheckValue == 1) {
-"249
-[e :U 1249 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1250  ]
-{
-[; ;BatteryManagment.c: 250: TestError = 1;
-"250
-[e = _TestError -> 1 `i ]
-[; ;BatteryManagment.c: 251: ;
-"252
-}
-[e :U 1250 ]
-[; ;BatteryManagment.c: 252: }
-[; ;BatteryManagment.c: 253: break;
-"253
-[e $U 1223  ]
-[; ;BatteryManagment.c: 254: case 13: if (CheckValue == 1) {
-"254
-[e :U 1251 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1252  ]
-{
-[; ;BatteryManagment.c: 255: TestError = 2;
-"255
-[e = _TestError -> 2 `i ]
-"256
-}
-[e :U 1252 ]
-[; ;BatteryManagment.c: 256: }
-[; ;BatteryManagment.c: 257: break;
-"257
-[e $U 1223  ]
-[; ;BatteryManagment.c: 258: case 14: if (CheckValue == 1) {
-"258
-[e :U 1253 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1254  ]
-{
-[; ;BatteryManagment.c: 259: TestError = 1;
-"259
-[e = _TestError -> 1 `i ]
-[; ;BatteryManagment.c: 260: ;
-"261
-}
-[e :U 1254 ]
-[; ;BatteryManagment.c: 261: }
-[; ;BatteryManagment.c: 262: break;
-"262
-[e $U 1223  ]
-[; ;BatteryManagment.c: 263: case 15: if (CheckValue == 1) {
-"263
-[e :U 1255 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1256  ]
-{
-[; ;BatteryManagment.c: 264: TestError = 2;
-"264
-[e = _TestError -> 2 `i ]
-"265
-}
-[e :U 1256 ]
-[; ;BatteryManagment.c: 265: }
-[; ;BatteryManagment.c: 266: break;
-"266
-[e $U 1223  ]
-"268
-}
-[; ;BatteryManagment.c: 268: }
-[e $U 1223  ]
-"196
-[e :U 1224 ]
-[e [\ _incrementer , $ -> 0 `i 1225
- , $ -> 1 `i 1227
- , $ -> 2 `i 1229
- , $ -> 3 `i 1231
- , $ -> 4 `i 1233
- , $ -> 5 `i 1235
- , $ -> 6 `i 1237
- , $ -> 7 `i 1239
- , $ -> 8 `i 1241
- , $ -> 9 `i 1243
- , $ -> 10 `i 1245
- , $ -> 11 `i 1247
- , $ -> 12 `i 1249
- , $ -> 13 `i 1251
- , $ -> 14 `i 1253
- , $ -> 15 `i 1255
- 1223 ]
-"268
-[e :U 1223 ]
-[; ;BatteryManagment.c: 269: incrementer = incrementer + 1;
-"269
-[e = _incrementer + _incrementer -> 1 `i ]
-[; ;BatteryManagment.c: 270: CheckValue = 0;
-"270
-[e = _CheckValue -> -> 0 `i `uc ]
-"271
-}
-[e :U 1220 ]
-"193
-[e $ <= _incrementer -> 15 `i 1221  ]
 [e :U 1222 ]
-[; ;BatteryManagment.c: 271: }
-[; ;BatteryManagment.c: 274: BoolValues = 0;
-"274
+"192
+[v _BoolValues `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 189: }
+[; ;BatteryManagment.c: 192: int BoolValues = 0;
 [e = _BoolValues -> 0 `i ]
-[; ;BatteryManagment.c: 275: BoolValues = Stat_codes[1][4];
-"275
+[; ;BatteryManagment.c: 193: BoolValues = Stat_codes[1][4];
+"193
 [e = _BoolValues *U + &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x * -> -> -> 4 `i `ui `ux -> -> # *U &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x `ui `ux ]
-[; ;BatteryManagment.c: 277: incrementer = 0;
-"277
+"195
+[v _incrementer `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 195: int incrementer = 0;
 [e = _incrementer -> 0 `i ]
-[; ;BatteryManagment.c: 278: while (incrementer <= 8) {
-"278
-[e $U 1257  ]
-[e :U 1258 ]
+[; ;BatteryManagment.c: 196: while (incrementer <= 15) {
+"196
+[e $U 1223  ]
+[e :U 1224 ]
 {
-"279
+"197
 [v _CheckValue `uc ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 279: bool CheckValue = BoolValues && ((0x1) << incrementer);
+[; ;BatteryManagment.c: 197: bool CheckValue = BoolValues && ((0x1) << incrementer);
 [e = _CheckValue -> -> && != _BoolValues -> 0 `i != << -> 1 `i _incrementer -> 0 `i `i `uc ]
-[; ;BatteryManagment.c: 281: switch (incrementer) {
-"281
-[e $U 1261  ]
+[; ;BatteryManagment.c: 199: switch (incrementer) {
+"199
+[e $U 1227  ]
 {
-[; ;BatteryManagment.c: 282: case 0:
-"282
-[e :U 1262 ]
-[; ;BatteryManagment.c: 283: if (CheckValue == 1) {
-"283
-[e $ ! == -> _CheckValue `i -> 1 `i 1263  ]
+[; ;BatteryManagment.c: 200: case 0:
+"200
+[e :U 1228 ]
+[; ;BatteryManagment.c: 201: if (CheckValue == 1) {
+"201
+[e $ ! == -> _CheckValue `i -> 1 `i 1229  ]
 {
-[; ;BatteryManagment.c: 284: TestError = 1;
-"284
+[; ;BatteryManagment.c: 202: TestError = 1;
+"202
 [e = _TestError -> 1 `i ]
-"285
+"203
 }
-[e :U 1263 ]
-[; ;BatteryManagment.c: 285: }
-[; ;BatteryManagment.c: 286: break;
-"286
-[e $U 1260  ]
-[; ;BatteryManagment.c: 287: case 1: if (CheckValue == 1) {
-"287
-[e :U 1264 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1265  ]
+[e :U 1229 ]
+[; ;BatteryManagment.c: 203: }
+[; ;BatteryManagment.c: 204: break;
+"204
+[e $U 1226  ]
+[; ;BatteryManagment.c: 205: case 1: if (CheckValue == 1) {
+"205
+[e :U 1230 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1231  ]
 {
-[; ;BatteryManagment.c: 288: TestError = 2;
-"288
+[; ;BatteryManagment.c: 206: TestError = 2;
+"206
 [e = _TestError -> 2 `i ]
-"289
+"207
 }
-[e :U 1265 ]
-[; ;BatteryManagment.c: 289: }
-[; ;BatteryManagment.c: 290: break;
-"290
-[e $U 1260  ]
-[; ;BatteryManagment.c: 291: case 2: if (CheckValue == 1) {
-"291
-[e :U 1266 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1267  ]
+[e :U 1231 ]
+[; ;BatteryManagment.c: 207: }
+[; ;BatteryManagment.c: 208: break;
+"208
+[e $U 1226  ]
+[; ;BatteryManagment.c: 209: case 2: if (CheckValue == 1) {
+"209
+[e :U 1232 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1233  ]
 {
-[; ;BatteryManagment.c: 292: TestError = 1;
-"292
+[; ;BatteryManagment.c: 210: TestError = 1;
+"210
 [e = _TestError -> 1 `i ]
-"293
+"211
 }
-[e :U 1267 ]
-[; ;BatteryManagment.c: 293: }
-[; ;BatteryManagment.c: 294: break;
-"294
-[e $U 1260  ]
-[; ;BatteryManagment.c: 295: case 3: if (CheckValue == 1) {
-"295
-[e :U 1268 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1269  ]
+[e :U 1233 ]
+[; ;BatteryManagment.c: 211: }
+[; ;BatteryManagment.c: 212: break;
+"212
+[e $U 1226  ]
+[; ;BatteryManagment.c: 213: case 3: if (CheckValue == 1) {
+"213
+[e :U 1234 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1235  ]
 {
-[; ;BatteryManagment.c: 296: TestError = 2;
-"296
+[; ;BatteryManagment.c: 214: TestError = 2;
+"214
 [e = _TestError -> 2 `i ]
-"297
+"215
 }
-[e :U 1269 ]
-[; ;BatteryManagment.c: 297: }
-[; ;BatteryManagment.c: 298: break;
-"298
-[e $U 1260  ]
-[; ;BatteryManagment.c: 299: case 4: if (CheckValue == 1) {
-"299
-[e :U 1270 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1271  ]
+[e :U 1235 ]
+[; ;BatteryManagment.c: 215: }
+[; ;BatteryManagment.c: 216: break;
+"216
+[e $U 1226  ]
+[; ;BatteryManagment.c: 217: case 4: if (CheckValue == 1) {
+"217
+[e :U 1236 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1237  ]
 {
-[; ;BatteryManagment.c: 300: TestError = 1;
-"300
+[; ;BatteryManagment.c: 218: TestError = 1;
+"218
 [e = _TestError -> 1 `i ]
-[; ;BatteryManagment.c: 301: ;
-"302
+[; ;BatteryManagment.c: 219: ;
+"220
 }
-[e :U 1271 ]
-[; ;BatteryManagment.c: 302: }
-[; ;BatteryManagment.c: 303: break;
-"303
-[e $U 1260  ]
-[; ;BatteryManagment.c: 304: case 5: if (CheckValue == 1) {
-"304
-[e :U 1272 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1273  ]
+[e :U 1237 ]
+[; ;BatteryManagment.c: 220: }
+[; ;BatteryManagment.c: 221: break;
+"221
+[e $U 1226  ]
+[; ;BatteryManagment.c: 222: case 5: if (CheckValue == 1) {
+"222
+[e :U 1238 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1239  ]
 {
-[; ;BatteryManagment.c: 305: TestError = 2;
-"305
+[; ;BatteryManagment.c: 223: TestError = 2;
+"223
 [e = _TestError -> 2 `i ]
-"306
+"224
 }
-[e :U 1273 ]
-[; ;BatteryManagment.c: 306: }
-[; ;BatteryManagment.c: 307: break;
-"307
-[e $U 1260  ]
-[; ;BatteryManagment.c: 308: case 6: if (CheckValue == 1) {
-"308
-[e :U 1274 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1275  ]
+[e :U 1239 ]
+[; ;BatteryManagment.c: 224: }
+[; ;BatteryManagment.c: 225: break;
+"225
+[e $U 1226  ]
+[; ;BatteryManagment.c: 226: case 6: if (CheckValue == 1) {
+"226
+[e :U 1240 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1241  ]
 {
-[; ;BatteryManagment.c: 309: TestError = 1;
-"309
+[; ;BatteryManagment.c: 227: TestError = 1;
+"227
 [e = _TestError -> 1 `i ]
-[; ;BatteryManagment.c: 310: ;
-"311
+[; ;BatteryManagment.c: 228: ;
+"229
 }
-[e :U 1275 ]
-[; ;BatteryManagment.c: 311: }
-[; ;BatteryManagment.c: 312: break;
-"312
-[e $U 1260  ]
-[; ;BatteryManagment.c: 313: case 7: if (CheckValue == 1) {
-"313
-[e :U 1276 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1277  ]
+[e :U 1241 ]
+[; ;BatteryManagment.c: 229: }
+[; ;BatteryManagment.c: 230: break;
+"230
+[e $U 1226  ]
+[; ;BatteryManagment.c: 231: case 7: if (CheckValue == 1) {
+"231
+[e :U 1242 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1243  ]
 {
-[; ;BatteryManagment.c: 314: TestError = 2;
-"314
+[; ;BatteryManagment.c: 232: TestError = 2;
+"232
 [e = _TestError -> 2 `i ]
-"315
+"233
 }
-[e :U 1277 ]
-[; ;BatteryManagment.c: 315: }
-[; ;BatteryManagment.c: 316: break;
-"316
-[e $U 1260  ]
-[; ;BatteryManagment.c: 318: case 8:
-"318
-[e :U 1278 ]
-[; ;BatteryManagment.c: 319: if (CheckValue == 1) {
-"319
-[e $ ! == -> _CheckValue `i -> 1 `i 1279  ]
+[e :U 1243 ]
+[; ;BatteryManagment.c: 233: }
+[; ;BatteryManagment.c: 234: break;
+"234
+[e $U 1226  ]
+[; ;BatteryManagment.c: 235: case 8:
+"235
+[e :U 1244 ]
+[; ;BatteryManagment.c: 236: if (CheckValue == 1) {
+"236
+[e $ ! == -> _CheckValue `i -> 1 `i 1245  ]
 {
-[; ;BatteryManagment.c: 320: TestError = 13;
-"320
-[e = _TestError -> 13 `i ]
-"321
+[; ;BatteryManagment.c: 237: TestError = 1;
+"237
+[e = _TestError -> 1 `i ]
+"238
 }
-[e :U 1279 ]
-[; ;BatteryManagment.c: 321: }
-[; ;BatteryManagment.c: 322: break;
-"322
-[e $U 1260  ]
-[; ;BatteryManagment.c: 324: case 9: if (CheckValue == 1) {
-"324
-[e :U 1280 ]
-[e $ ! == -> _CheckValue `i -> 1 `i 1281  ]
+[e :U 1245 ]
+[; ;BatteryManagment.c: 238: }
+[; ;BatteryManagment.c: 239: break;
+"239
+[e $U 1226  ]
+[; ;BatteryManagment.c: 240: case 9: if (CheckValue == 1) {
+"240
+[e :U 1246 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1247  ]
 {
-[; ;BatteryManagment.c: 325: TestError = 11;
-"325
-[e = _TestError -> 11 `i ]
-"326
+[; ;BatteryManagment.c: 241: TestError = 2;
+"241
+[e = _TestError -> 2 `i ]
+"242
 }
-[e :U 1281 ]
-[; ;BatteryManagment.c: 326: }
-[; ;BatteryManagment.c: 327: break;
-"327
-[e $U 1260  ]
-"329
+[e :U 1247 ]
+[; ;BatteryManagment.c: 242: }
+[; ;BatteryManagment.c: 243: break;
+"243
+[e $U 1226  ]
+[; ;BatteryManagment.c: 244: case 10: if (CheckValue == 1) {
+"244
+[e :U 1248 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1249  ]
+{
+[; ;BatteryManagment.c: 245: TestError = 1;
+"245
+[e = _TestError -> 1 `i ]
+"246
 }
-[; ;BatteryManagment.c: 329: }
-[e $U 1260  ]
-"281
-[e :U 1261 ]
-[e [\ _incrementer , $ -> 0 `i 1262
- , $ -> 1 `i 1264
- , $ -> 2 `i 1266
- , $ -> 3 `i 1268
- , $ -> 4 `i 1270
- , $ -> 5 `i 1272
- , $ -> 6 `i 1274
- , $ -> 7 `i 1276
- , $ -> 8 `i 1278
- , $ -> 9 `i 1280
- 1260 ]
-"329
-[e :U 1260 ]
-[; ;BatteryManagment.c: 330: incrementer = incrementer + 1;
-"330
-[e = _incrementer + _incrementer -> 1 `i ]
-[; ;BatteryManagment.c: 331: CheckValue = 0;
-"331
-[e = _CheckValue -> -> 0 `i `uc ]
-"332
+[e :U 1249 ]
+[; ;BatteryManagment.c: 246: }
+[; ;BatteryManagment.c: 247: break;
+"247
+[e $U 1226  ]
+[; ;BatteryManagment.c: 248: case 11: if (CheckValue == 1) {
+"248
+[e :U 1250 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1251  ]
+{
+[; ;BatteryManagment.c: 249: TestError = 2;
+"249
+[e = _TestError -> 2 `i ]
+"250
+}
+[e :U 1251 ]
+[; ;BatteryManagment.c: 250: }
+[; ;BatteryManagment.c: 251: break;
+"251
+[e $U 1226  ]
+[; ;BatteryManagment.c: 252: case 12: if (CheckValue == 1) {
+"252
+[e :U 1252 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1253  ]
+{
+[; ;BatteryManagment.c: 253: TestError = 1;
+"253
+[e = _TestError -> 1 `i ]
+[; ;BatteryManagment.c: 254: ;
+"255
+}
+[e :U 1253 ]
+[; ;BatteryManagment.c: 255: }
+[; ;BatteryManagment.c: 256: break;
+"256
+[e $U 1226  ]
+[; ;BatteryManagment.c: 257: case 13: if (CheckValue == 1) {
+"257
+[e :U 1254 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1255  ]
+{
+[; ;BatteryManagment.c: 258: TestError = 2;
+"258
+[e = _TestError -> 2 `i ]
+"259
+}
+[e :U 1255 ]
+[; ;BatteryManagment.c: 259: }
+[; ;BatteryManagment.c: 260: break;
+"260
+[e $U 1226  ]
+[; ;BatteryManagment.c: 261: case 14: if (CheckValue == 1) {
+"261
+[e :U 1256 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1257  ]
+{
+[; ;BatteryManagment.c: 262: TestError = 1;
+"262
+[e = _TestError -> 1 `i ]
+[; ;BatteryManagment.c: 263: ;
+"264
 }
 [e :U 1257 ]
-"278
-[e $ <= _incrementer -> 8 `i 1258  ]
+[; ;BatteryManagment.c: 264: }
+[; ;BatteryManagment.c: 265: break;
+"265
+[e $U 1226  ]
+[; ;BatteryManagment.c: 266: case 15: if (CheckValue == 1) {
+"266
+[e :U 1258 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1259  ]
+{
+[; ;BatteryManagment.c: 267: TestError = 2;
+"267
+[e = _TestError -> 2 `i ]
+"268
+}
 [e :U 1259 ]
+[; ;BatteryManagment.c: 268: }
+[; ;BatteryManagment.c: 269: break;
+"269
+[e $U 1226  ]
+"271
+}
+[; ;BatteryManagment.c: 271: }
+[e $U 1226  ]
+"199
+[e :U 1227 ]
+[e [\ _incrementer , $ -> 0 `i 1228
+ , $ -> 1 `i 1230
+ , $ -> 2 `i 1232
+ , $ -> 3 `i 1234
+ , $ -> 4 `i 1236
+ , $ -> 5 `i 1238
+ , $ -> 6 `i 1240
+ , $ -> 7 `i 1242
+ , $ -> 8 `i 1244
+ , $ -> 9 `i 1246
+ , $ -> 10 `i 1248
+ , $ -> 11 `i 1250
+ , $ -> 12 `i 1252
+ , $ -> 13 `i 1254
+ , $ -> 14 `i 1256
+ , $ -> 15 `i 1258
+ 1226 ]
+"271
+[e :U 1226 ]
+[; ;BatteryManagment.c: 272: incrementer = incrementer + 1;
+"272
+[e = _incrementer + _incrementer -> 1 `i ]
+[; ;BatteryManagment.c: 273: CheckValue = 0;
+"273
+[e = _CheckValue -> -> 0 `i `uc ]
+"274
+}
+[e :U 1223 ]
+"196
+[e $ <= _incrementer -> 15 `i 1224  ]
+[e :U 1225 ]
+[; ;BatteryManagment.c: 274: }
+[; ;BatteryManagment.c: 277: BoolValues = 0;
+"277
+[e = _BoolValues -> 0 `i ]
+[; ;BatteryManagment.c: 278: BoolValues = Stat_codes[1][4];
+"278
+[e = _BoolValues *U + &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x * -> -> -> 4 `i `ui `ux -> -> # *U &U *U + _Stat_codes * -> -> 1 `i `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x `ui `ux ]
+[; ;BatteryManagment.c: 280: incrementer = 0;
+"280
+[e = _incrementer -> 0 `i ]
+[; ;BatteryManagment.c: 281: while (incrementer <= 8) {
+"281
+[e $U 1260  ]
+[e :U 1261 ]
+{
+"282
+[v _CheckValue `uc ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 282: bool CheckValue = BoolValues && ((0x1) << incrementer);
+[e = _CheckValue -> -> && != _BoolValues -> 0 `i != << -> 1 `i _incrementer -> 0 `i `i `uc ]
+[; ;BatteryManagment.c: 284: switch (incrementer) {
+"284
+[e $U 1264  ]
+{
+[; ;BatteryManagment.c: 285: case 0:
+"285
+[e :U 1265 ]
+[; ;BatteryManagment.c: 286: if (CheckValue == 1) {
+"286
+[e $ ! == -> _CheckValue `i -> 1 `i 1266  ]
+{
+[; ;BatteryManagment.c: 287: TestError = 1;
+"287
+[e = _TestError -> 1 `i ]
+"288
+}
+[e :U 1266 ]
+[; ;BatteryManagment.c: 288: }
+[; ;BatteryManagment.c: 289: break;
+"289
+[e $U 1263  ]
+[; ;BatteryManagment.c: 290: case 1: if (CheckValue == 1) {
+"290
+[e :U 1267 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1268  ]
+{
+[; ;BatteryManagment.c: 291: TestError = 2;
+"291
+[e = _TestError -> 2 `i ]
+"292
+}
+[e :U 1268 ]
+[; ;BatteryManagment.c: 292: }
+[; ;BatteryManagment.c: 293: break;
+"293
+[e $U 1263  ]
+[; ;BatteryManagment.c: 294: case 2: if (CheckValue == 1) {
+"294
+[e :U 1269 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1270  ]
+{
+[; ;BatteryManagment.c: 295: TestError = 1;
+"295
+[e = _TestError -> 1 `i ]
+"296
+}
+[e :U 1270 ]
+[; ;BatteryManagment.c: 296: }
+[; ;BatteryManagment.c: 297: break;
+"297
+[e $U 1263  ]
+[; ;BatteryManagment.c: 298: case 3: if (CheckValue == 1) {
+"298
+[e :U 1271 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1272  ]
+{
+[; ;BatteryManagment.c: 299: TestError = 2;
+"299
+[e = _TestError -> 2 `i ]
+"300
+}
+[e :U 1272 ]
+[; ;BatteryManagment.c: 300: }
+[; ;BatteryManagment.c: 301: break;
+"301
+[e $U 1263  ]
+[; ;BatteryManagment.c: 302: case 4: if (CheckValue == 1) {
+"302
+[e :U 1273 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1274  ]
+{
+[; ;BatteryManagment.c: 303: TestError = 1;
+"303
+[e = _TestError -> 1 `i ]
+[; ;BatteryManagment.c: 304: ;
+"305
+}
+[e :U 1274 ]
+[; ;BatteryManagment.c: 305: }
+[; ;BatteryManagment.c: 306: break;
+"306
+[e $U 1263  ]
+[; ;BatteryManagment.c: 307: case 5: if (CheckValue == 1) {
+"307
+[e :U 1275 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1276  ]
+{
+[; ;BatteryManagment.c: 308: TestError = 2;
+"308
+[e = _TestError -> 2 `i ]
+"309
+}
+[e :U 1276 ]
+[; ;BatteryManagment.c: 309: }
+[; ;BatteryManagment.c: 310: break;
+"310
+[e $U 1263  ]
+[; ;BatteryManagment.c: 311: case 6: if (CheckValue == 1) {
+"311
+[e :U 1277 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1278  ]
+{
+[; ;BatteryManagment.c: 312: TestError = 1;
+"312
+[e = _TestError -> 1 `i ]
+[; ;BatteryManagment.c: 313: ;
+"314
+}
+[e :U 1278 ]
+[; ;BatteryManagment.c: 314: }
+[; ;BatteryManagment.c: 315: break;
+"315
+[e $U 1263  ]
+[; ;BatteryManagment.c: 316: case 7: if (CheckValue == 1) {
+"316
+[e :U 1279 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1280  ]
+{
+[; ;BatteryManagment.c: 317: TestError = 2;
+"317
+[e = _TestError -> 2 `i ]
+"318
+}
+[e :U 1280 ]
+[; ;BatteryManagment.c: 318: }
+[; ;BatteryManagment.c: 319: break;
+"319
+[e $U 1263  ]
+[; ;BatteryManagment.c: 321: case 8:
+"321
+[e :U 1281 ]
+[; ;BatteryManagment.c: 322: if (CheckValue == 1) {
+"322
+[e $ ! == -> _CheckValue `i -> 1 `i 1282  ]
+{
+[; ;BatteryManagment.c: 323: TestError = 13;
+"323
+[e = _TestError -> 13 `i ]
+"324
+}
+[e :U 1282 ]
+[; ;BatteryManagment.c: 324: }
+[; ;BatteryManagment.c: 325: break;
+"325
+[e $U 1263  ]
+[; ;BatteryManagment.c: 327: case 9: if (CheckValue == 1) {
+"327
+[e :U 1283 ]
+[e $ ! == -> _CheckValue `i -> 1 `i 1284  ]
+{
+[; ;BatteryManagment.c: 328: TestError = 11;
+"328
+[e = _TestError -> 11 `i ]
+"329
+}
+[e :U 1284 ]
+[; ;BatteryManagment.c: 329: }
+[; ;BatteryManagment.c: 330: break;
+"330
+[e $U 1263  ]
+"332
+}
 [; ;BatteryManagment.c: 332: }
-[; ;BatteryManagment.c: 333: IC = IC + 1;
+[e $U 1263  ]
+"284
+[e :U 1264 ]
+[e [\ _incrementer , $ -> 0 `i 1265
+ , $ -> 1 `i 1267
+ , $ -> 2 `i 1269
+ , $ -> 3 `i 1271
+ , $ -> 4 `i 1273
+ , $ -> 5 `i 1275
+ , $ -> 6 `i 1277
+ , $ -> 7 `i 1279
+ , $ -> 8 `i 1281
+ , $ -> 9 `i 1283
+ 1263 ]
+"332
+[e :U 1263 ]
+[; ;BatteryManagment.c: 333: incrementer = incrementer + 1;
 "333
-[e = _IC + _IC -> 1 `i ]
+[e = _incrementer + _incrementer -> 1 `i ]
+[; ;BatteryManagment.c: 334: CheckValue = 0;
 "334
-}
-[e :U 1215 ]
-"154
-[e $ < _IC -> 1 `i 1216  ]
-[e :U 1217 ]
-[; ;BatteryManagment.c: 334: }
-[; ;BatteryManagment.c: 335: return TestError;
+[e = _CheckValue -> -> 0 `i `uc ]
 "335
-[e ) _TestError ]
-[e $UE 1214  ]
-[; ;BatteryManagment.c: 339: ;
-[; ;BatteryManagment.c: 340: }
-"340
-[e :UE 1214 ]
 }
-"341
+[e :U 1260 ]
+"281
+[e $ <= _incrementer -> 8 `i 1261  ]
+[e :U 1262 ]
+[; ;BatteryManagment.c: 335: }
+[; ;BatteryManagment.c: 336: IC = IC + 1;
+"336
+[e = _IC + _IC -> 1 `i ]
+"337
+}
+[e :U 1218 ]
+"157
+[e $ < _IC -> 1 `i 1219  ]
+[e :U 1220 ]
+[; ;BatteryManagment.c: 337: }
+[; ;BatteryManagment.c: 338: return TestError;
+"338
+[e ) _TestError ]
+[e $UE 1217  ]
+[; ;BatteryManagment.c: 342: ;
+[; ;BatteryManagment.c: 343: }
+"343
+[e :UE 1217 ]
+}
+"344
 [v _CheckThresholdsBank `(i ~T0 @X0 1 ef3`i`i`*F8978 ]
 {
-[; ;BatteryManagment.c: 341: int CheckThresholdsBank(int test,int IC, int cell_codes[][12]) {
+[; ;BatteryManagment.c: 344: int CheckThresholdsBank(int test,int IC, int cell_codes[][12]) {
 [e :U _CheckThresholdsBank ]
 [v _test `i ~T0 @X0 1 r1 ]
 [v _IC `i ~T0 @X0 1 r2 ]
-[v F9271 `i ~T0 @X0 -> 12 `i t ]
-[v _cell_codes `*F9271 ~T0 @X0 1 r3 ]
+[v F9272 `i ~T0 @X0 -> 12 `i t ]
+[v _cell_codes `*F9272 ~T0 @X0 1 r3 ]
 [f ]
-"342
-[v _CurrentIC `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 342: int CurrentIC = 0;
-[e = _CurrentIC -> 0 `i ]
-"343
-[v _cell `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 343: int cell = 0;
-[e = _cell -> 0 `i ]
-"344
-[v _Error_Value `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 344: int Error_Value = 0;
-[e = _Error_Value -> 0 `i ]
-[; ;BatteryManagment.c: 345: while (CurrentIC < IC) {
 "345
-[e $U 1283  ]
-[e :U 1284 ]
-{
-[; ;BatteryManagment.c: 346: while (cell < 12) {
+[v _CurrentIC `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 345: int CurrentIC = 0;
+[e = _CurrentIC -> 0 `i ]
 "346
+[v _cell `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 346: int cell = 0;
+[e = _cell -> 0 `i ]
+"347
+[v _Error_Value `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 347: int Error_Value = 0;
+[e = _Error_Value -> 0 `i ]
+[; ;BatteryManagment.c: 348: while (CurrentIC < IC) {
+"348
 [e $U 1286  ]
 [e :U 1287 ]
 {
-[; ;BatteryManagment.c: 348: Error_Value = CheckThresholds(test, cell_codes[CurrentIC][cell]);
-"348
-[e = _Error_Value ( _CheckThresholds (2 , _test *U + &U *U + _cell_codes * -> _CurrentIC `x -> * -> # *U &U *U _cell_codes `ui -> -> 12 `i `ui `x * -> -> _cell `ui `ux -> -> # *U &U *U + _cell_codes * -> _CurrentIC `x -> * -> # *U &U *U _cell_codes `ui -> -> 12 `i `ui `x `ui `ux ]
-[; ;BatteryManagment.c: 349: if (Error_Value != 0) {
+[; ;BatteryManagment.c: 349: while (cell < 12) {
 "349
-[e $ ! != _Error_Value -> 0 `i 1289  ]
+[e $U 1289  ]
+[e :U 1290 ]
 {
-[; ;BatteryManagment.c: 350: return Error_Value;
-"350
-[e ) _Error_Value ]
-[e $UE 1282  ]
+[; ;BatteryManagment.c: 351: Error_Value = CheckThresholds(test, cell_codes[CurrentIC][cell]);
 "351
+[e = _Error_Value ( _CheckThresholds (2 , _test *U + &U *U + _cell_codes * -> _CurrentIC `x -> * -> # *U &U *U _cell_codes `ui -> -> 12 `i `ui `x * -> -> _cell `ui `ux -> -> # *U &U *U + _cell_codes * -> _CurrentIC `x -> * -> # *U &U *U _cell_codes `ui -> -> 12 `i `ui `x `ui `ux ]
+[; ;BatteryManagment.c: 352: if (Error_Value != 0) {
+"352
+[e $ ! != _Error_Value -> 0 `i 1292  ]
+{
+[; ;BatteryManagment.c: 353: return Error_Value;
+"353
+[e ) _Error_Value ]
+[e $UE 1285  ]
+"354
+}
+[e :U 1292 ]
+[; ;BatteryManagment.c: 354: }
+[; ;BatteryManagment.c: 355: cell = cell + 1;
+"355
+[e = _cell + _cell -> 1 `i ]
+"356
 }
 [e :U 1289 ]
-[; ;BatteryManagment.c: 351: }
-[; ;BatteryManagment.c: 352: cell = cell + 1;
-"352
-[e = _cell + _cell -> 1 `i ]
-"353
+"349
+[e $ < _cell -> 12 `i 1290  ]
+[e :U 1291 ]
+[; ;BatteryManagment.c: 356: }
+[; ;BatteryManagment.c: 358: cell = 0;
+"358
+[e = _cell -> 0 `i ]
+[; ;BatteryManagment.c: 359: CurrentIC = CurrentIC + 1;
+"359
+[e = _CurrentIC + _CurrentIC -> 1 `i ]
+"360
 }
 [e :U 1286 ]
-"346
-[e $ < _cell -> 12 `i 1287  ]
+"348
+[e $ < _CurrentIC _IC 1287  ]
 [e :U 1288 ]
-[; ;BatteryManagment.c: 353: }
-[; ;BatteryManagment.c: 355: cell = 0;
-"355
-[e = _cell -> 0 `i ]
-[; ;BatteryManagment.c: 356: CurrentIC = CurrentIC + 1;
-"356
-[e = _CurrentIC + _CurrentIC -> 1 `i ]
-"357
-}
-[e :U 1283 ]
-"345
-[e $ < _CurrentIC _IC 1284  ]
-[e :U 1285 ]
-[; ;BatteryManagment.c: 357: }
-[; ;BatteryManagment.c: 358: return Error_Value;
-"358
+[; ;BatteryManagment.c: 360: }
+[; ;BatteryManagment.c: 361: return Error_Value;
+"361
 [e ) _Error_Value ]
-[e $UE 1282  ]
-[; ;BatteryManagment.c: 359: }
-"359
-[e :UE 1282 ]
+[e $UE 1285  ]
+[; ;BatteryManagment.c: 362: }
+"362
+[e :UE 1285 ]
 }
-"360
+"363
 [v _CheckThresholds `(i ~T0 @X0 1 ef2`i`i ]
 {
-[; ;BatteryManagment.c: 360: int CheckThresholds(int test, int data) {
+[; ;BatteryManagment.c: 363: int CheckThresholds(int test, int data) {
 [e :U _CheckThresholds ]
 [v _test `i ~T0 @X0 1 r1 ]
 [v _data `i ~T0 @X0 1 r2 ]
 [f ]
-"361
-[v _FaultIndicator `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 361: int FaultIndicator = 0;
-[e = _FaultIndicator -> 0 `i ]
-[; ;BatteryManagment.c: 362: switch (test) {
-"362
-[e $U 1292  ]
-{
-[; ;BatteryManagment.c: 363: case 2:
-"363
-[e :U 1293 ]
-[; ;BatteryManagment.c: 364: if (data > Over_Voltage_Value)
 "364
-[e $ ! > _data _Over_Voltage_Value 1294  ]
-[; ;BatteryManagment.c: 365: FaultIndicator = 2;
+[v _FaultIndicator `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 364: int FaultIndicator = 0;
+[e = _FaultIndicator -> 0 `i ]
+[; ;BatteryManagment.c: 365: switch (test) {
 "365
-[e = _FaultIndicator -> 2 `i ]
-[e :U 1294 ]
-[; ;BatteryManagment.c: 366: break;
-"366
-[e $U 1291  ]
-[; ;BatteryManagment.c: 367: case 1:
-"367
-[e :U 1295 ]
-[; ;BatteryManagment.c: 368: if (data < Under_Voltage_Value) {
-"368
-[e $ ! < _data _Under_Voltage_Value 1296  ]
+[e $U 1295  ]
 {
-[; ;BatteryManagment.c: 369: FaultIndicator = 1;
-"369
-[e = _FaultIndicator -> 1 `i ]
-"370
-}
+[; ;BatteryManagment.c: 366: case 2:
+"366
 [e :U 1296 ]
-[; ;BatteryManagment.c: 370: }
-[; ;BatteryManagment.c: 371: break;
+[; ;BatteryManagment.c: 367: if (data > Over_Voltage_Value)
+"367
+[e $ ! > _data _Over_Voltage_Value 1297  ]
+[; ;BatteryManagment.c: 368: FaultIndicator = 2;
+"368
+[e = _FaultIndicator -> 2 `i ]
+[e :U 1297 ]
+[; ;BatteryManagment.c: 369: break;
+"369
+[e $U 1294  ]
+[; ;BatteryManagment.c: 370: case 1:
+"370
+[e :U 1298 ]
+[; ;BatteryManagment.c: 371: if (data < Under_Voltage_Value) {
 "371
-[e $U 1291  ]
+[e $ ! < _data _Under_Voltage_Value 1299  ]
+{
+[; ;BatteryManagment.c: 372: FaultIndicator = 1;
 "372
-}
-[; ;BatteryManagment.c: 372: }
-[e $U 1291  ]
-"362
-[e :U 1292 ]
-[e [\ _test , $ -> 2 `i 1293
- , $ -> 1 `i 1295
- 1291 ]
-"372
-[e :U 1291 ]
-[; ;BatteryManagment.c: 373: return FaultIndicator;
+[e = _FaultIndicator -> 1 `i ]
 "373
-[e ) _FaultIndicator ]
-[e $UE 1290  ]
-[; ;BatteryManagment.c: 374: }
-"374
-[e :UE 1290 ]
 }
+[e :U 1299 ]
+[; ;BatteryManagment.c: 373: }
+[; ;BatteryManagment.c: 374: break;
+"374
+[e $U 1294  ]
+"375
+}
+[; ;BatteryManagment.c: 375: }
+[e $U 1294  ]
+"365
+[e :U 1295 ]
+[e [\ _test , $ -> 2 `i 1296
+ , $ -> 1 `i 1298
+ 1294 ]
+"375
+[e :U 1294 ]
+[; ;BatteryManagment.c: 376: return FaultIndicator;
 "376
+[e ) _FaultIndicator ]
+[e $UE 1293  ]
+[; ;BatteryManagment.c: 377: }
+"377
+[e :UE 1293 ]
+}
+"379
 [v _Read_Total_Voltage `(i ~T0 @X0 1 ef1`*F8945 ]
 {
-[; ;BatteryManagment.c: 376: int Read_Total_Voltage(int cell_codesBank[][12]) {
+[; ;BatteryManagment.c: 379: int Read_Total_Voltage(int cell_codesBank[][12]) {
 [e :U _Read_Total_Voltage ]
-[v F9279 `i ~T0 @X0 -> 12 `i t ]
-[v _cell_codesBank `*F9279 ~T0 @X0 1 r1 ]
+[v F9280 `i ~T0 @X0 -> 12 `i t ]
+[v _cell_codesBank `*F9280 ~T0 @X0 1 r1 ]
 [f ]
 [v _Read_Status_INC `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 377: int Read_Status_INC = 0;
-"377
-[e = _Read_Status_INC -> 0 `i ]
-"378
-[v _Error_Value `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 378: int Error_Value = 0;
-[e = _Error_Value -> 0 `i ]
-"379
-[v _FaultNum `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 379: int FaultNum=0;
-[e = _FaultNum -> 0 `i ]
-[; ;BatteryManagment.c: 380: do {
+[; ;BatteryManagment.c: 380: int Read_Status_INC = 0;
 "380
-[e :U 1300 ]
-{
-[; ;BatteryManagment.c: 381: Error_Value = Read_Battery(0, cell_codesBank);
+[e = _Read_Status_INC -> 0 `i ]
 "381
-[e = _Error_Value ( _Read_Battery (2 , -> 0 `i _cell_codesBank ]
-[; ;BatteryManagment.c: 382: if (Error_Value != 0) {
+[v _Error_Value `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 381: int Error_Value = 0;
+[e = _Error_Value -> 0 `i ]
 "382
-[e $ ! != _Error_Value -> 0 `i 1301  ]
-{
-[; ;BatteryManagment.c: 383: Read_Status_INC = Read_Status_INC + 1;
+[v _FaultNum `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 382: int FaultNum=0;
+[e = _FaultNum -> 0 `i ]
+[; ;BatteryManagment.c: 383: do {
 "383
-[e = _Read_Status_INC + _Read_Status_INC -> 1 `i ]
+[e :U 1303 ]
+{
+[; ;BatteryManagment.c: 384: Error_Value = Read_Battery(0, cell_codesBank);
 "384
-}
-[e :U 1301 ]
+[e = _Error_Value ( _Read_Battery (2 , -> 0 `i _cell_codesBank ]
+[; ;BatteryManagment.c: 385: if (Error_Value != 0) {
 "385
-}
-[; ;BatteryManagment.c: 384: }
-[; ;BatteryManagment.c: 385: } while (Error_Value != 0 && Read_Status_INC <= 10);
-[e $ && != _Error_Value -> 0 `i <= _Read_Status_INC -> 10 `i 1300  ]
-[e :U 1299 ]
-[; ;BatteryManagment.c: 386: if (Read_Status_INC > 10) {
+[e $ ! != _Error_Value -> 0 `i 1304  ]
+{
+[; ;BatteryManagment.c: 386: Read_Status_INC = Read_Status_INC + 1;
 "386
-[e $ ! > _Read_Status_INC -> 10 `i 1302  ]
-{
-[; ;BatteryManagment.c: 387: FaultNum = 16;
+[e = _Read_Status_INC + _Read_Status_INC -> 1 `i ]
 "387
-[e = _FaultNum -> 16 `i ]
-"388
-}
-[; ;BatteryManagment.c: 388: }
-[e $U 1303  ]
-"389
-[e :U 1302 ]
-[; ;BatteryManagment.c: 389: else if (Error_Value == 0) {
-[e $ ! == _Error_Value -> 0 `i 1304  ]
-{
-[; ;BatteryManagment.c: 390: Error_Value=CheckThresholdsBank( 2,1 , cell_codesBank);
-"390
-[e = _Error_Value ( _CheckThresholdsBank (3 , , -> 2 `i -> 1 `i _cell_codesBank ]
-[; ;BatteryManagment.c: 391: if (Error_Value != 0){return Error_Value;}
-"391
-[e $ ! != _Error_Value -> 0 `i 1305  ]
-{
-[e ) _Error_Value ]
-[e $UE 1297  ]
-}
-[e :U 1305 ]
-[; ;BatteryManagment.c: 392: Error_Value=CheckThresholdsBank( 1, 1, cell_codesBank);
-"392
-[e = _Error_Value ( _CheckThresholdsBank (3 , , -> 1 `i -> 1 `i _cell_codesBank ]
-[; ;BatteryManagment.c: 393: if (Error_Value != 0){return Error_Value;}
-"393
-[e $ ! != _Error_Value -> 0 `i 1306  ]
-{
-[e ) _Error_Value ]
-[e $UE 1297  ]
-}
-[e :U 1306 ]
-[; ;BatteryManagment.c: 394: Error_Value=CheckThresholdsBank( 2, 1, cell_codesBank);
-"394
-[e = _Error_Value ( _CheckThresholdsBank (3 , , -> 2 `i -> 1 `i _cell_codesBank ]
-[; ;BatteryManagment.c: 395: if (Error_Value != 0){return Error_Value;}
-"395
-[e $ ! != _Error_Value -> 0 `i 1307  ]
-{
-[e ) _Error_Value ]
-[e $UE 1297  ]
-}
-[e :U 1307 ]
-[; ;BatteryManagment.c: 396: Error_Value=CheckThresholdsBank( 1, 1, cell_codesBank);
-"396
-[e = _Error_Value ( _CheckThresholdsBank (3 , , -> 1 `i -> 1 `i _cell_codesBank ]
-"397
 }
 [e :U 1304 ]
-"398
-[e :U 1303 ]
-[; ;BatteryManagment.c: 397: }
-[; ;BatteryManagment.c: 398: return Error_Value;
-[e ) _Error_Value ]
-[e $UE 1297  ]
-[; ;BatteryManagment.c: 399: }
-"399
-[e :UE 1297 ]
+"388
 }
-"407
+[; ;BatteryManagment.c: 387: }
+[; ;BatteryManagment.c: 388: } while (Error_Value != 0 && Read_Status_INC <= 10);
+[e $ && != _Error_Value -> 0 `i <= _Read_Status_INC -> 10 `i 1303  ]
+[e :U 1302 ]
+[; ;BatteryManagment.c: 389: if (Read_Status_INC > 10) {
+"389
+[e $ ! > _Read_Status_INC -> 10 `i 1305  ]
+{
+[; ;BatteryManagment.c: 390: FaultNum = 16;
+"390
+[e = _FaultNum -> 16 `i ]
+"391
+}
+[; ;BatteryManagment.c: 391: }
+[e $U 1306  ]
+"392
+[e :U 1305 ]
+[; ;BatteryManagment.c: 392: else if (Error_Value == 0) {
+[e $ ! == _Error_Value -> 0 `i 1307  ]
+{
+[; ;BatteryManagment.c: 393: Error_Value=CheckThresholdsBank( 2,1 , cell_codesBank);
+"393
+[e = _Error_Value ( _CheckThresholdsBank (3 , , -> 2 `i -> 1 `i _cell_codesBank ]
+[; ;BatteryManagment.c: 394: if (Error_Value != 0){return Error_Value;}
+"394
+[e $ ! != _Error_Value -> 0 `i 1308  ]
+{
+[e ) _Error_Value ]
+[e $UE 1300  ]
+}
+[e :U 1308 ]
+[; ;BatteryManagment.c: 395: Error_Value=CheckThresholdsBank( 1, 1, cell_codesBank);
+"395
+[e = _Error_Value ( _CheckThresholdsBank (3 , , -> 1 `i -> 1 `i _cell_codesBank ]
+[; ;BatteryManagment.c: 396: if (Error_Value != 0){return Error_Value;}
+"396
+[e $ ! != _Error_Value -> 0 `i 1309  ]
+{
+[e ) _Error_Value ]
+[e $UE 1300  ]
+}
+[e :U 1309 ]
+[; ;BatteryManagment.c: 397: Error_Value=CheckThresholdsBank( 2, 1, cell_codesBank);
+"397
+[e = _Error_Value ( _CheckThresholdsBank (3 , , -> 2 `i -> 1 `i _cell_codesBank ]
+[; ;BatteryManagment.c: 398: if (Error_Value != 0){return Error_Value;}
+"398
+[e $ ! != _Error_Value -> 0 `i 1310  ]
+{
+[e ) _Error_Value ]
+[e $UE 1300  ]
+}
+[e :U 1310 ]
+[; ;BatteryManagment.c: 399: Error_Value=CheckThresholdsBank( 1, 1, cell_codesBank);
+"399
+[e = _Error_Value ( _CheckThresholdsBank (3 , , -> 1 `i -> 1 `i _cell_codesBank ]
+"400
+}
+[e :U 1307 ]
+"401
+[e :U 1306 ]
+[; ;BatteryManagment.c: 400: }
+[; ;BatteryManagment.c: 401: return Error_Value;
+[e ) _Error_Value ]
+[e $UE 1300  ]
+[; ;BatteryManagment.c: 402: }
+"402
+[e :UE 1300 ]
+}
+"410
 [v _getcell `(i ~T0 @X0 1 ef ]
 {
-[; ;BatteryManagment.c: 407: int getcell(){
+[; ;BatteryManagment.c: 410: int getcell(){
 [e :U _getcell ]
 [f ]
-[; ;BatteryManagment.c: 408: return cell_codes_Bank;
-"408
-[e ) -> &U _cell_codes_Bank `i ]
-[e $UE 1308  ]
-[; ;BatteryManagment.c: 409: ;}
-"409
-[e :UE 1308 ]
-}
+[; ;BatteryManagment.c: 411: return cell_codes_Bank;
 "411
+[e ) -> &U _cell_codes_Bank `i ]
+[e $UE 1311  ]
+[; ;BatteryManagment.c: 412: ;}
+"412
+[e :UE 1311 ]
+}
+"414
 [v _Read_Battery `(i ~T0 @X0 1 ef2`i`*F8893 ]
 {
-[; ;BatteryManagment.c: 411: int Read_Battery(int BatteryPlacement, int cell_codes[1][12]) {
+[; ;BatteryManagment.c: 414: int Read_Battery(int BatteryPlacement, int cell_codes[1][12]) {
 [e :U _Read_Battery ]
 [v _BatteryPlacement `i ~T0 @X0 1 r1 ]
-[v F9286 `i ~T0 @X0 -> 12 `i t ]
-[v _cell_codes `*F9286 ~T0 @X0 1 r2 ]
+[v F9287 `i ~T0 @X0 -> 12 `i t ]
+[v _cell_codes `*F9287 ~T0 @X0 1 r2 ]
 [f ]
-"412
-[v _Read_Status `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 412: int Read_Status = 0;
-[e = _Read_Status -> 0 `i ]
-[; ;BatteryManagment.c: 414: switch (BatteryPlacement) {
-"414
-[e $U 1311  ]
-{
-[; ;BatteryManagment.c: 415: case 0:
 "415
-[e :U 1312 ]
-[; ;BatteryManagment.c: 416: set_adc(2, 0, 0, 0);
-"416
-[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 0 `i -> 0 `i ]
-[; ;BatteryManagment.c: 417: LTC6804_adcv();
+[v _Read_Status `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 415: int Read_Status = 0;
+[e = _Read_Status -> 0 `i ]
+[; ;BatteryManagment.c: 417: switch (BatteryPlacement) {
 "417
-[e ( _LTC6804_adcv ..  ]
-[; ;BatteryManagment.c: 418: Delay(10);
-"418
-[e ( _Delay (1 -> 10 `i ]
-[; ;BatteryManagment.c: 419: Read_Status = LTC6804_rdcv(0, 1, cell_codes);
-"419
-[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 0 `i -> 1 `i _cell_codes ]
-[; ;BatteryManagment.c: 420: break;
-"420
-[e $U 1310  ]
-[; ;BatteryManagment.c: 421: case 1:
-"421
-[e :U 1313 ]
-[; ;BatteryManagment.c: 422: set_adc(2, 0, 1, 0);
-"422
-[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 1 `i -> 0 `i ]
-[; ;BatteryManagment.c: 423: LTC6804_adcv();
-"423
-[e ( _LTC6804_adcv ..  ]
-[; ;BatteryManagment.c: 424: Delay(10);
-"424
-[e ( _Delay (1 -> 10 `i ]
-[; ;BatteryManagment.c: 425: Read_Status = LTC6804_rdcv(1, 3, cell_codes);
-"425
-[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 1 `i -> 3 `i _cell_codes ]
-[; ;BatteryManagment.c: 426: Read_Status = LTC6804_rdcv(3, 3, cell_codes);
-"426
-[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 3 `i -> 3 `i _cell_codes ]
-[; ;BatteryManagment.c: 427: break;
-"427
-[e $U 1310  ]
-[; ;BatteryManagment.c: 428: case 2:
-"428
-[e :U 1314 ]
-[; ;BatteryManagment.c: 429: set_adc(2, 0, 2, 0);
-"429
-[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 2 `i -> 0 `i ]
-[; ;BatteryManagment.c: 430: LTC6804_adcv();
-"430
-[e ( _LTC6804_adcv ..  ]
-[; ;BatteryManagment.c: 431: Delay(10);
-"431
-[e ( _Delay (1 -> 10 `i ]
-[; ;BatteryManagment.c: 432: Read_Status = LTC6804_rdcv(0, 1, cell_codes);
-"432
-[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 0 `i -> 1 `i _cell_codes ]
-[; ;BatteryManagment.c: 433: Read_Status = LTC6804_rdcv(3, 1, cell_codes);
-"433
-[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 3 `i -> 1 `i _cell_codes ]
-[; ;BatteryManagment.c: 434: break;
-"434
-[e $U 1310  ]
-[; ;BatteryManagment.c: 435: case 3:
-"435
-[e :U 1315 ]
-[; ;BatteryManagment.c: 436: set_adc(2, 0, 3, 0);
-"436
-[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 3 `i -> 0 `i ]
-[; ;BatteryManagment.c: 437: LTC6804_adcv();
-"437
-[e ( _LTC6804_adcv ..  ]
-[; ;BatteryManagment.c: 438: Delay(10);
-"438
-[e ( _Delay (1 -> 10 `i ]
-[; ;BatteryManagment.c: 439: Read_Status = LTC6804_rdcv(0, 1, cell_codes);
-"439
-[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 0 `i -> 1 `i _cell_codes ]
-[; ;BatteryManagment.c: 440: Read_Status = LTC6804_rdcv(3, 1, cell_codes);
-"440
-[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 3 `i -> 1 `i _cell_codes ]
-[; ;BatteryManagment.c: 441: break;
-"441
-[e $U 1310  ]
-[; ;BatteryManagment.c: 442: case 4:
-"442
-[e :U 1316 ]
-[; ;BatteryManagment.c: 443: set_adc(2, 0, 4, 0);
-"443
-[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 4 `i -> 0 `i ]
-[; ;BatteryManagment.c: 444: LTC6804_adcv();
-"444
-[e ( _LTC6804_adcv ..  ]
-[; ;BatteryManagment.c: 445: Read_Status = LTC6804_rdcv(2, 1, cell_codes);
-"445
-[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 2 `i -> 1 `i _cell_codes ]
-[; ;BatteryManagment.c: 446: Read_Status = LTC6804_rdcv(4, 1, cell_codes);
-"446
-[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 4 `i -> 1 `i _cell_codes ]
-[; ;BatteryManagment.c: 447: break;
-"447
-[e $U 1310  ]
-[; ;BatteryManagment.c: 448: case 5:
-"448
-[e :U 1317 ]
-[; ;BatteryManagment.c: 449: set_adc(2, 0, 5, 0);
-"449
-[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 5 `i -> 0 `i ]
-[; ;BatteryManagment.c: 450: LTC6804_adcv();
-"450
-[e ( _LTC6804_adcv ..  ]
-[; ;BatteryManagment.c: 451: Delay(10);
-"451
-[e ( _Delay (1 -> 10 `i ]
-[; ;BatteryManagment.c: 452: Read_Status = LTC6804_rdcv(2, 1, cell_codes);
-"452
-[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 2 `i -> 1 `i _cell_codes ]
-[; ;BatteryManagment.c: 453: Read_Status = LTC6804_rdcv(4, 1, cell_codes);
-"453
-[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 4 `i -> 1 `i _cell_codes ]
-[; ;BatteryManagment.c: 454: break;
-"454
-[e $U 1310  ]
-[; ;BatteryManagment.c: 455: case 6:
-"455
-[e :U 1318 ]
-[; ;BatteryManagment.c: 456: set_adc(2, 0, 6, 0);
-"456
-[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 6 `i -> 0 `i ]
-[; ;BatteryManagment.c: 457: LTC6804_adcv();
-"457
-[e ( _LTC6804_adcv ..  ]
-[; ;BatteryManagment.c: 458: Delay(10);
-"458
-[e ( _Delay (1 -> 10 `i ]
-[; ;BatteryManagment.c: 459: Read_Status = LTC6804_rdcv(2, 1, cell_codes);
-"459
-[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 2 `i -> 1 `i _cell_codes ]
-[; ;BatteryManagment.c: 460: Read_Status = LTC6804_rdcv(4, 1, cell_codes);
-"460
-[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 4 `i -> 1 `i _cell_codes ]
-[; ;BatteryManagment.c: 461: break;
-"461
-[e $U 1310  ]
-[; ;BatteryManagment.c: 462: default:
-"462
-[e :U 1319 ]
-[; ;BatteryManagment.c: 463: break;
-"463
-[e $U 1310  ]
-"464
-}
-[; ;BatteryManagment.c: 464: }
-[e $U 1310  ]
-"414
-[e :U 1311 ]
-[e [\ _BatteryPlacement , $ -> 0 `i 1312
- , $ -> 1 `i 1313
- , $ -> 2 `i 1314
- , $ -> 3 `i 1315
- , $ -> 4 `i 1316
- , $ -> 5 `i 1317
- , $ -> 6 `i 1318
- 1319 ]
-"464
-[e :U 1310 ]
-[; ;BatteryManagment.c: 465: return Read_Status;
-"465
-[e ) _Read_Status ]
-[e $UE 1309  ]
-[; ;BatteryManagment.c: 466: }
-"466
-[e :UE 1309 ]
-}
-"479
-[v _Read_GPIO `(i ~T0 @X0 1 ef2`i`*F9291 ]
+[e $U 1314  ]
 {
-[; ;BatteryManagment.c: 479: int Read_GPIO(int BatteryPlacement, int aux_codes[1][6]) {
+[; ;BatteryManagment.c: 418: case 0:
+"418
+[e :U 1315 ]
+[; ;BatteryManagment.c: 419: set_adc(3, 0, 0, 0);
+"419
+[e ( _set_adc (4 , , , -> 3 `i -> 0 `i -> 0 `i -> 0 `i ]
+[; ;BatteryManagment.c: 420: LTC6804_adcv();
+"420
+[e ( _LTC6804_adcv ..  ]
+[; ;BatteryManagment.c: 421: Delay(10);
+"421
+[e ( _Delay (1 -> 10 `i ]
+[; ;BatteryManagment.c: 422: Read_Status = LTC6804_rdcv(0, 1, cell_codes);
+"422
+[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 0 `i -> 1 `i _cell_codes ]
+[; ;BatteryManagment.c: 423: break;
+"423
+[e $U 1313  ]
+[; ;BatteryManagment.c: 424: case 1:
+"424
+[e :U 1316 ]
+[; ;BatteryManagment.c: 425: set_adc(2, 0, 1, 0);
+"425
+[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 1 `i -> 0 `i ]
+[; ;BatteryManagment.c: 426: LTC6804_adcv();
+"426
+[e ( _LTC6804_adcv ..  ]
+[; ;BatteryManagment.c: 427: Delay(10);
+"427
+[e ( _Delay (1 -> 10 `i ]
+[; ;BatteryManagment.c: 428: Read_Status = LTC6804_rdcv(1, 3, cell_codes);
+"428
+[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 1 `i -> 3 `i _cell_codes ]
+[; ;BatteryManagment.c: 429: Read_Status = LTC6804_rdcv(3, 3, cell_codes);
+"429
+[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 3 `i -> 3 `i _cell_codes ]
+[; ;BatteryManagment.c: 430: break;
+"430
+[e $U 1313  ]
+[; ;BatteryManagment.c: 431: case 2:
+"431
+[e :U 1317 ]
+[; ;BatteryManagment.c: 432: set_adc(2, 0, 2, 0);
+"432
+[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 2 `i -> 0 `i ]
+[; ;BatteryManagment.c: 433: LTC6804_adcv();
+"433
+[e ( _LTC6804_adcv ..  ]
+[; ;BatteryManagment.c: 434: Delay(10);
+"434
+[e ( _Delay (1 -> 10 `i ]
+[; ;BatteryManagment.c: 435: Read_Status = LTC6804_rdcv(0, 1, cell_codes);
+"435
+[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 0 `i -> 1 `i _cell_codes ]
+[; ;BatteryManagment.c: 436: Read_Status = LTC6804_rdcv(3, 1, cell_codes);
+"436
+[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 3 `i -> 1 `i _cell_codes ]
+[; ;BatteryManagment.c: 437: break;
+"437
+[e $U 1313  ]
+[; ;BatteryManagment.c: 438: case 3:
+"438
+[e :U 1318 ]
+[; ;BatteryManagment.c: 439: set_adc(2, 0, 3, 0);
+"439
+[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 3 `i -> 0 `i ]
+[; ;BatteryManagment.c: 440: LTC6804_adcv();
+"440
+[e ( _LTC6804_adcv ..  ]
+[; ;BatteryManagment.c: 441: Delay(10);
+"441
+[e ( _Delay (1 -> 10 `i ]
+[; ;BatteryManagment.c: 442: Read_Status = LTC6804_rdcv(0, 1, cell_codes);
+"442
+[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 0 `i -> 1 `i _cell_codes ]
+[; ;BatteryManagment.c: 443: Read_Status = LTC6804_rdcv(3, 1, cell_codes);
+"443
+[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 3 `i -> 1 `i _cell_codes ]
+[; ;BatteryManagment.c: 444: break;
+"444
+[e $U 1313  ]
+[; ;BatteryManagment.c: 445: case 4:
+"445
+[e :U 1319 ]
+[; ;BatteryManagment.c: 446: set_adc(2, 0, 4, 0);
+"446
+[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 4 `i -> 0 `i ]
+[; ;BatteryManagment.c: 447: LTC6804_adcv();
+"447
+[e ( _LTC6804_adcv ..  ]
+[; ;BatteryManagment.c: 448: Read_Status = LTC6804_rdcv(2, 1, cell_codes);
+"448
+[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 2 `i -> 1 `i _cell_codes ]
+[; ;BatteryManagment.c: 449: Read_Status = LTC6804_rdcv(4, 1, cell_codes);
+"449
+[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 4 `i -> 1 `i _cell_codes ]
+[; ;BatteryManagment.c: 450: break;
+"450
+[e $U 1313  ]
+[; ;BatteryManagment.c: 451: case 5:
+"451
+[e :U 1320 ]
+[; ;BatteryManagment.c: 452: set_adc(2, 0, 5, 0);
+"452
+[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 5 `i -> 0 `i ]
+[; ;BatteryManagment.c: 453: LTC6804_adcv();
+"453
+[e ( _LTC6804_adcv ..  ]
+[; ;BatteryManagment.c: 454: Delay(10);
+"454
+[e ( _Delay (1 -> 10 `i ]
+[; ;BatteryManagment.c: 455: Read_Status = LTC6804_rdcv(2, 1, cell_codes);
+"455
+[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 2 `i -> 1 `i _cell_codes ]
+[; ;BatteryManagment.c: 456: Read_Status = LTC6804_rdcv(4, 1, cell_codes);
+"456
+[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 4 `i -> 1 `i _cell_codes ]
+[; ;BatteryManagment.c: 457: break;
+"457
+[e $U 1313  ]
+[; ;BatteryManagment.c: 458: case 6:
+"458
+[e :U 1321 ]
+[; ;BatteryManagment.c: 459: set_adc(2, 0, 6, 0);
+"459
+[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 6 `i -> 0 `i ]
+[; ;BatteryManagment.c: 460: LTC6804_adcv();
+"460
+[e ( _LTC6804_adcv ..  ]
+[; ;BatteryManagment.c: 461: Delay(10);
+"461
+[e ( _Delay (1 -> 10 `i ]
+[; ;BatteryManagment.c: 462: Read_Status = LTC6804_rdcv(2, 1, cell_codes);
+"462
+[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 2 `i -> 1 `i _cell_codes ]
+[; ;BatteryManagment.c: 463: Read_Status = LTC6804_rdcv(4, 1, cell_codes);
+"463
+[e = _Read_Status ( _LTC6804_rdcv (3 , , -> 4 `i -> 1 `i _cell_codes ]
+[; ;BatteryManagment.c: 464: break;
+"464
+[e $U 1313  ]
+[; ;BatteryManagment.c: 465: default:
+"465
+[e :U 1322 ]
+[; ;BatteryManagment.c: 466: break;
+"466
+[e $U 1313  ]
+"467
+}
+[; ;BatteryManagment.c: 467: }
+[e $U 1313  ]
+"417
+[e :U 1314 ]
+[e [\ _BatteryPlacement , $ -> 0 `i 1315
+ , $ -> 1 `i 1316
+ , $ -> 2 `i 1317
+ , $ -> 3 `i 1318
+ , $ -> 4 `i 1319
+ , $ -> 5 `i 1320
+ , $ -> 6 `i 1321
+ 1322 ]
+"467
+[e :U 1313 ]
+[; ;BatteryManagment.c: 468: return Read_Status;
+"468
+[e ) _Read_Status ]
+[e $UE 1312  ]
+[; ;BatteryManagment.c: 469: }
+"469
+[e :UE 1312 ]
+}
+"482
+[v _Read_GPIO `(i ~T0 @X0 1 ef2`i`*F9292 ]
+{
+[; ;BatteryManagment.c: 482: int Read_GPIO(int BatteryPlacement, int aux_codes[1][6]) {
 [e :U _Read_GPIO ]
 [v _BatteryPlacement `i ~T0 @X0 1 r1 ]
-[v _aux_codes `*F9291 ~T0 @X0 1 r2 ]
+[v _aux_codes `*F9292 ~T0 @X0 1 r2 ]
 [f ]
-"480
-[v _Read_Status `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 480: int Read_Status = 0;
-[e = _Read_Status -> 0 `i ]
-[; ;BatteryManagment.c: 481: switch (BatteryPlacement) {
-"481
-[e $U 1322  ]
-{
-[; ;BatteryManagment.c: 482: case 0:
-"482
-[e :U 1323 ]
-[; ;BatteryManagment.c: 483: set_adc(2, 0, 0, 0);
 "483
-[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 0 `i -> 0 `i ]
-[; ;BatteryManagment.c: 484: LTC6804_adax();
+[v _Read_Status `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 483: int Read_Status = 0;
+[e = _Read_Status -> 0 `i ]
+[; ;BatteryManagment.c: 484: switch (BatteryPlacement) {
 "484
-[e ( _LTC6804_adax ..  ]
-[; ;BatteryManagment.c: 486: Read_Status = LTC6804_rdaux(0, 1, aux_codes);
-"486
-[e = _Read_Status ( _LTC6804_rdaux (3 , , -> 0 `i -> 1 `i _aux_codes ]
-[; ;BatteryManagment.c: 488: break;
-"488
-[e $U 1321  ]
-[; ;BatteryManagment.c: 489: case 1:
-"489
-[e :U 1324 ]
-[; ;BatteryManagment.c: 490: set_adc(2, 0, 0, 1);
-"490
-[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 0 `i -> 1 `i ]
-[; ;BatteryManagment.c: 491: LTC6804_adax();
-"491
-[e ( _LTC6804_adax ..  ]
-[; ;BatteryManagment.c: 492: Read_Status = LTC6804_rdaux(1, 1, aux_codes);
-"492
-[e = _Read_Status ( _LTC6804_rdaux (3 , , -> 1 `i -> 1 `i _aux_codes ]
-[; ;BatteryManagment.c: 493: break;
-"493
-[e $U 1321  ]
-[; ;BatteryManagment.c: 494: case 2:
-"494
-[e :U 1325 ]
-[; ;BatteryManagment.c: 495: set_adc(2, 0, 0, 2);
-"495
-[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 0 `i -> 2 `i ]
-[; ;BatteryManagment.c: 496: LTC6804_adax();
-"496
-[e ( _LTC6804_adax ..  ]
-[; ;BatteryManagment.c: 497: Read_Status = LTC6804_rdaux(1, 1, aux_codes);
-"497
-[e = _Read_Status ( _LTC6804_rdaux (3 , , -> 1 `i -> 1 `i _aux_codes ]
-[; ;BatteryManagment.c: 498: break;
-"498
-[e $U 1321  ]
-[; ;BatteryManagment.c: 499: case 3:
-"499
+[e $U 1325  ]
+{
+[; ;BatteryManagment.c: 485: case 0:
+"485
 [e :U 1326 ]
-[; ;BatteryManagment.c: 500: set_adc(2, 0, 0, 3);
-"500
-[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 0 `i -> 3 `i ]
-[; ;BatteryManagment.c: 501: LTC6804_adax();
-"501
+[; ;BatteryManagment.c: 486: set_adc(2, 0, 0, 0);
+"486
+[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 0 `i -> 0 `i ]
+[; ;BatteryManagment.c: 487: LTC6804_adax();
+"487
 [e ( _LTC6804_adax ..  ]
-[; ;BatteryManagment.c: 502: Read_Status = LTC6804_rdaux(1, 1, aux_codes);
-"502
-[e = _Read_Status ( _LTC6804_rdaux (3 , , -> 1 `i -> 1 `i _aux_codes ]
-[; ;BatteryManagment.c: 503: break;
-"503
-[e $U 1321  ]
-[; ;BatteryManagment.c: 504: case 4:
-"504
+[; ;BatteryManagment.c: 489: Read_Status = LTC6804_rdaux(0, 1, aux_codes);
+"489
+[e = _Read_Status ( _LTC6804_rdaux (3 , , -> 0 `i -> 1 `i _aux_codes ]
+[; ;BatteryManagment.c: 491: break;
+"491
+[e $U 1324  ]
+[; ;BatteryManagment.c: 492: case 1:
+"492
 [e :U 1327 ]
-[; ;BatteryManagment.c: 505: set_adc(2, 0, 0, 4);
-"505
-[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 0 `i -> 4 `i ]
-[; ;BatteryManagment.c: 506: LTC6804_adax();
-"506
+[; ;BatteryManagment.c: 493: set_adc(2, 0, 0, 1);
+"493
+[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 0 `i -> 1 `i ]
+[; ;BatteryManagment.c: 494: LTC6804_adax();
+"494
 [e ( _LTC6804_adax ..  ]
-[; ;BatteryManagment.c: 507: Read_Status = LTC6804_rdaux(2, 1, aux_codes);
-"507
-[e = _Read_Status ( _LTC6804_rdaux (3 , , -> 2 `i -> 1 `i _aux_codes ]
-[; ;BatteryManagment.c: 508: break;
-"508
-[e $U 1321  ]
-[; ;BatteryManagment.c: 509: case 5:
-"509
+[; ;BatteryManagment.c: 495: Read_Status = LTC6804_rdaux(1, 1, aux_codes);
+"495
+[e = _Read_Status ( _LTC6804_rdaux (3 , , -> 1 `i -> 1 `i _aux_codes ]
+[; ;BatteryManagment.c: 496: break;
+"496
+[e $U 1324  ]
+[; ;BatteryManagment.c: 497: case 2:
+"497
 [e :U 1328 ]
-[; ;BatteryManagment.c: 510: set_adc(2, 0, 0, 5);
-"510
-[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 0 `i -> 5 `i ]
-[; ;BatteryManagment.c: 511: LTC6804_adax();
-"511
+[; ;BatteryManagment.c: 498: set_adc(2, 0, 0, 2);
+"498
+[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 0 `i -> 2 `i ]
+[; ;BatteryManagment.c: 499: LTC6804_adax();
+"499
 [e ( _LTC6804_adax ..  ]
-[; ;BatteryManagment.c: 512: Read_Status = LTC6804_rdaux(2, 1, aux_codes);
-"512
-[e = _Read_Status ( _LTC6804_rdaux (3 , , -> 2 `i -> 1 `i _aux_codes ]
-[; ;BatteryManagment.c: 513: break;
-"513
-[e $U 1321  ]
-[; ;BatteryManagment.c: 514: case 6:
-"514
+[; ;BatteryManagment.c: 500: Read_Status = LTC6804_rdaux(1, 1, aux_codes);
+"500
+[e = _Read_Status ( _LTC6804_rdaux (3 , , -> 1 `i -> 1 `i _aux_codes ]
+[; ;BatteryManagment.c: 501: break;
+"501
+[e $U 1324  ]
+[; ;BatteryManagment.c: 502: case 3:
+"502
 [e :U 1329 ]
-[; ;BatteryManagment.c: 515: set_adc(2, 0, 0, 6);
-"515
-[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 0 `i -> 6 `i ]
-[; ;BatteryManagment.c: 516: LTC6804_adax();
-"516
+[; ;BatteryManagment.c: 503: set_adc(2, 0, 0, 3);
+"503
+[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 0 `i -> 3 `i ]
+[; ;BatteryManagment.c: 504: LTC6804_adax();
+"504
 [e ( _LTC6804_adax ..  ]
-[; ;BatteryManagment.c: 517: Read_Status = LTC6804_rdaux(2, 1, aux_codes);
-"517
-[e = _Read_Status ( _LTC6804_rdaux (3 , , -> 2 `i -> 1 `i _aux_codes ]
-[; ;BatteryManagment.c: 518: break;
-"518
-[e $U 1321  ]
-[; ;BatteryManagment.c: 519: default:
-"519
+[; ;BatteryManagment.c: 505: Read_Status = LTC6804_rdaux(1, 1, aux_codes);
+"505
+[e = _Read_Status ( _LTC6804_rdaux (3 , , -> 1 `i -> 1 `i _aux_codes ]
+[; ;BatteryManagment.c: 506: break;
+"506
+[e $U 1324  ]
+[; ;BatteryManagment.c: 507: case 4:
+"507
 [e :U 1330 ]
-[; ;BatteryManagment.c: 520: break;
+[; ;BatteryManagment.c: 508: set_adc(2, 0, 0, 4);
+"508
+[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 0 `i -> 4 `i ]
+[; ;BatteryManagment.c: 509: LTC6804_adax();
+"509
+[e ( _LTC6804_adax ..  ]
+[; ;BatteryManagment.c: 510: Read_Status = LTC6804_rdaux(2, 1, aux_codes);
+"510
+[e = _Read_Status ( _LTC6804_rdaux (3 , , -> 2 `i -> 1 `i _aux_codes ]
+[; ;BatteryManagment.c: 511: break;
+"511
+[e $U 1324  ]
+[; ;BatteryManagment.c: 512: case 5:
+"512
+[e :U 1331 ]
+[; ;BatteryManagment.c: 513: set_adc(2, 0, 0, 5);
+"513
+[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 0 `i -> 5 `i ]
+[; ;BatteryManagment.c: 514: LTC6804_adax();
+"514
+[e ( _LTC6804_adax ..  ]
+[; ;BatteryManagment.c: 515: Read_Status = LTC6804_rdaux(2, 1, aux_codes);
+"515
+[e = _Read_Status ( _LTC6804_rdaux (3 , , -> 2 `i -> 1 `i _aux_codes ]
+[; ;BatteryManagment.c: 516: break;
+"516
+[e $U 1324  ]
+[; ;BatteryManagment.c: 517: case 6:
+"517
+[e :U 1332 ]
+[; ;BatteryManagment.c: 518: set_adc(2, 0, 0, 6);
+"518
+[e ( _set_adc (4 , , , -> 2 `i -> 0 `i -> 0 `i -> 6 `i ]
+[; ;BatteryManagment.c: 519: LTC6804_adax();
+"519
+[e ( _LTC6804_adax ..  ]
+[; ;BatteryManagment.c: 520: Read_Status = LTC6804_rdaux(2, 1, aux_codes);
 "520
-[e $U 1321  ]
+[e = _Read_Status ( _LTC6804_rdaux (3 , , -> 2 `i -> 1 `i _aux_codes ]
+[; ;BatteryManagment.c: 521: break;
 "521
-}
-[; ;BatteryManagment.c: 521: }
-[e $U 1321  ]
-"481
-[e :U 1322 ]
-[e [\ _BatteryPlacement , $ -> 0 `i 1323
- , $ -> 1 `i 1324
- , $ -> 2 `i 1325
- , $ -> 3 `i 1326
- , $ -> 4 `i 1327
- , $ -> 5 `i 1328
- , $ -> 6 `i 1329
- 1330 ]
-"521
-[e :U 1321 ]
-[; ;BatteryManagment.c: 523: return Read_Status;
+[e $U 1324  ]
+[; ;BatteryManagment.c: 522: default:
+"522
+[e :U 1333 ]
+[; ;BatteryManagment.c: 523: break;
 "523
-[e ) _Read_Status ]
-[e $UE 1320  ]
-[; ;BatteryManagment.c: 524: }
+[e $U 1324  ]
 "524
-[e :UE 1320 ]
 }
-"535
+[; ;BatteryManagment.c: 524: }
+[e $U 1324  ]
+"484
+[e :U 1325 ]
+[e [\ _BatteryPlacement , $ -> 0 `i 1326
+ , $ -> 1 `i 1327
+ , $ -> 2 `i 1328
+ , $ -> 3 `i 1329
+ , $ -> 4 `i 1330
+ , $ -> 5 `i 1331
+ , $ -> 6 `i 1332
+ 1333 ]
+"524
+[e :U 1324 ]
+[; ;BatteryManagment.c: 526: return Read_Status;
+"526
+[e ) _Read_Status ]
+[e $UE 1323  ]
+[; ;BatteryManagment.c: 527: }
+"527
+[e :UE 1323 ]
+}
+"538
 [v _SetBypass `(i ~T0 @X0 1 ef4`i`i`i`uc ]
 {
-[; ;BatteryManagment.c: 535: int SetBypass(int bank, int ic, int cell, bool value) {
+[; ;BatteryManagment.c: 538: int SetBypass(int bank, int ic, int cell, bool value) {
 [e :U _SetBypass ]
 [v _bank `i ~T0 @X0 1 r1 ]
 [v _ic `i ~T0 @X0 1 r2 ]
 [v _cell `i ~T0 @X0 1 r3 ]
 [v _value `uc ~T0 @X0 1 r4 ]
 [f ]
-"536
-[v _fault_value `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 536: int fault_value = 0;
-[e = _fault_value -> 0 `i ]
-[; ;BatteryManagment.c: 537: if (value) {
-"537
-[e $ ! != -> _value `i -> -> -> 0 `i `uc `i 1332  ]
-{
-[; ;BatteryManagment.c: 538: if (cell < 8) {
-"538
-[e $ ! < _cell -> 8 `i 1333  ]
-{
-[; ;BatteryManagment.c: 539: CFGR4 = CFGR4 | (1 << cell);
 "539
-[e = _CFGR4 -> | -> _CFGR4 `i << -> 1 `i _cell `uc ]
+[v _fault_value `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 539: int fault_value = 0;
+[e = _fault_value -> 0 `i ]
+[; ;BatteryManagment.c: 540: if (value) {
 "540
-}
-[; ;BatteryManagment.c: 540: } else {
-[e $U 1334  ]
-[e :U 1333 ]
+[e $ ! != -> _value `i -> -> -> 0 `i `uc `i 1335  ]
 {
-[; ;BatteryManagment.c: 541: CFGR5 = CFGR5 | (1 << (cell - 8));
+[; ;BatteryManagment.c: 541: if (cell < 8) {
 "541
-[e = _CFGR5 -> | -> _CFGR5 `i << -> 1 `i - _cell -> 8 `i `uc ]
-"542
-}
-[e :U 1334 ]
-"543
-}
-[; ;BatteryManagment.c: 542: }
-[; ;BatteryManagment.c: 543: } else {
-[e $U 1335  ]
-[e :U 1332 ]
-{
-[; ;BatteryManagment.c: 544: if (cell < 8) {
-"544
 [e $ ! < _cell -> 8 `i 1336  ]
 {
-[; ;BatteryManagment.c: 545: CFGR4 = CFGR4 & ~(1 << cell);
-"545
-[e = _CFGR4 -> & -> _CFGR4 `i ~ << -> 1 `i _cell `uc ]
-"546
+[; ;BatteryManagment.c: 542: CFGR4 = CFGR4 | (1 << cell);
+"542
+[e = _CFGR4 -> | -> _CFGR4 `i << -> 1 `i _cell `uc ]
+"543
 }
-[; ;BatteryManagment.c: 546: } else {
+[; ;BatteryManagment.c: 543: } else {
 [e $U 1337  ]
 [e :U 1336 ]
 {
-[; ;BatteryManagment.c: 547: CFGR5 = CFGR5 & ~(1 << (cell - 8));
-"547
-[e = _CFGR5 -> & -> _CFGR5 `i ~ << -> 1 `i - _cell -> 8 `i `uc ]
-"548
+[; ;BatteryManagment.c: 544: CFGR5 = CFGR5 | (1 << (cell - 8));
+"544
+[e = _CFGR5 -> | -> _CFGR5 `i << -> 1 `i - _cell -> 8 `i `uc ]
+"545
 }
 [e :U 1337 ]
+"546
+}
+[; ;BatteryManagment.c: 545: }
+[; ;BatteryManagment.c: 546: } else {
+[e $U 1338  ]
+[e :U 1335 ]
+{
+[; ;BatteryManagment.c: 547: if (cell < 8) {
+"547
+[e $ ! < _cell -> 8 `i 1339  ]
+{
+[; ;BatteryManagment.c: 548: CFGR4 = CFGR4 & ~(1 << cell);
+"548
+[e = _CFGR4 -> & -> _CFGR4 `i ~ << -> 1 `i _cell `uc ]
 "549
 }
-[e :U 1335 ]
-[; ;BatteryManagment.c: 548: }
-[; ;BatteryManagment.c: 549: }
-[; ;BatteryManagment.c: 550: if (bank == 1) {
+[; ;BatteryManagment.c: 549: } else {
+[e $U 1340  ]
+[e :U 1339 ]
+{
+[; ;BatteryManagment.c: 550: CFGR5 = CFGR5 & ~(1 << (cell - 8));
 "550
-[e $ ! == _bank -> 1 `i 1338  ]
-{
-[; ;BatteryManagment.c: 551: LTC6804_DATA_ConfigBank[ic][4] = CFGR4 & 0xFF;
+[e = _CFGR5 -> & -> _CFGR5 `i ~ << -> 1 `i - _cell -> 8 `i `uc ]
 "551
-[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 4 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux & -> _CFGR4 `i -> 255 `i ]
-[; ;BatteryManagment.c: 552: LTC6804_DATA_ConfigBank[ic][5] = (CFGR5) + (0 << 4);
-"552
-[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 5 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux + -> _CFGR5 `i << -> 0 `i -> 4 `i ]
-"553
 }
-[; ;BatteryManagment.c: 553: }
-[e $U 1339  ]
-"554
-[e :U 1338 ]
-[; ;BatteryManagment.c: 554: else if (bank == 2) {
-[e $ ! == _bank -> 2 `i 1340  ]
-{
-[; ;BatteryManagment.c: 555: LTC6804_DATA_ConfigBank[ic][4] = CFGR4 & 0xFF;
-"555
-[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 4 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux & -> _CFGR4 `i -> 255 `i ]
-[; ;BatteryManagment.c: 556: LTC6804_DATA_ConfigBank[ic][5] = (CFGR5) + (0 << 4);
-"556
-[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 5 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux + -> _CFGR5 `i << -> 0 `i -> 4 `i ]
-"557
-}
-[; ;BatteryManagment.c: 557: }
-[e $U 1341  ]
-"558
 [e :U 1340 ]
-[; ;BatteryManagment.c: 558: else {
+"552
+}
+[e :U 1338 ]
+[; ;BatteryManagment.c: 551: }
+[; ;BatteryManagment.c: 552: }
+[; ;BatteryManagment.c: 553: if (bank == 1) {
+"553
+[e $ ! == _bank -> 1 `i 1341  ]
 {
-[; ;BatteryManagment.c: 559: fault_value = 18;
+[; ;BatteryManagment.c: 554: LTC6804_DATA_ConfigBank[ic][4] = CFGR4 & 0xFF;
+"554
+[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 4 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux & -> _CFGR4 `i -> 255 `i ]
+[; ;BatteryManagment.c: 555: LTC6804_DATA_ConfigBank[ic][5] = (CFGR5) + (0 << 4);
+"555
+[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 5 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux + -> _CFGR5 `i << -> 0 `i -> 4 `i ]
+"556
+}
+[; ;BatteryManagment.c: 556: }
+[e $U 1342  ]
+"557
+[e :U 1341 ]
+[; ;BatteryManagment.c: 557: else if (bank == 2) {
+[e $ ! == _bank -> 2 `i 1343  ]
+{
+[; ;BatteryManagment.c: 558: LTC6804_DATA_ConfigBank[ic][4] = CFGR4 & 0xFF;
+"558
+[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 4 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux & -> _CFGR4 `i -> 255 `i ]
+[; ;BatteryManagment.c: 559: LTC6804_DATA_ConfigBank[ic][5] = (CFGR5) + (0 << 4);
 "559
-[e = _fault_value -> 18 `i ]
+[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 5 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux + -> _CFGR5 `i << -> 0 `i -> 4 `i ]
 "560
 }
-[e :U 1341 ]
-[e :U 1339 ]
 [; ;BatteryManagment.c: 560: }
-[; ;BatteryManagment.c: 561: return fault_value;
+[e $U 1344  ]
 "561
-[e ) _fault_value ]
-[e $UE 1331  ]
-[; ;BatteryManagment.c: 562: }
-"562
-[e :UE 1331 ]
-}
-"570
-[v _RunBypass_Set `(i ~T0 @X0 1 ef3`i`i`*F9302 ]
+[e :U 1343 ]
+[; ;BatteryManagment.c: 561: else {
 {
-[; ;BatteryManagment.c: 570: int RunBypass_Set(int bank, int ic, int cell_codes[][12]) {
+[; ;BatteryManagment.c: 562: fault_value = 18;
+"562
+[e = _fault_value -> 18 `i ]
+"563
+}
+[e :U 1344 ]
+[e :U 1342 ]
+[; ;BatteryManagment.c: 563: }
+[; ;BatteryManagment.c: 564: return fault_value;
+"564
+[e ) _fault_value ]
+[e $UE 1334  ]
+[; ;BatteryManagment.c: 565: }
+"565
+[e :UE 1334 ]
+}
+"573
+[v _RunBypass_Set `(i ~T0 @X0 1 ef3`i`i`*F9303 ]
+{
+[; ;BatteryManagment.c: 573: int RunBypass_Set(int bank, int ic, int cell_codes[][12]) {
 [e :U _RunBypass_Set ]
 [v _bank `i ~T0 @X0 1 r1 ]
 [v _ic `i ~T0 @X0 1 r2 ]
-[v _cell_codes `*F9302 ~T0 @X0 1 r3 ]
+[v _cell_codes `*F9303 ~T0 @X0 1 r3 ]
 [f ]
-"571
-[v _cellbyp `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 571: int cellbyp = 0;
-[e = _cellbyp -> 0 `i ]
-"572
-[v _voltstat `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 572: int voltstat = 0;
-[e = _voltstat -> 0 `i ]
-"573
-[v _batvolt `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 573: int batvolt = 0;
-[e = _batvolt -> 0 `i ]
 "574
-[v _i `i ~T0 @X0 1 a ]
+[v _cellbyp `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 574: int cellbyp = 0;
+[e = _cellbyp -> 0 `i ]
 "575
+[v _voltstat `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 575: int voltstat = 0;
+[e = _voltstat -> 0 `i ]
+"576
+[v _batvolt `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 576: int batvolt = 0;
+[e = _batvolt -> 0 `i ]
+"577
+[v _i `i ~T0 @X0 1 a ]
+"578
 [v _c `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 574: int i;
-[; ;BatteryManagment.c: 575: int c;
-[; ;BatteryManagment.c: 579: for (i = 0; i <= 1; i++) {
-"579
+[; ;BatteryManagment.c: 577: int i;
+[; ;BatteryManagment.c: 578: int c;
+[; ;BatteryManagment.c: 582: for (i = 0; i <= 1; i++) {
+"582
 {
 [e = _i -> 0 `i ]
-[e $ <= _i -> 1 `i 1343  ]
-[e $U 1344  ]
-[e :U 1343 ]
+[e $ <= _i -> 1 `i 1346  ]
+[e $U 1347  ]
+[e :U 1346 ]
 {
-[; ;BatteryManagment.c: 581: for (c = 0; c <= 1; c++)
-"581
+[; ;BatteryManagment.c: 584: for (c = 0; c <= 1; c++)
+"584
 {
 [e = _c -> 0 `i ]
-[e $ <= _c -> 1 `i 1346  ]
-[e $U 1347  ]
-"582
-[e :U 1346 ]
-[; ;BatteryManagment.c: 582: {
-{
-[; ;BatteryManagment.c: 584: if (voltstat == 0) {
-"584
-[e $ ! == _voltstat -> 0 `i 1349  ]
-{
-[; ;BatteryManagment.c: 585: if (batvolt >= 100)
+[e $ <= _c -> 1 `i 1349  ]
+[e $U 1350  ]
 "585
-[e $ ! >= _batvolt -> 100 `i 1350  ]
-[; ;BatteryManagment.c: 586: {
-"586
-{
-[; ;BatteryManagment.c: 587: SetBypass(bank, ic, c, 1);
-"587
-[e ( _SetBypass (4 , , , _bank _ic _c -> -> 1 `i `uc ]
-[; ;BatteryManagment.c: 588: cellbyp = 1;
-"588
-[e = _cellbyp -> 1 `i ]
-"589
-}
-[e :U 1350 ]
-[; ;BatteryManagment.c: 589: }
-[; ;BatteryManagment.c: 590: if (batvolt <= 20)
-"590
-[e $ ! <= _batvolt -> 20 `i 1351  ]
-[; ;BatteryManagment.c: 591: {
-"591
-{
-[; ;BatteryManagment.c: 592: SetBypass(bank, ic, c, 0);
-"592
-[e ( _SetBypass (4 , , , _bank _ic _c -> -> 0 `i `uc ]
-"593
-}
-[e :U 1351 ]
-"594
-}
 [e :U 1349 ]
-"595
+[; ;BatteryManagment.c: 585: {
+{
+[; ;BatteryManagment.c: 587: if (voltstat == 0) {
+"587
+[e $ ! == _voltstat -> 0 `i 1352  ]
+{
+[; ;BatteryManagment.c: 588: if (batvolt >= 100)
+"588
+[e $ ! >= _batvolt -> 100 `i 1353  ]
+[; ;BatteryManagment.c: 589: {
+"589
+{
+[; ;BatteryManagment.c: 590: SetBypass(bank, ic, c, 1);
+"590
+[e ( _SetBypass (4 , , , _bank _ic _c -> -> 1 `i `uc ]
+[; ;BatteryManagment.c: 591: cellbyp = 1;
+"591
+[e = _cellbyp -> 1 `i ]
+"592
 }
-"581
-[e ++ _c -> 1 `i ]
-[e $ <= _c -> 1 `i 1346  ]
-[e :U 1347 ]
+[e :U 1353 ]
+[; ;BatteryManagment.c: 592: }
+[; ;BatteryManagment.c: 593: if (batvolt <= 20)
+"593
+[e $ ! <= _batvolt -> 20 `i 1354  ]
+[; ;BatteryManagment.c: 594: {
+"594
+{
+[; ;BatteryManagment.c: 595: SetBypass(bank, ic, c, 0);
 "595
-}
+[e ( _SetBypass (4 , , , _bank _ic _c -> -> 0 `i `uc ]
 "596
 }
-"579
-[e ++ _i -> 1 `i ]
-[e $ <= _i -> 1 `i 1343  ]
-[e :U 1344 ]
-"596
-}
-[; ;BatteryManagment.c: 593: }
-[; ;BatteryManagment.c: 594: }
-[; ;BatteryManagment.c: 595: }
-[; ;BatteryManagment.c: 596: }
-[; ;BatteryManagment.c: 597: UpdateLT6804();
+[e :U 1354 ]
 "597
-[e ( _UpdateLT6804 ..  ]
-[; ;BatteryManagment.c: 598: return cellbyp;
-"598
-[e ) _cellbyp ]
-[e $UE 1342  ]
-[; ;BatteryManagment.c: 599: }
-"599
-[e :UE 1342 ]
 }
-"609
+[e :U 1352 ]
+"598
+}
+"584
+[e ++ _c -> 1 `i ]
+[e $ <= _c -> 1 `i 1349  ]
+[e :U 1350 ]
+"598
+}
+"599
+}
+"582
+[e ++ _i -> 1 `i ]
+[e $ <= _i -> 1 `i 1346  ]
+[e :U 1347 ]
+"599
+}
+[; ;BatteryManagment.c: 596: }
+[; ;BatteryManagment.c: 597: }
+[; ;BatteryManagment.c: 598: }
+[; ;BatteryManagment.c: 599: }
+[; ;BatteryManagment.c: 600: UpdateLT6804();
+"600
+[e ( _UpdateLT6804 ..  ]
+[; ;BatteryManagment.c: 601: return cellbyp;
+"601
+[e ) _cellbyp ]
+[e $UE 1345  ]
+[; ;BatteryManagment.c: 602: }
+"602
+[e :UE 1345 ]
+}
+"612
 [v _SetTempEnable `(i ~T0 @X0 1 ef2`i`uc ]
 {
-[; ;BatteryManagment.c: 609: int SetTempEnable( int ic, bool value) {
+[; ;BatteryManagment.c: 612: int SetTempEnable( int ic, bool value) {
 [e :U _SetTempEnable ]
 [v _ic `i ~T0 @X0 1 r1 ]
 [v _value `uc ~T0 @X0 1 r2 ]
 [f ]
-"610
-[v _fault_value `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 610: int fault_value = 0;
-[e = _fault_value -> 0 `i ]
-[; ;BatteryManagment.c: 611: if (value) {
-"611
-[e $ ! != -> _value `i -> -> -> 0 `i `uc `i 1353  ]
-{
-[; ;BatteryManagment.c: 612: CFGR0 = CFGR0 | (1 << 7);
-"612
-[e = _CFGR0 -> | -> _CFGR0 `i << -> 1 `i -> 7 `i `uc ]
 "613
-}
-[; ;BatteryManagment.c: 613: } else {
-[e $U 1354  ]
-[e :U 1353 ]
-{
-[; ;BatteryManagment.c: 614: CFGR0 = CFGR0 & ~(1 << 7);
+[v _fault_value `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 613: int fault_value = 0;
+[e = _fault_value -> 0 `i ]
+[; ;BatteryManagment.c: 614: if (value) {
 "614
-[e = _CFGR0 -> & -> _CFGR0 `i ~ << -> 1 `i -> 7 `i `uc ]
-"615
-}
-[e :U 1354 ]
-[; ;BatteryManagment.c: 615: }
-[; ;BatteryManagment.c: 617: LTC6804_DATA_ConfigBank[ic][0] = CFGR0;
-"617
-[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR0 `i ]
-[; ;BatteryManagment.c: 620: return fault_value;
-"620
-[e ) _fault_value ]
-[e $UE 1352  ]
-[; ;BatteryManagment.c: 621: }
-"621
-[e :UE 1352 ]
-}
-"630
-[v _CheckUnderOverVoltageFlag `(i ~T0 @X0 1 ef ]
+[e $ ! != -> _value `i -> -> -> 0 `i `uc `i 1356  ]
 {
-[; ;BatteryManagment.c: 630: int CheckUnderOverVoltageFlag() {
-[e :U _CheckUnderOverVoltageFlag ]
-[f ]
-[; ;BatteryManagment.c: 631: return 1;
-"631
-[e ) -> 1 `i ]
+[; ;BatteryManagment.c: 615: CFGR0 = CFGR0 | (1 << 7);
+"615
+[e = _CFGR0 -> | -> _CFGR0 `i << -> 1 `i -> 7 `i `uc ]
+"616
+}
+[; ;BatteryManagment.c: 616: } else {
+[e $U 1357  ]
+[e :U 1356 ]
+{
+[; ;BatteryManagment.c: 617: CFGR0 = CFGR0 & ~(1 << 7);
+"617
+[e = _CFGR0 -> & -> _CFGR0 `i ~ << -> 1 `i -> 7 `i `uc ]
+"618
+}
+[e :U 1357 ]
+[; ;BatteryManagment.c: 618: }
+[; ;BatteryManagment.c: 620: LTC6804_DATA_ConfigBank[ic][0] = CFGR0;
+"620
+[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR0 `i ]
+[; ;BatteryManagment.c: 623: return fault_value;
+"623
+[e ) _fault_value ]
 [e $UE 1355  ]
-[; ;BatteryManagment.c: 632: }
-"632
+[; ;BatteryManagment.c: 624: }
+"624
 [e :UE 1355 ]
 }
-"643
+"633
+[v _CheckUnderOverVoltageFlag `(i ~T0 @X0 1 ef ]
+{
+[; ;BatteryManagment.c: 633: int CheckUnderOverVoltageFlag() {
+[e :U _CheckUnderOverVoltageFlag ]
+[f ]
+[; ;BatteryManagment.c: 634: return 1;
+"634
+[e ) -> 1 `i ]
+[e $UE 1358  ]
+[; ;BatteryManagment.c: 635: }
+"635
+[e :UE 1358 ]
+}
+"646
 [v _SetUnderOverVoltage `(i ~T0 @X0 1 ef3`i`i`i ]
 {
-[; ;BatteryManagment.c: 643: int SetUnderOverVoltage(int VUV, int VOV, int ic) {
+[; ;BatteryManagment.c: 646: int SetUnderOverVoltage(int VUV, int VOV, int ic) {
 [e :U _SetUnderOverVoltage ]
 [v _VUV `i ~T0 @X0 1 r1 ]
 [v _VOV `i ~T0 @X0 1 r2 ]
 [v _ic `i ~T0 @X0 1 r3 ]
 [f ]
-"644
-[v _fault_value `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 644: int fault_value = 0;
-[e = _fault_value -> 0 `i ]
-[; ;BatteryManagment.c: 646: CFGR1 = VUV & 0xFF;
-"646
-[e = _CFGR1 -> & _VUV -> 255 `i `uc ]
-[; ;BatteryManagment.c: 647: CFGR2 = ((VUV & 0xF00) >> 8)+ ((VOV & 0x0F) << 4);
 "647
+[v _fault_value `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 647: int fault_value = 0;
+[e = _fault_value -> 0 `i ]
+[; ;BatteryManagment.c: 649: CFGR1 = VUV & 0xFF;
+"649
+[e = _CFGR1 -> & _VUV -> 255 `i `uc ]
+[; ;BatteryManagment.c: 650: CFGR2 = ((VUV & 0xF00) >> 8)+ ((VOV & 0x0F) << 4);
+"650
 [e = _CFGR2 -> + >> & _VUV -> 3840 `i -> 8 `i << & _VOV -> 15 `i -> 4 `i `uc ]
-[; ;BatteryManagment.c: 648: CFGR3 = (VOV & 0xFF0) >> 4;
-"648
-[e = _CFGR3 -> >> & _VOV -> 4080 `i -> 4 `i `uc ]
-[; ;BatteryManagment.c: 651: LTC6804_DATA_ConfigBank[ic][1] = CFGR1;
+[; ;BatteryManagment.c: 651: CFGR3 = (VOV & 0xFF0) >> 4;
 "651
-[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR1 `i ]
-[; ;BatteryManagment.c: 652: LTC6804_DATA_ConfigBank[ic][2] = CFGR2;
-"652
-[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 2 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR2 `i ]
-[; ;BatteryManagment.c: 653: LTC6804_DATA_ConfigBank[ic][3] = CFGR3;
-"653
-[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 3 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR3 `i ]
+[e = _CFGR3 -> >> & _VOV -> 4080 `i -> 4 `i `uc ]
 [; ;BatteryManagment.c: 654: LTC6804_DATA_ConfigBank[ic][1] = CFGR1;
 "654
 [e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR1 `i ]
@@ -10764,310 +10768,319 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;BatteryManagment.c: 656: LTC6804_DATA_ConfigBank[ic][3] = CFGR3;
 "656
 [e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 3 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR3 `i ]
-[; ;BatteryManagment.c: 658: }
+[; ;BatteryManagment.c: 657: LTC6804_DATA_ConfigBank[ic][1] = CFGR1;
+"657
+[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR1 `i ]
+[; ;BatteryManagment.c: 658: LTC6804_DATA_ConfigBank[ic][2] = CFGR2;
 "658
-[e :UE 1356 ]
+[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 2 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR2 `i ]
+[; ;BatteryManagment.c: 659: LTC6804_DATA_ConfigBank[ic][3] = CFGR3;
+"659
+[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 3 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR3 `i ]
+[; ;BatteryManagment.c: 661: }
+"661
+[e :UE 1359 ]
 }
-"669
+"672
 [v _Set_ADC_Mode `(i ~T0 @X0 1 ef2`i`uc ]
 {
-[; ;BatteryManagment.c: 669: int Set_ADC_Mode(int ic, bool ADCOPT_Mode) {
+[; ;BatteryManagment.c: 672: int Set_ADC_Mode(int ic, bool ADCOPT_Mode) {
 [e :U _Set_ADC_Mode ]
 [v _ic `i ~T0 @X0 1 r1 ]
 [v _ADCOPT_Mode `uc ~T0 @X0 1 r2 ]
 [f ]
-"670
-[v _fault_value `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 670: int fault_value = 0;
-[e = _fault_value -> 0 `i ]
-[; ;BatteryManagment.c: 671: if (ADCOPT_Mode) {
-"671
-[e $ ! != -> _ADCOPT_Mode `i -> -> -> 0 `i `uc `i 1358  ]
-{
-[; ;BatteryManagment.c: 672: CFGR0 = CFGR0 | 0x01;
-"672
-[e = _CFGR0 -> | -> _CFGR0 `i -> 1 `i `uc ]
 "673
-}
-[; ;BatteryManagment.c: 673: } else {
-[e $U 1359  ]
-[e :U 1358 ]
-{
-[; ;BatteryManagment.c: 674: CFGR0 = CFGR0 & ~0x01;
+[v _fault_value `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 673: int fault_value = 0;
+[e = _fault_value -> 0 `i ]
+[; ;BatteryManagment.c: 674: if (ADCOPT_Mode) {
 "674
-[e = _CFGR0 -> & -> _CFGR0 `i ~ -> 1 `i `uc ]
+[e $ ! != -> _ADCOPT_Mode `i -> -> -> 0 `i `uc `i 1361  ]
+{
+[; ;BatteryManagment.c: 675: CFGR0 = CFGR0 | 0x01;
 "675
+[e = _CFGR0 -> | -> _CFGR0 `i -> 1 `i `uc ]
+"676
 }
-[e :U 1359 ]
-[; ;BatteryManagment.c: 675: }
-[; ;BatteryManagment.c: 677: LTC6804_DATA_ConfigBank[ic][0] = CFGR0;
+[; ;BatteryManagment.c: 676: } else {
+[e $U 1362  ]
+[e :U 1361 ]
+{
+[; ;BatteryManagment.c: 677: CFGR0 = CFGR0 & ~0x01;
 "677
-[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR0 `i ]
-[; ;BatteryManagment.c: 679: return fault_value;
-"679
-[e ) _fault_value ]
-[e $UE 1357  ]
-[; ;BatteryManagment.c: 680: }
-"680
-[e :UE 1357 ]
+[e = _CFGR0 -> & -> _CFGR0 `i ~ -> 1 `i `uc ]
+"678
 }
+[e :U 1362 ]
+[; ;BatteryManagment.c: 678: }
+[; ;BatteryManagment.c: 680: LTC6804_DATA_ConfigBank[ic][0] = CFGR0;
+"680
+[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR0 `i ]
+[; ;BatteryManagment.c: 682: return fault_value;
 "682
+[e ) _fault_value ]
+[e $UE 1360  ]
+[; ;BatteryManagment.c: 683: }
+"683
+[e :UE 1360 ]
+}
+"685
 [v _Set_DCC_Mode_OFF `(v ~T0 @X0 1 ef1`i ]
 {
-[; ;BatteryManagment.c: 682: void Set_DCC_Mode_OFF(int ic) {
+[; ;BatteryManagment.c: 685: void Set_DCC_Mode_OFF(int ic) {
 [e :U _Set_DCC_Mode_OFF ]
 [v _ic `i ~T0 @X0 1 r1 ]
 [f ]
-"683
-[v _fault_value `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 683: int fault_value = 0;
-[e = _fault_value -> 0 `i ]
-[; ;BatteryManagment.c: 684: CFGR4 = 0;
-"684
-[e = _CFGR4 -> -> 0 `i `uc ]
-[; ;BatteryManagment.c: 685: CFGR5 = CFGR5 &~(0xF);
-"685
-[e = _CFGR5 -> & -> _CFGR5 `i ~ -> 15 `i `uc ]
-[; ;BatteryManagment.c: 686: LTC6804_DATA_ConfigBank[ic][4] = CFGR4;
 "686
-[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 4 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR4 `i ]
-[; ;BatteryManagment.c: 687: LTC6804_DATA_ConfigBank[ic][5] = CFGR5;
+[v _fault_value `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 686: int fault_value = 0;
+[e = _fault_value -> 0 `i ]
+[; ;BatteryManagment.c: 687: CFGR4 = 0;
 "687
-[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 5 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR5 `i ]
-[; ;BatteryManagment.c: 690: }
+[e = _CFGR4 -> -> 0 `i `uc ]
+[; ;BatteryManagment.c: 688: CFGR5 = CFGR5 &~(0xF);
+"688
+[e = _CFGR5 -> & -> _CFGR5 `i ~ -> 15 `i `uc ]
+[; ;BatteryManagment.c: 689: LTC6804_DATA_ConfigBank[ic][4] = CFGR4;
+"689
+[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 4 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR4 `i ]
+[; ;BatteryManagment.c: 690: LTC6804_DATA_ConfigBank[ic][5] = CFGR5;
 "690
-[e :UE 1360 ]
+[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 5 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR5 `i ]
+[; ;BatteryManagment.c: 693: }
+"693
+[e :UE 1363 ]
 }
-"692
+"695
 [v _Set_DCTO_Mode_OFF `(i ~T0 @X0 1 ef1`i ]
 {
-[; ;BatteryManagment.c: 692: int Set_DCTO_Mode_OFF(int ic) {
+[; ;BatteryManagment.c: 695: int Set_DCTO_Mode_OFF(int ic) {
 [e :U _Set_DCTO_Mode_OFF ]
 [v _ic `i ~T0 @X0 1 r1 ]
 [f ]
-"693
-[v _fault_value `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 693: int fault_value = 0;
-[e = _fault_value -> 0 `i ]
-[; ;BatteryManagment.c: 694: CFGR5 = CFGR5 &~(0xF0);
-"694
-[e = _CFGR5 -> & -> _CFGR5 `i ~ -> 240 `i `uc ]
-[; ;BatteryManagment.c: 695: LTC6804_DATA_ConfigBank[ic][5] = CFGR5;
-"695
-[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 5 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR5 `i ]
-[; ;BatteryManagment.c: 696: return fault_value;
 "696
-[e ) _fault_value ]
-[e $UE 1361  ]
-[; ;BatteryManagment.c: 697: }
+[v _fault_value `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 696: int fault_value = 0;
+[e = _fault_value -> 0 `i ]
+[; ;BatteryManagment.c: 697: CFGR5 = CFGR5 &~(0xF0);
 "697
-[e :UE 1361 ]
+[e = _CFGR5 -> & -> _CFGR5 `i ~ -> 240 `i `uc ]
+[; ;BatteryManagment.c: 698: LTC6804_DATA_ConfigBank[ic][5] = CFGR5;
+"698
+[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 5 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR5 `i ]
+[; ;BatteryManagment.c: 699: return fault_value;
+"699
+[e ) _fault_value ]
+[e $UE 1364  ]
+[; ;BatteryManagment.c: 700: }
+"700
+[e :UE 1364 ]
 }
-"701
+"704
 [v _Set_REFON_Pin `(i ~T0 @X0 1 ef2`i`uc ]
 {
-[; ;BatteryManagment.c: 701: int Set_REFON_Pin(int ic, bool REFON_Mode) {
+[; ;BatteryManagment.c: 704: int Set_REFON_Pin(int ic, bool REFON_Mode) {
 [e :U _Set_REFON_Pin ]
 [v _ic `i ~T0 @X0 1 r1 ]
 [v _REFON_Mode `uc ~T0 @X0 1 r2 ]
 [f ]
-"702
-[v _fault_value `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 702: int fault_value = 0;
-[e = _fault_value -> 0 `i ]
-[; ;BatteryManagment.c: 703: if (REFON_Mode) {
-"703
-[e $ ! != -> _REFON_Mode `i -> -> -> 0 `i `uc `i 1363  ]
-{
-[; ;BatteryManagment.c: 704: CFGR0 = CFGR0 | 0x4;
-"704
-[e = _CFGR0 -> | -> _CFGR0 `i -> 4 `i `uc ]
 "705
-}
-[; ;BatteryManagment.c: 705: } else {
-[e $U 1364  ]
-[e :U 1363 ]
-{
-[; ;BatteryManagment.c: 706: CFGR0 = CFGR0 & ~0x4;
+[v _fault_value `i ~T0 @X0 1 a ]
+[; ;BatteryManagment.c: 705: int fault_value = 0;
+[e = _fault_value -> 0 `i ]
+[; ;BatteryManagment.c: 706: if (REFON_Mode) {
 "706
-[e = _CFGR0 -> & -> _CFGR0 `i ~ -> 4 `i `uc ]
-"707
-}
-[e :U 1364 ]
-[; ;BatteryManagment.c: 707: }
-[; ;BatteryManagment.c: 709: LTC6804_DATA_ConfigBank[ic][0] = CFGR0;
-"709
-[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR0 `i ]
-[; ;BatteryManagment.c: 710: return fault_value;
-"710
-[e ) _fault_value ]
-[e $UE 1362  ]
-[; ;BatteryManagment.c: 711: }
-"711
-[e :UE 1362 ]
-}
-"713
-[v _UpdateLT6804 `(v ~T0 @X0 1 ef ]
+[e $ ! != -> _REFON_Mode `i -> -> -> 0 `i `uc `i 1366  ]
 {
-[; ;BatteryManagment.c: 713: void UpdateLT6804() {
-[e :U _UpdateLT6804 ]
-[f ]
-[; ;BatteryManagment.c: 715: LTC6804_wrcfg(1, LTC6804_DATA_ConfigBank);
-"715
-[e ( _LTC6804_wrcfg (2 , -> 1 `i &U _LTC6804_DATA_ConfigBank ]
-[; ;BatteryManagment.c: 717: }
-"717
+[; ;BatteryManagment.c: 707: CFGR0 = CFGR0 | 0x4;
+"707
+[e = _CFGR0 -> | -> _CFGR0 `i -> 4 `i `uc ]
+"708
+}
+[; ;BatteryManagment.c: 708: } else {
+[e $U 1367  ]
+[e :U 1366 ]
+{
+[; ;BatteryManagment.c: 709: CFGR0 = CFGR0 & ~0x4;
+"709
+[e = _CFGR0 -> & -> _CFGR0 `i ~ -> 4 `i `uc ]
+"710
+}
+[e :U 1367 ]
+[; ;BatteryManagment.c: 710: }
+[; ;BatteryManagment.c: 712: LTC6804_DATA_ConfigBank[ic][0] = CFGR0;
+"712
+[e = *U + &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _LTC6804_DATA_ConfigBank * -> -> _ic `ui `ux -> * -> # *U &U *U &U _LTC6804_DATA_ConfigBank `ui -> -> 6 `i `ui `ux `ui `ux -> _CFGR0 `i ]
+[; ;BatteryManagment.c: 713: return fault_value;
+"713
+[e ) _fault_value ]
+[e $UE 1365  ]
+[; ;BatteryManagment.c: 714: }
+"714
 [e :UE 1365 ]
 }
-"726
+"716
+[v _UpdateLT6804 `(v ~T0 @X0 1 ef ]
+{
+[; ;BatteryManagment.c: 716: void UpdateLT6804() {
+[e :U _UpdateLT6804 ]
+[f ]
+[; ;BatteryManagment.c: 718: LTC6804_wrcfg(1, LTC6804_DATA_ConfigBank);
+"718
+[e ( _LTC6804_wrcfg (2 , -> 1 `i &U _LTC6804_DATA_ConfigBank ]
+[; ;BatteryManagment.c: 720: }
+"720
+[e :UE 1368 ]
+}
+"729
 [v _ReadCurrentVolt `(v ~T0 @X0 1 ef ]
 {
-[; ;BatteryManagment.c: 726: void ReadCurrentVolt() {
+[; ;BatteryManagment.c: 729: void ReadCurrentVolt() {
 [e :U _ReadCurrentVolt ]
 [f ]
-"727
+"730
 [v _i `i ~T0 @X0 1 a ]
-[; ;BatteryManagment.c: 727: int i;
-[; ;BatteryManagment.c: 729: for(i=6;i<1;i--){
-"729
+[; ;BatteryManagment.c: 730: int i;
+[; ;BatteryManagment.c: 732: for(i=6;i<1;i--){
+"732
 {
 [e = _i -> 6 `i ]
-[e $ < _i -> 1 `i 1367  ]
-[e $U 1368  ]
-[e :U 1367 ]
+[e $ < _i -> 1 `i 1370  ]
+[e $U 1371  ]
+[e :U 1370 ]
 {
-[; ;BatteryManagment.c: 730: CVolt[i] = CVolt[i-1];
-"730
-[e = *U + &U _CVolt * -> -> _i `ui `ux -> -> # *U &U _CVolt `ui `ux *U + &U _CVolt * -> -> - _i -> 1 `i `ui `ux -> -> # *U &U _CVolt `ui `ux ]
-"731
-}
-"729
-[e -- _i -> 1 `i ]
-[e $ < _i -> 1 `i 1367  ]
-[e :U 1368 ]
-"731
-}
-[; ;BatteryManagment.c: 731: }
-[; ;BatteryManagment.c: 732: CVolt[0] = ADC_GetConversion(CURRENT);
-"732
-[e = *U + &U _CVolt * -> -> -> 0 `i `ui `ux -> -> # *U &U _CVolt `ui `ux -> ( _ADC_GetConversion (1 . `E8860 8 `f ]
-[; ;BatteryManagment.c: 733: ReadVoltToCurrent();
+[; ;BatteryManagment.c: 733: CVolt[i] = CVolt[i-1];
 "733
-[e ( _ReadVoltToCurrent ..  ]
-[; ;BatteryManagment.c: 734: }
+[e = *U + &U _CVolt * -> -> _i `ui `ux -> -> # *U &U _CVolt `ui `ux *U + &U _CVolt * -> -> - _i -> 1 `i `ui `ux -> -> # *U &U _CVolt `ui `ux ]
 "734
-[e :UE 1366 ]
 }
-"743
+"732
+[e -- _i -> 1 `i ]
+[e $ < _i -> 1 `i 1370  ]
+[e :U 1371 ]
+"734
+}
+[; ;BatteryManagment.c: 734: }
+[; ;BatteryManagment.c: 735: CVolt[0] = ADC_GetConversion(CURRENT);
+"735
+[e = *U + &U _CVolt * -> -> -> 0 `i `ui `ux -> -> # *U &U _CVolt `ui `ux -> ( _ADC_GetConversion (1 . `E8860 8 `f ]
+[; ;BatteryManagment.c: 736: ReadVoltToCurrent();
+"736
+[e ( _ReadVoltToCurrent ..  ]
+[; ;BatteryManagment.c: 737: }
+"737
+[e :UE 1369 ]
+}
+"746
 [v _ReadVolt `(v ~T0 @X0 1 ef ]
 {
-[; ;BatteryManagment.c: 743: void ReadVolt() {
+[; ;BatteryManagment.c: 746: void ReadVolt() {
 [e :U _ReadVolt ]
 [f ]
-[; ;BatteryManagment.c: 744: Volt1 = (ADC_GetConversion(VEXT) / 4095)*5 * 5;
-"744
+[; ;BatteryManagment.c: 747: Volt1 = (ADC_GetConversion(VEXT) / 4095)*5 * 5;
+"747
 [e = _Volt1 -> * * / ( _ADC_GetConversion (1 . `E8860 7 -> -> 4095 `i `ui -> -> 5 `i `ui -> -> 5 `i `ui `f ]
-[; ;BatteryManagment.c: 745: }
-"745
-[e :UE 1370 ]
+[; ;BatteryManagment.c: 748: }
+"748
+[e :UE 1373 ]
 }
-"755
+"758
 [v _ReadVoltToCurrent `(v ~T0 @X0 1 ef ]
 {
-[; ;BatteryManagment.c: 755: void ReadVoltToCurrent() {
+[; ;BatteryManagment.c: 758: void ReadVoltToCurrent() {
 [e :U _ReadVoltToCurrent ]
 [f ]
-[; ;BatteryManagment.c: 756: for (k = 0; k < 5; k++) {
-"756
+[; ;BatteryManagment.c: 759: for (k = 0; k < 5; k++) {
+"759
 {
 [e = _k -> 0 `i ]
-[e $ < _k -> 5 `i 1372  ]
-[e $U 1373  ]
-[e :U 1372 ]
+[e $ < _k -> 5 `i 1375  ]
+[e $U 1376  ]
+[e :U 1375 ]
 {
-"759
+"762
 }
-"756
+"759
 [e ++ _k -> 1 `i ]
-[e $ < _k -> 5 `i 1372  ]
-[e :U 1373 ]
-"759
+[e $ < _k -> 5 `i 1375  ]
+[e :U 1376 ]
+"762
 }
-[; ;BatteryManagment.c: 759: }
-[; ;BatteryManagment.c: 760: }
-"760
-[e :UE 1371 ]
+[; ;BatteryManagment.c: 762: }
+[; ;BatteryManagment.c: 763: }
+"763
+[e :UE 1374 ]
 }
-"769
+"772
 [v _ChargerEN `(v ~T0 @X0 1 ef ]
 {
-[; ;BatteryManagment.c: 769: void ChargerEN() {
+[; ;BatteryManagment.c: 772: void ChargerEN() {
 [e :U _ChargerEN ]
 [f ]
-[; ;BatteryManagment.c: 770: CarOn = 0;
-"770
+[; ;BatteryManagment.c: 773: CarOn = 0;
+"773
 [e = _CarOn -> -> 0 `i `uc ]
-[; ;BatteryManagment.c: 771: }
-"771
-[e :UE 1375 ]
+[; ;BatteryManagment.c: 774: }
+"774
+[e :UE 1378 ]
 }
-"780
+"783
 [v _CurrentCoulombCount `(v ~T0 @X0 1 ef1`i ]
 {
-[; ;BatteryManagment.c: 780: void CurrentCoulombCount(int tme) {
+[; ;BatteryManagment.c: 783: void CurrentCoulombCount(int tme) {
 [e :U _CurrentCoulombCount ]
 [v _tme `i ~T0 @X0 1 r1 ]
 [f ]
-[; ;BatteryManagment.c: 781: if (CarOn) {
-"781
-[e $ ! != -> _CarOn `i -> -> -> 0 `i `uc `i 1377  ]
-{
-[; ;BatteryManagment.c: 782: CC1 = CC1 - (Current[0] * tme);
-"782
-[e = _CC1 - _CC1 -> * *U + &U _Current * -> -> -> 0 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
-[; ;BatteryManagment.c: 783: CC2 = CC2 - (Current[2] * tme);
-"783
-[e = _CC2 - _CC2 -> * *U + &U _Current * -> -> -> 2 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
-[; ;BatteryManagment.c: 784: CC3 = CC3 - (Current[4] * tme);
+[; ;BatteryManagment.c: 784: if (CarOn) {
 "784
-[e = _CC3 - _CC3 -> * *U + &U _Current * -> -> -> 4 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
+[e $ ! != -> _CarOn `i -> -> -> 0 `i `uc `i 1380  ]
+{
+[; ;BatteryManagment.c: 785: CC1 = CC1 - (Current[0] * tme);
 "785
-}
-[; ;BatteryManagment.c: 785: } else {
-[e $U 1378  ]
-[e :U 1377 ]
-{
-[; ;BatteryManagment.c: 786: CC1 = CC1 + (Current[1] * tme);
+[e = _CC1 - _CC1 -> * *U + &U _Current * -> -> -> 0 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
+[; ;BatteryManagment.c: 786: CC2 = CC2 - (Current[2] * tme);
 "786
-[e = _CC1 + _CC1 -> * *U + &U _Current * -> -> -> 1 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
-[; ;BatteryManagment.c: 787: CC2 = CC2 + (Current[3] * tme);
+[e = _CC2 - _CC2 -> * *U + &U _Current * -> -> -> 2 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
+[; ;BatteryManagment.c: 787: CC3 = CC3 - (Current[4] * tme);
 "787
-[e = _CC2 + _CC2 -> * *U + &U _Current * -> -> -> 3 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
-[; ;BatteryManagment.c: 788: CC3 = CC3 + (Current[5] * tme);
+[e = _CC3 - _CC3 -> * *U + &U _Current * -> -> -> 4 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
 "788
-[e = _CC3 + _CC3 -> * *U + &U _Current * -> -> -> 5 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
-"789
 }
-[e :U 1378 ]
-[; ;BatteryManagment.c: 789: }
-[; ;BatteryManagment.c: 790: }
-"790
-[e :UE 1376 ]
-}
-"799
-[v _CurrentGet `(i ~T0 @X0 1 ef ]
+[; ;BatteryManagment.c: 788: } else {
+[e $U 1381  ]
+[e :U 1380 ]
 {
-[; ;BatteryManagment.c: 799: int CurrentGet() {
-[e :U _CurrentGet ]
-[f ]
-[; ;BatteryManagment.c: 800: return -1;
-"800
-[e ) -U -> 1 `i ]
-[e $UE 1379  ]
-[; ;BatteryManagment.c: 801: }
-"801
+[; ;BatteryManagment.c: 789: CC1 = CC1 + (Current[1] * tme);
+"789
+[e = _CC1 + _CC1 -> * *U + &U _Current * -> -> -> 1 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
+[; ;BatteryManagment.c: 790: CC2 = CC2 + (Current[3] * tme);
+"790
+[e = _CC2 + _CC2 -> * *U + &U _Current * -> -> -> 3 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
+[; ;BatteryManagment.c: 791: CC3 = CC3 + (Current[5] * tme);
+"791
+[e = _CC3 + _CC3 -> * *U + &U _Current * -> -> -> 5 `i `ui `ux -> -> # *U &U _Current `ui `ux _tme `f ]
+"792
+}
+[e :U 1381 ]
+[; ;BatteryManagment.c: 792: }
+[; ;BatteryManagment.c: 793: }
+"793
 [e :UE 1379 ]
 }
-[p f _printf 8388736 ]
-[a 1C 86 111 108 116 97 103 101 58 32 37 105 32 10 0 ]
+"802
+[v _CurrentGet `(i ~T0 @X0 1 ef ]
+{
+[; ;BatteryManagment.c: 802: int CurrentGet() {
+[e :U _CurrentGet ]
+[f ]
+[; ;BatteryManagment.c: 803: return -1;
+"803
+[e ) -U -> 1 `i ]
+[e $UE 1382  ]
+[; ;BatteryManagment.c: 804: }
+"804
+[e :UE 1382 ]
+}
+[p f _printf 8495232 ]
+[a 1C 32 67 101 108 108 32 37 100 32 86 111 108 116 97 103 101 58 32 37 49 46 50 102 32 10 0 ]
 

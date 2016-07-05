@@ -42,11 +42,14 @@ void Charge_Mode(int command) {
 }
 
 void Run_Mode() {
-cell_codes_Bank[0][0]=4535;
+//cell_codes_Bank[0][0]=4535;
       Read_Battery(0,cell_codes_Bank);
       
       //int th=5;
-      printf ("Voltage: %i \n", cell_codes_Bank[0][0]);
+      int k = 0;
+      for(k;k<12;k++){
+        printf(" Cell %d Voltage: %1.2f \n",k, cell_codes_Bank[0][k]*0.00001);
+      }
  
    // Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2);
 }
@@ -64,7 +67,7 @@ void Initalize_LT6804b() {
     
         while (IC < NUMBEROFIC) {
             Set_REFON_Pin(IC, 1);
-            Set_ADC_Mode(IC, 1);
+            Set_ADC_Mode(IC, 0);
             Set_DCC_Mode_OFF(IC);
             Set_DCTO_Mode_OFF(IC);
             SetTempEnable(IC, 0);
@@ -72,7 +75,7 @@ void Initalize_LT6804b() {
             IC++;
         };
     
-    wakeup_sleep();
+    //wakeup_sleep();
     UpdateLT6804();
     
     //UpdateLT6804(1);
@@ -413,7 +416,7 @@ int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12]) {
 
     switch (BatteryPlacement) {
         case 0:
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
+            set_adc(MD_FILTERED, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
             LTC6804_adcv();
             Delay(10);
             Read_Status = LTC6804_rdcv(0, NUMBEROFIC, cell_codes);

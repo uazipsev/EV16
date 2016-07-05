@@ -9436,7 +9436,7 @@ uint8_t TMR1_CheckGateValueStatus(void);
 # 345
 void TMR1_ISR(void);
 
-# 13 "mcc_generated_files/../PDU.h"
+# 15 "mcc_generated_files/../PDU.h"
 int Currentcomp[6] = 0;
 char data[12] = 0;
 int CurrentADC[6] = 0;
@@ -9458,6 +9458,7 @@ void EnableSlavePower(device slave, int onof);
 void ComputeStorageData(void);
 void ReadCurrent(char gather);
 void Update(void);
+bool CoolingCheck();
 
 # 58 "mcc_generated_files/tmr1.c"
 volatile uint16_t timer1ReloadVal;

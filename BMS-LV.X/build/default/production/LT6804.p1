@@ -30,8 +30,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F8977 `i ~T0 @X0 -> 8 `i t ]
 "12 Functions.h
 [v _DelayMicro `(v ~T0 @X0 0 ef1`i ]
-"11
-[v _Delay `(v ~T0 @X0 0 ef1`i ]
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -8908,10 +8906,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;LT6804.c: 349: const int CELL_IN_REG = 3;
 [e = _CELL_IN_REG -> 3 `i ]
 "351
-[v _cell_data `i ~T0 @X0 -> 120 `i a ]
+[v _cell_data `i ~T0 @X0 -> 10 `i a ]
 "352
 [v _pec_error `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 351: int cell_data[120];
+[; ;LT6804.c: 351: int cell_data[10];
 [; ;LT6804.c: 352: int pec_error = 0;
 [e = _pec_error -> 0 `i ]
 "353
@@ -8978,1619 +8976,1631 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;LT6804.c: 372: parsed_cell = cell_data[data_counter] + (cell_data[data_counter + 1] << 8);
 "372
 [e = _parsed_cell + *U + &U _cell_data * -> -> _data_counter `ui `ux -> -> # *U &U _cell_data `ui `ux << *U + &U _cell_data * -> -> + _data_counter -> 1 `i `ui `ux -> -> # *U &U _cell_data `ui `ux -> 8 `i ]
-[; ;LT6804.c: 374: cell_codes[0][0]=parsed_cell;
+[; ;LT6804.c: 373: cell_codes[current_ic][current_cell + ((cell_reg - 1) * CELL_IN_REG)] = parsed_cell;
+"373
+[e = *U + &U *U + _cell_codes * -> _current_ic `x -> * -> # *U &U *U _cell_codes `ui -> -> 12 `i `ui `x * -> -> + _current_cell * - _cell_reg -> 1 `i _CELL_IN_REG `ui `ux -> -> # *U &U *U + _cell_codes * -> _current_ic `x -> * -> # *U &U *U _cell_codes `ui -> -> 12 `i `ui `x `ui `ux _parsed_cell ]
+[; ;LT6804.c: 374: data_counter = data_counter + 2;
 "374
-[e = *U + &U *U + _cell_codes * -> -> 0 `i `x -> * -> # *U &U *U _cell_codes `ui -> -> 12 `i `ui `x * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + _cell_codes * -> -> 0 `i `x -> * -> # *U &U *U _cell_codes `ui -> -> 12 `i `ui `x `ui `ux _parsed_cell ]
-[; ;LT6804.c: 375: data_counter = data_counter + 2;
-"375
 [e = _data_counter + _data_counter -> 2 `i ]
-"376
+"375
 }
 "370
 [e ++ _current_cell -> 1 `i ]
 [e $ < _current_cell _CELL_IN_REG 1196  ]
 [e :U 1197 ]
-"376
+"375
 }
-[; ;LT6804.c: 376: }
-[; ;LT6804.c: 378: received_pec = (cell_data[data_counter] << 8) + cell_data[data_counter+1];
-"378
+[; ;LT6804.c: 375: }
+[; ;LT6804.c: 377: received_pec = (cell_data[data_counter] << 8) + cell_data[data_counter+1];
+"377
 [e = _received_pec + << *U + &U _cell_data * -> -> _data_counter `ui `ux -> -> # *U &U _cell_data `ui `ux -> 8 `i *U + &U _cell_data * -> -> + _data_counter -> 1 `i `ui `ux -> -> # *U &U _cell_data `ui `ux ]
-[; ;LT6804.c: 379: data_pec = pec15_calc(BYT_IN_REG, &cell_data[current_ic * NUM_RX_BYT ]);
-"379
+[; ;LT6804.c: 378: data_pec = pec15_calc(BYT_IN_REG, &cell_data[current_ic * NUM_RX_BYT ]);
+"378
 [e = _data_pec ( _pec15_calc (2 , _BYT_IN_REG &U *U + &U _cell_data * -> -> * _current_ic _NUM_RX_BYT `ui `ux -> -> # *U &U _cell_data `ui `ux ]
-[; ;LT6804.c: 380: if(received_pec != data_pec)
-"380
+[; ;LT6804.c: 379: if(received_pec != data_pec)
+"379
 [e $ ! != _received_pec _data_pec 1199  ]
-[; ;LT6804.c: 381: {
-"381
+[; ;LT6804.c: 380: {
+"380
 {
-[; ;LT6804.c: 382: pec_error--;
-"382
+[; ;LT6804.c: 381: pec_error--;
+"381
 [e -- _pec_error -> 1 `i ]
-"383
+"382
 }
 [e :U 1199 ]
-[; ;LT6804.c: 383: }
-[; ;LT6804.c: 384: data_counter=data_counter+2;
-"384
+[; ;LT6804.c: 382: }
+[; ;LT6804.c: 383: data_counter=data_counter+2;
+"383
 [e = _data_counter + _data_counter -> 2 `i ]
-"385
+"384
 }
 "367
 [e ++ _current_ic -> 1 `i ]
 [e :U 1195 ]
 [e $ < _current_ic _total_ic 1192  ]
 [e :U 1193 ]
-"385
+"384
 }
-"386
+"385
 }
 "363
 [e ++ _cell_reg -> 1 `i ]
 [e $ < _cell_reg -> 5 `i 1189  ]
 [e :U 1190 ]
+"385
+}
 "386
 }
-"387
-}
+[; ;LT6804.c: 384: }
 [; ;LT6804.c: 385: }
 [; ;LT6804.c: 386: }
-[; ;LT6804.c: 387: }
 [e $U 1200  ]
-"389
+"388
 [e :U 1188 ]
-[; ;LT6804.c: 389: else
-[; ;LT6804.c: 390: {
-"390
+[; ;LT6804.c: 388: else
+[; ;LT6804.c: 389: {
+"389
 {
-[; ;LT6804.c: 393: LTC6804_rdcv_reg(reg, total_ic,cell_data);
-"393
+[; ;LT6804.c: 392: LTC6804_rdcv_reg(reg, total_ic,cell_data);
+"392
 [e ( _LTC6804_rdcv_reg (3 , , _reg _total_ic &U _cell_data ]
-[; ;LT6804.c: 394: for (current_ic = 0 ; current_ic < total_ic; current_ic++)
-"394
+[; ;LT6804.c: 393: for (current_ic = 0 ; current_ic < total_ic; current_ic++)
+"393
 {
 [e = _current_ic -> 0 `i ]
 [e $U 1204  ]
-"395
+"394
 [e :U 1201 ]
-[; ;LT6804.c: 395: {
+[; ;LT6804.c: 394: {
 {
-[; ;LT6804.c: 397: for(current_cell = 0; current_cell < CELL_IN_REG; current_cell++)
-"397
+[; ;LT6804.c: 396: for(current_cell = 0; current_cell < CELL_IN_REG; current_cell++)
+"396
 {
 [e = _current_cell -> 0 `i ]
 [e $ < _current_cell _CELL_IN_REG 1205  ]
 [e $U 1206  ]
-"398
-[e :U 1205 ]
-[; ;LT6804.c: 398: {
-{
-[; ;LT6804.c: 399: parsed_cell = cell_data[data_counter] + (cell_data[data_counter+1]<<8);
-"399
-[e = _parsed_cell + *U + &U _cell_data * -> -> _data_counter `ui `ux -> -> # *U &U _cell_data `ui `ux << *U + &U _cell_data * -> -> + _data_counter -> 1 `i `ui `ux -> -> # *U &U _cell_data `ui `ux -> 8 `i ]
-[; ;LT6804.c: 400: cell_codes[current_ic][current_cell + ((reg - 1) * CELL_IN_REG)] = 0x0000FFFF & parsed_cell;
-"400
-[e = *U + &U *U + _cell_codes * -> _current_ic `x -> * -> # *U &U *U _cell_codes `ui -> -> 12 `i `ui `x * -> -> + _current_cell * - _reg -> 1 `i _CELL_IN_REG `ui `ux -> -> # *U &U *U + _cell_codes * -> _current_ic `x -> * -> # *U &U *U _cell_codes `ui -> -> 12 `i `ui `x `ui `ux -> & -> 65535 `ui -> _parsed_cell `ui `i ]
-[; ;LT6804.c: 401: data_counter= data_counter + 2;
-"401
-[e = _data_counter + _data_counter -> 2 `i ]
-"402
-}
 "397
+[e :U 1205 ]
+[; ;LT6804.c: 397: {
+{
+[; ;LT6804.c: 398: parsed_cell = cell_data[data_counter] + (cell_data[data_counter+1]<<8);
+"398
+[e = _parsed_cell + *U + &U _cell_data * -> -> _data_counter `ui `ux -> -> # *U &U _cell_data `ui `ux << *U + &U _cell_data * -> -> + _data_counter -> 1 `i `ui `ux -> -> # *U &U _cell_data `ui `ux -> 8 `i ]
+[; ;LT6804.c: 399: cell_codes[current_ic][current_cell + ((reg - 1) * CELL_IN_REG)] = 0x0000FFFF & parsed_cell;
+"399
+[e = *U + &U *U + _cell_codes * -> _current_ic `x -> * -> # *U &U *U _cell_codes `ui -> -> 12 `i `ui `x * -> -> + _current_cell * - _reg -> 1 `i _CELL_IN_REG `ui `ux -> -> # *U &U *U + _cell_codes * -> _current_ic `x -> * -> # *U &U *U _cell_codes `ui -> -> 12 `i `ui `x `ui `ux -> & -> 65535 `ui -> _parsed_cell `ui `i ]
+[; ;LT6804.c: 400: data_counter= data_counter + 2;
+"400
+[e = _data_counter + _data_counter -> 2 `i ]
+"401
+}
+"396
 [e ++ _current_cell -> 1 `i ]
 [e $ < _current_cell _CELL_IN_REG 1205  ]
 [e :U 1206 ]
-"402
+"401
 }
-[; ;LT6804.c: 402: }
-[; ;LT6804.c: 404: received_pec = (cell_data[data_counter] << 8 )+ cell_data[data_counter + 1];
-"404
+[; ;LT6804.c: 401: }
+[; ;LT6804.c: 403: received_pec = (cell_data[data_counter] << 8 )+ cell_data[data_counter + 1];
+"403
 [e = _received_pec + << *U + &U _cell_data * -> -> _data_counter `ui `ux -> -> # *U &U _cell_data `ui `ux -> 8 `i *U + &U _cell_data * -> -> + _data_counter -> 1 `i `ui `ux -> -> # *U &U _cell_data `ui `ux ]
-[; ;LT6804.c: 405: data_pec = pec15_calc(BYT_IN_REG, &cell_data[current_ic * NUM_RX_BYT * (reg-1)]);
-"405
+[; ;LT6804.c: 404: data_pec = pec15_calc(BYT_IN_REG, &cell_data[current_ic * NUM_RX_BYT * (reg-1)]);
+"404
 [e = _data_pec ( _pec15_calc (2 , _BYT_IN_REG &U *U + &U _cell_data * -> -> * * _current_ic _NUM_RX_BYT - _reg -> 1 `i `ui `ux -> -> # *U &U _cell_data `ui `ux ]
-[; ;LT6804.c: 406: if(received_pec != data_pec)
-"406
+[; ;LT6804.c: 405: if(received_pec != data_pec)
+"405
 [e $ ! != _received_pec _data_pec 1208  ]
-[; ;LT6804.c: 407: {
-"407
+[; ;LT6804.c: 406: {
+"406
 {
-[; ;LT6804.c: 408: pec_error--;
-"408
+[; ;LT6804.c: 407: pec_error--;
+"407
 [e -- _pec_error -> 1 `i ]
-"409
+"408
 }
 [e :U 1208 ]
-"410
+"409
 }
-"394
+"393
 [e ++ _current_ic -> 1 `i ]
 [e :U 1204 ]
 [e $ < _current_ic _total_ic 1201  ]
 [e :U 1202 ]
+"409
+}
 "410
 }
-"411
-}
 [e :U 1200 ]
+[; ;LT6804.c: 408: }
 [; ;LT6804.c: 409: }
 [; ;LT6804.c: 410: }
-[; ;LT6804.c: 411: }
-[; ;LT6804.c: 413: return(pec_error);
-"413
+[; ;LT6804.c: 412: return(pec_error);
+"412
 [e ) _pec_error ]
 [e $UE 1187  ]
-[; ;LT6804.c: 414: }
-"414
+[; ;LT6804.c: 413: }
+"413
 [e :UE 1187 ]
 }
-"452
+"451
 [v _LTC6804_rdcv_reg `(v ~T0 @X0 1 ef3`i`i`*i ]
-"456
+"455
 {
-[; ;LT6804.c: 452: void LTC6804_rdcv_reg(int reg,
-[; ;LT6804.c: 453: int total_ic,
-[; ;LT6804.c: 454: int *data
-[; ;LT6804.c: 455: )
-[; ;LT6804.c: 456: {
+[; ;LT6804.c: 451: void LTC6804_rdcv_reg(int reg,
+[; ;LT6804.c: 452: int total_ic,
+[; ;LT6804.c: 453: int *data
+[; ;LT6804.c: 454: )
+[; ;LT6804.c: 455: {
 [e :U _LTC6804_rdcv_reg ]
-"452
+"451
 [v _reg `i ~T0 @X0 1 r1 ]
-"453
+"452
 [v _total_ic `i ~T0 @X0 1 r2 ]
-"454
+"453
 [v _data `*i ~T0 @X0 1 r3 ]
-"456
+"455
 [f ]
-"457
+"456
 [v _cmd `i ~T0 @X0 -> 4 `i a ]
-"458
+"457
 [v _temp_pec `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 457: int cmd[4];
-[; ;LT6804.c: 458: int temp_pec;
-[; ;LT6804.c: 461: if (reg == 1)
-"461
+[; ;LT6804.c: 456: int cmd[4];
+[; ;LT6804.c: 457: int temp_pec;
+[; ;LT6804.c: 460: if (reg == 1)
+"460
 [e $ ! == _reg -> 1 `i 1210  ]
-[; ;LT6804.c: 462: {
+[; ;LT6804.c: 461: {
+"461
+{
+[; ;LT6804.c: 462: cmd[1] = 0x04;
 "462
-{
-[; ;LT6804.c: 463: cmd[1] = 0x04;
-"463
 [e = *U + &U _cmd * -> -> -> 1 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 4 `i ]
-[; ;LT6804.c: 464: cmd[0] = 0x00;
+[; ;LT6804.c: 463: cmd[0] = 0x00;
+"463
+[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
 "464
-[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
-"465
 }
-[; ;LT6804.c: 465: }
+[; ;LT6804.c: 464: }
 [e $U 1211  ]
-"466
+"465
 [e :U 1210 ]
-[; ;LT6804.c: 466: else if(reg == 2)
+[; ;LT6804.c: 465: else if(reg == 2)
 [e $ ! == _reg -> 2 `i 1212  ]
-[; ;LT6804.c: 467: {
+[; ;LT6804.c: 466: {
+"466
+{
+[; ;LT6804.c: 467: cmd[1] = 0x06;
 "467
-{
-[; ;LT6804.c: 468: cmd[1] = 0x06;
-"468
 [e = *U + &U _cmd * -> -> -> 1 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 6 `i ]
-[; ;LT6804.c: 469: cmd[0] = 0x00;
+[; ;LT6804.c: 468: cmd[0] = 0x00;
+"468
+[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
 "469
-[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
-"470
 }
-[; ;LT6804.c: 470: }
+[; ;LT6804.c: 469: }
 [e $U 1213  ]
-"471
+"470
 [e :U 1212 ]
-[; ;LT6804.c: 471: else if(reg == 3)
+[; ;LT6804.c: 470: else if(reg == 3)
 [e $ ! == _reg -> 3 `i 1214  ]
-[; ;LT6804.c: 472: {
+[; ;LT6804.c: 471: {
+"471
+{
+[; ;LT6804.c: 472: cmd[1] = 0x08;
 "472
-{
-[; ;LT6804.c: 473: cmd[1] = 0x08;
-"473
 [e = *U + &U _cmd * -> -> -> 1 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 8 `i ]
-[; ;LT6804.c: 474: cmd[0] = 0x00;
+[; ;LT6804.c: 473: cmd[0] = 0x00;
+"473
+[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
 "474
-[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
-"475
 }
-[; ;LT6804.c: 475: }
+[; ;LT6804.c: 474: }
 [e $U 1215  ]
-"476
+"475
 [e :U 1214 ]
-[; ;LT6804.c: 476: else if(reg == 4)
+[; ;LT6804.c: 475: else if(reg == 4)
 [e $ ! == _reg -> 4 `i 1216  ]
-[; ;LT6804.c: 477: {
-"477
+[; ;LT6804.c: 476: {
+"476
 {
-[; ;LT6804.c: 478: cmd[1] = 0x0A;
-"478
+[; ;LT6804.c: 477: cmd[1] = 0x0A;
+"477
 [e = *U + &U _cmd * -> -> -> 1 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 10 `i ]
-[; ;LT6804.c: 479: cmd[0] = 0x00;
-"479
+[; ;LT6804.c: 478: cmd[0] = 0x00;
+"478
 [e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
-"480
+"479
 }
 [e :U 1216 ]
-"486
+"485
 [e :U 1215 ]
 [e :U 1213 ]
 [e :U 1211 ]
-[; ;LT6804.c: 480: }
-[; ;LT6804.c: 486: wakeup_idle ();
+[; ;LT6804.c: 479: }
+[; ;LT6804.c: 485: wakeup_idle ();
 [e ( _wakeup_idle ..  ]
-[; ;LT6804.c: 487: LATD3 = 1;
-"487
+[; ;LT6804.c: 486: LATD3 = 1;
+"486
 [e = _LATD3 -> -> 1 `i `b ]
-[; ;LT6804.c: 489: for(current_ic = 0; current_ic<total_ic; current_ic++)
-"489
+[; ;LT6804.c: 488: for(current_ic = 0; current_ic<total_ic; current_ic++)
+"488
 {
 [e = _current_ic -> 0 `i ]
 [e $U 1220  ]
-"490
-[e :U 1217 ]
-[; ;LT6804.c: 490: {
-{
-[; ;LT6804.c: 491: cmd[0] = 0x80 + (current_ic<<3);
-"491
-[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux + -> 128 `i << _current_ic -> 3 `i ]
-[; ;LT6804.c: 492: temp_pec = pec15_calc(2, cmd);
-"492
-[e = _temp_pec ( _pec15_calc (2 , -> 2 `i &U _cmd ]
-[; ;LT6804.c: 493: cmd[2] = (int)(temp_pec >> 8);
-"493
-[e = *U + &U _cmd * -> -> -> 2 `i `ui `ux -> -> # *U &U _cmd `ui `ux >> _temp_pec -> 8 `i ]
-[; ;LT6804.c: 494: cmd[3] = (int)(temp_pec);
-"494
-[e = *U + &U _cmd * -> -> -> 3 `i `ui `ux -> -> # *U &U _cmd `ui `ux _temp_pec ]
-[; ;LT6804.c: 495: LATD3 = 0;
-"495
-[e = _LATD3 -> -> 0 `i `b ]
-[; ;LT6804.c: 496: spi_write_read(cmd,4,&data[current_ic*8],8);
-"496
-[e ( _spi_write_read (4 , , , &U _cmd -> 4 `i &U *U + _data * -> * _current_ic -> 8 `i `x -> -> # *U _data `i `x -> 8 `i ]
-[; ;LT6804.c: 497: LATD3 = 1;
-"497
-[e = _LATD3 -> -> 1 `i `b ]
-"498
-}
 "489
+[e :U 1217 ]
+[; ;LT6804.c: 489: {
+{
+[; ;LT6804.c: 490: cmd[0] = 0x80 + (current_ic<<3);
+"490
+[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux + -> 128 `i << _current_ic -> 3 `i ]
+[; ;LT6804.c: 491: temp_pec = pec15_calc(2, cmd);
+"491
+[e = _temp_pec ( _pec15_calc (2 , -> 2 `i &U _cmd ]
+[; ;LT6804.c: 492: cmd[2] = (int)(temp_pec >> 8);
+"492
+[e = *U + &U _cmd * -> -> -> 2 `i `ui `ux -> -> # *U &U _cmd `ui `ux >> _temp_pec -> 8 `i ]
+[; ;LT6804.c: 493: cmd[3] = (int)(temp_pec);
+"493
+[e = *U + &U _cmd * -> -> -> 3 `i `ui `ux -> -> # *U &U _cmd `ui `ux _temp_pec ]
+[; ;LT6804.c: 494: LATD3 = 0;
+"494
+[e = _LATD3 -> -> 0 `i `b ]
+[; ;LT6804.c: 495: spi_write_read(cmd,4,&data[current_ic*8],8);
+"495
+[e ( _spi_write_read (4 , , , &U _cmd -> 4 `i &U *U + _data * -> * _current_ic -> 8 `i `x -> -> # *U _data `i `x -> 8 `i ]
+[; ;LT6804.c: 496: LATD3 = 1;
+"496
+[e = _LATD3 -> -> 1 `i `b ]
+"497
+}
+"488
 [e ++ _current_ic -> 1 `i ]
 [e :U 1220 ]
 [e $ < _current_ic _total_ic 1217  ]
 [e :U 1218 ]
-"498
+"497
 }
+[; ;LT6804.c: 497: }
 [; ;LT6804.c: 498: }
-[; ;LT6804.c: 499: }
-"499
+"498
 [e :UE 1209 ]
 }
-"540
+"539
 [v _LTC6804_rdaux `(i ~T0 @X0 1 ef3`i`i`*F8954 ]
-"544
+"543
 {
-[; ;LT6804.c: 540: int LTC6804_rdaux(int reg,
-[; ;LT6804.c: 541: int total_ic,
-[; ;LT6804.c: 542: int aux_codes[][6]
-[; ;LT6804.c: 543: )
-[; ;LT6804.c: 544: {
+[; ;LT6804.c: 539: int LTC6804_rdaux(int reg,
+[; ;LT6804.c: 540: int total_ic,
+[; ;LT6804.c: 541: int aux_codes[][6]
+[; ;LT6804.c: 542: )
+[; ;LT6804.c: 543: {
 [e :U _LTC6804_rdaux ]
-"540
+"539
 [v _reg `i ~T0 @X0 1 r1 ]
-"541
+"540
 [v _total_ic `i ~T0 @X0 1 r2 ]
 [v F9065 `i ~T0 @X0 -> 6 `i t ]
-"542
+"541
 [v _aux_codes `*F9065 ~T0 @X0 1 r3 ]
-"544
+"543
 [f ]
-"547
+"546
 [v _NUM_RX_BYT `Ci ~T0 @X0 1 a ]
-[; ;LT6804.c: 547: const int NUM_RX_BYT = 8;
+[; ;LT6804.c: 546: const int NUM_RX_BYT = 8;
 [e = _NUM_RX_BYT -> 8 `i ]
-"548
+"547
 [v _BYT_IN_REG `Ci ~T0 @X0 1 a ]
-[; ;LT6804.c: 548: const int BYT_IN_REG = 6;
+[; ;LT6804.c: 547: const int BYT_IN_REG = 6;
 [e = _BYT_IN_REG -> 6 `i ]
-"549
+"548
 [v _GPIO_IN_REG `Ci ~T0 @X0 1 a ]
-[; ;LT6804.c: 549: const int GPIO_IN_REG = 3;
+[; ;LT6804.c: 548: const int GPIO_IN_REG = 3;
 [e = _GPIO_IN_REG -> 3 `i ]
-"550
+"549
 [v _gpio_reg `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 550: int gpio_reg = 0;
+[; ;LT6804.c: 549: int gpio_reg = 0;
 [e = _gpio_reg -> 0 `i ]
-"551
+"550
 [v _current_gpio `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 551: int current_gpio = 0;
+[; ;LT6804.c: 550: int current_gpio = 0;
 [e = _current_gpio -> 0 `i ]
-"552
+"551
 [v _data `*i ~T0 @X0 1 a ]
-"553
+"552
 [v _data_counter `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 552: int *data;
-[; ;LT6804.c: 553: int data_counter = 0;
+[; ;LT6804.c: 551: int *data;
+[; ;LT6804.c: 552: int data_counter = 0;
 [e = _data_counter -> 0 `i ]
-"554
+"553
 [v _pec_error `c ~T0 @X0 1 a ]
-[; ;LT6804.c: 554: int8_t pec_error = 0;
+[; ;LT6804.c: 553: int8_t pec_error = 0;
 [e = _pec_error -> -> 0 `i `c ]
-"555
+"554
 [v _received_pec `i ~T0 @X0 1 a ]
-"556
+"555
 [v _data_pec `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 555: int received_pec;
-[; ;LT6804.c: 556: int data_pec;
-[; ;LT6804.c: 557: data = (int *) malloc((NUM_RX_BYT*total_ic)*sizeof(int));
-"557
+[; ;LT6804.c: 554: int received_pec;
+[; ;LT6804.c: 555: int data_pec;
+[; ;LT6804.c: 556: data = (int *) malloc((NUM_RX_BYT*total_ic)*sizeof(int));
+"556
 [e = _data -> ( _malloc (1 * -> * _NUM_RX_BYT _total_ic `ui -> # `i `ui `*i ]
-[; ;LT6804.c: 559: if (reg == 0)
-"559
+[; ;LT6804.c: 558: if (reg == 0)
+"558
 [e $ ! == _reg -> 0 `i 1222  ]
-[; ;LT6804.c: 560: {
-"560
+[; ;LT6804.c: 559: {
+"559
 {
-[; ;LT6804.c: 562: for(gpio_reg = 1; gpio_reg<3; gpio_reg++)
-"562
+[; ;LT6804.c: 561: for(gpio_reg = 1; gpio_reg<3; gpio_reg++)
+"561
 {
 [e = _gpio_reg -> 1 `i ]
 [e $ < _gpio_reg -> 3 `i 1223  ]
 [e $U 1224  ]
-"563
+"562
 [e :U 1223 ]
-[; ;LT6804.c: 563: {
+[; ;LT6804.c: 562: {
 {
-[; ;LT6804.c: 564: data_counter = 0;
-"564
+[; ;LT6804.c: 563: data_counter = 0;
+"563
 [e = _data_counter -> 0 `i ]
-[; ;LT6804.c: 565: LTC6804_rdaux_reg(gpio_reg, total_ic,data);
-"565
+[; ;LT6804.c: 564: LTC6804_rdaux_reg(gpio_reg, total_ic,data);
+"564
 [e ( _LTC6804_rdaux_reg (3 , , _gpio_reg _total_ic _data ]
-[; ;LT6804.c: 566: for (current_ic = 0 ; current_ic < total_ic; current_ic++)
-"566
+[; ;LT6804.c: 565: for (current_ic = 0 ; current_ic < total_ic; current_ic++)
+"565
 {
 [e = _current_ic -> 0 `i ]
 [e $U 1229  ]
-"567
+"566
 [e :U 1226 ]
-[; ;LT6804.c: 567: {
+[; ;LT6804.c: 566: {
 {
-[; ;LT6804.c: 569: for(current_gpio = 0; current_gpio< GPIO_IN_REG; current_gpio++)
-"569
+[; ;LT6804.c: 568: for(current_gpio = 0; current_gpio< GPIO_IN_REG; current_gpio++)
+"568
 {
 [e = _current_gpio -> 0 `i ]
 [e $ < _current_gpio _GPIO_IN_REG 1230  ]
 [e $U 1231  ]
-"570
-[e :U 1230 ]
-[; ;LT6804.c: 570: {
-{
-[; ;LT6804.c: 572: aux_codes[current_ic][current_gpio +((gpio_reg-1)*GPIO_IN_REG)] = data[data_counter] + (data[data_counter+1]<<8);
-"572
-[e = *U + &U *U + _aux_codes * -> _current_ic `x -> * -> # *U &U *U _aux_codes `ui -> -> 6 `i `ui `x * -> -> + _current_gpio * - _gpio_reg -> 1 `i _GPIO_IN_REG `ui `ux -> -> # *U &U *U + _aux_codes * -> _current_ic `x -> * -> # *U &U *U _aux_codes `ui -> -> 6 `i `ui `x `ui `ux + *U + _data * -> _data_counter `x -> -> # *U _data `i `x << *U + _data * -> + _data_counter -> 1 `i `x -> -> # *U _data `i `x -> 8 `i ]
-[; ;LT6804.c: 573: data_counter=data_counter+2;
-"573
-[e = _data_counter + _data_counter -> 2 `i ]
-"575
-}
 "569
+[e :U 1230 ]
+[; ;LT6804.c: 569: {
+{
+[; ;LT6804.c: 571: aux_codes[current_ic][current_gpio +((gpio_reg-1)*GPIO_IN_REG)] = data[data_counter] + (data[data_counter+1]<<8);
+"571
+[e = *U + &U *U + _aux_codes * -> _current_ic `x -> * -> # *U &U *U _aux_codes `ui -> -> 6 `i `ui `x * -> -> + _current_gpio * - _gpio_reg -> 1 `i _GPIO_IN_REG `ui `ux -> -> # *U &U *U + _aux_codes * -> _current_ic `x -> * -> # *U &U *U _aux_codes `ui -> -> 6 `i `ui `x `ui `ux + *U + _data * -> _data_counter `x -> -> # *U _data `i `x << *U + _data * -> + _data_counter -> 1 `i `x -> -> # *U _data `i `x -> 8 `i ]
+[; ;LT6804.c: 572: data_counter=data_counter+2;
+"572
+[e = _data_counter + _data_counter -> 2 `i ]
+"574
+}
+"568
 [e ++ _current_gpio -> 1 `i ]
 [e $ < _current_gpio _GPIO_IN_REG 1230  ]
 [e :U 1231 ]
-"575
+"574
 }
-[; ;LT6804.c: 575: }
-[; ;LT6804.c: 577: received_pec = (data[data_counter]<<8)+ data[data_counter+1];
-"577
+[; ;LT6804.c: 574: }
+[; ;LT6804.c: 576: received_pec = (data[data_counter]<<8)+ data[data_counter+1];
+"576
 [e = _received_pec + << *U + _data * -> _data_counter `x -> -> # *U _data `i `x -> 8 `i *U + _data * -> + _data_counter -> 1 `i `x -> -> # *U _data `i `x ]
-[; ;LT6804.c: 578: data_pec = pec15_calc(BYT_IN_REG, &data[current_ic*NUM_RX_BYT*(gpio_reg-1)]);
-"578
+[; ;LT6804.c: 577: data_pec = pec15_calc(BYT_IN_REG, &data[current_ic*NUM_RX_BYT*(gpio_reg-1)]);
+"577
 [e = _data_pec ( _pec15_calc (2 , _BYT_IN_REG &U *U + _data * -> * * _current_ic _NUM_RX_BYT - _gpio_reg -> 1 `i `x -> -> # *U _data `i `x ]
-[; ;LT6804.c: 579: if(received_pec != data_pec)
-"579
+[; ;LT6804.c: 578: if(received_pec != data_pec)
+"578
 [e $ ! != _received_pec _data_pec 1233  ]
-[; ;LT6804.c: 580: {
-"580
+[; ;LT6804.c: 579: {
+"579
 {
-[; ;LT6804.c: 581: pec_error = -1;
-"581
+[; ;LT6804.c: 580: pec_error = -1;
+"580
 [e = _pec_error -> -U -> 1 `i `c ]
-"582
+"581
 }
 [e :U 1233 ]
-[; ;LT6804.c: 582: }
-[; ;LT6804.c: 584: data_counter=data_counter+2;
-"584
+[; ;LT6804.c: 581: }
+[; ;LT6804.c: 583: data_counter=data_counter+2;
+"583
 [e = _data_counter + _data_counter -> 2 `i ]
-"585
+"584
 }
-"566
+"565
 [e ++ _current_ic -> 1 `i ]
 [e :U 1229 ]
 [e $ < _current_ic _total_ic 1226  ]
 [e :U 1227 ]
-"585
+"584
 }
-"588
+"587
 }
-"562
+"561
 [e ++ _gpio_reg -> 1 `i ]
 [e $ < _gpio_reg -> 3 `i 1223  ]
 [e :U 1224 ]
-"588
+"587
 }
-"590
+"589
 }
-[; ;LT6804.c: 585: }
-[; ;LT6804.c: 588: }
-[; ;LT6804.c: 590: }
+[; ;LT6804.c: 584: }
+[; ;LT6804.c: 587: }
+[; ;LT6804.c: 589: }
 [e $U 1234  ]
-"591
+"590
 [e :U 1222 ]
-[; ;LT6804.c: 591: else
-[; ;LT6804.c: 592: {
-"592
+[; ;LT6804.c: 590: else
+[; ;LT6804.c: 591: {
+"591
 {
-[; ;LT6804.c: 594: LTC6804_rdaux_reg(reg, total_ic, data);
-"594
+[; ;LT6804.c: 593: LTC6804_rdaux_reg(reg, total_ic, data);
+"593
 [e ( _LTC6804_rdaux_reg (3 , , _reg _total_ic _data ]
-[; ;LT6804.c: 595: for (current_ic = 0 ; current_ic < total_ic; current_ic++)
-"595
+[; ;LT6804.c: 594: for (current_ic = 0 ; current_ic < total_ic; current_ic++)
+"594
 {
 [e = _current_ic -> 0 `i ]
 [e $U 1238  ]
-"596
+"595
 [e :U 1235 ]
-[; ;LT6804.c: 596: {
+[; ;LT6804.c: 595: {
 {
-[; ;LT6804.c: 598: for(current_gpio = 0; current_gpio<GPIO_IN_REG; current_gpio++)
-"598
+[; ;LT6804.c: 597: for(current_gpio = 0; current_gpio<GPIO_IN_REG; current_gpio++)
+"597
 {
 [e = _current_gpio -> 0 `i ]
 [e $ < _current_gpio _GPIO_IN_REG 1239  ]
 [e $U 1240  ]
-"599
-[e :U 1239 ]
-[; ;LT6804.c: 599: {
-{
-[; ;LT6804.c: 600: aux_codes[current_ic][current_gpio +((reg-1)*GPIO_IN_REG)] = 0x0000FFFF & (data[data_counter] + (data[data_counter+1]<<8));
-"600
-[e = *U + &U *U + _aux_codes * -> _current_ic `x -> * -> # *U &U *U _aux_codes `ui -> -> 6 `i `ui `x * -> -> + _current_gpio * - _reg -> 1 `i _GPIO_IN_REG `ui `ux -> -> # *U &U *U + _aux_codes * -> _current_ic `x -> * -> # *U &U *U _aux_codes `ui -> -> 6 `i `ui `x `ui `ux -> & -> 65535 `ui -> + *U + _data * -> _data_counter `x -> -> # *U _data `i `x << *U + _data * -> + _data_counter -> 1 `i `x -> -> # *U _data `i `x -> 8 `i `ui `i ]
-[; ;LT6804.c: 601: data_counter=data_counter+2;
-"601
-[e = _data_counter + _data_counter -> 2 `i ]
-"602
-}
 "598
+[e :U 1239 ]
+[; ;LT6804.c: 598: {
+{
+[; ;LT6804.c: 599: aux_codes[current_ic][current_gpio +((reg-1)*GPIO_IN_REG)] = 0x0000FFFF & (data[data_counter] + (data[data_counter+1]<<8));
+"599
+[e = *U + &U *U + _aux_codes * -> _current_ic `x -> * -> # *U &U *U _aux_codes `ui -> -> 6 `i `ui `x * -> -> + _current_gpio * - _reg -> 1 `i _GPIO_IN_REG `ui `ux -> -> # *U &U *U + _aux_codes * -> _current_ic `x -> * -> # *U &U *U _aux_codes `ui -> -> 6 `i `ui `x `ui `ux -> & -> 65535 `ui -> + *U + _data * -> _data_counter `x -> -> # *U _data `i `x << *U + _data * -> + _data_counter -> 1 `i `x -> -> # *U _data `i `x -> 8 `i `ui `i ]
+[; ;LT6804.c: 600: data_counter=data_counter+2;
+"600
+[e = _data_counter + _data_counter -> 2 `i ]
+"601
+}
+"597
 [e ++ _current_gpio -> 1 `i ]
 [e $ < _current_gpio _GPIO_IN_REG 1239  ]
 [e :U 1240 ]
-"602
+"601
 }
-[; ;LT6804.c: 602: }
-[; ;LT6804.c: 604: received_pec = (data[data_counter]<<8) + data[data_counter+1];
-"604
+[; ;LT6804.c: 601: }
+[; ;LT6804.c: 603: received_pec = (data[data_counter]<<8) + data[data_counter+1];
+"603
 [e = _received_pec + << *U + _data * -> _data_counter `x -> -> # *U _data `i `x -> 8 `i *U + _data * -> + _data_counter -> 1 `i `x -> -> # *U _data `i `x ]
-[; ;LT6804.c: 605: data_pec = pec15_calc(6, &data[current_ic*8*(reg-1)]);
-"605
+[; ;LT6804.c: 604: data_pec = pec15_calc(6, &data[current_ic*8*(reg-1)]);
+"604
 [e = _data_pec ( _pec15_calc (2 , -> 6 `i &U *U + _data * -> * * _current_ic -> 8 `i - _reg -> 1 `i `x -> -> # *U _data `i `x ]
-[; ;LT6804.c: 606: if(received_pec != data_pec)
-"606
+[; ;LT6804.c: 605: if(received_pec != data_pec)
+"605
 [e $ ! != _received_pec _data_pec 1242  ]
-[; ;LT6804.c: 607: {
-"607
+[; ;LT6804.c: 606: {
+"606
 {
-[; ;LT6804.c: 608: pec_error = -1;
-"608
+[; ;LT6804.c: 607: pec_error = -1;
+"607
 [e = _pec_error -> -U -> 1 `i `c ]
-"609
+"608
 }
 [e :U 1242 ]
-"610
+"609
 }
-"595
+"594
 [e ++ _current_ic -> 1 `i ]
 [e :U 1238 ]
 [e $ < _current_ic _total_ic 1235  ]
 [e :U 1236 ]
+"609
+}
 "610
 }
-"611
-}
 [e :U 1234 ]
+[; ;LT6804.c: 608: }
 [; ;LT6804.c: 609: }
 [; ;LT6804.c: 610: }
-[; ;LT6804.c: 611: }
-[; ;LT6804.c: 612: free(data);
-"612
+[; ;LT6804.c: 611: free(data);
+"611
 [e ( _free (1 -> _data `*v ]
-[; ;LT6804.c: 613: return (pec_error);
-"613
+[; ;LT6804.c: 612: return (pec_error);
+"612
 [e ) -> _pec_error `i ]
 [e $UE 1221  ]
-[; ;LT6804.c: 614: }
-"614
+[; ;LT6804.c: 613: }
+"613
 [e :UE 1221 ]
 }
-"649
+"648
 [v _LTC6804_rdaux_reg `(v ~T0 @X0 1 ef3`i`i`*i ]
-"653
+"652
 {
-[; ;LT6804.c: 649: void LTC6804_rdaux_reg(int reg,
-[; ;LT6804.c: 650: int total_ic,
-[; ;LT6804.c: 651: int *data
-[; ;LT6804.c: 652: )
-[; ;LT6804.c: 653: {
+[; ;LT6804.c: 648: void LTC6804_rdaux_reg(int reg,
+[; ;LT6804.c: 649: int total_ic,
+[; ;LT6804.c: 650: int *data
+[; ;LT6804.c: 651: )
+[; ;LT6804.c: 652: {
 [e :U _LTC6804_rdaux_reg ]
-"649
+"648
 [v _reg `i ~T0 @X0 1 r1 ]
-"650
+"649
 [v _total_ic `i ~T0 @X0 1 r2 ]
-"651
+"650
 [v _data `*i ~T0 @X0 1 r3 ]
-"653
+"652
 [f ]
-"654
+"653
 [v _cmd `i ~T0 @X0 -> 4 `i a ]
-"655
+"654
 [v _cmd_pec `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 654: int cmd[4];
-[; ;LT6804.c: 655: int cmd_pec;
-[; ;LT6804.c: 658: if (reg == 1)
-"658
+[; ;LT6804.c: 653: int cmd[4];
+[; ;LT6804.c: 654: int cmd_pec;
+[; ;LT6804.c: 657: if (reg == 1)
+"657
 [e $ ! == _reg -> 1 `i 1244  ]
-[; ;LT6804.c: 659: {
+[; ;LT6804.c: 658: {
+"658
+{
+[; ;LT6804.c: 659: cmd[1] = 0x10;
 "659
-{
-[; ;LT6804.c: 660: cmd[1] = 0x10;
-"660
 [e = *U + &U _cmd * -> -> -> 1 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 16 `i ]
-[; ;LT6804.c: 661: cmd[0] = 0x00;
+[; ;LT6804.c: 660: cmd[0] = 0x00;
+"660
+[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
 "661
-[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
-"662
 }
-[; ;LT6804.c: 662: }
+[; ;LT6804.c: 661: }
 [e $U 1245  ]
-"663
+"662
 [e :U 1244 ]
-[; ;LT6804.c: 663: else if(reg == 2)
+[; ;LT6804.c: 662: else if(reg == 2)
 [e $ ! == _reg -> 2 `i 1246  ]
-[; ;LT6804.c: 664: {
+[; ;LT6804.c: 663: {
+"663
+{
+[; ;LT6804.c: 664: cmd[1] = 0x12;
 "664
-{
-[; ;LT6804.c: 665: cmd[1] = 0x12;
-"665
 [e = *U + &U _cmd * -> -> -> 1 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 18 `i ]
-[; ;LT6804.c: 666: cmd[0] = 0x00;
+[; ;LT6804.c: 665: cmd[0] = 0x00;
+"665
+[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
 "666
-[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
-"667
 }
-[; ;LT6804.c: 667: }
+[; ;LT6804.c: 666: }
 [e $U 1247  ]
-"668
+"667
 [e :U 1246 ]
-[; ;LT6804.c: 668: else
-[; ;LT6804.c: 669: {
-"669
+[; ;LT6804.c: 667: else
+[; ;LT6804.c: 668: {
+"668
 {
-[; ;LT6804.c: 670: cmd[1] = 0x0C;
-"670
+[; ;LT6804.c: 669: cmd[1] = 0x0C;
+"669
 [e = *U + &U _cmd * -> -> -> 1 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 12 `i ]
-[; ;LT6804.c: 671: cmd[0] = 0x00;
-"671
+[; ;LT6804.c: 670: cmd[0] = 0x00;
+"670
 [e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
-"672
+"671
 }
 [e :U 1247 ]
 [e :U 1245 ]
-[; ;LT6804.c: 672: }
-[; ;LT6804.c: 674: cmd_pec = pec15_calc(2, cmd);
-"674
+[; ;LT6804.c: 671: }
+[; ;LT6804.c: 673: cmd_pec = pec15_calc(2, cmd);
+"673
 [e = _cmd_pec ( _pec15_calc (2 , -> 2 `i &U _cmd ]
-[; ;LT6804.c: 675: cmd[2] = (int)(cmd_pec >> 8);
-"675
+[; ;LT6804.c: 674: cmd[2] = (int)(cmd_pec >> 8);
+"674
 [e = *U + &U _cmd * -> -> -> 2 `i `ui `ux -> -> # *U &U _cmd `ui `ux >> _cmd_pec -> 8 `i ]
-[; ;LT6804.c: 676: cmd[3] = (int)(cmd_pec);
-"676
+[; ;LT6804.c: 675: cmd[3] = (int)(cmd_pec);
+"675
 [e = *U + &U _cmd * -> -> -> 3 `i `ui `ux -> -> # *U &U _cmd `ui `ux _cmd_pec ]
-[; ;LT6804.c: 679: wakeup_idle ();
-"679
+[; ;LT6804.c: 678: wakeup_idle ();
+"678
 [e ( _wakeup_idle ..  ]
-[; ;LT6804.c: 681: for(current_ic = 0; current_ic<total_ic; current_ic++)
-"681
+[; ;LT6804.c: 680: for(current_ic = 0; current_ic<total_ic; current_ic++)
+"680
 {
 [e = _current_ic -> 0 `i ]
 [e $U 1251  ]
-"682
-[e :U 1248 ]
-[; ;LT6804.c: 682: {
-{
-[; ;LT6804.c: 683: cmd[0] = 0x80 + (current_ic<<3);
-"683
-[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux + -> 128 `i << _current_ic -> 3 `i ]
-[; ;LT6804.c: 684: cmd_pec = pec15_calc(2, cmd);
-"684
-[e = _cmd_pec ( _pec15_calc (2 , -> 2 `i &U _cmd ]
-[; ;LT6804.c: 685: cmd[2] = (int)(cmd_pec >> 8);
-"685
-[e = *U + &U _cmd * -> -> -> 2 `i `ui `ux -> -> # *U &U _cmd `ui `ux >> _cmd_pec -> 8 `i ]
-[; ;LT6804.c: 686: cmd[3] = (int)(cmd_pec);
-"686
-[e = *U + &U _cmd * -> -> -> 3 `i `ui `ux -> -> # *U &U _cmd `ui `ux _cmd_pec ]
-[; ;LT6804.c: 687: LATD3 = 0;
-"687
-[e = _LATD3 -> -> 0 `i `b ]
-[; ;LT6804.c: 688: spi_write_read(cmd,4,&data[current_ic*8],8);
-"688
-[e ( _spi_write_read (4 , , , &U _cmd -> 4 `i &U *U + _data * -> * _current_ic -> 8 `i `x -> -> # *U _data `i `x -> 8 `i ]
-[; ;LT6804.c: 689: LATD3 = 1;
-"689
-[e = _LATD3 -> -> 1 `i `b ]
-"690
-}
 "681
+[e :U 1248 ]
+[; ;LT6804.c: 681: {
+{
+[; ;LT6804.c: 682: cmd[0] = 0x80 + (current_ic<<3);
+"682
+[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux + -> 128 `i << _current_ic -> 3 `i ]
+[; ;LT6804.c: 683: cmd_pec = pec15_calc(2, cmd);
+"683
+[e = _cmd_pec ( _pec15_calc (2 , -> 2 `i &U _cmd ]
+[; ;LT6804.c: 684: cmd[2] = (int)(cmd_pec >> 8);
+"684
+[e = *U + &U _cmd * -> -> -> 2 `i `ui `ux -> -> # *U &U _cmd `ui `ux >> _cmd_pec -> 8 `i ]
+[; ;LT6804.c: 685: cmd[3] = (int)(cmd_pec);
+"685
+[e = *U + &U _cmd * -> -> -> 3 `i `ui `ux -> -> # *U &U _cmd `ui `ux _cmd_pec ]
+[; ;LT6804.c: 686: LATD3 = 0;
+"686
+[e = _LATD3 -> -> 0 `i `b ]
+[; ;LT6804.c: 687: spi_write_read(cmd,4,&data[current_ic*8],8);
+"687
+[e ( _spi_write_read (4 , , , &U _cmd -> 4 `i &U *U + _data * -> * _current_ic -> 8 `i `x -> -> # *U _data `i `x -> 8 `i ]
+[; ;LT6804.c: 688: LATD3 = 1;
+"688
+[e = _LATD3 -> -> 1 `i `b ]
+"689
+}
+"680
 [e ++ _current_ic -> 1 `i ]
 [e :U 1251 ]
 [e $ < _current_ic _total_ic 1248  ]
 [e :U 1249 ]
-"690
+"689
 }
+[; ;LT6804.c: 689: }
 [; ;LT6804.c: 690: }
-[; ;LT6804.c: 691: }
-"691
+"690
 [e :UE 1243 ]
 }
-"737
+"736
 [v _LTC6804_rdStat `(i ~T0 @X0 1 ef3`i`i`*F8963 ]
-"742
+"741
 {
-[; ;LT6804.c: 737: int LTC6804_rdStat(int reg,
-[; ;LT6804.c: 738: int total_ic,
-[; ;LT6804.c: 739: int Stat_codes[][6]
-[; ;LT6804.c: 740: )
-[; ;LT6804.c: 742: { const int NUM_RX_BYT = 8;
+[; ;LT6804.c: 736: int LTC6804_rdStat(int reg,
+[; ;LT6804.c: 737: int total_ic,
+[; ;LT6804.c: 738: int Stat_codes[][6]
+[; ;LT6804.c: 739: )
+[; ;LT6804.c: 741: { const int NUM_RX_BYT = 8;
 [e :U _LTC6804_rdStat ]
-"737
+"736
 [v _reg `i ~T0 @X0 1 r1 ]
-"738
+"737
 [v _total_ic `i ~T0 @X0 1 r2 ]
 [v F9090 `i ~T0 @X0 -> 6 `i t ]
-"739
+"738
 [v _Stat_codes `*F9090 ~T0 @X0 1 r3 ]
-"742
+"741
 [f ]
 [v _NUM_RX_BYT `Ci ~T0 @X0 1 a ]
 [e = _NUM_RX_BYT -> 8 `i ]
-"743
+"742
 [v _BYT_IN_REG `Ci ~T0 @X0 1 a ]
-[; ;LT6804.c: 743: const int BYT_IN_REG = 6;
+[; ;LT6804.c: 742: const int BYT_IN_REG = 6;
 [e = _BYT_IN_REG -> 6 `i ]
-"744
+"743
 [v _GPIO_IN_REG `Ci ~T0 @X0 1 a ]
-[; ;LT6804.c: 744: const int GPIO_IN_REG = 3;
+[; ;LT6804.c: 743: const int GPIO_IN_REG = 3;
 [e = _GPIO_IN_REG -> 3 `i ]
-"745
+"744
 [v _gpio_reg `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 745: int gpio_reg = 0;
+[; ;LT6804.c: 744: int gpio_reg = 0;
 [e = _gpio_reg -> 0 `i ]
-"746
+"745
 [v _current_gpio `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 746: int current_gpio = 0;
+[; ;LT6804.c: 745: int current_gpio = 0;
 [e = _current_gpio -> 0 `i ]
-"747
+"746
 [v _data `i ~T0 @X0 -> 75 `i a ]
-"748
+"747
 [v _data_counter `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 747: int data [75];
-[; ;LT6804.c: 748: int data_counter = 0;
+[; ;LT6804.c: 746: int data [75];
+[; ;LT6804.c: 747: int data_counter = 0;
 [e = _data_counter -> 0 `i ]
-"749
+"748
 [v _pec_error `c ~T0 @X0 1 a ]
-[; ;LT6804.c: 749: int8_t pec_error = 0;
+[; ;LT6804.c: 748: int8_t pec_error = 0;
 [e = _pec_error -> -> 0 `i `c ]
-"750
+"749
 [v _received_pec `i ~T0 @X0 1 a ]
-"751
+"750
 [v _data_pec `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 750: int received_pec;
-[; ;LT6804.c: 751: int data_pec;
-[; ;LT6804.c: 754: if (reg == 0)
-"754
+[; ;LT6804.c: 749: int received_pec;
+[; ;LT6804.c: 750: int data_pec;
+[; ;LT6804.c: 753: if (reg == 0)
+"753
 [e $ ! == _reg -> 0 `i 1253  ]
-[; ;LT6804.c: 755: {
-"755
+[; ;LT6804.c: 754: {
+"754
 {
-[; ;LT6804.c: 757: for(gpio_reg = 1; gpio_reg<3; gpio_reg++)
-"757
+[; ;LT6804.c: 756: for(gpio_reg = 1; gpio_reg<3; gpio_reg++)
+"756
 {
 [e = _gpio_reg -> 1 `i ]
 [e $ < _gpio_reg -> 3 `i 1254  ]
 [e $U 1255  ]
-"758
+"757
 [e :U 1254 ]
-[; ;LT6804.c: 758: {
+[; ;LT6804.c: 757: {
 {
-[; ;LT6804.c: 759: data_counter = 0;
-"759
+[; ;LT6804.c: 758: data_counter = 0;
+"758
 [e = _data_counter -> 0 `i ]
-[; ;LT6804.c: 760: LTC6804_rdaux_reg(gpio_reg, total_ic,data);
-"760
+[; ;LT6804.c: 759: LTC6804_rdaux_reg(gpio_reg, total_ic,data);
+"759
 [e ( _LTC6804_rdaux_reg (3 , , _gpio_reg _total_ic &U _data ]
-[; ;LT6804.c: 761: for (current_ic = 0 ; current_ic < total_ic; current_ic++)
-"761
+[; ;LT6804.c: 760: for (current_ic = 0 ; current_ic < total_ic; current_ic++)
+"760
 {
 [e = _current_ic -> 0 `i ]
 [e $U 1260  ]
-"762
+"761
 [e :U 1257 ]
-[; ;LT6804.c: 762: {
+[; ;LT6804.c: 761: {
 {
-[; ;LT6804.c: 764: for(current_gpio = 0; current_gpio< GPIO_IN_REG; current_gpio++)
-"764
+[; ;LT6804.c: 763: for(current_gpio = 0; current_gpio< GPIO_IN_REG; current_gpio++)
+"763
 {
 [e = _current_gpio -> 0 `i ]
 [e $ < _current_gpio _GPIO_IN_REG 1261  ]
 [e $U 1262  ]
-"765
-[e :U 1261 ]
-[; ;LT6804.c: 765: {
-{
-[; ;LT6804.c: 767: Stat_codes[current_ic][current_gpio +((gpio_reg-1)*GPIO_IN_REG)] = data[data_counter] + (data[data_counter+1]<<8);
-"767
-[e = *U + &U *U + _Stat_codes * -> _current_ic `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x * -> -> + _current_gpio * - _gpio_reg -> 1 `i _GPIO_IN_REG `ui `ux -> -> # *U &U *U + _Stat_codes * -> _current_ic `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x `ui `ux + *U + &U _data * -> -> _data_counter `ui `ux -> -> # *U &U _data `ui `ux << *U + &U _data * -> -> + _data_counter -> 1 `i `ui `ux -> -> # *U &U _data `ui `ux -> 8 `i ]
-[; ;LT6804.c: 768: data_counter=data_counter+2;
-"768
-[e = _data_counter + _data_counter -> 2 `i ]
-"770
-}
 "764
+[e :U 1261 ]
+[; ;LT6804.c: 764: {
+{
+[; ;LT6804.c: 766: Stat_codes[current_ic][current_gpio +((gpio_reg-1)*GPIO_IN_REG)] = data[data_counter] + (data[data_counter+1]<<8);
+"766
+[e = *U + &U *U + _Stat_codes * -> _current_ic `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x * -> -> + _current_gpio * - _gpio_reg -> 1 `i _GPIO_IN_REG `ui `ux -> -> # *U &U *U + _Stat_codes * -> _current_ic `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x `ui `ux + *U + &U _data * -> -> _data_counter `ui `ux -> -> # *U &U _data `ui `ux << *U + &U _data * -> -> + _data_counter -> 1 `i `ui `ux -> -> # *U &U _data `ui `ux -> 8 `i ]
+[; ;LT6804.c: 767: data_counter=data_counter+2;
+"767
+[e = _data_counter + _data_counter -> 2 `i ]
+"769
+}
+"763
 [e ++ _current_gpio -> 1 `i ]
 [e $ < _current_gpio _GPIO_IN_REG 1261  ]
 [e :U 1262 ]
-"770
+"769
 }
-[; ;LT6804.c: 770: }
-[; ;LT6804.c: 772: received_pec = (data[data_counter]<<8)+ data[data_counter+1];
-"772
+[; ;LT6804.c: 769: }
+[; ;LT6804.c: 771: received_pec = (data[data_counter]<<8)+ data[data_counter+1];
+"771
 [e = _received_pec + << *U + &U _data * -> -> _data_counter `ui `ux -> -> # *U &U _data `ui `ux -> 8 `i *U + &U _data * -> -> + _data_counter -> 1 `i `ui `ux -> -> # *U &U _data `ui `ux ]
-[; ;LT6804.c: 773: data_pec = pec15_calc(BYT_IN_REG, &data[current_ic*NUM_RX_BYT*(gpio_reg-1)]);
-"773
+[; ;LT6804.c: 772: data_pec = pec15_calc(BYT_IN_REG, &data[current_ic*NUM_RX_BYT*(gpio_reg-1)]);
+"772
 [e = _data_pec ( _pec15_calc (2 , _BYT_IN_REG &U *U + &U _data * -> -> * * _current_ic _NUM_RX_BYT - _gpio_reg -> 1 `i `ui `ux -> -> # *U &U _data `ui `ux ]
-[; ;LT6804.c: 774: if(received_pec != data_pec)
-"774
+[; ;LT6804.c: 773: if(received_pec != data_pec)
+"773
 [e $ ! != _received_pec _data_pec 1264  ]
-[; ;LT6804.c: 775: {
-"775
+[; ;LT6804.c: 774: {
+"774
 {
-[; ;LT6804.c: 776: pec_error = -1;
-"776
+[; ;LT6804.c: 775: pec_error = -1;
+"775
 [e = _pec_error -> -U -> 1 `i `c ]
-"777
+"776
 }
 [e :U 1264 ]
-[; ;LT6804.c: 777: }
-[; ;LT6804.c: 779: data_counter=data_counter+2;
-"779
+[; ;LT6804.c: 776: }
+[; ;LT6804.c: 778: data_counter=data_counter+2;
+"778
 [e = _data_counter + _data_counter -> 2 `i ]
-"780
+"779
 }
-"761
+"760
 [e ++ _current_ic -> 1 `i ]
 [e :U 1260 ]
 [e $ < _current_ic _total_ic 1257  ]
 [e :U 1258 ]
-"780
+"779
 }
-"783
+"782
 }
-"757
+"756
 [e ++ _gpio_reg -> 1 `i ]
 [e $ < _gpio_reg -> 3 `i 1254  ]
 [e :U 1255 ]
-"783
+"782
 }
-"785
+"784
 }
-[; ;LT6804.c: 780: }
-[; ;LT6804.c: 783: }
-[; ;LT6804.c: 785: }
+[; ;LT6804.c: 779: }
+[; ;LT6804.c: 782: }
+[; ;LT6804.c: 784: }
 [e $U 1265  ]
-"786
+"785
 [e :U 1253 ]
-[; ;LT6804.c: 786: else
-[; ;LT6804.c: 787: {
-"787
+[; ;LT6804.c: 785: else
+[; ;LT6804.c: 786: {
+"786
 {
-[; ;LT6804.c: 789: LTC6804_rdaux_reg(reg, total_ic, data);
-"789
+[; ;LT6804.c: 788: LTC6804_rdaux_reg(reg, total_ic, data);
+"788
 [e ( _LTC6804_rdaux_reg (3 , , _reg _total_ic &U _data ]
-[; ;LT6804.c: 790: for (current_ic = 0 ; current_ic < total_ic; current_ic++)
-"790
+[; ;LT6804.c: 789: for (current_ic = 0 ; current_ic < total_ic; current_ic++)
+"789
 {
 [e = _current_ic -> 0 `i ]
 [e $U 1269  ]
-"791
+"790
 [e :U 1266 ]
-[; ;LT6804.c: 791: {
+[; ;LT6804.c: 790: {
 {
-[; ;LT6804.c: 793: for(current_gpio = 0; current_gpio<GPIO_IN_REG; current_gpio++)
-"793
+[; ;LT6804.c: 792: for(current_gpio = 0; current_gpio<GPIO_IN_REG; current_gpio++)
+"792
 {
 [e = _current_gpio -> 0 `i ]
 [e $ < _current_gpio _GPIO_IN_REG 1270  ]
 [e $U 1271  ]
-"794
-[e :U 1270 ]
-[; ;LT6804.c: 794: {
-{
-[; ;LT6804.c: 795: Stat_codes[current_ic][current_gpio +((reg-1)*GPIO_IN_REG)] = 0x0000FFFF & (data[data_counter] + (data[data_counter+1]<<8));
-"795
-[e = *U + &U *U + _Stat_codes * -> _current_ic `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x * -> -> + _current_gpio * - _reg -> 1 `i _GPIO_IN_REG `ui `ux -> -> # *U &U *U + _Stat_codes * -> _current_ic `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x `ui `ux -> & -> 65535 `ui -> + *U + &U _data * -> -> _data_counter `ui `ux -> -> # *U &U _data `ui `ux << *U + &U _data * -> -> + _data_counter -> 1 `i `ui `ux -> -> # *U &U _data `ui `ux -> 8 `i `ui `i ]
-[; ;LT6804.c: 796: data_counter=data_counter+2;
-"796
-[e = _data_counter + _data_counter -> 2 `i ]
-"797
-}
 "793
+[e :U 1270 ]
+[; ;LT6804.c: 793: {
+{
+[; ;LT6804.c: 794: Stat_codes[current_ic][current_gpio +((reg-1)*GPIO_IN_REG)] = 0x0000FFFF & (data[data_counter] + (data[data_counter+1]<<8));
+"794
+[e = *U + &U *U + _Stat_codes * -> _current_ic `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x * -> -> + _current_gpio * - _reg -> 1 `i _GPIO_IN_REG `ui `ux -> -> # *U &U *U + _Stat_codes * -> _current_ic `x -> * -> # *U &U *U _Stat_codes `ui -> -> 6 `i `ui `x `ui `ux -> & -> 65535 `ui -> + *U + &U _data * -> -> _data_counter `ui `ux -> -> # *U &U _data `ui `ux << *U + &U _data * -> -> + _data_counter -> 1 `i `ui `ux -> -> # *U &U _data `ui `ux -> 8 `i `ui `i ]
+[; ;LT6804.c: 795: data_counter=data_counter+2;
+"795
+[e = _data_counter + _data_counter -> 2 `i ]
+"796
+}
+"792
 [e ++ _current_gpio -> 1 `i ]
 [e $ < _current_gpio _GPIO_IN_REG 1270  ]
 [e :U 1271 ]
-"797
+"796
 }
-[; ;LT6804.c: 797: }
-[; ;LT6804.c: 799: received_pec = (data[data_counter]<<8) + data[data_counter+1];
-"799
+[; ;LT6804.c: 796: }
+[; ;LT6804.c: 798: received_pec = (data[data_counter]<<8) + data[data_counter+1];
+"798
 [e = _received_pec + << *U + &U _data * -> -> _data_counter `ui `ux -> -> # *U &U _data `ui `ux -> 8 `i *U + &U _data * -> -> + _data_counter -> 1 `i `ui `ux -> -> # *U &U _data `ui `ux ]
-[; ;LT6804.c: 800: data_pec = pec15_calc(6, &data[current_ic*8*(reg-1)]);
-"800
+[; ;LT6804.c: 799: data_pec = pec15_calc(6, &data[current_ic*8*(reg-1)]);
+"799
 [e = _data_pec ( _pec15_calc (2 , -> 6 `i &U *U + &U _data * -> -> * * _current_ic -> 8 `i - _reg -> 1 `i `ui `ux -> -> # *U &U _data `ui `ux ]
-[; ;LT6804.c: 801: if(received_pec != data_pec)
-"801
+[; ;LT6804.c: 800: if(received_pec != data_pec)
+"800
 [e $ ! != _received_pec _data_pec 1273  ]
-[; ;LT6804.c: 802: {
-"802
+[; ;LT6804.c: 801: {
+"801
 {
-[; ;LT6804.c: 803: pec_error = -1;
-"803
+[; ;LT6804.c: 802: pec_error = -1;
+"802
 [e = _pec_error -> -U -> 1 `i `c ]
-"804
+"803
 }
 [e :U 1273 ]
-"805
+"804
 }
-"790
+"789
 [e ++ _current_ic -> 1 `i ]
 [e :U 1269 ]
 [e $ < _current_ic _total_ic 1266  ]
 [e :U 1267 ]
+"804
+}
 "805
 }
-"806
-}
 [e :U 1265 ]
+[; ;LT6804.c: 803: }
 [; ;LT6804.c: 804: }
 [; ;LT6804.c: 805: }
-[; ;LT6804.c: 806: }
-[; ;LT6804.c: 807: return (pec_error);
-"807
+[; ;LT6804.c: 806: return (pec_error);
+"806
 [e ) -> _pec_error `i ]
 [e $UE 1252  ]
-[; ;LT6804.c: 808: }
-"808
+[; ;LT6804.c: 807: }
+"807
 [e :UE 1252 ]
 }
-"844
+"843
 [v _LTC6804_rdStat_reg `(v ~T0 @X0 1 ef3`i`i`*i ]
-"848
+"847
 {
-[; ;LT6804.c: 844: void LTC6804_rdStat_reg(int reg,
-[; ;LT6804.c: 845: int total_ic,
-[; ;LT6804.c: 846: int *data
-[; ;LT6804.c: 847: )
-[; ;LT6804.c: 848: {
+[; ;LT6804.c: 843: void LTC6804_rdStat_reg(int reg,
+[; ;LT6804.c: 844: int total_ic,
+[; ;LT6804.c: 845: int *data
+[; ;LT6804.c: 846: )
+[; ;LT6804.c: 847: {
 [e :U _LTC6804_rdStat_reg ]
-"844
+"843
 [v _reg `i ~T0 @X0 1 r1 ]
-"845
+"844
 [v _total_ic `i ~T0 @X0 1 r2 ]
-"846
+"845
 [v _data `*i ~T0 @X0 1 r3 ]
-"848
+"847
 [f ]
-"849
+"848
 [v _cmd `i ~T0 @X0 -> 4 `i a ]
-"850
+"849
 [v _temp_pec `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 849: int cmd[4];
-[; ;LT6804.c: 850: int temp_pec;
-[; ;LT6804.c: 853: if (reg == 1)
-"853
+[; ;LT6804.c: 848: int cmd[4];
+[; ;LT6804.c: 849: int temp_pec;
+[; ;LT6804.c: 852: if (reg == 1)
+"852
 [e $ ! == _reg -> 1 `i 1275  ]
-[; ;LT6804.c: 854: {
+[; ;LT6804.c: 853: {
+"853
+{
+[; ;LT6804.c: 854: cmd[1] = 0x10;
 "854
-{
-[; ;LT6804.c: 855: cmd[1] = 0x10;
-"855
 [e = *U + &U _cmd * -> -> -> 1 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 16 `i ]
-[; ;LT6804.c: 856: cmd[0] = 0x00;
+[; ;LT6804.c: 855: cmd[0] = 0x00;
+"855
+[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
 "856
-[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
-"857
 }
-[; ;LT6804.c: 857: }
+[; ;LT6804.c: 856: }
 [e $U 1276  ]
-"858
+"857
 [e :U 1275 ]
-[; ;LT6804.c: 858: else if(reg == 2)
+[; ;LT6804.c: 857: else if(reg == 2)
 [e $ ! == _reg -> 2 `i 1277  ]
-[; ;LT6804.c: 859: {
-"859
+[; ;LT6804.c: 858: {
+"858
 {
-[; ;LT6804.c: 860: cmd[1] = 0x12;
-"860
+[; ;LT6804.c: 859: cmd[1] = 0x12;
+"859
 [e = *U + &U _cmd * -> -> -> 1 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 18 `i ]
-[; ;LT6804.c: 861: cmd[0] = 0x00;
-"861
+[; ;LT6804.c: 860: cmd[0] = 0x00;
+"860
 [e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
-"862
+"861
 }
 [e :U 1277 ]
-"869
+"868
 [e :U 1276 ]
-[; ;LT6804.c: 862: }
-[; ;LT6804.c: 869: wakeup_idle ();
+[; ;LT6804.c: 861: }
+[; ;LT6804.c: 868: wakeup_idle ();
 [e ( _wakeup_idle ..  ]
-[; ;LT6804.c: 872: for(current_ic = 0; current_ic<total_ic; current_ic++)
-"872
+[; ;LT6804.c: 871: for(current_ic = 0; current_ic<total_ic; current_ic++)
+"871
 {
 [e = _current_ic -> 0 `i ]
 [e $U 1281  ]
-"873
-[e :U 1278 ]
-[; ;LT6804.c: 873: {
-{
-[; ;LT6804.c: 874: cmd[0] = 0x80 + (current_ic<<3);
-"874
-[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux + -> 128 `i << _current_ic -> 3 `i ]
-[; ;LT6804.c: 875: temp_pec = pec15_calc(2, cmd);
-"875
-[e = _temp_pec ( _pec15_calc (2 , -> 2 `i &U _cmd ]
-[; ;LT6804.c: 876: cmd[2] = (int)(temp_pec >> 8);
-"876
-[e = *U + &U _cmd * -> -> -> 2 `i `ui `ux -> -> # *U &U _cmd `ui `ux >> _temp_pec -> 8 `i ]
-[; ;LT6804.c: 877: cmd[3] = (int)(temp_pec);
-"877
-[e = *U + &U _cmd * -> -> -> 3 `i `ui `ux -> -> # *U &U _cmd `ui `ux _temp_pec ]
-[; ;LT6804.c: 878: LATD3 = 0;
-"878
-[e = _LATD3 -> -> 0 `i `b ]
-[; ;LT6804.c: 879: spi_write_read(cmd,4,&data[current_ic*8],8);
-"879
-[e ( _spi_write_read (4 , , , &U _cmd -> 4 `i &U *U + _data * -> * _current_ic -> 8 `i `x -> -> # *U _data `i `x -> 8 `i ]
-[; ;LT6804.c: 880: LATD3 = 1;
-"880
-[e = _LATD3 -> -> 1 `i `b ]
-"881
-}
 "872
+[e :U 1278 ]
+[; ;LT6804.c: 872: {
+{
+[; ;LT6804.c: 873: cmd[0] = 0x80 + (current_ic<<3);
+"873
+[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux + -> 128 `i << _current_ic -> 3 `i ]
+[; ;LT6804.c: 874: temp_pec = pec15_calc(2, cmd);
+"874
+[e = _temp_pec ( _pec15_calc (2 , -> 2 `i &U _cmd ]
+[; ;LT6804.c: 875: cmd[2] = (int)(temp_pec >> 8);
+"875
+[e = *U + &U _cmd * -> -> -> 2 `i `ui `ux -> -> # *U &U _cmd `ui `ux >> _temp_pec -> 8 `i ]
+[; ;LT6804.c: 876: cmd[3] = (int)(temp_pec);
+"876
+[e = *U + &U _cmd * -> -> -> 3 `i `ui `ux -> -> # *U &U _cmd `ui `ux _temp_pec ]
+[; ;LT6804.c: 877: LATD3 = 0;
+"877
+[e = _LATD3 -> -> 0 `i `b ]
+[; ;LT6804.c: 878: spi_write_read(cmd,4,&data[current_ic*8],8);
+"878
+[e ( _spi_write_read (4 , , , &U _cmd -> 4 `i &U *U + _data * -> * _current_ic -> 8 `i `x -> -> # *U _data `i `x -> 8 `i ]
+[; ;LT6804.c: 879: LATD3 = 1;
+"879
+[e = _LATD3 -> -> 1 `i `b ]
+"880
+}
+"871
 [e ++ _current_ic -> 1 `i ]
 [e :U 1281 ]
 [e $ < _current_ic _total_ic 1278  ]
 [e :U 1279 ]
-"881
+"880
 }
+[; ;LT6804.c: 880: }
 [; ;LT6804.c: 881: }
-[; ;LT6804.c: 882: }
-"882
+"881
 [e :UE 1274 ]
 }
-"911
+"910
 [v _LTC6804_clrcell `(v ~T0 @X0 1 ef ]
-"912
+"911
 {
-[; ;LT6804.c: 911: void LTC6804_clrcell()
-[; ;LT6804.c: 912: {
+[; ;LT6804.c: 910: void LTC6804_clrcell()
+[; ;LT6804.c: 911: {
 [e :U _LTC6804_clrcell ]
 [f ]
-"913
+"912
 [v _cmd `i ~T0 @X0 -> 4 `i a ]
-"914
+"913
 [v _cmd_pec `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 913: int cmd[4];
-[; ;LT6804.c: 914: int cmd_pec;
-[; ;LT6804.c: 917: cmd[0] = 0x07;
-"917
+[; ;LT6804.c: 912: int cmd[4];
+[; ;LT6804.c: 913: int cmd_pec;
+[; ;LT6804.c: 916: cmd[0] = 0x07;
+"916
 [e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 7 `i ]
-[; ;LT6804.c: 918: cmd[1] = 0x11;
-"918
+[; ;LT6804.c: 917: cmd[1] = 0x11;
+"917
 [e = *U + &U _cmd * -> -> -> 1 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 17 `i ]
-[; ;LT6804.c: 921: cmd_pec = pec15_calc(2, cmd);
-"921
+[; ;LT6804.c: 920: cmd_pec = pec15_calc(2, cmd);
+"920
 [e = _cmd_pec ( _pec15_calc (2 , -> 2 `i &U _cmd ]
-[; ;LT6804.c: 922: cmd[2] = (int)(cmd_pec >> 8);
-"922
+[; ;LT6804.c: 921: cmd[2] = (int)(cmd_pec >> 8);
+"921
 [e = *U + &U _cmd * -> -> -> 2 `i `ui `ux -> -> # *U &U _cmd `ui `ux >> _cmd_pec -> 8 `i ]
-[; ;LT6804.c: 923: cmd[3] = (int)(cmd_pec );
-"923
+[; ;LT6804.c: 922: cmd[3] = (int)(cmd_pec );
+"922
 [e = *U + &U _cmd * -> -> -> 3 `i `ui `ux -> -> # *U &U _cmd `ui `ux _cmd_pec ]
-[; ;LT6804.c: 926: wakeup_idle ();
-"926
+[; ;LT6804.c: 925: wakeup_idle ();
+"925
 [e ( _wakeup_idle ..  ]
-[; ;LT6804.c: 929: LATD3 = 0;
-"929
+[; ;LT6804.c: 928: LATD3 = 0;
+"928
 [e = _LATD3 -> -> 0 `i `b ]
-[; ;LT6804.c: 930: spi_write_read(cmd,4,0,0);
-"930
+[; ;LT6804.c: 929: spi_write_read(cmd,4,0,0);
+"929
 [e ( _spi_write_read (4 , , , &U _cmd -> 4 `i -> -> 0 `i `*i -> 0 `i ]
-[; ;LT6804.c: 931: LATD3 = 1;
-"931
+[; ;LT6804.c: 930: LATD3 = 1;
+"930
 [e = _LATD3 -> -> 1 `i `b ]
-[; ;LT6804.c: 932: }
-"932
+[; ;LT6804.c: 931: }
+"931
 [e :UE 1282 ]
 }
-"950
+"949
 [v _LTC6804_clraux `(v ~T0 @X0 1 ef ]
-"951
+"950
 {
-[; ;LT6804.c: 950: void LTC6804_clraux()
-[; ;LT6804.c: 951: {
+[; ;LT6804.c: 949: void LTC6804_clraux()
+[; ;LT6804.c: 950: {
 [e :U _LTC6804_clraux ]
 [f ]
-"952
+"951
 [v _cmd `i ~T0 @X0 -> 4 `i a ]
-"953
+"952
 [v _cmd_pec `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 952: int cmd[4];
-[; ;LT6804.c: 953: int cmd_pec;
-[; ;LT6804.c: 956: cmd[0] = 0x07;
-"956
+[; ;LT6804.c: 951: int cmd[4];
+[; ;LT6804.c: 952: int cmd_pec;
+[; ;LT6804.c: 955: cmd[0] = 0x07;
+"955
 [e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 7 `i ]
-[; ;LT6804.c: 957: cmd[1] = 0x12;
-"957
+[; ;LT6804.c: 956: cmd[1] = 0x12;
+"956
 [e = *U + &U _cmd * -> -> -> 1 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 18 `i ]
-[; ;LT6804.c: 960: cmd_pec = pec15_calc(2, cmd);
-"960
+[; ;LT6804.c: 959: cmd_pec = pec15_calc(2, cmd);
+"959
 [e = _cmd_pec ( _pec15_calc (2 , -> 2 `i &U _cmd ]
-[; ;LT6804.c: 961: cmd[2] = (int)(cmd_pec >> 8);
-"961
+[; ;LT6804.c: 960: cmd[2] = (int)(cmd_pec >> 8);
+"960
 [e = *U + &U _cmd * -> -> -> 2 `i `ui `ux -> -> # *U &U _cmd `ui `ux >> _cmd_pec -> 8 `i ]
-[; ;LT6804.c: 962: cmd[3] = (int)(cmd_pec);
-"962
+[; ;LT6804.c: 961: cmd[3] = (int)(cmd_pec);
+"961
 [e = *U + &U _cmd * -> -> -> 3 `i `ui `ux -> -> # *U &U _cmd `ui `ux _cmd_pec ]
-[; ;LT6804.c: 965: wakeup_idle ();
-"965
+[; ;LT6804.c: 964: wakeup_idle ();
+"964
 [e ( _wakeup_idle ..  ]
-[; ;LT6804.c: 967: LATD3 = 0;
-"967
+[; ;LT6804.c: 966: LATD3 = 0;
+"966
 [e = _LATD3 -> -> 0 `i `b ]
-[; ;LT6804.c: 969: LATD3 = 1;
-"969
+[; ;LT6804.c: 968: LATD3 = 1;
+"968
 [e = _LATD3 -> -> 1 `i `b ]
-[; ;LT6804.c: 970: }
-"970
+[; ;LT6804.c: 969: }
+"969
 [e :UE 1283 ]
 }
-"1001
+"1000
 [v _LTC6804_wrcfg `(v ~T0 @X0 1 ef2`i`*F8973 ]
-"1002
-{
-[; ;LT6804.c: 1001: void LTC6804_wrcfg(int total_ic,int config[][6])
-[; ;LT6804.c: 1002: {
-[e :U _LTC6804_wrcfg ]
 "1001
+{
+[; ;LT6804.c: 1000: void LTC6804_wrcfg(int total_ic,int config[][6])
+[; ;LT6804.c: 1001: {
+[e :U _LTC6804_wrcfg ]
+"1000
 [v _total_ic `i ~T0 @X0 1 r1 ]
 [v F9118 `i ~T0 @X0 -> 6 `i t ]
 [v _config `*F9118 ~T0 @X0 1 r2 ]
-"1002
+"1001
 [f ]
-"1003
+"1002
 [v _BYTES_IN_REG `Ci ~T0 @X0 1 a ]
-[; ;LT6804.c: 1003: const int BYTES_IN_REG = 6;
+[; ;LT6804.c: 1002: const int BYTES_IN_REG = 6;
 [e = _BYTES_IN_REG -> 6 `i ]
-"1004
+"1003
 [v _cmd `i ~T0 @X0 -> 100 `i a ]
-"1005
+"1004
 [v _temp_pec `i ~T0 @X0 1 a ]
-"1006
+"1005
 [v _cmd_index `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 1004: int cmd[100];
-[; ;LT6804.c: 1005: int temp_pec;
-[; ;LT6804.c: 1006: int cmd_index;
-[; ;LT6804.c: 1009: cmd[0] = 0x00;
-"1009
+[; ;LT6804.c: 1003: int cmd[100];
+[; ;LT6804.c: 1004: int temp_pec;
+[; ;LT6804.c: 1005: int cmd_index;
+[; ;LT6804.c: 1008: cmd[0] = 0x00;
+"1008
 [e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
-[; ;LT6804.c: 1010: cmd[1] = 0x01;
-"1010
+[; ;LT6804.c: 1009: cmd[1] = 0x01;
+"1009
 [e = *U + &U _cmd * -> -> -> 1 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 1 `i ]
-[; ;LT6804.c: 1011: cmd[2] = 0x3d;
-"1011
+[; ;LT6804.c: 1010: cmd[2] = 0x3d;
+"1010
 [e = *U + &U _cmd * -> -> -> 2 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 61 `i ]
-[; ;LT6804.c: 1012: cmd[3] = 0x6e;
-"1012
+[; ;LT6804.c: 1011: cmd[3] = 0x6e;
+"1011
 [e = *U + &U _cmd * -> -> -> 3 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 110 `i ]
-[; ;LT6804.c: 1015: cmd_index = 4;
-"1015
+[; ;LT6804.c: 1014: cmd_index = 4;
+"1014
 [e = _cmd_index -> 4 `i ]
-[; ;LT6804.c: 1016: for (current_ic = total_ic; current_ic > 0; current_ic--)
-"1016
+[; ;LT6804.c: 1015: for (current_ic = total_ic; current_ic > 0; current_ic--)
+"1015
 {
 [e = _current_ic _total_ic ]
 [e $U 1288  ]
-"1017
+"1016
 [e :U 1285 ]
-[; ;LT6804.c: 1017: {
+[; ;LT6804.c: 1016: {
 {
-[; ;LT6804.c: 1018: for (current_byte = 0; current_byte < BYTES_IN_REG; current_byte++)
-"1018
+[; ;LT6804.c: 1017: for (current_byte = 0; current_byte < BYTES_IN_REG; current_byte++)
+"1017
 {
 [e = _current_byte -> 0 `i ]
 [e $ < _current_byte _BYTES_IN_REG 1289  ]
 [e $U 1290  ]
-"1019
-[e :U 1289 ]
-[; ;LT6804.c: 1019: {
-{
-[; ;LT6804.c: 1021: cmd[cmd_index] = config[current_ic-1][current_byte];
-"1021
-[e = *U + &U _cmd * -> -> _cmd_index `ui `ux -> -> # *U &U _cmd `ui `ux *U + &U *U + _config * -> - _current_ic -> 1 `i `x -> * -> # *U &U *U _config `ui -> -> 6 `i `ui `x * -> -> _current_byte `ui `ux -> -> # *U &U *U + _config * -> - _current_ic -> 1 `i `x -> * -> # *U &U *U _config `ui -> -> 6 `i `ui `x `ui `ux ]
-[; ;LT6804.c: 1022: cmd_index = cmd_index + 1;
-"1022
-[e = _cmd_index + _cmd_index -> 1 `i ]
-"1023
-}
 "1018
+[e :U 1289 ]
+[; ;LT6804.c: 1018: {
+{
+[; ;LT6804.c: 1020: cmd[cmd_index] = config[current_ic-1][current_byte];
+"1020
+[e = *U + &U _cmd * -> -> _cmd_index `ui `ux -> -> # *U &U _cmd `ui `ux *U + &U *U + _config * -> - _current_ic -> 1 `i `x -> * -> # *U &U *U _config `ui -> -> 6 `i `ui `x * -> -> _current_byte `ui `ux -> -> # *U &U *U + _config * -> - _current_ic -> 1 `i `x -> * -> # *U &U *U _config `ui -> -> 6 `i `ui `x `ui `ux ]
+[; ;LT6804.c: 1021: cmd_index = cmd_index + 1;
+"1021
+[e = _cmd_index + _cmd_index -> 1 `i ]
+"1022
+}
+"1017
 [e ++ _current_byte -> 1 `i ]
 [e $ < _current_byte _BYTES_IN_REG 1289  ]
 [e :U 1290 ]
-"1023
+"1022
 }
-[; ;LT6804.c: 1023: }
-[; ;LT6804.c: 1025: temp_pec = (int)pec15_calc(BYTES_IN_REG, &config[current_ic-1][0]);
-"1025
+[; ;LT6804.c: 1022: }
+[; ;LT6804.c: 1024: temp_pec = (int)pec15_calc(BYTES_IN_REG, &config[current_ic-1][0]);
+"1024
 [e = _temp_pec ( _pec15_calc (2 , _BYTES_IN_REG &U *U + &U *U + _config * -> - _current_ic -> 1 `i `x -> * -> # *U &U *U _config `ui -> -> 6 `i `ui `x * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + _config * -> - _current_ic -> 1 `i `x -> * -> # *U &U *U _config `ui -> -> 6 `i `ui `x `ui `ux ]
-[; ;LT6804.c: 1026: cmd[cmd_index] = (int)(temp_pec >> 8);
-"1026
+[; ;LT6804.c: 1025: cmd[cmd_index] = (int)(temp_pec >> 8);
+"1025
 [e = *U + &U _cmd * -> -> _cmd_index `ui `ux -> -> # *U &U _cmd `ui `ux >> _temp_pec -> 8 `i ]
-[; ;LT6804.c: 1027: cmd[cmd_index + 1] = (int)temp_pec;
-"1027
+[; ;LT6804.c: 1026: cmd[cmd_index + 1] = (int)temp_pec;
+"1026
 [e = *U + &U _cmd * -> -> + _cmd_index -> 1 `i `ui `ux -> -> # *U &U _cmd `ui `ux _temp_pec ]
-[; ;LT6804.c: 1028: cmd_index = cmd_index + 2;
-"1028
+[; ;LT6804.c: 1027: cmd_index = cmd_index + 2;
+"1027
 [e = _cmd_index + _cmd_index -> 2 `i ]
-"1029
+"1028
 }
-"1016
+"1015
 [e -- _current_ic -> 1 `i ]
 [e :U 1288 ]
 [e $ > _current_ic -> 0 `i 1285  ]
 [e :U 1286 ]
-"1029
+"1028
 }
-[; ;LT6804.c: 1029: }
-[; ;LT6804.c: 1032: wakeup_idle ();
-"1032
+[; ;LT6804.c: 1028: }
+[; ;LT6804.c: 1031: wakeup_idle ();
+"1031
 [e ( _wakeup_idle ..  ]
-[; ;LT6804.c: 1034: for(current_ic = 0; current_ic<total_ic; current_ic++)
-"1034
+[; ;LT6804.c: 1033: for(current_ic = 0; current_ic<total_ic; current_ic++)
+"1033
 {
 [e = _current_ic -> 0 `i ]
 [e $U 1295  ]
-"1035
-[e :U 1292 ]
-[; ;LT6804.c: 1035: {
-{
-[; ;LT6804.c: 1036: cmd[0] = 0x80 + (current_ic<<3);
-"1036
-[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux + -> 128 `i << _current_ic -> 3 `i ]
-[; ;LT6804.c: 1037: temp_pec = pec15_calc(2, cmd);
-"1037
-[e = _temp_pec ( _pec15_calc (2 , -> 2 `i &U _cmd ]
-[; ;LT6804.c: 1038: cmd[2] = (int)(temp_pec >> 8);
-"1038
-[e = *U + &U _cmd * -> -> -> 2 `i `ui `ux -> -> # *U &U _cmd `ui `ux >> _temp_pec -> 8 `i ]
-[; ;LT6804.c: 1039: cmd[3] = (int)(temp_pec);
-"1039
-[e = *U + &U _cmd * -> -> -> 3 `i `ui `ux -> -> # *U &U _cmd `ui `ux _temp_pec ]
-[; ;LT6804.c: 1040: LATD3 = 0;
-"1040
-[e = _LATD3 -> -> 0 `i `b ]
-[; ;LT6804.c: 1041: spi_write_array(4,cmd);
-"1041
-[e ( _spi_write_array (2 , -> 4 `i &U _cmd ]
-[; ;LT6804.c: 1042: spi_write_array(8,&cmd[4+(8*current_ic)]);
-"1042
-[e ( _spi_write_array (2 , -> 8 `i &U *U + &U _cmd * -> -> + -> 4 `i * -> 8 `i _current_ic `ui `ux -> -> # *U &U _cmd `ui `ux ]
-[; ;LT6804.c: 1043: LATD3 = 1;
-"1043
-[e = _LATD3 -> -> 1 `i `b ]
-"1044
-}
 "1034
+[e :U 1292 ]
+[; ;LT6804.c: 1034: {
+{
+[; ;LT6804.c: 1035: cmd[0] = 0x80 + (current_ic<<3);
+"1035
+[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux + -> 128 `i << _current_ic -> 3 `i ]
+[; ;LT6804.c: 1036: temp_pec = pec15_calc(2, cmd);
+"1036
+[e = _temp_pec ( _pec15_calc (2 , -> 2 `i &U _cmd ]
+[; ;LT6804.c: 1037: cmd[2] = (int)(temp_pec >> 8);
+"1037
+[e = *U + &U _cmd * -> -> -> 2 `i `ui `ux -> -> # *U &U _cmd `ui `ux >> _temp_pec -> 8 `i ]
+[; ;LT6804.c: 1038: cmd[3] = (int)(temp_pec);
+"1038
+[e = *U + &U _cmd * -> -> -> 3 `i `ui `ux -> -> # *U &U _cmd `ui `ux _temp_pec ]
+[; ;LT6804.c: 1039: LATD3 = 0;
+"1039
+[e = _LATD3 -> -> 0 `i `b ]
+[; ;LT6804.c: 1040: spi_write_array(4,cmd);
+"1040
+[e ( _spi_write_array (2 , -> 4 `i &U _cmd ]
+[; ;LT6804.c: 1041: spi_write_array(8,&cmd[4+(8*current_ic)]);
+"1041
+[e ( _spi_write_array (2 , -> 8 `i &U *U + &U _cmd * -> -> + -> 4 `i * -> 8 `i _current_ic `ui `ux -> -> # *U &U _cmd `ui `ux ]
+[; ;LT6804.c: 1042: LATD3 = 1;
+"1042
+[e = _LATD3 -> -> 1 `i `b ]
+"1043
+}
+"1033
 [e ++ _current_ic -> 1 `i ]
 [e :U 1295 ]
 [e $ < _current_ic _total_ic 1292  ]
 [e :U 1293 ]
-"1044
+"1043
 }
+[; ;LT6804.c: 1043: }
 [; ;LT6804.c: 1044: }
-[; ;LT6804.c: 1045: }
-"1045
+"1044
 [e :UE 1284 ]
 }
-"1077
+"1076
 [v _LTC6804_rdcfg `(i ~T0 @X0 1 ef2`i`*F8977 ]
-"1078
-{
-[; ;LT6804.c: 1077: int LTC6804_rdcfg(int total_ic, int r_config[][8])
-[; ;LT6804.c: 1078: {
-[e :U _LTC6804_rdcfg ]
 "1077
+{
+[; ;LT6804.c: 1076: int LTC6804_rdcfg(int total_ic, int r_config[][8])
+[; ;LT6804.c: 1077: {
+[e :U _LTC6804_rdcfg ]
+"1076
 [v _total_ic `i ~T0 @X0 1 r1 ]
 [v F9130 `i ~T0 @X0 -> 8 `i t ]
 [v _r_config `*F9130 ~T0 @X0 1 r2 ]
-"1078
+"1077
 [f ]
-"1079
+"1078
 [v _BYTES_IN_REG `Ci ~T0 @X0 1 a ]
-[; ;LT6804.c: 1079: const int BYTES_IN_REG = 8;
+[; ;LT6804.c: 1078: const int BYTES_IN_REG = 8;
 [e = _BYTES_IN_REG -> 8 `i ]
-"1080
+"1079
 [v _cmd `i ~T0 @X0 -> 4 `i a ]
-"1081
+"1080
 [v _rx_data `*i ~T0 @X0 1 a ]
-"1082
+"1081
 [v _pec_error `c ~T0 @X0 1 a ]
-[; ;LT6804.c: 1080: int cmd[4];
-[; ;LT6804.c: 1081: int *rx_data;
-[; ;LT6804.c: 1082: int8_t pec_error = 0;
+[; ;LT6804.c: 1079: int cmd[4];
+[; ;LT6804.c: 1080: int *rx_data;
+[; ;LT6804.c: 1081: int8_t pec_error = 0;
 [e = _pec_error -> -> 0 `i `c ]
-"1083
+"1082
 [v _data_pec `i ~T0 @X0 1 a ]
-"1084
+"1083
 [v _received_pec `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 1083: int data_pec;
-[; ;LT6804.c: 1084: int received_pec;
-[; ;LT6804.c: 1085: rx_data = (int *) malloc((8*total_ic)*sizeof(int));
-"1085
+[; ;LT6804.c: 1082: int data_pec;
+[; ;LT6804.c: 1083: int received_pec;
+[; ;LT6804.c: 1084: rx_data = (int *) malloc((8*total_ic)*sizeof(int));
+"1084
 [e = _rx_data -> ( _malloc (1 * -> * -> 8 `i _total_ic `ui -> # `i `ui `*i ]
-[; ;LT6804.c: 1087: cmd[0] = 0x00;
-"1087
+[; ;LT6804.c: 1086: cmd[0] = 0x00;
+"1086
 [e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 0 `i ]
-[; ;LT6804.c: 1088: cmd[1] = 0x02;
-"1088
+[; ;LT6804.c: 1087: cmd[1] = 0x02;
+"1087
 [e = *U + &U _cmd * -> -> -> 1 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 2 `i ]
-[; ;LT6804.c: 1089: cmd[2] = 0x2b;
-"1089
+[; ;LT6804.c: 1088: cmd[2] = 0x2b;
+"1088
 [e = *U + &U _cmd * -> -> -> 2 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 43 `i ]
-[; ;LT6804.c: 1090: cmd[3] = 0x0A;
-"1090
+[; ;LT6804.c: 1089: cmd[3] = 0x0A;
+"1089
 [e = *U + &U _cmd * -> -> -> 3 `i `ui `ux -> -> # *U &U _cmd `ui `ux -> 10 `i ]
-[; ;LT6804.c: 1093: wakeup_idle ();
-"1093
+[; ;LT6804.c: 1092: wakeup_idle ();
+"1092
 [e ( _wakeup_idle ..  ]
-[; ;LT6804.c: 1095: for(current_ic = 0; current_ic<total_ic; current_ic++)
-"1095
+[; ;LT6804.c: 1094: for(current_ic = 0; current_ic<total_ic; current_ic++)
+"1094
 {
 [e = _current_ic -> 0 `i ]
 [e $U 1300  ]
-"1096
-[e :U 1297 ]
-[; ;LT6804.c: 1096: {
-{
-[; ;LT6804.c: 1097: cmd[0] = 0x80 + (current_ic<<3);
-"1097
-[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux + -> 128 `i << _current_ic -> 3 `i ]
-[; ;LT6804.c: 1098: data_pec = pec15_calc(2, cmd);
-"1098
-[e = _data_pec ( _pec15_calc (2 , -> 2 `i &U _cmd ]
-[; ;LT6804.c: 1099: cmd[2] = (int)(data_pec >> 8);
-"1099
-[e = *U + &U _cmd * -> -> -> 2 `i `ui `ux -> -> # *U &U _cmd `ui `ux >> _data_pec -> 8 `i ]
-[; ;LT6804.c: 1100: cmd[3] = (int)(data_pec);
-"1100
-[e = *U + &U _cmd * -> -> -> 3 `i `ui `ux -> -> # *U &U _cmd `ui `ux _data_pec ]
-[; ;LT6804.c: 1101: LATD3 = 0;
-"1101
-[e = _LATD3 -> -> 0 `i `b ]
-[; ;LT6804.c: 1102: spi_write_read(cmd,4,&rx_data[current_ic*8],8);
-"1102
-[e ( _spi_write_read (4 , , , &U _cmd -> 4 `i &U *U + _rx_data * -> * _current_ic -> 8 `i `x -> -> # *U _rx_data `i `x -> 8 `i ]
-[; ;LT6804.c: 1103: LATD3 = 1;
-"1103
-[e = _LATD3 -> -> 1 `i `b ]
-"1104
-}
 "1095
+[e :U 1297 ]
+[; ;LT6804.c: 1095: {
+{
+[; ;LT6804.c: 1096: cmd[0] = 0x80 + (current_ic<<3);
+"1096
+[e = *U + &U _cmd * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmd `ui `ux + -> 128 `i << _current_ic -> 3 `i ]
+[; ;LT6804.c: 1097: data_pec = pec15_calc(2, cmd);
+"1097
+[e = _data_pec ( _pec15_calc (2 , -> 2 `i &U _cmd ]
+[; ;LT6804.c: 1098: cmd[2] = (int)(data_pec >> 8);
+"1098
+[e = *U + &U _cmd * -> -> -> 2 `i `ui `ux -> -> # *U &U _cmd `ui `ux >> _data_pec -> 8 `i ]
+[; ;LT6804.c: 1099: cmd[3] = (int)(data_pec);
+"1099
+[e = *U + &U _cmd * -> -> -> 3 `i `ui `ux -> -> # *U &U _cmd `ui `ux _data_pec ]
+[; ;LT6804.c: 1100: LATD3 = 0;
+"1100
+[e = _LATD3 -> -> 0 `i `b ]
+[; ;LT6804.c: 1101: spi_write_read(cmd,4,&rx_data[current_ic*8],8);
+"1101
+[e ( _spi_write_read (4 , , , &U _cmd -> 4 `i &U *U + _rx_data * -> * _current_ic -> 8 `i `x -> -> # *U _rx_data `i `x -> 8 `i ]
+[; ;LT6804.c: 1102: LATD3 = 1;
+"1102
+[e = _LATD3 -> -> 1 `i `b ]
+"1103
+}
+"1094
 [e ++ _current_ic -> 1 `i ]
 [e :U 1300 ]
 [e $ < _current_ic _total_ic 1297  ]
 [e :U 1298 ]
-"1104
+"1103
 }
-[; ;LT6804.c: 1104: }
-[; ;LT6804.c: 1106: for (current_ic = 0; current_ic < total_ic; current_ic++)
-"1106
+[; ;LT6804.c: 1103: }
+[; ;LT6804.c: 1105: for (current_ic = 0; current_ic < total_ic; current_ic++)
+"1105
 {
 [e = _current_ic -> 0 `i ]
 [e $U 1304  ]
-"1107
+"1106
 [e :U 1301 ]
-[; ;LT6804.c: 1107: {
+[; ;LT6804.c: 1106: {
 {
-[; ;LT6804.c: 1109: for (current_byte = 0; current_byte < BYTES_IN_REG; current_byte++)
-"1109
+[; ;LT6804.c: 1108: for (current_byte = 0; current_byte < BYTES_IN_REG; current_byte++)
+"1108
 {
 [e = _current_byte -> 0 `i ]
 [e $ < _current_byte _BYTES_IN_REG 1305  ]
 [e $U 1306  ]
-"1110
-[e :U 1305 ]
-[; ;LT6804.c: 1110: {
-{
-[; ;LT6804.c: 1111: r_config[current_ic][current_byte] = rx_data[current_byte + (current_ic*BYTES_IN_REG)];
-"1111
-[e = *U + &U *U + _r_config * -> _current_ic `x -> * -> # *U &U *U _r_config `ui -> -> 8 `i `ui `x * -> -> _current_byte `ui `ux -> -> # *U &U *U + _r_config * -> _current_ic `x -> * -> # *U &U *U _r_config `ui -> -> 8 `i `ui `x `ui `ux *U + _rx_data * -> + _current_byte * _current_ic _BYTES_IN_REG `x -> -> # *U _rx_data `i `x ]
-"1112
-}
 "1109
+[e :U 1305 ]
+[; ;LT6804.c: 1109: {
+{
+[; ;LT6804.c: 1110: r_config[current_ic][current_byte] = rx_data[current_byte + (current_ic*BYTES_IN_REG)];
+"1110
+[e = *U + &U *U + _r_config * -> _current_ic `x -> * -> # *U &U *U _r_config `ui -> -> 8 `i `ui `x * -> -> _current_byte `ui `ux -> -> # *U &U *U + _r_config * -> _current_ic `x -> * -> # *U &U *U _r_config `ui -> -> 8 `i `ui `x `ui `ux *U + _rx_data * -> + _current_byte * _current_ic _BYTES_IN_REG `x -> -> # *U _rx_data `i `x ]
+"1111
+}
+"1108
 [e ++ _current_byte -> 1 `i ]
 [e $ < _current_byte _BYTES_IN_REG 1305  ]
 [e :U 1306 ]
-"1112
+"1111
 }
-[; ;LT6804.c: 1112: }
-[; ;LT6804.c: 1114: received_pec = (r_config[current_ic][6]<<8) + r_config[current_ic][7];
-"1114
+[; ;LT6804.c: 1111: }
+[; ;LT6804.c: 1113: received_pec = (r_config[current_ic][6]<<8) + r_config[current_ic][7];
+"1113
 [e = _received_pec + << *U + &U *U + _r_config * -> _current_ic `x -> * -> # *U &U *U _r_config `ui -> -> 8 `i `ui `x * -> -> -> 6 `i `ui `ux -> -> # *U &U *U + _r_config * -> _current_ic `x -> * -> # *U &U *U _r_config `ui -> -> 8 `i `ui `x `ui `ux -> 8 `i *U + &U *U + _r_config * -> _current_ic `x -> * -> # *U &U *U _r_config `ui -> -> 8 `i `ui `x * -> -> -> 7 `i `ui `ux -> -> # *U &U *U + _r_config * -> _current_ic `x -> * -> # *U &U *U _r_config `ui -> -> 8 `i `ui `x `ui `ux ]
-[; ;LT6804.c: 1115: data_pec = pec15_calc(6, &r_config[current_ic][0]);
-"1115
+[; ;LT6804.c: 1114: data_pec = pec15_calc(6, &r_config[current_ic][0]);
+"1114
 [e = _data_pec ( _pec15_calc (2 , -> 6 `i &U *U + &U *U + _r_config * -> _current_ic `x -> * -> # *U &U *U _r_config `ui -> -> 8 `i `ui `x * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + _r_config * -> _current_ic `x -> * -> # *U &U *U _r_config `ui -> -> 8 `i `ui `x `ui `ux ]
-[; ;LT6804.c: 1116: if(received_pec != data_pec)
-"1116
+[; ;LT6804.c: 1115: if(received_pec != data_pec)
+"1115
 [e $ ! != _received_pec _data_pec 1308  ]
-[; ;LT6804.c: 1117: {
-"1117
+[; ;LT6804.c: 1116: {
+"1116
 {
-[; ;LT6804.c: 1118: pec_error = -1;
-"1118
+[; ;LT6804.c: 1117: pec_error = -1;
+"1117
 [e = _pec_error -> -U -> 1 `i `c ]
-"1119
+"1118
 }
 [e :U 1308 ]
-"1120
+"1119
 }
-"1106
+"1105
 [e ++ _current_ic -> 1 `i ]
 [e :U 1304 ]
 [e $ < _current_ic _total_ic 1301  ]
 [e :U 1302 ]
-"1120
+"1119
 }
+[; ;LT6804.c: 1118: }
 [; ;LT6804.c: 1119: }
-[; ;LT6804.c: 1120: }
-[; ;LT6804.c: 1121: free(rx_data);
-"1121
+[; ;LT6804.c: 1120: free(rx_data);
+"1120
 [e ( _free (1 -> _rx_data `*v ]
-[; ;LT6804.c: 1123: return(pec_error);
-"1123
+[; ;LT6804.c: 1122: return(pec_error);
+"1122
 [e ) -> _pec_error `i ]
 [e $UE 1296  ]
-[; ;LT6804.c: 1124: }
-"1124
+[; ;LT6804.c: 1123: }
+"1123
 [e :UE 1296 ]
 }
-"1140
+"1139
 [v _wakeup_idle `(v ~T0 @X0 1 ef ]
-"1141
+"1140
 {
-[; ;LT6804.c: 1140: void wakeup_idle()
-[; ;LT6804.c: 1141: {
+[; ;LT6804.c: 1139: void wakeup_idle()
+[; ;LT6804.c: 1140: {
 [e :U _wakeup_idle ]
 [f ]
-[; ;LT6804.c: 1143: LATD3 = 0;
-"1143
+[; ;LT6804.c: 1142: LATD3 = 0;
+"1142
 [e = _LATD3 -> -> 0 `i `b ]
-[; ;LT6804.c: 1145: DelayMicro(10);
-"1145
+[; ;LT6804.c: 1144: DelayMicro(10);
+"1144
 [e ( _DelayMicro (1 -> 10 `i ]
-[; ;LT6804.c: 1146: LATD3 = 1;
-"1146
+[; ;LT6804.c: 1145: LATD3 = 1;
+"1145
 [e = _LATD3 -> -> 1 `i `b ]
-[; ;LT6804.c: 1152: }
-"1152
+[; ;LT6804.c: 1151: }
+"1151
 [e :UE 1309 ]
 }
-"1159
+"1158
 [v _wakeup_sleep `(v ~T0 @X0 1 ef ]
-"1160
+"1159
 {
-[; ;LT6804.c: 1159: void wakeup_sleep()
-[; ;LT6804.c: 1160: {
+[; ;LT6804.c: 1158: void wakeup_sleep()
+[; ;LT6804.c: 1159: {
 [e :U _wakeup_sleep ]
 [f ]
-[; ;LT6804.c: 1163: LATD3 = 0;
-"1163
+[; ;LT6804.c: 1162: LATD3 = 0;
+"1162
 [e = _LATD3 -> -> 0 `i `b ]
-[; ;LT6804.c: 1164: spi_write_array(1,0);
+[; ;LT6804.c: 1164: DelayMicro(10);
 "1164
-[e ( _spi_write_array (2 , -> 1 `i -> -> 0 `i `*i ]
-[; ;LT6804.c: 1165: Delay(1);
+[e ( _DelayMicro (1 -> 10 `i ]
+[; ;LT6804.c: 1165: LATD3 = 1;
 "1165
-[e ( _Delay (1 -> 1 `i ]
-[; ;LT6804.c: 1166: LATD3 = 1;
-"1166
 [e = _LATD3 -> -> 1 `i `b ]
-[; ;LT6804.c: 1167: }
-"1167
+[; ;LT6804.c: 1166: }
+"1166
 [e :UE 1310 ]
 }
-"1179
+"1178
 [v _pec15_calc `(i ~T0 @X0 1 ef2`i`*i ]
-"1180
-{
-[; ;LT6804.c: 1179: int pec15_calc(int len, int *data)
-[; ;LT6804.c: 1180: {
-[e :U _pec15_calc ]
 "1179
+{
+[; ;LT6804.c: 1178: int pec15_calc(int len, int *data)
+[; ;LT6804.c: 1179: {
+[e :U _pec15_calc ]
+"1178
 [v _len `i ~T0 @X0 1 r1 ]
 [v _data `*i ~T0 @X0 1 r2 ]
-"1180
+"1179
 [f ]
-"1181
+"1180
 [v _remainder `i ~T0 @X0 1 a ]
 [v _addr `i ~T0 @X0 1 a ]
-[; ;LT6804.c: 1181: int remainder,addr;
-[; ;LT6804.c: 1183: remainder = 16;
-"1183
+[; ;LT6804.c: 1180: int remainder,addr;
+[; ;LT6804.c: 1182: remainder = 16;
+"1182
 [e = _remainder -> 16 `i ]
-[; ;LT6804.c: 1184: for(i = 0; i<len;i++)
-"1184
+[; ;LT6804.c: 1183: for(i = 0; i<len;i++)
+"1183
 {
 [e = _i -> 0 `i ]
 [e $U 1315  ]
-"1185
-[e :U 1312 ]
-[; ;LT6804.c: 1185: {
-{
-[; ;LT6804.c: 1186: addr = ((remainder>>7)^data[i])&0xff;
-"1186
-[e = _addr & ^ >> _remainder -> 7 `i *U + _data * -> _i `x -> -> # *U _data `i `x -> 255 `i ]
-[; ;LT6804.c: 1187: remainder = (remainder<<8)^crc15Table[addr];
-"1187
-[e = _remainder -> ^ -> << _remainder -> 8 `i `ui *U + &U _crc15Table * -> -> _addr `ui `ux -> -> # *U &U _crc15Table `ui `ux `i ]
-"1188
-}
 "1184
+[e :U 1312 ]
+[; ;LT6804.c: 1184: {
+{
+[; ;LT6804.c: 1185: addr = ((remainder>>7)^data[i])&0xff;
+"1185
+[e = _addr & ^ >> _remainder -> 7 `i *U + _data * -> _i `x -> -> # *U _data `i `x -> 255 `i ]
+[; ;LT6804.c: 1186: remainder = (remainder<<8)^crc15Table[addr];
+"1186
+[e = _remainder -> ^ -> << _remainder -> 8 `i `ui *U + &U _crc15Table * -> -> _addr `ui `ux -> -> # *U &U _crc15Table `ui `ux `i ]
+"1187
+}
+"1183
 [e ++ _i -> 1 `i ]
 [e :U 1315 ]
 [e $ < _i _len 1312  ]
 [e :U 1313 ]
-"1188
+"1187
 }
-[; ;LT6804.c: 1188: }
-[; ;LT6804.c: 1189: return(remainder*2);
-"1189
+[; ;LT6804.c: 1187: }
+[; ;LT6804.c: 1188: return(remainder*2);
+"1188
 [e ) * _remainder -> 2 `i ]
 [e $UE 1311  ]
-[; ;LT6804.c: 1190: }
-"1190
+[; ;LT6804.c: 1189: }
+"1189
 [e :UE 1311 ]
 }
-"1200
+"1199
 [v _spi_write_array `(v ~T0 @X0 1 ef2`i`*i ]
-"1203
+"1202
 {
-[; ;LT6804.c: 1200: void spi_write_array(int len,
-[; ;LT6804.c: 1201: int data[]
-[; ;LT6804.c: 1202: )
-[; ;LT6804.c: 1203: {
+[; ;LT6804.c: 1199: void spi_write_array(int len,
+[; ;LT6804.c: 1200: int data[]
+[; ;LT6804.c: 1201: )
+[; ;LT6804.c: 1202: {
 [e :U _spi_write_array ]
-"1200
+"1199
 [v _len `i ~T0 @X0 1 r1 ]
-"1201
+"1200
 [v _data `*i ~T0 @X0 1 r2 ]
-"1203
+"1202
 [f ]
-[; ;LT6804.c: 1204: for(i = 0; i < len; i++)
-"1204
+[; ;LT6804.c: 1203: for(i = 0; i < len; i++)
+"1203
 {
 [e = _i -> 0 `i ]
 [e $U 1320  ]
-"1205
-[e :U 1317 ]
-[; ;LT6804.c: 1205: {
-{
-[; ;LT6804.c: 1206: SPI2_Exchange8bit((char)data[i]);
-"1206
-[e ( _SPI2_Exchange8bit (1 -> *U + _data * -> _i `x -> -> # *U _data `i `x `uc ]
-"1207
-}
 "1204
+[e :U 1317 ]
+[; ;LT6804.c: 1204: {
+{
+[; ;LT6804.c: 1205: SPI2_Exchange8bit((char)data[i]);
+"1205
+[e ( _SPI2_Exchange8bit (1 -> *U + _data * -> _i `x -> -> # *U _data `i `x `uc ]
+"1206
+}
+"1203
 [e ++ _i -> 1 `i ]
 [e :U 1320 ]
 [e $ < _i _len 1317  ]
 [e :U 1318 ]
-"1207
+"1206
 }
+[; ;LT6804.c: 1206: }
 [; ;LT6804.c: 1207: }
-[; ;LT6804.c: 1208: }
-"1208
+"1207
 [e :UE 1316 ]
 }
-"1219
+"1217
+[v _retrn `i ~T0 @X0 -> 8 `i e ]
+[i _retrn
+:U ..
+-> 15 `i
+-> 148 `i
+-> 195 `i
+-> 147 `i
+-> 98 `i
+-> 144 `i
+-> 137 `i
+-> 200 `i
+..
+]
+[; ;LT6804.c: 1217: retrn[8] = {0x0F,0x94,0xC3,0x93,0x62,0x90,0x89,0xC8};
+"1218
 [v _spi_write_read `(v ~T0 @X0 1 ef4`*i`i`*i`i ]
-"1224
+"1223
 {
-[; ;LT6804.c: 1219: void spi_write_read(int tx_Data[],
-[; ;LT6804.c: 1220: int tx_len,
-[; ;LT6804.c: 1221: int *rx_data,
-[; ;LT6804.c: 1222: int rx_len
-[; ;LT6804.c: 1223: )
-[; ;LT6804.c: 1224: {
+[; ;LT6804.c: 1218: void spi_write_read(int tx_Data[],
+[; ;LT6804.c: 1219: int tx_len,
+[; ;LT6804.c: 1220: int *rx_data,
+[; ;LT6804.c: 1221: int rx_len
+[; ;LT6804.c: 1222: )
+[; ;LT6804.c: 1223: {
 [e :U _spi_write_read ]
-"1219
+"1218
 [v _tx_Data `*i ~T0 @X0 1 r1 ]
-"1220
+"1219
 [v _tx_len `i ~T0 @X0 1 r2 ]
-"1221
+"1220
 [v _rx_data `*i ~T0 @X0 1 r3 ]
-"1222
+"1221
 [v _rx_len `i ~T0 @X0 1 r4 ]
-"1224
+"1223
 [f ]
-[; ;LT6804.c: 1226: for(i = 0; i < tx_len; i++)
-"1226
+[; ;LT6804.c: 1225: for(i = 0; i < tx_len; i++)
+"1225
 {
 [e = _i -> 0 `i ]
 [e $U 1325  ]
-"1227
-[e :U 1322 ]
-[; ;LT6804.c: 1227: {
-{
-[; ;LT6804.c: 1228: SPI2_Exchange8bit(tx_Data[i]);
-"1228
-[e ( _SPI2_Exchange8bit (1 -> *U + _tx_Data * -> _i `x -> -> # *U _tx_Data `i `x `uc ]
-"1230
-}
 "1226
+[e :U 1322 ]
+[; ;LT6804.c: 1226: {
+{
+[; ;LT6804.c: 1227: SPI2_Exchange8bit(tx_Data[i]);
+"1227
+[e ( _SPI2_Exchange8bit (1 -> *U + _tx_Data * -> _i `x -> -> # *U _tx_Data `i `x `uc ]
+"1228
+}
+"1225
 [e ++ _i -> 1 `i ]
 [e :U 1325 ]
 [e $ < _i _tx_len 1322  ]
 [e :U 1323 ]
-"1230
+"1228
 }
-[; ;LT6804.c: 1230: }
-[; ;LT6804.c: 1232: for(int i = 0; i < rx_len; i++)
-"1232
+[; ;LT6804.c: 1228: }
+[; ;LT6804.c: 1230: for(int i = 0; i < rx_len; i++)
+"1230
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
 [e $U 1329  ]
-"1233
+"1231
 [e :U 1326 ]
-[; ;LT6804.c: 1233: {
+[; ;LT6804.c: 1231: {
 {
-[; ;LT6804.c: 1234: rx_data[i] =SPI2_Exchange8bit(0xFF);
-"1234
-[e = *U + _rx_data * -> _i `x -> -> # *U _rx_data `i `x -> ( _SPI2_Exchange8bit (1 -> -> 255 `i `uc `i ]
-"1235
-}
+[; ;LT6804.c: 1232: rx_data[i] = SPI2_Exchange8bit(0x00);
 "1232
+[e = *U + _rx_data * -> _i `x -> -> # *U _rx_data `i `x -> ( _SPI2_Exchange8bit (1 -> -> 0 `i `uc `i ]
+"1233
+}
+"1230
 [e ++ _i -> 1 `i ]
 [e :U 1329 ]
 [e $ < _i _rx_len 1326  ]
 [e :U 1327 ]
-"1235
+"1233
 }
+[; ;LT6804.c: 1233: }
 [; ;LT6804.c: 1235: }
-[; ;LT6804.c: 1237: }
-"1237
+"1235
 [e :UE 1321 ]
 }

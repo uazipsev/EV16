@@ -44,13 +44,35 @@ void main(void) {
 
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
+        ANSELC = 0;
+    ANSELA = 0;
+    TRISCbits.TRISC0=0;
+    TRISCbits.TRISC1=0;
+    TRISCbits.TRISC2=0;
+    TRISAbits.TRISA6=0;
+    TRISAbits.TRISA7=0;
+    TRISBbits.TRISB3=0;
+    TRISBbits.TRISB4=0;
+    TRISBbits.TRISB5=0;
+    
+    LATBbits.LATB3=0;
+    LATBbits.LATB5=0;
+    LATBbits.LATB4=0;
+    
+    LATCbits.LATC1=1;
+    LATCbits.LATC2=0; //IMD read
+    LATAbits.LATA6=1;
+    LATCbits.LATC0=1;
+    //LATAbits.LATA7=1;  //horn
+    
+    
     NokiaStart();  // We are setting ut the display for text. We dont have a GFX lib installed for program size limits :(
     Delay(100);    
     
     clearLcd();    //found out the display needs cleard after a little bit to keep it clear. So I added a little delay to give the LCD a break 
     Splash();      //Sets display with data about the device
     
-    while(SetBMM()); //This is unique to this board, we are "faking" the ECU here to get the BMM into a master mode talking to us, controling this board. 
+    //while(SetBMM()); //This is unique to this board, we are "faking" the ECU here to get the BMM into a master mode talking to us, controling this board. 
 
     LED_SetHigh();  //We are getting the LED on for toggle control, I hope.
     while(1){

@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "FastTransfer.h"
+#include "mcc_generated_files/pin_manager.h"
 
 
 
@@ -95,7 +96,7 @@ bool receiveData() {
                     return false;
             }
             if (serial_read() == 0x85) {
-           
+                //INDICATOR_Toggle();
                 rx_address = serial_read(); // pulls the address
                 returnAddress = serial_read(); // pulls where the message came from
                 rx_len = serial_read(); // pulls the length

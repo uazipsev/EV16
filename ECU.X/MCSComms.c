@@ -1,4 +1,6 @@
 #include "MCSComms.h"
+#include "PinDef.h"
+
 
 bool requestMCSData();
 bool receiveCommMCS();
@@ -9,7 +11,7 @@ extern int carActive;
 bool requestMCSData() {
     if (((MCSTimer > BOARD_RESEND_MIN+100) && (readyToSendMCS)) || (MCSTimer > BOARD_TIMEOUT)) {
         static int MCSErrorCounter = 0;
-        
+        //INDICATOR ^= 1;
         RS485_Direction2(TALK);
         if (!readyToSendMCS) {
             MCSErrorCounter++;

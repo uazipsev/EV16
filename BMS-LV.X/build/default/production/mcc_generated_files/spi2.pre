@@ -10441,7 +10441,7 @@ void SPI2_Initialize(void)
 
 
 
-SSP2STAT = 0x40;
+SSP2STAT = 0b01000000;
 
 
 SSP2CON1 = 0x22;
@@ -10452,15 +10452,17 @@ SSP2ADD = 0x00;
 
 char SPI2_Exchange8bit(char stuff)
 {
+char data = 0;
+
+data = SSP2BUF;
+PIR1bits.SSP1IF =0;
 
 
 SSP2BUF = stuff;
+while(!SSP2STATbits.BF);
 
-while(SSP2STATbits.BF == 0x0)
-{
-}
-
-return (SSP2BUF);
+data = SSP2BUF;
+return (data);
 }
 
 uint8_t SPI2_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut)

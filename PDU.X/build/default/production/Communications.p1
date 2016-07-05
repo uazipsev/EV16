@@ -10,9 +10,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "35
 [c E7840 1 2 3 4 5 6 1 0 .. ]
 [n E7840 . DDS MCS SAS BMM TSS AUX ON OFF  ]
-"30 PDU.h
+"32 PDU.h
 [v _EnableSlavePower `(v ~T0 @X0 0 ef2`E7840`i ]
-"33
+"35
 [v _Update `(v ~T0 @X0 0 ef ]
 "8046 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f45k22.h
 [s S489 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -7485,53 +7485,54 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Communications.h: 14: extern bool receiveData();
 [; ;Communications.h: 15: extern void ToSend(const unsigned char where, const unsigned int what);
 [; ;Functions.h: 11: extern void Delay(long int wait);
-"13 PDU.h
+"15 PDU.h
 [v _Currentcomp `i ~T0 @X0 -> 6 `i e ]
 [i _Currentcomp
 :U ..
 -> 0 `i
 ..
 ]
-[; ;PDU.h: 13: int Currentcomp[6] = 0;
-"14
+[; ;PDU.h: 15: int Currentcomp[6] = 0;
+"16
 [v _data `uc ~T0 @X0 -> 12 `i e ]
 [i _data
 :U ..
 -> -> 0 `i `uc
 ..
 ]
-[; ;PDU.h: 14: char data[12] = 0;
-"15
+[; ;PDU.h: 16: char data[12] = 0;
+"17
 [v _CurrentADC `i ~T0 @X0 -> 6 `i e ]
 [i _CurrentADC
 :U ..
 -> 0 `i
 ..
 ]
-[; ;PDU.h: 15: int CurrentADC[6] = 0;
-"16
+[; ;PDU.h: 17: int CurrentADC[6] = 0;
+"18
 [v _Current `i ~T0 @X0 -> 6 `i e ]
 [i _Current
 :U ..
 -> 0 `i
 ..
 ]
-[; ;PDU.h: 16: int Current[6] = 0;
-[; ;PDU.h: 18: typedef enum {
-[; ;PDU.h: 19: DDS = 1,
-[; ;PDU.h: 20: MCS = 2,
-[; ;PDU.h: 21: SAS = 3,
-[; ;PDU.h: 22: BMM = 4,
-[; ;PDU.h: 23: TSS = 5,
-[; ;PDU.h: 24: AUX = 6,
-[; ;PDU.h: 25: ON = 1,
-[; ;PDU.h: 26: OFF = 0
-[; ;PDU.h: 27: } device;
-[; ;PDU.h: 29: extern void PDUStartup(void);
-[; ;PDU.h: 30: void EnableSlavePower(device slave, int onof);
-[; ;PDU.h: 31: void ComputeStorageData(void);
-[; ;PDU.h: 32: void ReadCurrent(char gather);
-[; ;PDU.h: 33: void Update(void);
+[; ;PDU.h: 18: int Current[6] = 0;
+[; ;PDU.h: 20: typedef enum {
+[; ;PDU.h: 21: DDS = 1,
+[; ;PDU.h: 22: MCS = 2,
+[; ;PDU.h: 23: SAS = 3,
+[; ;PDU.h: 24: BMM = 4,
+[; ;PDU.h: 25: TSS = 5,
+[; ;PDU.h: 26: AUX = 6,
+[; ;PDU.h: 27: ON = 1,
+[; ;PDU.h: 28: OFF = 0
+[; ;PDU.h: 29: } device;
+[; ;PDU.h: 31: extern void PDUStartup(void);
+[; ;PDU.h: 32: void EnableSlavePower(device slave, int onof);
+[; ;PDU.h: 33: void ComputeStorageData(void);
+[; ;PDU.h: 34: void ReadCurrent(char gather);
+[; ;PDU.h: 35: void Update(void);
+[; ;PDU.h: 36: bool CoolingCheck();
 [; ;Communications.c: 18: void processPowerRequest(int powerSet);
 [; ;Communications.c: 19: void respondECU();
 "21 Communications.c
@@ -7545,18 +7546,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ ! != -> ( _receiveData ..  `i -> -> -> 0 `i `uc `i 1141  ]
 {
 "23
-[v F7864 `i ~T0 @X0 1 s previousPowerState ]
+[v F7865 `i ~T0 @X0 1 s previousPowerState ]
 [; ;Communications.c: 23: static int previousPowerState;
 [; ;Communications.c: 24: if (previousPowerState != receiveArray[1]) {
 "24
-[e $ ! != F7864 *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux 1142  ]
+[e $ ! != F7865 *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux 1142  ]
 {
 [; ;Communications.c: 25: previousPowerState = receiveArray[1];
 "25
-[e = F7864 *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux ]
+[e = F7865 *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux ]
 [; ;Communications.c: 26: processPowerRequest(previousPowerState);
 "26
-[e ( _processPowerRequest (1 F7864 ]
+[e ( _processPowerRequest (1 F7865 ]
 "27
 }
 [e :U 1142 ]
