@@ -3,12 +3,7 @@
 #include "PinDef.h"
 #include "debug.h"
 #include "horn.h"
-
-#define BMS_LED        5
-#define ACTIVE_LED     3
-#define IMD_INDICATOR  2
-#define START_BUTTON   4
-#define DEBUG_BUTTON   6
+#include "SlaveAddressing.h"
 
 struct powerStates {
     bool DDS;
@@ -91,9 +86,9 @@ void updateStoppedState() {
 //            }
 //
 //            break;
-        case START_BUTTON:
-            if (!buttonArray[START_BUTTON]) {
-                changeLEDState(ACTIVE_LED, !buttonArray[START_BUTTON]);
+        case DDS_START_BUTTON:
+            if (!buttonArray[DDS_START_BUTTON]) {
+                changeLEDState(DDS_ACTIVE_LED, !buttonArray[DDS_START_BUTTON]);
                 currentState++;
             }
             //doStuff();
@@ -103,7 +98,7 @@ void updateStoppedState() {
 
 void doStuff() {
     static int Easter = 0;
-    if (!buttonArray[DEBUG_BUTTON] && buttonArray[START_BUTTON]) {
+    if (!buttonArray[DDS_DEBUG_BUTTON] && buttonArray[DDS_START_BUTTON]) {
         Easter = 0;
     } else {
         //check if the start button is also held
@@ -132,8 +127,8 @@ void doStuff() {
 //Just for debugging and so on
 
 bool easterEggs() {
-    if (!buttonArray[DEBUG_BUTTON]) {
-        if (!buttonArray[START_BUTTON]) {
+    if (!buttonArray[DDS_DEBUG_BUTTON]) {
+        if (!buttonArray[DDS_START_BUTTON]) {
             return true;
         }
     }

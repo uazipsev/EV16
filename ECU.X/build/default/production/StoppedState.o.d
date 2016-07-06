@@ -3,4 +3,5 @@ StoppedState.c  \
 StoppedState.h  \
  debug.h  \
 PinDef.h  \
-horn.h 
+horn.h  \
+SlaveAddressing.h 

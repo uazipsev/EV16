@@ -12,14 +12,7 @@
 extern "C" {
 #endif
 
-
-#define BMS_LED        5
-#define ACTIVE_LED     3
-#define IMD_INDICATOR  2
-#define START_BUTTON   4
-#define DEBUG_BUTTON   6
-
-    void updateECUState();
+void updateECUState();
 extern int buttonArray[8];
 extern int seekButtonChange();
 extern void changeLEDState(int LED, bool state);

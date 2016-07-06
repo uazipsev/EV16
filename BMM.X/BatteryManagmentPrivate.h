@@ -13,8 +13,6 @@
 bool CarOn = 1;
 bool CurrentDir = 1; //Discharge by default
 
-#define NUMBEROFIC 12
-#define NUMBEROFCH 2
 int k = 0;
 int j = 0;
 

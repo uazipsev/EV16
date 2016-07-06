@@ -6,6 +6,7 @@
 #include "debug.h"
 #include "StoppedState.h"
 #include "horn.h"
+#include "SlaveAddressing.h"
 
 int carActive = false;
 //Each board has a condition that says which fault it is experiencing if any
@@ -49,9 +50,9 @@ void updateECUState() {
         case stopped:
             //Means this is your first time in this state
             if (previousState != currentState) {
-                changeLEDState(IMD_INDICATOR, 0);
-                changeLEDState(BMS_LED, 0);
-                changeLEDState(ACTIVE_LED, 0);
+                changeLEDState(DDS_IMD_INDICATOR, 0);
+                changeLEDState(DDS_BMS_LED, 0);
+                changeLEDState(DDS_ACTIVE_LED, 0);
                 previousState = currentState;
                 powerSet.DDS = true;
                 powerSet.SAS = true;
@@ -77,8 +78,8 @@ void updateECUState() {
             }
                         //if start button changes to depressed here, exit boot sequence
             if (seekButtonChange()) {
-                if (!buttonArray[START_BUTTON]) {
-                    changeLEDState(ACTIVE_LED, buttonArray[START_BUTTON]);
+                if (!buttonArray[DDS_START_BUTTON]) {
+                    changeLEDState(DDS_ACTIVE_LED, buttonArray[DDS_START_BUTTON]);
                     currentState--;
                 }
             }
@@ -104,8 +105,8 @@ void updateECUState() {
             }
             //if start button changes to depressed here, exit boot sequence
             if (seekButtonChange()) {
-                if (!buttonArray[START_BUTTON]) {
-                    changeLEDState(ACTIVE_LED, buttonArray[START_BUTTON]);
+                if (!buttonArray[DDS_START_BUTTON]) {
+                    changeLEDState(DDS_ACTIVE_LED, buttonArray[DDS_START_BUTTON]);
                     currentState == stopped;
                 }
             }
@@ -133,8 +134,8 @@ void updateECUState() {
 
 
             if (seekButtonChange()) {
-                if (!buttonArray[START_BUTTON]) {
-                    changeLEDState(ACTIVE_LED, buttonArray[START_BUTTON]);
+                if (!buttonArray[DDS_START_BUTTON]) {
+                    changeLEDState(DDS_ACTIVE_LED, buttonArray[DDS_START_BUTTON]);
                     currentState++;
                 }
             }
@@ -144,7 +145,7 @@ void updateECUState() {
             //Means this is your first time in this state
             if (previousState != currentState) {
                 previousState = currentState;
-                changeLEDState(ACTIVE_LED, 0);
+                changeLEDState(DDS_ACTIVE_LED, 0);
                 powerSet.DDS = true;
                 powerSet.SAS = true;
                 powerSet.BMM = false;
@@ -169,8 +170,8 @@ void updateECUState() {
 
             //EXIT THE FAULT MODE BY PRESSING BUTTON
             switch (seekButtonChange()) {
-                case START_BUTTON:
-                    if (!buttonArray[START_BUTTON]) {
+                case DDS_START_BUTTON:
+                    if (!buttonArray[DDS_START_BUTTON]) {
                         currentState = stopping;
                     }
                     break;
@@ -183,7 +184,7 @@ void updateECUState() {
                 previousState = currentState;
 
                 //Fault(4);
-                changeLEDState(ACTIVE_LED, 0);
+                changeLEDState(DDS_ACTIVE_LED, 0);
                 powerSet.DDS = true;
                 powerSet.SAS = true;
                 powerSet.BMM = true;
@@ -196,8 +197,8 @@ void updateECUState() {
 
             //EXIT THE FAULT MODE BY PRESSING BUTTON
             switch (seekButtonChange()) {
-                case START_BUTTON:
-                    if (!buttonArray[START_BUTTON]) {
+                case DDS_START_BUTTON:
+                    if (!buttonArray[DDS_START_BUTTON]) {
                         currentState = stopping;
                     }
                     break;
@@ -208,14 +209,14 @@ void updateECUState() {
             //Means this is your first time in this state
             if (previousState != currentState) {
                 previousState = currentState;
-                changeLEDState(ACTIVE_LED, 1);
+                changeLEDState(DDS_ACTIVE_LED, 1);
                 carActive = true;
             }
 
             switch (seekButtonChange()) {
-                case START_BUTTON:
-                    if (!buttonArray[START_BUTTON]&&!buttonArray[DEBUG_BUTTON]) {
-                        changeLEDState(ACTIVE_LED, buttonArray[START_BUTTON]);
+                case DDS_START_BUTTON:
+                    if (!buttonArray[DDS_START_BUTTON]&&!buttonArray[DDS_DEBUG_BUTTON]) {
+                        changeLEDState(DDS_ACTIVE_LED, buttonArray[DDS_START_BUTTON]);
                         currentState = stopping;
                     }
                     break;
@@ -257,29 +258,29 @@ bool bootSequenceCompleted() {
 
 bool checkForBootupTimeout() {
     if (BootTimer > 0 && BootTimer <= 5) {
-        changeLEDState(ACTIVE_LED, 0);
+        changeLEDState(DDS_ACTIVE_LED, 0);
     } else if (BootTimer > 250 && BootTimer <= 255) {
-        changeLEDState(ACTIVE_LED, 1);
+        changeLEDState(DDS_ACTIVE_LED, 1);
     } else if (BootTimer > 500 && BootTimer <= 505) {
-        changeLEDState(ACTIVE_LED, 0);
+        changeLEDState(DDS_ACTIVE_LED, 0);
     } else if (BootTimer > 750 && BootTimer <= 755) {
-        changeLEDState(ACTIVE_LED, 1);
+        changeLEDState(DDS_ACTIVE_LED, 1);
     } else if (BootTimer > 1000 && BootTimer <= 1005) {
-        changeLEDState(ACTIVE_LED, 0);
+        changeLEDState(DDS_ACTIVE_LED, 0);
     } else if (BootTimer > 1250 && BootTimer <= 1255) {
-        changeLEDState(ACTIVE_LED, 1);
+        changeLEDState(DDS_ACTIVE_LED, 1);
     } else if (BootTimer > 1500 && BootTimer <= 1505) {
-        changeLEDState(ACTIVE_LED, 0);
+        changeLEDState(DDS_ACTIVE_LED, 0);
     } else if (BootTimer > 1750 && BootTimer <= 1755) {
-        changeLEDState(ACTIVE_LED, 1);
+        changeLEDState(DDS_ACTIVE_LED, 1);
     } else if (BootTimer > 2000 && BootTimer <= 2005) {
-        changeLEDState(ACTIVE_LED, 0);
+        changeLEDState(DDS_ACTIVE_LED, 0);
     } else if (BootTimer > 2250 && BootTimer <= 2255) {
-        changeLEDState(ACTIVE_LED, 1);
+        changeLEDState(DDS_ACTIVE_LED, 1);
     } else if (BootTimer > 2500 && BootTimer <= 2505) {
-        changeLEDState(ACTIVE_LED, 0);
+        changeLEDState(DDS_ACTIVE_LED, 0);
     } else if (BootTimer > 2750 && BootTimer <= 2755) {
-        changeLEDState(ACTIVE_LED, 1);
+        changeLEDState(DDS_ACTIVE_LED, 1);
     }
     if (BootTimer > 3500) {
         currentState--;

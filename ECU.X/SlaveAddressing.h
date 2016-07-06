@@ -50,9 +50,11 @@ extern "C" {
 #define BATTERYT_ECU 41
 
 
-
-
-
+#define DDS_BMS_LED        5
+#define DDS_ACTIVE_LED     3
+#define DDS_IMD_INDICATOR  2
+#define DDS_START_BUTTON   4
+#define DDS_DEBUG_BUTTON   6
 
 #ifdef	__cplusplus
 }
