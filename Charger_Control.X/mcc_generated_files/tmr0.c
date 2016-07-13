@@ -70,14 +70,12 @@ void TMR0_Initialize(void)
 {
     // Set TMR0 to the options selected in the User Interface
 
-    // T0PS 1:2; T08BIT 16-bit; T0SE Increment_hi_lo; T0CS FOSC/4; TMR0ON enabled; PSA not_assigned; 
-    T0CON = 0x98;
+    // TMR0ON enabled; T0SE Increment_hi_lo; PSA assigned; T0CS FOSC/4; T08BIT 16-bit; T0PS 1:32; 
+    T0CON = 0x94;
 
-    // TMR0H 240; 
-    TMR0H = 0xF0;
+    TMR0H = 0xCF;
 
-    // TMR0L 95; 
-    TMR0L = 0x5F;
+    TMR0L = 0x2C;
 
     // Load TMR0 value to the 16-bit reload variable
     timer0ReloadVal16bit = (TMR0H << 8) | TMR0L;
@@ -135,16 +133,15 @@ void TMR0_Reload16bit(void)
 
 void TMR0_ISR(void)
 {
-
-    // clear the TMR0 interrupt flag
-    INTCONbits.TMR0IF = 0;
-
     // reload TMR0
     // Write to the Timer0 register
     TMR0H = timer0ReloadVal16bit >> 8;
     TMR0L = (uint8_t) timer0ReloadVal16bit;
 
     time++;
+    
+    // clear the TMR0 interrupt flag
+    INTCONbits.TMR0IF = 0;
  
 }
 

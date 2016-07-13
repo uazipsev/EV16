@@ -76,15 +76,15 @@
 
 
 // get/set GREEN aliases
-#define GREEN_TRIS               TRISA6
-#define GREEN_LAT                LATA6
-#define GREEN_PORT               RA6
-#define GREEN_SetHigh()    do { LATA6 = 1; } while(0)
-#define GREEN_SetLow()   do { LATA6 = 0; } while(0)
-#define GREEN_Toggle()   do { LATA6 = ~LATA6; } while(0)
-#define GREEN_GetValue()         RA6
-#define GREEN_SetDigitalInput()    do { TRISA6 = 1; } while(0)
-#define GREEN_SetDigitalOutput()   do { TRISA6 = 0; } while(0)
+#define YELLOW_TRIS               TRISA6
+#define YELLOW_LAT                LATA6
+#define YELLOW_PORT               RA6
+#define YELLOW_SetHigh()    do { LATA6 = 1; } while(0)
+#define YELLOW_SetLow()   do { LATA6 = 0; } while(0)
+#define YELLOW_Toggle()   do { LATA6 = ~LATA6; } while(0)
+#define YELLOW_GetValue()         RA6
+#define YELLOW_SetDigitalInput()    do { TRISA6 = 1; } while(0)
+#define YELLOW_SetDigitalOutput()   do { TRISA6 = 0; } while(0)
 
 
 
@@ -210,15 +210,15 @@
 
 
 // get/set YELLOW aliases
-#define YELLOW_TRIS               TRISC1
-#define YELLOW_LAT                LATC1
-#define YELLOW_PORT               RC1
-#define YELLOW_SetHigh()    do { LATC1 = 1; } while(0)
-#define YELLOW_SetLow()   do { LATC1 = 0; } while(0)
-#define YELLOW_Toggle()   do { LATC1 = ~LATC1; } while(0)
-#define YELLOW_GetValue()         RC1
-#define YELLOW_SetDigitalInput()    do { TRISC1 = 1; } while(0)
-#define YELLOW_SetDigitalOutput()   do { TRISC1 = 0; } while(0)
+#define GREEN_TRIS               TRISC1
+#define GREEN_LAT                LATC1
+#define GREEN_PORT               RC1
+#define GREEN_SetHigh()    do { LATC1 = 1; } while(0)
+#define GREEN_SetLow()   do { LATC1 = 0; } while(0)
+#define GREEN_Toggle()   do { LATC1 = ~LATC1; } while(0)
+#define GREEN_GetValue()         RC1
+#define GREEN_SetDigitalInput()    do { TRISC1 = 1; } while(0)
+#define GREEN_SetDigitalOutput()   do { TRISC1 = 0; } while(0)
 
 
 

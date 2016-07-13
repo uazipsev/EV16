@@ -66,7 +66,13 @@ void PIN_MANAGER_Initialize(void)
     TRISA = 0x37;
 
     INTCON2bits.nRBPU = 0x0;
-
+    
+    MUX_S0_SetDigitalMode();
+    MUX_S1_SetDigitalMode();
+    
+    MUX_S0_SetDigitalOutput();
+    MUX_S1_SetDigitalOutput();
+    
     // enable interrupt-on-change globally
     // interrupts-on-change are globally disabled
     INTCONbits.RBIE = 0;

@@ -14,42 +14,44 @@
  * Created on May 31, 2015
  */
 
+#include <pic18f45k22.h>
+
 #include "UART.h"
 #define ON         0
 #define OFF        1
 
 void EUSART1_Initialize(void) {
     // disable interrupts before changing states
-    PIE1bits.RC1IE = 0;
-    PIE1bits.TX1IE = 0;
+    PIE3bits.RC2IE = 0;
+    PIE3bits.TX2IE = 0;
 
     // Set the EUSART1 module to the options selected in the user interface.
 
     // ABDEN disabled; WUE disabled; RCIDL idle; ABDOVF no_overflow; CKTXP async_noninverted_sync_fallingedge; BRG16 16bit_generator; DTRXP not_inverted;
-    BAUD1CON = 0x48;
+    BAUD2CON = 0x48;
 
     // ADDEN enabled; RX9 8-bit; RX9D 0x0; FERR no_error; CREN enabled; SPEN enabled; SREN disabled; OERR no_error;
-    RC1STA = 0x98;
+    RC2STA = 0x98;
 
     // CSRC slave_mode; TRMT TSR_empty; TXEN enabled; BRGH hi_speed; SYNC asynchronous; SENDB sync_break_complete; TX9D 0x0; TX9 8-bit;
-    TX1STA = 0x26;
+    TX2STA = 0x26;
 
     // Baud Rate = 57600; SPBRGL 34(0x22); @38400 ~ 68
-    SPBRG1 = BAUD_RATE;
+    SPBRG2 = BAUD_RATE;
 
     // Baud Rate = 57600; SPBRGH 0;
-    SPBRGH1 = 0x00;
+    SPBRGH2 = 0x00;
 
     // TXREG 0;
-    TXREG1 = 0x00;
+    TXREG2 = 0x00;
 
     // RCREG 0;
-    RCREG1 = 0x00;
+    RCREG2 = 0x00;
 
     UART_buff_init(&input_buffer);
     UART_buff_init(&output_buffer);
     // enable receive interrupt
-    PIE1bits.RC1IE = 1;
+    PIE3bits.RC2IE = 1;
     //PIE1bits.TX1IE = 1;
 }
 
@@ -131,28 +133,28 @@ void Send_put(unsigned char _data) {
     UART_buff_put(&output_buffer, _data);
     if (Transmit_stall == 1) {
         Transmit_stall = 0;
-        TXREG1 = UART_buff_get(&output_buffer);
-        PIE1bits.TX1IE = 1;
+        TXREG2 = UART_buff_get(&output_buffer);
+        PIE3bits.TX2IE = 1;
     }
 }
 
-void EUSART1_Receive_ISR(void) {
-    if (1 == RC1STAbits.OERR) {
+void EUSART2_Receive_ISR(void) {
+    if (1 == RC2STAbits.OERR) {
         // EUSART1 error - restart
 
-        RC1STAbits.CREN = 0;
-        RC1STAbits.CREN = 1;
+        RC2STAbits.CREN = 0;
+        RC2STAbits.CREN = 1;
     }
     unsigned char data = RCREG1;
     UART_buff_put(&input_buffer, data);
 }
 
-void EUSART1_Transmit_ISR(void) {
+void EUSART2_Transmit_ISR(void) {
     //LED ^= 1;
     if (UART_buff_size(&output_buffer) > 0) {
-        TXREG1 = UART_buff_get(&output_buffer);
+        TXREG2 = UART_buff_get(&output_buffer);
     } else {
         Transmit_stall = 1;
-        PIE1bits.TX1IE = 0;
+        PIE3bits.TX2IE = 0;
     }
 }

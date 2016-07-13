@@ -141,9 +141,9 @@ void NokiaStr( char *str){
  *******************************************************************/
 
 void Splash(){
+    gotoXy(0,0);
+    NokiaStr("Car Charger");
     gotoXy(0,2);
-    NokiaStr("Charger Control");
-    gotoXy(1,4);
-    NokiaStr("Waiting on BMM");
+    NokiaStr("No BMM");
 }
 

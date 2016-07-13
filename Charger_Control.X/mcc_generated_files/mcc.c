@@ -113,7 +113,7 @@ void SYSTEM_Initialize(void) {
     OSCILLATOR_Initialize();
     PIN_MANAGER_Initialize();
     INTERRUPT_Initialize();
-    //EUSART1_Initialize();
+    EUSART1_Initialize();
     EUSART2_Initialize();
     TMR0_Initialize();
 }
@@ -126,7 +126,6 @@ void OSCILLATOR_Initialize(void) {
     // INTSRC disabled; PLLEN disabled; TUN 0x00; 
     OSCTUNE = 0x00;
     // Set the secondary oscillator
-
 }
 
 /**

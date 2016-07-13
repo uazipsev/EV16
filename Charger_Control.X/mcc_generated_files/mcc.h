@@ -54,7 +54,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "eusart2.h"
 #include "spi1.h"
 
-#define _XTAL_FREQ  16000000
+#define _XTAL_FREQ 16000000
 
 /**
  * @Param
