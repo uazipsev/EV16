@@ -11,6 +11,8 @@
 #include "FastTransfer2.h"
 #include "PinDef.h"
 
+bool CLI = 1;
+
 void wipeRxBuffer2(void)
 {
 	int i=0;
@@ -89,141 +91,143 @@ void sendData2(unsigned char whereToSend) {
 }
 
 bool receiveData2() {
+    if(!CLI){
+        //start off by looking for the header bytes. If they were already found in a previous call, skip it.
+        if (rx_len2 == 0) {
+            //this size check may be redundant due to the size check below, but for now I'll leave it the way it is.
+            if (serial_available2() > 4) {
 
-    //start off by looking for the header bytes. If they were already found in a previous call, skip it.
-    if (rx_len2 == 0) {
-        //this size check may be redundant due to the size check below, but for now I'll leave it the way it is.
-        if (serial_available2() > 4) {
-            
-            //this will block until a 0x06 is found or buffer size becomes less then 3.
-            while (serial_read2() != 0x06) {
-                //This will trash any preamble junk in the serial buffer
-                //but we need to make sure there is enough in the buffer to process while we trash the rest
-                //if the buffer becomes too empty, we will escape and try again on the next call
-                alignErrorCounter2++; //increments the counter whenever a byte is trashed
-                if (serial_available2() < 5)
-                    return false;
-            }
-            if (serial_read2() == 0x85) {
-                rx_address2 = serial_read2(); // pulls the address
-                returnAddress2 = serial_read2(); // pulls where the message came from
-                rx_len2 = serial_read2(); // pulls the length
-                //make sure the address received is a match for this module if not throw the packet away
-                if (rx_address2 != moduleAddress2) {
-                    addressErrorCounter2++; // increments a counter whenever the wrong address is received
-                    //if the address does not match the buffer is flushed for the size of
-                    //the data packet plus one for the CRC
-                    //int u;
-                    //for (u = 0; u <= (rx_len2 + 1); u++) {
-                        serial_read2();
-                    //}
-                    rx_len2 = 0; // reset length
-                    return false;
+                //this will block until a 0x06 is found or buffer size becomes less then 3.
+                while (serial_read2() != 0x06) {
+                    //This will trash any preamble junk in the serial buffer
+                    //but we need to make sure there is enough in the buffer to process while we trash the rest
+                    //if the buffer becomes too empty, we will escape and try again on the next call
+                    alignErrorCounter2++; //increments the counter whenever a byte is trashed
+                    if (serial_available2() < 5)
+                        return false;
                 }
-                // if the address matches the a dynamic buffer is created to store the received data
-                //rx_buffer2 = (unsigned char*) malloc(rx_len2 + 1);
-            }
-        }
-    }
-
-    //we get here if we already found the header bytes, the address matched what we know, and now we are byte aligned.
-    if (rx_len2 != 0) {
-
-        //this check is preformed to see if the first data address is a 255, if it is then this packet is an AKNAK
-        if (rx_array_inx2 == 0) {
-            while (!(serial_available2() >= 1));
-            if (255 == serial_peek2()) {
-                CRCcheck2();
-                rx_len2 = 0;
-                rx_array_inx2 = 0;
-                wipeRxBuffer2();
-                //free(rx_buffer2);
-                return receiveData2();
-            }
-        }
-
-
-        while (serial_available2() && rx_array_inx2 <= rx_len2) {
-            rx_buffer2[rx_array_inx2++] = serial_read2();
-        }
-
-        if (rx_len2 == (rx_array_inx2 - 1)) {
-            //seem to have got whole message
-            //last uint8_t is CS
-            calc_CS2 = CRC82(rx_buffer2, rx_len2);
-
-
-
-            if (calc_CS2 == rx_buffer2[rx_array_inx2 - 1]) {//CS good
-
-                // reassembles the data and places it into the receive array according to data address.
-                int r;
-                for (r = 0; r < rx_len2; r = r + 3) {
-                    if (rx_buffer2[r] < maxDataAddress2) {
-                        group2.parts[0] = rx_buffer2[r + 1];
-                        group2.parts[1] = rx_buffer2[r + 2];
-                        receiveArrayAddress2[(rx_buffer2[r])] = group2.integer;
-                    } else {
-                        dataAdressErrorCounter2++;
+                if (serial_read2() == 0x85) {
+                    rx_address2 = serial_read2(); // pulls the address
+                    returnAddress2 = serial_read2(); // pulls where the message came from
+                    rx_len2 = serial_read2(); // pulls the length
+                    //make sure the address received is a match for this module if not throw the packet away
+                    if (rx_address2 != moduleAddress2) {
+                        addressErrorCounter2++; // increments a counter whenever the wrong address is received
+                        //if the address does not match the buffer is flushed for the size of
+                        //the data packet plus one for the CRC
+                        //int u;
+                        //for (u = 0; u <= (rx_len2 + 1); u++) {
+                            serial_read2();
+                        //}
+                        rx_len2 = 0; // reset length
+                        return false;
                     }
+                    // if the address matches the a dynamic buffer is created to store the received data
+                    //rx_buffer2 = (unsigned char*) malloc(rx_len2 + 1);
                 }
+            }
+        }
 
+        //we get here if we already found the header bytes, the address matched what we know, and now we are byte aligned.
+        if (rx_len2 != 0) {
 
-                if (AKNAKsend2) { // if enabled sends an AK
-                    unsigned char holder[3];
-                    holder[0] = 255;
-                    holder[1] = 1;
-                    holder[2] = rx_buffer2[rx_array_inx2 - 1];
-                    unsigned char crcHolder = CRC82(holder, 3);
-                    serial_write2(0x06);
-                    serial_write2(0x85);
-                    serial_write2(returnAddress2);
-                    serial_write2(moduleAddress2);
-                    serial_write2(3);
-                    serial_write2(255);
-                    serial_write2(1);
-                    serial_write2(rx_buffer2[rx_array_inx2 - 1]);
-                    serial_write2(crcHolder);
+            //this check is preformed to see if the first data address is a 255, if it is then this packet is an AKNAK
+            if (rx_array_inx2 == 0) {
+                while (!(serial_available2() >= 1));
+                if (255 == serial_peek2()) {
+                    CRCcheck2();
+                    rx_len2 = 0;
+                    rx_array_inx2 = 0;
+                    wipeRxBuffer2();
+                    //free(rx_buffer2);
+                    return receiveData2();
                 }
+            }
+
+
+            while (serial_available2() && rx_array_inx2 <= rx_len2) {
+                rx_buffer2[rx_array_inx2++] = serial_read2();
+            }
+
+            if (rx_len2 == (rx_array_inx2 - 1)) {
+                //seem to have got whole message
+                //last uint8_t is CS
+                calc_CS2 = CRC82(rx_buffer2, rx_len2);
 
 
 
-                rx_len2 = 0;
-                rx_array_inx2 = 0;
-                wipeRxBuffer2();
-                //free(rx_buffer2);
-                return true;
-            } else {
-                crcErrorCounter2++; //increments the counter every time a crc fails
+                if (calc_CS2 == rx_buffer2[rx_array_inx2 - 1]) {//CS good
 
-                if (AKNAKsend2) { // if enabled sends NAK
-                    unsigned char holder[3];
-                    holder[0] = 255;
-                    holder[1] = 2;
-                    holder[2] = rx_buffer2[rx_array_inx2 - 1];
-                    unsigned char crcHolder = CRC82(holder, 3);
-                    serial_write2(0x06);
-                    serial_write2(0x85);
-                    serial_write2(returnAddress2);
-                    serial_write2(moduleAddress2);
-                    serial_write2(3);
-                    serial_write2(255);
-                    serial_write2(2);
-                    serial_write2(rx_buffer2[rx_array_inx2 - 1]);
-                    serial_write2(crcHolder);
+                    // reassembles the data and places it into the receive array according to data address.
+                    int r;
+                    for (r = 0; r < rx_len2; r = r + 3) {
+                        if (rx_buffer2[r] < maxDataAddress2) {
+                            group2.parts[0] = rx_buffer2[r + 1];
+                            group2.parts[1] = rx_buffer2[r + 2];
+                            receiveArrayAddress2[(rx_buffer2[r])] = group2.integer;
+                        } else {
+                            dataAdressErrorCounter2++;
+                        }
+                    }
+
+
+                    if (AKNAKsend2) { // if enabled sends an AK
+                        unsigned char holder[3];
+                        holder[0] = 255;
+                        holder[1] = 1;
+                        holder[2] = rx_buffer2[rx_array_inx2 - 1];
+                        unsigned char crcHolder = CRC82(holder, 3);
+                        serial_write2(0x06);
+                        serial_write2(0x85);
+                        serial_write2(returnAddress2);
+                        serial_write2(moduleAddress2);
+                        serial_write2(3);
+                        serial_write2(255);
+                        serial_write2(1);
+                        serial_write2(rx_buffer2[rx_array_inx2 - 1]);
+                        serial_write2(crcHolder);
+                    }
+
+
+
+                    rx_len2 = 0;
+                    rx_array_inx2 = 0;
+                    wipeRxBuffer2();
+                    //free(rx_buffer2);
+                    return true;
+                } else {
+                    crcErrorCounter2++; //increments the counter every time a crc fails
+
+                    if (AKNAKsend2) { // if enabled sends NAK
+                        unsigned char holder[3];
+                        holder[0] = 255;
+                        holder[1] = 2;
+                        holder[2] = rx_buffer2[rx_array_inx2 - 1];
+                        unsigned char crcHolder = CRC82(holder, 3);
+                        serial_write2(0x06);
+                        serial_write2(0x85);
+                        serial_write2(returnAddress2);
+                        serial_write2(moduleAddress2);
+                        serial_write2(3);
+                        serial_write2(255);
+                        serial_write2(2);
+                        serial_write2(rx_buffer2[rx_array_inx2 - 1]);
+                        serial_write2(crcHolder);
+                    }
+
+                    //failed checksum, need to clear this out
+                    rx_len2 = 0;
+                    rx_array_inx2 = 0;
+                    wipeRxBuffer2();
+                    //free(rx_buffer2);
+                    return false;
                 }
-
-                //failed checksum, need to clear this out
-                rx_len2 = 0;
-                rx_array_inx2 = 0;
-                wipeRxBuffer2();
-                //free(rx_buffer2);
-                return false;
             }
         }
     }
-
-
+    else{
+        return serial_available2();
+    }
     return false;
 }
 

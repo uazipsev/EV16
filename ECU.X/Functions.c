@@ -111,7 +111,7 @@ void ledDebug(){
             INDICATOR ^= 1;
            // HORN_EN ^=1;
            // BRAKELT ^= 1;
-           // SS_RELAY ^= 1;
+            SS_RELAY ^= 1;
             time = 0;
         }
     }
