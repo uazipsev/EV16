@@ -35,12 +35,16 @@ enum debugStates {
     extern unsigned int throttle1, throttle2, brake;
     extern void handleDebugRequests();
     extern volatile unsigned int DebugTimer;
-    extern void Send_put2(unsigned char _data);
-    extern void sendData2(unsigned char whereToSend);
-    extern bool receiveData2();
-    extern void ToSend2(const unsigned char where, const unsigned int what);
+//    extern void Send_put2(unsigned char _data);
+//    extern void sendData2(unsigned char whereToSend);
+//    extern bool receiveData2();
+//    extern void ToSend2(const unsigned char where, const unsigned int what);
 extern int getstate();
 extern int getstatefault();
+
+void ClearScreen();
+
+void MenuePrint(char Menuloc, char Subloc);
 
 
 #ifdef	__cplusplus

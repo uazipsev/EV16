@@ -90,7 +90,7 @@ void sendData2(unsigned char whereToSend) {
 
 }
 
-bool receiveData2() {
+char receiveData2() {
     if(!CLI){
         //start off by looking for the header bytes. If they were already found in a previous call, skip it.
         if (rx_len2 == 0) {
@@ -224,11 +224,11 @@ bool receiveData2() {
                 }
             }
         }
+        return false;
     }
     else{
         return serial_available2();
     }
-    return false;
 }
 
 

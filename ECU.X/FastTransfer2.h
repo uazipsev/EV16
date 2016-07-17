@@ -26,7 +26,7 @@ extern "C" {
     //PUBLIC METHODS/VARIABLES HERE
     void begin2(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
     void sendData2(unsigned char whereToSend);
-    bool receiveData2(void);
+    char receiveData2(void);
     void ToSend2(const unsigned char where, const unsigned int what);
 
     volatile int receiveArray2[20];

@@ -15,6 +15,27 @@
 #define ON         0
 #define OFF        1
 
+volatile bool Transmit_stall2 = true;
+
+struct UART2_ring_buff {
+    unsigned char buf[UART_BUFFER_SIZE];
+    int head;
+    int tail;
+    int count;
+};
+
+struct UART2_ring_buff input_buffer2;
+struct UART2_ring_buff output_buffer2;
+
+void UART2_buff_init(struct UART2_ring_buff* _this);
+void UART2_buff_put(struct UART2_ring_buff* _this, const unsigned char c);
+unsigned char UART2_buff_get(struct UART2_ring_buff* _this);
+void UART2_buff_flush(struct UART2_ring_buff* _this, const int clearBuffer);
+int UART2_buff_size(struct UART2_ring_buff* _this);
+unsigned int UART2_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
+unsigned char UART2_buff_peek(struct UART2_ring_buff* _this);
+
+
 void UART2_init(void) {
     // UART config
     U3MODEbits.STSEL = 0; // 1-stop bit

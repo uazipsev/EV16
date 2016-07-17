@@ -3,6 +3,7 @@
 #include "ADDRESSING.h"
 #include "SlaveAddressing.h"
 #include "Functions.h"
+#include "UART2.h"
 
 #include <errno.h>
 
@@ -49,6 +50,18 @@ extern int milliVolts[NUMSLAVES][BATTPERSLAVE];
 extern int temps[NUMSLAVES][BATTPERSLAVE];
 extern int current1, current2, bigVolts;
 void handleDebugRequests();
+
+bool VerboseEn = 1;
+
+bool Menudisplay = 0;
+bool FunctionDataGrab = 0;
+char DataIn = 0;
+int Menu = 0;
+int SubMenu = 0;
+bool FuncIn = 0;
+bool SubMenuActive = false;
+
+int NumOfMenu[7] = {5,3,3,2};
 
 int write(int handle, void *buffer, unsigned int len) {
     int i;
@@ -127,10 +140,10 @@ void handleDebugRequests() {
                     //comms.BMM_SEND = BATTERY_TEMPS;
                     batterySlaveNumber = 0;
                 }
-//                printf("\n----Slave #%d Bat Temp Info---- \n", batterySlaveNumber + 1);
-//                printf("B1: %dF B2:  %dF B3:  %dF B4:  %dF\n", temps[batterySlaveNumber][0], temps[batterySlaveNumber][1], temps[batterySlaveNumber][2], temps[batterySlaveNumber][3]);
-//                printf("B5: %dF B6:  %dF B7:  %dF B8:  %dF\n", temps[batterySlaveNumber][4], temps[batterySlaveNumber][5], temps[batterySlaveNumber][6], temps[batterySlaveNumber][7]);
-//                printf("B9: %dF B10: %dF                  \n", temps[batterySlaveNumber][8], temps[batterySlaveNumber][9]);
+                printf("\n----Slave #%d Bat Temp Info---- \n", batterySlaveNumber + 1);
+                printf("B1: %dF B2:  %dF B3:  %dF B4:  %dF\n", temps[batterySlaveNumber][0], temps[batterySlaveNumber][1], temps[batterySlaveNumber][2], temps[batterySlaveNumber][3]);
+                printf("B5: %dF B6:  %dF B7:  %dF B8:  %dF\n", temps[batterySlaveNumber][4], temps[batterySlaveNumber][5], temps[batterySlaveNumber][6], temps[batterySlaveNumber][7]);
+                printf("B9: %dF B10: %dF                  \n", temps[batterySlaveNumber][8], temps[batterySlaveNumber][9]);
 //                if (batterySlaveNumber < NUMSLAVES - 1) batterySlaveNumber++;
 //                else batterySlaveNumber = 0;
 
@@ -141,14 +154,14 @@ void handleDebugRequests() {
                     lastDebugState = debugState;
                     //comms.BMM_SEND = BATTERY_POWER;
                 }
-//                printf("\n----BMM Power Signal Debug----\n");
-//                printf("BMMADC[0]:      %d\n", BMMADC[0]);
-//                printf("BMMADC[1]:      %d\n", BMMADC[1]);
-//                printf("BMMADC[2]:      %d\n", BMMADC[2]);
-//                printf("BMMADC[3]:      %d\n", BMMADC[3]);
-//                //                printf("Current Pack 1:  %d\n", current1);
-//                //                printf("Current Pack 2:  %d\n", current2);
-//                //                printf("HV pack voltage: %d\n", bigVolts);
+                printf("\n----BMM Power Signal Debug----\n");
+//              printf("BMMADC[0]:      %d\n", BMMADC[0]);
+//              printf("BMMADC[1]:      %d\n", BMMADC[1]);
+//              printf("BMMADC[2]:      %d\n", BMMADC[2]);
+//              printf("BMMADC[3]:      %d\n", BMMADC[3]);
+                printf("Current Pack 1:  %d\n", current1);
+                printf("Current Pack 2:  %d\n", current2);
+                printf("Current Pack 3:  %d\n", current2);
                 break;
             case FAULT_RECOVERY:
                 //This is the first time through the loop
@@ -255,16 +268,190 @@ void handleDebugRequests() {
                     printf("Button %d : %d", i,buttonArray[i]);
                 }
                 break;
+                
+        }
+        if(Menudisplay){
+            ClearScreen();
+            MenuePrint(Menu,SubMenu);
         }
         DebugTimer = 0;
     }
     //Generic packet format is
     //[0x06 0x85 0x01 0x09 0x03 0x00 0x01 0x00 0xC4]
-    if (receiveData2()) {
-        //          sendData2(DEBUG_ADDRESS);     ToSend2(RESPONSE_ADDRESS, ECU_ADDRESS);
-        //
-        if (debugState < NUM_DEBUG_STATES - 1)
-            debugState++;
-        else debugState = 0;
+    if (Receive_available2()) {
+        if(!FunctionDataGrab){
+            DataIn = Receive_get2();
+            if(VerboseEn){
+                printf("%c",DataIn);
+            }
+            if(DataIn == 'b'){      
+                debugState = NO_DEBUG;
+                if((SubMenuActive == true) && (SubMenu > 0)){
+                    SubMenu = 0;
+                    printf("back 1");
+                    //SubMenuActive = false;
+                }
+                else if((SubMenuActive == true) && (SubMenu == 0)){
+                    SubMenuActive = false;
+                    printf("back 2");
+                    Menu = 0;
+                }
+
+            }
+            else if(SubMenuActive == false){
+                Menu = DataIn - 48;
+            }
+            else if(SubMenuActive == true){
+                SubMenu = DataIn - 48; 
+            }
+            Menudisplay = 1;
+        }
     }
+}
+
+void MenuePrint(char Menuloc, char Subloc){
+    switch (Menuloc){
+        case 0: 
+          printf("|-----Main Menu------| \n");
+          printf("1) Throttle Menu\n");
+          printf("2) Brake Menu\n");
+          printf("3) Settings Menu\n");
+          printf("4) Battery Info\n");
+          printf("5) ComBus Info\n");
+          printf("6) Driver Config\n");
+          break;
+       case 1:
+          TrottleMenu(Subloc);
+          break;
+       case 2:
+          BrakeMenu(Subloc);
+          break;   
+       case 3:
+          SettingMenu(Subloc);
+          break;
+       case 4:
+          BatteryMenu(Subloc);
+          break;
+       case 5:
+          ComMenu(Subloc);
+          break;
+       case 6:
+          DriverMenu(Subloc);
+          break;
+       default:
+          printf("******NO Match*****\n");
+          break;
+    }
+    Menudisplay = 0;
+}
+
+void TrottleMenu(char menuitem){
+    SubMenuActive = true;
+    printf("|---Throttle Menu----|\n");
+    printf("1) Throttle Display\n");
+    printf("2) Throttle Max Set\n");
+    printf("3) Throttle Min Set\n");
+    if(menuitem == 1){
+        debugState = THROTTLE_BRAKE;
+    }
+    else if(menuitem == 2){
+        debugState = NO_DEBUG;
+    }
+    else if(menuitem == 3){
+        
+    }
+}
+
+void BrakeMenu(char menuitem){
+    SubMenuActive = true;
+    printf("|-----Brake Menu-----|\n");
+    printf("1) Brake Display\n");
+    printf("2) Brake Max Set\n");
+    printf("3) Brake Min Set\n");
+    if(menuitem == 1){
+        debugState = THROTTLE_BRAKE;
+    }
+    else if(menuitem == 2){
+        debugState = NO_DEBUG;
+    }
+    else if(menuitem == 3){
+        
+    }
+}
+
+void SettingMenu(char menuitem){
+    SubMenuActive = true;
+    printf("|---Settings Menu----|\n");
+    printf("1) Verbose\n");
+    printf("2) Reset Value\n");
+    if(menuitem == 1){
+        VerboseEn != VerboseEn;
+        SubMenu = 0;
+    }
+    else if(menuitem == 2){
+        printf("The reset value is %d\n", GetResetValue());
+        SubMenu = 0;
+    }
+}
+
+void BatteryMenu(char menuitem){
+    SubMenuActive = true;
+    printf("|---Battery Info---|\n");
+    printf("1) Voltage\n");
+    printf("2) Current\n");
+    printf("3) Temp\n");
+    printf("4) Sat's\n");
+    if(menuitem == 1){
+        debugState = BATTERY_DEBUG_VOLTS;
+    }
+    else if(menuitem == 2){
+        debugState = BATTERY_DEBUG_POWER;
+    }
+    else if(menuitem == 3){
+        debugState = BATTERY_DEBUG_TEMPS;
+    }
+    else if(menuitem == 4){
+        printf("Battery state\n");
+    }
+}
+
+void ComMenu(char menuitem){
+    SubMenuActive = true;
+    printf("|---ComBus Info---|\n");
+    printf("1) Boards On\n");
+    printf("2) Error Rate\n");
+    printf("3) Data Rate\n");
+    if(menuitem == 1){
+        debugState = comm_on;
+    }
+    else if(menuitem == 2){
+    
+    }
+    else if(menuitem == 3){
+        
+    }
+}
+
+void DriverMenu(char menuitem){
+    SubMenuActive = true;
+    printf("|---Driver Config---|\n");
+    printf("1) Driver Select\n");
+    printf("2) Driver Config\n");
+    if(menuitem == 1){
+        printf("|---Driver List---|\n");
+        printf("1) Driver 1 - Nate A.\n");
+        printf("2) Driver 2 - Joey D.\n");
+        printf("3) Driver 3 - Andrew E.\n");
+        printf("4) Driver 4 - Ben B.\n");
+        printf("5) Driver 5 - Trevin H.\n");
+    }
+    else if(menuitem == 2){
+        
+    }
+}
+
+void ClearScreen()
+{
+  printf("\033[2J");
+  printf("\033[H");
 }

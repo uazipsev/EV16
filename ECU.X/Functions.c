@@ -63,7 +63,7 @@ void Setup(void) {
 
     begin(receiveArray, sizeof (receiveArray), ECU_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
     begin1(receiveArray1, sizeof (receiveArray1), ECU_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);
-    begin2(receiveArray2, sizeof (receiveArray2), ECU_ADDRESS, false, Send_put2, Receive_get2, Receive_available2, Receive_peek2);
+    //begin2(receiveArray2, sizeof (receiveArray2), ECU_ADDRESS, false, Send_put2, Receive_get2, Receive_available2, Receive_peek2);
     begin3(receiveArray3, sizeof (receiveArray3), ECU_ADDRESS, false, Send_put3, Receive_get3, Receive_available3, Receive_peek3);
 
     //PWM_Init();
