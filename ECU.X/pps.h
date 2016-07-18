@@ -588,7 +588,7 @@
 
 #endif
 
-#define OUT_PIN_PPS_RP20			RPOR0bits.RP20R		/* Assign RP20 as Output Pin */
+//#define OUT_PIN_PPS_RP20			RPOR0bits.RP20R		/* Assign RP20 as Output Pin */
 #define OUT_PIN_PPS_RP35			RPOR0bits.RP35R		/* Assign RP35 as Output Pin */
 #define OUT_PIN_PPS_RP36			RPOR1bits.RP36R		/* Assign RP36 as Output Pin */
 #define OUT_PIN_PPS_RP37			RPOR1bits.RP37R		/* Assign RP37 as Output Pin */

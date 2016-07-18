@@ -4,6 +4,7 @@
 #include "debug.h"
 #include "horn.h"
 #include "SlaveAddressing.h"
+#include <stdio.h>
 
 struct powerStates {
     bool DDS;
@@ -137,6 +138,13 @@ bool easterEggs() {
 }
 
 void Display(){
+    printf("\n"); 
+    printf("**************************\n");
+    printf("*  Software written By:  *\n");
+    printf("*   Andrew Thornborough  *\n");
+    printf("*     Richard Johnson    *\n");
+    printf("*       Zac Kilburn      *\n");
+    printf("**************************\n");
     printf("\n"); 
     printf("    .-.    \n");                                     
     printf(".  (/^\\)  \n");   

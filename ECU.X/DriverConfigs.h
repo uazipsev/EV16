@@ -8,7 +8,9 @@
 #ifndef DRIVERCONFIGS_H
 #define	DRIVERCONFIGS_H
 
-void SetDriver(char data);
+void SetDriver(char num);
+int DriverCount();
+char *DriverName(int num);
 
 #endif	/* DRIVERCONFIGS_H */
 

@@ -16,6 +16,7 @@
     #include "StateMachine.h"
     #include "Functions.h"
     #include "horn.h"
+    #include "debug.h"
 
     extern void updateComms();
 

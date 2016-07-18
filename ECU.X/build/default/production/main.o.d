@@ -5,4 +5,6 @@ ADDRESSING.h  \
  StateMachine.h  \
 Functions.h  \
 horn.h  \
+debug.h  \
+DriverConfigs.h  \
 PinDef.h 

@@ -6,6 +6,9 @@ bool receiveCommSAS();
 bool requestSASData();
 bool readyToSendSAS = true;
 bool SAS_COMMS_ERROR = false;
+
+int ThrottlePrecent;
+
 #define THROTTLE_SANITY_CHECK 1
 #define THROTTLE_BRAKE_CHECK  2
 void debugSAS() {
@@ -46,7 +49,7 @@ bool checkSASInputs(unsigned int t1, unsigned int t2, unsigned int b) {
     bRaw = b;
 
     //throttle consistency check
-//        if (!(((t1*1.45) > t2) && ((t1 *0.45) < t2))) {
+//        if (!(((t1*(ThrottlePrecent\100)) > t2) && ((t1 *((ThrottlePrecent\100)-1)) < t2))) {
 //            SAS_FAULT_CONDITION = THROTTLE_SANITY_CHECK; // TODO: This is erroring out - need filtering!
 //            return false;
 //        }
@@ -94,3 +97,4 @@ bool receiveCommSAS() {
         } else return false;
     } else return false;
 }
+

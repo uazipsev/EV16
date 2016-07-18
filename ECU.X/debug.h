@@ -30,7 +30,7 @@ enum debugStates {
 };
 
     extern unsigned int throttle1, throttle2, brake;
-    extern void handleDebugRequests();
+void handleDebugRequests();
     extern volatile unsigned int DebugTimer;
 //    extern void Send_put2(unsigned char _data);
 //    extern void sendData2(unsigned char whereToSend);
@@ -38,8 +38,15 @@ enum debugStates {
 //    extern void ToSend2(const unsigned char where, const unsigned int what);
 extern int getstate();
 extern int getstatefault();
-
+void ThrottleMenu(char menuitem);
+void BrakeMenu(char menuitem);
+void SettingMenu(char menuitem);
+void BatteryMenu(char menuitem);
+void ComMenu(char menuitem);
+void DriverMenu(char menuitem);
+void SelectDriver();
 void ClearScreen();
+void SetBrakeLightValue();
 
 void MenuePrint(char Menuloc, char Subloc);
 

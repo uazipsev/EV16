@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "Functions.h"
+#include "EEprom.h"
 
 #define BRAKE_LIGHT_THRESHOLD 21
 
@@ -67,6 +68,7 @@ void Setup(void) {
     begin3(receiveArray3, sizeof (receiveArray3), ECU_ADDRESS, false, Send_put3, Receive_get3, Receive_available3, Receive_peek3);
 
     //PWM_Init();
+    EEpromInit();
     initTimerOne();
 }
 

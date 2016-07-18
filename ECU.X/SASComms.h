@@ -8,9 +8,6 @@
 #ifndef SASCOMMS_H
 #define	SASCOMMS_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
 
 #include "ADDRESSING.h"
 #include <stdbool.h>
@@ -36,9 +33,6 @@ extern int SAS_FAULT_CONDITION;
     bool checkSASInputs(unsigned int t1, unsigned int t2, unsigned int b);
     void debugSAS();
 
-#ifdef	__cplusplus
-}
-#endif
 
 #endif	/* SASCOMMS_H */
 

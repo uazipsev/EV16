@@ -107,7 +107,7 @@ void updateECUState() {
             if (seekButtonChange()) {
                 if (!buttonArray[DDS_START_BUTTON]) {
                     changeLEDState(DDS_ACTIVE_LED, buttonArray[DDS_START_BUTTON]);
-                    currentState == stopped;
+                    currentState = stopped;
                 }
             }
             //Wait for complete or for timeout

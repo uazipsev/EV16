@@ -3,4 +3,5 @@ Functions.c  \
 pps.h  \
 PinDef.h  \
  ADDRESSING.h  \
-Functions.h 
+Functions.h  \
+EEprom.h 

@@ -17,7 +17,7 @@
 #define THROTTLE_SANITY_CHECK 1
 #define THROTTLE_BRAKE_CHECK  2
 
-float augment[10] = {0.01,-0.04,0.02,0.04,-0.05,0};
+double augment[10] = {0.01,-0.04,0.02,0.04,-0.05,0};
 int k = 0;
 
 enum BMM {
@@ -41,8 +41,8 @@ struct commsStates {
 };
 extern struct commsStates comms;
  extern unsigned int t1Raw, t2Raw, bRaw;
-               extern int State_Value =0;
-               extern int StateFault_Value=0;
+               int State_Value =0;
+               int StateFault_Value=0;
 enum debugStates debugState;
 extern int DDS_FAULT_CONDITION, MCS_FAULT_CONDITION, SAS_FAULT_CONDITION, BMM_FAULT_CONDITION, PDU_FAULT_CONDITION, ECU_FAULT_CONDITION;
 extern int faultingBattery;
@@ -278,8 +278,7 @@ void handleDebugRequests() {
         }
         DebugTimer = 0;
     }
-    //Generic packet format is
-    //[0x06 0x85 0x01 0x09 0x03 0x00 0x01 0x00 0xC4]
+
     if (Receive_available2()) {
         if(!FunctionDataGrab){
             DataIn = Receive_get2();
@@ -290,12 +289,10 @@ void handleDebugRequests() {
                 debugState = NO_DEBUG;
                 if((SubMenuActive == true) && (SubMenu > 0)){
                     SubMenu = 0;
-                    printf("back 1");
                     //SubMenuActive = false;
                 }
                 else if((SubMenuActive == true) && (SubMenu == 0)){
                     SubMenuActive = false;
-                    printf("back 2");
                     Menu = 0;
                 }
 
@@ -309,8 +306,55 @@ void handleDebugRequests() {
             Menudisplay = 1;
         }
         if(FunctionDataGrab){
+            //Driver Setting
             if(FunctionDataGrab == 4){
-                DataHold[i++] = Receive_get2();
+                DataHold[i] = Receive_get2();
+                i++;
+                if(i>1){
+                    SelectDriver();
+                    FunctionDataGrab = false;
+                    i = 0;
+                }
+            }
+            //Throttle Precent
+            if(FunctionDataGrab == 1){
+                DataHold[i] = Receive_get2();
+                i++;
+                if(i>1){
+                    SelectDriver();
+                    FunctionDataGrab = false;
+                    i = 0;
+                }
+            }
+            //Throttle Setpoint
+            if(FunctionDataGrab == 2){
+                DataHold[i] = Receive_get2();
+                i++;
+                if(i>1){
+                    SelectDriver();
+                    FunctionDataGrab = false;
+                    i = 0;
+                }
+            }
+            //Brake Setpoint
+            if(FunctionDataGrab == 3){
+                DataHold[i] = Receive_get2();
+                i++;
+                if(i>1){
+                    SelectDriver();
+                    FunctionDataGrab = false;
+                    i = 0;
+                }
+            }
+            //Brake Light Setpoint
+            if(FunctionDataGrab == 5){
+                DataHold[i] = Receive_get2();
+                i++;
+                if(i>2){
+                    SelectDriver();
+                    FunctionDataGrab = false;
+                    i = 0;
+                }
             }
         }
     }
@@ -328,7 +372,7 @@ void MenuePrint(char Menuloc, char Subloc){
           printf("6) Driver Config\n");
           break;
        case 1:
-          TrottleMenu(Subloc);
+          ThrottleMenu(Subloc);
           break;
        case 2:
           BrakeMenu(Subloc);
@@ -352,20 +396,20 @@ void MenuePrint(char Menuloc, char Subloc){
     Menudisplay = 0;
 }
 
-void TrottleMenu(char menuitem){
+void ThrottleMenu(char menuitem){
     SubMenuActive = true;
     printf("|---Throttle Menu----|\n");
     printf("1) Throttle Display\n");
-    printf("2) Throttle Max Set\n");
-    printf("3) Throttle Min Set\n");
+    printf("2) Throttle Trip Set\n");
+    printf("3) Throttle Mismatch\n");
     if(menuitem == 1){
         debugState = THROTTLE_BRAKE;
     }
     else if(menuitem == 2){
-        debugState = NO_DEBUG;
+        FunctionDataGrab = 1;
     }
     else if(menuitem == 3){
-        
+        FunctionDataGrab = 2;
     }
 }
 
@@ -374,15 +418,11 @@ void BrakeMenu(char menuitem){
     printf("|-----Brake Menu-----|\n");
     printf("1) Brake Display\n");
     printf("2) Brake Max Set\n");
-    printf("3) Brake Min Set\n");
     if(menuitem == 1){
         debugState = THROTTLE_BRAKE;
     }
     else if(menuitem == 2){
-        debugState = NO_DEBUG;
-    }
-    else if(menuitem == 3){
-        
+        FunctionDataGrab = 3;
     }
 }
 
@@ -392,8 +432,9 @@ void SettingMenu(char menuitem){
     printf("1) Verbose\n");
     printf("2) Reset Value\n");
     printf("3) About");
+    printf("4) Brake Light Threshold");
     if(menuitem == 1){
-        VerboseEn != VerboseEn;
+        VerboseEn ^= VerboseEn;
         SubMenu = 0;
     }
     else if(menuitem == 2){
@@ -401,7 +442,13 @@ void SettingMenu(char menuitem){
         SubMenu = 0;
     }
     else if(menuitem == 3){
+        ClearScreen();
         Display();
+        SubMenu = 0;      
+    }
+    else if(menuitem == 4){
+        ClearScreen();
+        SetBrakeLightValue();
         SubMenu = 0;      
     }
 }
@@ -424,6 +471,8 @@ void BatteryMenu(char menuitem){
     }
     else if(menuitem == 4){
         printf("Battery state\n");
+        printf("- Boards OK\n");
+        printf("- Comm's UP\n");
     }
 }
 
@@ -451,21 +500,33 @@ void DriverMenu(char menuitem){
     printf("2) Driver Config\n");
     if(menuitem == 1){
         printf("|---Driver List---|\n");
-        printf("1) Driver 1 - Nate A.\n");
-        printf("2) Driver 2 - Joey D.\n");
-        printf("3) Driver 3 - Andrew E.\n");
-        printf("4) Driver 4 - Ben B.\n");
-        printf("5) Driver 5 - Trevin H.\n");
+        int i;
+        for(i = 1;i < DriverCount();i++){
+            printf("%d) Driver %d - %s\n",i,i,DriverName(i));
+        }
         FunctionDataGrab = 4;
-        
     }
     else if(menuitem == 2){
-        
+        printf("|--Select a Driver--|\n");
+        printf("|-----To Config-----|\n");
+        int i;
+        for(i = 1;i < DriverCount();i++){
+            printf("%d) Driver %d - %s\n",i,i,DriverName(i));
+        }
+        FunctionDataGrab = 5;
     }
 }
 
 void SelectDriver(){
-    SetDriver(DataHold[0]);
+    ClearScreen();
+    SetDriver(DataHold[0]-48);
+    SubMenu = 0;
+}
+
+void SetBrakeLightValue(){
+    printf("|--Brake Light Threshold--|");
+    printf("|---Give the value as  ---|");
+    printf("|---------0 to 100--------|");
 }
 
 void ClearScreen()
