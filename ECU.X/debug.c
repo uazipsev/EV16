@@ -4,6 +4,7 @@
 #include "SlaveAddressing.h"
 #include "Functions.h"
 #include "UART2.h"
+#include "StoppedState.h"
 
 #include <errno.h>
 
@@ -54,14 +55,15 @@ void handleDebugRequests();
 bool VerboseEn = 1;
 
 bool Menudisplay = 0;
-bool FunctionDataGrab = 0;
+char FunctionDataGrab = 0;
 char DataIn = 0;
 int Menu = 0;
+int i = 0;
 int SubMenu = 0;
 bool FuncIn = 0;
 bool SubMenuActive = false;
 
-int NumOfMenu[7] = {5,3,3,2};
+char DataHold[10];
 
 int write(int handle, void *buffer, unsigned int len) {
     int i;
@@ -306,6 +308,11 @@ void handleDebugRequests() {
             }
             Menudisplay = 1;
         }
+        if(FunctionDataGrab){
+            if(FunctionDataGrab == 4){
+                DataHold[i++] = Receive_get2();
+            }
+        }
     }
 }
 
@@ -384,6 +391,7 @@ void SettingMenu(char menuitem){
     printf("|---Settings Menu----|\n");
     printf("1) Verbose\n");
     printf("2) Reset Value\n");
+    printf("3) About");
     if(menuitem == 1){
         VerboseEn != VerboseEn;
         SubMenu = 0;
@@ -391,6 +399,10 @@ void SettingMenu(char menuitem){
     else if(menuitem == 2){
         printf("The reset value is %d\n", GetResetValue());
         SubMenu = 0;
+    }
+    else if(menuitem == 3){
+        Display();
+        SubMenu = 0;      
     }
 }
 
@@ -444,10 +456,16 @@ void DriverMenu(char menuitem){
         printf("3) Driver 3 - Andrew E.\n");
         printf("4) Driver 4 - Ben B.\n");
         printf("5) Driver 5 - Trevin H.\n");
+        FunctionDataGrab = 4;
+        
     }
     else if(menuitem == 2){
         
     }
+}
+
+void SelectDriver(){
+    SetDriver(DataHold[0]);
 }
 
 void ClearScreen()

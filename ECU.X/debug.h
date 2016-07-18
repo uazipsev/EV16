@@ -8,12 +8,9 @@
 #ifndef DEBUG_H
 #define	DEBUG_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
-
 #include <xc.h>
 #include <stdbool.h>
+#include "DriverConfigs.h"
     
 extern int buttonArray[8];
 
@@ -45,11 +42,6 @@ extern int getstatefault();
 void ClearScreen();
 
 void MenuePrint(char Menuloc, char Subloc);
-
-
-#ifdef	__cplusplus
-}
-#endif
 
 #endif	/* DEBUG_H */
 

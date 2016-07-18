@@ -135,3 +135,19 @@ bool easterEggs() {
     return false;
 
 }
+
+void Display(){
+    printf("\n"); 
+    printf("    .-.    \n");                                     
+    printf(".  (/^\\)  \n");   
+    printf(".  (\\ /)  \n");                                       
+    printf(".  .-'-.   \n");                                       
+    printf(". /(_I_)\\ \n");                                     
+    printf(". \\ ) ( /   \n");                                    
+    printf(".  /   \\  \n");                                     
+    printf(".  \\ | /   \n");                                      
+    printf(".   \\|/     \n");                                     
+    printf(".   /|\\    \n");                                     
+    printf(".   \\|/     \n");                                     
+    printf(".   /Y      \n");  
+}
