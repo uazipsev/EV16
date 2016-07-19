@@ -29,7 +29,7 @@ void InitI2C(void)
     TRISBbits.TRISB8 = 1;
     TRISBbits.TRISB9 = 1;
 
-	I2C2BRG = 0x0258; 
+	I2C2BRG = 0x0175; 
 
 	//Now we will initialise the I2C peripheral for Master Mode, No Slew Rate
 	//Control, and leave the peripheral switched off.

@@ -1,6 +1,8 @@
 #include "I2C.h"
 #include "EEprom.h"
 
+#define ADDRESS 0xA0
+
 void EEpromInit(){
     InitI2C();
 }
@@ -49,13 +51,12 @@ int readRegister(char i2cAddress, char reg)
 }
 
 
-int ReadCarDriver(){
-    
-    return 0;
+char ReadCarDriver(){
+    return readRegister(ADDRESS, 0);
 }
 
-void SetCarDriver(int value){
-    
+void SaveCarDriver(char value){
+    writeRegister(ADDRESS, 0,value);
 }
 
 int ReadThrottlePrecent(){
@@ -63,7 +64,7 @@ int ReadThrottlePrecent(){
     return 0;
 }
 
-void SetThrottlePrecent(int value){
+void SaveThrottlePrecent(int value){
     
 }
 
@@ -72,7 +73,7 @@ int ReadThrottleTrigger(){
     return 0;
 }
 
-void SetThrottleTrigger(int value){
+void SaveThrottleTrigger(int value){
     
 }
 
@@ -81,7 +82,7 @@ int ReadBrakeTrigger(){
     return 0;
 }
 
-void SetBrakeTrigger(int value){
+void SaveBrakeTrigger(int value){
     
 }
 
@@ -90,6 +91,6 @@ int ReadBrakeLightTrigger(){
     return 0;
 }
 
-void SetBrakeLightTrigger(int value){
+void SaveBrakeLightTrigger(int value){
     
 }

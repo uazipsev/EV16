@@ -6,4 +6,5 @@ DriverConfigs.h  \
 SlaveAddressing.h  \
 Functions.h  \
 UART2.h  \
-StoppedState.h 
+StoppedState.h  \
+ EEprom.h 

@@ -5,6 +5,7 @@
 #include "Functions.h"
 #include "UART2.h"
 #include "StoppedState.h"
+#include "EEprom.h"
 
 #include <errno.h>
 
@@ -498,6 +499,7 @@ void DriverMenu(char menuitem){
     printf("|---Driver Config---|\n");
     printf("1) Driver Select\n");
     printf("2) Driver Config\n");
+    printf("------%s IS ACTIVE-------",DriverName(ReadCarDriver()));
     if(menuitem == 1){
         printf("|---Driver List---|\n");
         int i;
