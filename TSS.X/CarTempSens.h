@@ -8,9 +8,9 @@
 #ifndef CARTEMPSENS_H
 #define	CARTEMPSENS_H
 
-extern void TempInit();
-extern void TempCalc(int x);
-extern int TempGet(int x);
+void TempInit();
+char TempCalc(int x);
+int TempGet(int x);
 
 
 

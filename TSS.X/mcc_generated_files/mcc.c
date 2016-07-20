@@ -117,7 +117,6 @@ void SYSTEM_Initialize(void) {
     TMR1_Initialize();
     ECCP1_Initialize();
     ECCP2_Initialize();
-    I2C1_Initialize();
     TMR2_Initialize();
     ADC_Initialize();
 }

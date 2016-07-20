@@ -38,15 +38,16 @@ void TempInit() {
  * @note            Get ADC then convert
  *******************************************************************/
 
-void TempCalc(int x){
+char TempCalc(int x){
     if(x == 1){
         TempOne = ADC_GetConversion(Temp1)/12;
+        return 1; 
     }
     if(x == 2){
         TempTwo = ADC_GetConversion(Temp2)/12;
+        return 1; 
     }
-    //else
-        //return 0;  
+    else return 0;  
 }
 
 /*******************************************************************

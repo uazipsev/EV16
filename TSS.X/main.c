@@ -76,19 +76,7 @@ void main(void) {
     }
 }
 
-/*******************************************************************
- * @brief           Delay
- * @brief           This fcn is used to convert _delay_ms to longer periods of time
- * @return          None
- * @note            the shortest delay is 1mS
- *******************************************************************/
 
-void Delay(int wait) {
-    int x;
-    for (x = 0; x < wait; x++) {
-        __delay_ms(1);
-    }
-}
 /**
  End of File 
  
