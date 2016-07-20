@@ -1,3 +1,9 @@
+/*******************************************************************
+ * @brief           Debug.c
+ * @brief           This lib runs our CLI
+ * @return          N/A
+ * @note            Created by - Zac and Rick Uses data from around the car to display info on the CLI
+ *******************************************************************/
 #include "debug.h"
 #include <stdio.h>
 #include "ADDRESSING.h"
@@ -63,9 +69,15 @@ int i = 0;
 int SubMenu = 0;
 bool FuncIn = 0;
 bool SubMenuActive = false;
-
+int Data = 0;
 char DataHold[10];
 
+/*******************************************************************
+ * @brief           write
+ * @brief           WTF
+ * @return          returns lenth of data
+ * @note            I have no idea what the fuck this is for...may be removed (printf maybe?)
+ *******************************************************************/
 int write(int handle, void *buffer, unsigned int len) {
     int i;
     switch (handle) {
@@ -79,6 +91,13 @@ int write(int handle, void *buffer, unsigned int len) {
     return (len);
 }
 
+/*******************************************************************
+ * @brief           handleDebugRequests
+ * @brief           Handels CLI system data   
+ * @return          N/A
+ * @note            The fcn monitors USART3 for activity and responds.
+ *                  The fcn also sends repeat data for viewing.
+ *******************************************************************/
 void handleDebugRequests() {
     static int lastDebugState = 0;
     static int batterySlaveNumberV;
@@ -275,7 +294,7 @@ void handleDebugRequests() {
         }
         if(Menudisplay){
             ClearScreen();
-            MenuePrint(Menu,SubMenu);
+            MenuPrint(Menu,SubMenu);
         }
         DebugTimer = 0;
     }
@@ -309,50 +328,66 @@ void handleDebugRequests() {
         if(FunctionDataGrab){
             //Driver Setting
             if(FunctionDataGrab == 4){
+                //Get data of the pipe
                 DataHold[i] = Receive_get2();
                 i++;
+                //We are looking for x chars...
                 if(i>1){
-                    SelectDriver();
+                    //Set the data to go to driver menu for config
+                    DriverMenu(3);
+                    //We are done grabbing data off the pipeline
                     FunctionDataGrab = false;
                     i = 0;
                 }
             }
             //Throttle Precent
             if(FunctionDataGrab == 1){
+                //Get data of the pipe
                 DataHold[i] = Receive_get2();
                 i++;
+                //We are looking for x chars...
                 if(i>1){
-                    SelectDriver();
+                    //We are done grabbing data off the pipeline
                     FunctionDataGrab = false;
                     i = 0;
                 }
             }
             //Throttle Setpoint
             if(FunctionDataGrab == 2){
+                //Get data of the pipe
                 DataHold[i] = Receive_get2();
                 i++;
+                //We are looking for x chars...
                 if(i>1){
-                    SelectDriver();
+                    //We are done grabbing data off the pipeline
                     FunctionDataGrab = false;
                     i = 0;
                 }
             }
             //Brake Setpoint
             if(FunctionDataGrab == 3){
+                //Get data of the pipe
                 DataHold[i] = Receive_get2();
                 i++;
+                //We are looking for x chars...
                 if(i>1){
-                    SelectDriver();
+                    //We are done grabbing data off the pipeline
                     FunctionDataGrab = false;
                     i = 0;
                 }
             }
             //Brake Light Setpoint
-            if(FunctionDataGrab == 5){
+            if(FunctionDataGrab == 6){
+                //Get data of the pipe
                 DataHold[i] = Receive_get2();
                 i++;
+                //We are looking for 3 chars...
                 if(i>2){
-                    SelectDriver();
+                    //Get data array to int
+                    sscanf(DataHold, "%d", &Data);
+                    //We have data and are ready to save it to the car
+                    MenuBrakeLightValue(1);
+                    //We are done grabbing data off the pipeline
                     FunctionDataGrab = false;
                     i = 0;
                 }
@@ -361,7 +396,13 @@ void handleDebugRequests() {
     }
 }
 
-void MenuePrint(char Menuloc, char Subloc){
+/*******************************************************************
+ * @brief           MenuPrint
+ * @brief           Menu control  
+ * @return          N/A
+ * @note            The fcn prints the menus and controls submenus
+ *******************************************************************/
+void MenuPrint(char Menuloc, char Subloc){
     switch (Menuloc){
         case 0: 
           printf("|-----Main Menu------| \n");
@@ -397,6 +438,12 @@ void MenuePrint(char Menuloc, char Subloc){
     Menudisplay = 0;
 }
 
+/*******************************************************************
+ * @brief           ThrottleMenu
+ * @brief           Sub Menu throttle
+ * @return          N/A
+ * @note            The fcn prints and control throttle 
+ *******************************************************************/
 void ThrottleMenu(char menuitem){
     SubMenuActive = true;
     printf("|---Throttle Menu----|\n");
@@ -414,6 +461,12 @@ void ThrottleMenu(char menuitem){
     }
 }
 
+/*******************************************************************
+ * @brief           BrakeMenu
+ * @brief           Sub Menu brake
+ * @return          N/A
+ * @note            The fcn prints and control brake 
+ *******************************************************************/
 void BrakeMenu(char menuitem){
     SubMenuActive = true;
     printf("|-----Brake Menu-----|\n");
@@ -427,13 +480,19 @@ void BrakeMenu(char menuitem){
     }
 }
 
+/*******************************************************************
+ * @brief           SettingMenu
+ * @brief           Sub Menu setting
+ * @return          N/A
+ * @note            The fcn prints and control Settings 
+ *******************************************************************/
 void SettingMenu(char menuitem){
     SubMenuActive = true;
     printf("|---Settings Menu----|\n");
     printf("1) Verbose\n");
     printf("2) Reset Value\n");
-    printf("3) About");
-    printf("4) Brake Light Threshold");
+    printf("3) About\n");
+    printf("4) Brake Light Threshold\n");
     if(menuitem == 1){
         VerboseEn ^= VerboseEn;
         SubMenu = 0;
@@ -449,11 +508,17 @@ void SettingMenu(char menuitem){
     }
     else if(menuitem == 4){
         ClearScreen();
-        SetBrakeLightValue();
+        MenuBrakeLightValue(0);
         SubMenu = 0;      
     }
 }
 
+/*******************************************************************
+ * @brief           BatteryMenu
+ * @brief           Sub Menu Battery
+ * @return          N/A
+ * @note            The fcn prints and control Battery 
+ *******************************************************************/
 void BatteryMenu(char menuitem){
     SubMenuActive = true;
     printf("|---Battery Info---|\n");
@@ -477,6 +542,12 @@ void BatteryMenu(char menuitem){
     }
 }
 
+/*******************************************************************
+ * @brief           ComMenu
+ * @brief           Sub Menu Communications
+ * @return          N/A
+ * @note            The fcn prints and control Communications 
+ *******************************************************************/
 void ComMenu(char menuitem){
     SubMenuActive = true;
     printf("|---ComBus Info---|\n");
@@ -494,6 +565,12 @@ void ComMenu(char menuitem){
     }
 }
 
+/*******************************************************************
+ * @brief           DriverMenu
+ * @brief           Sub Menu Driver
+ * @return          N/A
+ * @note            The fcn prints and control Driver stuff 
+ *******************************************************************/
 void DriverMenu(char menuitem){
     SubMenuActive = true;
     printf("|---Driver Config---|\n");
@@ -517,20 +594,38 @@ void DriverMenu(char menuitem){
         }
         FunctionDataGrab = 5;
     }
+    else if(menuitem == 3){
+        ClearScreen();
+        SetDriver(DataHold[0]-48);
+        SubMenu = 0;
+    }
 }
 
-void SelectDriver(){
-    ClearScreen();
-    SetDriver(DataHold[0]-48);
-    SubMenu = 0;
+/*******************************************************************
+ * @brief           MenuBrakeLightValue
+ * @brief           Sub Sub Menu Brake light
+ * @return          N/A
+ * @note            The fcn gets the info to save the brake light trip point 
+ *******************************************************************/
+void MenuBrakeLightValue(char cont){
+    if(cont == 0){
+        printf("|--Brake Light Threshold--|\n");
+        printf("|---Give the value as  ---|\n");
+        printf("|---------0 to 100--------|\n");
+        FunctionDataGrab = 6;
+    }
+    if(cont == 1){
+        SaveBrakeTrigger(Data);
+        printf(" Brake Light Set to %d",Data);
+    }
 }
 
-void SetBrakeLightValue(){
-    printf("|--Brake Light Threshold--|");
-    printf("|---Give the value as  ---|");
-    printf("|---------0 to 100--------|");
-}
-
+/*******************************************************************
+ * @brief           ClearScreen
+ * @brief           ANSI Clear 
+ * @return          N/A
+ * @note            The fcn prints the clear command
+ *******************************************************************/
 void ClearScreen()
 {
   printf("\033[2J");

@@ -138,9 +138,9 @@ bool easterEggs() {
 }
 
 void Display(){
-    printf("\n"); 
+    printf("\n");
     printf("**************************\n");
-    printf("*  Software written By:  *\n");
+    printf("*  Software Written By:  *\n");
     printf("*   Andrew Thornborough  *\n");
     printf("*     Richard Johnson    *\n");
     printf("*       Zac Kilburn      *\n");

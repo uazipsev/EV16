@@ -1,9 +1,9 @@
-/*
- * File:   Functions.c
- * Author: Zac Kilburn
- *
- * Created on May 31, 2015
- */
+/*******************************************************************
+ * @brief           Functions.c
+ * @brief           A catch all for random fcn's for the device
+ * @return          N/A
+ * @note            Author: Zac Kilburn
+ *******************************************************************/
 #include "xc.h"
 #include "pps.h"
 #include "PinDef.h"
@@ -14,11 +14,17 @@
 #include "Functions.h"
 #include "EEprom.h"
 
-#define BRAKE_LIGHT_THRESHOLD 21
+int BrakeLightThreshold = 0;
 
 
 int read= 0;
 
+/*******************************************************************
+ * @brief           Setup
+ * @brief           This sets up the device
+ * @return          N/A
+ * @note            OSSC - USART - I2C - PPS - CONFIGS
+ *******************************************************************/
 void Setup(void) {
 
                   // __C30_UART=2;
@@ -75,8 +81,16 @@ void Setup(void) {
     EEpromInit();
     //This controls the timing system to control communication rates  
     initTimerOne();
+    //This sets up all non constants from external EEPROM 
+    SetUpDataSets();
 }
 
+/*******************************************************************
+ * @brief           Delay
+ * @brief           its a delay..duh
+ * @return          N/A
+ * @note            This fcn uses delay_ms - provided by xc.h
+ *******************************************************************/
 void Delay(int wait) {
     int x;
     for (x = 0; x < wait; x++) {
@@ -84,6 +98,12 @@ void Delay(int wait) {
     }
 }
 
+/*******************************************************************
+ * @brief           PinSetMode
+ * @brief           Pin configuration
+ * @return          N/A
+ * @note            Sets up I/O on the device
+ *******************************************************************/
 void PinSetMode(void) {
     TRISBbits.TRISB10=INPUT;
     TRISEbits.TRISE13 = OUTPUT; //Set LED as output
@@ -113,30 +133,55 @@ void PinSetMode(void) {
 
 }
 
+/*******************************************************************
+ * @brief           ledDebug
+ * @brief           Allows us to see device activity
+ * @return          N/A
+ * @note            uses timer to control the function tick rate
+ *******************************************************************/
 void ledDebug(){
     if (time > 250) {
             INDICATOR ^= 1;
            // HORN_EN ^=1;
            // BRAKELT ^= 1;
             //SS_RELAY ^= 1;
-            SaveCarDriver(0x55);
-            printf("eeprom data = %c",ReadCarDriver());
+            //SaveCarDriver(0x55);
+            //printf("eeprom data = %c",ReadCarDriver());
             time = 0;
         }
     }
-//TODO May need update Values  
+
+/*******************************************************************
+ * @brief           updateBrakeLight
+ * @brief           This fcn allows us to control the brake light on brake press
+ * @return          N/A
+ * @note            This fcn uses data from the SAS to read in the brake pressure sensor
+ *******************************************************************/
 void updateBrakeLight() {
-    if (brake > BRAKE_LIGHT_THRESHOLD) {
+    if (brake > BrakeLightThreshold) {
         BRAKELT = 1;
-    } else if (brake<(BRAKE_LIGHT_THRESHOLD-3))  //Prevent Ossicliation Number subject to chan
+    } else if (brake<(BrakeLightThreshold-3))  //Prevent Oscillation Number
        BRAKELT = 0;
 }
 
+/*******************************************************************
+ * @brief           ReadReset
+ * @brief           This fcn reads in the RCON
+ * @return          N/A
+ * @note            This fcn saves the RCON RIGHT AT BOOT! This is important for v
+ *******************************************************************/
 void ReadReset(){
     read = RCON;
     RCON = 0;
 }
 
+/*******************************************************************
+ * @brief           GetResetValue
+ * @brief           getter
+ * @return          return RCON (int - 16 bit)
+ * @note            Acts are a getter to keep data integrity 
+ *******************************************************************/
 int GetResetValue(){
     return read;
 }
+

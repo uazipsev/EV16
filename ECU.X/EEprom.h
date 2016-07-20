@@ -23,6 +23,7 @@ int ReadBrakeTrigger();
 void SaveBrakeTrigger(int value);
 int ReadBrakeLightTrigger();
 void SaveBrakeLightTrigger(int value);
+void SetUpDataSets();
 
 #endif	/* EEPROM_H */
 

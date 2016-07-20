@@ -46,9 +46,9 @@ void ComMenu(char menuitem);
 void DriverMenu(char menuitem);
 void SelectDriver();
 void ClearScreen();
-void SetBrakeLightValue();
+void MenuBrakeLightValue(char cont);
 
-void MenuePrint(char Menuloc, char Subloc);
+void MenuPrint(char Menuloc, char Subloc);
 
 #endif	/* DEBUG_H */
 
