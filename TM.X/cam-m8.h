@@ -8,32 +8,43 @@
 #ifndef CAM_M8_H
 #define	CAM_M8_H
 
-#define UBX_CFG_PRT 0x0001
-#define UBX_CFG_MSG 0x0001
-#define UBX_CFG_INF 0x0001
-#define UBX_CFG_NAV5 0x0001
-#define UBX_CFG_NAVX5 0x0001
-#define UBX_CFG_DAT 0x0001
-#define UBX_CFG_RATE 0x0001
+//Start info
+
+#define GPS_START 0xB562
+
+//CFG Info
+
+#define UBX_CFG_PRT 0x0600
+#define UBX_CFG_MSG 0x0601
+#define UBX_CFG_INF 0x0602
+#define UBX_CFG_RST 0x0604
+#define UBX_CFG_DAT 0x0606
+#define UBX_CFG_RATE 0x0608
+#define UBX_CFG_CFG 0x0609
+#define UBX_CFG_ANT 0x0613
+#define UBX_CFG_NMEA 0x0617
+#define UBX_CFG_ODO 0x061E
 #define UBX_CFG_SBAS 0x0001
-#define UBX_CFG_NMEA 0x0001
+
 #define UBX_CFG_TMODE2 0x0001
 #define UBX_CFG_GNSS 0x0001
 #define UBX_CFG_TP5 0x0001
+#define UBX_CFG_NAVX5 0x0623
 #define UBX_CFG_RXM 0x0001
-#define UBX_CFG_PM2 0x0001
+#define UBX_CFG_PM2 0x063B
+#define UBX_CFG_PMS 0x0686
+#define UBX_CFG_PWR 0x0657
 #define UBX_CFG_ITFM 0x0001
-#define UBX_CFG_RINV 0x0001
-#define UBX_CFG_ANT 0x0001
+#define UBX_CFG_RINV 0x0634
 #define UBX_CFG_LOGFILTER 0x0001
-#define UBX_CFG_DOSC 0x0001
-#define UBX_CFG_ESRC 0x0001
+#define UBX_CFG_DOSC 0x0661
+#define UBX_CFG_ESRC 0x0660
 #define UBX_CFG_SMGR 0x0001
 #define UBX_CFG_SWI2C 0x0001
 #define UBX_CFG_SWI2CDAC 0x0001
 
-#define UBX_ACK_ACK 0x0001
-#define UBX_ACK_NAK 0x0001
+#define UBX_ACK_ACK 0x0501
+#define UBX_ACK_NAK 0x0500
 
 //Talker ID's
 
