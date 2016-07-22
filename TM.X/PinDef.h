@@ -19,9 +19,9 @@
 /*
  *    LED :)
  */
-#define INDICATOR _LATE13
+#define INDICATOR 0 //_LATE13
 
-#define SS_RELAY _LATC10
+#define SS_RELAY 0 //_LATC10
 /*
  *    Relay control 
  */

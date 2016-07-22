@@ -10,10 +10,11 @@
 #include <stdbool.h>
 #include <xc.h>
 #include "PinDef.h"
+#include "Functions.h"
 
 
 int main(int argc, char** argv) {
-    //Setup();
+    Setup();
     //Delay(1000);
     while (1) {
 
