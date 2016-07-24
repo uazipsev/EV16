@@ -9,7 +9,36 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "FastTransfer3.h"
+#include "UART3.h"
+#include "ADDRESSING.h"
 
+volatile int receiveArray3[20];
+
+//INTERNAL METHODS/VARIABLES HERE
+unsigned char AKNAK3(unsigned char module);
+unsigned int alignError3(void);
+unsigned int CRCError3(void);
+unsigned int addressError3(void);
+unsigned int dataAddressError3(void);
+void (*serial_write3)(unsigned char);
+unsigned char (*serial_read3)(void);
+int (*serial_available3)(void);
+unsigned char (*serial_peek3)(void);
+unsigned char rx_buffer3[RX_BUFFER_SIZE3]; //address for temporary storage and parsing buffer
+unsigned char rx_array_inx3; //index for RX parsing buffer
+unsigned char rx_len3; //RX packet length according to the packet
+unsigned char calc_CS3; //calculated Checksum
+unsigned char moduleAddress3; // the address of this module
+unsigned char returnAddress3; //the address to send the crc back to
+unsigned char maxDataAddress3; //max address allowable
+volatile int * receiveArrayAddress3; // this is where the data will go when it is received
+unsigned char * sendStructAddress3; // this is where the data will be sent from
+bool AKNAKsend3; // turns the acknowledged or not acknowledged on/off
+unsigned int alignErrorCounter3; //counts the align errors
+unsigned int crcErrorCounter3; // counts any failed crcs
+unsigned int addressErrorCounter3; // counts every time a wrong address is received
+unsigned int dataAdressErrorCounter3; // counts if the received data fall outside of the receive array
+unsigned char rx_address3; //RX address received
 
 void wipeRxBuffer3(void)
 {
@@ -51,6 +80,10 @@ void crcBufS_status_put3(struct crcBufS3* _this, unsigned char time, unsigned ch
 unsigned char crcBufS_get3(struct crcBufS3* _this, unsigned char time, unsigned char space);
 void CRCcheck3(void);
 
+
+void Start3(){
+    begin3(receiveArray3, sizeof (receiveArray3), ECU_ADDRESS, false, Send_put3, Receive_get3, Receive_available3, Receive_peek3);
+}
 
 //Captures address of receive array, the max data address, the address of the module, true/false if AKNAKs are wanted and the Serial address
 

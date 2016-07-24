@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=cam-m8.c UART.c UART2.c Timers.c ConfigBits.c main.c Functions.c FastTransfer.c
+SOURCEFILES_QUOTED_IF_SPACED=FastTransfer.c cam-m8.c UART.c UART2.c Timers.c ConfigBits.c main.c Functions.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/cam-m8.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/UART2.o ${OBJECTDIR}/Timers.o ${OBJECTDIR}/ConfigBits.o ${OBJECTDIR}/main.o ${OBJECTDIR}/Functions.o ${OBJECTDIR}/FastTransfer.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/cam-m8.o.d ${OBJECTDIR}/UART.o.d ${OBJECTDIR}/UART2.o.d ${OBJECTDIR}/Timers.o.d ${OBJECTDIR}/ConfigBits.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/Functions.o.d ${OBJECTDIR}/FastTransfer.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/cam-m8.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/UART2.o ${OBJECTDIR}/Timers.o ${OBJECTDIR}/ConfigBits.o ${OBJECTDIR}/main.o ${OBJECTDIR}/Functions.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/FastTransfer.o.d ${OBJECTDIR}/cam-m8.o.d ${OBJECTDIR}/UART.o.d ${OBJECTDIR}/UART2.o.d ${OBJECTDIR}/Timers.o.d ${OBJECTDIR}/ConfigBits.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/Functions.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/cam-m8.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/UART2.o ${OBJECTDIR}/Timers.o ${OBJECTDIR}/ConfigBits.o ${OBJECTDIR}/main.o ${OBJECTDIR}/Functions.o ${OBJECTDIR}/FastTransfer.o
+OBJECTFILES=${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/cam-m8.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/UART2.o ${OBJECTDIR}/Timers.o ${OBJECTDIR}/ConfigBits.o ${OBJECTDIR}/main.o ${OBJECTDIR}/Functions.o
 
 # Source Files
-SOURCEFILES=cam-m8.c UART.c UART2.c Timers.c ConfigBits.c main.c Functions.c FastTransfer.c
+SOURCEFILES=FastTransfer.c cam-m8.c UART.c UART2.c Timers.c ConfigBits.c main.c Functions.c
 
 
 CFLAGS=
@@ -82,6 +82,13 @@ MP_LINKER_FILE_OPTION=,--script=p33EP256MC202.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/FastTransfer.o: FastTransfer.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/FastTransfer.o.d 
+	@${RM} ${OBJECTDIR}/FastTransfer.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  FastTransfer.c  -o ${OBJECTDIR}/FastTransfer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/FastTransfer.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -no-legacy-libc  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/FastTransfer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 ${OBJECTDIR}/cam-m8.o: cam-m8.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/cam-m8.o.d 
@@ -131,14 +138,14 @@ ${OBJECTDIR}/Functions.o: Functions.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  Functions.c  -o ${OBJECTDIR}/Functions.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Functions.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -no-legacy-libc  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/Functions.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+else
 ${OBJECTDIR}/FastTransfer.o: FastTransfer.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/FastTransfer.o.d 
 	@${RM} ${OBJECTDIR}/FastTransfer.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  FastTransfer.c  -o ${OBJECTDIR}/FastTransfer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/FastTransfer.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -no-legacy-libc  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	${MP_CC} $(MP_EXTRA_CC_PRE)  FastTransfer.c  -o ${OBJECTDIR}/FastTransfer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/FastTransfer.o.d"      -mno-eds-warn  -g -omf=elf -no-legacy-libc  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/FastTransfer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
-else
 ${OBJECTDIR}/cam-m8.o: cam-m8.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/cam-m8.o.d 
@@ -187,13 +194,6 @@ ${OBJECTDIR}/Functions.o: Functions.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/Functions.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  Functions.c  -o ${OBJECTDIR}/Functions.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Functions.o.d"      -mno-eds-warn  -g -omf=elf -no-legacy-libc  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/Functions.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/FastTransfer.o: FastTransfer.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/FastTransfer.o.d 
-	@${RM} ${OBJECTDIR}/FastTransfer.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  FastTransfer.c  -o ${OBJECTDIR}/FastTransfer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/FastTransfer.o.d"      -mno-eds-warn  -g -omf=elf -no-legacy-libc  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/FastTransfer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

@@ -18,7 +18,7 @@
 volatile bool Transmit_stall2 = true;
 
 struct UART2_ring_buff {
-    unsigned char buf[UART_BUFFER_SIZE];
+    unsigned char buf[UART2_BUFFER_SIZE];
     int head;
     int tail;
     int count;
@@ -41,7 +41,7 @@ void UART2_init(void) {
     U3MODEbits.STSEL = 0; // 1-stop bit
     U3MODEbits.PDSEL = 0; // No parity, 8-data bits
     U3MODEbits.ABAUD = 0; // Auto-baud disabled
-    U3BRG = BAUD_RATE; // Baud Rate setting for 57600
+    U3BRG = UART2_BAUD_RATE; // Baud Rate setting for 57600
     U3STAbits.URXISEL = 0b01; // Interrupt after all TX character transmitted
     U3STAbits.URXISEL = 0b00; // Interrupt after one RX character is received
 
@@ -69,14 +69,14 @@ void UART2_buff_init(struct UART2_ring_buff* _this) {
 }
 
 void UART2_buff_put(struct UART2_ring_buff* _this, const unsigned char c) {
-    if (_this->count < UART_BUFFER_SIZE) {
+    if (_this->count < UART2_BUFFER_SIZE) {
         _this->buf[_this->head] = c;
-        _this->head = UART2_buff_modulo_inc(_this->head, UART_BUFFER_SIZE);
+        _this->head = UART2_buff_modulo_inc(_this->head, UART2_BUFFER_SIZE);
         ++_this->count;
     } else {
         _this->buf[_this->head] = c;
-        _this->head = UART2_buff_modulo_inc(_this->head, UART_BUFFER_SIZE);
-        _this->tail = UART2_buff_modulo_inc(_this->tail, UART_BUFFER_SIZE);
+        _this->head = UART2_buff_modulo_inc(_this->head, UART2_BUFFER_SIZE);
+        _this->tail = UART2_buff_modulo_inc(_this->tail, UART2_BUFFER_SIZE);
 
     }
 }
@@ -85,7 +85,7 @@ unsigned char UART2_buff_get(struct UART2_ring_buff* _this) {
     unsigned char c;
     if (_this->count > 0) {
         c = _this->buf[_this->tail];
-        _this->tail = UART2_buff_modulo_inc(_this->tail, UART_BUFFER_SIZE);
+        _this->tail = UART2_buff_modulo_inc(_this->tail, UART2_BUFFER_SIZE);
         --_this->count;
     } else {
         c = 0;

@@ -13,9 +13,16 @@
 #include <stdbool.h>
 #include "Functions.h"
 #include "EEprom.h"
+#include "UART.h"
+#include "UART1.h"
+#include "UART2.h"
+#include "UART3.h"
+#include "FastTransfer.h"
+#include "FastTransfer1.h"
+#include "FastTransfer3.h"
+
 
 int BrakeLightThreshold = 0;
-
 
 int read= 0;
 
@@ -67,16 +74,12 @@ void Setup(void) {
     UART1_init();
     UART2_init();
     UART3_init();
-
-    //RS485 Bus 1
-    begin(receiveArray, sizeof (receiveArray), ECU_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
-    //RS485 Bus 2
-    begin1(receiveArray1, sizeof (receiveArray1), ECU_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);
-    //This has been commented out to use direct USART access for CLI
-    //begin2(receiveArray2, sizeof (receiveArray2), ECU_ADDRESS, false, Send_put2, Receive_get2, Receive_available2, Receive_peek2);
-    //RS422 - Bi buss between the ECU and the TM 
-    begin3(receiveArray3, sizeof (receiveArray3), ECU_ADDRESS, false, Send_put3, Receive_get3, Receive_available3, Receive_peek3);
-
+    
+    
+    Start();
+    Start1();
+    Start3();
+    
     //This sets up the I2C to EEPROM com's to save car data. 
     EEpromInit();
     //This controls the timing system to control communication rates  

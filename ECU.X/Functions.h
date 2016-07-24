@@ -39,39 +39,8 @@
 void ReadReset();
 int GetResetValue();
 
-extern void UART_init(void);
-extern unsigned char Receive_peek(void);
-extern int Receive_available(void);
-extern unsigned char Receive_get(void);
-extern void Send_put(unsigned char _data);
-
-extern void UART1_init(void);
-extern unsigned char Receive_peek1(void);
-extern int Receive_available1(void);
-extern unsigned char Receive_get1(void);
-extern void Send_put1(unsigned char _data);
-
-extern void UART2_init(void);
-extern unsigned char Receive_peek2(void);
-extern int Receive_available2(void);
-extern unsigned char Receive_get2(void);
-extern void Send_put2(unsigned char _data);
-
-extern void UART3_init(void);
-extern unsigned char Receive_peek3(void);
-extern int Receive_available3(void);
-extern unsigned char Receive_get3(void);
-extern void Send_put3(unsigned char _data);
-
-extern void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
-extern void begin1(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
-extern void begin2(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
-extern void begin3(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
-
-extern volatile int receiveArray[100];
-extern volatile int receiveArray1[20];
-extern volatile int receiveArray2[20];
-extern volatile int receiveArray3[20];
+//extern void begin2(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
+//extern void begin3(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
 
 extern void Setup(void);
 extern void Delay(int wait);

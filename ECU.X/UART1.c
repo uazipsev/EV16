@@ -10,8 +10,30 @@
 #include <stdlib.h>
 #include "UART1.h"
 #include "PinDef.h"
-#define ON         0
-#define OFF        1
+
+
+extern volatile unsigned int talkTime1;
+void *memset(void *s, int c, size_t n);
+
+struct UART1_ring_buff {
+    unsigned char buf[UART_BUFFER_SIZE];
+    int head;
+    int tail;
+    int count;
+};
+
+struct UART1_ring_buff input_buffer1;
+struct UART1_ring_buff output_buffer1;
+
+volatile bool Transmit_stall1 = true;
+
+void UART1_buff_init(struct UART1_ring_buff* _this);
+void UART1_buff_put(struct UART1_ring_buff* _this, const unsigned char c);
+unsigned char UART1_buff_get(struct UART1_ring_buff* _this);
+void UART1_buff_flush(struct UART1_ring_buff* _this, const int clearBuffer);
+int UART1_buff_size(struct UART1_ring_buff* _this);
+unsigned int UART1_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
+unsigned char UART1_buff_peek(struct UART1_ring_buff* _this);
 
 void UART1_init(void) {
     // UART config

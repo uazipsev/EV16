@@ -73,7 +73,11 @@ int readRegister(char i2cAddress, char reg)
  * @note            uses getters to set up the cars settings 
  *******************************************************************/
 void SetUpDataSets(){
-    
+    ReadCarDriver();
+    ReadThrottlePrecent();
+    ReadThrottleTrigger();
+    ReadBrakeTrigger();
+    ReadBrakeLightTrigger();
 }
 
 /*******************************************************************

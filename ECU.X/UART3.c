@@ -11,15 +11,36 @@
 #include <stdlib.h>
 #include "UART3.h"
 #include "PinDef.h"
-#define ON         0
-#define OFF        1
 
+extern volatile unsigned int talkTime3;
+void *memset(void *s, int c, size_t n);
+
+struct UART3_ring_buff {
+    unsigned char buf[UART3_BUFFER_SIZE];
+    int head;
+    int tail;
+    int count;
+};
+
+struct UART3_ring_buff input_buffer3;
+struct UART3_ring_buff output_buffer3;
+
+volatile bool Transmit_stall3 = true;
+
+void UART3_buff_init(struct UART3_ring_buff* _this);
+void UART3_buff_put(struct UART3_ring_buff* _this, const unsigned char c);
+unsigned char UART3_buff_get(struct UART3_ring_buff* _this);
+void UART3_buff_flush(struct UART3_ring_buff* _this, const int clearBuffer);
+int UART3_buff_size(struct UART3_ring_buff* _this);
+unsigned int UART3_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
+unsigned char UART3_buff_peek(struct UART3_ring_buff* _this);
+    
 void UART3_init(void) {
     // UART config
     U4MODEbits.STSEL = 0; // 1-stop bit
     U4MODEbits.PDSEL = 0; // No parity, 8-data bits
     U4MODEbits.ABAUD = 0; // Auto-baud disabled
-    U4BRG = BAUD_RATE; // Baud Rate setting for 57600
+    U4BRG = UART3_BAUD_RATE; // Baud Rate setting for 57600
     U4STAbits.URXISEL = 0b01; // Interrupt after all TX character transmitted
     U4STAbits.URXISEL = 0b00; // Interrupt after one RX character is received
     IFS5bits.U4RXIF = 0; // Clear RX interrupt flag
@@ -46,14 +67,14 @@ void UART3_buff_init(struct UART3_ring_buff* _this) {
 }
 
 void UART3_buff_put(struct UART3_ring_buff* _this, const unsigned char c) {
-    if (_this->count < UART_BUFFER_SIZE) {
+    if (_this->count < UART3_BUFFER_SIZE) {
         _this->buf[_this->head] = c;
-        _this->head = UART3_buff_modulo_inc(_this->head, UART_BUFFER_SIZE);
+        _this->head = UART3_buff_modulo_inc(_this->head, UART3_BUFFER_SIZE);
         ++_this->count;
     } else {
         _this->buf[_this->head] = c;
-        _this->head = UART3_buff_modulo_inc(_this->head, UART_BUFFER_SIZE);
-        _this->tail = UART3_buff_modulo_inc(_this->tail, UART_BUFFER_SIZE);
+        _this->head = UART3_buff_modulo_inc(_this->head, UART3_BUFFER_SIZE);
+        _this->tail = UART3_buff_modulo_inc(_this->tail, UART3_BUFFER_SIZE);
 
     }
 }
@@ -62,7 +83,7 @@ unsigned char UART3_buff_get(struct UART3_ring_buff* _this) {
     unsigned char c;
     if (_this->count > 0) {
         c = _this->buf[_this->tail];
-        _this->tail = UART3_buff_modulo_inc(_this->tail, UART_BUFFER_SIZE);
+        _this->tail = UART3_buff_modulo_inc(_this->tail, UART3_BUFFER_SIZE);
         --_this->count;
     } else {
         c = 0;
