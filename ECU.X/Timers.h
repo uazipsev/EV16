@@ -8,23 +8,17 @@
 #ifndef TIMERS_H
 #define	TIMERS_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
-    void initTimerOne();
+void initTimerOne();
+int GetTime(char data);
+void SetTime(char data);
+    
 #define COMM_TIMER_MAX_TIME 200
-    volatile unsigned int SASTimer, DDSTimer, MCSTimer, PDUTimer, BMMTimer, BootTimer,DebugTimer;
-    volatile unsigned int time;
 
-    volatile unsigned int talkTime;
-    volatile unsigned int talkTime1;
-    volatile unsigned int talkTime2;
-    volatile unsigned int talkTime3;
-
-
-#ifdef	__cplusplus
-}
-#endif
+#define SASTimer 1
+#define DDSTimer 2
+#define MCSTimer 3
+#define PDUTimer 4
+#define BMMTimer 5
 
 #endif	/* TIMERS_H */
 

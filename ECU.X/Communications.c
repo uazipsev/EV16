@@ -26,6 +26,7 @@
 #include "DDSComms.h"
 #include "PDUComms.h"
 #include "BMMComms.h"
+#include "Timers.h"
 
 void updateComms() {
 
@@ -137,8 +138,8 @@ void checkCommDirection() {
 }
 
 void resetCommTimers() {
-    SASTimer = 0;
-    DDSTimer = 0;
+    SetTime(SASTimer);
+    SetTime(DDSTimer);
     //PDUTimer = 0;
 }
 
@@ -236,9 +237,9 @@ void checkCommDirection1() {
 }
 
 void resetCommTimers2() {
-    MCSTimer = 0;
-    BMMTimer = 0;
-    PDUTimer = 0;
+    SetTime(MCSTimer);
+    SetTime(BMMTimer);
+    SetTime(PDUTimer);
 }
 
 void RS485_Direction2(int T_L) {

@@ -13,7 +13,7 @@
 
 
 
-void Start();
+void StartFastTransfer();
 
 void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
 void sendData(unsigned char whereToSend);

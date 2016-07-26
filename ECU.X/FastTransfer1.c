@@ -70,7 +70,7 @@ void crcBufS_status_put1(struct crcBufS1* _this, unsigned char time, unsigned ch
 unsigned char crcBufS_get1(struct crcBufS1* _this, unsigned char time, unsigned char space);
 void CRCcheck1(void);
 
-void Start1(){
+void StartFastTransfer1(){
     begin1(receiveArray1, sizeof (receiveArray1), ECU_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);
 }
 

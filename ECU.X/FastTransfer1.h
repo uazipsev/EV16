@@ -18,7 +18,7 @@
 #define CRC_DEPTH 3  // how many pieces of data are stored with each CRC send event
 #define CRC_BUFFER_SIZE (CRC_COUNT * CRC_DEPTH) //crc buffer size 5 deep and 3 bytes an entry
 
-void Start1();
+void StartFastTransfer1();
 
 //PUBLIC METHODS/VARIABLES HERE
 void begin1(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));

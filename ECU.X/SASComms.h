@@ -18,7 +18,6 @@
 
 extern int SAS_FAULT_CONDITION;
     //SAS
-    extern volatile unsigned int SASTimer;
 
     extern void sendData1(unsigned char whereToSend);
     extern bool receiveData1();

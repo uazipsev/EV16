@@ -8,10 +8,6 @@
 #ifndef BMMCOMMS_H
 #define	BMMCOMMS_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
-
 #include "ADDRESSING.h"
 #include <stdbool.h>
 
@@ -22,9 +18,6 @@ extern "C" {
     extern void ToSend(const unsigned char where, const unsigned int what);
     extern volatile int receiveArray[100];
     extern void RS485_Direction2(int T_L);
-#ifdef	__cplusplus
-}
-#endif
 
 #endif	/* BMMCOMMS_H */
 

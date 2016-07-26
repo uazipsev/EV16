@@ -81,7 +81,7 @@ unsigned char crcBufS_get3(struct crcBufS3* _this, unsigned char time, unsigned 
 void CRCcheck3(void);
 
 
-void Start3(){
+void StartFastTransfer3(){
     begin3(receiveArray3, sizeof (receiveArray3), ECU_ADDRESS, false, Send_put3, Receive_get3, Receive_available3, Receive_peek3);
 }
 

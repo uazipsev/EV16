@@ -1,5 +1,7 @@
 #include "BMMComms.h"
 #include "SlaveAddressing.h"
+#include "Timers.h"
+
 extern int BMM_FAULT_CONDITION;
 int BMMADC[4];
 
@@ -34,7 +36,7 @@ bool readyToSendBMM = true;
 bool BMM_COMMS_ERROR = false;
 
 bool requestBMMData(struct commsStates * cS) {
-    if (((BMMTimer > BOARD_RESEND_MIN) && (readyToSendBMM)) || (BMMTimer > BOARD_TIMEOUT)) {
+    if (((GetTime(BMMTimer) > BOARD_RESEND_MIN) && (readyToSendBMM)) || (GetTime(BMMTimer) > BOARD_TIMEOUT)) {
         static int BMMErrorCounter = 0;
         if (!readyToSendBMM) {
             BMMErrorCounter++;
@@ -46,7 +48,7 @@ bool requestBMMData(struct commsStates * cS) {
             BMMErrorCounter = 0;
             readyToSendBMM = false;
         }
-        BMMTimer = 0;
+        SetTime(BMMTimer);
         RS485_Direction2(TALK);
 
         switch ((*cS).BMM_SEND) {
@@ -97,7 +99,7 @@ bool receiveCommBMM(struct commsStates * cS) {
                 break;
         }
         readyToSendBMM = true;
-        BMMTimer = 0;
+        SetTime(BMMTimer);
         return true;
     } else return false;
 }

@@ -82,7 +82,7 @@ void wipeRxBuffer(void)
 	
 }
 
-void Start(){
+void StartFastTransfer(){
      begin(receiveArray, sizeof (receiveArray), ECU_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
 }
 

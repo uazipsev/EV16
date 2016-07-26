@@ -1,5 +1,6 @@
 #include "SASComms.h"
 #include "PinDef.h"
+#include "Timers.h"
 unsigned int throttle1, throttle2, brake;
 unsigned int t1Raw, t2Raw, bRaw;
 bool receiveCommSAS();
@@ -21,7 +22,7 @@ void debugSAS() {
 
 bool requestSASData() {
     //If either timeout or response with delay already occurred
-    if (((SASTimer > BOARD_RESEND_MIN) && (readyToSendSAS)) || (SASTimer > BOARD_TIMEOUT)) {
+    if (((GetTime(SASTimer) > BOARD_RESEND_MIN) && (readyToSendSAS)) || (GetTime(SASTimer) > BOARD_TIMEOUT)) {
         static int SASErrorCounter = 0;
         if (!readyToSendSAS) {
             SASErrorCounter++;
@@ -33,7 +34,7 @@ bool requestSASData() {
             readyToSendSAS = false;
             SASErrorCounter = 0;
         }
-        SASTimer = 0;
+        SetTime(SASTimer);
         RS485_Direction1(TALK);
         ToSend1(RESPONSE_ADDRESS, ECU_ADDRESS);
         sendData1(SAS_ADDRESS);
@@ -92,7 +93,7 @@ bool receiveCommSAS() {
             }
 
             readyToSendSAS = true;
-            SASTimer = 0;
+            SetTime(SASTimer);
             return true;
         } else return false;
     } else return false;

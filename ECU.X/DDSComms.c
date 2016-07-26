@@ -1,4 +1,5 @@
 #include "DDSComms.h"
+#include "Timers.h"
 
 bool requestDDSData();
 bool receiveCommDDS();
@@ -6,7 +7,7 @@ bool readyToSendDDS = true;
 bool DDS_COMMS_ERROR = false;
 
 bool requestDDSData() {
-    if (((DDSTimer > BOARD_RESEND_MIN) && (readyToSendDDS)) || (DDSTimer > BOARD_TIMEOUT)) {
+    if (((GetTime(DDSTimer) > BOARD_RESEND_MIN) && (readyToSendDDS)) || (GetTime(DDSTimer) > BOARD_TIMEOUT)) {
         static int DDSErrorCounter = 0;
         if (!readyToSendDDS) {
             DDSErrorCounter++;
@@ -24,7 +25,7 @@ bool requestDDSData() {
         ToSend1(LED_DDS, indicators);
         RS485_Direction1(TALK);
         sendData1(DDS_ADDRESS);
-        DDSTimer = 0;
+        SetTime(DDSTimer);
     }
     return true;
 
@@ -35,7 +36,7 @@ bool receiveCommDDS() {
         if (receiveArray1[RESPONSE_ADDRESS] == DDS_ADDRESS) {
             buttons = receiveArray1[BUTTONS_DDS];
             readyToSendDDS = true;
-            DDSTimer = 0;
+            SetTime(DDSTimer);
             return true;
         } else return false;
     } else return false;

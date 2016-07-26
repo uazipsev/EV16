@@ -76,9 +76,9 @@ void Setup(void) {
     UART3_init();
     
     
-    Start();
-    Start1();
-    Start3();
+    StartFastTransfer();
+    StartFastTransfer1();
+    StartFastTransfer3();
     
     //This sets up the I2C to EEPROM com's to save car data. 
     EEpromInit();

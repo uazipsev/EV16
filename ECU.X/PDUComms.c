@@ -3,6 +3,7 @@
 #include <xc.h>
 #include "PinDef.h"
 #include "xc.h"
+#include "Timers.h"
 
 bool requestPDUData();
 int constructPowerSet();
@@ -13,7 +14,7 @@ bool powerChange();
 extern struct powerStates powerSet;
 
 bool requestPDUData() {
-    if (((PDUTimer > BOARD_RESEND_MIN) && (readyToSendPDU)) || (PDUTimer > BOARD_TIMEOUT)) { // if (((PDUTimer > BOARD_RESEND_MIN) && (readyToSendPDU)) || (PDUTimer > BOARD_TIMEOUT)) {
+    if (((GetTime(PDUTimer) > BOARD_RESEND_MIN) && (readyToSendPDU)) || (GetTime(PDUTimer) > BOARD_TIMEOUT)) { // if (((PDUTimer > BOARD_RESEND_MIN) && (readyToSendPDU)) || (PDUTimer > BOARD_TIMEOUT)) {
         static int PDUErrorCounter = 0;
         if (!readyToSendPDU) {
             PDUErrorCounter++;
@@ -25,7 +26,7 @@ bool requestPDUData() {
             PDUErrorCounter = 0;
             readyToSendPDU = false;
         }
-        PDUTimer = 0;
+        SetTime(PDUTimer);
         RS485_Direction2(TALK);
         ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
         if (powerChange())
@@ -39,7 +40,7 @@ bool receiveCommPDU() {
     if (receiveData()) {
         if (receiveArray[RESPONSE_ADDRESS] == PDU_ADDRESS) {
             readyToSendPDU = true;
-            PDUTimer = 0;
+            SetTime(PDUTimer);
             //INDICATOR ^= 1;
             return true;
         } else return false;

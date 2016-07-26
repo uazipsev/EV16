@@ -1,5 +1,6 @@
 #include "MCSComms.h"
 #include "PinDef.h"
+#include "Timers.h"
 
 
 bool requestMCSData();
@@ -9,7 +10,7 @@ bool MCS_COMMS_ERROR = false;
 extern int carActive;
 
 bool requestMCSData() {
-    if (((MCSTimer > BOARD_RESEND_MIN+100) && (readyToSendMCS)) || (MCSTimer > BOARD_TIMEOUT)) {
+    if (((GetTime(MCSTimer) > BOARD_RESEND_MIN+100) && (readyToSendMCS)) || (GetTime(MCSTimer) > BOARD_TIMEOUT)) {
         static int MCSErrorCounter = 0;
         //INDICATOR ^= 1;
         RS485_Direction2(TALK);
@@ -29,7 +30,7 @@ bool requestMCSData() {
         ToSend(THROTTLE_OUTPUT, throttle1 );//TODO may need to add 40.95 if mcs gets rid of theres
         ToSend(BRAKE_OUTPUT, brake); //TODO may need to add 40.95 if mcs gets rid of theres
         sendData(MCS_ADDRESS);
-        MCSTimer = 0;
+        SetTime(MCSTimer);
     }
     return true;
 }
@@ -38,7 +39,7 @@ bool receiveCommMCS() {
     if (receiveData()) {
         if (receiveArray[RESPONSE_ADDRESS] == MCS_ADDRESS) {
             readyToSendMCS = true;
-            MCSTimer = 0;
+            SetTime(MCSTimer);
             return true;
         } else return false;
     } else return false;
