@@ -85,7 +85,7 @@ void Setup(void) {
     //This controls the timing system to control communication rates  
     initTimerOne();
     //This sets up all non constants from external EEPROM 
-    SetUpDataSets();
+    //SetUpDataSets();
 }
 
 /*******************************************************************
@@ -149,7 +149,9 @@ void ledDebug(){
            // BRAKELT ^= 1;
             //SS_RELAY ^= 1;
             //SaveCarDriver(0x55);
-            //printf("eeprom data = %c",ReadCarDriver());
+            //Delay(20);
+            //ReadCarDriver();
+            //printf("eeprom data = %c",xy);
             time = 0;
         }
     }

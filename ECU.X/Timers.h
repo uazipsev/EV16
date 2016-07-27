@@ -11,6 +11,7 @@
 void initTimerOne();
 int GetTime(char data);
 void SetTime(char data);
+void TimeOutSet(int num);
     
 #define COMM_TIMER_MAX_TIME 200
 
@@ -19,6 +20,7 @@ void SetTime(char data);
 #define MCSTimer 3
 #define PDUTimer 4
 #define BMMTimer 5
+#define DebugTime 6
 
 #endif	/* TIMERS_H */
 

@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "Timers.h"
+#include "debug.h"
 
 int TimeOut = 0;
 int LastTime = 0;
@@ -48,15 +49,17 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
         PDU++;
     if (BMM< COMM_TIMER_MAX_TIME)
         BMM++;
-    if((time - LastTime) > TimeOut){
-        TimeOutActive = 1;
-        LastTime = time; 
+    if(((time - LastTime) > TimeOut) && TimeOutActive){
+        TimeOutActive = 0;
+        MenuClear();
     }
     IFS0bits.T1IF = 0; // clear interrupt flag
 }
 
 void TimeOutSet(int num){
     TimeOut = num;
+    LastTime = time;
+    TimeOutActive = 1;
 }
 
 int GetTime(char data){
@@ -75,6 +78,9 @@ int GetTime(char data){
     if(data == BMMTimer){
         return BMM;
     }
+    if(data == DebugTime){
+        return DebugTimer;
+    }
 }
 
 void SetTime(char data){
@@ -92,6 +98,9 @@ void SetTime(char data){
     }
     if(data == BMMTimer){
         BMM = 0;
+    }
+    if(data == DebugTime){
+        DebugTimer = 0;
     }
 }
 

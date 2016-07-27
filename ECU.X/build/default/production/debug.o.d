@@ -7,4 +7,5 @@ SlaveAddressing.h  \
 Functions.h  \
 UART2.h  \
 StoppedState.h  \
- EEprom.h 
+ EEprom.h  \
+Timers.h 

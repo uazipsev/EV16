@@ -7,8 +7,11 @@
 
 #include "I2C.h"
 #include "EEprom.h"
+#include "Function.h"
 
-#define ADDRESS 0xA0
+#define ADDRESS 0x50
+
+char data[8];
 
 /*******************************************************************
  * @brief           EEpromInit
@@ -29,7 +32,7 @@ void EEpromInit(){
  *******************************************************************/
 void writeRegister(char i2cAddress, char reg, int value)
 {
-	IdleI2C();						//Ensure Module is Idle
+    IdleI2C();
 	StartI2C();						//Initiate start condition
 	WriteI2C(i2cAddress << 1);	    //write 1 byte
 	IdleI2C();						//Ensure module is Idle
@@ -38,7 +41,6 @@ void writeRegister(char i2cAddress, char reg, int value)
     WriteI2C(value);				//Write Low word address
 	NotAckI2C();					//Send Not Ack
 	StopI2C();				        //Send stop condition
-    
 }
 
 /*******************************************************************
@@ -47,19 +49,24 @@ void writeRegister(char i2cAddress, char reg, int value)
  * @return          none
  * @note            uses commands from the I2C lib to construct packets to send out on the bus 
  *******************************************************************/
-int readRegister(char i2cAddress, char reg)
+char readRegister(char i2cAddress, char reg)
 {
-    char data[3];
-    IdleI2C();						    //Ensure Module is Idle
-	StartI2C();						    //Initiate start condition
+    IdleI2C();
+    StartI2C();						    //Initiate start condition
 	WriteI2C(i2cAddress << 1);	        //write 1 byte
 	IdleI2C();						    //Ensure module is Idle
     WriteI2C(reg);			    	    //Write Low word address
-	IdleI2C();						    //Ensure module is idle
-	RestartI2C();					    //Generate I2C Restart Condition
+    //IdleI2C();				             //Send stop condition
+    NotAckI2C();					     //Send Not Ack
+    //NotAckI2C();					//Send Not Ack
+	StopI2C();				        //Send stop condition
+    Delay(5);
+    IdleI2C();
+	StartI2C();						//Initiate start condition
 	WriteI2C((i2cAddress << 1) | 0x01);	//Write 1 byte - R/W bit should be 1 for read
 	IdleI2C();						    //Ensure bus is idle
 	getsI2C(data, 1);		     	    //Read in multiple bytes
+    IdleI2C();						    //Ensure bus is idle
 	NotAckI2C();					    //Send Not Ack
 	StopI2C();						    //Send stop condition
     
@@ -73,11 +80,21 @@ int readRegister(char i2cAddress, char reg)
  * @note            uses getters to set up the cars settings 
  *******************************************************************/
 void SetUpDataSets(){
-    ReadCarDriver();
-    ReadThrottlePrecent();
-    ReadThrottleTrigger();
-    ReadBrakeTrigger();
-    ReadBrakeLightTrigger();
+    char z = 0;
+//    ReadCarDriver();
+//    ReadThrottlePrecent();
+//    ReadThrottleTrigger();
+//    ReadBrakeTrigger();
+//    ReadBrakeLightTrigger();
+    for(z=0;z<16;z++){
+        writeRegister(ADDRESS, z, z);
+        Delay(5);
+    }
+    Delay(10);
+    for(z=0;z<16;z++){
+        readRegister(ADDRESS, z);
+        Delay(5);
+    }
 }
 
 /*******************************************************************
@@ -87,7 +104,7 @@ void SetUpDataSets(){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 char ReadCarDriver(){
-    return readRegister(ADDRESS, 0);
+    return readRegister(ADDRESS, 1);
 }
 
 /*******************************************************************
@@ -97,7 +114,7 @@ char ReadCarDriver(){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 void SaveCarDriver(char value){
-    writeRegister(ADDRESS, 0,value);
+    writeRegister(ADDRESS, 1,value);
 }
 
 /*******************************************************************

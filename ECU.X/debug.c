@@ -12,6 +12,7 @@
 #include "UART2.h"
 #include "StoppedState.h"
 #include "EEprom.h"
+#include "Timers.h"
 
 #include <errno.h>
 
@@ -71,6 +72,7 @@ bool FuncIn = 0;
 bool SubMenuActive = false;
 int Data = 0;
 char DataHold[10];
+char TimeOutMenu = 0;
 
 /*******************************************************************
  * @brief           write
@@ -102,7 +104,7 @@ void handleDebugRequests() {
     static int lastDebugState = 0;
     static int batterySlaveNumberV;
     static int batterySlaveNumber;
-    if (DebugTimer > 1000) {
+    if (GetTime(DebugTime) > 1000) {
         switch (debugState) {
             case NO_DEBUG:
                 //This is the first time through the loop
@@ -296,7 +298,7 @@ void handleDebugRequests() {
             ClearScreen();
             MenuPrint(Menu,SubMenu);
         }
-        DebugTimer = 0;
+        SetTime(DebugTime);
     }
 
     if (Receive_available2()) {
@@ -433,7 +435,8 @@ void MenuPrint(char Menuloc, char Subloc){
           break;
        default:
           printf("******NO Match*****\n");
-          
+          TimeOutMenu = 1;
+          TimeOutSet(1500);
           break;
     }
     Menudisplay = 0;
@@ -618,6 +621,19 @@ void MenuBrakeLightValue(char cont){
     if(cont == 1){
         SaveBrakeTrigger(Data);
         printf(" Brake Light Set to %d",Data);
+    }
+}
+
+/*******************************************************************
+ * @brief           menuclear
+ * @brief           timeout
+ * @return          N/A
+ * @note            The fcn makes a timer based delay for time outs on the CLI
+ *******************************************************************/
+void MenuClear(){
+    if(TimeOutMenu == 1){
+        ClearScreen();
+        MenuPrint(0,0);
     }
 }
 

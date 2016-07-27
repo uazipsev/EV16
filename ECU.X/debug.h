@@ -31,7 +31,6 @@ enum debugStates {
 
     extern unsigned int throttle1, throttle2, brake;
 void handleDebugRequests();
-    extern volatile unsigned int DebugTimer;
 //    extern void Send_put2(unsigned char _data);
 //    extern void sendData2(unsigned char whereToSend);
 //    extern bool receiveData2();
@@ -49,6 +48,7 @@ void ClearScreen();
 void MenuBrakeLightValue(char cont);
 
 void MenuPrint(char Menuloc, char Subloc);
+void MenuClear();
 
 #endif	/* DEBUG_H */
 

@@ -11,7 +11,7 @@
 void EEpromInit();
 void DataWrite(char address, char data);
 char DataRead(char address);
-int readRegister(char i2cAddress, char reg);
+char readRegister(char i2cAddress, char reg);
 void writeRegister(char i2cAddress, char reg, int value);
 char ReadCarDriver();
 void SaveCarDriver(char value);
