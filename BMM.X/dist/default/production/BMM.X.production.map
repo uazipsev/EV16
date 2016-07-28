@@ -158,13 +158,13 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200              0x17f6          0x23f1  (9201)
 .const                      0x19f6               0x41c           0x62a  (1578)
-.text                       0x1e12              0x2e68          0x459c  (17820)
-.dinit                      0x4c7a               0x12a           0x1bf  (447)
-.text                       0x4da4               0x232           0x34b  (843)
-.init.delay32               0x4fd6                0x1c            0x2a  (42)
-.text                       0x4ff2                0x10            0x18  (24)
+.text                       0x1e12              0x2e76          0x45b1  (17841)
+.dinit                      0x4c88               0x12a           0x1bf  (447)
+.text                       0x4db2               0x232           0x34b  (843)
+.init.delay32               0x4fe4                0x1c            0x2a  (42)
+.text                       0x5000                0x10            0x18  (24)
 
-                     Total program memory used (bytes):         0x7503  (29955) 22%
+                     Total program memory used (bytes):         0x7518  (29976) 22%
 
 
 Data Memory  [Origin = 0x800, Length = 0x4000]
@@ -432,8 +432,8 @@ External Symbols in Program Memory (by address):
 
                   0x000200                  __resetPRI
                   0x00022c                  __psv_init
-                  0x00023c                  __data_init_standard
                   0x00023c                  __data_init
+                  0x00023c                  __data_init_standard
                   0x0002ae                  __T1Interrupt
                   0x0002ca                  __T2Interrupt
                   0x000318                  __T3Interrupt
@@ -456,8 +456,8 @@ External Symbols in Program Memory (by address):
                   0x00084c                  __dunpack2exit
                   0x000856                  ___extendsfdf2
                   0x000894                  ___lesf2
-                  0x000894                  ___ltsf2
                   0x000894                  ___eqsf2
+                  0x000894                  ___ltsf2
                   0x000898                  ___gtsf2
                   0x000898                  ___gesf2
                   0x00089c                  ___fixsfsi
@@ -487,9 +487,9 @@ External Symbols in Program Memory (by address):
                   0x000ef8                  __printf_cdnopuxX
                   0x000f06                  __vfprintf_cdnopuxX
                   0x00170c                  ___udivsi3
+                  0x00172c                  ___mulsi3
                   0x00172c                  ___mulp32eds3
                   0x00172c                  ___mulp32peds3
-                  0x00172c                  ___mulsi3
                   0x0017aa                  ___udivmoddi3
                   0x00188e                  ___udivdi3
                   0x00189c                  ___umoddi3
@@ -587,50 +587,48 @@ External Symbols in Program Memory (by address):
                   0x004806                  __U1TXInterrupt
                   0x00483e                  _SetTxStall
                   0x00484a                  _GetTxStall
-                  0x004856                  _CommStart
-                  0x004870                  _updateComms
-                  0x00497a                  _checkCommDirection
-                  0x0049a8                  _populateBatteryT
-                  0x0049c2                  _populateBatteryV
-                  0x0049dc                  _Setup
-                  0x004ac0                  _Delay
-                  0x004ade                  _PinSetMode
-                  0x004b0a                  _ledDebug
-                  0x004b4c                  _InitI2C
-                  0x004b6e                  _StartI2C
-                  0x004b80                  _RestartI2C
-                  0x004b92                  _StopI2C
-                  0x004bac                  _WriteI2C
-                  0x004bc4                  _IdleI2C
-                  0x004bd6                  _ACKStatus
-                  0x004be6                  _NotAckI2C
-                  0x004bf2                  _AckI2C
-                  0x004c06                  _getsI2C
-                  0x004c4a                  _getI2C
-                  0x004c64                  _i2c_wait
-                  0x004da4                  _writeRegister
-                  0x004ddc                  _readRegister
-                  0x004e26                  _ADS1015Begin
-                  0x004e2e                  _ADS1015SetGain
-                  0x004e3a                  _ADS1015readADC_SingleEnded
-                  0x004eb4                  _SPI2_Initialize
-                  0x004ec6                  _SPI2_Exchange8bit
-                  0x004f02                  _SPI2_Exchange8bitBuffer
-                  0x004f86                  _SPI2_IsBufferFull
-                  0x004f90                  _SPI2_HasWriteCollisionOccured
-                  0x004f9a                  _SPI2_ClearWriteCollisionStatus
-                  0x004fa0                  _UART1_init
-                  0x004fd6                  ___delay32
-                  0x004ff2                  _main
+                  0x004856                  _Setup
+                  0x00493a                  _Delay
+                  0x004958                  _PinSetMode
+                  0x004984                  _ledDebug
+                  0x0049e4                  _CommStart
+                  0x0049fe                  _updateComms
+                  0x004b2c                  _checkCommDirection
+                  0x004b5a                  _InitI2C
+                  0x004b7c                  _StartI2C
+                  0x004b8e                  _RestartI2C
+                  0x004ba0                  _StopI2C
+                  0x004bba                  _WriteI2C
+                  0x004bd2                  _IdleI2C
+                  0x004be4                  _ACKStatus
+                  0x004bf4                  _NotAckI2C
+                  0x004c00                  _AckI2C
+                  0x004c14                  _getsI2C
+                  0x004c58                  _getI2C
+                  0x004c72                  _i2c_wait
+                  0x004db2                  _writeRegister
+                  0x004dea                  _readRegister
+                  0x004e34                  _ADS1015Begin
+                  0x004e3c                  _ADS1015SetGain
+                  0x004e48                  _ADS1015readADC_SingleEnded
+                  0x004ec2                  _SPI2_Initialize
+                  0x004ed4                  _SPI2_Exchange8bit
+                  0x004f10                  _SPI2_Exchange8bitBuffer
+                  0x004f94                  _SPI2_IsBufferFull
+                  0x004f9e                  _SPI2_HasWriteCollisionOccured
+                  0x004fa8                  _SPI2_ClearWriteCollisionStatus
+                  0x004fae                  _UART1_init
+                  0x004fe4                  ___delay32
+                  0x005000                  _main
 
 External Symbols in Program Memory (by name):
 
-                  0x004bd6                  _ACKStatus
-                  0x004e26                  _ADS1015Begin
-                  0x004e2e                  _ADS1015SetGain
-                  0x004e3a                  _ADS1015readADC_SingleEnded
+                  0x004be4                  _ACKStatus
+                  0x004e34                  _ADS1015Begin
+                  0x004e3c                  _ADS1015SetGain
+                  0x004e48                  _ADS1015readADC_SingleEnded
                   0x0043e0                  _AKNAK
-                  0x004bf2                  _AckI2C
+                  0x004c00                  _AckI2C
                   0x003f12                  _CRC8
                   0x004428                  _CRCError
                   0x00454a                  _CRCcheck
@@ -642,18 +640,18 @@ External Symbols in Program Memory (by name):
                   0x002026                  _CheckTestReading
                   0x002492                  _CheckThresholds
                   0x002436                  _CheckThresholdsBank
-                  0x004856                  _CommStart
+                  0x0049e4                  _CommStart
                   0x0026e8                  _Convert_Voltage
                   0x0031e0                  _CurrentCoulombCount
                   0x0032b6                  _CurrentGet
-                  0x004ac0                  _Delay
+                  0x00493a                  _Delay
                   0x004396                  _FastTransfer_buffer_flush
                   0x004358                  _FastTransfer_buffer_get
                   0x0043c2                  _FastTransfer_buffer_modulo_inc
                   0x0042c8                  _FastTransfer_buffer_put
                   0x00484a                  _GetTxStall
-                  0x004bc4                  _IdleI2C
-                  0x004b4c                  _InitI2C
+                  0x004bd2                  _IdleI2C
+                  0x004b5a                  _InitI2C
                   0x001e7c                  _Initalize_LT6804b
                   0x003418                  _LTC6804_ADSTAT
                   0x0033e8                  _LTC6804_adax
@@ -669,9 +667,9 @@ External Symbols in Program Memory (by name):
                   0x003448                  _LTC6804_rdcv
                   0x003618                  _LTC6804_rdcv_reg
                   0x003ba6                  _LTC6804_wrcfg
-                  0x004be6                  _NotAckI2C
+                  0x004bf4                  _NotAckI2C
                   0x001f78                  _Open_All_ByPass
-                  0x004ade                  _PinSetMode
+                  0x004958                  _PinSetMode
                   0x003082                  _ReadCurrentVolt
                   0x003102                  _ReadVolt
                   0x00317c                  _ReadVoltToCurrent
@@ -682,17 +680,17 @@ External Symbols in Program Memory (by name):
                   0x004768                  _Receive_available
                   0x004776                  _Receive_get
                   0x00475a                  _Receive_peek
-                  0x004b80                  _RestartI2C
+                  0x004b8e                  _RestartI2C
                   0x002cfa                  _RunBypass_Set
                   0x001eea                  _Run_ByPass
                   0x001e74                  _Run_GPIO_Temp_ColumbCounting_Timer
                   0x001e50                  _Run_Mode
-                  0x004f9a                  _SPI2_ClearWriteCollisionStatus
-                  0x004ec6                  _SPI2_Exchange8bit
-                  0x004f02                  _SPI2_Exchange8bitBuffer
-                  0x004f90                  _SPI2_HasWriteCollisionOccured
-                  0x004eb4                  _SPI2_Initialize
-                  0x004f86                  _SPI2_IsBufferFull
+                  0x004fa8                  _SPI2_ClearWriteCollisionStatus
+                  0x004ed4                  _SPI2_Exchange8bit
+                  0x004f10                  _SPI2_Exchange8bitBuffer
+                  0x004f9e                  _SPI2_HasWriteCollisionOccured
+                  0x004ec2                  _SPI2_Initialize
+                  0x004f94                  _SPI2_IsBufferFull
                   0x004784                  _Send_put
                   0x002c18                  _SetBypass
                   0x002d7a                  _SetTempEnable
@@ -703,15 +701,15 @@ External Symbols in Program Memory (by name):
                   0x002f94                  _Set_DCTO_Mode_OFF
                   0x002fe8                  _Set_REFON_Pin
                   0x00338e                  _Set_Stat
-                  0x0049dc                  _Setup
-                  0x004b6e                  _StartI2C
+                  0x004856                  _Setup
+                  0x004b7c                  _StartI2C
                   0x001e12                  _Start_BMS
                   0x001fc6                  _Startuptests
-                  0x004b92                  _StopI2C
+                  0x004ba0                  _StopI2C
                   0x00050a                  _TalkTimeSet
                   0x002b44                  _Test_Temp_Sensors
                   0x0042b6                  _ToSend
-                  0x004fa0                  _UART1_init
+                  0x004fae                  _UART1_init
                   0x0046f0                  _UART_buff_flush
                   0x0046b2                  _UART_buff_get
                   0x004638                  _UART_buff_init
@@ -722,7 +720,7 @@ External Symbols in Program Memory (by name):
                   0x0045fe                  _UART_init
                   0x003052                  _UpdateLT6804
                   0x0025ce                  _Updated_Cell_Array
-                  0x004bac                  _WriteI2C
+                  0x004bba                  _WriteI2C
                   0x000530                  __DefaultInterrupt
                   0x0002ae                  __T1Interrupt
                   0x0002ca                  __T2Interrupt
@@ -731,7 +729,7 @@ External Symbols in Program Memory (by name):
                   0x004806                  __U1TXInterrupt
                   0x000b14                  ___adddf3
                   0x0005da                  ___addsf3
-                  0x004fd6                  ___delay32
+                  0x004fe4                  ___delay32
                   0x000694                  ___divdf3
                   0x0018a4                  ___divdi3
                   0x000748                  ___divsf3
@@ -782,28 +780,26 @@ External Symbols in Program Memory (by name):
                   0x004432                  _addressError
                   0x00441e                  _alignError
                   0x003ec8                  _begin
-                  0x00497a                  _checkCommDirection
+                  0x004b2c                  _checkCommDirection
                   0x0044ec                  _crcBufS_get
                   0x004446                  _crcBufS_put
                   0x00449e                  _crcBufS_status_put
                   0x00443c                  _dataAddressError
                   0x000e48                  _free
-                  0x004c4a                  _getI2C
-                  0x004c06                  _getsI2C
-                  0x004c64                  _i2c_wait
+                  0x004c58                  _getI2C
+                  0x004c14                  _getsI2C
+                  0x004c72                  _i2c_wait
                   0x000376                  _initTimerOne
                   0x0003ba                  _initTimerThree
                   0x000396                  _initTimerTwo
-                  0x004b0a                  _ledDebug
+                  0x004984                  _ledDebug
                   0x00098a                  _logf
-                  0x004ff2                  _main
+                  0x005000                  _main
                   0x000d2c                  _malloc
                   0x000edc                  _memcpy
                   0x000eea                  _memset
                   0x003de2                  _pec15_calc
-                  0x0049a8                  _populateBatteryT
-                  0x0049c2                  _populateBatteryV
-                  0x004ddc                  _readRegister
+                  0x004dea                  _readRegister
                   0x000e5e                  _realloc
                   0x003fee                  _receiveData
                   0x003f7a                  _sendData
@@ -812,11 +808,11 @@ External Symbols in Program Memory (by name):
                   0x003e60                  _spi_write_read
                   0x0004c2                  _time_Set
                   0x00047e                  _time_get
-                  0x004870                  _updateComms
+                  0x0049fe                  _updateComms
                   0x0003f8                  _updateTimers
                   0x003dc4                  _wakeup_idle
                   0x003dd4                  _wakeup_sleep
-                  0x004da4                  _writeRegister
+                  0x004db2                  _writeRegister
 
 Memory Configuration
 
@@ -1090,7 +1086,7 @@ __FUID3
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x7c0c
+.debug_info       0x000000       0x7b97
  *(.debug_info)
  .debug_info      0x000000         0x8f build/default/production/ConfigBits.o
  .debug_info      0x00008f        0xb2f build/default/production/FastTransfer.o
@@ -1098,16 +1094,16 @@ __FUID3
  .debug_info      0x002115        0x123 build/default/production/main.o
  .debug_info      0x002238        0xbf6 build/default/production/UART.o
  .debug_info      0x002e2e        0xe47 build/default/production/Timers.o
- .debug_info      0x003c75        0x45e build/default/production/Communications.o
- .debug_info      0x0040d3        0x90b build/default/production/UART1.o
- .debug_info      0x0049de        0xc60 build/default/production/LT6804.o
- .debug_info      0x00563e        0x3d2 build/default/production/spi2.o
- .debug_info      0x005a10       0x1667 build/default/production/BatteryManagment.o
- .debug_info      0x007077        0x2f4 build/default/production/ADS1015.o
- .debug_info      0x00736b        0x8a1 build/default/production/I2C.o
+ .debug_info      0x003c75        0x3e9 build/default/production/Communications.o
+ .debug_info      0x00405e        0x90b build/default/production/UART1.o
+ .debug_info      0x004969        0xc60 build/default/production/LT6804.o
+ .debug_info      0x0055c9        0x3d2 build/default/production/spi2.o
+ .debug_info      0x00599b       0x1667 build/default/production/BatteryManagment.o
+ .debug_info      0x007002        0x2f4 build/default/production/ADS1015.o
+ .debug_info      0x0072f6        0x8a1 build/default/production/I2C.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000       0x1071
+.debug_abbrev     0x000000       0x103a
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0x1f build/default/production/ConfigBits.o
  .debug_abbrev    0x00001f        0x1f9 build/default/production/FastTransfer.o
@@ -1115,44 +1111,44 @@ __FUID3
  .debug_abbrev    0x000329         0x50 build/default/production/main.o
  .debug_abbrev    0x000379        0x1cd build/default/production/UART.o
  .debug_abbrev    0x000546        0x19c build/default/production/Timers.o
- .debug_abbrev    0x0006e2        0x10f build/default/production/Communications.o
- .debug_abbrev    0x0007f1        0x10a build/default/production/UART1.o
- .debug_abbrev    0x0008fb        0x1db build/default/production/LT6804.o
- .debug_abbrev    0x000ad6         0xf2 build/default/production/spi2.o
- .debug_abbrev    0x000bc8        0x28e build/default/production/BatteryManagment.o
- .debug_abbrev    0x000e56        0x108 build/default/production/ADS1015.o
- .debug_abbrev    0x000f5e        0x113 build/default/production/I2C.o
+ .debug_abbrev    0x0006e2         0xd8 build/default/production/Communications.o
+ .debug_abbrev    0x0007ba        0x10a build/default/production/UART1.o
+ .debug_abbrev    0x0008c4        0x1db build/default/production/LT6804.o
+ .debug_abbrev    0x000a9f         0xf2 build/default/production/spi2.o
+ .debug_abbrev    0x000b91        0x28e build/default/production/BatteryManagment.o
+ .debug_abbrev    0x000e1f        0x108 build/default/production/ADS1015.o
+ .debug_abbrev    0x000f27        0x113 build/default/production/I2C.o
 
-.debug_line       0x000000       0x449d
+.debug_line       0x000000       0x44b1
  *(.debug_line)
  .debug_line      0x000000         0x24 build/default/production/ConfigBits.o
  .debug_line      0x000024        0x83f build/default/production/FastTransfer.o
- .debug_line      0x000863        0x2a0 build/default/production/Function.o
- .debug_line      0x000b03         0x68 build/default/production/main.o
- .debug_line      0x000b6b        0x46c build/default/production/UART.o
- .debug_line      0x000fd7        0x440 build/default/production/Timers.o
- .debug_line      0x001417        0x24a build/default/production/Communications.o
- .debug_line      0x001661        0x16b build/default/production/UART1.o
- .debug_line      0x0017cc        0xcf4 build/default/production/LT6804.o
- .debug_line      0x0024c0        0x262 build/default/production/spi2.o
- .debug_line      0x002722       0x184e build/default/production/BatteryManagment.o
- .debug_line      0x003f70        0x210 build/default/production/ADS1015.o
- .debug_line      0x004180        0x31d build/default/production/I2C.o
+ .debug_line      0x000863        0x2a8 build/default/production/Function.o
+ .debug_line      0x000b0b         0x68 build/default/production/main.o
+ .debug_line      0x000b73        0x46c build/default/production/UART.o
+ .debug_line      0x000fdf        0x440 build/default/production/Timers.o
+ .debug_line      0x00141f        0x256 build/default/production/Communications.o
+ .debug_line      0x001675        0x16b build/default/production/UART1.o
+ .debug_line      0x0017e0        0xcf4 build/default/production/LT6804.o
+ .debug_line      0x0024d4        0x262 build/default/production/spi2.o
+ .debug_line      0x002736       0x184e build/default/production/BatteryManagment.o
+ .debug_line      0x003f84        0x210 build/default/production/ADS1015.o
+ .debug_line      0x004194        0x31d build/default/production/I2C.o
 
-.debug_frame      0x000000        0x9b8
+.debug_frame      0x000000        0x998
  *(.debug_frame)
  .debug_frame     0x000000        0x134 build/default/production/FastTransfer.o
  .debug_frame     0x000134         0x88 build/default/production/Function.o
  .debug_frame     0x0001bc         0x24 build/default/production/main.o
  .debug_frame     0x0001e0        0x114 build/default/production/UART.o
  .debug_frame     0x0002f4         0xc4 build/default/production/Timers.o
- .debug_frame     0x0003b8         0x64 build/default/production/Communications.o
- .debug_frame     0x00041c         0x24 build/default/production/UART1.o
- .debug_frame     0x000440        0x164 build/default/production/LT6804.o
- .debug_frame     0x0005a4         0x74 build/default/production/spi2.o
- .debug_frame     0x000618        0x268 build/default/production/BatteryManagment.o
- .debug_frame     0x000880         0x64 build/default/production/ADS1015.o
- .debug_frame     0x0008e4         0xd4 build/default/production/I2C.o
+ .debug_frame     0x0003b8         0x44 build/default/production/Communications.o
+ .debug_frame     0x0003fc         0x24 build/default/production/UART1.o
+ .debug_frame     0x000420        0x164 build/default/production/LT6804.o
+ .debug_frame     0x000584         0x74 build/default/production/spi2.o
+ .debug_frame     0x0005f8        0x268 build/default/production/BatteryManagment.o
+ .debug_frame     0x000860         0x64 build/default/production/ADS1015.o
+ .debug_frame     0x0008c4         0xd4 build/default/production/I2C.o
 
 .debug_str        0x000000        0x696
  *(.debug_str)
@@ -1175,7 +1171,7 @@ __FUID3
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000       0x10bc
+                  0x000000       0x1092
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000        0x2da build/default/production/FastTransfer.o
@@ -1188,19 +1184,19 @@ __FUID3
  .debug_pubnames
                   0x00049f        0x147 build/default/production/Timers.o
  .debug_pubnames
-                  0x0005e6         0xd2 build/default/production/Communications.o
+                  0x0005e6         0xa8 build/default/production/Communications.o
  .debug_pubnames
-                  0x0006b8         0x5a build/default/production/UART1.o
+                  0x00068e         0x5a build/default/production/UART1.o
  .debug_pubnames
-                  0x000712        0x1d4 build/default/production/LT6804.o
+                  0x0006e8        0x1d4 build/default/production/LT6804.o
  .debug_pubnames
-                  0x0008e6         0xb3 build/default/production/spi2.o
+                  0x0008bc         0xb3 build/default/production/spi2.o
  .debug_pubnames
-                  0x000999        0x5c5 build/default/production/BatteryManagment.o
+                  0x00096f        0x5c5 build/default/production/BatteryManagment.o
  .debug_pubnames
-                  0x000f5e         0xb4 build/default/production/ADS1015.o
+                  0x000f34         0xb4 build/default/production/ADS1015.o
  .debug_pubnames
-                  0x001012         0xaa build/default/production/I2C.o
+                  0x000fe8         0xaa build/default/production/I2C.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -2831,7 +2827,7 @@ __c30_signature
  .const             0x9c00        0x200 build/default/production/LT6804.o
  .const             0x9e00         0x12 build/default/production/Function.o
 
-.text             0x001e12       0x2e68
+.text             0x001e12       0x2e76
  .text            0x001e12       0x1518 build/default/production/BatteryManagment.o
                   0x001e12                  _Start_BMS
                   0x001e38                  _Charge_Mode
@@ -2926,55 +2922,53 @@ __c30_signature
                   0x004806                  __U1TXInterrupt
                   0x00483e                  _SetTxStall
                   0x00484a                  _GetTxStall
- .text            0x004856        0x186 build/default/production/Communications.o
-                  0x004856                  _CommStart
-                  0x004870                  _updateComms
-                  0x00497a                  _checkCommDirection
-                  0x0049a8                  _populateBatteryT
-                  0x0049c2                  _populateBatteryV
- .text            0x0049dc        0x170 build/default/production/Function.o
-                  0x0049dc                  _Setup
-                  0x004ac0                  _Delay
-                  0x004ade                  _PinSetMode
-                  0x004b0a                  _ledDebug
- .text            0x004b4c        0x12e build/default/production/I2C.o
-                  0x004b4c                  _InitI2C
-                  0x004b6e                  _StartI2C
-                  0x004b80                  _RestartI2C
-                  0x004b92                  _StopI2C
-                  0x004bac                  _WriteI2C
-                  0x004bc4                  _IdleI2C
-                  0x004bd6                  _ACKStatus
-                  0x004be6                  _NotAckI2C
-                  0x004bf2                  _AckI2C
-                  0x004c06                  _getsI2C
-                  0x004c4a                  _getI2C
-                  0x004c64                  _i2c_wait
+ .text            0x004856        0x18e build/default/production/Function.o
+                  0x004856                  _Setup
+                  0x00493a                  _Delay
+                  0x004958                  _PinSetMode
+                  0x004984                  _ledDebug
+ .text            0x0049e4        0x176 build/default/production/Communications.o
+                  0x0049e4                  _CommStart
+                  0x0049fe                  _updateComms
+                  0x004b2c                  _checkCommDirection
+ .text            0x004b5a        0x12e build/default/production/I2C.o
+                  0x004b5a                  _InitI2C
+                  0x004b7c                  _StartI2C
+                  0x004b8e                  _RestartI2C
+                  0x004ba0                  _StopI2C
+                  0x004bba                  _WriteI2C
+                  0x004bd2                  _IdleI2C
+                  0x004be4                  _ACKStatus
+                  0x004bf4                  _NotAckI2C
+                  0x004c00                  _AckI2C
+                  0x004c14                  _getsI2C
+                  0x004c58                  _getI2C
+                  0x004c72                  _i2c_wait
 
-.dinit            0x004c7a        0x12a
- .dinit           0x004c7a        0x12a data_init
+.dinit            0x004c88        0x12a
+ .dinit           0x004c88        0x12a data_init
 
-.text             0x004da4        0x232
- .text            0x004da4        0x110 build/default/production/ADS1015.o
-                  0x004da4                  _writeRegister
-                  0x004ddc                  _readRegister
-                  0x004e26                  _ADS1015Begin
-                  0x004e2e                  _ADS1015SetGain
-                  0x004e3a                  _ADS1015readADC_SingleEnded
- .text            0x004eb4         0xec build/default/production/spi2.o
-                  0x004eb4                  _SPI2_Initialize
-                  0x004ec6                  _SPI2_Exchange8bit
-                  0x004f02                  _SPI2_Exchange8bitBuffer
-                  0x004f86                  _SPI2_IsBufferFull
-                  0x004f90                  _SPI2_HasWriteCollisionOccured
-                  0x004f9a                  _SPI2_ClearWriteCollisionStatus
- .text            0x004fa0         0x36 build/default/production/UART1.o
-                  0x004fa0                  _UART1_init
+.text             0x004db2        0x232
+ .text            0x004db2        0x110 build/default/production/ADS1015.o
+                  0x004db2                  _writeRegister
+                  0x004dea                  _readRegister
+                  0x004e34                  _ADS1015Begin
+                  0x004e3c                  _ADS1015SetGain
+                  0x004e48                  _ADS1015readADC_SingleEnded
+ .text            0x004ec2         0xec build/default/production/spi2.o
+                  0x004ec2                  _SPI2_Initialize
+                  0x004ed4                  _SPI2_Exchange8bit
+                  0x004f10                  _SPI2_Exchange8bitBuffer
+                  0x004f94                  _SPI2_IsBufferFull
+                  0x004f9e                  _SPI2_HasWriteCollisionOccured
+                  0x004fa8                  _SPI2_ClearWriteCollisionStatus
+ .text            0x004fae         0x36 build/default/production/UART1.o
+                  0x004fae                  _UART1_init
 
-.init.delay32     0x004fd6         0x1c
- .init.delay32    0x004fd6         0x1c c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
-                  0x004fd6                  ___delay32
+.init.delay32     0x004fe4         0x1c
+ .init.delay32    0x004fe4         0x1c c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
+                  0x004fe4                  ___delay32
 
-.text             0x004ff2         0x10
- .text            0x004ff2         0x10 build/default/production/main.o
-                  0x004ff2                  _main
+.text             0x005000         0x10
+ .text            0x005000         0x10 build/default/production/main.o
+                  0x005000                  _main

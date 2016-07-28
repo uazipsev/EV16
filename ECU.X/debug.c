@@ -14,6 +14,7 @@
 #include "EEprom.h"
 #include "Timers.h"
 #include "PinDef.h"
+#include "BMMComms.h"
 
 #include <errno.h>
 
@@ -56,8 +57,6 @@ enum debugStates debugState;
 extern int DDS_FAULT_CONDITION, MCS_FAULT_CONDITION, SAS_FAULT_CONDITION, BMM_FAULT_CONDITION, PDU_FAULT_CONDITION, ECU_FAULT_CONDITION;
 extern int faultingBattery;
 extern int BMMADC[4];
-extern int milliVolts[NUMSLAVES][BATTPERSLAVE];
-extern int temps[NUMSLAVES][BATTPERSLAVE];
 extern int current1, current2, bigVolts;
 void handleDebugRequests();
 
@@ -112,7 +111,6 @@ void handleDebugRequests() {
                 //This is the first time through the loop
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
-                   // comms.BMM_SEND = BATTERY_FAULT;
 
                 }
                 break;
@@ -120,7 +118,6 @@ void handleDebugRequests() {
                 //This is the first time through the loop
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
-                    //comms.BMM_SEND = BATTERY_FAULT;
                 }
                 printf("\n-----Throttle Brake Raw Debug----\n");
                 printf("Throttle1:      %d\n", t1Raw);
@@ -135,25 +132,13 @@ void handleDebugRequests() {
                 //This is the first time through the loop
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
-                    //comms.BMM_SEND = BATTERY_VOLTS;
-                    batterySlaveNumberV = 0;
-                }
-//                if (comms.BMM) {
-////                    //printf("\n---Slave #%d Bat Voltage Info---\n", batterySlaveNumberV + 1);
-////                    printf("B1: %dV B2: %dV B3: %dV B4: %dV\n", milliVolts[batterySlaveNumberV][0], milliVolts[batterySlaveNumberV][1], milliVolts[batterySlaveNumberV][2], milliVolts[batterySlaveNumberV][3]);
-////                    printf("B5: %dV B6: %dV B7: %dV B8: %dV\n", milliVolts[batterySlaveNumberV][4], milliVolts[batterySlaveNumberV][5], milliVolts[batterySlaveNumberV][6], milliVolts[batterySlaveNumberV][7]);
-////                    printf("B9: %dV B10:%dV                \n", milliVolts[batterySlaveNumberV][8], milliVolts[batterySlaveNumberV][9]);
-////                    if (batterySlaveNumberV < NUMSLAVES - 1) batterySlaveNumberV++;
-////                    else batterySlaveNumberV = 0;
-//                } else
-                    //printf("\nComms with BMM are no longer online\n");
-                    
+                }     
                     printf("\n Battery info:\n");
-                    printf("\n Battery Cell high %d V = %f:\n",140,3.89+augment[k]);
-                    printf("\n Battery Cell low %d V = %f:\n",45,3.82+augment[k]);
-                    printf("\n Battery STD DIV = %f:\n",0.067+augment[k]);
-                    printf("\n Current A %3.02f B %3.02f C %3.02f \n", 0.00, 0.0, 0.00);
-                    printf("\n Temp MAX %f  F MIN %f F AVG %f F",120-augment[k+2], 110+augment[k-1], 115-augment[k+1]);
+                    printf("\n Battery Cell high V = %d:\n",GetVolt(6));
+                    printf("\n Battery Cell low V = %d:\n",GetVolt(7));
+                    //printf("\n Battery STD DIV = %f:\n",0.067+augment[k]);
+                    //printf("\n Current A %3.02f B %3.02f C %3.02f \n", 0.00, 0.0, 0.00);
+                    printf("\n Temp MAX %d  F MIN %d F AVG %d F",GetTemp(6), GetTemp(7), GetTemp(0));
                     k++;
                     if(k > 5){
                         k = 0;
@@ -163,13 +148,11 @@ void handleDebugRequests() {
                 //This is the first time through the loop
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
-                    //comms.BMM_SEND = BATTERY_TEMPS;
-                    batterySlaveNumber = 0;
                 }
-                printf("\n----Slave #%d Bat Temp Info---- \n", batterySlaveNumber + 1);
-                printf("B1: %dF B2:  %dF B3:  %dF B4:  %dF\n", temps[batterySlaveNumber][0], temps[batterySlaveNumber][1], temps[batterySlaveNumber][2], temps[batterySlaveNumber][3]);
-                printf("B5: %dF B6:  %dF B7:  %dF B8:  %dF\n", temps[batterySlaveNumber][4], temps[batterySlaveNumber][5], temps[batterySlaveNumber][6], temps[batterySlaveNumber][7]);
-                printf("B9: %dF B10: %dF                  \n", temps[batterySlaveNumber][8], temps[batterySlaveNumber][9]);
+//                printf("\n----Slave #%d Bat Temp Info---- \n", batterySlaveNumber + 1);
+//                printf("B1: %dF B2:  %dF B3:  %dF B4:  %dF\n", temps[batterySlaveNumber][0], temps[batterySlaveNumber][1], temps[batterySlaveNumber][2], temps[batterySlaveNumber][3]);
+//                printf("B5: %dF B6:  %dF B7:  %dF B8:  %dF\n", temps[batterySlaveNumber][4], temps[batterySlaveNumber][5], temps[batterySlaveNumber][6], temps[batterySlaveNumber][7]);
+//                printf("B9: %dF B10: %dF                  \n", temps[batterySlaveNumber][8], temps[batterySlaveNumber][9]);
 //                if (batterySlaveNumber < NUMSLAVES - 1) batterySlaveNumber++;
 //                else batterySlaveNumber = 0;
 
@@ -178,22 +161,16 @@ void handleDebugRequests() {
                 //This is the first time through the loop
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
-                    //comms.BMM_SEND = BATTERY_POWER;
                 }
                 printf("\n----BMM Power Signal Debug----\n");
-//              printf("BMMADC[0]:      %d\n", BMMADC[0]);
-//              printf("BMMADC[1]:      %d\n", BMMADC[1]);
-//              printf("BMMADC[2]:      %d\n", BMMADC[2]);
-//              printf("BMMADC[3]:      %d\n", BMMADC[3]);
-                printf("Current Pack 1:  %d\n", current1);
-                printf("Current Pack 2:  %d\n", current2);
-                printf("Current Pack 3:  %d\n", current2);
+                printf("Current Pack 1:  %d\n", GetCurrent(1));
+                printf("Current Pack 2:  %d\n", GetCurrent(2));
+                printf("Current Pack 3:  %d\n", GetCurrent(3));
                 break;
             case FAULT_RECOVERY:
                 //This is the first time through the loop
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
-                    comms.BMM_SEND = BATTERY_FAULT;
                 }
                 printf("\n----Fault Reporting/Recovery Mode----\n");
                 if (MCS_FAULT_CONDITION) {
@@ -292,6 +269,11 @@ void handleDebugRequests() {
                 int i;
                 for(i = 0;i<8;i++){
                     printf("Button %d : %d", i,buttonArray[i]);
+                }
+                break;
+            case error_rate:
+                if (lastDebugState != debugState) {
+                    lastDebugState = debugState;
                 }
                 break;
                 
@@ -532,7 +514,7 @@ void BatteryMenu(char menuitem){
     printf("1) Voltage\n");
     printf("2) Current\n");
     printf("3) Temp\n");
-    printf("4) Sat's\n");
+    printf("4) Stats\n");
     if(menuitem == 1){
         debugState = BATTERY_DEBUG_VOLTS;
     }

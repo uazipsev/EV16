@@ -1,6 +1,7 @@
 #include "BMMComms.h"
 #include "SlaveAddressing.h"
 #include "Timers.h"
+#include "FastTransfer.h"
 
 extern int BMM_FAULT_CONDITION;
 int BMMADC[4];
@@ -25,9 +26,10 @@ struct commsStates {
     int PDU_SEND;
 };
 
-int milliVolts[NUMSLAVES][BATTPERSLAVE];
-int temps[NUMSLAVES][BATTPERSLAVE];
-int current1, current2, bigVolts;
+int current1, current2, current3, CellMaxVolt, CellMinVolt, CellMinTemp, CellMaxTemp;
+int FaultV, FaultT, FaultC;
+int SubPackV[6];
+int SubPackT[6];
 int faultingBattery;
 bool batteryFault = false;
 bool requestBMMData(char state);
@@ -82,26 +84,68 @@ bool receiveCommBMM(char state) {
 //        }
         switch (state) {
             case BATTERY_FAULT:
-                printf("BF1 = %d ",receiveArray[1]);
-                printf("BF2 = %d ",receiveArray[2]);
-                printf("BF3 = %d\n",receiveArray[3]);
+                FaultV = receiveArray[1];
+                FaultC = receiveArray[2];
+                FaultT = receiveArray[3];
                 break;
             case BATTERY_VOLTS:
-                printf("BV1 = %d ",receiveArray[1]);
-                printf("BV2 = %d\n",receiveArray[2]);
+                for(j = 0;j<5;j++){
+                    SubPackV[j] = receiveArray[j+1];
+                }
+                CellMaxVolt = receiveArray[7];
+                CellMinVolt = receiveArray[8];
                 break;
             case BATTERY_TEMPS:
-                printf("BT1 = %d ",receiveArray[1]);
-                printf("BT2 = %d\n",receiveArray[2]);
+                for(j = 0;j<5;j++){
+                    SubPackT[j] = receiveArray[j+1];
+                }
+                CellMaxTemp = receiveArray[7];
+                CellMinTemp = receiveArray[8];
                 break;
             case BATTERY_POWER:
-                printf("BA1 = %d ",receiveArray[1]);
-                printf("BA2 = %d ",receiveArray[2]);
-                printf("BA3 = %d\n",receiveArray[3]);
+                current1 = receiveArray[1];
+                current2 = receiveArray[2];
+                current3 = receiveArray[3];
                 break;
         }
         readyToSendBMM = true;
         SetTime(BMMTimer);
         return true;
     } else return false;
+}
+
+int GetVolt(char num){
+    if(num == 6){
+        return CellMaxVolt;
+    }
+    if(num == 7){
+        return CellMinVolt;
+    }
+    else{
+        return SubPackV[num];
+    }
+}
+
+int GetTemp(char num){
+    if(num == 6){
+        return CellMaxTemp;
+    }
+    if(num == 7){
+        return CellMinTemp;
+    }
+    else{
+        return SubPackT[num];
+    }
+}
+
+int GetCurrent(char num){
+    if(num == 1){
+        return current1;
+    }
+    if(num == 2){
+        return current2;
+    }
+    if(num == 3){
+        return current3;
+    }
 }

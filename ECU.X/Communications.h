@@ -75,9 +75,6 @@ extern "C" {
     extern bool SAS_COMMS_ERROR;
 
     //
-
-    extern bool requestBMMData(struct commsStates * cS);
-    extern bool receiveCommBMM(struct commsStates * cS);
     extern bool readyToSendBMM;
     extern bool BMM_COMMS_ERROR;
     //

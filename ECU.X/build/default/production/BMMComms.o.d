@@ -3,4 +3,5 @@ BMMComms.c  \
 BMMComms.h  \
 ADDRESSING.h  \
  SlaveAddressing.h  \
-Timers.h 
+Timers.h  \
+FastTransfer.h 

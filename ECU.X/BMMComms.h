@@ -11,13 +11,13 @@
 #include "ADDRESSING.h"
 #include <stdbool.h>
 
-
-    extern volatile unsigned int BMMTimer;
-    extern void sendData(unsigned char whereToSend);
-    extern bool receiveData();
-    extern void ToSend(const unsigned char where, const unsigned int what);
     extern volatile int receiveArray[100];
     extern void RS485_Direction2(int T_L);
-
+    bool requestBMMData(char state);
+    bool receiveCommBMM(char state);
+    int GetTemp(char num);
+    int GetVolt(char num);
+    int GetCurrent(char num);
+    
 #endif	/* BMMCOMMS_H */
 
