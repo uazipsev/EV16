@@ -55,7 +55,7 @@ void Setup(void) {
     //begin1(receiveArray1, sizeof (receiveArray1), BMM_MASTER_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);
      UART1_init();
      //Start_BMS();
-     SPI2_Initialize();
+     //SPI2_Initialize();
    // i2c_init();
     //PWM_Init();
 }
@@ -100,7 +100,7 @@ void PinSetMode(void) {
  void ledDebug() {
      //int x=0;
         if (time_get(LEDTM) > 500) {
-            INDICATOR = !INDICATOR;
+            //INDICATOR = !INDICATOR;
             printf("ADC: %d , %d , %d", CurrentGet(0,1),CurrentGet(0,2),CurrentGet(0,3));
            // printf(SetUnderOverVoltage(5,8));
 //            if (x == 0) {

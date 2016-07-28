@@ -32,8 +32,8 @@ int main(int argc, char** argv) {
 //            ADCTime = 0;
 //        }
        ledDebug();
-       Run_Mode();
-        //updateComms();
+       //Run_Mode();
+        updateComms();
     }
 
     return (EXIT_SUCCESS);

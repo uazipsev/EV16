@@ -13,6 +13,7 @@
 #include "StoppedState.h"
 #include "EEprom.h"
 #include "Timers.h"
+#include "PinDef.h"
 
 #include <errno.h>
 
@@ -70,6 +71,7 @@ int i = 0;
 int SubMenu = 0;
 bool FuncIn = 0;
 bool SubMenuActive = false;
+bool MenuClear = false;
 int Data = 0;
 char DataHold[10];
 char TimeOutMenu = 0;
@@ -298,6 +300,11 @@ void handleDebugRequests() {
             ClearScreen();
             MenuPrint(Menu,SubMenu);
         }
+        if(MenuClear){
+            ClearScreen();
+            MenuPrint(Menu,SubMenu);
+            MenuClear = false;
+        }
         SetTime(DebugTime);
     }
 
@@ -332,15 +339,10 @@ void handleDebugRequests() {
             if(FunctionDataGrab == 4){
                 //Get data of the pipe
                 DataHold[i] = Receive_get2();
-                i++;
-                //We are looking for x chars...
-                if(i>1){
-                    //Set the data to go to driver menu for config
-                    DriverMenu(3);
-                    //We are done grabbing data off the pipeline
-                    FunctionDataGrab = false;
-                    i = 0;
-                }
+                 DriverMenu(3);    
+                //We are done grabbing data off the pipeline
+                FunctionDataGrab = false;
+                i = 0;
             }
             //Throttle Precent
             if(FunctionDataGrab == 1){
@@ -435,8 +437,8 @@ void MenuPrint(char Menuloc, char Subloc){
           break;
        default:
           printf("******NO Match*****\n");
-          TimeOutMenu = 1;
-          TimeOutSet(1500);
+          Menu = 0;
+          TimeOutSet(3000);
           break;
     }
     Menudisplay = 0;
@@ -508,6 +510,7 @@ void SettingMenu(char menuitem){
     else if(menuitem == 3){
         ClearScreen();
         Display();
+        TimeOutSet(5000);
         SubMenu = 0;      
     }
     else if(menuitem == 4){
@@ -562,7 +565,7 @@ void ComMenu(char menuitem){
         debugState = comm_on;
     }
     else if(menuitem == 2){
-    
+        debugState = error_rate;
     }
     else if(menuitem == 3){
         
@@ -580,7 +583,7 @@ void DriverMenu(char menuitem){
     printf("|---Driver Config---|\n");
     printf("1) Driver Select\n");
     printf("2) Driver Config\n");
-    printf("------%s IS ACTIVE-------",DriverName(ReadCarDriver()));
+    printf("------%s IS ACTIVE-------\n",DriverName(DriverActive()));
     if(menuitem == 1){
         printf("|---Driver List---|\n");
         int i;
@@ -601,6 +604,7 @@ void DriverMenu(char menuitem){
     else if(menuitem == 3){
         ClearScreen();
         SetDriver(DataHold[0]-48);
+        TimeOutSet(3000);
         SubMenu = 0;
     }
 }
@@ -621,6 +625,7 @@ void MenuBrakeLightValue(char cont){
     if(cont == 1){
         SaveBrakeTrigger(Data);
         printf(" Brake Light Set to %d",Data);
+        TimeOutSet(3000);
     }
 }
 
@@ -630,11 +635,8 @@ void MenuBrakeLightValue(char cont){
  * @return          N/A
  * @note            The fcn makes a timer based delay for time outs on the CLI
  *******************************************************************/
-void MenuClear(){
-    if(TimeOutMenu == 1){
-        ClearScreen();
-        MenuPrint(0,0);
-    }
+void MenuClearFlag(){
+    MenuClear = true;
 }
 
 /*******************************************************************

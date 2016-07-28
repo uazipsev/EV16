@@ -46,87 +46,89 @@ void CommStart(){
 
 void updateComms() {
     if (receiveData()) {
-        INDICATOR = !INDICATOR;
+        
         //TODO: need to remove this and make the arrays static :(
         //UART_buff_flush(&input_buffer,1);
         time_Set(TLKTM,0);
         COMM_STATE = receiveArray[BMM_COMM_STATE];
         pendingSend = true;
-        //ToSend(2, 12);
+        INDICATOR = !INDICATOR;
     }
-    if (!portClosed && !pendingSend ) {
+    if (!portClosed && pendingSend ) {
         RS485_Port = TALK;
         portClosed = true;
+        INDICATOR = !INDICATOR;
     }
-    if (!pendingSend && time_get(TLKTM)> 6 && portClosed) {
-        if(ChargerVal()){
-            ToSend(RESPONSE_ADDRESS, MCS_ADDRESS);
-            static int lastCommState = 0;
-            switch (COMM_STATE) {
-                case BATTERY_VOLTS:
-                    if (lastCommState != COMM_STATE) {
-                        lastCommState = COMM_STATE;
-                        slaveaddr = 0;
-                    }
-                    populateBatteryV(slaveaddr);
-                   // if (slaveaddr >= NUMSLAVES1) slaveaddr = 0;
-                    break;
-                case BATTERY_TEMPS:
-                    if (lastCommState != COMM_STATE) {
-                        lastCommState = COMM_STATE;
-                        slaveaddr = 0;
-                    }
-                    populateBatteryT(slaveaddr++);
-                   // if (slaveaddr >= NUMSLAVES1) slaveaddr = 0;
-                    break;
-                case BATTERY_POWER:
-                    if (lastCommState != COMM_STATE) {
-                        lastCommState = COMM_STATE;
-                        
-                    }
-                    break;
-                case BATTERY_FAULT:
-                    if (lastCommState != COMM_STATE) {
-                        lastCommState = COMM_STATE;
-                    }
-                    break;
-//                case 6:
+    if (pendingSend && time_get(TLKTM)> 6 && portClosed) {
+        //if(ChargerVal()){
+            
+            ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
+           // static int lastCommState = 0;
+//            switch (COMM_STATE) {
+//                case BATTERY_VOLTS:
+//                    if (lastCommState != COMM_STATE) {
+//                        lastCommState = COMM_STATE;
+//                        slaveaddr = 0;
+//                    }
+//                    populateBatteryV(slaveaddr);
+//                   // if (slaveaddr >= NUMSLAVES1) slaveaddr = 0;
+//                    break;
+//                case BATTERY_TEMPS:
+//                    if (lastCommState != COMM_STATE) {
+//                        lastCommState = COMM_STATE;
+//                        slaveaddr = 0;
+//                    }
+//                    populateBatteryT(slaveaddr++);
+//                   // if (slaveaddr >= NUMSLAVES1) slaveaddr = 0;
+//                    break;
+//                case BATTERY_POWER:
+//                    if (lastCommState != COMM_STATE) {
+//                        lastCommState = COMM_STATE;
+//                        
+//                    }
+//                    break;
+//                case BATTERY_FAULT:
 //                    if (lastCommState != COMM_STATE) {
 //                        lastCommState = COMM_STATE;
 //                    }
-//                    ChargerEN();
-//                    ToSend(2, 12);
 //                    break;
-                default:
-                    break;
-
-            }
-            switch (faultFlag) {
-                case 0:
-                    LATBbits.LATB0=1;
-                    Delay(1);
-                    LATBbits.LATB0=0;
-                    //faultingBattery = 0;
-                    break;
-
-                case LOW_VOLTAGE_FLAG:
-
-                case HIGH_TEMPERATURE_FLAG:
-
-                case COMMUNICATIONS_FAULT:
-
-                    LATAbits.LATA1=1;
-                    Delay(1);
-                    LATAbits.LATA1=0;
-                default:
-
-                    break;
-            }
+////                case 6:
+////                    if (lastCommState != COMM_STATE) {
+////                        lastCommState = COMM_STATE;
+////                    }
+////                    ChargerEN();
+////                    ToSend(2, 12);
+////                    break;
+//                default:
+//                    break;
+//
+//            }
+//            switch (faultFlag) {
+//                case 0:
+//                    LATBbits.LATB0=1;
+//                    Delay(1);
+//                    LATBbits.LATB0=0;
+//                    //faultingBattery = 0;
+//                    break;
+//
+//                case LOW_VOLTAGE_FLAG:
+//
+//                case HIGH_TEMPERATURE_FLAG:
+//
+//                case COMMUNICATIONS_FAULT:
+//
+//                    LATAbits.LATA1=1;
+//                    Delay(1);
+//                    LATAbits.LATA1=0;
+//                default:
+//
+//                    break;
+//            }
             sendData(ECU_ADDRESS);
-            pendingSend = true;
+            pendingSend = false;
 
             TalkTimeSet(0);
-        }
+       // }
 //        else(){
 //            //This is where we add info for the charger communication 
 //            
@@ -138,10 +140,10 @@ void updateComms() {
 void checkCommDirection() {
     //you have finished send and time has elapsed.. start listen
     //if (GetTxStall() && (time_get(TLKTM) > 20) && (RS485_Port == TALK) && portClosed && !pendingSend) {
-    if ((time_get(TLKTM) > 20) && (RS485_Port == TALK) && pendingSend) {
+    if ((time_get(TLKTM) > 80) && (RS485_Port == TALK) && !pendingSend) {
         RS485_Port = LISTEN;
         portClosed = false;
-        pendingSend = false;
+        //pendingSend = false;
     }
 }
 

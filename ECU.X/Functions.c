@@ -20,6 +20,7 @@
 #include "FastTransfer.h"
 #include "FastTransfer1.h"
 #include "FastTransfer3.h"
+#include "DriverConfigs.h"
 
 
 int BrakeLightThreshold = 0;
@@ -86,6 +87,7 @@ void Setup(void) {
     initTimerOne();
     //This sets up all non constants from external EEPROM 
     //SetUpDataSets();
+    SetDriver(1);
 }
 
 /*******************************************************************

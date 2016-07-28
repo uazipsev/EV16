@@ -8,4 +8,5 @@ Functions.h  \
 UART2.h  \
 StoppedState.h  \
  EEprom.h  \
-Timers.h 
+Timers.h  \
+PinDef.h 

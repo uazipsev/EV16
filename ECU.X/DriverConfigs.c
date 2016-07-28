@@ -4,10 +4,10 @@
 #define NUMOFDRIVER 5
 
 char *DriverData[NUMOFDRIVER] = {"","Andrew T.","Trevin H.","Ben .B","Richard J."};
-
+char CurentDriver; 
 
 void SetDriver(char num){
-    printf("\n %d is Active\n",num);
+    CurentDriver = num;
     SaveCarDriver(num);
 }
 
@@ -17,4 +17,8 @@ int DriverCount(){
 
 char *DriverName(int num){
     return DriverData[num];
+}
+
+char DriverActive(){
+    return CurentDriver;
 }

@@ -9,9 +9,10 @@
 #include <stdbool.h>
 #include "Timers.h"
 #include "debug.h"
+#include "PinDef.h"
 
-int TimeOut = 0;
-int LastTime = 0;
+unsigned int TimeOut = 0;
+unsigned int LastTime = 0;
 bool TimeOutActive = 0;
 
 unsigned int SAS, DDS, MCS, PDU, BMM, BootTimer,DebugTimer;
@@ -49,9 +50,9 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
         PDU++;
     if (BMM< COMM_TIMER_MAX_TIME)
         BMM++;
-    if(((time - LastTime) > TimeOut) && TimeOutActive){
+    if(((time - LastTime) >= TimeOut) && (TimeOutActive == 1)){
         TimeOutActive = 0;
-        MenuClear();
+        MenuClearFlag();
     }
     IFS0bits.T1IF = 0; // clear interrupt flag
 }
@@ -60,6 +61,7 @@ void TimeOutSet(int num){
     TimeOut = num;
     LastTime = time;
     TimeOutActive = 1;
+    //INDICATOR ^= 1;
 }
 
 int GetTime(char data){

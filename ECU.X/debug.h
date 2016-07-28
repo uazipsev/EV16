@@ -21,12 +21,13 @@ enum debugStates {
     BATTERY_DEBUG_TEMPS = 3,
     BATTERY_DEBUG_POWER = 4,
     FAULT_RECOVERY = 5,
-    NUM_DEBUG_STATES = 11,
+    NUM_DEBUG_STATES = 12,
             Find_State =6,
             State_fault=7,
             Reset=8,
             comm_on=9,
-            buttons = 10
+            buttons = 10,
+            error_rate = 11
 };
 
     extern unsigned int throttle1, throttle2, brake;
@@ -48,7 +49,7 @@ void ClearScreen();
 void MenuBrakeLightValue(char cont);
 
 void MenuPrint(char Menuloc, char Subloc);
-void MenuClear();
+void MenuClearFlag();
 
 #endif	/* DEBUG_H */
 

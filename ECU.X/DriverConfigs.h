@@ -11,6 +11,7 @@
 void SetDriver(char num);
 int DriverCount();
 char *DriverName(int num);
+char DriverActive();
 
 #endif	/* DRIVERCONFIGS_H */
 
