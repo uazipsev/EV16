@@ -60,79 +60,39 @@ void updateComms() {
         INDICATOR = !INDICATOR;
     }
     if (pendingSend && time_get(TLKTM)> 6 && portClosed) {
-        //if(ChargerVal()){
-            
-            ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
-           // static int lastCommState = 0;
-//            switch (COMM_STATE) {
-//                case BATTERY_VOLTS:
-//                    if (lastCommState != COMM_STATE) {
-//                        lastCommState = COMM_STATE;
-//                        slaveaddr = 0;
-//                    }
-//                    populateBatteryV(slaveaddr);
-//                   // if (slaveaddr >= NUMSLAVES1) slaveaddr = 0;
-//                    break;
-//                case BATTERY_TEMPS:
-//                    if (lastCommState != COMM_STATE) {
-//                        lastCommState = COMM_STATE;
-//                        slaveaddr = 0;
-//                    }
-//                    populateBatteryT(slaveaddr++);
-//                   // if (slaveaddr >= NUMSLAVES1) slaveaddr = 0;
-//                    break;
-//                case BATTERY_POWER:
-//                    if (lastCommState != COMM_STATE) {
-//                        lastCommState = COMM_STATE;
-//                        
-//                    }
-//                    break;
-//                case BATTERY_FAULT:
-//                    if (lastCommState != COMM_STATE) {
-//                        lastCommState = COMM_STATE;
-//                    }
-//                    break;
-////                case 6:
-////                    if (lastCommState != COMM_STATE) {
-////                        lastCommState = COMM_STATE;
-////                    }
-////                    ChargerEN();
-////                    ToSend(2, 12);
-////                    break;
-//                default:
-//                    break;
-//
-//            }
-//            switch (faultFlag) {
-//                case 0:
-//                    LATBbits.LATB0=1;
-//                    Delay(1);
-//                    LATBbits.LATB0=0;
-//                    //faultingBattery = 0;
-//                    break;
-//
-//                case LOW_VOLTAGE_FLAG:
-//
-//                case HIGH_TEMPERATURE_FLAG:
-//
-//                case COMMUNICATIONS_FAULT:
-//
-//                    LATAbits.LATA1=1;
-//                    Delay(1);
-//                    LATAbits.LATA1=0;
-//                default:
-//
-//                    break;
-//            }
-            sendData(ECU_ADDRESS);
-            pendingSend = false;
+        if(!ChargerVal()){
+            switch (COMM_STATE) {
+                case BATTERY_VOLTS:
+                    ToSend(1, 15);
+                    ToSend(2, 30);
+                    break;
+                case BATTERY_TEMPS:
+                    ToSend(1, 70);
+                    ToSend(2, 73);
+                    break;
+                case BATTERY_POWER:
+                    ToSend(1, 30);
+                    ToSend(2, 35);
+                    ToSend(3, 28);
+                    break;
+                case BATTERY_FAULT:
+                    ToSend(1, 0);
+                    ToSend(2, 1);
+                    ToSend(3, 2);
+                    break;
+                default:
+                    break;
 
-            TalkTimeSet(0);
-       // }
-//        else(){
-//            //This is where we add info for the charger communication 
-//            
-//        }
+            }
+        }
+        else{
+            //This is where we add info for the charger communication 
+            
+        }
+        //ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
+        sendData(ECU_ADDRESS);
+        pendingSend = false;
+        TalkTimeSet(0);
     }
     checkCommDirection();
 }

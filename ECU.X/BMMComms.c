@@ -30,28 +30,28 @@ int temps[NUMSLAVES][BATTPERSLAVE];
 int current1, current2, bigVolts;
 int faultingBattery;
 bool batteryFault = false;
-bool requestBMMData(struct commsStates * cS);
-bool receiveCommBMM(struct commsStates * cS);
+bool requestBMMData(char state);
+bool receiveCommBMM(char state);
 bool readyToSendBMM = true;
 bool BMM_COMMS_ERROR = false;
 
-bool requestBMMData(struct commsStates * cS) {
+bool requestBMMData(char state) {
     if (((GetTime(BMMTimer) > BOARD_RESEND_MIN) && (readyToSendBMM)) || (GetTime(BMMTimer) > BOARD_TIMEOUT)) {
-        static int BMMErrorCounter = 0;
-        if (!readyToSendBMM) {
-            BMMErrorCounter++;
-            if (BMMErrorCounter > 1) {
-                BMMErrorCounter = 0;
-                return false;
-            }
-        } else {
-            BMMErrorCounter = 0;
-            readyToSendBMM = false;
-        }
+//        static int BMMErrorCounter = 0;
+//        if (!readyToSendBMM) {
+//            BMMErrorCounter++;
+//            if (BMMErrorCounter > 1) {
+//                BMMErrorCounter = 0;
+//                return false;
+//            }
+//        } else {
+//            BMMErrorCounter = 0;
+//            readyToSendBMM = false;
+//        }
         SetTime(BMMTimer);
         RS485_Direction2(TALK);
 
-        switch ((*cS).BMM_SEND) {
+        switch (state) {
             case BATTERY_FAULT:
                 ToSend(BMM_COMM_STATE, 0);
                 break;
@@ -65,37 +65,39 @@ bool requestBMMData(struct commsStates * cS) {
                 ToSend(BMM_COMM_STATE, 3);
                 break;
         }
-        ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
+        //ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
         sendData(BMM_ADDRESS);
         RS485_Direction2(TALK);
     }
     return true;
 }
 
-bool receiveCommBMM(struct commsStates * cS) {
+bool receiveCommBMM(char state) {
     int j;
     if (receiveData()) {
-        if (receiveArray[BMM_FAULT]) {
-            BMM_FAULT_CONDITION = receiveArray[BMM_FAULT];
-            batteryFault = true;
-            faultingBattery = receiveArray[FAULTINGBATTERY];
-        }
-        switch ((*cS).BMM_SEND) {
+//        if (receiveArray[BMM_FAULT]) {
+//            BMM_FAULT_CONDITION = receiveArray[BMM_FAULT];
+//            batteryFault = true;
+//            faultingBattery = receiveArray[FAULTINGBATTERY];
+//        }
+        switch (state) {
             case BATTERY_FAULT:
+                printf("BF1 = %d ",receiveArray[1]);
+                printf("BF2 = %d ",receiveArray[2]);
+                printf("BF3 = %d\n",receiveArray[3]);
                 break;
             case BATTERY_VOLTS:
-                for (j = 0; j < BATTPERSLAVE; j++)
-                    milliVolts[receiveArray[SLAVE_ADDRESS_SEND]][j] = receiveArray[BATTERYV_ECU + j];
+                printf("BV1 = %d ",receiveArray[1]);
+                printf("BV2 = %d\n",receiveArray[2]);
                 break;
             case BATTERY_TEMPS:
-                for (j = 0; j < BATTPERSLAVE; j++)
-                    temps[receiveArray[SLAVE_ADDRESS_SEND]][j] = receiveArray[BATTERYT_ECU + j];
+                printf("BT1 = %d ",receiveArray[1]);
+                printf("BT2 = %d\n",receiveArray[2]);
                 break;
             case BATTERY_POWER:
-                BMMADC[0] = receiveArray[CURRENT_BMM1];
-                BMMADC[1] = receiveArray[CURRENT_BMM2];
-                BMMADC[2] = receiveArray[CURRENT_BMM3];
-                BMMADC[3] = receiveArray[CURRENT_BMM4];
+                printf("BA1 = %d ",receiveArray[1]);
+                printf("BA2 = %d ",receiveArray[2]);
+                printf("BA3 = %d\n",receiveArray[3]);
                 break;
         }
         readyToSendBMM = true;

@@ -1112,7 +1112,7 @@ void ReadVoltToCurrent() {
 
 void ChargerEN() {
     
-    CarOn = 0;
+    CarOn = 1;
 }
 
 bool ChargerVal(){

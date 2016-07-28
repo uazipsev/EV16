@@ -10,7 +10,7 @@
 
 #include <stdbool.h>
 #include <math.h>
-bool CarOn = 1;
+bool CarOn = 0;
 bool CurrentDir = 1; //Discharge by default
 
 int k = 0;

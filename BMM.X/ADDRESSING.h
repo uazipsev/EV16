@@ -65,7 +65,7 @@ extern "C" {
 #define BRAKE_DDS               4
 
     //BMM Receive
-#define BMM_COMM_STATE          1
+#define BMM_COMM_STATE          2
 
 
 

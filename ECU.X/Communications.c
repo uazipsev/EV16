@@ -28,6 +28,8 @@
 #include "BMMComms.h"
 #include "Timers.h"
 
+char x = 0;
+
 void updateComms() {
 
     bus1Update();
@@ -186,11 +188,13 @@ void bus2Update() {
             }
             break;
         case BMM_UPDATE:
-            if (requestBMMData(&comms)) {
-                if (receiveCommBMM(&comms)) {
+            if (requestBMMData(x)) {
+                if (receiveCommBMM(x)) {
+                    //INDICATOR ^= 1;
                     comms.BMM = true;
                     commsBus2State++;
                     resetCommTimers2();
+                    x++;
                 }
             } else {
                 //FLAG ERROR ON MCS COMMS -- Move on
@@ -198,8 +202,11 @@ void bus2Update() {
                 commsBus2State++;
                 resetCommTimers2();
             }
+            if(x>3){
+                x = 0;
+            }
             break;
-                case PDU_UPDATE:
+        case PDU_UPDATE:
             if (requestPDUData()) {
                 if (receiveCommPDU()) {
                     comms.PDU = true;

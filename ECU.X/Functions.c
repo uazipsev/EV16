@@ -146,7 +146,7 @@ void PinSetMode(void) {
  *******************************************************************/
 void ledDebug(){
     if (time > 250) {
-            INDICATOR ^= 1;
+            //INDICATOR ^= 1;
            // HORN_EN ^=1;
            // BRAKELT ^= 1;
             //SS_RELAY ^= 1;
