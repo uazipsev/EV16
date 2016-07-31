@@ -101,7 +101,7 @@ void updateComms() {
 void checkCommDirection() {
     //you have finished send and time has elapsed.. start listen
     //if (GetTxStall() && (time_get(TLKTM) > 20) && (RS485_Port == TALK) && portClosed && !pendingSend) {
-    if ((time_get(TLKTM) > 80) && (RS485_Port == TALK) && !pendingSend) {
+    if ((time_get(TLKTM) > 20) && (RS485_Port == TALK) && !pendingSend) {
         RS485_Port = LISTEN;
         portClosed = false;
         //pendingSend = false;
