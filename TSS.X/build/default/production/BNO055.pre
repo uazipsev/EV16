@@ -170,7 +170,73 @@ extern double fmod(double, double);
 extern double trunc(double);
 extern double round(double);
 
-# 7 "BNO055.c"
+# 11 "Function.h"
+void Delay(int wait);
+
+# 4 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\__size_t.h"
+typedef unsigned size_t;
+
+# 7 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdarg.h"
+typedef void * va_list[1];
+
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
+
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+
+# 43 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdio.h"
+struct __prbuf
+{
+char * ptr;
+void (* func)(char);
+};
+
+# 29 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\errno.h"
+extern int errno;
+
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\conio.h"
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern __bit kbhit(void);
+
+# 23
+extern char * cgets(char *);
+extern void cputs(const char *);
+
+# 88 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdio.h"
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+
+
+# 180
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+
+# 9 "BNO055.c"
 char intPin = 8;
 char myLed = 13;
 
@@ -189,12 +255,9 @@ float Gtemperature, Mtemperature;
 float GyroMeasError = 3.1425 * (40.0f / 180.0f);
 float GyroMeasDrift = 3.1425 * (0.0f / 180.0f);
 
-# 32
-float beta = sqrt(3.0f / 4.0f) * GyroMeasError;
-float zeta = sqrt(3.0f / 4.0f) * GyroMeasDrift;
-
-
-
+# 37
+float beta = 0;
+float zeta = 0;
 long delt_t = 0, count = 0, sumCount = 0;
 float pitch, yaw, roll;
 float Pitch, Yaw, Roll;
@@ -210,6 +273,8 @@ float eInt[3] = {0.0f, 0.0f, 0.0f};
 
 void setup()
 {
+beta = sqrt(3.0 / 4.0) * GyroMeasError;
+zeta = sqrt(3.0 / 4.0) * GyroMeasDrift;
 
 
 
@@ -289,24 +354,24 @@ Delay(1000);
 
 accelgyroCalBNO055(accelBias, gyroBias);
 
-printf("Average accelerometer bias (mg) = "); printf(accelBias[0]); printf(accelBias[1]); printf(accelBias[2]);
-printf("Average gyro bias (dps) = "); printf(gyroBias[0]); printf(gyroBias[1]); printf(gyroBias[2]);
+printf("Average accelerometer bias (mg) = %f", accelBias);
+printf("Average gyro bias (dps) = %f",gyroBias);
 
 Delay(1000);
 
 magCalBNO055(magBias);
 
-printf("Average magnetometer bias (mG) = "); printf(magBias[0]); printf(magBias[1]); printf(magBias[2]);
+printf("Average magnetometer bias (mG) = %f", magBias);
 
 Delay(1000);
 
 
 char calstat = readByte(0x29, 0x35);
 printf("Not calibrated = 0, fully calibrated = 3");
-printf("System calibration status "); printf( (0xC0 & calstat) >> 6);
-printf("Gyro   calibration status "); printf( (0x30 & calstat) >> 4);
-printf("Accel  calibration status "); printf( (0x0C & calstat) >> 2);
-printf("Mag    calibration status "); printf( (0x03 & calstat) >> 0);
+printf("System calibration status = %c", (0xC0 & calstat) >> 6);
+printf("Gyro   calibration status = %c", (0x30 & calstat) >> 4);
+printf("Accel  calibration status = %c", (0x0C & calstat) >> 2);
+printf("Mag    calibration status = %c", (0x03 & calstat) >> 0);
 
 initBNO055();
 printf("BNO055 initialized for sensor mode....");
@@ -366,25 +431,29 @@ GRVz = (float)GRVCount[2];
 
 
 
-deltat = ((Now - lastUpdate)/1000000.0f);
+deltat = ((Now - lastUpdate)/1000000.0);
 lastUpdate = Now;
 
 sum += deltat;
 sumCount++;
 
-# 220
+# 224
 MadgwickQuaternionUpdate(ax, ay, az, gx*3.1425/180.0f, gy*3.1425/180.0f, gz*3.1425/180.0f, mx, my, mz);
 
 
 
 
-if (delt_t > 500) {
+if (1) {
 
 
 char sysstat = readByte(0x29, 0x39);
 printf("System Status = 0x5c",sysstat);
-if(sysstat == 0x05) printf("Sensor fusion algorithm running");
-if(sysstat == 0x06) printf("Sensor fusion not algorithm running");
+if(sysstat == 0x05){
+printf("Sensor fusion algorithm running");
+}
+if(sysstat == 0x06) {
+printf("Sensor fusion not algorithm running");
+}
 
 if(sysstat == 0x01) {
 char syserr = readByte(0x29, 0x3A);
@@ -401,32 +470,32 @@ if(syserr == 0x0A) printf("Sensor configuration error");
 }
 
 if(1) {
-printf("ax = "); printf((int)ax);
-printf(" ay = "); printf((int)ay);
-printf(" az = "); printf((int)az); printf(" mg");
-printf("gx = "); printf( gx, 2);
-printf(" gy = "); printf( gy, 2);
-printf(" gz = "); printf( gz, 2); printf(" deg/s");
-printf("mx = "); printf( (int)mx );
-printf(" my = "); printf( (int)my );
-printf(" mz = "); printf( (int)mz ); printf(" mG");
+printf("ax = %d", ax);
+printf(" ay = %d", ay);
+printf(" az = %d mg\n",az);
+printf("gx = %d", gx);
+printf(" gy = %d", gy);
+printf(" gz = %d deg/s\n", gz);
+printf("mx = %d", mx );
+printf(" my = %d", my );
+printf(" mz = %d mG\n", mz );
 
-printf("qx = "); printf(q[0]);
-printf(" qy = "); printf(q[1]);
-printf(" qz = "); printf(q[2]);
-printf(" qw = "); printf(q[3]);
-printf("quatw = "); printf(quat[0]);
-printf(" quatx = "); printf(quat[1]);
-printf(" quaty = "); printf(quat[2]);
-printf(" quatz = "); printf(quat[3]);
+printf("qx = %f", q[0]);
+printf(" qy = %f", q[1]);
+printf(" qz = %f", q[2]);
+printf(" qw = %f\n", q[3]);
+printf("quatw = %f", quat[0]);
+printf(" quatx = %f", quat[1]);
+printf(" quaty = %f", quat[2]);
+printf(" quatz = %f\n", quat[3]);
 }
 
 tempGCount = readGyroTempData();
 Gtemperature = (float) tempGCount;
 
-printf("Gyro temperature is "); printf(Gtemperature, 1); printf(" degrees C");
+printf("Gyro temperature is = %f degrees C", Gtemperature);
 
-# 282
+# 290
 yaw = atan2(2.0f * (q[1] * q[2] + q[0] * q[3]), q[0] * q[0] + q[1] * q[1] - q[2] * q[2] - q[3] * q[3]);
 pitch = -asin(2.0f * (q[1] * q[3] - q[0] * q[2]));
 roll = atan2(2.0f * (q[0] * q[1] + q[2] * q[3]), q[0] * q[0] - q[1] * q[1] - q[2] * q[2] + q[3] * q[3]);
@@ -436,36 +505,19 @@ yaw *= 180.0f / 3.1425;
 roll *= 180.0f / 3.1425;
 
 if(1) {
-printf("Software Yaw, Pitch, Roll: ");
-printf(yaw, 2);
-printf(", ");
-printf(pitch, 2);
-printf(", ");
-printf(roll, 2);
+printf("Software Yaw, Pitch, Roll:\n ");
+printf("         %f   %f     %f",yaw, pitch, roll);
 
-printf("Hardware Yaw, Pitch, Roll: ");
-printf(Yaw, 2);
-printf(", ");
-printf(Pitch, 2);
-printf(", ");
-printf(Roll, 2);
+printf("Software Yaw, Pitch, Roll:\n ");
+printf("         %f   %f     %f",yaw, pitch, roll);
 
-printf("Hardware x, y, z linear acceleration: ");
-printf(LIAx, 2);
-printf(", ");
-printf(LIAy, 2);
-printf(", ");
-printf(LIAz, 2);
+printf("Hardware x, y, z linear acceleration:\n ");
+printf("     %f   %f     %f",LIAx, LIAy, LIAz);
 
 printf("Hardware x, y, z gravity vector: ");
-printf(GRVx, 2);
-printf(", ");
-printf(GRVy, 2);
-printf(", ");
-printf(GRVz, 2);
+printf("     %f   %f     %f",GRVx, GRVy, GRVz);
 
-
-printf("rate = "); printf((float)sumCount/sum, 2); printf(" Hz");
+printf("rate = %f Hz", sumCount/sum);
 }
 
 
@@ -476,7 +528,7 @@ sum = 0;
 
 }
 
-# 335
+# 326
 void readAccelData(int * destination){
 char rawData[6];
 readBytes(0x29, 0x08, 6, &rawData[0]);
@@ -572,7 +624,8 @@ Delay(25);
 
 void accelgyroCalBNO055(float * dest1, float * dest2) {
 char data[6];
-long ii = 0, sample_count = 0;
+long ii = 0;
+long sample_count = 0;
 long gyro_bias[3] = {0, 0, 0};
 long accel_bias[3] = {0, 0, 0};
 
@@ -604,8 +657,12 @@ accel_bias[0] /= (long) sample_count;
 accel_bias[1] /= (long) sample_count;
 accel_bias[2] /= (long) sample_count;
 
-if(accel_bias[2] > 0L) {accel_bias[2] -= (long[]'[]'[]'[]'[]'[]'7]]]') 1000;}  // Remove gravity from the z-axis accelerometer bias calculation
-else {accel_bias[2] += (long) 1000;}
+if(accel_bias[2] > 0.0) {
+accel_bias[2] -= (long) 1000;
+}
+else {
+accel_bias[2] += (long) 1000;
+}
 
 dest1[0] = (float) accel_bias[0];
 dest1[1] = (float) accel_bias[1];
@@ -619,14 +676,14 @@ readBytes(0x29, 0x14, 6, &data[0]);
 gyro_temp[0] = (int) (((int)data[1] << 8) | data[0]) ;
 gyro_temp[1] = (int) (((int)data[3] << 8) | data[2]) ;
 gyro_temp[2] = (int) (((int)data[5] << 8) | data[4]) ;
-gyro_bias[0] += (int32_t) gyro_temp[0];
-gyro_bias[1] += (int32_t) gyro_temp[1];
-gyro_bias[2] += (int32_t) gyro_temp[2];
+gyro_bias[0] += (long) gyro_temp[0];
+gyro_bias[1] += (long) gyro_temp[1];
+gyro_bias[2] += (long) gyro_temp[2];
 Delay(35);
 }
-gyro_bias[0] /= (int32_t) sample_count;
-gyro_bias[1] /= (int32_t) sample_count;
-gyro_bias[2] /= (int32_t) sample_count;
+gyro_bias[0] /= (long) sample_count;
+gyro_bias[1] /= (long) sample_count;
+gyro_bias[2] /= (long) sample_count;
 
 dest2[0] = (float) gyro_bias[0]/16.;
 dest2[1] = (float) gyro_bias[1]/16.;
@@ -645,7 +702,7 @@ writeByte(0x29, 0x58, ((int)accel_bias[1] >> 8) & 0xFF);
 writeByte(0x29, 0x59, (int)accel_bias[2] & 0xFF);
 writeByte(0x29, 0x5A, ((int)accel_bias[2] >> 8) & 0xFF);
 
-# 510
+# 506
 writeByte(0x29, 0x61, (int)gyro_bias[0] & 0xFF);
 writeByte(0x29, 0x62, ((int)gyro_bias[0] >> 8) & 0xFF);
 writeByte(0x29, 0x63, (int)gyro_bias[1] & 0xFF);
@@ -656,14 +713,14 @@ writeByte(0x29, 0x66, ((int)gyro_bias[2] >> 8) & 0xFF);
 
 writeByte(0x29, 0x3D, OPRMode );
 
-# 526
+# 522
 printf("Accel/Gyro Calibration done!");
 }
 
 void magCalBNO055(float * dest1){
 char data[6];
-uint ii = 0, sample_count = 0;
-int32_t mag_bias[3] = {0, 0, 0};
+char ii = 0, sample_count = 0;
+long mag_bias[3] = {0, 0, 0};
 int mag_max[3] = {0, 0, 0}, mag_min[3] = {0, 0, 0};
 
 printf("Mag Calibration: Wave device in a figure eight until done!");
@@ -696,7 +753,7 @@ if(mag_temp[jj] < mag_min[jj]) mag_min[jj] = mag_temp[jj];
 Delay(105);
 }
 
-# 569
+# 565
 mag_bias[0] = (mag_max[0] + mag_min[0])/2;
 mag_bias[1] = (mag_max[1] + mag_min[1])/2;
 mag_bias[2] = (mag_max[2] + mag_min[2])/2;
@@ -718,7 +775,7 @@ writeByte(0x29, 0x5E, ((int)mag_bias[1] >> 8) & 0xFF);
 writeByte(0x29, 0x5F, (int)mag_bias[2] & 0xFF);
 writeByte(0x29, 0x60, ((int)mag_bias[2] >> 8) & 0xFF);
 
-# 596
+# 592
 writeByte(0x29, 0x3D, OPRMode );
 Delay(25);
 
@@ -739,14 +796,14 @@ char readByte(char address, char subAddress)
 {
 char data;
 
-# 622
+# 618
 return data;
 }
 
 void readBytes(char address, char subAddress, char count, char * dest)
 {
 
-# 636
+# 632
 }
 
 void MadgwickQuaternionUpdate(float ax, float ay, float az, float gx, float gy, float gz, float mx, float my, float mz)
@@ -810,10 +867,14 @@ _4bx = 2.0f * _2bx;
 _4bz = 2.0f * _2bz;
 
 
-s1 = -_2q3 * (2.0f * q2q4 - _2q1q3 - ax) + _2q2 * (2.0f * q1q2 + _2q3q4 - ay) - _2bz * q3 * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (-_2bx * q4 + _2bz * q2) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + _2bx * q3 * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
-s2 = _2q4 * (2.0f * q2q4 - _2q1q3 - ax) + _2q1 * (2.0f * q1q2 + _2q3q4 - ay) - 4.0f * q2 * (1.0f - 2.0f * q2q2 - 2.0f * q3q3 - az) + _2bz * q4 * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (_2bx * q3 + _2bz * q1) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + (_2bx * q4 - _4bz * q2) * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
-s3 = -_2q1 * (2.0f * q2q4 - _2q1q3 - ax) + _2q4 * (2.0f * q1q2 + _2q3q4 - ay) - 4.0f * q3 * (1.0f - 2.0f * q2q2 - 2.0f * q3q3 - az) + (-_4bx * q3 - _2bz * q1) * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (_2bx * q2 + _2bz * q4) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + (_2bx * q1 - _4bz * q3) * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
-s4 = _2q2 * (2.0f * q2q4 - _2q1q3 - ax) + _2q3 * (2.0f * q1q2 + _2q3q4 - ay) + (-_4bx * q4 + _2bz * q2) * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (-_2bx * q1 + _2bz * q3) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + _2bx * q2 * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
+float i1 = ((2.0f * q2q4) - _2q1q3 - ax);
+float i2 = ((2.0f * q1q2) + _2q3q4 - ay);
+float i3 = (_2bx * (0.5f - q3q3 - q4q4));
+float i4 = ((-_2bx * q4) + (_2bz * q2));
+
+
+
+
 norm = sqrt(s1 * s1 + s2 * s2 + s3 * s3 + s4 * s4);
 norm = 1.0f/norm;
 s1 *= norm;

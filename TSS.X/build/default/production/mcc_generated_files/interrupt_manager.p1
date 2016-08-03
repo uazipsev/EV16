@@ -1,4 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
+"230 mcc_generated_files/eusart1.h
+[s S1159 `uc -> 200 `i `i 1 `i 1 `i 1 ]
+[n S1159 UART_ring_buff buf head tail count ]
 "16387 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
 [s S1017 :1 `uc 1 ]
 [n S1017 . NOT_BOR ]
@@ -104,9 +107,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PIR2bits `VS557 ~T0 @X0 0 e@4001 ]
 "685 mcc_generated_files/i2c1.h
 [v _I2C1_BusCollisionISR `(v ~T0 @X0 0 ef ]
-"223 mcc_generated_files/eusart1.h
+"218 mcc_generated_files/eusart1.h
 [v _EUSART1_Receive_ISR `(v ~T0 @X0 0 ef ]
-"202
+"197
 [v _EUSART1_Transmit_ISR `(v ~T0 @X0 0 ef ]
 "133 mcc_generated_files/eccp1.h
 [v _ECCP1_CaptureISR `(v ~T0 @X0 0 ef ]
@@ -8209,13 +8212,47 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
 [; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 195: extern int printf(const char *, ...);
-[; ;eusart1.h: 78: extern volatile uint8_t eusart1TxBufferRemaining;
-[; ;eusart1.h: 79: extern volatile uint8_t eusart1RxCount;
-[; ;eusart1.h: 107: void EUSART1_Initialize(void);
-[; ;eusart1.h: 156: uint8_t EUSART1_Read(void);
-[; ;eusart1.h: 181: void EUSART1_Write(uint8_t txData);
-[; ;eusart1.h: 202: void EUSART1_Transmit_ISR(void);
-[; ;eusart1.h: 223: void EUSART1_Receive_ISR(void);
+[; ;eusart1.h: 73: extern volatile uint8_t eusart1TxBufferRemaining;
+[; ;eusart1.h: 74: extern volatile uint8_t eusart1RxCount;
+[; ;eusart1.h: 102: void EUSART1_Initialize(void);
+[; ;eusart1.h: 151: uint8_t EUSART1_Read(void);
+[; ;eusart1.h: 176: void EUSART1_Write(uint8_t txData);
+[; ;eusart1.h: 197: void EUSART1_Transmit_ISR(void);
+[; ;eusart1.h: 218: void EUSART1_Receive_ISR(void);
+[; ;eusart1.h: 220: char getch(void);
+[; ;eusart1.h: 221: void putch(char txData);
+[; ;eusart1.h: 227: extern volatile unsigned int talkTime;
+[; ;eusart1.h: 228: void *memset(void *s, int c, size_t n);
+[; ;eusart1.h: 230: struct UART_ring_buff {
+[; ;eusart1.h: 231: unsigned char buf[200];
+[; ;eusart1.h: 232: int head;
+[; ;eusart1.h: 233: int tail;
+[; ;eusart1.h: 234: int count;
+[; ;eusart1.h: 235: };
+"237 mcc_generated_files/eusart1.h
+[v _input_buffer `S1159 ~T0 @X0 1 e ]
+[; ;eusart1.h: 237: struct UART_ring_buff input_buffer;
+"238
+[v _output_buffer `S1159 ~T0 @X0 1 e ]
+[; ;eusart1.h: 238: struct UART_ring_buff output_buffer;
+"240
+[v _Transmit_stall `uc ~T0 @X0 1 e ]
+[i _Transmit_stall
+-> -> 1 `i `uc
+]
+[; ;eusart1.h: 240: bool Transmit_stall = 1;
+[; ;eusart1.h: 241: void EUSART1_Initialize(void);
+[; ;eusart1.h: 242: void UART_buff_init(struct UART_ring_buff* _this);
+[; ;eusart1.h: 243: void UART_buff_put(struct UART_ring_buff* _this, const unsigned char c);
+[; ;eusart1.h: 244: unsigned char UART_buff_get(struct UART_ring_buff* _this);
+[; ;eusart1.h: 245: void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
+[; ;eusart1.h: 246: int UART_buff_size(struct UART_ring_buff* _this);
+[; ;eusart1.h: 247: unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
+[; ;eusart1.h: 248: unsigned char UART_buff_peek(struct UART_ring_buff* _this);
+[; ;eusart1.h: 251: unsigned char Receive_peek(void);
+[; ;eusart1.h: 252: int Receive_available(void);
+[; ;eusart1.h: 253: unsigned char Receive_get(void);
+[; ;eusart1.h: 254: void Send_put(unsigned char _data);
 [; ;tmr1.h: 94: void TMR1_Initialize(void);
 [; ;tmr1.h: 125: void TMR1_StartTimer(void);
 [; ;tmr1.h: 155: void TMR1_StopTimer(void);
@@ -8351,7 +8388,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _IPR1bits 0 6 -> -> 0 `i `uc ]
 [; ;interrupt_manager.c: 74: }
 "74
-[e :UE 1166 ]
+[e :UE 1167 ]
 }
 [v F5 `(v ~T0 @X0 1 tf ]
 "76
@@ -8362,7 +8399,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;interrupt_manager.c: 78: if (PIE1bits.SSP1IE == 1 && PIR1bits.SSP1IF == 1) {
 "78
-[e $ ! && == -> . . _PIE1bits 0 3 `i -> 1 `i == -> . . _PIR1bits 0 3 `i -> 1 `i 1168  ]
+[e $ ! && == -> . . _PIE1bits 0 3 `i -> 1 `i == -> . . _PIR1bits 0 3 `i -> 1 `i 1169  ]
 {
 [; ;interrupt_manager.c: 79: I2C1_ISR();
 "79
@@ -8370,9 +8407,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "80
 }
 [; ;interrupt_manager.c: 80: } else if (PIE2bits.BCL1IE == 1 && PIR2bits.BCL1IF == 1) {
-[e $U 1169  ]
-[e :U 1168 ]
-[e $ ! && == -> . . _PIE2bits 0 3 `i -> 1 `i == -> . . _PIR2bits 0 3 `i -> 1 `i 1170  ]
+[e $U 1170  ]
+[e :U 1169 ]
+[e $ ! && == -> . . _PIE2bits 0 3 `i -> 1 `i == -> . . _PIR2bits 0 3 `i -> 1 `i 1171  ]
 {
 [; ;interrupt_manager.c: 81: I2C1_BusCollisionISR();
 "81
@@ -8380,9 +8417,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "82
 }
 [; ;interrupt_manager.c: 82: } else if (PIE1bits.RC1IE == 1 && PIR1bits.RC1IF == 1) {
-[e $U 1171  ]
-[e :U 1170 ]
-[e $ ! && == -> . . _PIE1bits 0 5 `i -> 1 `i == -> . . _PIR1bits 0 5 `i -> 1 `i 1172  ]
+[e $U 1172  ]
+[e :U 1171 ]
+[e $ ! && == -> . . _PIE1bits 0 5 `i -> 1 `i == -> . . _PIR1bits 0 5 `i -> 1 `i 1173  ]
 {
 [; ;interrupt_manager.c: 83: EUSART1_Receive_ISR();
 "83
@@ -8390,9 +8427,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "84
 }
 [; ;interrupt_manager.c: 84: } else if (PIE1bits.TX1IE == 1 && PIR1bits.TX1IF == 1) {
-[e $U 1173  ]
-[e :U 1172 ]
-[e $ ! && == -> . . _PIE1bits 0 4 `i -> 1 `i == -> . . _PIR1bits 0 4 `i -> 1 `i 1174  ]
+[e $U 1174  ]
+[e :U 1173 ]
+[e $ ! && == -> . . _PIE1bits 0 4 `i -> 1 `i == -> . . _PIR1bits 0 4 `i -> 1 `i 1175  ]
 {
 [; ;interrupt_manager.c: 85: EUSART1_Transmit_ISR();
 "85
@@ -8400,9 +8437,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "86
 }
 [; ;interrupt_manager.c: 86: } else if (PIE1bits.CCP1IE == 1 && PIR1bits.CCP1IF == 1) {
-[e $U 1175  ]
-[e :U 1174 ]
-[e $ ! && == -> . . _PIE1bits 0 2 `i -> 1 `i == -> . . _PIR1bits 0 2 `i -> 1 `i 1176  ]
+[e $U 1176  ]
+[e :U 1175 ]
+[e $ ! && == -> . . _PIE1bits 0 2 `i -> 1 `i == -> . . _PIR1bits 0 2 `i -> 1 `i 1177  ]
 {
 [; ;interrupt_manager.c: 87: ECCP1_CaptureISR();
 "87
@@ -8410,9 +8447,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "88
 }
 [; ;interrupt_manager.c: 88: } else if (PIE2bits.CCP2IE == 1 && PIR2bits.CCP2IF == 1) {
-[e $U 1177  ]
-[e :U 1176 ]
-[e $ ! && == -> . . _PIE2bits 0 0 `i -> 1 `i == -> . . _PIR2bits 0 0 `i -> 1 `i 1178  ]
+[e $U 1178  ]
+[e :U 1177 ]
+[e $ ! && == -> . . _PIE2bits 0 0 `i -> 1 `i == -> . . _PIR2bits 0 0 `i -> 1 `i 1179  ]
 {
 [; ;interrupt_manager.c: 89: ECCP2_CaptureISR();
 "89
@@ -8420,9 +8457,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "90
 }
 [; ;interrupt_manager.c: 90: } else if (PIE1bits.TMR2IE == 1 && PIR1bits.TMR2IF == 1) {
-[e $U 1179  ]
-[e :U 1178 ]
-[e $ ! && == -> . . _PIE1bits 0 1 `i -> 1 `i == -> . . _PIR1bits 0 1 `i -> 1 `i 1180  ]
+[e $U 1180  ]
+[e :U 1179 ]
+[e $ ! && == -> . . _PIE1bits 0 1 `i -> 1 `i == -> . . _PIR1bits 0 1 `i -> 1 `i 1181  ]
 {
 [; ;interrupt_manager.c: 91: TMR2_ISR();
 "91
@@ -8430,9 +8467,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "92
 }
 [; ;interrupt_manager.c: 92: } else if (PIE1bits.ADIE == 1 && PIR1bits.ADIF == 1) {
-[e $U 1181  ]
-[e :U 1180 ]
-[e $ ! && == -> . . _PIE1bits 0 6 `i -> 1 `i == -> . . _PIR1bits 0 6 `i -> 1 `i 1182  ]
+[e $U 1182  ]
+[e :U 1181 ]
+[e $ ! && == -> . . _PIE1bits 0 6 `i -> 1 `i == -> . . _PIR1bits 0 6 `i -> 1 `i 1183  ]
 {
 [; ;interrupt_manager.c: 93: ADC_ISR();
 "93
@@ -8440,21 +8477,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 "94
 }
 [; ;interrupt_manager.c: 94: } else {
-[e $U 1183  ]
-[e :U 1182 ]
+[e $U 1184  ]
+[e :U 1183 ]
 {
 "96
 }
-[e :U 1183 ]
-[e :U 1181 ]
-[e :U 1179 ]
-[e :U 1177 ]
-[e :U 1175 ]
-[e :U 1173 ]
-[e :U 1171 ]
-[e :U 1169 ]
+[e :U 1184 ]
+[e :U 1182 ]
+[e :U 1180 ]
+[e :U 1178 ]
+[e :U 1176 ]
+[e :U 1174 ]
+[e :U 1172 ]
+[e :U 1170 ]
 [; ;interrupt_manager.c: 96: }
 [; ;interrupt_manager.c: 97: }
 "97
-[e :UE 1167 ]
+[e :UE 1168 ]
 }

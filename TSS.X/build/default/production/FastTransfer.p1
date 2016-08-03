@@ -1,34 +1,34 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F8804 `(v ~T0 @X0 0 tf1`uc ]
-[v F8807 `(uc ~T0 @X0 0 tf ]
-[v F8810 `(i ~T0 @X0 0 tf ]
-[v F8813 `(uc ~T0 @X0 0 tf ]
-"52 FastTransfer.h
+[v F8803 `(v ~T0 @X0 0 tf1`uc ]
+[v F8806 `(uc ~T0 @X0 0 tf ]
+[v F8809 `(i ~T0 @X0 0 tf ]
+[v F8812 `(uc ~T0 @X0 0 tf ]
+"50 FastTransfer.h
 [s S1162 `uc -> 200 `i `i 1 `i 1 `i 1 ]
 [n S1162 ringBufS buf head tail count ]
-"60
+"58
 [u S1163 `uc -> 2 `i `ui 1 ]
 [n S1163 stuff parts integer ]
-"66
+"64
 [s S1164 `uc * -> 5 `i -> 3 `i `i 1 ]
 [n S1164 crcBufS buf head ]
 [v F8775 `(v ~T0 @X0 0 tf1`uc ]
 [v F8778 `(uc ~T0 @X0 0 tf ]
 [v F8781 `(i ~T0 @X0 0 tf ]
 [v F8784 `(uc ~T0 @X0 0 tf ]
-"77
-[v _crcBufS_put `(v ~T0 @X0 0 ef4`*S1164`uc`uc`uc ]
 "75
-[v _FastTransfer_buffer_flush `(v ~T0 @X0 0 ef2`*S1162`Ci ]
-"80
-[v _CRCcheck `(v ~T0 @X0 0 ef ]
+[v _crcBufS_put `(v ~T0 @X0 0 ef4`*S1164`uc`uc`uc ]
 "73
+[v _FastTransfer_buffer_flush `(v ~T0 @X0 0 ef2`*S1162`Ci ]
+"78
+[v _CRCcheck `(v ~T0 @X0 0 ef ]
+"71
 [v _FastTransfer_buffer_put `(v ~T0 @X0 0 ef3`*S1162`Cuc`Cui ]
-"76
+"74
 [v _FastTransfer_buffer_modulo_inc `(ui ~T0 @X0 0 ef2`Cui`Cui ]
 "257 FastTransfer.c
 [v _memset `(*v ~T0 @X0 0 ef3`*v`i`ui ]
-"79 FastTransfer.h
+"77 FastTransfer.h
 [v _crcBufS_get `(uc ~T0 @X0 0 ef3`*S1164`uc`uc ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
@@ -8122,97 +8122,94 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;FastTransfer.h: 21: unsigned int addressError(void);
 [; ;FastTransfer.h: 22: unsigned int dataAddressError(void);
 "24 FastTransfer.h
-[v _receiveArray `Vi ~T0 @X0 -> 20 `i e ]
-[; ;FastTransfer.h: 24: volatile int receiveArray[20];
+[v _serial_write `*F8803 ~T0 @X0 1 e ]
+[; ;FastTransfer.h: 24: void (*serial_write)(unsigned char);
+"25
+[v _serial_read `*F8806 ~T0 @X0 1 e ]
+[; ;FastTransfer.h: 25: unsigned char (*serial_read)(void);
 "26
-[v _serial_write `*F8804 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 26: void (*serial_write)(unsigned char);
+[v _serial_available `*F8809 ~T0 @X0 1 e ]
+[; ;FastTransfer.h: 26: int (*serial_available)(void);
 "27
-[v _serial_read `*F8807 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 27: unsigned char (*serial_read)(void);
+[v _serial_peek `*F8812 ~T0 @X0 1 e ]
+[; ;FastTransfer.h: 27: unsigned char (*serial_peek)(void);
 "28
-[v _serial_available `*F8810 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 28: int (*serial_available)(void);
-"29
-[v _serial_peek `*F8813 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 29: unsigned char (*serial_peek)(void);
-"30
 [v _rx_buffer `uc ~T0 @X0 -> 200 `i e ]
-[; ;FastTransfer.h: 30: unsigned char rx_buffer[200];
-"31
+[; ;FastTransfer.h: 28: unsigned char rx_buffer[200];
+"29
 [v _rx_array_inx `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 31: unsigned char rx_array_inx;
-"32
+[; ;FastTransfer.h: 29: unsigned char rx_array_inx;
+"30
 [v _rx_len `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 32: unsigned char rx_len;
-"33
+[; ;FastTransfer.h: 30: unsigned char rx_len;
+"31
 [v _calc_CS `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 33: unsigned char calc_CS;
-"34
+[; ;FastTransfer.h: 31: unsigned char calc_CS;
+"32
 [v _moduleAddress `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 34: unsigned char moduleAddress;
-"35
+[; ;FastTransfer.h: 32: unsigned char moduleAddress;
+"33
 [v _returnAddress `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 35: unsigned char returnAddress;
-"36
+[; ;FastTransfer.h: 33: unsigned char returnAddress;
+"34
 [v _maxDataAddress `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 36: unsigned char maxDataAddress;
-"37
+[; ;FastTransfer.h: 34: unsigned char maxDataAddress;
+"35
 [v _receiveArrayAddress `*Vi ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 37: volatile int * receiveArrayAddress;
-"38
+[; ;FastTransfer.h: 35: volatile int * receiveArrayAddress;
+"36
 [v _sendStructAddress `*uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 38: unsigned char * sendStructAddress;
-"39
+[; ;FastTransfer.h: 36: unsigned char * sendStructAddress;
+"37
 [v _AKNAKsend `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 39: bool AKNAKsend;
-"40
+[; ;FastTransfer.h: 37: bool AKNAKsend;
+"38
 [v _alignErrorCounter `ui ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 40: unsigned int alignErrorCounter;
-"41
+[; ;FastTransfer.h: 38: unsigned int alignErrorCounter;
+"39
 [v _crcErrorCounter `ui ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 41: unsigned int crcErrorCounter;
-"42
+[; ;FastTransfer.h: 39: unsigned int crcErrorCounter;
+"40
 [v _addressErrorCounter `ui ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 42: unsigned int addressErrorCounter;
-"43
+[; ;FastTransfer.h: 40: unsigned int addressErrorCounter;
+"41
 [v _dataAdressErrorCounter `ui ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 43: unsigned int dataAdressErrorCounter;
-"44
+[; ;FastTransfer.h: 41: unsigned int dataAdressErrorCounter;
+"42
 [v _rx_address `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 44: unsigned char rx_address;
-[; ;FastTransfer.h: 52: struct ringBufS {
-[; ;FastTransfer.h: 53: unsigned char buf[200];
-[; ;FastTransfer.h: 54: int head;
-[; ;FastTransfer.h: 55: int tail;
-[; ;FastTransfer.h: 56: int count;
-[; ;FastTransfer.h: 57: };
-"58
+[; ;FastTransfer.h: 42: unsigned char rx_address;
+[; ;FastTransfer.h: 50: struct ringBufS {
+[; ;FastTransfer.h: 51: unsigned char buf[200];
+[; ;FastTransfer.h: 52: int head;
+[; ;FastTransfer.h: 53: int tail;
+[; ;FastTransfer.h: 54: int count;
+[; ;FastTransfer.h: 55: };
+"56
 [v _ring_buffer `S1162 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 58: struct ringBufS ring_buffer;
-[; ;FastTransfer.h: 60: union stuff {
-[; ;FastTransfer.h: 61: unsigned char parts[2];
-[; ;FastTransfer.h: 62: unsigned int integer;
-[; ;FastTransfer.h: 63: };
-"64
+[; ;FastTransfer.h: 56: struct ringBufS ring_buffer;
+[; ;FastTransfer.h: 58: union stuff {
+[; ;FastTransfer.h: 59: unsigned char parts[2];
+[; ;FastTransfer.h: 60: unsigned int integer;
+[; ;FastTransfer.h: 61: };
+"62
 [v _group `S1163 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 64: union stuff group;
-[; ;FastTransfer.h: 66: struct crcBufS {
-[; ;FastTransfer.h: 67: unsigned char buf[(5 * 3)];
-[; ;FastTransfer.h: 68: int head;
-[; ;FastTransfer.h: 69: };
-"70
+[; ;FastTransfer.h: 62: union stuff group;
+[; ;FastTransfer.h: 64: struct crcBufS {
+[; ;FastTransfer.h: 65: unsigned char buf[(5 * 3)];
+[; ;FastTransfer.h: 66: int head;
+[; ;FastTransfer.h: 67: };
+"68
 [v _crc_buffer `S1164 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 70: struct crcBufS crc_buffer;
-[; ;FastTransfer.h: 72: unsigned char CRC8(const unsigned char * data, unsigned char len);
-[; ;FastTransfer.h: 73: void FastTransfer_buffer_put(struct ringBufS *_this, const unsigned char towhere, const unsigned int towhat);
-[; ;FastTransfer.h: 74: unsigned char FastTransfer_buffer_get(struct ringBufS* _this);
-[; ;FastTransfer.h: 75: void FastTransfer_buffer_flush(struct ringBufS* _this, const int clearBuffer);
-[; ;FastTransfer.h: 76: unsigned int FastTransfer_buffer_modulo_inc(const unsigned int value, const unsigned int modulus);
-[; ;FastTransfer.h: 77: void crcBufS_put(struct crcBufS* _this, unsigned char address, unsigned char oldCRC, unsigned char status);
-[; ;FastTransfer.h: 78: void crcBufS_status_put(struct crcBufS* _this, unsigned char time, unsigned char status);
-[; ;FastTransfer.h: 79: unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned char space);
-[; ;FastTransfer.h: 80: void CRCcheck(void);
+[; ;FastTransfer.h: 68: struct crcBufS crc_buffer;
+[; ;FastTransfer.h: 70: unsigned char CRC8(const unsigned char * data, unsigned char len);
+[; ;FastTransfer.h: 71: void FastTransfer_buffer_put(struct ringBufS *_this, const unsigned char towhere, const unsigned int towhat);
+[; ;FastTransfer.h: 72: unsigned char FastTransfer_buffer_get(struct ringBufS* _this);
+[; ;FastTransfer.h: 73: void FastTransfer_buffer_flush(struct ringBufS* _this, const int clearBuffer);
+[; ;FastTransfer.h: 74: unsigned int FastTransfer_buffer_modulo_inc(const unsigned int value, const unsigned int modulus);
+[; ;FastTransfer.h: 75: void crcBufS_put(struct crcBufS* _this, unsigned char address, unsigned char oldCRC, unsigned char status);
+[; ;FastTransfer.h: 76: void crcBufS_status_put(struct crcBufS* _this, unsigned char time, unsigned char status);
+[; ;FastTransfer.h: 77: unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned char space);
+[; ;FastTransfer.h: 78: void CRCcheck(void);
 "18 FastTransfer.c
 [v _begin `(v ~T0 @X0 1 ef8`*Vi`uc`uc`uc`*F8775`*F8778`*F8781`*F8784 ]
 {
@@ -8222,14 +8219,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _maxSize `uc ~T0 @X0 1 r2 ]
 [v _givenAddress `uc ~T0 @X0 1 r3 ]
 [v _error `uc ~T0 @X0 1 r4 ]
-[v F8879 `(v ~T0 @X0 0 tf1`uc ]
-[v _stufftosend `*F8879 ~T0 @X0 1 r5 ]
-[v F8882 `(uc ~T0 @X0 0 tf ]
-[v _stufftoreceive `*F8882 ~T0 @X0 1 r6 ]
-[v F8885 `(i ~T0 @X0 0 tf ]
-[v _stuffavailable `*F8885 ~T0 @X0 1 r7 ]
-[v F8888 `(uc ~T0 @X0 0 tf ]
-[v _stuffpeek `*F8888 ~T0 @X0 1 r8 ]
+[v F8878 `(v ~T0 @X0 0 tf1`uc ]
+[v _stufftosend `*F8878 ~T0 @X0 1 r5 ]
+[v F8881 `(uc ~T0 @X0 0 tf ]
+[v _stufftoreceive `*F8881 ~T0 @X0 1 r6 ]
+[v F8884 `(i ~T0 @X0 0 tf ]
+[v _stuffavailable `*F8884 ~T0 @X0 1 r7 ]
+[v F8887 `(uc ~T0 @X0 0 tf ]
+[v _stuffpeek `*F8887 ~T0 @X0 1 r8 ]
 [f ]
 [; ;FastTransfer.c: 19: receiveArrayAddress = ptr;
 "19

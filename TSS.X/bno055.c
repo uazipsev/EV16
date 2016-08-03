@@ -1,5 +1,7 @@
 #include "bno055.h"
 #include <math.h>
+#include "Function.h"
+#include <stdio.h>
 
 #define PI 3.1425
 
@@ -29,11 +31,11 @@ float GyroMeasDrift = PI * (0.0f  / 180.0f);   // gyroscope measurement drift in
 // I haven't noticed any reduction in solution accuracy. This is essentially the I coefficient in a PID control sense; 
 // the bigger the feedback coefficient, the faster the solution converges, usually at the expense of accuracy. 
 // In any case, this is the free parameter in the Madgwick filtering and fusion scheme.
-float beta = sqrt(3.0f / 4.0f) * GyroMeasError;   // compute beta
-float zeta = sqrt(3.0f / 4.0f) * GyroMeasDrift;   // compute zeta, the other free parameter in the Madgwick scheme usually set to a small or zero value
+
 #define Kp 2.0f * 5.0f // these are the free parameters in the Mahony filter and fusion scheme, Kp for proportional feedback, Ki for integral
 #define Ki 0.0f
-
+float beta = 0;   // compute beta
+float zeta = 0;
 long delt_t = 0, count = 0, sumCount = 0;  // used to control display output rate
 float pitch, yaw, roll;
 float Pitch, Yaw, Roll;
@@ -49,6 +51,8 @@ float eInt[3] = {0.0f, 0.0f, 0.0f};       // vector to hold integral error for M
 
 void setup()
 {
+    beta = sqrt(3.0 / 4.0) * GyroMeasError;   // compute beta
+    zeta = sqrt(3.0 / 4.0) * GyroMeasDrift;   // compute zeta, the other free parameter in the Madgwick scheme usually set to a small or zero value
 //  Wire.begin();
 //  TWBR = 12;  // 400 kbit/sec I2C speed for Pro Mini
   // Setup for Master mode, pins 16/17, external pullups, 400kHz for Teensy 3.1
@@ -128,24 +132,24 @@ void setup()
  
   accelgyroCalBNO055(accelBias, gyroBias);
   
-  printf("Average accelerometer bias (mg) = "); printf(accelBias[0]); printf(accelBias[1]); printf(accelBias[2]);
-  printf("Average gyro bias (dps) = "); printf(gyroBias[0]); printf(gyroBias[1]); printf(gyroBias[2]);
+  printf("Average accelerometer bias (mg) = %f", accelBias);
+  printf("Average gyro bias (dps) = %f",gyroBias);
 
   Delay(1000); 
   
   magCalBNO055(magBias);
   
-  printf("Average magnetometer bias (mG) = "); printf(magBias[0]); printf(magBias[1]); printf(magBias[2]);
+  printf("Average magnetometer bias (mG) = %f", magBias);
   
   Delay(1000); 
   
   // Check calibration status of the sensors
   char calstat = readByte(BNO055_ADDRESS, BNO055_CALIB_STAT);
   printf("Not calibrated = 0, fully calibrated = 3");
-  printf("System calibration status "); printf( (0xC0 & calstat) >> 6);
-  printf("Gyro   calibration status "); printf( (0x30 & calstat) >> 4);
-  printf("Accel  calibration status "); printf( (0x0C & calstat) >> 2);
-  printf("Mag    calibration status "); printf( (0x03 & calstat) >> 0);
+  printf("System calibration status = %c", (0xC0 & calstat) >> 6);
+  printf("Gyro   calibration status = %c", (0x30 & calstat) >> 4);
+  printf("Accel  calibration status = %c", (0x0C & calstat) >> 2);
+  printf("Mag    calibration status = %c", (0x03 & calstat) >> 0);
   
   initBNO055(); // Initialize the BNO055
   printf("BNO055 initialized for sensor mode...."); // Initialize BNO055 for sensor read 
@@ -205,7 +209,7 @@ void loop()
     
   
   //Now = micros();
-  deltat = ((Now - lastUpdate)/1000000.0f); // set integration time by time elapsed since last filter update
+  deltat = ((Now - lastUpdate)/1000000.0); // set integration time by time elapsed since last filter update
   lastUpdate = Now;
   
   sum += deltat; // sum for averaging filter update rate
@@ -222,108 +226,95 @@ void loop()
     
     // Serial print and/or display at 0.5 s rate independent of data rates
     //delt_t = millis() - count;
-    if (delt_t > 500) { // update LCD once per half-second independent of read rate
-    
-       // check BNO-055 error status at 2 Hz rate
-    char sysstat = readByte(BNO055_ADDRESS, BNO055_SYS_STATUS); // check system status
-    printf("System Status = 0x5c",sysstat);
-    if(sysstat == 0x05) printf("Sensor fusion algorithm running");
-    if(sysstat == 0x06) printf("Sensor fusion not algorithm running");
-    
-    if(sysstat == 0x01) {
-       char syserr = readByte(BNO055_ADDRESS, BNO055_SYS_ERR);
-      if(syserr == 0x01) printf("Peripheral initialization error");
-      if(syserr == 0x02) printf("System initialization error");
-      if(syserr == 0x03) printf("Self test result failed");
-      if(syserr == 0x04) printf("Register map value out of range");
-      if(syserr == 0x05) printf("Register map address out of range");
-      if(syserr == 0x06) printf("Register map write error");
-      if(syserr == 0x07) printf("BNO low power mode no available for selected operation mode");
-      if(syserr == 0x08) printf("Accelerometer power mode not available");
-      if(syserr == 0x09) printf("Fusion algorithm configuration error");
-      if(syserr == 0x0A) printf("Sensor configuration error");    
-    }  
+    if (1) { // update LCD once per half-second independent of read rate
 
-    if(1) {
-        printf("ax = "); printf((int)ax);  
-        printf(" ay = "); printf((int)ay); 
-        printf(" az = "); printf((int)az); printf(" mg");
-        printf("gx = "); printf( gx, 2); 
-        printf(" gy = "); printf( gy, 2); 
-        printf(" gz = "); printf( gz, 2); printf(" deg/s");
-        printf("mx = "); printf( (int)mx ); 
-        printf(" my = "); printf( (int)my ); 
-        printf(" mz = "); printf( (int)mz ); printf(" mG");
+           // check BNO-055 error status at 2 Hz rate
+        char sysstat = readByte(BNO055_ADDRESS, BNO055_SYS_STATUS); // check system status
+        printf("System Status = 0x5c",sysstat);
+        if(sysstat == 0x05){
+            printf("Sensor fusion algorithm running");
+        }
+        if(sysstat == 0x06) {
+            printf("Sensor fusion not algorithm running");
+        }
 
-        printf("qx = "); printf(q[0]);
-        printf(" qy = "); printf(q[1]); 
-        printf(" qz = "); printf(q[2]); 
-        printf(" qw = "); printf(q[3]); 
-        printf("quatw = "); printf(quat[0]);
-        printf(" quatx = "); printf(quat[1]); 
-        printf(" quaty = "); printf(quat[2]); 
-        printf(" quatz = "); printf(quat[3]); 
-    } 
-    
-    tempGCount = readGyroTempData();  // Read the gyro adc values
-    Gtemperature = (float) tempGCount; // Gyro chip temperature in degrees Centigrade
-   // Print gyro die temperature in degrees Centigrade      
-    printf("Gyro temperature is ");  printf(Gtemperature, 1);  printf(" degrees C"); // Print T values to tenths of a degree C
-    
-  // Define output variables from updated quaternion---these are Tait-Bryan angles, commonly used in aircraft orientation.
-  // In this coordinate system, the positive z-axis is down toward Earth. 
-  // Yaw is the angle between Sensor x-axis and Earth magnetic North (or true North if corrected for local declination, looking down on the sensor positive yaw is counterclockwise.
-  // Pitch is angle between sensor x-axis and Earth ground plane, toward the Earth is positive, up toward the sky is negative.
-  // Roll is angle between sensor y-axis and Earth ground plane, y-axis up is positive roll.
-  // These arise from the definition of the homogeneous rotation matrix constructed from quaternions.
-  // Tait-Bryan angles as well as Euler angles are non-commutative; that is, the get the correct orientation the rotations must be
-  // applied in the correct order which for this configuration is yaw, pitch, and then roll.
-  // For more see http://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles which has additional links.
-    yaw   = atan2(2.0f * (q[1] * q[2] + q[0] * q[3]), q[0] * q[0] + q[1] * q[1] - q[2] * q[2] - q[3] * q[3]);   
-    pitch = -asin(2.0f * (q[1] * q[3] - q[0] * q[2]));
-    roll  = atan2(2.0f * (q[0] * q[1] + q[2] * q[3]), q[0] * q[0] - q[1] * q[1] - q[2] * q[2] + q[3] * q[3]);
-    pitch *= 180.0f / PI;
-    yaw   *= 180.0f / PI; 
- //   yaw   -= 13.8f; // Declination at Danville, California is 13 degrees 48 minutes and 47 seconds on 2014-04-04
-    roll  *= 180.0f / PI;
-     
-    if(1) {
-    printf("Software Yaw, Pitch, Roll: ");
-    printf(yaw, 2);
-    printf(", ");
-    printf(pitch, 2);
-    printf(", ");
-    printf(roll, 2);
-    
-    printf("Hardware Yaw, Pitch, Roll: ");
-    printf(Yaw, 2);
-    printf(", ");
-    printf(Pitch, 2);
-    printf(", ");
-    printf(Roll, 2);
- 
-    printf("Hardware x, y, z linear acceleration: ");
-    printf(LIAx, 2);
-    printf(", ");
-    printf(LIAy, 2);
-    printf(", ");
-    printf(LIAz, 2);
+        if(sysstat == 0x01) {
+            char syserr = readByte(BNO055_ADDRESS, BNO055_SYS_ERR);
+            if(syserr == 0x01) printf("Peripheral initialization error");
+            if(syserr == 0x02) printf("System initialization error");
+            if(syserr == 0x03) printf("Self test result failed");
+            if(syserr == 0x04) printf("Register map value out of range");
+            if(syserr == 0x05) printf("Register map address out of range");
+            if(syserr == 0x06) printf("Register map write error");
+            if(syserr == 0x07) printf("BNO low power mode no available for selected operation mode");
+            if(syserr == 0x08) printf("Accelerometer power mode not available");
+            if(syserr == 0x09) printf("Fusion algorithm configuration error");
+            if(syserr == 0x0A) printf("Sensor configuration error");    
+        }  
 
-    printf("Hardware x, y, z gravity vector: ");
-    printf(GRVx, 2);
-    printf(", ");
-    printf(GRVy, 2);
-    printf(", ");
-    printf(GRVz, 2);
- 
-    
-    printf("rate = "); printf((float)sumCount/sum, 2); printf(" Hz");
-    }
-   
-    //digitalWrite(myLed, !digitalRead(myLed));
-    //count = millis(); 
-    sumCount = 0;
-    sum = 0;    
+        if(1) {
+            printf("ax = %d", ax);  
+            printf(" ay = %d", ay); 
+            printf(" az = %d mg\n",az);
+            printf("gx = %d", gx); 
+            printf(" gy = %d", gy); 
+            printf(" gz = %d deg/s\n", gz);
+            printf("mx = %d", mx ); 
+            printf(" my = %d", my ); 
+            printf(" mz = %d mG\n", mz );
+
+            printf("qx = %f", q[0]);
+            printf(" qy = %f", q[1]); 
+            printf(" qz = %f", q[2]); 
+            printf(" qw = %f\n", q[3]); 
+            printf("quatw = %f", quat[0]);
+            printf(" quatx = %f", quat[1]); 
+            printf(" quaty = %f", quat[2]); 
+            printf(" quatz = %f\n", quat[3]); 
+        } 
+
+        tempGCount = readGyroTempData();  // Read the gyro adc values
+        Gtemperature = (float) tempGCount; // Gyro chip temperature in degrees Centigrade
+       // Print gyro die temperature in degrees Centigrade      
+        printf("Gyro temperature is = %f degrees C", Gtemperature); // Print T values to tenths of a degree C
+
+      // Define output variables from updated quaternion---these are Tait-Bryan angles, commonly used in aircraft orientation.
+      // In this coordinate system, the positive z-axis is down toward Earth. 
+      // Yaw is the angle between Sensor x-axis and Earth magnetic North (or true North if corrected for local declination, looking down on the sensor positive yaw is counterclockwise.
+      // Pitch is angle between sensor x-axis and Earth ground plane, toward the Earth is positive, up toward the sky is negative.
+      // Roll is angle between sensor y-axis and Earth ground plane, y-axis up is positive roll.
+      // These arise from the definition of the homogeneous rotation matrix constructed from quaternions.
+      // Tait-Bryan angles as well as Euler angles are non-commutative; that is, the get the correct orientation the rotations must be
+      // applied in the correct order which for this configuration is yaw, pitch, and then roll.
+      // For more see http://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles which has additional links.
+        yaw   = atan2(2.0f * (q[1] * q[2] + q[0] * q[3]), q[0] * q[0] + q[1] * q[1] - q[2] * q[2] - q[3] * q[3]);   
+        pitch = -asin(2.0f * (q[1] * q[3] - q[0] * q[2]));
+        roll  = atan2(2.0f * (q[0] * q[1] + q[2] * q[3]), q[0] * q[0] - q[1] * q[1] - q[2] * q[2] + q[3] * q[3]);
+        pitch *= 180.0f / PI;
+        yaw   *= 180.0f / PI; 
+     //   yaw   -= 13.8f; // Declination at Danville, California is 13 degrees 48 minutes and 47 seconds on 2014-04-04
+        roll  *= 180.0f / PI;
+
+        if(1) {
+            printf("Software Yaw, Pitch, Roll:\n ");
+            printf("         %f   %f     %f",yaw, pitch, roll);
+
+            printf("Software Yaw, Pitch, Roll:\n ");
+            printf("         %f   %f     %f",yaw, pitch, roll);
+
+            printf("Hardware x, y, z linear acceleration:\n ");
+            printf("     %f   %f     %f",LIAx, LIAy, LIAz);
+
+            printf("Hardware x, y, z gravity vector: ");
+            printf("     %f   %f     %f",GRVx, GRVy, GRVz);
+
+            printf("rate = %f Hz", sumCount/sum);
+        }
+
+        //digitalWrite(myLed, !digitalRead(myLed));
+        //count = millis(); 
+        sumCount = 0;
+        sum = 0;    
     }
 
 }
@@ -427,7 +418,8 @@ void initBNO055() {
 
 void accelgyroCalBNO055(float * dest1, float * dest2) {
   char data[6]; // data array to hold accelerometer and gyro x, y, z, data
-  long ii = 0, sample_count = 0;
+  long ii = 0;
+  long sample_count = 0;
   long gyro_bias[3]  = {0, 0, 0};
   long accel_bias[3] = {0, 0, 0};
  
@@ -459,8 +451,12 @@ void accelgyroCalBNO055(float * dest1, float * dest2) {
     accel_bias[1]  /= (long) sample_count;
     accel_bias[2]  /= (long) sample_count;
     
-  if(accel_bias[2] > 0L) {accel_bias[2] -= (long[]'[]'[]'[]'[]'[]'7]]]') 1000;}  // Remove gravity from the z-axis accelerometer bias calculation
-  else {accel_bias[2] += (long) 1000;}
+    if(accel_bias[2] > 0.0) {
+        accel_bias[2] -= (long) 1000;
+    }  // Remove gravity from the z-axis accelerometer bias calculation
+    else {
+        accel_bias[2] += (long) 1000;
+    }
 
     dest1[0] = (float) accel_bias[0];  // save accel biases in mg for use in main program
     dest1[1] = (float) accel_bias[1];  // accel data is 1 LSB/mg
@@ -474,14 +470,14 @@ void accelgyroCalBNO055(float * dest1, float * dest2) {
     gyro_temp[0] = (int) (((int)data[1] << 8) | data[0]) ;  // Form signed 16-bit integer for each sample in FIFO
     gyro_temp[1] = (int) (((int)data[3] << 8) | data[2]) ;
     gyro_temp[2] = (int) (((int)data[5] << 8) | data[4]) ;
-    gyro_bias[0]  += (int32_t) gyro_temp[0];
-    gyro_bias[1]  += (int32_t) gyro_temp[1];
-    gyro_bias[2]  += (int32_t) gyro_temp[2];
+    gyro_bias[0]  += (long) gyro_temp[0];
+    gyro_bias[1]  += (long) gyro_temp[1];
+    gyro_bias[2]  += (long) gyro_temp[2];
     Delay(35);  // at 32 Hz ODR, new gyro data available every 31 ms
    }
-    gyro_bias[0]  /= (int32_t) sample_count;  // get average gyro bias in counts
-    gyro_bias[1]  /= (int32_t) sample_count;
-    gyro_bias[2]  /= (int32_t) sample_count;
+    gyro_bias[0]  /= (long) sample_count;  // get average gyro bias in counts
+    gyro_bias[1]  /= (long) sample_count;
+    gyro_bias[2]  /= (long) sample_count;
  
     dest2[0] = (float) gyro_bias[0]/16.;  // save gyro biases in dps for use in main program
     dest2[1] = (float) gyro_bias[1]/16.;  // gyro data is 16 LSB/dps
@@ -528,8 +524,8 @@ void accelgyroCalBNO055(float * dest1, float * dest2) {
 
 void magCalBNO055(float * dest1){
   char data[6]; // data array to hold mag x, y, z, data
-  uint ii = 0, sample_count = 0;
-  int32_t mag_bias[3] = {0, 0, 0};
+  char ii = 0, sample_count = 0;
+  long mag_bias[3] = {0, 0, 0};
   int mag_max[3] = {0, 0, 0}, mag_min[3] = {0, 0, 0};
  
   printf("Mag Calibration: Wave device in a figure eight until done!");
@@ -633,6 +629,7 @@ void readBytes(char address, char subAddress, char count, char * dest)
 //        Wire.requestFrom(address, (size_t) count);  // Read chars from slave register address 
 //	while (Wire.available()) {
 //        dest[i++] = Wire.read(); }         // Put read results in the Rx buffer
+    I2C1_MasterWrite(dest,count,address,&status);
 }
         
 void MadgwickQuaternionUpdate(float ax, float ay, float az, float gx, float gy, float gz, float mx, float my, float mz)
@@ -696,10 +693,14 @@ void MadgwickQuaternionUpdate(float ax, float ay, float az, float gx, float gy, 
     _4bz = 2.0f * _2bz;
 
     // Gradient decent algorithm corrective step
-    s1 = -_2q3 * (2.0f * q2q4 - _2q1q3 - ax) + _2q2 * (2.0f * q1q2 + _2q3q4 - ay) - _2bz * q3 * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (-_2bx * q4 + _2bz * q2) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + _2bx * q3 * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
-    s2 = _2q4 * (2.0f * q2q4 - _2q1q3 - ax) + _2q1 * (2.0f * q1q2 + _2q3q4 - ay) - 4.0f * q2 * (1.0f - 2.0f * q2q2 - 2.0f * q3q3 - az) + _2bz * q4 * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (_2bx * q3 + _2bz * q1) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + (_2bx * q4 - _4bz * q2) * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
-    s3 = -_2q1 * (2.0f * q2q4 - _2q1q3 - ax) + _2q4 * (2.0f * q1q2 + _2q3q4 - ay) - 4.0f * q3 * (1.0f - 2.0f * q2q2 - 2.0f * q3q3 - az) + (-_4bx * q3 - _2bz * q1) * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (_2bx * q2 + _2bz * q4) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + (_2bx * q1 - _4bz * q3) * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
-    s4 = _2q2 * (2.0f * q2q4 - _2q1q3 - ax) + _2q3 * (2.0f * q1q2 + _2q3q4 - ay) + (-_4bx * q4 + _2bz * q2) * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (-_2bx * q1 + _2bz * q3) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + _2bx * q2 * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
+    float i1 = ((2.0f * q2q4) - _2q1q3 - ax);
+    float i2 = ((2.0f * q1q2) + _2q3q4 - ay);
+    float i3 = (_2bx * (0.5f - q3q3 - q4q4));
+    float i4 = ((-_2bx * q4) + (_2bz * q2));
+    //s1 = -_2q3 * (i1) + _2q2 * (i2) - _2bz * q3 * (i3) + _2bz * (q2q4 - q1q3) - mx) + (i4) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + _2bx * q3 * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
+    //s2 = _2q4 * (2.0f * q2q4 - _2q1q3 - ax) + _2q1 * (2.0f * q1q2 + _2q3q4 - ay) - 4.0f * q2 * (1.0f - 2.0f * q2q2 - 2.0f * q3q3 - az) + _2bz * q4 * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (_2bx * q3 + _2bz * q1) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + (_2bx * q4 - _4bz * q2) * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
+    //s3 = -_2q1 * (2.0f * q2q4 - _2q1q3 - ax) + _2q4 * (2.0f * q1q2 + _2q3q4 - ay) - 4.0f * q3 * (1.0f - 2.0f * q2q2 - 2.0f * q3q3 - az) + (-_4bx * q3 - _2bz * q1) * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (_2bx * q2 + _2bz * q4) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + (_2bx * q1 - _4bz * q3) * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
+    //s4 = _2q2 * (2.0f * q2q4 - _2q1q3 - ax) + _2q3 * (2.0f * q1q2 + _2q3q4 - ay) + (-_4bx * q4 + _2bz * q2) * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (-_2bx * q1 + _2bz * q3) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + _2bx * q2 * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
     norm = sqrt(s1 * s1 + s2 * s2 + s3 * s3 + s4 * s4);    // normalise step magnitude
     norm = 1.0f/norm;
     s1 *= norm;

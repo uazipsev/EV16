@@ -10372,24 +10372,57 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 78 "mcc_generated_files/eusart1.h"
+# 73 "mcc_generated_files/eusart1.h"
 extern volatile uint8_t eusart1TxBufferRemaining;
 extern volatile uint8_t eusart1RxCount;
 
-# 107
+# 102
 void EUSART1_Initialize(void);
 
-# 156
+# 151
 uint8_t EUSART1_Read(void);
 
-# 181
+# 176
 void EUSART1_Write(uint8_t txData);
 
-# 202
+# 197
 void EUSART1_Transmit_ISR(void);
 
-# 223
+# 218
 void EUSART1_Receive_ISR(void);
+
+char getch(void);
+void putch(char txData);
+
+# 227
+extern volatile unsigned int talkTime;
+void *memset(void *s, int c, size_t n);
+
+struct UART_ring_buff {
+unsigned char buf[200];
+int head;
+int tail;
+int count;
+};
+
+struct UART_ring_buff input_buffer;
+struct UART_ring_buff output_buffer;
+
+bool Transmit_stall = 1;
+void EUSART1_Initialize(void);
+void UART_buff_init(struct UART_ring_buff* _this);
+void UART_buff_put(struct UART_ring_buff* _this, const unsigned char c);
+unsigned char UART_buff_get(struct UART_ring_buff* _this);
+void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
+int UART_buff_size(struct UART_ring_buff* _this);
+unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
+unsigned char UART_buff_peek(struct UART_ring_buff* _this);
+
+
+unsigned char Receive_peek(void);
+int Receive_available(void);
+unsigned char Receive_get(void);
+void Send_put(unsigned char _data);
 
 # 94 "mcc_generated_files/tmr1.h"
 void TMR1_Initialize(void);

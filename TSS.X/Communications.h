@@ -12,7 +12,7 @@ unsigned int throttle, brake;
 void updateComms();
 unsigned int buttonsCollector();
 extern void Delay(int wait);
-void respondECU();
+void respondTM();
 void handleIndicators(int receivedIndicators);
 void TBbarGraphs(int t, int b);
 

@@ -20,6 +20,7 @@ extern "C" {
 #define MCS_ADDRESS 4
 #define PDU_ADDRESS 5
 #define BMM_ADDRESS 6
+#define TM_ADDRESS 7
 
     //ECU Data
 #define RESPONSE_ADDRESS        0

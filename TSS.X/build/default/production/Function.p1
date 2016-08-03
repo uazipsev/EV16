@@ -1,4 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
+"230 mcc_generated_files/eusart1.h
+[s S1159 `uc -> 200 `i `i 1 `i 1 `i 1 ]
+[n S1159 UART_ring_buff buf head tail count ]
 [v F8644 `(v ~T0 @X0 1 tf1`ul ]
 "156 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18.h
 [v __delay `JF8644 ~T0 @X0 0 e ]
@@ -8097,13 +8100,47 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
 [; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 195: extern int printf(const char *, ...);
-[; ;eusart1.h: 78: extern volatile uint8_t eusart1TxBufferRemaining;
-[; ;eusart1.h: 79: extern volatile uint8_t eusart1RxCount;
-[; ;eusart1.h: 107: void EUSART1_Initialize(void);
-[; ;eusart1.h: 156: uint8_t EUSART1_Read(void);
-[; ;eusart1.h: 181: void EUSART1_Write(uint8_t txData);
-[; ;eusart1.h: 202: void EUSART1_Transmit_ISR(void);
-[; ;eusart1.h: 223: void EUSART1_Receive_ISR(void);
+[; ;eusart1.h: 73: extern volatile uint8_t eusart1TxBufferRemaining;
+[; ;eusart1.h: 74: extern volatile uint8_t eusart1RxCount;
+[; ;eusart1.h: 102: void EUSART1_Initialize(void);
+[; ;eusart1.h: 151: uint8_t EUSART1_Read(void);
+[; ;eusart1.h: 176: void EUSART1_Write(uint8_t txData);
+[; ;eusart1.h: 197: void EUSART1_Transmit_ISR(void);
+[; ;eusart1.h: 218: void EUSART1_Receive_ISR(void);
+[; ;eusart1.h: 220: char getch(void);
+[; ;eusart1.h: 221: void putch(char txData);
+[; ;eusart1.h: 227: extern volatile unsigned int talkTime;
+[; ;eusart1.h: 228: void *memset(void *s, int c, size_t n);
+[; ;eusart1.h: 230: struct UART_ring_buff {
+[; ;eusart1.h: 231: unsigned char buf[200];
+[; ;eusart1.h: 232: int head;
+[; ;eusart1.h: 233: int tail;
+[; ;eusart1.h: 234: int count;
+[; ;eusart1.h: 235: };
+"237 mcc_generated_files/eusart1.h
+[v _input_buffer `S1159 ~T0 @X0 1 e ]
+[; ;eusart1.h: 237: struct UART_ring_buff input_buffer;
+"238
+[v _output_buffer `S1159 ~T0 @X0 1 e ]
+[; ;eusart1.h: 238: struct UART_ring_buff output_buffer;
+"240
+[v _Transmit_stall `uc ~T0 @X0 1 e ]
+[i _Transmit_stall
+-> -> 1 `i `uc
+]
+[; ;eusart1.h: 240: bool Transmit_stall = 1;
+[; ;eusart1.h: 241: void EUSART1_Initialize(void);
+[; ;eusart1.h: 242: void UART_buff_init(struct UART_ring_buff* _this);
+[; ;eusart1.h: 243: void UART_buff_put(struct UART_ring_buff* _this, const unsigned char c);
+[; ;eusart1.h: 244: unsigned char UART_buff_get(struct UART_ring_buff* _this);
+[; ;eusart1.h: 245: void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
+[; ;eusart1.h: 246: int UART_buff_size(struct UART_ring_buff* _this);
+[; ;eusart1.h: 247: unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
+[; ;eusart1.h: 248: unsigned char UART_buff_peek(struct UART_ring_buff* _this);
+[; ;eusart1.h: 251: unsigned char Receive_peek(void);
+[; ;eusart1.h: 252: int Receive_available(void);
+[; ;eusart1.h: 253: unsigned char Receive_get(void);
+[; ;eusart1.h: 254: void Send_put(unsigned char _data);
 [; ;tmr1.h: 94: void TMR1_Initialize(void);
 [; ;tmr1.h: 125: void TMR1_StartTimer(void);
 [; ;tmr1.h: 155: void TMR1_StopTimer(void);
@@ -8218,8 +8255,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 "20
 {
 [e = _x -> 0 `i ]
-[e $U 1170  ]
-[e :U 1167 ]
+[e $U 1171  ]
+[e :U 1168 ]
 {
 [; ;Function.c: 21: _delay((unsigned long)((1)*(16000000/4000.0)));
 "21
@@ -8228,13 +8265,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 "20
 [e ++ _x -> 1 `i ]
-[e :U 1170 ]
-[e $ < _x _wait 1167  ]
-[e :U 1168 ]
+[e :U 1171 ]
+[e $ < _x _wait 1168  ]
+[e :U 1169 ]
 "22
 }
 [; ;Function.c: 22: }
 [; ;Function.c: 23: }
 "23
-[e :UE 1166 ]
+[e :UE 1167 ]
 }

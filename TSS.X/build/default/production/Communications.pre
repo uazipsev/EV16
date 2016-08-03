@@ -10221,8 +10221,6 @@ unsigned int CRCError(void);
 unsigned int addressError(void);
 unsigned int dataAddressError(void);
 
-volatile int receiveArray[20];
-
 void (*serial_write)(unsigned char);
 unsigned char (*serial_read)(void);
 int (*serial_available)(void);
@@ -10243,7 +10241,7 @@ unsigned int addressErrorCounter;
 unsigned int dataAdressErrorCounter;
 unsigned char rx_address;
 
-# 52
+# 50
 struct ringBufS {
 unsigned char buf[200];
 int head;
@@ -10279,15 +10277,224 @@ unsigned int throttle, brake;
 void updateComms();
 unsigned int buttonsCollector();
 extern void Delay(int wait);
-void respondECU();
+void respondTM();
 void handleIndicators(int receivedIndicators);
 void TBbarGraphs(int t, int b);
 
-# 7 "Communications.c"
+# 13 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdint.h"
+typedef signed char int8_t;
+
+# 20
+typedef signed int int16_t;
+
+# 28
+typedef signed short long int int24_t;
+
+# 36
+typedef signed long int int32_t;
+
+# 43
+typedef unsigned char uint8_t;
+
+# 49
+typedef unsigned int uint16_t;
+
+# 56
+typedef unsigned short long int uint24_t;
+
+# 63
+typedef unsigned long int uint32_t;
+
+# 71
+typedef signed char int_least8_t;
+
+# 78
+typedef signed int int_least16_t;
+
+# 90
+typedef signed short long int int_least24_t;
+
+# 98
+typedef signed long int int_least32_t;
+
+# 105
+typedef unsigned char uint_least8_t;
+
+# 111
+typedef unsigned int uint_least16_t;
+
+# 121
+typedef unsigned short long int uint_least24_t;
+
+# 128
+typedef unsigned long int uint_least32_t;
+
+# 137
+typedef signed char int_fast8_t;
+
+# 144
+typedef signed int int_fast16_t;
+
+# 156
+typedef signed short long int int_fast24_t;
+
+# 164
+typedef signed long int int_fast32_t;
+
+# 171
+typedef unsigned char uint_fast8_t;
+
+# 177
+typedef unsigned int uint_fast16_t;
+
+# 187
+typedef unsigned short long int uint_fast24_t;
+
+# 194
+typedef unsigned long int uint_fast32_t;
+
+# 200
+typedef int32_t intmax_t;
+
+
+
+
+typedef uint32_t uintmax_t;
+
+
+
+
+typedef int16_t intptr_t;
+
+
+
+
+typedef uint16_t uintptr_t;
+
+# 7 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdarg.h"
+typedef void * va_list[1];
+
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
+
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+
+# 43 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdio.h"
+struct __prbuf
+{
+char * ptr;
+void (* func)(char);
+};
+
+# 29 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\errno.h"
+extern int errno;
+
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\conio.h"
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern __bit kbhit(void);
+
+# 23
+extern char * cgets(char *);
+extern void cputs(const char *);
+
+# 88 "C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdio.h"
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+
+
+# 180
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+
+# 73 "mcc_generated_files/eusart1.h"
+extern volatile uint8_t eusart1TxBufferRemaining;
+extern volatile uint8_t eusart1RxCount;
+
+# 102
+void EUSART1_Initialize(void);
+
+# 151
+uint8_t EUSART1_Read(void);
+
+# 176
+void EUSART1_Write(uint8_t txData);
+
+# 197
+void EUSART1_Transmit_ISR(void);
+
+# 218
+void EUSART1_Receive_ISR(void);
+
+char getch(void);
+void putch(char txData);
+
+# 227
+extern volatile unsigned int talkTime;
+void *memset(void *s, int c, size_t n);
+
+struct UART_ring_buff {
+unsigned char buf[200];
+int head;
+int tail;
+int count;
+};
+
+struct UART_ring_buff input_buffer;
+struct UART_ring_buff output_buffer;
+
+bool Transmit_stall = 1;
+void EUSART1_Initialize(void);
+void UART_buff_init(struct UART_ring_buff* _this);
+void UART_buff_put(struct UART_ring_buff* _this, const unsigned char c);
+unsigned char UART_buff_get(struct UART_ring_buff* _this);
+void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
+int UART_buff_size(struct UART_ring_buff* _this);
+unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
+unsigned char UART_buff_peek(struct UART_ring_buff* _this);
+
+
+unsigned char Receive_peek(void);
+int Receive_available(void);
+unsigned char Receive_get(void);
+void Send_put(unsigned char _data);
+
+# 8 "Communications.c"
+char receiveArray[50];
+
+void CommsStart(){
+begin(receiveArray, sizeof (receiveArray), 7, 0, Send_put, Receive_get, Receive_available, Receive_peek);
+EUSART1_Initialize();
+}
+
 void updateComms() {
 if (receiveData()) {
 
-respondECU();
+respondTM();
 
 
 
@@ -10295,7 +10502,7 @@ respondECU();
 }
 }
 
-void respondECU() {
+void respondTM() {
 LATCbits.LATC5 = 1;
 ToSend(0, 3);
 

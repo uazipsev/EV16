@@ -1,0 +1,2266 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"250 bno055.h
+[c E71 0 1 2 3 4 .. ]
+[n E71 GPwrMode NormalG FastPowerUpG DeepSuspendedG SuspendG AdvancedPowerSaveG  ]
+"251
+[c E65 0 1 2 3 4 .. ]
+[n E65 Gscale GFS_2000DPS GFS_1000DPS GFS_500DPS GFS_250DPS GFS_125DPS  ]
+"253
+[c E77 0 1 2 3 4 5 6 7 .. ]
+[n E77 Gbw GBW_523Hz GBW_230Hz GBW_116Hz GBW_47Hz GBW_23Hz GBW_12Hz GBW_64Hz GBW_32Hz  ]
+"255
+[c E44 0 1 2 3 .. ]
+[n E44 Ascale AFS_2G AFS_4G AFS_8G AFS_18G  ]
+"257
+[c E58 0 1 2 3 4 5 .. ]
+[n E58 APwrMode NormalA SuspendA LowPower1A StandbyA LowPower2A DeepSuspendA  ]
+"258
+[c E49 0 1 2 3 4 5 6 7 .. ]
+[n E49 Abw ABW_7_81Hz ABW_15_63Hz ABW_31_25Hz ABW_62_5Hz ABW_125Hz ABW_250Hz ABW_500Hz ABW_1000Hz  ]
+"261
+[c E113 0 1 2 3 .. ]
+[n E113 MOpMode LowPower Regular EnhancedRegular HighAccuracy  ]
+"262
+[c E118 0 1 2 3 .. ]
+[n E118 MPwrMode Normal Sleep Suspend ForceMode  ]
+"263
+[c E104 0 1 2 3 4 5 6 7 .. ]
+[n E104 Modr MODR_2Hz MODR_6Hz MODR_8Hz MODR_10Hz MODR_15Hz MODR_20Hz MODR_25Hz MODR_30Hz  ]
+"265
+[c E100 0 1 2 .. ]
+[n E100 PWRMode Normalpwr Lowpower Suspendpwr  ]
+"266
+[c E86 0 1 2 3 4 5 6 7 8 9 10 11 12 .. ]
+[n E86 OPRMode CONFIGMODE ACCONLY MAGONLY GYROONLY ACCMAG ACCGYRO MAGGYRO AMG IMU COMPASS M4G NDOF_FMC_OFF NDOF  ]
+"34 C:\Program Files (x86)\Microchip\xc8\v1.36\include\math.h
+[v _sqrt `(d ~T0 @X0 0 ef1`d ]
+"11 Function.h
+[v _Delay `(v ~T0 @X0 0 ef1`i ]
+"195 C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdio.h
+[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"15 bno055.h
+[v _readByte `(uc ~T0 @X0 0 ef2`uc`uc ]
+"13
+[v _accelgyroCalBNO055 `(v ~T0 @X0 0 ef2`*f`*f ]
+"14
+[v _magCalBNO055 `(v ~T0 @X0 0 ef1`*f ]
+"12
+[v _initBNO055 `(v ~T0 @X0 0 ef ]
+"4
+[v _readAccelData `(v ~T0 @X0 0 ef1`*i ]
+"5
+[v _readGyroData `(v ~T0 @X0 0 ef1`*i ]
+"7
+[v _readMagData `(v ~T0 @X0 0 ef1`*i ]
+"8
+[v _readQuatData `(v ~T0 @X0 0 ef1`*i ]
+"9
+[v _readEulData `(v ~T0 @X0 0 ef1`*i ]
+"10
+[v _readLIAData `(v ~T0 @X0 0 ef1`*i ]
+"11
+[v _readGRVData `(v ~T0 @X0 0 ef1`*i ]
+"18
+[v _MadgwickQuaternionUpdate `(v ~T0 @X0 0 ef9`f`f`f`f`f`f`f`f`f ]
+"6
+[v _readGyroTempData `(uc ~T0 @X0 0 ef ]
+"42 C:\Program Files (x86)\Microchip\xc8\v1.36\include\math.h
+[v _atan2 `(d ~T0 @X0 0 ef2`d`d ]
+"39
+[v _asin `(d ~T0 @X0 0 ef1`d ]
+"16 bno055.h
+[v _readBytes `(v ~T0 @X0 0 ef4`uc`uc`uc`*uc ]
+"17
+[v _writeByte `(uc ~T0 @X0 0 ef3`uc`uc`uc ]
+[; ;bno055.h: 4: void readAccelData(int * destination);
+[; ;bno055.h: 5: void readGyroData(int * destination);
+[; ;bno055.h: 6: char readGyroTempData();
+[; ;bno055.h: 7: void readMagData(int * destination);
+[; ;bno055.h: 8: void readQuatData(int * destination);
+[; ;bno055.h: 9: void readEulData(int * destination);
+[; ;bno055.h: 10: void readLIAData(int * destination);
+[; ;bno055.h: 11: void readGRVData(int * destination);
+[; ;bno055.h: 12: void initBNO055();
+[; ;bno055.h: 13: void accelgyroCalBNO055(float * dest1, float * dest2);
+[; ;bno055.h: 14: void magCalBNO055(float * dest1);
+[; ;bno055.h: 15: char readByte(char address, char subAddress);
+[; ;bno055.h: 16: void readBytes(char address, char subAddress, char count, char * dest);
+[; ;bno055.h: 17: char writeByte(char address, char subAddress, char data);
+[; ;bno055.h: 18: void MadgwickQuaternionUpdate(float ax, float ay, float az, float gx, float gy, float gz, float mx, float my, float mz);
+[; ;bno055.h: 147: enum Ascale {
+[; ;bno055.h: 148: AFS_2G = 0,
+[; ;bno055.h: 149: AFS_4G,
+[; ;bno055.h: 150: AFS_8G,
+[; ;bno055.h: 151: AFS_18G
+[; ;bno055.h: 152: };
+[; ;bno055.h: 154: enum Abw {
+[; ;bno055.h: 155: ABW_7_81Hz = 0,
+[; ;bno055.h: 156: ABW_15_63Hz,
+[; ;bno055.h: 157: ABW_31_25Hz,
+[; ;bno055.h: 158: ABW_62_5Hz,
+[; ;bno055.h: 159: ABW_125Hz,
+[; ;bno055.h: 160: ABW_250Hz,
+[; ;bno055.h: 161: ABW_500Hz,
+[; ;bno055.h: 162: ABW_1000Hz,
+[; ;bno055.h: 163: };
+[; ;bno055.h: 165: enum APwrMode {
+[; ;bno055.h: 166: NormalA = 0,
+[; ;bno055.h: 167: SuspendA,
+[; ;bno055.h: 168: LowPower1A,
+[; ;bno055.h: 169: StandbyA,
+[; ;bno055.h: 170: LowPower2A,
+[; ;bno055.h: 171: DeepSuspendA
+[; ;bno055.h: 172: };
+[; ;bno055.h: 174: enum Gscale {
+[; ;bno055.h: 175: GFS_2000DPS = 0,
+[; ;bno055.h: 176: GFS_1000DPS,
+[; ;bno055.h: 177: GFS_500DPS,
+[; ;bno055.h: 178: GFS_250DPS,
+[; ;bno055.h: 179: GFS_125DPS
+[; ;bno055.h: 180: };
+[; ;bno055.h: 182: enum GPwrMode {
+[; ;bno055.h: 183: NormalG = 0,
+[; ;bno055.h: 184: FastPowerUpG,
+[; ;bno055.h: 185: DeepSuspendedG,
+[; ;bno055.h: 186: SuspendG,
+[; ;bno055.h: 187: AdvancedPowerSaveG
+[; ;bno055.h: 188: };
+[; ;bno055.h: 190: enum Gbw {
+[; ;bno055.h: 191: GBW_523Hz = 0,
+[; ;bno055.h: 192: GBW_230Hz,
+[; ;bno055.h: 193: GBW_116Hz,
+[; ;bno055.h: 194: GBW_47Hz,
+[; ;bno055.h: 195: GBW_23Hz,
+[; ;bno055.h: 196: GBW_12Hz,
+[; ;bno055.h: 197: GBW_64Hz,
+[; ;bno055.h: 198: GBW_32Hz
+[; ;bno055.h: 199: };
+[; ;bno055.h: 201: enum OPRMode {
+[; ;bno055.h: 202: CONFIGMODE = 0x00,
+[; ;bno055.h: 204: ACCONLY,
+[; ;bno055.h: 205: MAGONLY,
+[; ;bno055.h: 206: GYROONLY,
+[; ;bno055.h: 207: ACCMAG,
+[; ;bno055.h: 208: ACCGYRO,
+[; ;bno055.h: 209: MAGGYRO,
+[; ;bno055.h: 210: AMG,
+[; ;bno055.h: 212: IMU,
+[; ;bno055.h: 213: COMPASS,
+[; ;bno055.h: 214: M4G,
+[; ;bno055.h: 215: NDOF_FMC_OFF,
+[; ;bno055.h: 216: NDOF
+[; ;bno055.h: 217: };
+[; ;bno055.h: 219: enum PWRMode {
+[; ;bno055.h: 220: Normalpwr = 0,
+[; ;bno055.h: 221: Lowpower,
+[; ;bno055.h: 222: Suspendpwr
+[; ;bno055.h: 223: };
+[; ;bno055.h: 225: enum Modr {
+[; ;bno055.h: 226: MODR_2Hz = 0,
+[; ;bno055.h: 227: MODR_6Hz,
+[; ;bno055.h: 228: MODR_8Hz,
+[; ;bno055.h: 229: MODR_10Hz,
+[; ;bno055.h: 230: MODR_15Hz,
+[; ;bno055.h: 231: MODR_20Hz,
+[; ;bno055.h: 232: MODR_25Hz,
+[; ;bno055.h: 233: MODR_30Hz
+[; ;bno055.h: 234: };
+[; ;bno055.h: 236: enum MOpMode {
+[; ;bno055.h: 237: LowPower = 0,
+[; ;bno055.h: 238: Regular,
+[; ;bno055.h: 239: EnhancedRegular,
+[; ;bno055.h: 240: HighAccuracy
+[; ;bno055.h: 241: };
+[; ;bno055.h: 243: enum MPwrMode {
+[; ;bno055.h: 244: Normal = 0,
+[; ;bno055.h: 245: Sleep,
+[; ;bno055.h: 246: Suspend,
+[; ;bno055.h: 247: ForceMode
+[; ;bno055.h: 248: };
+"250 bno055.h
+[v _GPwrMode `uc ~T0 @X0 1 e ]
+[i _GPwrMode
+-> . `E71 0 `uc
+]
+[; ;bno055.h: 250: char GPwrMode = NormalG;
+"251
+[v _Gscale `uc ~T0 @X0 1 e ]
+[i _Gscale
+-> . `E65 3 `uc
+]
+[; ;bno055.h: 251: char Gscale = GFS_250DPS;
+"253
+[v _Gbw `uc ~T0 @X0 1 e ]
+[i _Gbw
+-> . `E77 4 `uc
+]
+[; ;bno055.h: 253: char Gbw = GBW_23Hz;
+"255
+[v _Ascale `uc ~T0 @X0 1 e ]
+[i _Ascale
+-> . `E44 0 `uc
+]
+[; ;bno055.h: 255: char Ascale = AFS_2G;
+"257
+[v _APwrMode `uc ~T0 @X0 1 e ]
+[i _APwrMode
+-> . `E58 0 `uc
+]
+[; ;bno055.h: 257: char APwrMode = NormalA;
+"258
+[v _Abw `uc ~T0 @X0 1 e ]
+[i _Abw
+-> . `E49 2 `uc
+]
+[; ;bno055.h: 258: char Abw = ABW_31_25Hz;
+"261
+[v _MOpMode `uc ~T0 @X0 1 e ]
+[i _MOpMode
+-> . `E113 1 `uc
+]
+[; ;bno055.h: 261: char MOpMode = Regular;
+"262
+[v _MPwrMode `uc ~T0 @X0 1 e ]
+[i _MPwrMode
+-> . `E118 0 `uc
+]
+[; ;bno055.h: 262: char MPwrMode = Normal;
+"263
+[v _Modr `uc ~T0 @X0 1 e ]
+[i _Modr
+-> . `E104 3 `uc
+]
+[; ;bno055.h: 263: char Modr = MODR_10Hz;
+"265
+[v _PWRMode `uc ~T0 @X0 1 e ]
+[i _PWRMode
+-> . `E100 0 `uc
+]
+[; ;bno055.h: 265: char PWRMode = Normalpwr;
+"266
+[v _OPRMode `uc ~T0 @X0 1 e ]
+[i _OPRMode
+-> . `E86 12 `uc
+]
+[; ;bno055.h: 266: char OPRMode = NDOF;
+"267
+[v _status `uc ~T0 @X0 1 e ]
+[; ;bno055.h: 267: char status;
+"268
+[v _aRes `f ~T0 @X0 1 e ]
+[v _gRes `f ~T0 @X0 1 e ]
+[v _mRes `f ~T0 @X0 1 e ]
+[; ;bno055.h: 268: float aRes, gRes, mRes;
+[; ;math.h: 30: extern double fabs(double);
+[; ;math.h: 31: extern double floor(double);
+[; ;math.h: 32: extern double ceil(double);
+[; ;math.h: 33: extern double modf(double, double *);
+[; ;math.h: 34: extern double sqrt(double);
+[; ;math.h: 35: extern double atof(const char *);
+[; ;math.h: 36: extern double sin(double) ;
+[; ;math.h: 37: extern double cos(double) ;
+[; ;math.h: 38: extern double tan(double) ;
+[; ;math.h: 39: extern double asin(double) ;
+[; ;math.h: 40: extern double acos(double) ;
+[; ;math.h: 41: extern double atan(double);
+[; ;math.h: 42: extern double atan2(double, double) ;
+[; ;math.h: 43: extern double log(double);
+[; ;math.h: 44: extern double log10(double);
+[; ;math.h: 45: extern double pow(double, double) ;
+[; ;math.h: 46: extern double exp(double) ;
+[; ;math.h: 47: extern double sinh(double) ;
+[; ;math.h: 48: extern double cosh(double) ;
+[; ;math.h: 49: extern double tanh(double);
+[; ;math.h: 50: extern double eval_poly(double, const double *, int);
+[; ;math.h: 51: extern double frexp(double, int *);
+[; ;math.h: 52: extern double ldexp(double, int);
+[; ;math.h: 53: extern double fmod(double, double);
+[; ;math.h: 54: extern double trunc(double);
+[; ;math.h: 55: extern double round(double);
+[; ;Function.h: 11: void Delay(int wait);
+[; ;__size_t.h: 4: typedef unsigned size_t;
+[; ;stdarg.h: 7: typedef void * va_list[1];
+[; ;stdarg.h: 10: extern void * __va_start(void);
+[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
+[; ;stdio.h: 43: struct __prbuf
+[; ;stdio.h: 44: {
+[; ;stdio.h: 45: char * ptr;
+[; ;stdio.h: 46: void (* func)(char);
+[; ;stdio.h: 47: };
+[; ;errno.h: 29: extern int errno;
+[; ;conio.h: 12: extern void init_uart(void);
+[; ;conio.h: 14: extern char getch(void);
+[; ;conio.h: 15: extern char getche(void);
+[; ;conio.h: 16: extern void putch(char);
+[; ;conio.h: 17: extern void ungetch(char);
+[; ;conio.h: 19: extern __bit kbhit(void);
+[; ;conio.h: 23: extern char * cgets(char *);
+[; ;conio.h: 24: extern void cputs(const char *);
+[; ;stdio.h: 88: extern int cprintf(char *, ...);
+[; ;stdio.h: 93: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+[; ;stdio.h: 183: extern char * gets(char *);
+[; ;stdio.h: 184: extern int puts(const char *);
+[; ;stdio.h: 185: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+[; ;stdio.h: 186: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+[; ;stdio.h: 187: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+[; ;stdio.h: 188: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+[; ;stdio.h: 189: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+[; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+[; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
+[; ;stdio.h: 195: extern int printf(const char *, ...);
+"9 BNO055.c
+[v _intPin `uc ~T0 @X0 1 e ]
+[i _intPin
+-> -> 8 `i `uc
+]
+[; ;BNO055.c: 9: char intPin = 8;
+"10
+[v _myLed `uc ~T0 @X0 1 e ]
+[i _myLed
+-> -> 13 `i `uc
+]
+[; ;BNO055.c: 10: char myLed = 13;
+"12
+[v _accelCount `i ~T0 @X0 -> 3 `i e ]
+[; ;BNO055.c: 12: int accelCount[3];
+"13
+[v _gyroCount `i ~T0 @X0 -> 3 `i e ]
+[; ;BNO055.c: 13: int gyroCount[3];
+"14
+[v _magCount `i ~T0 @X0 -> 3 `i e ]
+[; ;BNO055.c: 14: int magCount[3];
+"15
+[v _quatCount `i ~T0 @X0 -> 4 `i e ]
+[; ;BNO055.c: 15: int quatCount[4];
+"16
+[v _EulCount `i ~T0 @X0 -> 3 `i e ]
+[; ;BNO055.c: 16: int EulCount[3];
+"17
+[v _LIACount `i ~T0 @X0 -> 3 `i e ]
+[; ;BNO055.c: 17: int LIACount[3];
+"18
+[v _GRVCount `i ~T0 @X0 -> 3 `i e ]
+[; ;BNO055.c: 18: int GRVCount[3];
+"19
+[v _gyroBias `f ~T0 @X0 -> 3 `i e ]
+[i _gyroBias
+:U ..
+-> -> 0 `i `f
+-> -> 0 `i `f
+-> -> 0 `i `f
+..
+]
+[v _accelBias `f ~T0 @X0 -> 3 `i e ]
+[i _accelBias
+:U ..
+-> -> 0 `i `f
+-> -> 0 `i `f
+-> -> 0 `i `f
+..
+]
+[v _magBias `f ~T0 @X0 -> 3 `i e ]
+[i _magBias
+:U ..
+-> -> 0 `i `f
+-> -> 0 `i `f
+-> -> 0 `i `f
+..
+]
+[; ;BNO055.c: 19: float gyroBias[3] = {0, 0, 0}, accelBias[3] = {0, 0, 0}, magBias[3] = {0, 0, 0};
+"20
+[v _tempGCount `i ~T0 @X0 1 e ]
+[v _tempMCount `i ~T0 @X0 1 e ]
+[; ;BNO055.c: 20: int tempGCount, tempMCount;
+"21
+[v _Gtemperature `f ~T0 @X0 1 e ]
+[v _Mtemperature `f ~T0 @X0 1 e ]
+[; ;BNO055.c: 21: float Gtemperature, Mtemperature;
+"24
+[v _GyroMeasError `f ~T0 @X0 1 e ]
+[i _GyroMeasError
+-> * .3.1425 -> / -> .40.0 `f -> .180.0 `f `d `f
+]
+[; ;BNO055.c: 24: float GyroMeasError = 3.1425 * (40.0f / 180.0f);
+"25
+[v _GyroMeasDrift `f ~T0 @X0 1 e ]
+[i _GyroMeasDrift
+-> * .3.1425 -> / -> .0.0 `f -> .180.0 `f `d `f
+]
+[; ;BNO055.c: 25: float GyroMeasDrift = 3.1425 * (0.0f / 180.0f);
+"37
+[v _beta `f ~T0 @X0 1 e ]
+[i _beta
+-> -> 0 `i `f
+]
+[; ;BNO055.c: 37: float beta = 0;
+"38
+[v _zeta `f ~T0 @X0 1 e ]
+[i _zeta
+-> -> 0 `i `f
+]
+[; ;BNO055.c: 38: float zeta = 0;
+"39
+[v _delt_t `l ~T0 @X0 1 e ]
+[i _delt_t
+-> -> 0 `i `l
+]
+[v _count `l ~T0 @X0 1 e ]
+[i _count
+-> -> 0 `i `l
+]
+[v _sumCount `l ~T0 @X0 1 e ]
+[i _sumCount
+-> -> 0 `i `l
+]
+[; ;BNO055.c: 39: long delt_t = 0, count = 0, sumCount = 0;
+"40
+[v _pitch `f ~T0 @X0 1 e ]
+[v _yaw `f ~T0 @X0 1 e ]
+[v _roll `f ~T0 @X0 1 e ]
+[; ;BNO055.c: 40: float pitch, yaw, roll;
+"41
+[v _Pitch `f ~T0 @X0 1 e ]
+[v _Yaw `f ~T0 @X0 1 e ]
+[v _Roll `f ~T0 @X0 1 e ]
+[; ;BNO055.c: 41: float Pitch, Yaw, Roll;
+"42
+[v _LIAx `f ~T0 @X0 1 e ]
+[v _LIAy `f ~T0 @X0 1 e ]
+[v _LIAz `f ~T0 @X0 1 e ]
+[v _GRVx `f ~T0 @X0 1 e ]
+[v _GRVy `f ~T0 @X0 1 e ]
+[v _GRVz `f ~T0 @X0 1 e ]
+[; ;BNO055.c: 42: float LIAx, LIAy, LIAz, GRVx, GRVy, GRVz;
+"43
+[v _deltat `f ~T0 @X0 1 e ]
+[i _deltat
+-> .0.0 `f
+]
+[v _sum `f ~T0 @X0 1 e ]
+[i _sum
+-> .0.0 `f
+]
+[; ;BNO055.c: 43: float deltat = 0.0f, sum = 0.0f;
+"44
+[v _lastUpdate `l ~T0 @X0 1 e ]
+[i _lastUpdate
+-> -> 0 `i `l
+]
+[v _firstUpdate `l ~T0 @X0 1 e ]
+[i _firstUpdate
+-> -> 0 `i `l
+]
+[; ;BNO055.c: 44: long lastUpdate = 0, firstUpdate = 0;
+"45
+[v _Now `l ~T0 @X0 1 e ]
+[i _Now
+-> -> 0 `i `l
+]
+[; ;BNO055.c: 45: long Now = 0;
+"47
+[v _ax `f ~T0 @X0 1 e ]
+[v _ay `f ~T0 @X0 1 e ]
+[v _az `f ~T0 @X0 1 e ]
+[v _gx `f ~T0 @X0 1 e ]
+[v _gy `f ~T0 @X0 1 e ]
+[v _gz `f ~T0 @X0 1 e ]
+[v _mx `f ~T0 @X0 1 e ]
+[v _my `f ~T0 @X0 1 e ]
+[v _mz `f ~T0 @X0 1 e ]
+[; ;BNO055.c: 47: float ax, ay, az, gx, gy, gz, mx, my, mz;
+"48
+[v _q `f ~T0 @X0 -> 4 `i e ]
+[i _q
+:U ..
+-> .1.0 `f
+-> .0.0 `f
+-> .0.0 `f
+-> .0.0 `f
+..
+]
+[; ;BNO055.c: 48: float q[4] = {1.0f, 0.0f, 0.0f, 0.0f};
+"49
+[v _quat `f ~T0 @X0 -> 4 `i e ]
+[i _quat
+:U ..
+-> .1.0 `f
+-> .0.0 `f
+-> .0.0 `f
+-> .0.0 `f
+..
+]
+[; ;BNO055.c: 49: float quat[4] = {1.0f, 0.0f, 0.0f, 0.0f};
+"50
+[v _eInt `f ~T0 @X0 -> 3 `i e ]
+[i _eInt
+:U ..
+-> .0.0 `f
+-> .0.0 `f
+-> .0.0 `f
+..
+]
+[; ;BNO055.c: 50: float eInt[3] = {0.0f, 0.0f, 0.0f};
+"52
+[v _setup `(v ~T0 @X0 1 ef ]
+"53
+{
+[; ;BNO055.c: 52: void setup()
+[; ;BNO055.c: 53: {
+[e :U _setup ]
+[f ]
+[; ;BNO055.c: 54: beta = sqrt(3.0 / 4.0) * GyroMeasError;
+"54
+[e = _beta -> * ( _sqrt (1 / .3.0 .4.0 -> _GyroMeasError `d `f ]
+[; ;BNO055.c: 55: zeta = sqrt(3.0 / 4.0) * GyroMeasDrift;
+"55
+[e = _zeta -> * ( _sqrt (1 / .3.0 .4.0 -> _GyroMeasDrift `d `f ]
+[; ;BNO055.c: 60: Delay(4000);
+"60
+[e ( _Delay (1 -> 4000 `i ]
+[; ;BNO055.c: 63: Delay(1000);
+"63
+[e ( _Delay (1 -> 1000 `i ]
+[; ;BNO055.c: 66: printf("BNO055 9-axis motion sensor...");
+"66
+[e ( _printf :s 1C ]
+"67
+[v _c `uc ~T0 @X0 1 a ]
+[; ;BNO055.c: 67: char c = readByte(0x29, 0x00);
+[e = _c ( _readByte (2 , -> -> 41 `i `uc -> -> 0 `i `uc ]
+[; ;BNO055.c: 68: printf("BNO055 Address = 0x%c",0x29);
+"68
+[e ( _printf , (. :s 2C -> 41 `i ]
+[; ;BNO055.c: 69: printf("BNO055 WHO_AM_I = 0x%c ", 0x00);
+"69
+[e ( _printf , (. :s 3C -> 0 `i ]
+[; ;BNO055.c: 70: printf("BNO055 - I AM %c  - I should be 0xA0",c);
+"70
+[e ( _printf , (. :s 4C -> _c `i ]
+[; ;BNO055.c: 72: Delay(1000);
+"72
+[e ( _Delay (1 -> 1000 `i ]
+"76
+[v _d `uc ~T0 @X0 1 a ]
+[; ;BNO055.c: 76: char d = readByte(0x29, 0x01);
+[e = _d ( _readByte (2 , -> -> 41 `i `uc -> -> 1 `i `uc ]
+[; ;BNO055.c: 77: printf("BNO055 ACC I AM %c I should be 0xFB",d);
+"77
+[e ( _printf , (. :s 5C -> _d `i ]
+[; ;BNO055.c: 79: Delay(1000);
+"79
+[e ( _Delay (1 -> 1000 `i ]
+"82
+[v _e `uc ~T0 @X0 1 a ]
+[; ;BNO055.c: 82: char e = readByte(0x29, 0x02);
+[e = _e ( _readByte (2 , -> -> 41 `i `uc -> -> 2 `i `uc ]
+[; ;BNO055.c: 83: printf("BNO055 MAG I AM %c I should be 0x32",e);
+"83
+[e ( _printf , (. :s 6C -> _e `i ]
+[; ;BNO055.c: 85: Delay(1000);
+"85
+[e ( _Delay (1 -> 1000 `i ]
+"88
+[v _f `uc ~T0 @X0 1 a ]
+[; ;BNO055.c: 88: char f = readByte(0x29, 0x03);
+[e = _f ( _readByte (2 , -> -> 41 `i `uc -> -> 3 `i `uc ]
+[; ;BNO055.c: 89: printf("BNO055 GYRO I AM %f  I should be 0x0F",f);
+"89
+[e ( _printf , (. :s 7C -> _f `i ]
+[; ;BNO055.c: 91: Delay(1000);
+"91
+[e ( _Delay (1 -> 1000 `i ]
+[; ;BNO055.c: 93: if (c == 0xA0)
+"93
+[e $ ! == -> _c `i -> 160 `i 3  ]
+[; ;BNO055.c: 94: {
+"94
+{
+[; ;BNO055.c: 95: printf("BNO055 is online...");
+"95
+[e ( _printf :s 8C ]
+"98
+[v _swlsb `uc ~T0 @X0 1 a ]
+[; ;BNO055.c: 98: char swlsb = readByte(0x29, 0x04);
+[e = _swlsb ( _readByte (2 , -> -> 41 `i `uc -> -> 4 `i `uc ]
+"99
+[v _swmsb `uc ~T0 @X0 1 a ]
+[; ;BNO055.c: 99: char swmsb = readByte(0x29, 0x05);
+[e = _swmsb ( _readByte (2 , -> -> 41 `i `uc -> -> 5 `i `uc ]
+[; ;BNO055.c: 100: printf("BNO055 SW Revision ID: %c.%c",swmsb,swlsb);
+"100
+[e ( _printf , , (. :s 9C -> _swmsb `i -> _swlsb `i ]
+[; ;BNO055.c: 101: printf("Should be 03.04");
+"101
+[e ( _printf :s 10C ]
+"104
+[v _blid `uc ~T0 @X0 1 a ]
+[; ;BNO055.c: 104: char blid = readByte(0x29, 0x06);
+[e = _blid ( _readByte (2 , -> -> 41 `i `uc -> -> 6 `i `uc ]
+[; ;BNO055.c: 105: printf("BNO055 bootloader Version: %c", blid);
+"105
+[e ( _printf , (. :s 11C -> _blid `i ]
+"108
+[v _selftest `uc ~T0 @X0 1 a ]
+[; ;BNO055.c: 108: char selftest = readByte(0x29, 0x36);
+[e = _selftest ( _readByte (2 , -> -> 41 `i `uc -> -> 54 `i `uc ]
+[; ;BNO055.c: 110: if(selftest & 0x01) {
+"110
+[e $ ! != & -> _selftest `i -> 1 `i -> 0 `i 4  ]
+{
+[; ;BNO055.c: 111: printf("accelerometer passed self test");
+"111
+[e ( _printf :s 12C ]
+"112
+}
+[; ;BNO055.c: 112: } else {
+[e $U 5  ]
+[e :U 4 ]
+{
+[; ;BNO055.c: 113: printf("accelerometer failed self test");
+"113
+[e ( _printf :s 13C ]
+"114
+}
+[e :U 5 ]
+[; ;BNO055.c: 114: }
+[; ;BNO055.c: 115: if(selftest & 0x02) {
+"115
+[e $ ! != & -> _selftest `i -> 2 `i -> 0 `i 6  ]
+{
+[; ;BNO055.c: 116: printf("magnetometer passed self test");
+"116
+[e ( _printf :s 14C ]
+"117
+}
+[; ;BNO055.c: 117: } else {
+[e $U 7  ]
+[e :U 6 ]
+{
+[; ;BNO055.c: 118: printf("magnetometer failed self test");
+"118
+[e ( _printf :s 15C ]
+"119
+}
+[e :U 7 ]
+[; ;BNO055.c: 119: }
+[; ;BNO055.c: 120: if(selftest & 0x04) {
+"120
+[e $ ! != & -> _selftest `i -> 4 `i -> 0 `i 8  ]
+{
+[; ;BNO055.c: 121: printf("gyroscope passed self test");
+"121
+[e ( _printf :s 16C ]
+"122
+}
+[; ;BNO055.c: 122: } else {
+[e $U 9  ]
+[e :U 8 ]
+{
+[; ;BNO055.c: 123: printf("gyroscope failed self test");
+"123
+[e ( _printf :s 17C ]
+"124
+}
+[e :U 9 ]
+[; ;BNO055.c: 124: }
+[; ;BNO055.c: 125: if(selftest & 0x08) {
+"125
+[e $ ! != & -> _selftest `i -> 8 `i -> 0 `i 10  ]
+{
+[; ;BNO055.c: 126: printf("MCU passed self test");
+"126
+[e ( _printf :s 18C ]
+"127
+}
+[; ;BNO055.c: 127: } else {
+[e $U 11  ]
+[e :U 10 ]
+{
+[; ;BNO055.c: 128: printf("MCU failed self test");
+"128
+[e ( _printf :s 19C ]
+"129
+}
+[e :U 11 ]
+[; ;BNO055.c: 129: }
+[; ;BNO055.c: 131: Delay(1000);
+"131
+[e ( _Delay (1 -> 1000 `i ]
+[; ;BNO055.c: 133: accelgyroCalBNO055(accelBias, gyroBias);
+"133
+[e ( _accelgyroCalBNO055 (2 , &U _accelBias &U _gyroBias ]
+[; ;BNO055.c: 135: printf("Average accelerometer bias (mg) = %f", accelBias);
+"135
+[e ( _printf , (. :s 20C &U _accelBias ]
+[; ;BNO055.c: 136: printf("Average gyro bias (dps) = %f",gyroBias);
+"136
+[e ( _printf , (. :s 21C &U _gyroBias ]
+[; ;BNO055.c: 138: Delay(1000);
+"138
+[e ( _Delay (1 -> 1000 `i ]
+[; ;BNO055.c: 140: magCalBNO055(magBias);
+"140
+[e ( _magCalBNO055 (1 &U _magBias ]
+[; ;BNO055.c: 142: printf("Average magnetometer bias (mG) = %f", magBias);
+"142
+[e ( _printf , (. :s 22C &U _magBias ]
+[; ;BNO055.c: 144: Delay(1000);
+"144
+[e ( _Delay (1 -> 1000 `i ]
+"147
+[v _calstat `uc ~T0 @X0 1 a ]
+[; ;BNO055.c: 147: char calstat = readByte(0x29, 0x35);
+[e = _calstat ( _readByte (2 , -> -> 41 `i `uc -> -> 53 `i `uc ]
+[; ;BNO055.c: 148: printf("Not calibrated = 0, fully calibrated = 3");
+"148
+[e ( _printf :s 23C ]
+[; ;BNO055.c: 149: printf("System calibration status = %c", (0xC0 & calstat) >> 6);
+"149
+[e ( _printf , (. :s 24C >> & -> 192 `i -> _calstat `i -> 6 `i ]
+[; ;BNO055.c: 150: printf("Gyro   calibration status = %c", (0x30 & calstat) >> 4);
+"150
+[e ( _printf , (. :s 25C >> & -> 48 `i -> _calstat `i -> 4 `i ]
+[; ;BNO055.c: 151: printf("Accel  calibration status = %c", (0x0C & calstat) >> 2);
+"151
+[e ( _printf , (. :s 26C >> & -> 12 `i -> _calstat `i -> 2 `i ]
+[; ;BNO055.c: 152: printf("Mag    calibration status = %c", (0x03 & calstat) >> 0);
+"152
+[e ( _printf , (. :s 27C >> & -> 3 `i -> _calstat `i -> 0 `i ]
+[; ;BNO055.c: 154: initBNO055();
+"154
+[e ( _initBNO055 ..  ]
+[; ;BNO055.c: 155: printf("BNO055 initialized for sensor mode....");
+"155
+[e ( _printf :s 28C ]
+"157
+}
+[; ;BNO055.c: 157: }
+[e $U 12  ]
+"158
+[e :U 3 ]
+[; ;BNO055.c: 158: else
+[; ;BNO055.c: 159: {
+"159
+{
+[; ;BNO055.c: 160: printf("Could not connect to BNO055: 0x%c",c);
+"160
+[e ( _printf , (. :s 29C -> _c `i ]
+[; ;BNO055.c: 161: while(1) ;
+"161
+[e :U 14 ]
+[e :U 13 ]
+[e $U 14  ]
+[e :U 15 ]
+"162
+}
+[e :U 12 ]
+[; ;BNO055.c: 162: }
+[; ;BNO055.c: 163: }
+"163
+[e :UE 2 ]
+}
+"165
+[v _loop `(v ~T0 @X0 1 ef ]
+"166
+{
+[; ;BNO055.c: 165: void loop()
+[; ;BNO055.c: 166: {
+[e :U _loop ]
+[f ]
+[; ;BNO055.c: 167: readAccelData(accelCount);
+"167
+[e ( _readAccelData (1 &U _accelCount ]
+[; ;BNO055.c: 169: ax = (float)accelCount[0];
+"169
+[e = _ax -> *U + &U _accelCount * -> -> -> 0 `i `ui `ux -> -> # *U &U _accelCount `ui `ux `f ]
+[; ;BNO055.c: 170: ay = (float)accelCount[1];
+"170
+[e = _ay -> *U + &U _accelCount * -> -> -> 1 `i `ui `ux -> -> # *U &U _accelCount `ui `ux `f ]
+[; ;BNO055.c: 171: az = (float)accelCount[2];
+"171
+[e = _az -> *U + &U _accelCount * -> -> -> 2 `i `ui `ux -> -> # *U &U _accelCount `ui `ux `f ]
+[; ;BNO055.c: 173: readGyroData(gyroCount);
+"173
+[e ( _readGyroData (1 &U _gyroCount ]
+[; ;BNO055.c: 175: gx = (float)gyroCount[0]/16.;
+"175
+[e = _gx -> / -> -> *U + &U _gyroCount * -> -> -> 0 `i `ui `ux -> -> # *U &U _gyroCount `ui `ux `f `d .16. `f ]
+[; ;BNO055.c: 176: gy = (float)gyroCount[1]/16.;
+"176
+[e = _gy -> / -> -> *U + &U _gyroCount * -> -> -> 1 `i `ui `ux -> -> # *U &U _gyroCount `ui `ux `f `d .16. `f ]
+[; ;BNO055.c: 177: gz = (float)gyroCount[2]/16.;
+"177
+[e = _gz -> / -> -> *U + &U _gyroCount * -> -> -> 2 `i `ui `ux -> -> # *U &U _gyroCount `ui `ux `f `d .16. `f ]
+[; ;BNO055.c: 179: readMagData(magCount);
+"179
+[e ( _readMagData (1 &U _magCount ]
+[; ;BNO055.c: 181: mx = (float)magCount[0]/1.6;
+"181
+[e = _mx -> / -> -> *U + &U _magCount * -> -> -> 0 `i `ui `ux -> -> # *U &U _magCount `ui `ux `f `d .1.6 `f ]
+[; ;BNO055.c: 182: my = (float)magCount[1]/1.6;
+"182
+[e = _my -> / -> -> *U + &U _magCount * -> -> -> 1 `i `ui `ux -> -> # *U &U _magCount `ui `ux `f `d .1.6 `f ]
+[; ;BNO055.c: 183: mz = (float)magCount[2]/1.6;
+"183
+[e = _mz -> / -> -> *U + &U _magCount * -> -> -> 2 `i `ui `ux -> -> # *U &U _magCount `ui `ux `f `d .1.6 `f ]
+[; ;BNO055.c: 185: readQuatData(quatCount);
+"185
+[e ( _readQuatData (1 &U _quatCount ]
+[; ;BNO055.c: 187: quat[0] = (float)(quatCount[0])/16384.;
+"187
+[e = *U + &U _quat * -> -> -> 0 `i `ui `ux -> -> # *U &U _quat `ui `ux -> / -> -> *U + &U _quatCount * -> -> -> 0 `i `ui `ux -> -> # *U &U _quatCount `ui `ux `f `d .16384. `f ]
+[; ;BNO055.c: 188: quat[1] = (float)(quatCount[1])/16384.;
+"188
+[e = *U + &U _quat * -> -> -> 1 `i `ui `ux -> -> # *U &U _quat `ui `ux -> / -> -> *U + &U _quatCount * -> -> -> 1 `i `ui `ux -> -> # *U &U _quatCount `ui `ux `f `d .16384. `f ]
+[; ;BNO055.c: 189: quat[2] = (float)(quatCount[2])/16384.;
+"189
+[e = *U + &U _quat * -> -> -> 2 `i `ui `ux -> -> # *U &U _quat `ui `ux -> / -> -> *U + &U _quatCount * -> -> -> 2 `i `ui `ux -> -> # *U &U _quatCount `ui `ux `f `d .16384. `f ]
+[; ;BNO055.c: 190: quat[3] = (float)(quatCount[3])/16384.;
+"190
+[e = *U + &U _quat * -> -> -> 3 `i `ui `ux -> -> # *U &U _quat `ui `ux -> / -> -> *U + &U _quatCount * -> -> -> 3 `i `ui `ux -> -> # *U &U _quatCount `ui `ux `f `d .16384. `f ]
+[; ;BNO055.c: 192: readEulData(EulCount);
+"192
+[e ( _readEulData (1 &U _EulCount ]
+[; ;BNO055.c: 194: Yaw = (float)EulCount[0]/16.;
+"194
+[e = _Yaw -> / -> -> *U + &U _EulCount * -> -> -> 0 `i `ui `ux -> -> # *U &U _EulCount `ui `ux `f `d .16. `f ]
+[; ;BNO055.c: 195: Roll = (float)EulCount[1]/16.;
+"195
+[e = _Roll -> / -> -> *U + &U _EulCount * -> -> -> 1 `i `ui `ux -> -> # *U &U _EulCount `ui `ux `f `d .16. `f ]
+[; ;BNO055.c: 196: Pitch = (float)EulCount[2]/16.;
+"196
+[e = _Pitch -> / -> -> *U + &U _EulCount * -> -> -> 2 `i `ui `ux -> -> # *U &U _EulCount `ui `ux `f `d .16. `f ]
+[; ;BNO055.c: 198: readLIAData(LIACount);
+"198
+[e ( _readLIAData (1 &U _LIACount ]
+[; ;BNO055.c: 200: LIAx = (float)LIACount[0];
+"200
+[e = _LIAx -> *U + &U _LIACount * -> -> -> 0 `i `ui `ux -> -> # *U &U _LIACount `ui `ux `f ]
+[; ;BNO055.c: 201: LIAy = (float)LIACount[1];
+"201
+[e = _LIAy -> *U + &U _LIACount * -> -> -> 1 `i `ui `ux -> -> # *U &U _LIACount `ui `ux `f ]
+[; ;BNO055.c: 202: LIAz = (float)LIACount[2];
+"202
+[e = _LIAz -> *U + &U _LIACount * -> -> -> 2 `i `ui `ux -> -> # *U &U _LIACount `ui `ux `f ]
+[; ;BNO055.c: 204: readGRVData(GRVCount);
+"204
+[e ( _readGRVData (1 &U _GRVCount ]
+[; ;BNO055.c: 206: GRVx = (float)GRVCount[0];
+"206
+[e = _GRVx -> *U + &U _GRVCount * -> -> -> 0 `i `ui `ux -> -> # *U &U _GRVCount `ui `ux `f ]
+[; ;BNO055.c: 207: GRVy = (float)GRVCount[1];
+"207
+[e = _GRVy -> *U + &U _GRVCount * -> -> -> 1 `i `ui `ux -> -> # *U &U _GRVCount `ui `ux `f ]
+[; ;BNO055.c: 208: GRVz = (float)GRVCount[2];
+"208
+[e = _GRVz -> *U + &U _GRVCount * -> -> -> 2 `i `ui `ux -> -> # *U &U _GRVCount `ui `ux `f ]
+[; ;BNO055.c: 212: deltat = ((Now - lastUpdate)/1000000.0);
+"212
+[e = _deltat -> / -> - _Now _lastUpdate `d .1000000.0 `f ]
+[; ;BNO055.c: 213: lastUpdate = Now;
+"213
+[e = _lastUpdate _Now ]
+[; ;BNO055.c: 215: sum += deltat;
+"215
+[e =+ _sum _deltat ]
+[; ;BNO055.c: 216: sumCount++;
+"216
+[e ++ _sumCount -> -> 1 `i `l ]
+[; ;BNO055.c: 224: MadgwickQuaternionUpdate(ax, ay, az, gx*3.1425/180.0f, gy*3.1425/180.0f, gz*3.1425/180.0f, mx, my, mz);
+"224
+[e ( _MadgwickQuaternionUpdate (4 , , , , , , , , _ax _ay _az -> / * -> _gx `d .3.1425 -> -> .180.0 `f `d `f -> / * -> _gy `d .3.1425 -> -> .180.0 `f `d `f -> / * -> _gz `d .3.1425 -> -> .180.0 `f `d `f _mx _my _mz ]
+[; ;BNO055.c: 229: if (1) {
+"229
+[e $ ! != -> 1 `i -> 0 `i 17  ]
+{
+"232
+[v _sysstat `uc ~T0 @X0 1 a ]
+[; ;BNO055.c: 232: char sysstat = readByte(0x29, 0x39);
+[e = _sysstat ( _readByte (2 , -> -> 41 `i `uc -> -> 57 `i `uc ]
+[; ;BNO055.c: 233: printf("System Status = 0x5c",sysstat);
+"233
+[e ( _printf , (. :s 30C -> _sysstat `i ]
+[; ;BNO055.c: 234: if(sysstat == 0x05){
+"234
+[e $ ! == -> _sysstat `i -> 5 `i 18  ]
+{
+[; ;BNO055.c: 235: printf("Sensor fusion algorithm running");
+"235
+[e ( _printf :s 31C ]
+"236
+}
+[e :U 18 ]
+[; ;BNO055.c: 236: }
+[; ;BNO055.c: 237: if(sysstat == 0x06) {
+"237
+[e $ ! == -> _sysstat `i -> 6 `i 19  ]
+{
+[; ;BNO055.c: 238: printf("Sensor fusion not algorithm running");
+"238
+[e ( _printf :s 32C ]
+"239
+}
+[e :U 19 ]
+[; ;BNO055.c: 239: }
+[; ;BNO055.c: 241: if(sysstat == 0x01) {
+"241
+[e $ ! == -> _sysstat `i -> 1 `i 20  ]
+{
+"242
+[v _syserr `uc ~T0 @X0 1 a ]
+[; ;BNO055.c: 242: char syserr = readByte(0x29, 0x3A);
+[e = _syserr ( _readByte (2 , -> -> 41 `i `uc -> -> 58 `i `uc ]
+[; ;BNO055.c: 243: if(syserr == 0x01) printf("Peripheral initialization error");
+"243
+[e $ ! == -> _syserr `i -> 1 `i 21  ]
+[e ( _printf :s 33C ]
+[e :U 21 ]
+[; ;BNO055.c: 244: if(syserr == 0x02) printf("System initialization error");
+"244
+[e $ ! == -> _syserr `i -> 2 `i 22  ]
+[e ( _printf :s 34C ]
+[e :U 22 ]
+[; ;BNO055.c: 245: if(syserr == 0x03) printf("Self test result failed");
+"245
+[e $ ! == -> _syserr `i -> 3 `i 23  ]
+[e ( _printf :s 35C ]
+[e :U 23 ]
+[; ;BNO055.c: 246: if(syserr == 0x04) printf("Register map value out of range");
+"246
+[e $ ! == -> _syserr `i -> 4 `i 24  ]
+[e ( _printf :s 36C ]
+[e :U 24 ]
+[; ;BNO055.c: 247: if(syserr == 0x05) printf("Register map address out of range");
+"247
+[e $ ! == -> _syserr `i -> 5 `i 25  ]
+[e ( _printf :s 37C ]
+[e :U 25 ]
+[; ;BNO055.c: 248: if(syserr == 0x06) printf("Register map write error");
+"248
+[e $ ! == -> _syserr `i -> 6 `i 26  ]
+[e ( _printf :s 38C ]
+[e :U 26 ]
+[; ;BNO055.c: 249: if(syserr == 0x07) printf("BNO low power mode no available for selected operation mode");
+"249
+[e $ ! == -> _syserr `i -> 7 `i 27  ]
+[e ( _printf :s 39C ]
+[e :U 27 ]
+[; ;BNO055.c: 250: if(syserr == 0x08) printf("Accelerometer power mode not available");
+"250
+[e $ ! == -> _syserr `i -> 8 `i 28  ]
+[e ( _printf :s 40C ]
+[e :U 28 ]
+[; ;BNO055.c: 251: if(syserr == 0x09) printf("Fusion algorithm configuration error");
+"251
+[e $ ! == -> _syserr `i -> 9 `i 29  ]
+[e ( _printf :s 41C ]
+[e :U 29 ]
+[; ;BNO055.c: 252: if(syserr == 0x0A) printf("Sensor configuration error");
+"252
+[e $ ! == -> _syserr `i -> 10 `i 30  ]
+[e ( _printf :s 42C ]
+[e :U 30 ]
+"253
+}
+[e :U 20 ]
+[; ;BNO055.c: 253: }
+[; ;BNO055.c: 255: if(1) {
+"255
+[e $ ! != -> 1 `i -> 0 `i 31  ]
+{
+[; ;BNO055.c: 256: printf("ax = %d", ax);
+"256
+[e ( _printf , (. :s 43C -> _ax `d ]
+[; ;BNO055.c: 257: printf(" ay = %d", ay);
+"257
+[e ( _printf , (. :s 44C -> _ay `d ]
+[; ;BNO055.c: 258: printf(" az = %d mg\n",az);
+"258
+[e ( _printf , (. :s 45C -> _az `d ]
+[; ;BNO055.c: 259: printf("gx = %d", gx);
+"259
+[e ( _printf , (. :s 46C -> _gx `d ]
+[; ;BNO055.c: 260: printf(" gy = %d", gy);
+"260
+[e ( _printf , (. :s 47C -> _gy `d ]
+[; ;BNO055.c: 261: printf(" gz = %d deg/s\n", gz);
+"261
+[e ( _printf , (. :s 48C -> _gz `d ]
+[; ;BNO055.c: 262: printf("mx = %d", mx );
+"262
+[e ( _printf , (. :s 49C -> _mx `d ]
+[; ;BNO055.c: 263: printf(" my = %d", my );
+"263
+[e ( _printf , (. :s 50C -> _my `d ]
+[; ;BNO055.c: 264: printf(" mz = %d mG\n", mz );
+"264
+[e ( _printf , (. :s 51C -> _mz `d ]
+[; ;BNO055.c: 266: printf("qx = %f", q[0]);
+"266
+[e ( _printf , (. :s 52C -> *U + &U _q * -> -> -> 0 `i `ui `ux -> -> # *U &U _q `ui `ux `d ]
+[; ;BNO055.c: 267: printf(" qy = %f", q[1]);
+"267
+[e ( _printf , (. :s 53C -> *U + &U _q * -> -> -> 1 `i `ui `ux -> -> # *U &U _q `ui `ux `d ]
+[; ;BNO055.c: 268: printf(" qz = %f", q[2]);
+"268
+[e ( _printf , (. :s 54C -> *U + &U _q * -> -> -> 2 `i `ui `ux -> -> # *U &U _q `ui `ux `d ]
+[; ;BNO055.c: 269: printf(" qw = %f\n", q[3]);
+"269
+[e ( _printf , (. :s 55C -> *U + &U _q * -> -> -> 3 `i `ui `ux -> -> # *U &U _q `ui `ux `d ]
+[; ;BNO055.c: 270: printf("quatw = %f", quat[0]);
+"270
+[e ( _printf , (. :s 56C -> *U + &U _quat * -> -> -> 0 `i `ui `ux -> -> # *U &U _quat `ui `ux `d ]
+[; ;BNO055.c: 271: printf(" quatx = %f", quat[1]);
+"271
+[e ( _printf , (. :s 57C -> *U + &U _quat * -> -> -> 1 `i `ui `ux -> -> # *U &U _quat `ui `ux `d ]
+[; ;BNO055.c: 272: printf(" quaty = %f", quat[2]);
+"272
+[e ( _printf , (. :s 58C -> *U + &U _quat * -> -> -> 2 `i `ui `ux -> -> # *U &U _quat `ui `ux `d ]
+[; ;BNO055.c: 273: printf(" quatz = %f\n", quat[3]);
+"273
+[e ( _printf , (. :s 59C -> *U + &U _quat * -> -> -> 3 `i `ui `ux -> -> # *U &U _quat `ui `ux `d ]
+"274
+}
+[e :U 31 ]
+[; ;BNO055.c: 274: }
+[; ;BNO055.c: 276: tempGCount = readGyroTempData();
+"276
+[e = _tempGCount -> ( _readGyroTempData ..  `i ]
+[; ;BNO055.c: 277: Gtemperature = (float) tempGCount;
+"277
+[e = _Gtemperature -> _tempGCount `f ]
+[; ;BNO055.c: 279: printf("Gyro temperature is = %f degrees C", Gtemperature);
+"279
+[e ( _printf , (. :s 60C -> _Gtemperature `d ]
+[; ;BNO055.c: 290: yaw = atan2(2.0f * (q[1] * q[2] + q[0] * q[3]), q[0] * q[0] + q[1] * q[1] - q[2] * q[2] - q[3] * q[3]);
+"290
+[e = _yaw -> ( _atan2 (2 , -> * -> .2.0 `f + * *U + &U _q * -> -> -> 1 `i `ui `ux -> -> # *U &U _q `ui `ux *U + &U _q * -> -> -> 2 `i `ui `ux -> -> # *U &U _q `ui `ux * *U + &U _q * -> -> -> 0 `i `ui `ux -> -> # *U &U _q `ui `ux *U + &U _q * -> -> -> 3 `i `ui `ux -> -> # *U &U _q `ui `ux `d -> - - + * *U + &U _q * -> -> -> 0 `i `ui `ux -> -> # *U &U _q `ui `ux *U + &U _q * -> -> -> 0 `i `ui `ux -> -> # *U &U _q `ui `ux * *U + &U _q * -> -> -> 1 `i `ui `ux -> -> # *U &U _q `ui `ux *U + &U _q * -> -> -> 1 `i `ui `ux -> -> # *U &U _q `ui `ux * *U + &U _q * -> -> -> 2 `i `ui `ux -> -> # *U &U _q `ui `ux *U + &U _q * -> -> -> 2 `i `ui `ux -> -> # *U &U _q `ui `ux * *U + &U _q * -> -> -> 3 `i `ui `ux -> -> # *U &U _q `ui `ux *U + &U _q * -> -> -> 3 `i `ui `ux -> -> # *U &U _q `ui `ux `d `f ]
+[; ;BNO055.c: 291: pitch = -asin(2.0f * (q[1] * q[3] - q[0] * q[2]));
+"291
+[e = _pitch -> -U ( _asin (1 -> * -> .2.0 `f - * *U + &U _q * -> -> -> 1 `i `ui `ux -> -> # *U &U _q `ui `ux *U + &U _q * -> -> -> 3 `i `ui `ux -> -> # *U &U _q `ui `ux * *U + &U _q * -> -> -> 0 `i `ui `ux -> -> # *U &U _q `ui `ux *U + &U _q * -> -> -> 2 `i `ui `ux -> -> # *U &U _q `ui `ux `d `f ]
+[; ;BNO055.c: 292: roll = atan2(2.0f * (q[0] * q[1] + q[2] * q[3]), q[0] * q[0] - q[1] * q[1] - q[2] * q[2] + q[3] * q[3]);
+"292
+[e = _roll -> ( _atan2 (2 , -> * -> .2.0 `f + * *U + &U _q * -> -> -> 0 `i `ui `ux -> -> # *U &U _q `ui `ux *U + &U _q * -> -> -> 1 `i `ui `ux -> -> # *U &U _q `ui `ux * *U + &U _q * -> -> -> 2 `i `ui `ux -> -> # *U &U _q `ui `ux *U + &U _q * -> -> -> 3 `i `ui `ux -> -> # *U &U _q `ui `ux `d -> + - - * *U + &U _q * -> -> -> 0 `i `ui `ux -> -> # *U &U _q `ui `ux *U + &U _q * -> -> -> 0 `i `ui `ux -> -> # *U &U _q `ui `ux * *U + &U _q * -> -> -> 1 `i `ui `ux -> -> # *U &U _q `ui `ux *U + &U _q * -> -> -> 1 `i `ui `ux -> -> # *U &U _q `ui `ux * *U + &U _q * -> -> -> 2 `i `ui `ux -> -> # *U &U _q `ui `ux *U + &U _q * -> -> -> 2 `i `ui `ux -> -> # *U &U _q `ui `ux * *U + &U _q * -> -> -> 3 `i `ui `ux -> -> # *U &U _q `ui `ux *U + &U _q * -> -> -> 3 `i `ui `ux -> -> # *U &U _q `ui `ux `d `f ]
+[; ;BNO055.c: 293: pitch *= 180.0f / 3.1425;
+"293
+[e =* _pitch -> / -> -> .180.0 `f `d .3.1425 `f ]
+[; ;BNO055.c: 294: yaw *= 180.0f / 3.1425;
+"294
+[e =* _yaw -> / -> -> .180.0 `f `d .3.1425 `f ]
+[; ;BNO055.c: 296: roll *= 180.0f / 3.1425;
+"296
+[e =* _roll -> / -> -> .180.0 `f `d .3.1425 `f ]
+[; ;BNO055.c: 298: if(1) {
+"298
+[e $ ! != -> 1 `i -> 0 `i 32  ]
+{
+[; ;BNO055.c: 299: printf("Software Yaw, Pitch, Roll:\n ");
+"299
+[e ( _printf :s 61C ]
+[; ;BNO055.c: 300: printf("         %f   %f     %f",yaw, pitch, roll);
+"300
+[e ( _printf , , , (. :s 62C -> _yaw `d -> _pitch `d -> _roll `d ]
+[; ;BNO055.c: 302: printf("Software Yaw, Pitch, Roll:\n ");
+"302
+[e ( _printf :s 63C ]
+[; ;BNO055.c: 303: printf("         %f   %f     %f",yaw, pitch, roll);
+"303
+[e ( _printf , , , (. :s 64C -> _yaw `d -> _pitch `d -> _roll `d ]
+[; ;BNO055.c: 305: printf("Hardware x, y, z linear acceleration:\n ");
+"305
+[e ( _printf :s 65C ]
+[; ;BNO055.c: 306: printf("     %f   %f     %f",LIAx, LIAy, LIAz);
+"306
+[e ( _printf , , , (. :s 66C -> _LIAx `d -> _LIAy `d -> _LIAz `d ]
+[; ;BNO055.c: 308: printf("Hardware x, y, z gravity vector: ");
+"308
+[e ( _printf :s 67C ]
+[; ;BNO055.c: 309: printf("     %f   %f     %f",GRVx, GRVy, GRVz);
+"309
+[e ( _printf , , , (. :s 68C -> _GRVx `d -> _GRVy `d -> _GRVz `d ]
+[; ;BNO055.c: 311: printf("rate = %f Hz", sumCount/sum);
+"311
+[e ( _printf , (. :s 69C -> / -> _sumCount `f _sum `d ]
+"312
+}
+[e :U 32 ]
+[; ;BNO055.c: 312: }
+[; ;BNO055.c: 316: sumCount = 0;
+"316
+[e = _sumCount -> -> 0 `i `l ]
+[; ;BNO055.c: 317: sum = 0;
+"317
+[e = _sum -> -> 0 `i `f ]
+"318
+}
+[e :U 17 ]
+[; ;BNO055.c: 318: }
+[; ;BNO055.c: 320: }
+"320
+[e :UE 16 ]
+}
+"326
+[v _readAccelData `(v ~T0 @X0 1 ef1`*i ]
+{
+[; ;BNO055.c: 326: void readAccelData(int * destination){
+[e :U _readAccelData ]
+[v _destination `*i ~T0 @X0 1 r1 ]
+[f ]
+"327
+[v _rawData `uc ~T0 @X0 -> 6 `i a ]
+[; ;BNO055.c: 327: char rawData[6];
+[; ;BNO055.c: 328: readBytes(0x29, 0x08, 6, &rawData[0]);
+"328
+[e ( _readBytes (4 , , , -> -> 41 `i `uc -> -> 8 `i `uc -> -> 6 `i `uc &U *U + &U _rawData * -> -> -> 0 `i `ui `ux -> -> # *U &U _rawData `ui `ux ]
+[; ;BNO055.c: 329: destination[0] = ((int)rawData[1] << 8) | rawData[0] ;
+"329
+[e = *U + _destination * -> -> 0 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 1 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 0 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 330: destination[1] = ((int)rawData[3] << 8) | rawData[2] ;
+"330
+[e = *U + _destination * -> -> 1 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 3 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 2 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 331: destination[2] = ((int)rawData[5] << 8) | rawData[4] ;
+"331
+[e = *U + _destination * -> -> 2 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 5 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 4 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 332: }
+"332
+[e :UE 33 ]
+}
+"335
+[v _readGyroData `(v ~T0 @X0 1 ef1`*i ]
+{
+[; ;BNO055.c: 335: void readGyroData(int * destination){
+[e :U _readGyroData ]
+[v _destination `*i ~T0 @X0 1 r1 ]
+[f ]
+"336
+[v _rawData `uc ~T0 @X0 -> 6 `i a ]
+[; ;BNO055.c: 336: char rawData[6];
+[; ;BNO055.c: 337: readBytes(0x29, 0x14, 6, &rawData[0]);
+"337
+[e ( _readBytes (4 , , , -> -> 41 `i `uc -> -> 20 `i `uc -> -> 6 `i `uc &U *U + &U _rawData * -> -> -> 0 `i `ui `ux -> -> # *U &U _rawData `ui `ux ]
+[; ;BNO055.c: 338: destination[0] = ((int)rawData[1] << 8) | rawData[0] ;
+"338
+[e = *U + _destination * -> -> 0 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 1 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 0 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 339: destination[1] = ((int)rawData[3] << 8) | rawData[2] ;
+"339
+[e = *U + _destination * -> -> 1 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 3 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 2 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 340: destination[2] = ((int)rawData[5] << 8) | rawData[4] ;
+"340
+[e = *U + _destination * -> -> 2 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 5 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 4 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 341: }
+"341
+[e :UE 34 ]
+}
+"343
+[v _readGyroTempData `(uc ~T0 @X0 1 ef ]
+{
+[; ;BNO055.c: 343: char readGyroTempData(){
+[e :U _readGyroTempData ]
+[f ]
+[; ;BNO055.c: 344: return readByte(0x29, 0x34);
+"344
+[e ) ( _readByte (2 , -> -> 41 `i `uc -> -> 52 `i `uc ]
+[e $UE 35  ]
+[; ;BNO055.c: 345: }
+"345
+[e :UE 35 ]
+}
+"347
+[v _readMagData `(v ~T0 @X0 1 ef1`*i ]
+{
+[; ;BNO055.c: 347: void readMagData(int * destination){
+[e :U _readMagData ]
+[v _destination `*i ~T0 @X0 1 r1 ]
+[f ]
+"348
+[v _rawData `uc ~T0 @X0 -> 6 `i a ]
+[; ;BNO055.c: 348: char rawData[6];
+[; ;BNO055.c: 349: readBytes(0x29, 0x0E, 6, &rawData[0]);
+"349
+[e ( _readBytes (4 , , , -> -> 41 `i `uc -> -> 14 `i `uc -> -> 6 `i `uc &U *U + &U _rawData * -> -> -> 0 `i `ui `ux -> -> # *U &U _rawData `ui `ux ]
+[; ;BNO055.c: 350: destination[0] = ((int)rawData[1] << 8) | rawData[0] ;
+"350
+[e = *U + _destination * -> -> 0 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 1 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 0 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 351: destination[1] = ((int)rawData[3] << 8) | rawData[2] ;
+"351
+[e = *U + _destination * -> -> 1 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 3 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 2 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 352: destination[2] = ((int)rawData[5] << 8) | rawData[4] ;
+"352
+[e = *U + _destination * -> -> 2 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 5 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 4 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 353: }
+"353
+[e :UE 36 ]
+}
+"355
+[v _readQuatData `(v ~T0 @X0 1 ef1`*i ]
+{
+[; ;BNO055.c: 355: void readQuatData(int * destination){
+[e :U _readQuatData ]
+[v _destination `*i ~T0 @X0 1 r1 ]
+[f ]
+"356
+[v _rawData `uc ~T0 @X0 -> 8 `i a ]
+[; ;BNO055.c: 356: char rawData[8];
+[; ;BNO055.c: 357: readBytes(0x29, 0x20, 8, &rawData[0]);
+"357
+[e ( _readBytes (4 , , , -> -> 41 `i `uc -> -> 32 `i `uc -> -> 8 `i `uc &U *U + &U _rawData * -> -> -> 0 `i `ui `ux -> -> # *U &U _rawData `ui `ux ]
+[; ;BNO055.c: 358: destination[0] = ((int)rawData[1] << 8) | rawData[0] ;
+"358
+[e = *U + _destination * -> -> 0 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 1 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 0 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 359: destination[1] = ((int)rawData[3] << 8) | rawData[2] ;
+"359
+[e = *U + _destination * -> -> 1 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 3 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 2 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 360: destination[2] = ((int)rawData[5] << 8) | rawData[4] ;
+"360
+[e = *U + _destination * -> -> 2 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 5 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 4 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 361: destination[3] = ((int)rawData[7] << 8) | rawData[6] ;
+"361
+[e = *U + _destination * -> -> 3 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 7 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 6 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 362: }
+"362
+[e :UE 37 ]
+}
+"364
+[v _readEulData `(v ~T0 @X0 1 ef1`*i ]
+{
+[; ;BNO055.c: 364: void readEulData(int * destination){
+[e :U _readEulData ]
+[v _destination `*i ~T0 @X0 1 r1 ]
+[f ]
+"365
+[v _rawData `uc ~T0 @X0 -> 6 `i a ]
+[; ;BNO055.c: 365: char rawData[6];
+[; ;BNO055.c: 366: readBytes(0x29, 0x1A, 6, &rawData[0]);
+"366
+[e ( _readBytes (4 , , , -> -> 41 `i `uc -> -> 26 `i `uc -> -> 6 `i `uc &U *U + &U _rawData * -> -> -> 0 `i `ui `ux -> -> # *U &U _rawData `ui `ux ]
+[; ;BNO055.c: 367: destination[0] = ((int)rawData[1] << 8) | rawData[0] ;
+"367
+[e = *U + _destination * -> -> 0 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 1 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 0 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 368: destination[1] = ((int)rawData[3] << 8) | rawData[2] ;
+"368
+[e = *U + _destination * -> -> 1 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 3 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 2 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 369: destination[2] = ((int)rawData[5] << 8) | rawData[4] ;
+"369
+[e = *U + _destination * -> -> 2 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 5 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 4 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 370: }
+"370
+[e :UE 38 ]
+}
+"372
+[v _readLIAData `(v ~T0 @X0 1 ef1`*i ]
+{
+[; ;BNO055.c: 372: void readLIAData(int * destination){
+[e :U _readLIAData ]
+[v _destination `*i ~T0 @X0 1 r1 ]
+[f ]
+"373
+[v _rawData `uc ~T0 @X0 -> 6 `i a ]
+[; ;BNO055.c: 373: char rawData[6];
+[; ;BNO055.c: 374: readBytes(0x29, 0x28, 6, &rawData[0]);
+"374
+[e ( _readBytes (4 , , , -> -> 41 `i `uc -> -> 40 `i `uc -> -> 6 `i `uc &U *U + &U _rawData * -> -> -> 0 `i `ui `ux -> -> # *U &U _rawData `ui `ux ]
+[; ;BNO055.c: 375: destination[0] = ((int)rawData[1] << 8) | rawData[0] ;
+"375
+[e = *U + _destination * -> -> 0 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 1 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 0 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 376: destination[1] = ((int)rawData[3] << 8) | rawData[2] ;
+"376
+[e = *U + _destination * -> -> 1 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 3 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 2 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 377: destination[2] = ((int)rawData[5] << 8) | rawData[4] ;
+"377
+[e = *U + _destination * -> -> 2 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 5 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 4 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 378: }
+"378
+[e :UE 39 ]
+}
+"380
+[v _readGRVData `(v ~T0 @X0 1 ef1`*i ]
+{
+[; ;BNO055.c: 380: void readGRVData(int * destination){
+[e :U _readGRVData ]
+[v _destination `*i ~T0 @X0 1 r1 ]
+[f ]
+"381
+[v _rawData `uc ~T0 @X0 -> 6 `i a ]
+[; ;BNO055.c: 381: char rawData[6];
+[; ;BNO055.c: 382: readBytes(0x29, 0x2E, 6, &rawData[0]);
+"382
+[e ( _readBytes (4 , , , -> -> 41 `i `uc -> -> 46 `i `uc -> -> 6 `i `uc &U *U + &U _rawData * -> -> -> 0 `i `ui `ux -> -> # *U &U _rawData `ui `ux ]
+[; ;BNO055.c: 383: destination[0] = ((int)rawData[1] << 8) | rawData[0] ;
+"383
+[e = *U + _destination * -> -> 0 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 1 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 0 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 384: destination[1] = ((int)rawData[3] << 8) | rawData[2] ;
+"384
+[e = *U + _destination * -> -> 1 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 3 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 2 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 385: destination[2] = ((int)rawData[5] << 8) | rawData[4] ;
+"385
+[e = *U + _destination * -> -> 2 `i `x -> -> # *U _destination `i `x | << -> *U + &U _rawData * -> -> -> 5 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i -> 8 `i -> *U + &U _rawData * -> -> -> 4 `i `ui `ux -> -> # *U &U _rawData `ui `ux `i ]
+[; ;BNO055.c: 386: }
+"386
+[e :UE 40 ]
+}
+"388
+[v _initBNO055 `(v ~T0 @X0 1 ef ]
+{
+[; ;BNO055.c: 388: void initBNO055() {
+[e :U _initBNO055 ]
+[f ]
+[; ;BNO055.c: 390: writeByte(0x29, 0x3D, CONFIGMODE );
+"390
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 61 `i `uc -> . `E86 0 `uc ]
+[; ;BNO055.c: 391: Delay(25);
+"391
+[e ( _Delay (1 -> 25 `i ]
+[; ;BNO055.c: 393: writeByte(0x29, 0x07, 0x01);
+"393
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 7 `i `uc -> -> 1 `i `uc ]
+[; ;BNO055.c: 395: writeByte(0x29, 0x08, APwrMode << 5 | Abw << 2 | Ascale );
+"395
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 8 `i `uc -> | | << -> _APwrMode `i -> 5 `i << -> _Abw `i -> 2 `i -> _Ascale `i `uc ]
+[; ;BNO055.c: 397: writeByte(0x29, 0x0A, Gbw << 3 | Gscale );
+"397
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 10 `i `uc -> | << -> _Gbw `i -> 3 `i -> _Gscale `i `uc ]
+[; ;BNO055.c: 398: writeByte(0x29, 0x0B, GPwrMode);
+"398
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 11 `i `uc _GPwrMode ]
+[; ;BNO055.c: 400: writeByte(0x29, 0x09, MPwrMode << 5 | MOpMode << 3 | Modr );
+"400
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 9 `i `uc -> | | << -> _MPwrMode `i -> 5 `i << -> _MOpMode `i -> 3 `i -> _Modr `i `uc ]
+[; ;BNO055.c: 403: writeByte(0x29, 0x07, 0x00);
+"403
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 7 `i `uc -> -> 0 `i `uc ]
+[; ;BNO055.c: 406: writeByte(0x29, 0x40, 0x01 );
+"406
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 64 `i `uc -> -> 1 `i `uc ]
+[; ;BNO055.c: 409: writeByte(0x29, 0x3B, 0x01 );
+"409
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 59 `i `uc -> -> 1 `i `uc ]
+[; ;BNO055.c: 412: writeByte(0x29, 0x3E, PWRMode );
+"412
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 62 `i `uc _PWRMode ]
+[; ;BNO055.c: 415: writeByte(0x29, 0x3D, OPRMode );
+"415
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 61 `i `uc _OPRMode ]
+[; ;BNO055.c: 416: Delay(25);
+"416
+[e ( _Delay (1 -> 25 `i ]
+[; ;BNO055.c: 417: }
+"417
+[e :UE 41 ]
+}
+"419
+[v _accelgyroCalBNO055 `(v ~T0 @X0 1 ef2`*f`*f ]
+{
+[; ;BNO055.c: 419: void accelgyroCalBNO055(float * dest1, float * dest2) {
+[e :U _accelgyroCalBNO055 ]
+[v _dest1 `*f ~T0 @X0 1 r1 ]
+[v _dest2 `*f ~T0 @X0 1 r2 ]
+[f ]
+"420
+[v _data `uc ~T0 @X0 -> 6 `i a ]
+"421
+[v _ii `l ~T0 @X0 1 a ]
+[; ;BNO055.c: 420: char data[6];
+[; ;BNO055.c: 421: long ii = 0;
+[e = _ii -> -> 0 `i `l ]
+"422
+[v _sample_count `l ~T0 @X0 1 a ]
+[; ;BNO055.c: 422: long sample_count = 0;
+[e = _sample_count -> -> 0 `i `l ]
+[v F392 `l ~T0 @X0 -> 3 `i s ]
+[i F392
+:U ..
+"423
+-> -> 0 `i `l
+-> -> 0 `i `l
+-> -> 0 `i `l
+..
+]
+[v _gyro_bias `l ~T0 @X0 -> 3 `i a ]
+[; ;BNO055.c: 423: long gyro_bias[3] = {0, 0, 0};
+[e = _gyro_bias F392 ]
+[v F394 `l ~T0 @X0 -> 3 `i s ]
+[i F394
+:U ..
+"424
+-> -> 0 `i `l
+-> -> 0 `i `l
+-> -> 0 `i `l
+..
+]
+[v _accel_bias `l ~T0 @X0 -> 3 `i a ]
+[; ;BNO055.c: 424: long accel_bias[3] = {0, 0, 0};
+[e = _accel_bias F394 ]
+[; ;BNO055.c: 426: printf("Accel/Gyro Calibration: Put device on a level surface and keep motionless! Wait......");
+"426
+[e ( _printf :s 70C ]
+[; ;BNO055.c: 427: Delay(4000);
+"427
+[e ( _Delay (1 -> 4000 `i ]
+[; ;BNO055.c: 430: writeByte(0x29, 0x07, 0x00);
+"430
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 7 `i `uc -> -> 0 `i `uc ]
+[; ;BNO055.c: 432: writeByte(0x29, 0x3D, CONFIGMODE );
+"432
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 61 `i `uc -> . `E86 0 `uc ]
+[; ;BNO055.c: 433: Delay(25);
+"433
+[e ( _Delay (1 -> 25 `i ]
+[; ;BNO055.c: 434: writeByte(0x29, 0x3D, AMG);
+"434
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 61 `i `uc -> . `E86 7 `uc ]
+[; ;BNO055.c: 437: writeByte(0x29, 0x08, APwrMode << 5 | Abw << 2 | AFS_4G );
+"437
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 8 `i `uc -> | | << -> _APwrMode `i -> 5 `i << -> _Abw `i -> 2 `i -> . `E44 1 `i `uc ]
+[; ;BNO055.c: 438: sample_count = 256;
+"438
+[e = _sample_count -> -> 256 `i `l ]
+[; ;BNO055.c: 439: for(ii = 0; ii < sample_count; ii++) {
+"439
+{
+[e = _ii -> -> 0 `i `l ]
+[e $U 46  ]
+[e :U 43 ]
+{
+[v F396 `i ~T0 @X0 -> 3 `i s ]
+[i F396
+:U ..
+"440
+-> 0 `i
+-> 0 `i
+-> 0 `i
+..
+]
+[v _accel_temp `i ~T0 @X0 -> 3 `i a ]
+[; ;BNO055.c: 440: int accel_temp[3] = {0, 0, 0};
+[e = _accel_temp F396 ]
+[; ;BNO055.c: 441: readBytes(0x29, 0x08, 6, &data[0]);
+"441
+[e ( _readBytes (4 , , , -> -> 41 `i `uc -> -> 8 `i `uc -> -> 6 `i `uc &U *U + &U _data * -> -> -> 0 `i `ui `ux -> -> # *U &U _data `ui `ux ]
+[; ;BNO055.c: 442: accel_temp[0] = (int) (((int)data[1] << 8) | data[0]) ;
+"442
+[e = *U + &U _accel_temp * -> -> -> 0 `i `ui `ux -> -> # *U &U _accel_temp `ui `ux | << -> *U + &U _data * -> -> -> 1 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 0 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
+[; ;BNO055.c: 443: accel_temp[1] = (int) (((int)data[3] << 8) | data[2]) ;
+"443
+[e = *U + &U _accel_temp * -> -> -> 1 `i `ui `ux -> -> # *U &U _accel_temp `ui `ux | << -> *U + &U _data * -> -> -> 3 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 2 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
+[; ;BNO055.c: 444: accel_temp[2] = (int) (((int)data[5] << 8) | data[4]) ;
+"444
+[e = *U + &U _accel_temp * -> -> -> 2 `i `ui `ux -> -> # *U &U _accel_temp `ui `ux | << -> *U + &U _data * -> -> -> 5 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 4 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
+[; ;BNO055.c: 445: accel_bias[0] += (long) accel_temp[0];
+"445
+[e =+ *U + &U _accel_bias * -> -> -> 0 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux -> *U + &U _accel_temp * -> -> -> 0 `i `ui `ux -> -> # *U &U _accel_temp `ui `ux `l ]
+[; ;BNO055.c: 446: accel_bias[1] += (long) accel_temp[1];
+"446
+[e =+ *U + &U _accel_bias * -> -> -> 1 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux -> *U + &U _accel_temp * -> -> -> 1 `i `ui `ux -> -> # *U &U _accel_temp `ui `ux `l ]
+[; ;BNO055.c: 447: accel_bias[2] += (long) accel_temp[2];
+"447
+[e =+ *U + &U _accel_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux -> *U + &U _accel_temp * -> -> -> 2 `i `ui `ux -> -> # *U &U _accel_temp `ui `ux `l ]
+[; ;BNO055.c: 448: Delay(20);
+"448
+[e ( _Delay (1 -> 20 `i ]
+"449
+}
+"439
+[e ++ _ii -> -> 1 `i `l ]
+[e :U 46 ]
+[e $ < _ii _sample_count 43  ]
+[e :U 44 ]
+"449
+}
+[; ;BNO055.c: 449: }
+[; ;BNO055.c: 450: accel_bias[0] /= (long) sample_count;
+"450
+[e =/ *U + &U _accel_bias * -> -> -> 0 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux _sample_count ]
+[; ;BNO055.c: 451: accel_bias[1] /= (long) sample_count;
+"451
+[e =/ *U + &U _accel_bias * -> -> -> 1 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux _sample_count ]
+[; ;BNO055.c: 452: accel_bias[2] /= (long) sample_count;
+"452
+[e =/ *U + &U _accel_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux _sample_count ]
+[; ;BNO055.c: 454: if(accel_bias[2] > 0.0) {
+"454
+[e $ ! > -> *U + &U _accel_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux `d .0.0 47  ]
+{
+[; ;BNO055.c: 455: accel_bias[2] -= (long) 1000;
+"455
+[e =- *U + &U _accel_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux -> -> 1000 `i `l ]
+"456
+}
+[; ;BNO055.c: 456: }
+[e $U 48  ]
+"457
+[e :U 47 ]
+[; ;BNO055.c: 457: else {
+{
+[; ;BNO055.c: 458: accel_bias[2] += (long) 1000;
+"458
+[e =+ *U + &U _accel_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux -> -> 1000 `i `l ]
+"459
+}
+[e :U 48 ]
+[; ;BNO055.c: 459: }
+[; ;BNO055.c: 461: dest1[0] = (float) accel_bias[0];
+"461
+[e = *U + _dest1 * -> -> 0 `i `x -> -> # *U _dest1 `i `x -> *U + &U _accel_bias * -> -> -> 0 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux `f ]
+[; ;BNO055.c: 462: dest1[1] = (float) accel_bias[1];
+"462
+[e = *U + _dest1 * -> -> 1 `i `x -> -> # *U _dest1 `i `x -> *U + &U _accel_bias * -> -> -> 1 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux `f ]
+[; ;BNO055.c: 463: dest1[2] = (float) accel_bias[2];
+"463
+[e = *U + _dest1 * -> -> 2 `i `x -> -> # *U _dest1 `i `x -> *U + &U _accel_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux `f ]
+[; ;BNO055.c: 466: writeByte(0x29, 0x0A, Gbw << 3 | GFS_2000DPS );
+"466
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 10 `i `uc -> | << -> _Gbw `i -> 3 `i -> . `E65 0 `i `uc ]
+[; ;BNO055.c: 467: writeByte(0x29, 0x0B, GPwrMode);for(ii = 0; ii < sample_count; ii++) {
+"467
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 11 `i `uc _GPwrMode ]
+{
+[e = _ii -> -> 0 `i `l ]
+[e $U 52  ]
+[e :U 49 ]
+{
+[v F415 `i ~T0 @X0 -> 3 `i s ]
+[i F415
+:U ..
+"468
+-> 0 `i
+-> 0 `i
+-> 0 `i
+..
+]
+[v _gyro_temp `i ~T0 @X0 -> 3 `i a ]
+[; ;BNO055.c: 468: int gyro_temp[3] = {0, 0, 0};
+[e = _gyro_temp F415 ]
+[; ;BNO055.c: 469: readBytes(0x29, 0x14, 6, &data[0]);
+"469
+[e ( _readBytes (4 , , , -> -> 41 `i `uc -> -> 20 `i `uc -> -> 6 `i `uc &U *U + &U _data * -> -> -> 0 `i `ui `ux -> -> # *U &U _data `ui `ux ]
+[; ;BNO055.c: 470: gyro_temp[0] = (int) (((int)data[1] << 8) | data[0]) ;
+"470
+[e = *U + &U _gyro_temp * -> -> -> 0 `i `ui `ux -> -> # *U &U _gyro_temp `ui `ux | << -> *U + &U _data * -> -> -> 1 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 0 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
+[; ;BNO055.c: 471: gyro_temp[1] = (int) (((int)data[3] << 8) | data[2]) ;
+"471
+[e = *U + &U _gyro_temp * -> -> -> 1 `i `ui `ux -> -> # *U &U _gyro_temp `ui `ux | << -> *U + &U _data * -> -> -> 3 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 2 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
+[; ;BNO055.c: 472: gyro_temp[2] = (int) (((int)data[5] << 8) | data[4]) ;
+"472
+[e = *U + &U _gyro_temp * -> -> -> 2 `i `ui `ux -> -> # *U &U _gyro_temp `ui `ux | << -> *U + &U _data * -> -> -> 5 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 4 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
+[; ;BNO055.c: 473: gyro_bias[0] += (long) gyro_temp[0];
+"473
+[e =+ *U + &U _gyro_bias * -> -> -> 0 `i `ui `ux -> -> # *U &U _gyro_bias `ui `ux -> *U + &U _gyro_temp * -> -> -> 0 `i `ui `ux -> -> # *U &U _gyro_temp `ui `ux `l ]
+[; ;BNO055.c: 474: gyro_bias[1] += (long) gyro_temp[1];
+"474
+[e =+ *U + &U _gyro_bias * -> -> -> 1 `i `ui `ux -> -> # *U &U _gyro_bias `ui `ux -> *U + &U _gyro_temp * -> -> -> 1 `i `ui `ux -> -> # *U &U _gyro_temp `ui `ux `l ]
+[; ;BNO055.c: 475: gyro_bias[2] += (long) gyro_temp[2];
+"475
+[e =+ *U + &U _gyro_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _gyro_bias `ui `ux -> *U + &U _gyro_temp * -> -> -> 2 `i `ui `ux -> -> # *U &U _gyro_temp `ui `ux `l ]
+[; ;BNO055.c: 476: Delay(35);
+"476
+[e ( _Delay (1 -> 35 `i ]
+"477
+}
+"467
+[e ++ _ii -> -> 1 `i `l ]
+[e :U 52 ]
+[e $ < _ii _sample_count 49  ]
+[e :U 50 ]
+"477
+}
+[; ;BNO055.c: 477: }
+[; ;BNO055.c: 478: gyro_bias[0] /= (long) sample_count;
+"478
+[e =/ *U + &U _gyro_bias * -> -> -> 0 `i `ui `ux -> -> # *U &U _gyro_bias `ui `ux _sample_count ]
+[; ;BNO055.c: 479: gyro_bias[1] /= (long) sample_count;
+"479
+[e =/ *U + &U _gyro_bias * -> -> -> 1 `i `ui `ux -> -> # *U &U _gyro_bias `ui `ux _sample_count ]
+[; ;BNO055.c: 480: gyro_bias[2] /= (long) sample_count;
+"480
+[e =/ *U + &U _gyro_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _gyro_bias `ui `ux _sample_count ]
+[; ;BNO055.c: 482: dest2[0] = (float) gyro_bias[0]/16.;
+"482
+[e = *U + _dest2 * -> -> 0 `i `x -> -> # *U _dest2 `i `x -> / -> -> *U + &U _gyro_bias * -> -> -> 0 `i `ui `ux -> -> # *U &U _gyro_bias `ui `ux `f `d .16. `f ]
+[; ;BNO055.c: 483: dest2[1] = (float) gyro_bias[1]/16.;
+"483
+[e = *U + _dest2 * -> -> 1 `i `x -> -> # *U _dest2 `i `x -> / -> -> *U + &U _gyro_bias * -> -> -> 1 `i `ui `ux -> -> # *U &U _gyro_bias `ui `ux `f `d .16. `f ]
+[; ;BNO055.c: 484: dest2[2] = (float) gyro_bias[2]/16.;
+"484
+[e = *U + _dest2 * -> -> 2 `i `x -> -> # *U _dest2 `i `x -> / -> -> *U + &U _gyro_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _gyro_bias `ui `ux `f `d .16. `f ]
+[; ;BNO055.c: 488: writeByte(0x29, 0x3D, CONFIGMODE );
+"488
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 61 `i `uc -> . `E86 0 `uc ]
+[; ;BNO055.c: 489: Delay(25);
+"489
+[e ( _Delay (1 -> 25 `i ]
+[; ;BNO055.c: 492: writeByte(0x29, 0x55, (int)accel_bias[0] & 0xFF);
+"492
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 85 `i `uc -> & -> *U + &U _accel_bias * -> -> -> 0 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux `i -> 255 `i `uc ]
+[; ;BNO055.c: 493: writeByte(0x29, 0x56, ((int)accel_bias[0] >> 8) & 0xFF);
+"493
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 86 `i `uc -> & >> -> *U + &U _accel_bias * -> -> -> 0 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux `i -> 8 `i -> 255 `i `uc ]
+[; ;BNO055.c: 494: writeByte(0x29, 0x57, (int)accel_bias[1] & 0xFF);
+"494
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 87 `i `uc -> & -> *U + &U _accel_bias * -> -> -> 1 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux `i -> 255 `i `uc ]
+[; ;BNO055.c: 495: writeByte(0x29, 0x58, ((int)accel_bias[1] >> 8) & 0xFF);
+"495
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 88 `i `uc -> & >> -> *U + &U _accel_bias * -> -> -> 1 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux `i -> 8 `i -> 255 `i `uc ]
+[; ;BNO055.c: 496: writeByte(0x29, 0x59, (int)accel_bias[2] & 0xFF);
+"496
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 89 `i `uc -> & -> *U + &U _accel_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux `i -> 255 `i `uc ]
+[; ;BNO055.c: 497: writeByte(0x29, 0x5A, ((int)accel_bias[2] >> 8) & 0xFF);
+"497
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 90 `i `uc -> & >> -> *U + &U _accel_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _accel_bias `ui `ux `i -> 8 `i -> 255 `i `uc ]
+[; ;BNO055.c: 506: writeByte(0x29, 0x61, (int)gyro_bias[0] & 0xFF);
+"506
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 97 `i `uc -> & -> *U + &U _gyro_bias * -> -> -> 0 `i `ui `ux -> -> # *U &U _gyro_bias `ui `ux `i -> 255 `i `uc ]
+[; ;BNO055.c: 507: writeByte(0x29, 0x62, ((int)gyro_bias[0] >> 8) & 0xFF);
+"507
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 98 `i `uc -> & >> -> *U + &U _gyro_bias * -> -> -> 0 `i `ui `ux -> -> # *U &U _gyro_bias `ui `ux `i -> 8 `i -> 255 `i `uc ]
+[; ;BNO055.c: 508: writeByte(0x29, 0x63, (int)gyro_bias[1] & 0xFF);
+"508
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 99 `i `uc -> & -> *U + &U _gyro_bias * -> -> -> 1 `i `ui `ux -> -> # *U &U _gyro_bias `ui `ux `i -> 255 `i `uc ]
+[; ;BNO055.c: 509: writeByte(0x29, 0x64, ((int)gyro_bias[1] >> 8) & 0xFF);
+"509
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 100 `i `uc -> & >> -> *U + &U _gyro_bias * -> -> -> 1 `i `ui `ux -> -> # *U &U _gyro_bias `ui `ux `i -> 8 `i -> 255 `i `uc ]
+[; ;BNO055.c: 510: writeByte(0x29, 0x65, (int)gyro_bias[2] & 0xFF);
+"510
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 101 `i `uc -> & -> *U + &U _gyro_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _gyro_bias `ui `ux `i -> 255 `i `uc ]
+[; ;BNO055.c: 511: writeByte(0x29, 0x66, ((int)gyro_bias[2] >> 8) & 0xFF);
+"511
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 102 `i `uc -> & >> -> *U + &U _gyro_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _gyro_bias `ui `ux `i -> 8 `i -> 255 `i `uc ]
+[; ;BNO055.c: 514: writeByte(0x29, 0x3D, OPRMode );
+"514
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 61 `i `uc _OPRMode ]
+[; ;BNO055.c: 522: printf("Accel/Gyro Calibration done!");
+"522
+[e ( _printf :s 71C ]
+[; ;BNO055.c: 523: }
+"523
+[e :UE 42 ]
+}
+"525
+[v _magCalBNO055 `(v ~T0 @X0 1 ef1`*f ]
+{
+[; ;BNO055.c: 525: void magCalBNO055(float * dest1){
+[e :U _magCalBNO055 ]
+[v _dest1 `*f ~T0 @X0 1 r1 ]
+[f ]
+"526
+[v _data `uc ~T0 @X0 -> 6 `i a ]
+"527
+[v _ii `uc ~T0 @X0 1 a ]
+[; ;BNO055.c: 526: char data[6];
+[; ;BNO055.c: 527: char ii = 0, sample_count = 0;
+[e = _ii -> -> 0 `i `uc ]
+[v _sample_count `uc ~T0 @X0 1 a ]
+[e = _sample_count -> -> 0 `i `uc ]
+[v F448 `l ~T0 @X0 -> 3 `i s ]
+[i F448
+:U ..
+"528
+-> -> 0 `i `l
+-> -> 0 `i `l
+-> -> 0 `i `l
+..
+]
+[v _mag_bias `l ~T0 @X0 -> 3 `i a ]
+[; ;BNO055.c: 528: long mag_bias[3] = {0, 0, 0};
+[e = _mag_bias F448 ]
+[v F450 `i ~T0 @X0 -> 3 `i s ]
+[i F450
+:U ..
+"529
+-> 0 `i
+-> 0 `i
+-> 0 `i
+..
+]
+[v _mag_max `i ~T0 @X0 -> 3 `i a ]
+[; ;BNO055.c: 529: int mag_max[3] = {0, 0, 0}, mag_min[3] = {0, 0, 0};
+[e = _mag_max F450 ]
+[v F452 `i ~T0 @X0 -> 3 `i s ]
+[i F452
+:U ..
+-> 0 `i
+-> 0 `i
+-> 0 `i
+..
+]
+[v _mag_min `i ~T0 @X0 -> 3 `i a ]
+[e = _mag_min F452 ]
+[; ;BNO055.c: 531: printf("Mag Calibration: Wave device in a figure eight until done!");
+"531
+[e ( _printf :s 72C ]
+[; ;BNO055.c: 532: Delay(4000);
+"532
+[e ( _Delay (1 -> 4000 `i ]
+[; ;BNO055.c: 535: writeByte(0x29, 0x07, 0x00);
+"535
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 7 `i `uc -> -> 0 `i `uc ]
+[; ;BNO055.c: 537: writeByte(0x29, 0x3D, CONFIGMODE );
+"537
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 61 `i `uc -> . `E86 0 `uc ]
+[; ;BNO055.c: 538: Delay(25);
+"538
+[e ( _Delay (1 -> 25 `i ]
+[; ;BNO055.c: 539: writeByte(0x29, 0x3D, AMG );
+"539
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 61 `i `uc -> . `E86 7 `uc ]
+[; ;BNO055.c: 542: sample_count = 256;
+"542
+[e = _sample_count -> -> 256 `i `uc ]
+[; ;BNO055.c: 543: for(ii = 0; ii < sample_count; ii++) {
+"543
+{
+[e = _ii -> -> 0 `i `uc ]
+[e $U 57  ]
+[e :U 54 ]
+{
+[v F454 `i ~T0 @X0 -> 3 `i s ]
+[i F454
+:U ..
+"544
+-> 0 `i
+-> 0 `i
+-> 0 `i
+..
+]
+[v _mag_temp `i ~T0 @X0 -> 3 `i a ]
+[; ;BNO055.c: 544: int mag_temp[3] = {0, 0, 0};
+[e = _mag_temp F454 ]
+[; ;BNO055.c: 545: readBytes(0x29, 0x0E, 6, &data[0]);
+"545
+[e ( _readBytes (4 , , , -> -> 41 `i `uc -> -> 14 `i `uc -> -> 6 `i `uc &U *U + &U _data * -> -> -> 0 `i `ui `ux -> -> # *U &U _data `ui `ux ]
+[; ;BNO055.c: 546: mag_temp[0] = (int) (((int)data[1] << 8) | data[0]) ;
+"546
+[e = *U + &U _mag_temp * -> -> -> 0 `i `ui `ux -> -> # *U &U _mag_temp `ui `ux | << -> *U + &U _data * -> -> -> 1 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 0 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
+[; ;BNO055.c: 547: mag_temp[1] = (int) (((int)data[3] << 8) | data[2]) ;
+"547
+[e = *U + &U _mag_temp * -> -> -> 1 `i `ui `ux -> -> # *U &U _mag_temp `ui `ux | << -> *U + &U _data * -> -> -> 3 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 2 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
+[; ;BNO055.c: 548: mag_temp[2] = (int) (((int)data[5] << 8) | data[4]) ;
+"548
+[e = *U + &U _mag_temp * -> -> -> 2 `i `ui `ux -> -> # *U &U _mag_temp `ui `ux | << -> *U + &U _data * -> -> -> 5 `i `ui `ux -> -> # *U &U _data `ui `ux `i -> 8 `i -> *U + &U _data * -> -> -> 4 `i `ui `ux -> -> # *U &U _data `ui `ux `i ]
+[; ;BNO055.c: 549: for (int jj = 0; jj < 3; jj++) {
+"549
+{
+[v _jj `i ~T0 @X0 1 a ]
+[e = _jj -> 0 `i ]
+[e $ < _jj -> 3 `i 58  ]
+[e $U 59  ]
+[e :U 58 ]
+{
+[; ;BNO055.c: 550: if (ii == 0) {
+"550
+[e $ ! == -> _ii `i -> 0 `i 61  ]
+{
+[; ;BNO055.c: 551: mag_max[jj] = mag_temp[jj];
+"551
+[e = *U + &U _mag_max * -> -> _jj `ui `ux -> -> # *U &U _mag_max `ui `ux *U + &U _mag_temp * -> -> _jj `ui `ux -> -> # *U &U _mag_temp `ui `ux ]
+[; ;BNO055.c: 552: mag_min[jj] = mag_temp[jj];
+"552
+[e = *U + &U _mag_min * -> -> _jj `ui `ux -> -> # *U &U _mag_min `ui `ux *U + &U _mag_temp * -> -> _jj `ui `ux -> -> # *U &U _mag_temp `ui `ux ]
+"553
+}
+[; ;BNO055.c: 553: } else {
+[e $U 62  ]
+[e :U 61 ]
+{
+[; ;BNO055.c: 554: if(mag_temp[jj] > mag_max[jj]) mag_max[jj] = mag_temp[jj];
+"554
+[e $ ! > *U + &U _mag_temp * -> -> _jj `ui `ux -> -> # *U &U _mag_temp `ui `ux *U + &U _mag_max * -> -> _jj `ui `ux -> -> # *U &U _mag_max `ui `ux 63  ]
+[e = *U + &U _mag_max * -> -> _jj `ui `ux -> -> # *U &U _mag_max `ui `ux *U + &U _mag_temp * -> -> _jj `ui `ux -> -> # *U &U _mag_temp `ui `ux ]
+[e :U 63 ]
+[; ;BNO055.c: 555: if(mag_temp[jj] < mag_min[jj]) mag_min[jj] = mag_temp[jj];
+"555
+[e $ ! < *U + &U _mag_temp * -> -> _jj `ui `ux -> -> # *U &U _mag_temp `ui `ux *U + &U _mag_min * -> -> _jj `ui `ux -> -> # *U &U _mag_min `ui `ux 64  ]
+[e = *U + &U _mag_min * -> -> _jj `ui `ux -> -> # *U &U _mag_min `ui `ux *U + &U _mag_temp * -> -> _jj `ui `ux -> -> # *U &U _mag_temp `ui `ux ]
+[e :U 64 ]
+"556
+}
+[e :U 62 ]
+"557
+}
+"549
+[e ++ _jj -> 1 `i ]
+[e $ < _jj -> 3 `i 58  ]
+[e :U 59 ]
+"557
+}
+[; ;BNO055.c: 556: }
+[; ;BNO055.c: 557: }
+[; ;BNO055.c: 558: Delay(105);
+"558
+[e ( _Delay (1 -> 105 `i ]
+"559
+}
+"543
+[e ++ _ii -> -> 1 `i `uc ]
+[e :U 57 ]
+[e $ < -> _ii `i -> _sample_count `i 54  ]
+[e :U 55 ]
+"559
+}
+[; ;BNO055.c: 559: }
+[; ;BNO055.c: 565: mag_bias[0] = (mag_max[0] + mag_min[0])/2;
+"565
+[e = *U + &U _mag_bias * -> -> -> 0 `i `ui `ux -> -> # *U &U _mag_bias `ui `ux -> / + *U + &U _mag_max * -> -> -> 0 `i `ui `ux -> -> # *U &U _mag_max `ui `ux *U + &U _mag_min * -> -> -> 0 `i `ui `ux -> -> # *U &U _mag_min `ui `ux -> 2 `i `l ]
+[; ;BNO055.c: 566: mag_bias[1] = (mag_max[1] + mag_min[1])/2;
+"566
+[e = *U + &U _mag_bias * -> -> -> 1 `i `ui `ux -> -> # *U &U _mag_bias `ui `ux -> / + *U + &U _mag_max * -> -> -> 1 `i `ui `ux -> -> # *U &U _mag_max `ui `ux *U + &U _mag_min * -> -> -> 1 `i `ui `ux -> -> # *U &U _mag_min `ui `ux -> 2 `i `l ]
+[; ;BNO055.c: 567: mag_bias[2] = (mag_max[2] + mag_min[2])/2;
+"567
+[e = *U + &U _mag_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _mag_bias `ui `ux -> / + *U + &U _mag_max * -> -> -> 2 `i `ui `ux -> -> # *U &U _mag_max `ui `ux *U + &U _mag_min * -> -> -> 2 `i `ui `ux -> -> # *U &U _mag_min `ui `ux -> 2 `i `l ]
+[; ;BNO055.c: 569: dest1[0] = (float) mag_bias[0] / 1.6;
+"569
+[e = *U + _dest1 * -> -> 0 `i `x -> -> # *U _dest1 `i `x -> / -> -> *U + &U _mag_bias * -> -> -> 0 `i `ui `ux -> -> # *U &U _mag_bias `ui `ux `f `d .1.6 `f ]
+[; ;BNO055.c: 570: dest1[1] = (float) mag_bias[1] / 1.6;
+"570
+[e = *U + _dest1 * -> -> 1 `i `x -> -> # *U _dest1 `i `x -> / -> -> *U + &U _mag_bias * -> -> -> 1 `i `ui `ux -> -> # *U &U _mag_bias `ui `ux `f `d .1.6 `f ]
+[; ;BNO055.c: 571: dest1[2] = (float) mag_bias[2] / 1.6;
+"571
+[e = *U + _dest1 * -> -> 2 `i `x -> -> # *U _dest1 `i `x -> / -> -> *U + &U _mag_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _mag_bias `ui `ux `f `d .1.6 `f ]
+[; ;BNO055.c: 575: writeByte(0x29, 0x3D, CONFIGMODE );
+"575
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 61 `i `uc -> . `E86 0 `uc ]
+[; ;BNO055.c: 576: Delay(25);
+"576
+[e ( _Delay (1 -> 25 `i ]
+[; ;BNO055.c: 579: writeByte(0x29, 0x5B, (int)mag_bias[0] & 0xFF);
+"579
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 91 `i `uc -> & -> *U + &U _mag_bias * -> -> -> 0 `i `ui `ux -> -> # *U &U _mag_bias `ui `ux `i -> 255 `i `uc ]
+[; ;BNO055.c: 580: writeByte(0x29, 0x5C, ((int)mag_bias[0] >> 8) & 0xFF);
+"580
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 92 `i `uc -> & >> -> *U + &U _mag_bias * -> -> -> 0 `i `ui `ux -> -> # *U &U _mag_bias `ui `ux `i -> 8 `i -> 255 `i `uc ]
+[; ;BNO055.c: 581: writeByte(0x29, 0x5D, (int)mag_bias[1] & 0xFF);
+"581
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 93 `i `uc -> & -> *U + &U _mag_bias * -> -> -> 1 `i `ui `ux -> -> # *U &U _mag_bias `ui `ux `i -> 255 `i `uc ]
+[; ;BNO055.c: 582: writeByte(0x29, 0x5E, ((int)mag_bias[1] >> 8) & 0xFF);
+"582
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 94 `i `uc -> & >> -> *U + &U _mag_bias * -> -> -> 1 `i `ui `ux -> -> # *U &U _mag_bias `ui `ux `i -> 8 `i -> 255 `i `uc ]
+[; ;BNO055.c: 583: writeByte(0x29, 0x5F, (int)mag_bias[2] & 0xFF);
+"583
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 95 `i `uc -> & -> *U + &U _mag_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _mag_bias `ui `ux `i -> 255 `i `uc ]
+[; ;BNO055.c: 584: writeByte(0x29, 0x60, ((int)mag_bias[2] >> 8) & 0xFF);
+"584
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 96 `i `uc -> & >> -> *U + &U _mag_bias * -> -> -> 2 `i `ui `ux -> -> # *U &U _mag_bias `ui `ux `i -> 8 `i -> 255 `i `uc ]
+[; ;BNO055.c: 592: writeByte(0x29, 0x3D, OPRMode );
+"592
+[e ( _writeByte (3 , , -> -> 41 `i `uc -> -> 61 `i `uc _OPRMode ]
+[; ;BNO055.c: 593: Delay(25);
+"593
+[e ( _Delay (1 -> 25 `i ]
+[; ;BNO055.c: 595: printf("Mag Calibration done!");
+"595
+[e ( _printf :s 73C ]
+[; ;BNO055.c: 596: }
+"596
+[e :UE 53 ]
+}
+"600
+[v _writeByte `(uc ~T0 @X0 1 ef3`uc`uc`uc ]
+"601
+{
+[; ;BNO055.c: 600: char writeByte(char address, char subAddress, char data)
+[; ;BNO055.c: 601: {
+[e :U _writeByte ]
+"600
+[v _address `uc ~T0 @X0 1 r1 ]
+[v _subAddress `uc ~T0 @X0 1 r2 ]
+[v _data `uc ~T0 @X0 1 r3 ]
+"601
+[f ]
+[; ;BNO055.c: 606: }
+"606
+[e :UE 65 ]
+}
+"608
+[v _readByte `(uc ~T0 @X0 1 ef2`uc`uc ]
+"609
+{
+[; ;BNO055.c: 608: char readByte(char address, char subAddress)
+[; ;BNO055.c: 609: {
+[e :U _readByte ]
+"608
+[v _address `uc ~T0 @X0 1 r1 ]
+[v _subAddress `uc ~T0 @X0 1 r2 ]
+"609
+[f ]
+"610
+[v _data `uc ~T0 @X0 1 a ]
+[; ;BNO055.c: 610: char data;
+[; ;BNO055.c: 618: return data;
+"618
+[e ) _data ]
+[e $UE 66  ]
+[; ;BNO055.c: 619: }
+"619
+[e :UE 66 ]
+}
+"621
+[v _readBytes `(v ~T0 @X0 1 ef4`uc`uc`uc`*uc ]
+"622
+{
+[; ;BNO055.c: 621: void readBytes(char address, char subAddress, char count, char * dest)
+[; ;BNO055.c: 622: {
+[e :U _readBytes ]
+"621
+[v _address `uc ~T0 @X0 1 r1 ]
+[v _subAddress `uc ~T0 @X0 1 r2 ]
+[v _count `uc ~T0 @X0 1 r3 ]
+[v _dest `*uc ~T0 @X0 1 r4 ]
+"622
+[f ]
+[; ;BNO055.c: 632: }
+"632
+[e :UE 67 ]
+}
+"634
+[v _MadgwickQuaternionUpdate `(v ~T0 @X0 1 ef9`f`f`f`f`f`f`f`f`f ]
+"635
+{
+[; ;BNO055.c: 634: void MadgwickQuaternionUpdate(float ax, float ay, float az, float gx, float gy, float gz, float mx, float my, float mz)
+[; ;BNO055.c: 635: {
+[e :U _MadgwickQuaternionUpdate ]
+[v _ax `f ~T0 @X0 1 r1 ]
+[v _ay `f ~T0 @X0 1 r2 ]
+[v _az `f ~T0 @X0 1 r3 ]
+[v _gx `f ~T0 @X0 1 r4 ]
+[v _gy `f ~T0 @X0 1 r5 ]
+[v _gz `f ~T0 @X0 1 r6 ]
+[v _mx `f ~T0 @X0 1 r7 ]
+[v _my `f ~T0 @X0 1 r8 ]
+[v _mz `f ~T0 @X0 1 r9 ]
+[f ]
+"636
+[v _q1 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 636: float q1 = q[0], q2 = q[1], q3 = q[2], q4 = q[3];
+[e = _q1 *U + &U _q * -> -> -> 0 `i `ui `ux -> -> # *U &U _q `ui `ux ]
+[v _q2 `f ~T0 @X0 1 a ]
+[e = _q2 *U + &U _q * -> -> -> 1 `i `ui `ux -> -> # *U &U _q `ui `ux ]
+[v _q3 `f ~T0 @X0 1 a ]
+[e = _q3 *U + &U _q * -> -> -> 2 `i `ui `ux -> -> # *U &U _q `ui `ux ]
+[v _q4 `f ~T0 @X0 1 a ]
+[e = _q4 *U + &U _q * -> -> -> 3 `i `ui `ux -> -> # *U &U _q `ui `ux ]
+"637
+[v _norm `f ~T0 @X0 1 a ]
+"638
+[v _hx `f ~T0 @X0 1 a ]
+[v _hy `f ~T0 @X0 1 a ]
+[v __2bx `f ~T0 @X0 1 a ]
+[v __2bz `f ~T0 @X0 1 a ]
+"639
+[v _s1 `f ~T0 @X0 1 a ]
+[v _s2 `f ~T0 @X0 1 a ]
+[v _s3 `f ~T0 @X0 1 a ]
+[v _s4 `f ~T0 @X0 1 a ]
+"640
+[v _qDot1 `f ~T0 @X0 1 a ]
+[v _qDot2 `f ~T0 @X0 1 a ]
+[v _qDot3 `f ~T0 @X0 1 a ]
+[v _qDot4 `f ~T0 @X0 1 a ]
+"643
+[v __2q1mx `f ~T0 @X0 1 a ]
+"644
+[v __2q1my `f ~T0 @X0 1 a ]
+"645
+[v __2q1mz `f ~T0 @X0 1 a ]
+"646
+[v __2q2mx `f ~T0 @X0 1 a ]
+"647
+[v __4bx `f ~T0 @X0 1 a ]
+"648
+[v __4bz `f ~T0 @X0 1 a ]
+"649
+[v __2q1 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 637: float norm;
+[; ;BNO055.c: 638: float hx, hy, _2bx, _2bz;
+[; ;BNO055.c: 639: float s1, s2, s3, s4;
+[; ;BNO055.c: 640: float qDot1, qDot2, qDot3, qDot4;
+[; ;BNO055.c: 643: float _2q1mx;
+[; ;BNO055.c: 644: float _2q1my;
+[; ;BNO055.c: 645: float _2q1mz;
+[; ;BNO055.c: 646: float _2q2mx;
+[; ;BNO055.c: 647: float _4bx;
+[; ;BNO055.c: 648: float _4bz;
+[; ;BNO055.c: 649: float _2q1 = 2.0f * q1;
+[e = __2q1 * -> .2.0 `f _q1 ]
+"650
+[v __2q2 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 650: float _2q2 = 2.0f * q2;
+[e = __2q2 * -> .2.0 `f _q2 ]
+"651
+[v __2q3 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 651: float _2q3 = 2.0f * q3;
+[e = __2q3 * -> .2.0 `f _q3 ]
+"652
+[v __2q4 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 652: float _2q4 = 2.0f * q4;
+[e = __2q4 * -> .2.0 `f _q4 ]
+"653
+[v __2q1q3 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 653: float _2q1q3 = 2.0f * q1 * q3;
+[e = __2q1q3 * * -> .2.0 `f _q1 _q3 ]
+"654
+[v __2q3q4 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 654: float _2q3q4 = 2.0f * q3 * q4;
+[e = __2q3q4 * * -> .2.0 `f _q3 _q4 ]
+"655
+[v _q1q1 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 655: float q1q1 = q1 * q1;
+[e = _q1q1 * _q1 _q1 ]
+"656
+[v _q1q2 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 656: float q1q2 = q1 * q2;
+[e = _q1q2 * _q1 _q2 ]
+"657
+[v _q1q3 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 657: float q1q3 = q1 * q3;
+[e = _q1q3 * _q1 _q3 ]
+"658
+[v _q1q4 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 658: float q1q4 = q1 * q4;
+[e = _q1q4 * _q1 _q4 ]
+"659
+[v _q2q2 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 659: float q2q2 = q2 * q2;
+[e = _q2q2 * _q2 _q2 ]
+"660
+[v _q2q3 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 660: float q2q3 = q2 * q3;
+[e = _q2q3 * _q2 _q3 ]
+"661
+[v _q2q4 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 661: float q2q4 = q2 * q4;
+[e = _q2q4 * _q2 _q4 ]
+"662
+[v _q3q3 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 662: float q3q3 = q3 * q3;
+[e = _q3q3 * _q3 _q3 ]
+"663
+[v _q3q4 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 663: float q3q4 = q3 * q4;
+[e = _q3q4 * _q3 _q4 ]
+"664
+[v _q4q4 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 664: float q4q4 = q4 * q4;
+[e = _q4q4 * _q4 _q4 ]
+[; ;BNO055.c: 667: norm = sqrt(ax * ax + ay * ay + az * az);
+"667
+[e = _norm -> ( _sqrt (1 -> + + * _ax _ax * _ay _ay * _az _az `d `f ]
+[; ;BNO055.c: 668: if (norm == 0.0f) return;
+"668
+[e $ ! == _norm -> .0.0 `f 69  ]
+[e $UE 68  ]
+[e :U 69 ]
+[; ;BNO055.c: 669: norm = 1.0f/norm;
+"669
+[e = _norm / -> .1.0 `f _norm ]
+[; ;BNO055.c: 670: ax *= norm;
+"670
+[e =* _ax _norm ]
+[; ;BNO055.c: 671: ay *= norm;
+"671
+[e =* _ay _norm ]
+[; ;BNO055.c: 672: az *= norm;
+"672
+[e =* _az _norm ]
+[; ;BNO055.c: 675: norm = sqrt(mx * mx + my * my + mz * mz);
+"675
+[e = _norm -> ( _sqrt (1 -> + + * _mx _mx * _my _my * _mz _mz `d `f ]
+[; ;BNO055.c: 676: if (norm == 0.0f) return;
+"676
+[e $ ! == _norm -> .0.0 `f 70  ]
+[e $UE 68  ]
+[e :U 70 ]
+[; ;BNO055.c: 677: norm = 1.0f/norm;
+"677
+[e = _norm / -> .1.0 `f _norm ]
+[; ;BNO055.c: 678: mx *= norm;
+"678
+[e =* _mx _norm ]
+[; ;BNO055.c: 679: my *= norm;
+"679
+[e =* _my _norm ]
+[; ;BNO055.c: 680: mz *= norm;
+"680
+[e =* _mz _norm ]
+[; ;BNO055.c: 683: _2q1mx = 2.0f * q1 * mx;
+"683
+[e = __2q1mx * * -> .2.0 `f _q1 _mx ]
+[; ;BNO055.c: 684: _2q1my = 2.0f * q1 * my;
+"684
+[e = __2q1my * * -> .2.0 `f _q1 _my ]
+[; ;BNO055.c: 685: _2q1mz = 2.0f * q1 * mz;
+"685
+[e = __2q1mz * * -> .2.0 `f _q1 _mz ]
+[; ;BNO055.c: 686: _2q2mx = 2.0f * q2 * mx;
+"686
+[e = __2q2mx * * -> .2.0 `f _q2 _mx ]
+[; ;BNO055.c: 687: hx = mx * q1q1 - _2q1my * q4 + _2q1mz * q3 + mx * q2q2 + _2q2 * my * q3 + _2q2 * mz * q4 - mx * q3q3 - mx * q4q4;
+"687
+[e = _hx - - + + + + - * _mx _q1q1 * __2q1my _q4 * __2q1mz _q3 * _mx _q2q2 * * __2q2 _my _q3 * * __2q2 _mz _q4 * _mx _q3q3 * _mx _q4q4 ]
+[; ;BNO055.c: 688: hy = _2q1mx * q4 + my * q1q1 - _2q1mz * q2 + _2q2mx * q3 - my * q2q2 + my * q3q3 + _2q3 * mz * q4 - my * q4q4;
+"688
+[e = _hy - + + - + - + * __2q1mx _q4 * _my _q1q1 * __2q1mz _q2 * __2q2mx _q3 * _my _q2q2 * _my _q3q3 * * __2q3 _mz _q4 * _my _q4q4 ]
+[; ;BNO055.c: 689: _2bx = sqrt(hx * hx + hy * hy);
+"689
+[e = __2bx -> ( _sqrt (1 -> + * _hx _hx * _hy _hy `d `f ]
+[; ;BNO055.c: 690: _2bz = -_2q1mx * q3 + _2q1my * q2 + mz * q1q1 + _2q2mx * q4 - mz * q2q2 + _2q3 * my * q4 - mz * q3q3 + mz * q4q4;
+"690
+[e = __2bz + - + - + + + * -U __2q1mx _q3 * __2q1my _q2 * _mz _q1q1 * __2q2mx _q4 * _mz _q2q2 * * __2q3 _my _q4 * _mz _q3q3 * _mz _q4q4 ]
+[; ;BNO055.c: 691: _4bx = 2.0f * _2bx;
+"691
+[e = __4bx * -> .2.0 `f __2bx ]
+[; ;BNO055.c: 692: _4bz = 2.0f * _2bz;
+"692
+[e = __4bz * -> .2.0 `f __2bz ]
+"695
+[v _i1 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 695: float i1 = ((2.0f * q2q4) - _2q1q3 - ax);
+[e = _i1 - - * -> .2.0 `f _q2q4 __2q1q3 _ax ]
+"696
+[v _i2 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 696: float i2 = ((2.0f * q1q2) + _2q3q4 - ay);
+[e = _i2 - + * -> .2.0 `f _q1q2 __2q3q4 _ay ]
+"697
+[v _i3 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 697: float i3 = (_2bx * (0.5f - q3q3 - q4q4));
+[e = _i3 * __2bx - - -> .0.5 `f _q3q3 _q4q4 ]
+"698
+[v _i4 `f ~T0 @X0 1 a ]
+[; ;BNO055.c: 698: float i4 = ((-_2bx * q4) + (_2bz * q2));
+[e = _i4 + * -U __2bx _q4 * __2bz _q2 ]
+[; ;BNO055.c: 703: norm = sqrt(s1 * s1 + s2 * s2 + s3 * s3 + s4 * s4);
+"703
+[e = _norm -> ( _sqrt (1 -> + + + * _s1 _s1 * _s2 _s2 * _s3 _s3 * _s4 _s4 `d `f ]
+[; ;BNO055.c: 704: norm = 1.0f/norm;
+"704
+[e = _norm / -> .1.0 `f _norm ]
+[; ;BNO055.c: 705: s1 *= norm;
+"705
+[e =* _s1 _norm ]
+[; ;BNO055.c: 706: s2 *= norm;
+"706
+[e =* _s2 _norm ]
+[; ;BNO055.c: 707: s3 *= norm;
+"707
+[e =* _s3 _norm ]
+[; ;BNO055.c: 708: s4 *= norm;
+"708
+[e =* _s4 _norm ]
+[; ;BNO055.c: 711: qDot1 = 0.5f * (-q2 * gx - q3 * gy - q4 * gz) - beta * s1;
+"711
+[e = _qDot1 - * -> .0.5 `f - - * -U _q2 _gx * _q3 _gy * _q4 _gz * _beta _s1 ]
+[; ;BNO055.c: 712: qDot2 = 0.5f * (q1 * gx + q3 * gz - q4 * gy) - beta * s2;
+"712
+[e = _qDot2 - * -> .0.5 `f - + * _q1 _gx * _q3 _gz * _q4 _gy * _beta _s2 ]
+[; ;BNO055.c: 713: qDot3 = 0.5f * (q1 * gy - q2 * gz + q4 * gx) - beta * s3;
+"713
+[e = _qDot3 - * -> .0.5 `f + - * _q1 _gy * _q2 _gz * _q4 _gx * _beta _s3 ]
+[; ;BNO055.c: 714: qDot4 = 0.5f * (q1 * gz + q2 * gy - q3 * gx) - beta * s4;
+"714
+[e = _qDot4 - * -> .0.5 `f - + * _q1 _gz * _q2 _gy * _q3 _gx * _beta _s4 ]
+[; ;BNO055.c: 717: q1 += qDot1 * deltat;
+"717
+[e =+ _q1 * _qDot1 _deltat ]
+[; ;BNO055.c: 718: q2 += qDot2 * deltat;
+"718
+[e =+ _q2 * _qDot2 _deltat ]
+[; ;BNO055.c: 719: q3 += qDot3 * deltat;
+"719
+[e =+ _q3 * _qDot3 _deltat ]
+[; ;BNO055.c: 720: q4 += qDot4 * deltat;
+"720
+[e =+ _q4 * _qDot4 _deltat ]
+[; ;BNO055.c: 721: norm = sqrt(q1 * q1 + q2 * q2 + q3 * q3 + q4 * q4);
+"721
+[e = _norm -> ( _sqrt (1 -> + + + * _q1 _q1 * _q2 _q2 * _q3 _q3 * _q4 _q4 `d `f ]
+[; ;BNO055.c: 722: norm = 1.0f/norm;
+"722
+[e = _norm / -> .1.0 `f _norm ]
+[; ;BNO055.c: 723: q[0] = q1 * norm;
+"723
+[e = *U + &U _q * -> -> -> 0 `i `ui `ux -> -> # *U &U _q `ui `ux * _q1 _norm ]
+[; ;BNO055.c: 724: q[1] = q2 * norm;
+"724
+[e = *U + &U _q * -> -> -> 1 `i `ui `ux -> -> # *U &U _q `ui `ux * _q2 _norm ]
+[; ;BNO055.c: 725: q[2] = q3 * norm;
+"725
+[e = *U + &U _q * -> -> -> 2 `i `ui `ux -> -> # *U &U _q `ui `ux * _q3 _norm ]
+[; ;BNO055.c: 726: q[3] = q4 * norm;
+"726
+[e = *U + &U _q * -> -> -> 3 `i `ui `ux -> -> # *U &U _q `ui `ux * _q4 _norm ]
+[; ;BNO055.c: 728: }
+"728
+[e :UE 68 ]
+}
+[p f _printf 15443373 ]
+[a 69C 114 97 116 101 32 61 32 37 102 32 72 122 0 ]
+[a 14C 109 97 103 110 101 116 111 109 101 116 101 114 32 112 97 115 115 101 100 32 115 101 108 102 32 116 101 115 116 0 ]
+[a 12C 97 99 99 101 108 101 114 111 109 101 116 101 114 32 112 97 115 115 101 100 32 115 101 108 102 32 116 101 115 116 0 ]
+[a 16C 103 121 114 111 115 99 111 112 101 32 112 97 115 115 101 100 32 115 101 108 102 32 116 101 115 116 0 ]
+[a 18C 77 67 85 32 112 97 115 115 101 100 32 115 101 108 102 32 116 101 115 116 0 ]
+[a 15C 109 97 103 110 101 116 111 109 101 116 101 114 32 102 97 105 108 101 100 32 115 101 108 102 32 116 101 115 116 0 ]
+[a 13C 97 99 99 101 108 101 114 111 109 101 116 101 114 32 102 97 105 108 101 100 32 115 101 108 102 32 116 101 115 116 0 ]
+[a 17C 103 121 114 111 115 99 111 112 101 32 102 97 105 108 101 100 32 115 101 108 102 32 116 101 115 116 0 ]
+[a 19C 77 67 85 32 102 97 105 108 101 100 32 115 101 108 102 32 116 101 115 116 0 ]
+[a 34C 83 121 115 116 101 109 32 105 110 105 116 105 97 108 105 122 97 116 105 111 110 32 101 114 114 111 114 0 ]
+[a 33C 80 101 114 105 112 104 101 114 97 108 32 105 110 105 116 105 97 108 105 122 97 116 105 111 110 32 101 114 114 111 114 0 ]
+[a 42C 83 101 110 115 111 114 32 99 111 110 102 105 103 117 114 97 116 105 111 110 32 101 114 114 111 114 0 ]
+[a 41C 70 117 115 105 111 110 32 97 108 103 111 114 105 116 104 109 32 99 111 110 102 105 103 117 114 97 116 105 111 110 32 101 114 114 111 114 0 ]
+[a 38C 82 101 103 105 115 116 101 114 32 109 97 112 32 119 114 105 116 101 32 101 114 114 111 114 0 ]
+[a 32C 83 101 110 115 111 114 32 102 117 115 105 111 110 32 110 111 116 32 97 108 103 111 114 105 116 104 109 32 114 117 110 110 105 110 103 0 ]
+[a 31C 83 101 110 115 111 114 32 102 117 115 105 111 110 32 97 108 103 111 114 105 116 104 109 32 114 117 110 110 105 110 103 0 ]
+[a 54C 32 113 122 32 61 32 37 102 0 ]
+[a 58C 32 113 117 97 116 121 32 61 32 37 102 0 ]
+[a 53C 32 113 121 32 61 32 37 102 0 ]
+[a 57C 32 113 117 97 116 120 32 61 32 37 102 0 ]
+[a 52C 113 120 32 61 32 37 102 0 ]
+[a 56C 113 117 97 116 119 32 61 32 37 102 0 ]
+[a 21C 65 118 101 114 97 103 101 32 103 121 114 111 32 98 105 97 115 32 40 100 112 115 41 32 61 32 37 102 0 ]
+[a 20C 65 118 101 114 97 103 101 32 97 99 99 101 108 101 114 111 109 101 116 101 114 32 98 105 97 115 32 40 109 103 41 32 61 32 37 102 0 ]
+[a 22C 65 118 101 114 97 103 101 32 109 97 103 110 101 116 111 109 101 116 101 114 32 98 105 97 115 32 40 109 71 41 32 61 32 37 102 0 ]
+[a 62C 32 32 32 32 32 32 32 32 32 37 102 32 32 32 37 102 32 32 32 32 32 37 102 0 ]
+[a 64C 32 32 32 32 32 32 32 32 32 37 102 32 32 32 37 102 32 32 32 32 32 37 102 0 ]
+[a 66C 32 32 32 32 32 37 102 32 32 32 37 102 32 32 32 32 32 37 102 0 ]
+[a 68C 32 32 32 32 32 37 102 32 32 32 37 102 32 32 32 32 32 37 102 0 ]
+[a 40C 65 99 99 101 108 101 114 111 109 101 116 101 114 32 112 111 119 101 114 32 109 111 100 101 32 110 111 116 32 97 118 97 105 108 97 98 108 101 0 ]
+[a 37C 82 101 103 105 115 116 101 114 32 109 97 112 32 97 100 100 114 101 115 115 32 111 117 116 32 111 102 32 114 97 110 103 101 0 ]
+[a 36C 82 101 103 105 115 116 101 114 32 109 97 112 32 118 97 108 117 101 32 111 117 116 32 111 102 32 114 97 110 103 101 0 ]
+[a 39C 66 78 79 32 108 111 119 32 112 111 119 101 114 32 109 111 100 101 32 110 111 32 97 118 97 105 108 97 98 108 101 32 102 111 114 32 115 101 108 101 99 116 101 100 32 111 112 101 114 97 116 105 111 110 32 109 111 100 101 0 ]
+[a 35C 83 101 108 102 32 116 101 115 116 32 114 101 115 117 108 116 32 102 97 105 108 101 100 0 ]
+[a 50C 32 109 121 32 61 32 37 100 0 ]
+[a 47C 32 103 121 32 61 32 37 100 0 ]
+[a 44C 32 97 121 32 61 32 37 100 0 ]
+[a 49C 109 120 32 61 32 37 100 0 ]
+[a 46C 103 120 32 61 32 37 100 0 ]
+[a 43C 97 120 32 61 32 37 100 0 ]
+[a 30C 83 121 115 116 101 109 32 83 116 97 116 117 115 32 61 32 48 120 53 99 0 ]
+[a 2C 66 78 79 48 53 53 32 65 100 100 114 101 115 115 32 61 32 48 120 37 99 0 ]
+[a 29C 67 111 117 108 100 32 110 111 116 32 99 111 110 110 101 99 116 32 116 111 32 66 78 79 48 53 53 58 32 48 120 37 99 0 ]
+[a 9C 66 78 79 48 53 53 32 83 87 32 82 101 118 105 115 105 111 110 32 73 68 58 32 37 99 46 37 99 0 ]
+[a 24C 83 121 115 116 101 109 32 99 97 108 105 98 114 97 116 105 111 110 32 115 116 97 116 117 115 32 61 32 37 99 0 ]
+[a 26C 65 99 99 101 108 32 32 99 97 108 105 98 114 97 116 105 111 110 32 115 116 97 116 117 115 32 61 32 37 99 0 ]
+[a 25C 71 121 114 111 32 32 32 99 97 108 105 98 114 97 116 105 111 110 32 115 116 97 116 117 115 32 61 32 37 99 0 ]
+[a 27C 77 97 103 32 32 32 32 99 97 108 105 98 114 97 116 105 111 110 32 115 116 97 116 117 115 32 61 32 37 99 0 ]
+[a 11C 66 78 79 48 53 53 32 98 111 111 116 108 111 97 100 101 114 32 86 101 114 115 105 111 110 58 32 37 99 0 ]
+[a 7C 66 78 79 48 53 53 32 71 89 82 79 32 73 32 65 77 32 37 102 32 32 73 32 115 104 111 117 108 100 32 98 101 32 48 120 48 70 0 ]
+[a 60C 71 121 114 111 32 116 101 109 112 101 114 97 116 117 114 101 32 105 115 32 61 32 37 102 32 100 101 103 114 101 101 115 32 67 0 ]
+[a 5C 66 78 79 48 53 53 32 65 67 67 32 73 32 65 77 32 37 99 32 73 32 115 104 111 117 108 100 32 98 101 32 48 120 70 66 0 ]
+[a 10C 83 104 111 117 108 100 32 98 101 32 48 51 46 48 52 0 ]
+[a 23C 78 111 116 32 99 97 108 105 98 114 97 116 101 100 32 61 32 48 44 32 102 117 108 108 121 32 99 97 108 105 98 114 97 116 101 100 32 61 32 51 0 ]
+[a 6C 66 78 79 48 53 53 32 77 65 71 32 73 32 65 77 32 37 99 32 73 32 115 104 111 117 108 100 32 98 101 32 48 120 51 50 0 ]
+[a 4C 66 78 79 48 53 53 32 45 32 73 32 65 77 32 37 99 32 32 45 32 73 32 115 104 111 117 108 100 32 98 101 32 48 120 65 48 0 ]
+[a 1C 66 78 79 48 53 53 32 57 45 97 120 105 115 32 109 111 116 105 111 110 32 115 101 110 115 111 114 46 46 46 0 ]
+[a 8C 66 78 79 48 53 53 32 105 115 32 111 110 108 105 110 101 46 46 46 0 ]
+[a 28C 66 78 79 48 53 53 32 105 110 105 116 105 97 108 105 122 101 100 32 102 111 114 32 115 101 110 115 111 114 32 109 111 100 101 46 46 46 46 0 ]
+[a 70C 65 99 99 101 108 47 71 121 114 111 32 67 97 108 105 98 114 97 116 105 111 110 58 32 80 117 116 32 100 101 118 105 99 101 32 111 110 32 97 32 108 101 118 101 108 32 115 117 114 102 97 99 101 32 97 110 100 32 107 101 101 112 32 109 111 116 105 111 110 108 101 115 115 33 32 87 97 105 116 46 46 46 46 46 46 0 ]
+[a 71C 65 99 99 101 108 47 71 121 114 111 32 67 97 108 105 98 114 97 116 105 111 110 32 100 111 110 101 33 0 ]
+[a 73C 77 97 103 32 67 97 108 105 98 114 97 116 105 111 110 32 100 111 110 101 33 0 ]
+[a 72C 77 97 103 32 67 97 108 105 98 114 97 116 105 111 110 58 32 87 97 118 101 32 100 101 118 105 99 101 32 105 110 32 97 32 102 105 103 117 114 101 32 101 105 103 104 116 32 117 110 116 105 108 32 100 111 110 101 33 0 ]
+[a 3C 66 78 79 48 53 53 32 87 72 79 95 65 77 95 73 32 61 32 48 120 37 99 32 0 ]
+[a 67C 72 97 114 100 119 97 114 101 32 120 44 32 121 44 32 122 32 103 114 97 118 105 116 121 32 118 101 99 116 111 114 58 32 0 ]
+[a 65C 72 97 114 100 119 97 114 101 32 120 44 32 121 44 32 122 32 108 105 110 101 97 114 32 97 99 99 101 108 101 114 97 116 105 111 110 58 10 32 0 ]
+[a 61C 83 111 102 116 119 97 114 101 32 89 97 119 44 32 80 105 116 99 104 44 32 82 111 108 108 58 10 32 0 ]
+[a 63C 83 111 102 116 119 97 114 101 32 89 97 119 44 32 80 105 116 99 104 44 32 82 111 108 108 58 10 32 0 ]
+[a 48C 32 103 122 32 61 32 37 100 32 100 101 103 47 115 10 0 ]
+[a 45C 32 97 122 32 61 32 37 100 32 109 103 10 0 ]
+[a 59C 32 113 117 97 116 122 32 61 32 37 102 10 0 ]
+[a 55C 32 113 119 32 61 32 37 102 10 0 ]
+[a 51C 32 109 122 32 61 32 37 100 32 109 71 10 0 ]
