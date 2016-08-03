@@ -1,8 +1,7 @@
 build/default/production/main.o:  \
 main.c  \
-main.h  \
+Function.h  \
 PinDef.h  \
+ Communications.h  \
 ADDRESSING.h  \
- Function.h  \
-Communications.h  \
 Timers.h 

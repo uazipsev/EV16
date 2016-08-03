@@ -54,6 +54,7 @@ void main(void) {
     TRISBbits.TRISB3=0;
     TRISBbits.TRISB4=0;
     TRISBbits.TRISB5=0;
+    TRISDbits.TRISD4 = 0;
     
     LATBbits.LATB3=0;
     LATBbits.LATB5=0;
@@ -73,16 +74,15 @@ void main(void) {
     LED_SetDigitalMode();
     
     
-    NokiaStart();  // We are setting ut the display for text. We dont have a GFX lib installed for program size limits :(
-    Delay(100);    
+    //NokiaStart();  // We are setting ut the display for text. We dont have a GFX lib installed for program size limits :(
+    //Delay(100);    
     
-    clearLcd();    //found out the display needs cleard after a little bit to keep it clear. So I added a little delay to give the LCD a break 
-    Splash();      //Sets display with data about the device
+    //clearLcd();    //found out the display needs cleard after a little bit to keep it clear. So I added a little delay to give the LCD a break 
+    //Splash();      //Sets display with data about the device
     
-    //while(SetBMM()); //This is unique to this board, we are "faking" the ECU here to get the BMM into a master mode talking to us, controling this board. 
+    while(SetBMM()); //This is unique to this board, we are "faking" the ECU here to get the BMM into a master mode talking to us, controling this board. 
 
     while(1){
-        updateComms();
         updateTimers();
         ledDebug();
     }

@@ -8,25 +8,24 @@
 #include "Communications.h"
 #include "ADDRESSING.h"
 #include "Functions.h"
+#include "FastTransfer.h"
+#include "UART.h"
+#include "mcc_generated_files/pin_manager.h"
+char receiveArray[50];
+
+void CommsStart(){
+    begin(receiveArray, sizeof (receiveArray), ECU_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
+    EUSART1_Initialize();
+}
 
 void updateComms() {
     if (receiveData()) {
-        Precharge(receiveArray[CHARGE]);
-        SetCharger(1, receiveArray[CURRENT], receiveArray[VOLTAGE]);
-        respondChargerAsECU();
+        LED_Toggle();
+        //Precharge(receiveArray[CHARGE]);
+        //SetCharger(1, receiveArray[CURRENT], receiveArray[VOLTAGE]);
     }
 }
 
-/*
- 
- *     //Charger Receive
-#define CHARGE                  1
-#define CURRENT                 2
-#define VOLTAGE                 3
-#define AVGCELL                 4
-#define BMMFAULT                5
- 
- */
 
 /*******************************************************************
  * @brief           RespondChargerAsECU 
@@ -36,14 +35,14 @@ void updateComms() {
  *******************************************************************/
 
 void respondChargerAsECU() {
-    LATCbits.LATC5 = 1;
-    ToSend(RESPONSE_ADDRESS, CHARGER_ADDRESS);
-    ToSend(CHARGER_POWER_STATE, GetPowerState());
-    ToSend(FAULT_STATE, GetPowerState());
-    Delay(5);
+    RS485_Port = TALK;
+    //ToSend(RESPONSE_ADDRESS, CHARGER_ADDRESS);
+    ToSend(0, 1);// GetPowerState());
+    ToSend(1, 3);// GetPowerState());
+    //Delay(5);
     sendData(BMM_ADDRESS);
     Delay(3);
-    LATCbits.LATC5 = 0;
+    RS485_Port = LISTEN;
 }
 
 /*******************************************************************
@@ -54,15 +53,16 @@ void respondChargerAsECU() {
  *******************************************************************/
 
 bool SetBMM() {
-    LATCbits.LATC5 = 1;
-    ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
-    ToSend(BMM_COMM_STATE, 1);
-    Delay(5);
+    RS485_Port = TALK;
+    //ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
+    ToSend(BMM_COMM_STATE, 7);
+    //Delay(5);
     sendData(BMM_ADDRESS);
     Delay(3);
-    LATCbits.LATC5 = 0;
-    Delay(100);
+    RS485_Port = LISTEN;
+    Delay(1000);
     if (receiveData()){
+    //    LED_Toggle();
         return 0;
     }
     else return 1;

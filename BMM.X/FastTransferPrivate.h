@@ -29,7 +29,7 @@ unsigned int addressErrorCounter; // counts every time a wrong address is receiv
 unsigned int dataAdressErrorCounter; // counts if the received data fall outside of the receive array
 unsigned char rx_address; //RX address received
 #define polynomial 0x8C  //polynomial used to calculate crc
-#define BUFFER_SIZE 200 //ring buffer size
+#define BUFFER_SIZE 100 //ring buffer size
 #define CRC_COUNT 5 // how many AKNAKs are stored
 #define CRC_DEPTH 3  // how many pieces of data are stored with each CRC send event
 #define CRC_BUFFER_SIZE (CRC_COUNT * CRC_DEPTH) //crc buffer size 5 deep and 3 bytes an entry

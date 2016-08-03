@@ -8,7 +8,11 @@
 #ifndef COMMUNICATIONS_H
 #define	COMMUNICATIONS_H
 
-    extern volatile int receiveArray[20];
+#define RS485_Port LATDbits.LATD4
+#define TALK 1
+#define LISTEN 0
+
+    void CommsStart();
     void updateComms();
     extern void sendData(unsigned char whereToSend);
     extern bool receiveData();

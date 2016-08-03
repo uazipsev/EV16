@@ -5,16 +5,15 @@
  * Created on May 11, 2015, 11:19 PM
  */
 
-#include "main.h"
 #include "Function.h"
 #include <stdio.h>
 #include "PinDef.h"
 #include "Communications.h"
 #include "Timers.h"
-
-/*
- * 
- */
+#include <stdbool.h>
+#include <stdlib.h>
+#include <xc.h>
+#include "ADDRESSING.h"
 
 int main(int argc, char** argv) {
     Setup();

@@ -275,6 +275,19 @@ void handleDebugRequests() {
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
                 }
+                ClearScreen();
+                printf("Align Error B1 %u \n",alignError());
+                printf("CRC Error B1 %u \n",CRCError());
+                printf("Address Error B1 %u \n",addressError());
+                printf("Data Error B1 %u \n",dataAddressError());
+                printf("Align Error B2 %u \n",alignError1());
+                printf("CRC Error B2 %u \n",CRCError1());
+                printf("Data Address Error B2 %u \n",addressError1());
+                printf("Data Error B2 %u \n",dataAddressError1());
+                printf("Align Error B3 %u \n",alignError3());
+                printf("CRC Error B3 %u \n",CRCError3());
+                printf("Address Error B3 %u \n",addressError3());
+                printf("Data Error B3 %u \n",dataAddressError3());
                 break;
                 
         }

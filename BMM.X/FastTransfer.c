@@ -7,7 +7,16 @@
 #include "Function.h"
 
 
-
+void wipeRxBuffer()
+{
+	int i=0;
+	for(i=0;i<BUFFER_SIZE;i++)
+	{
+		rx_buffer[i]=0;
+		
+	}
+	
+}
 
 //Captures address of receive array, the max data address, the address of the module, true/false if AKNAKs are wanted and the Serial address
 
@@ -136,7 +145,7 @@ bool receiveData() {
             }
         }
 
-
+        
         while (serial_available() && rx_array_inx <= rx_len) {
             rx_buffer[rx_array_inx++] = serial_read();
         }
@@ -147,9 +156,9 @@ bool receiveData() {
             calc_CS = CRC8(rx_buffer, rx_len);
 
 
-
+        INDICATOR = !INDICATOR;
             if (calc_CS == rx_buffer[rx_array_inx - 1]) {//CS good
-
+                
                 // reassembles the data and places it into the receive array according to data address.
                 int r;
                 for (r = 0; r < rx_len; r = r + 3) {
@@ -309,7 +318,6 @@ unsigned int alignError(void) {
 
 
 //returns CRC error
-
 unsigned int CRCError(void) {
     return crcErrorCounter;
 }

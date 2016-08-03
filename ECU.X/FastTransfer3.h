@@ -26,6 +26,9 @@ void sendData3(unsigned char whereToSend);
 bool receiveData3(void);
 void ToSend3(const unsigned char where, const unsigned int what);
 
-
+unsigned int alignError3(void);
+unsigned int CRCError3(void);
+unsigned int addressError3(void);
+unsigned int dataAddressError3(void);
 #endif	/* FASTTRANSFER3_H */
 

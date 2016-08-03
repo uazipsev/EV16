@@ -25,6 +25,9 @@ void begin1(volatile int * ptr, unsigned char maxSize, unsigned char givenAddres
 void sendData1(unsigned char whereToSend);
 bool receiveData1(void);
 void ToSend1(const unsigned char where, const unsigned int what);
-
+unsigned int alignError1(void);
+unsigned int CRCError1(void);
+unsigned int addressError1(void);
+unsigned int dataAddressError1(void);
 #endif	/* FASTTRANSFER1_H */
 

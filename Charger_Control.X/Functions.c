@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include "Communications.h"
 //Function used to make a varable delay
 //We use this because the provided fcn dosn't accept large bounds
 
@@ -146,9 +146,10 @@ void SetMux(char channel){
 
  void ledDebug() {
         if (time_get(LEDTM) > 4) {
-            LED_Toggle();
-            SetCharger(1,200, 300);
+            //LED_Toggle();
+            updateComms();
             time_Set(LEDTM, 0);
+            respondChargerAsECU();
         }
     }
  

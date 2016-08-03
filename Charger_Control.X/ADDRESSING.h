@@ -55,8 +55,8 @@
 
     //BMM Receive
 #define BMM_COMM_STATE          1
-#define CHARGER_POWER_STATE     2
-#define FAULT_STATE             3
+#define CHARGER_POWER_STATE     0
+#define FAULT_STATE             1
 
     //Charger Receive
 #define CHARGE                  1

@@ -146,6 +146,7 @@ void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void) {
         return;
     }
     if (U1STAbits.URXDA) {
+        //INDICATOR = !INDICATOR;
         unsigned char data = U1RXREG;
         UART_buff_put(&input_buffer, data);
         IFS0bits.U1RXIF = 0; // Clear RX interrupt flag

@@ -100,8 +100,8 @@ void PinSetMode(void) {
  void ledDebug() {
      //int x=0;
         if (time_get(LEDTM) > 500) {
-            INDICATOR = !INDICATOR;
-            printf("ADC: %d , %d , %d", CurrentGet(0,1),CurrentGet(0,2),CurrentGet(0,3));
+            //INDICATOR = !INDICATOR;
+            //printf("ADC: %d , %d , %d", CurrentGet(0,1),CurrentGet(0,2),CurrentGet(0,3));
            // printf(SetUnderOverVoltage(5,8));
 //            if (x == 0) {
 //            Saftey_Relay_Reset = 0;

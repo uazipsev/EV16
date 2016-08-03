@@ -145,7 +145,7 @@ void EUSART2_Receive_ISR(void) {
         RC2STAbits.CREN = 0;
         RC2STAbits.CREN = 1;
     }
-    unsigned char data = RCREG1;
+    unsigned char data = RCREG2;
     UART_buff_put(&input_buffer, data);
 }
 

@@ -15,6 +15,7 @@ void begin(char * ptr, unsigned char maxSize, unsigned char givenAddress, bool e
 void sendData(unsigned char whereToSend);
 bool receiveData();
 void ToSend(const unsigned char where, const unsigned int what);
+void wipeRxBuffer();
 unsigned char AKNAK(unsigned char module);
 unsigned int alignError(void);
 unsigned int CRCError(void);

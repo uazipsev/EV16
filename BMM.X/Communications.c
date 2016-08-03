@@ -22,7 +22,8 @@ enum BMM {
     BATTERY_FAULT = 0,
     BATTERY_VOLTS = 1,
     BATTERY_TEMPS = 2,
-    BATTERY_POWER = 3
+    BATTERY_POWER = 3,
+    CHARGER = 7
 } COMM_STATE;
 int faultFlag = 0;
 int slaveaddr = 0;
@@ -81,6 +82,9 @@ void updateComms() {
                     ToSend(2, 1);
                     ToSend(3, 2);
                     break;
+                case CHARGER:
+                    ChargerEN();
+                    break;
                 default:
                     break;
 
@@ -88,7 +92,11 @@ void updateComms() {
         }
         else{
             //This is where we add info for the charger communication 
-            
+            ToSend(1, 1); //Set Precharge enable and on 
+            ToSend(2, 25); //Set charging current 
+            ToSend(3, 295); //Set Voltage
+            ToSend(4, 415); //Set avg cell V
+            ToSend(4, 5); //Set BMM mode
         }
         //ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
         sendData(ECU_ADDRESS);
