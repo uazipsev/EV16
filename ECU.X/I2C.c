@@ -179,7 +179,7 @@ void NotAckI2C(void)
 {
 	I2C2CONbits.ACKDT = 1;			//Set for NotACk
 	I2C2CONbits.ACKEN = 1;
-	//while(I2C1CONbits.ACKEN);		//wait for ACK to complete
+	while(I2C1CONbits.ACKEN);		//wait for ACK to complete
 	I2C2CONbits.ACKDT = 0;			//Set for NotACk
 }
 
@@ -260,49 +260,3 @@ void i2c_wait(unsigned int cnt) {
         asm("nop");
     }
 }
-
-//void i2c_Write(char address, bool read_write, char *data, int numofbytes) {
-//    int DataSz;
-//    int Index = 0;
-//    DataSz = numofbytes;
-//
-//    StartI2C1(); //Send the Start Bit
-//    IdleI2C1(); //Wait to complete
-//    if (read_write == 1) //write address
-//    {
-//        MasterWriteI2C1(((address << 1) | 0));
-//        IdleI2C1(); //Wait to complete    
-//        while (DataSz) {
-//            MasterWriteI2C1(data[Index++]);
-//            IdleI2C1(); //Wait to complete
-//
-//            DataSz--;
-//
-//            //ACKSTAT is 0 when slave acknowledge,
-//            //if 1 then slave has not acknowledge the data.
-//            if (I2C1STATbits.ACKSTAT)
-//                break;
-//        }
-//    } else //read address
-//    {
-//        MasterWriteI2C1(((address << 1) | 1));
-//        IdleI2C1(); //Wait to complete
-//        while (DataSz) {
-//            data[Index++]=MasterReadI2C1();
-//            AckI2C1();
-//            IdleI2C1(); //Wait to complete
-//
-//            DataSz--;
-//
-//            //ACKSTAT is 0 when slave acknowledge,
-//            //if 1 then slave has not acknowledge the data.
-////            if (I2C1STATbits.ACKSTAT)
-////                break;
-//        }
-//    }
-//
-//
-//
-//    StopI2C1(); //Send the Stop condition
-//    IdleI2C1(); //Wait to complete   
-//}

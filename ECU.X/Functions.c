@@ -86,8 +86,8 @@ void Setup(void) {
     //This controls the timing system to control communication rates  
     initTimerOne();
     //This sets up all non constants from external EEPROM 
-    //SetUpDataSets();
-    SetDriver(1);
+    SetUpDataSets();
+    //SetDriver(1);
 }
 
 /*******************************************************************
@@ -145,15 +145,15 @@ void PinSetMode(void) {
  * @note            uses timer to control the function tick rate
  *******************************************************************/
 void ledDebug(){
-    if (time > 250) {
+    if (time > 1000) {
             INDICATOR ^= 1;
            // HORN_EN ^=1;
            // BRAKELT ^= 1;
             //SS_RELAY ^= 1;
             //SaveCarDriver(0x55);
             //Delay(20);
-            //ReadCarDriver();
-            //printf("eeprom data = %c",xy);
+            char xy = ReadCarDriver();
+            printf("eeprom data = %d/n",xy);
             time = 0;
         }
     }

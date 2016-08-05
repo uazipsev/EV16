@@ -35,11 +35,14 @@ void writeRegister(char i2cAddress, char reg, int value)
     IdleI2C();
 	StartI2C();						//Initiate start condition
 	WriteI2C(i2cAddress << 1);	    //write 1 byte
-	IdleI2C();						//Ensure module is Idle
+	AckI2C();                       //Wait for ACK
+    IdleI2C();                      //Ensure module is Idle
 	WriteI2C(reg);			    	//Write High word address
-	IdleI2C();						//Ensure module is idle
+	AckI2C();						//Wait for ACK
+    IdleI2C();                      //Ensure module is idle
     WriteI2C(value);				//Write Low word address
-	NotAckI2C();					//Send Not Ack
+	AckI2C();					    //Wait for ACK
+    IdleI2C();                      //Ensure module is idle
 	StopI2C();				        //Send stop condition
 }
 
@@ -54,20 +57,20 @@ char readRegister(char i2cAddress, char reg)
     IdleI2C();
     StartI2C();						    //Initiate start condition
 	WriteI2C(i2cAddress << 1);	        //write 1 byte
+    AckI2C();   					    //Wait for ACK
 	IdleI2C();						    //Ensure module is Idle
     WriteI2C(reg);			    	    //Write Low word address
-    //IdleI2C();				             //Send stop condition
-    NotAckI2C();					     //Send Not Ack
-    //NotAckI2C();					//Send Not Ack
-	StopI2C();				        //Send stop condition
-    Delay(5);
+    AckI2C();   					    //Wait for ACK
+	IdleI2C();						    //Ensure module is Idle
+	StopI2C();				            //Send stop condition
     IdleI2C();
-	StartI2C();						//Initiate start condition
+	StartI2C();					     	//Initiate start condition
 	WriteI2C((i2cAddress << 1) | 0x01);	//Write 1 byte - R/W bit should be 1 for read
+    AckI2C();   					    //Wait for ACK
 	IdleI2C();						    //Ensure bus is idle
 	getsI2C(data, 1);		     	    //Read in multiple bytes
+	//AckI2C();				     	    //Send Not Ack
     IdleI2C();						    //Ensure bus is idle
-	NotAckI2C();					    //Send Not Ack
 	StopI2C();						    //Send stop condition
     
     return data[0];
@@ -88,7 +91,7 @@ void SetUpDataSets(){
 //    ReadBrakeLightTrigger();
     for(z=0;z<16;z++){
         writeRegister(ADDRESS, z, z);
-        Delay(5);
+        Delay(2);
     }
     Delay(10);
     for(z=0;z<16;z++){
