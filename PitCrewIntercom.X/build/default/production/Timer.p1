@@ -32,18 +32,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S74 . . ]
 "1317
 [v _PIE1bits `VS74 ~T0 @X0 0 e@145 ]
-"12 Timer.h
-[v _TMR2_StartTimer `(v ~T0 @X0 0 ef ]
-[; ;Timer.h: 11: void TMR2_Initialize(void);
-[; ;Timer.h: 12: void TMR2_StartTimer(void);
-[; ;Timer.h: 13: void TMR2_StopTimer(void);
-[; ;Timer.h: 14: void TMR2_ISR(void);
-[; ;Timer.h: 15: void TMR2_CallBack(void);
-[; ;Timer.h: 16: void TMR2_CallBack(void);
-[; ;Timer.h: 18: void setLED(int);
-[; ;Timer.h: 19: void Off_Led(int);
-[; ;Timer.h: 20: void Change_Blink_Rate(char time);
-[; ;Timer.h: 21: void Change_LED(char lit);
+[; ;Timer.h: 11: unsigned int GetTicker(void);
+[; ;Timer.h: 12: void ClearTicker(void);
+[; ;Timer.h: 14: void TMR2_Initialize(void);
+[; ;Timer.h: 15: void TMR2_StartTimer(void);
+[; ;Timer.h: 16: void TMR2_StopTimer(void);
+[; ;Timer.h: 17: void TMR2_ISR(void);
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -2943,81 +2937,114 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-"8 Timer.c
-[v _TMR2_Initialize `(v ~T0 @X0 1 ef ]
+"7 Timer.c
+[v _ticker `ui ~T0 @X0 1 e ]
+[i _ticker
+-> -> 0 `i `ui
+]
+[; ;Timer.c: 7: unsigned int ticker = 0;
 "9
+[v _TMR2_Initialize `(v ~T0 @X0 1 ef ]
+"10
 {
-[; ;Timer.c: 8: void TMR2_Initialize(void)
-[; ;Timer.c: 9: {
+[; ;Timer.c: 9: void TMR2_Initialize(void)
+[; ;Timer.c: 10: {
 [e :U _TMR2_Initialize ]
 [f ]
-[; ;Timer.c: 13: T2CON = 0x00;
-"13
-[e = _T2CON -> -> 0 `i `uc ]
-[; ;Timer.c: 14: T2CONbits.TMR2ON = 0;
+[; ;Timer.c: 14: T2CON = 0x00;
 "14
+[e = _T2CON -> -> 0 `i `uc ]
+[; ;Timer.c: 15: T2CONbits.TMR2ON = 0;
+"15
 [e = . . _T2CONbits 0 2 -> -> 0 `i `uc ]
-[; ;Timer.c: 17: PR2 = 18;
-"17
+[; ;Timer.c: 18: PR2 = 18;
+"18
 [e = _PR2 -> -> 18 `i `uc ]
-[; ;Timer.c: 20: TMR2 = 0;
-"20
+[; ;Timer.c: 21: TMR2 = 0;
+"21
 [e = _TMR2 -> -> 0 `i `uc ]
-[; ;Timer.c: 23: PIR1bits.TMR2IF = 0;
-"23
+[; ;Timer.c: 24: PIR1bits.TMR2IF = 0;
+"24
 [e = . . _PIR1bits 0 1 -> -> 0 `i `uc ]
-[; ;Timer.c: 26: PIE1bits.TMR2IE = 1;
-"26
+[; ;Timer.c: 27: PIE1bits.TMR2IE = 1;
+"27
 [e = . . _PIE1bits 0 1 -> -> 1 `i `uc ]
-[; ;Timer.c: 32: TMR2_StartTimer();
-"32
-[e ( _TMR2_StartTimer ..  ]
-[; ;Timer.c: 33: }
-"33
+[; ;Timer.c: 34: }
+"34
 [e :UE 368 ]
 }
-"35
-[v _TMR2_StartTimer `(v ~T0 @X0 1 ef ]
 "36
+[v _TMR2_StartTimer `(v ~T0 @X0 1 ef ]
+"37
 {
-[; ;Timer.c: 35: void TMR2_StartTimer(void)
-[; ;Timer.c: 36: {
+[; ;Timer.c: 36: void TMR2_StartTimer(void)
+[; ;Timer.c: 37: {
 [e :U _TMR2_StartTimer ]
 [f ]
-[; ;Timer.c: 38: T2CONbits.TMR2ON = 1;
-"38
-[e = . . _T2CONbits 0 2 -> -> 1 `i `uc ]
-[; ;Timer.c: 39: }
+[; ;Timer.c: 39: T2CONbits.TMR2ON = 1;
 "39
+[e = . . _T2CONbits 0 2 -> -> 1 `i `uc ]
+[; ;Timer.c: 40: }
+"40
 [e :UE 369 ]
 }
-"41
-[v _TMR2_StopTimer `(v ~T0 @X0 1 ef ]
 "42
+[v _TMR2_StopTimer `(v ~T0 @X0 1 ef ]
+"43
 {
-[; ;Timer.c: 41: void TMR2_StopTimer(void)
-[; ;Timer.c: 42: {
+[; ;Timer.c: 42: void TMR2_StopTimer(void)
+[; ;Timer.c: 43: {
 [e :U _TMR2_StopTimer ]
 [f ]
-[; ;Timer.c: 44: T2CONbits.TMR2ON = 0;
-"44
-[e = . . _T2CONbits 0 2 -> -> 0 `i `uc ]
-[; ;Timer.c: 45: }
+[; ;Timer.c: 45: T2CONbits.TMR2ON = 0;
 "45
+[e = . . _T2CONbits 0 2 -> -> 0 `i `uc ]
+[; ;Timer.c: 46: }
+"46
 [e :UE 370 ]
 }
-"47
-[v _TMR2_ISR `(v ~T0 @X0 1 ef ]
 "48
+[v _TMR2_ISR `(v ~T0 @X0 1 ef ]
+"49
 {
-[; ;Timer.c: 47: void TMR2_ISR(void)
-[; ;Timer.c: 48: {
+[; ;Timer.c: 48: void TMR2_ISR(void)
+[; ;Timer.c: 49: {
 [e :U _TMR2_ISR ]
 [f ]
-[; ;Timer.c: 51: PIR1bits.TMR2IF = 0;
+[; ;Timer.c: 51: ticker++;
 "51
-[e = . . _PIR1bits 0 1 -> -> 0 `i `uc ]
-[; ;Timer.c: 53: }
+[e ++ _ticker -> -> 1 `i `ui ]
+[; ;Timer.c: 53: PIR1bits.TMR2IF = 0;
 "53
+[e = . . _PIR1bits 0 1 -> -> 0 `i `uc ]
+[; ;Timer.c: 55: }
+"55
 [e :UE 371 ]
+}
+"57
+[v _ClearTicker `(v ~T0 @X0 1 ef ]
+{
+[; ;Timer.c: 57: void ClearTicker(void){
+[e :U _ClearTicker ]
+[f ]
+[; ;Timer.c: 58: ticker = 0;
+"58
+[e = _ticker -> -> 0 `i `ui ]
+[; ;Timer.c: 59: }
+"59
+[e :UE 372 ]
+}
+"61
+[v _GetTicker `(ui ~T0 @X0 1 ef ]
+{
+[; ;Timer.c: 61: unsigned int GetTicker(){
+[e :U _GetTicker ]
+[f ]
+[; ;Timer.c: 62: return ticker;
+"62
+[e ) _ticker ]
+[e $UE 373  ]
+[; ;Timer.c: 63: }
+"63
+[e :UE 373 ]
 }

@@ -14,9 +14,11 @@
 #define DONE 2
 #define OFF 0
 
-void Start();
+void Start(void);
 void INTERRUPT_Initialize();
 void Delay(int wait);
+char ReadCharger(void);
+void LEDOff(void);
 
 #endif	/* FUNCTION_H */
 

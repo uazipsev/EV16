@@ -1,5 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"23 UART.h
+"20 UART.h
 [s S1 `uc -> 20 `i `i 1 `i 1 `i 1 ]
 [n S1 UART_ring_buff buf head tail count ]
 "1306 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic16f1829.h
@@ -16,11 +16,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _RCSTA `Vuc ~T0 @X0 0 e@413 ]
 "3351
 [v _TXSTA `Vuc ~T0 @X0 0 e@414 ]
-"35 UART.h
+"32 UART.h
 [v _UART_buff_init `(v ~T0 @X0 0 ef1`*S1 ]
 "16 C:\Program Files (x86)\Microchip\xc8\v1.37\include\string.h
 [v _memset `(*v ~T0 @X0 0 ef3`*v`i`ui ]
-"40 UART.h
+"37 UART.h
 [v _UART_buff_modulo_inc `(ui ~T0 @X0 0 ef2`Cui`Cui ]
 "3227 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic16f1829.h
 [v _TXREG `Vuc ~T0 @X0 0 e@410 ]
@@ -35,41 +35,38 @@ Version 3.2 HI-TECH Software Intermediate Code
 "3208
 [v _RCREG `Vuc ~T0 @X0 0 e@409 ]
 [; ;stdbool.h: 12: typedef unsigned char bool;
-[; ;UART.h: 13: char getch(void);
-[; ;UART.h: 14: void putch(char txData);
-[; ;UART.h: 20: extern volatile unsigned int talkTime;
-[; ;UART.h: 23: struct UART_ring_buff {
-[; ;UART.h: 24: unsigned char buf[20];
-[; ;UART.h: 25: int head;
-[; ;UART.h: 26: int tail;
-[; ;UART.h: 27: int count;
-[; ;UART.h: 28: };
-"30 UART.h
+[; ;UART.h: 17: extern volatile unsigned int talkTime;
+[; ;UART.h: 20: struct UART_ring_buff {
+[; ;UART.h: 21: unsigned char buf[20];
+[; ;UART.h: 22: int head;
+[; ;UART.h: 23: int tail;
+[; ;UART.h: 24: int count;
+[; ;UART.h: 25: };
+"27 UART.h
 [v _input_buffer `S1 ~T0 @X0 1 e ]
-[; ;UART.h: 30: struct UART_ring_buff input_buffer;
-"31
+[; ;UART.h: 27: struct UART_ring_buff input_buffer;
+"28
 [v _output_buffer `S1 ~T0 @X0 1 e ]
-[; ;UART.h: 31: struct UART_ring_buff output_buffer;
-"33
+[; ;UART.h: 28: struct UART_ring_buff output_buffer;
+"30
 [v _Transmit_stall `uc ~T0 @X0 1 e ]
 [i _Transmit_stall
 -> -> 1 `i `uc
 ]
-[; ;UART.h: 33: bool Transmit_stall = 1;
-[; ;UART.h: 34: void EUSART1_Initialize(void);
-[; ;UART.h: 35: void UART_buff_init(struct UART_ring_buff* _this);
-[; ;UART.h: 36: void UART_buff_put(struct UART_ring_buff* _this, const unsigned char c);
-[; ;UART.h: 37: unsigned char UART_buff_get(struct UART_ring_buff* _this);
-[; ;UART.h: 38: void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
-[; ;UART.h: 39: int UART_buff_size(struct UART_ring_buff* _this);
-[; ;UART.h: 40: unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
-[; ;UART.h: 41: unsigned char UART_buff_peek(struct UART_ring_buff* _this);
-[; ;UART.h: 42: void EUSART1_Receive_ISR();
-[; ;UART.h: 43: void EUSART1_Transmit_ISR(void);
-[; ;UART.h: 45: unsigned char Receive_peek(void);
-[; ;UART.h: 46: int Receive_available(void);
-[; ;UART.h: 47: unsigned char Receive_get(void);
-[; ;UART.h: 48: void Send_put(unsigned char _data);
+[; ;UART.h: 30: bool Transmit_stall = 1;
+[; ;UART.h: 31: void EUSART1_Initialize(void);
+[; ;UART.h: 32: void UART_buff_init(struct UART_ring_buff* _this);
+[; ;UART.h: 33: void UART_buff_put(struct UART_ring_buff* _this, const unsigned char c);
+[; ;UART.h: 34: unsigned char UART_buff_get(struct UART_ring_buff* _this);
+[; ;UART.h: 35: void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
+[; ;UART.h: 36: int UART_buff_size(struct UART_ring_buff* _this);
+[; ;UART.h: 37: unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
+[; ;UART.h: 38: void EUSART1_Receive_ISR();
+[; ;UART.h: 39: void EUSART1_Transmit_ISR(void);
+[; ;UART.h: 40: char getch(void);
+[; ;UART.h: 41: void putch(char txData);
+[; ;UART.h: 42: void Send_put(unsigned char _data);
+[; ;UART.h: 43: unsigned char Receive_get(void);
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -3048,12 +3045,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;UART.c: 35: SPBRG = 0x25;
 "35
 [e = _SPBRG -> -> 37 `i `us ]
-[; ;UART.c: 37: RCSTA = 0b100100000;
+[; ;UART.c: 37: RCSTA = 0b10010000;
 "37
-[e = _RCSTA -> -> 288 `i `uc ]
-[; ;UART.c: 39: TXSTA = 0b001000000;
+[e = _RCSTA -> -> 144 `i `uc ]
+[; ;UART.c: 39: TXSTA = 0b00100000;
 "39
-[e = _TXSTA -> -> 64 `i `uc ]
+[e = _TXSTA -> -> 32 `i `uc ]
 [; ;UART.c: 41: UART_buff_init(&input_buffer);
 "41
 [e ( _UART_buff_init (1 &U _input_buffer ]
@@ -3084,10 +3081,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "60
 [v _UART_buff_put `(v ~T0 @X0 1 ef2`*S1`Cuc ]
 {
-[; ;UART.c: 60: void UART_buff_put(struct UART_ring_buff* _this, const unsigned char c) {
+[; ;UART.c: 60: void UART_buff_put(struct UART_ring_buff* _this, unsigned char c) {
 [e :U _UART_buff_put ]
 [v __this `*S1 ~T0 @X0 1 r1 ]
-[v _c `Cuc ~T0 @X0 1 r2 ]
+[v _c `uc ~T0 @X0 1 r2 ]
 [f ]
 [; ;UART.c: 61: if (_this->count < 20) {
 "61
@@ -3216,182 +3213,139 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 378 ]
 }
 "97
-[v _UART_buff_peek `(uc ~T0 @X0 1 ef1`*S1 ]
-{
-[; ;UART.c: 97: unsigned char UART_buff_peek(struct UART_ring_buff* _this) {
-[e :U _UART_buff_peek ]
-[v __this `*S1 ~T0 @X0 1 r1 ]
-[f ]
-[; ;UART.c: 98: return _this->buf[_this->tail];
-"98
-[e ) *U + &U . *U __this 0 * -> -> . *U __this 2 `ui `ux -> -> # *U &U . *U __this 0 `ui `ux ]
-[e $UE 380  ]
-[; ;UART.c: 99: }
-"99
-[e :UE 380 ]
-}
-"101
-[v _Receive_peek `(uc ~T0 @X0 1 ef ]
-{
-[; ;UART.c: 101: unsigned char Receive_peek(void) {
-[e :U _Receive_peek ]
-[f ]
-[; ;UART.c: 102: return UART_buff_peek(&input_buffer);
-"102
-[e ) ( _UART_buff_peek (1 &U _input_buffer ]
-[e $UE 381  ]
-[; ;UART.c: 103: }
-"103
-[e :UE 381 ]
-}
-"105
-[v _Receive_available `(i ~T0 @X0 1 ef ]
-{
-[; ;UART.c: 105: int Receive_available(void) {
-[e :U _Receive_available ]
-[f ]
-[; ;UART.c: 106: return UART_buff_size(&input_buffer);
-"106
-[e ) ( _UART_buff_size (1 &U _input_buffer ]
-[e $UE 382  ]
-[; ;UART.c: 107: }
-"107
-[e :UE 382 ]
-}
-"109
-[v _Receive_get `(uc ~T0 @X0 1 ef ]
-{
-[; ;UART.c: 109: unsigned char Receive_get(void) {
-[e :U _Receive_get ]
-[f ]
-[; ;UART.c: 110: return UART_buff_get(&input_buffer);
-"110
-[e ) ( _UART_buff_get (1 &U _input_buffer ]
-[e $UE 383  ]
-[; ;UART.c: 111: }
-"111
-[e :UE 383 ]
-}
-"113
 [v _Send_put `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;UART.c: 113: void Send_put(unsigned char _data) {
+[; ;UART.c: 97: void Send_put(unsigned char _data) {
 [e :U _Send_put ]
 [v __data `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;UART.c: 114: UART_buff_put(&output_buffer, _data);
-"114
+[; ;UART.c: 98: UART_buff_put(&output_buffer, _data);
+"98
 [e ( _UART_buff_put (2 , &U _output_buffer __data ]
-[; ;UART.c: 115: if (Transmit_stall == 1) {
-"115
-[e $ ! == -> _Transmit_stall `i -> 1 `i 385  ]
+[; ;UART.c: 99: if (Transmit_stall == 1) {
+"99
+[e $ ! == -> _Transmit_stall `i -> 1 `i 381  ]
 {
-[; ;UART.c: 116: Transmit_stall = 0;
-"116
+[; ;UART.c: 100: Transmit_stall = 0;
+"100
 [e = _Transmit_stall -> -> 0 `i `uc ]
-[; ;UART.c: 117: TXREG = UART_buff_get(&output_buffer);
-"117
+[; ;UART.c: 101: TXREG = UART_buff_get(&output_buffer);
+"101
 [e = _TXREG ( _UART_buff_get (1 &U _output_buffer ]
-[; ;UART.c: 118: PIE1bits.TXIE = 1;
-"118
+[; ;UART.c: 102: PIE1bits.TXIE = 1;
+"102
 [e = . . _PIE1bits 0 4 -> -> 1 `i `uc ]
-"119
+"103
 }
-[e :U 385 ]
-[; ;UART.c: 119: }
-[; ;UART.c: 120: }
-"120
-[e :UE 384 ]
+[e :U 381 ]
+[; ;UART.c: 103: }
+[; ;UART.c: 104: }
+"104
+[e :UE 380 ]
 }
-"122
+"106
+[v _Receive_get `(uc ~T0 @X0 1 ef ]
+{
+[; ;UART.c: 106: unsigned char Receive_get(void) {
+[e :U _Receive_get ]
+[f ]
+[; ;UART.c: 107: return UART_buff_get(&input_buffer);
+"107
+[e ) ( _UART_buff_get (1 &U _input_buffer ]
+[e $UE 382  ]
+[; ;UART.c: 108: }
+"108
+[e :UE 382 ]
+}
+"110
 [v _getch `(uc ~T0 @X0 1 ef ]
 {
-[; ;UART.c: 122: char getch(void) {
+[; ;UART.c: 110: char getch(void) {
 [e :U _getch ]
 [f ]
-[; ;UART.c: 123: return Receive_get();
-"123
+[; ;UART.c: 111: return Receive_get();
+"111
 [e ) ( _Receive_get ..  ]
-[e $UE 386  ]
-[; ;UART.c: 124: }
-"124
-[e :UE 386 ]
+[e $UE 383  ]
+[; ;UART.c: 112: }
+"112
+[e :UE 383 ]
 }
-"126
+"114
 [v _putch `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;UART.c: 126: void putch(char txData) {
+[; ;UART.c: 114: void putch(char txData) {
 [e :U _putch ]
 [v _txData `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;UART.c: 127: Send_put(txData);
-"127
+[; ;UART.c: 115: Send_put(txData);
+"115
 [e ( _Send_put (1 _txData ]
-[; ;UART.c: 128: }
-"128
-[e :UE 387 ]
+[; ;UART.c: 116: }
+"116
+[e :UE 384 ]
 }
-"130
+"118
 [v _EUSART1_Receive_ISR `(v ~T0 @X0 1 ef ]
 {
-[; ;UART.c: 130: void EUSART1_Receive_ISR(void) {
+[; ;UART.c: 118: void EUSART1_Receive_ISR(void) {
 [e :U _EUSART1_Receive_ISR ]
 [f ]
-[; ;UART.c: 131: if (1 == RCSTAbits.OERR) {
-"131
-[e $ ! == -> 1 `i -> . . _RCSTAbits 0 1 `i 389  ]
+[; ;UART.c: 119: if (1 == RCSTAbits.OERR) {
+"119
+[e $ ! == -> 1 `i -> . . _RCSTAbits 0 1 `i 386  ]
 {
-[; ;UART.c: 134: RCSTAbits.CREN = 0;
-"134
+[; ;UART.c: 122: RCSTAbits.CREN = 0;
+"122
 [e = . . _RCSTAbits 0 4 -> -> 0 `i `uc ]
-[; ;UART.c: 135: RCSTAbits.CREN = 1;
-"135
+[; ;UART.c: 123: RCSTAbits.CREN = 1;
+"123
 [e = . . _RCSTAbits 0 4 -> -> 1 `i `uc ]
+"124
+}
+[e :U 386 ]
+"125
+[v _data `uc ~T0 @X0 1 a ]
+[; ;UART.c: 124: }
+[; ;UART.c: 125: unsigned char data = RCREG;
+[e = _data _RCREG ]
+[; ;UART.c: 126: UART_buff_put(&input_buffer, data);
+"126
+[e ( _UART_buff_put (2 , &U _input_buffer _data ]
+[; ;UART.c: 127: }
+"127
+[e :UE 385 ]
+}
+"129
+[v _EUSART1_Transmit_ISR `(v ~T0 @X0 1 ef ]
+{
+[; ;UART.c: 129: void EUSART1_Transmit_ISR(void) {
+[e :U _EUSART1_Transmit_ISR ]
+[f ]
+[; ;UART.c: 131: if (UART_buff_size(&output_buffer) > 0) {
+"131
+[e $ ! > ( _UART_buff_size (1 &U _output_buffer -> 0 `i 388  ]
+{
+[; ;UART.c: 132: TXREG = UART_buff_get(&output_buffer);
+"132
+[e = _TXREG ( _UART_buff_get (1 &U _output_buffer ]
+"133
+}
+[; ;UART.c: 133: } else {
+[e $U 389  ]
+[e :U 388 ]
+{
+[; ;UART.c: 134: Transmit_stall = 1;
+"134
+[e = _Transmit_stall -> -> 1 `i `uc ]
+[; ;UART.c: 135: PIE1bits.TXIE = 0;
+"135
+[e = . . _PIE1bits 0 4 -> -> 0 `i `uc ]
 "136
 }
 [e :U 389 ]
-"137
-[v _data `uc ~T0 @X0 1 a ]
 [; ;UART.c: 136: }
-[; ;UART.c: 137: unsigned char data = RCREG;
-[e = _data _RCREG ]
-[; ;UART.c: 138: UART_buff_put(&input_buffer, data);
-"138
-[e ( _UART_buff_put (2 , &U _input_buffer _data ]
-[; ;UART.c: 139: }
-"139
-[e :UE 388 ]
-}
-"141
-[v _EUSART1_Transmit_ISR `(v ~T0 @X0 1 ef ]
-{
-[; ;UART.c: 141: void EUSART1_Transmit_ISR(void) {
-[e :U _EUSART1_Transmit_ISR ]
-[f ]
-[; ;UART.c: 143: if (UART_buff_size(&output_buffer) > 0) {
-"143
-[e $ ! > ( _UART_buff_size (1 &U _output_buffer -> 0 `i 391  ]
-{
-[; ;UART.c: 144: TXREG = UART_buff_get(&output_buffer);
-"144
-[e = _TXREG ( _UART_buff_get (1 &U _output_buffer ]
-"145
-}
-[; ;UART.c: 145: } else {
-[e $U 392  ]
-[e :U 391 ]
-{
-[; ;UART.c: 146: Transmit_stall = 1;
-"146
-[e = _Transmit_stall -> -> 1 `i `uc ]
-[; ;UART.c: 147: PIE1bits.TXIE = 0;
-"147
-[e = . . _PIE1bits 0 4 -> -> 0 `i `uc ]
-"148
-}
-[e :U 392 ]
-[; ;UART.c: 148: }
-[; ;UART.c: 149: }
-"149
-[e :UE 390 ]
+[; ;UART.c: 137: }
+"137
+[e :UE 387 ]
 }

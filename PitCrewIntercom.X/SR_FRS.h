@@ -19,12 +19,12 @@
 //Squelch
 #define SQ 2
 
-void SR_FRSTalk();
-void SR_RRSPowerDown();
-void SR_FRSStart();
-void SetCommandMode();
-void SetFrequency();
-void SetPowerSave();
+void SR_FRSTalk(void);
+void SR_FRSPowerDown(void);
+void SR_FRSStart(void);
+void SetCommandMode(void);
+void SetFrequency(void);
+void SetPowerSave(void);
 void SetVolume(char volume);
 void SetVOX(int volume);
 void SetMIC(char volume, char scram);

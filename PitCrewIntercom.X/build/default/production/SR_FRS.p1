@@ -1,4 +1,12 @@
 Version 3.2 HI-TECH Software Intermediate Code
+"507 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic16f1829.h
+[s S34 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S34 . RC0 RC1 RC2 RC3 RC4 RC5 RC6 RC7 ]
+"506
+[u S33 `S34 1 ]
+[n S33 . . ]
+"518
+[v _PORTCbits `VS33 ~T0 @X0 0 e@14 ]
 "25 SR_FRS.h
 [v _SetCommandMode `(v ~T0 @X0 0 ef ]
 "19 Function.H
@@ -15,12 +23,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _SetMIC `(v ~T0 @X0 0 ef2`uc`uc ]
 "195 C:\Program Files (x86)\Microchip\xc8\v1.37\include\stdio.h
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
-[; ;SR_FRS.h: 22: void SR_FRSTalk();
-[; ;SR_FRS.h: 23: void SR_RRSPowerDown();
-[; ;SR_FRS.h: 24: void SR_FRSStart();
-[; ;SR_FRS.h: 25: void SetCommandMode();
-[; ;SR_FRS.h: 26: void SetFrequency();
-[; ;SR_FRS.h: 27: void SetPowerSave();
+[; ;SR_FRS.h: 22: void SR_FRSTalk(void);
+[; ;SR_FRS.h: 23: void SR_FRSPowerDown(void);
+[; ;SR_FRS.h: 24: void SR_FRSStart(void);
+[; ;SR_FRS.h: 25: void SetCommandMode(void);
+[; ;SR_FRS.h: 26: void SetFrequency(void);
+[; ;SR_FRS.h: 27: void SetPowerSave(void);
 [; ;SR_FRS.h: 28: void SetVolume(char volume);
 [; ;SR_FRS.h: 29: void SetVOX(int volume);
 [; ;SR_FRS.h: 30: void SetMIC(char volume, char scram);
@@ -2953,15 +2961,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
 [; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 195: extern int printf(const char *, ...);
-[; ;Function.H: 17: void Start();
+[; ;Function.H: 17: void Start(void);
 [; ;Function.H: 18: void INTERRUPT_Initialize();
 [; ;Function.H: 19: void Delay(int wait);
+[; ;Function.H: 20: char ReadCharger(void);
+[; ;Function.H: 21: void LEDOff(void);
 "7 SR_FRS.c
 [v _SR_FRSTalk `(v ~T0 @X0 1 ef ]
 {
-[; ;SR_FRS.c: 7: void SR_FRSTalk(){
+[; ;SR_FRS.c: 7: void SR_FRSTalk(void){
 [e :U _SR_FRSTalk ]
 [f ]
+[; ;SR_FRS.c: 8: PORTCbits.RC7 = 0;
+"8
+[e = . . _PORTCbits 0 7 -> -> 0 `i `uc ]
 [; ;SR_FRS.c: 9: }
 "9
 [e :UE 369 ]
@@ -2969,9 +2982,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 "11
 [v _SR_FRSPowerDown `(v ~T0 @X0 1 ef ]
 {
-[; ;SR_FRS.c: 11: void SR_FRSPowerDown(){
+[; ;SR_FRS.c: 11: void SR_FRSPowerDown(void){
 [e :U _SR_FRSPowerDown ]
 [f ]
+[; ;SR_FRS.c: 12: PORTCbits.RC6 = 0;
+"12
+[e = . . _PORTCbits 0 6 -> -> 0 `i `uc ]
 [; ;SR_FRS.c: 13: }
 "13
 [e :UE 370 ]
@@ -2979,7 +2995,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "15
 [v _SR_FRSStart `(v ~T0 @X0 1 ef ]
 {
-[; ;SR_FRS.c: 15: void SR_FRSStart(){
+[; ;SR_FRS.c: 15: void SR_FRSStart(void){
 [e :U _SR_FRSStart ]
 [f ]
 [; ;SR_FRS.c: 16: SetCommandMode();
@@ -3022,7 +3038,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "34
 [v _SetCommandMode `(v ~T0 @X0 1 ef ]
 {
-[; ;SR_FRS.c: 34: void SetCommandMode(){
+[; ;SR_FRS.c: 34: void SetCommandMode(void){
 [e :U _SetCommandMode ]
 [f ]
 [; ;SR_FRS.c: 35: printf("AT+DMOCONNECT");
@@ -3035,10 +3051,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "38
 [v _SetFrequency `(v ~T0 @X0 1 ef ]
 {
-[; ;SR_FRS.c: 38: void SetFrequency(){
+[; ;SR_FRS.c: 38: void SetFrequency(void){
 [e :U _SetFrequency ]
 [f ]
-[; ;SR_FRS.c: 39: printf("AT+DMOSETGROUP=%d,%f,%f,%d,%d,%d",0,450.0250,450.0250,83,2,83,0);
+[; ;SR_FRS.c: 39: printf("AT+DMOSETGROUP=%d,%f,%f,%d,%d,%d,%d",0,450.0250,450.0250,83,2,83,0);
 "39
 [e ( _printf , , , , , , , (. :s 2C -> 0 `i .450.0250 .450.0250 -> 83 `i -> 2 `i -> 83 `i -> 0 `i ]
 [; ;SR_FRS.c: 40: }
@@ -3048,7 +3064,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "42
 [v _SetPowerSave `(v ~T0 @X0 1 ef ]
 {
-[; ;SR_FRS.c: 42: void SetPowerSave(){
+[; ;SR_FRS.c: 42: void SetPowerSave(void){
 [e :U _SetPowerSave ]
 [f ]
 [; ;SR_FRS.c: 44: printf("AT+DMOAUTOPOWCONTR=%c",1);
@@ -3110,9 +3126,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _volume `uc ~T0 @X0 1 r1 ]
 [v _scram `uc ~T0 @X0 1 r2 ]
 [f ]
-[; ;SR_FRS.c: 60: if((volume < 8) && (volume >= 0)){
+[; ;SR_FRS.c: 60: if((volume < 8) && (volume > 0)){
 "60
-[e $ ! && < -> _volume `i -> 8 `i >= -> _volume `i -> 0 `i 380  ]
+[e $ ! && < -> _volume `i -> 8 `i > -> _volume `i -> 0 `i 380  ]
 {
 [; ;SR_FRS.c: 61: printf("AT+DMOSETMIC=%c,%c,%c",volume,scram,0);
 "61
@@ -3125,8 +3141,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 "63
 [e :UE 379 ]
 }
-[p f _printf 15443373 ]
-[a 2C 65 84 43 68 77 79 83 69 84 71 82 79 85 80 61 37 100 44 37 102 44 37 102 44 37 100 44 37 100 44 37 100 0 ]
+[p f _printf 8921216 ]
+[a 2C 65 84 43 68 77 79 83 69 84 71 82 79 85 80 61 37 100 44 37 102 44 37 102 44 37 100 44 37 100 44 37 100 44 37 100 0 ]
 [a 3C 65 84 43 68 77 79 65 85 84 79 80 79 87 67 79 78 84 82 61 37 99 0 ]
 [a 4C 65 84 43 68 77 79 83 69 84 86 79 76 85 77 69 61 37 99 0 ]
 [a 5C 65 84 43 68 77 79 83 69 84 86 79 76 85 77 69 61 37 99 0 ]

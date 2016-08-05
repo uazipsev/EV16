@@ -3923,31 +3923,24 @@ extern __bit __powerdown;
 extern __bit __timeout;
 
 # 17 "Function.H"
-void Start();
+void Start(void);
 void INTERRUPT_Initialize();
 void Delay(int wait);
+char ReadCharger(void);
+void LEDOff(void);
 
 # 11 "Radio.h"
 void RadioOperation();
 void RadioBegin();
 
-# 22 "SR_FRS.h"
-void SR_FRSTalk();
-void SR_RRSPowerDown();
-void SR_FRSStart();
-void SetCommandMode();
-void SetFrequency();
-void SetPowerSave();
-void SetVolume(char volume);
-void SetVOX(int volume);
-void SetMIC(char volume, char scram);
-
-# 14 "Main.c"
+# 13 "Main.c"
 int main(void) {
 Start();
-SR_FRSStart();
+RadioBegin();
+LEDOff();
 while(1){
 RadioOperation();
+Delay(100);
 }
 return 0;
 }

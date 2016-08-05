@@ -1,4 +1,0 @@
- build/default/production/mcc_generated_files/eccp2.d  \
- build/default/production/mcc_generated_files/eccp2.p1:  \
- mcc_generated_files/eccp2.c  \
-mcc_generated_files/eccp2.h 

@@ -9,9 +9,6 @@
 #define	UART_H
 
 #include <stdbool.h>
-
-    char getch(void);
-    void putch(char txData);
 #define BAUD_SET 38400
 #define UART_BUFFER_SIZE 20
 #define CLOCK_RATE   16000000
@@ -38,14 +35,12 @@
     void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
     int UART_buff_size(struct UART_ring_buff* _this);
     unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
-    unsigned char UART_buff_peek(struct UART_ring_buff* _this);
     void EUSART1_Receive_ISR();
     void EUSART1_Transmit_ISR(void);
-
-    unsigned char Receive_peek(void);
-    int Receive_available(void);
-    unsigned char Receive_get(void);
+    char getch(void);
+    void putch(char txData);
     void Send_put(unsigned char _data);
+    unsigned char Receive_get(void);
 
 
 #endif	/* UART_H */

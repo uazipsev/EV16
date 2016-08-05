@@ -3,6 +3,7 @@
  Function.c  \
 UART.h  \
 Function.H  \
-PinDef1.h  \
+PinDef.h  \
 Timer.h  \
-Radio.h 
+Radio.h  \
+ADC.h 

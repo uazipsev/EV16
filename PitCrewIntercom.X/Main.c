@@ -9,13 +9,14 @@
 #include "xc.h"
 #include "Function.H"
 #include "Radio.h"
-#include "SR_FRS.h"
 
 int main(void) {
     Start();
-    SR_FRSStart();
+    RadioBegin();
+    LEDOff();
     while(1){
         RadioOperation();
+        Delay(100);
     }
     return 0;
 }

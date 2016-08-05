@@ -4,6 +4,7 @@
   Section: TMR2 APIs
 */
 
+unsigned int ticker = 0;
 
 void TMR2_Initialize(void)
 {
@@ -29,7 +30,7 @@ void TMR2_Initialize(void)
     //TMR2_SetInterruptHandler(TMR2_DefaultInterruptHandler);
 
     // Start TMR2
-    TMR2_StartTimer();
+    //TMR2_StartTimer();
 }
 
 void TMR2_StartTimer(void)
@@ -47,9 +48,18 @@ void TMR2_StopTimer(void)
 void TMR2_ISR(void)
 {
     // ticker function call;
+    ticker++;
     // clear the TMR2 interrupt flag
     PIR1bits.TMR2IF = 0;
 
+}
+
+void ClearTicker(void){
+    ticker = 0;
+}
+
+unsigned int GetTicker(){
+    return ticker;
 }
 /**
   End of File

@@ -34,9 +34,9 @@ void EUSART1_Initialize(void) {
 
     SPBRG = 0x25;
 
-    RCSTA = 0b100100000;
+    RCSTA = 0b10010000;
 
-    TXSTA = 0b001000000;
+    TXSTA = 0b00100000;
 
     UART_buff_init(&input_buffer);
     UART_buff_init(&output_buffer);
@@ -57,7 +57,7 @@ void UART_buff_init(struct UART_ring_buff* _this) {
     memset(_this, 0, sizeof (*_this));
 }
 
-void UART_buff_put(struct UART_ring_buff* _this, const unsigned char c) {
+void UART_buff_put(struct UART_ring_buff* _this, unsigned char c) {
     if (_this->count < UART_BUFFER_SIZE) {
         _this->buf[_this->head] = c;
         _this->head = UART_buff_modulo_inc(_this->head, UART_BUFFER_SIZE);
@@ -94,22 +94,6 @@ unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int m
     return (my_value);
 }
 
-unsigned char UART_buff_peek(struct UART_ring_buff* _this) {
-    return _this->buf[_this->tail];
-}
-
-unsigned char Receive_peek(void) {
-    return UART_buff_peek(&input_buffer);
-}
-
-int Receive_available(void) {
-    return UART_buff_size(&input_buffer);
-}
-
-unsigned char Receive_get(void) {
-    return UART_buff_get(&input_buffer);
-}
-
 void Send_put(unsigned char _data) {
     UART_buff_put(&output_buffer, _data);
     if (Transmit_stall == 1) {
@@ -117,6 +101,10 @@ void Send_put(unsigned char _data) {
         TXREG = UART_buff_get(&output_buffer);
         PIE1bits.TXIE = 1;
     }
+}
+
+unsigned char Receive_get(void) {
+    return UART_buff_get(&input_buffer);
 }
 
 char getch(void) {

@@ -2,31 +2,25 @@
 # 1 "Function.c"
 
 # 17 "Function.H"
-void Start();
+void Start(void);
 void INTERRUPT_Initialize();
 void Delay(int wait);
+char ReadCharger(void);
+void LEDOff(void);
 
 # 11 "Timer.h"
+unsigned int GetTicker(void);
+void ClearTicker(void);
+
 void TMR2_Initialize(void);
 void TMR2_StartTimer(void);
 void TMR2_StopTimer(void);
 void TMR2_ISR(void);
-void TMR2_CallBack(void);
-void TMR2_CallBack(void);
-
-void setLED(int);
-void Off_Led(int);
-void Change_Blink_Rate(char time);
-void Change_LED(char lit);
 
 # 12 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\stdbool.h"
 typedef unsigned char bool;
 
-# 13 "UART.h"
-char getch(void);
-void putch(char txData);
-
-# 20
+# 17 "UART.h"
 extern volatile unsigned int talkTime;
 
 
@@ -48,14 +42,12 @@ unsigned char UART_buff_get(struct UART_ring_buff* _this);
 void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
 int UART_buff_size(struct UART_ring_buff* _this);
 unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
-unsigned char UART_buff_peek(struct UART_ring_buff* _this);
 void EUSART1_Receive_ISR();
 void EUSART1_Transmit_ISR(void);
-
-unsigned char Receive_peek(void);
-int Receive_available(void);
-unsigned char Receive_get(void);
+char getch(void);
+void putch(char txData);
 void Send_put(unsigned char _data);
+unsigned char Receive_get(void);
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -3982,10 +3974,15 @@ extern __bit __timeout;
 void RadioOperation();
 void RadioBegin();
 
-# 8 "Function.c"
-void Start(){
+# 15 "ADC.h"
+void ADC_Initialize();
+int ReadVoltage(char ch);
+void SetADCChannel(char ch);
 
-# 12
+# 9 "Function.c"
+void Start(void){
+
+# 13
 TRISCbits.TRISC7 = 0;
 TRISCbits.TRISC6 = 0;
 TRISCbits.TRISC5 = 0;
@@ -3995,7 +3992,7 @@ TRISAbits.TRISA2 = 1;
 TRISCbits.TRISC0 = 1;
 TRISCbits.TRISC1 = 1;
 
-# 23
+# 24
 ANSELCbits.ANSC0 = 0;
 ANSELCbits.ANSC1 = 0;
 ANSELAbits.ANSA2 = 0;
@@ -4003,23 +4000,15 @@ ANSELCbits.ANSC3 = 0;
 ANSELCbits.ANSC6 = 0;
 ANSELCbits.ANSC7 = 0;
 
-# 32
-FVRCONbits.ADFVR0 = 1;
-FVRCONbits.ADFVR1 = 1;
-ADCON1bits.ADCS0 = 0;
-ADCON1bits.ADCS1 = 0;
-ADCON1bits.ADCS2 = 1;
-ADCON0bits.ADON = 1;
+# 33
+ADC_Initialize();
 
-# 41
+# 37
 EUSART1_Initialize();
 
-# 45
+# 41
 INTERRUPT_Initialize();
 TMR2_Initialize();
-
-
-
 }
 
 
@@ -4041,7 +4030,7 @@ INTCONbits.GIE = 1;
 INTCONbits.PEIE = 1;
 }
 
-void interrupt INTERRUPT_InterruptManager (void)
+void interrupt INTERRUPT_InterruptManager(void)
 {
 if(PIE1bits.TMR2IE == 1 && PIR1bits.TMR2IF == 1)
 {
@@ -4061,7 +4050,7 @@ else
 }
 }
 
-char ReadCharger(){
+char ReadCharger(void){
 
 if(!PORTCbits.RC0 && PORTCbits.RC1){
 return 1;
@@ -4074,5 +4063,13 @@ return 2;
 if(PORTCbits.RC0 && PORTCbits.RC1){
 return 0;
 }
+else{
+return 255;
+}
 }
 
+void LEDOff(void){
+PORTCbits.RC3 = 1;
+PORTCbits.RC4 = 1;
+PORTCbits.RC5 = 1;
+}

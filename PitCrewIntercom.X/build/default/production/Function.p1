@@ -1,5 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"23 UART.h
+"20 UART.h
 [s S1 `uc -> 20 `i `i 1 `i 1 `i 1 ]
 [n S1 UART_ring_buff buf head tail count ]
 "1245 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic16f1829.h
@@ -40,51 +40,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S148 . . . ]
 "2900
 [v _ANSELAbits `VS148 ~T0 @X0 0 e@396 ]
-"2490
-[s S131 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S131 . ADFVR0 ADFVR1 CDAFVR0 CDAFVR1 TSRNG TSEN FVRRDY FVREN ]
-"2500
-[s S132 :2 `uc 1 :2 `uc 1 ]
-[n S132 . ADFVR CDAFVR ]
-"2489
-[u S130 `S131 1 `S132 1 ]
-[n S130 . . . ]
-"2505
-[v _FVRCONbits `VS130 ~T0 @X0 0 e@279 ]
-"1983
-[s S108 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S108 . ADPREF0 ADPREF1 ADNREF . ADCS0 ADCS1 ADCS2 ADFM ]
-"1993
-[s S109 :2 `uc 1 :2 `uc 1 :3 `uc 1 ]
-[n S109 . ADPREF . ADCS ]
-"1982
-[u S107 `S108 1 `S109 1 ]
-[n S107 . . . ]
-"1999
-[v _ADCON1bits `VS107 ~T0 @X0 0 e@158 ]
-"1904
-[s S104 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S104 . ADON GO_nDONE CHS0 CHS1 CHS2 CHS3 CHS4 ]
-"1913
-[s S105 :1 `uc 1 :1 `uc 1 :5 `uc 1 ]
-[n S105 . . ADGO CHS ]
-"1918
-[s S106 :1 `uc 1 :1 `uc 1 ]
-[n S106 . . GO ]
-"1903
-[u S103 `S104 1 `S105 1 `S106 1 ]
-[n S103 . . . . ]
-"1923
-[v _ADCON0bits `VS103 ~T0 @X0 0 e@157 ]
-"34 UART.h
+"15 ADC.h
+[v _ADC_Initialize `(v ~T0 @X0 0 ef ]
+"31 UART.h
 [v _EUSART1_Initialize `(v ~T0 @X0 0 ef ]
 "18 Function.H
 [v _INTERRUPT_Initialize `(v ~T0 @X0 0 ef ]
-"11 Timer.h
+"14 Timer.h
 [v _TMR2_Initialize `(v ~T0 @X0 0 ef ]
-[v F3000 `(v ~T0 @X0 1 tf1`ul ]
+[v F2992 `(v ~T0 @X0 1 tf1`ul ]
 "152 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic.h
-[v __delay `JF3000 ~T0 @X0 0 e ]
+[v __delay `JF2992 ~T0 @X0 0 e ]
 [p i __delay ]
 "337 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic16f1829.h
 [v _INTCON `Vuc ~T0 @X0 0 e@11 ]
@@ -115,11 +81,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S75 . . ]
 "1317
 [v _PIE1bits `VS75 ~T0 @X0 0 e@145 ]
-"14 Timer.h
+"17 Timer.h
 [v _TMR2_ISR `(v ~T0 @X0 0 ef ]
-"42 UART.h
+"38 UART.h
 [v _EUSART1_Receive_ISR `(v ~T0 @X0 0 ef ]
-"43
+"39
 [v _EUSART1_Transmit_ISR `(v ~T0 @X0 0 ef ]
 "507 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic16f1829.h
 [s S35 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -129,55 +95,50 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S34 . . ]
 "518
 [v _PORTCbits `VS34 ~T0 @X0 0 e@14 ]
-[; ;Function.H: 17: void Start();
+[; ;Function.H: 17: void Start(void);
 [; ;Function.H: 18: void INTERRUPT_Initialize();
 [; ;Function.H: 19: void Delay(int wait);
-[; ;Timer.h: 11: void TMR2_Initialize(void);
-[; ;Timer.h: 12: void TMR2_StartTimer(void);
-[; ;Timer.h: 13: void TMR2_StopTimer(void);
-[; ;Timer.h: 14: void TMR2_ISR(void);
-[; ;Timer.h: 15: void TMR2_CallBack(void);
-[; ;Timer.h: 16: void TMR2_CallBack(void);
-[; ;Timer.h: 18: void setLED(int);
-[; ;Timer.h: 19: void Off_Led(int);
-[; ;Timer.h: 20: void Change_Blink_Rate(char time);
-[; ;Timer.h: 21: void Change_LED(char lit);
+[; ;Function.H: 20: char ReadCharger(void);
+[; ;Function.H: 21: void LEDOff(void);
+[; ;Timer.h: 11: unsigned int GetTicker(void);
+[; ;Timer.h: 12: void ClearTicker(void);
+[; ;Timer.h: 14: void TMR2_Initialize(void);
+[; ;Timer.h: 15: void TMR2_StartTimer(void);
+[; ;Timer.h: 16: void TMR2_StopTimer(void);
+[; ;Timer.h: 17: void TMR2_ISR(void);
 [; ;stdbool.h: 12: typedef unsigned char bool;
-[; ;UART.h: 13: char getch(void);
-[; ;UART.h: 14: void putch(char txData);
-[; ;UART.h: 20: extern volatile unsigned int talkTime;
-[; ;UART.h: 23: struct UART_ring_buff {
-[; ;UART.h: 24: unsigned char buf[20];
-[; ;UART.h: 25: int head;
-[; ;UART.h: 26: int tail;
-[; ;UART.h: 27: int count;
-[; ;UART.h: 28: };
-"30 UART.h
+[; ;UART.h: 17: extern volatile unsigned int talkTime;
+[; ;UART.h: 20: struct UART_ring_buff {
+[; ;UART.h: 21: unsigned char buf[20];
+[; ;UART.h: 22: int head;
+[; ;UART.h: 23: int tail;
+[; ;UART.h: 24: int count;
+[; ;UART.h: 25: };
+"27 UART.h
 [v _input_buffer `S1 ~T0 @X0 1 e ]
-[; ;UART.h: 30: struct UART_ring_buff input_buffer;
-"31
+[; ;UART.h: 27: struct UART_ring_buff input_buffer;
+"28
 [v _output_buffer `S1 ~T0 @X0 1 e ]
-[; ;UART.h: 31: struct UART_ring_buff output_buffer;
-"33
+[; ;UART.h: 28: struct UART_ring_buff output_buffer;
+"30
 [v _Transmit_stall `uc ~T0 @X0 1 e ]
 [i _Transmit_stall
 -> -> 1 `i `uc
 ]
-[; ;UART.h: 33: bool Transmit_stall = 1;
-[; ;UART.h: 34: void EUSART1_Initialize(void);
-[; ;UART.h: 35: void UART_buff_init(struct UART_ring_buff* _this);
-[; ;UART.h: 36: void UART_buff_put(struct UART_ring_buff* _this, const unsigned char c);
-[; ;UART.h: 37: unsigned char UART_buff_get(struct UART_ring_buff* _this);
-[; ;UART.h: 38: void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
-[; ;UART.h: 39: int UART_buff_size(struct UART_ring_buff* _this);
-[; ;UART.h: 40: unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
-[; ;UART.h: 41: unsigned char UART_buff_peek(struct UART_ring_buff* _this);
-[; ;UART.h: 42: void EUSART1_Receive_ISR();
-[; ;UART.h: 43: void EUSART1_Transmit_ISR(void);
-[; ;UART.h: 45: unsigned char Receive_peek(void);
-[; ;UART.h: 46: int Receive_available(void);
-[; ;UART.h: 47: unsigned char Receive_get(void);
-[; ;UART.h: 48: void Send_put(unsigned char _data);
+[; ;UART.h: 30: bool Transmit_stall = 1;
+[; ;UART.h: 31: void EUSART1_Initialize(void);
+[; ;UART.h: 32: void UART_buff_init(struct UART_ring_buff* _this);
+[; ;UART.h: 33: void UART_buff_put(struct UART_ring_buff* _this, const unsigned char c);
+[; ;UART.h: 34: unsigned char UART_buff_get(struct UART_ring_buff* _this);
+[; ;UART.h: 35: void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
+[; ;UART.h: 36: int UART_buff_size(struct UART_ring_buff* _this);
+[; ;UART.h: 37: unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
+[; ;UART.h: 38: void EUSART1_Receive_ISR();
+[; ;UART.h: 39: void EUSART1_Transmit_ISR(void);
+[; ;UART.h: 40: char getch(void);
+[; ;UART.h: 41: void putch(char txData);
+[; ;UART.h: 42: void Send_put(unsigned char _data);
+[; ;UART.h: 43: unsigned char Receive_get(void);
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -3079,255 +3040,274 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 188: extern __bit __timeout;
 [; ;Radio.h: 11: void RadioOperation();
 [; ;Radio.h: 12: void RadioBegin();
-"8 Function.c
+[; ;ADC.h: 15: void ADC_Initialize();
+[; ;ADC.h: 16: int ReadVoltage(char ch);
+[; ;ADC.h: 17: void SetADCChannel(char ch);
+"9 Function.c
 [v _Start `(v ~T0 @X0 1 ef ]
 {
-[; ;Function.c: 8: void Start(){
+[; ;Function.c: 9: void Start(void){
 [e :U _Start ]
 [f ]
-[; ;Function.c: 12: TRISCbits.TRISC7 = 0;
-"12
-[e = . . _TRISCbits 0 7 -> -> 0 `i `uc ]
-[; ;Function.c: 13: TRISCbits.TRISC6 = 0;
+[; ;Function.c: 13: TRISCbits.TRISC7 = 0;
 "13
-[e = . . _TRISCbits 0 6 -> -> 0 `i `uc ]
-[; ;Function.c: 14: TRISCbits.TRISC5 = 0;
+[e = . . _TRISCbits 0 7 -> -> 0 `i `uc ]
+[; ;Function.c: 14: TRISCbits.TRISC6 = 0;
 "14
-[e = . . _TRISCbits 0 5 -> -> 0 `i `uc ]
-[; ;Function.c: 15: TRISCbits.TRISC4 = 0;
+[e = . . _TRISCbits 0 6 -> -> 0 `i `uc ]
+[; ;Function.c: 15: TRISCbits.TRISC5 = 0;
 "15
-[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
-[; ;Function.c: 16: TRISCbits.TRISC3 = 0;
+[e = . . _TRISCbits 0 5 -> -> 0 `i `uc ]
+[; ;Function.c: 16: TRISCbits.TRISC4 = 0;
 "16
-[e = . . _TRISCbits 0 3 -> -> 0 `i `uc ]
-[; ;Function.c: 17: TRISAbits.TRISA2 = 1;
+[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
+[; ;Function.c: 17: TRISCbits.TRISC3 = 0;
 "17
-[e = . . _TRISAbits 0 2 -> -> 1 `i `uc ]
-[; ;Function.c: 18: TRISCbits.TRISC0 = 1;
+[e = . . _TRISCbits 0 3 -> -> 0 `i `uc ]
+[; ;Function.c: 18: TRISAbits.TRISA2 = 1;
 "18
-[e = . . _TRISCbits 0 0 -> -> 1 `i `uc ]
-[; ;Function.c: 19: TRISCbits.TRISC1 = 1;
+[e = . . _TRISAbits 0 2 -> -> 1 `i `uc ]
+[; ;Function.c: 19: TRISCbits.TRISC0 = 1;
 "19
+[e = . . _TRISCbits 0 0 -> -> 1 `i `uc ]
+[; ;Function.c: 20: TRISCbits.TRISC1 = 1;
+"20
 [e = . . _TRISCbits 0 1 -> -> 1 `i `uc ]
-[; ;Function.c: 23: ANSELCbits.ANSC0 = 0;
-"23
-[e = . . _ANSELCbits 0 0 -> -> 0 `i `uc ]
-[; ;Function.c: 24: ANSELCbits.ANSC1 = 0;
+[; ;Function.c: 24: ANSELCbits.ANSC0 = 0;
 "24
-[e = . . _ANSELCbits 0 1 -> -> 0 `i `uc ]
-[; ;Function.c: 25: ANSELAbits.ANSA2 = 0;
+[e = . . _ANSELCbits 0 0 -> -> 0 `i `uc ]
+[; ;Function.c: 25: ANSELCbits.ANSC1 = 0;
 "25
-[e = . . _ANSELAbits 0 2 -> -> 0 `i `uc ]
-[; ;Function.c: 26: ANSELCbits.ANSC3 = 0;
+[e = . . _ANSELCbits 0 1 -> -> 0 `i `uc ]
+[; ;Function.c: 26: ANSELAbits.ANSA2 = 0;
 "26
-[e = . . _ANSELCbits 0 3 -> -> 0 `i `uc ]
-[; ;Function.c: 27: ANSELCbits.ANSC6 = 0;
+[e = . . _ANSELAbits 0 2 -> -> 0 `i `uc ]
+[; ;Function.c: 27: ANSELCbits.ANSC3 = 0;
 "27
-[e = . . _ANSELCbits 0 5 -> -> 0 `i `uc ]
-[; ;Function.c: 28: ANSELCbits.ANSC7 = 0;
+[e = . . _ANSELCbits 0 3 -> -> 0 `i `uc ]
+[; ;Function.c: 28: ANSELCbits.ANSC6 = 0;
 "28
+[e = . . _ANSELCbits 0 5 -> -> 0 `i `uc ]
+[; ;Function.c: 29: ANSELCbits.ANSC7 = 0;
+"29
 [e = . . _ANSELCbits 0 6 -> -> 0 `i `uc ]
-[; ;Function.c: 32: FVRCONbits.ADFVR0 = 1;
-"32
-[e = . . _FVRCONbits 0 0 -> -> 1 `i `uc ]
-[; ;Function.c: 33: FVRCONbits.ADFVR1 = 1;
+[; ;Function.c: 33: ADC_Initialize();
 "33
-[e = . . _FVRCONbits 0 1 -> -> 1 `i `uc ]
-[; ;Function.c: 34: ADCON1bits.ADCS0 = 0;
-"34
-[e = . . _ADCON1bits 0 4 -> -> 0 `i `uc ]
-[; ;Function.c: 35: ADCON1bits.ADCS1 = 0;
-"35
-[e = . . _ADCON1bits 0 5 -> -> 0 `i `uc ]
-[; ;Function.c: 36: ADCON1bits.ADCS2 = 1;
-"36
-[e = . . _ADCON1bits 0 6 -> -> 1 `i `uc ]
-[; ;Function.c: 37: ADCON0bits.ADON = 1;
+[e ( _ADC_Initialize ..  ]
+[; ;Function.c: 37: EUSART1_Initialize();
 "37
-[e = . . _ADCON0bits 0 0 -> -> 1 `i `uc ]
-[; ;Function.c: 41: EUSART1_Initialize();
-"41
 [e ( _EUSART1_Initialize ..  ]
-[; ;Function.c: 45: INTERRUPT_Initialize();
-"45
+[; ;Function.c: 41: INTERRUPT_Initialize();
+"41
 [e ( _INTERRUPT_Initialize ..  ]
-[; ;Function.c: 46: TMR2_Initialize();
-"46
+[; ;Function.c: 42: TMR2_Initialize();
+"42
 [e ( _TMR2_Initialize ..  ]
-[; ;Function.c: 50: }
-"50
+[; ;Function.c: 43: }
+"43
 [e :UE 369 ]
 }
-"53
+"46
 [v _Delay `(v ~T0 @X0 1 ef1`i ]
 {
-[; ;Function.c: 53: void Delay(int wait) {
+[; ;Function.c: 46: void Delay(int wait) {
 [e :U _Delay ]
 [v _wait `i ~T0 @X0 1 r1 ]
 [f ]
-"54
+"47
 [v _x `i ~T0 @X0 1 a ]
-[; ;Function.c: 54: int x;
-[; ;Function.c: 55: for (x = 0; x < wait; x++) {
-"55
+[; ;Function.c: 47: int x;
+[; ;Function.c: 48: for (x = 0; x < wait; x++) {
+"48
 {
 [e = _x -> 0 `i ]
 [e $U 374  ]
 [e :U 371 ]
 {
-[; ;Function.c: 56: _delay((unsigned long)((1)*(4000000/4000.0)));
-"56
+[; ;Function.c: 49: _delay((unsigned long)((1)*(4000000/4000.0)));
+"49
 [e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-"57
+"50
 }
-"55
+"48
 [e ++ _x -> 1 `i ]
 [e :U 374 ]
 [e $ < _x _wait 371  ]
 [e :U 372 ]
-"57
+"50
 }
-[; ;Function.c: 57: }
-[; ;Function.c: 58: }
-"58
+[; ;Function.c: 50: }
+[; ;Function.c: 51: }
+"51
 [e :UE 370 ]
 }
-"60
+"53
 [v _INTERRUPT_Initialize `(v ~T0 @X0 1 ef ]
 {
-[; ;Function.c: 60: void INTERRUPT_Initialize(){
+[; ;Function.c: 53: void INTERRUPT_Initialize(){
 [e :U _INTERRUPT_Initialize ]
 [f ]
-[; ;Function.c: 62: INTCON = 0;
-"62
+[; ;Function.c: 55: INTCON = 0;
+"55
 [e = _INTCON -> -> 0 `i `uc ]
-[; ;Function.c: 63: INTCONbits.TMR0IE = 0;
-"63
+[; ;Function.c: 56: INTCONbits.TMR0IE = 0;
+"56
 [e = . . _INTCONbits 0 5 -> -> 0 `i `uc ]
-[; ;Function.c: 64: PIR1bits.TMR2IF = 0;
-"64
+[; ;Function.c: 57: PIR1bits.TMR2IF = 0;
+"57
 [e = . . _PIR1bits 0 1 -> -> 0 `i `uc ]
-[; ;Function.c: 65: PIE1bits.TMR2IE = 1;
-"65
+[; ;Function.c: 58: PIE1bits.TMR2IE = 1;
+"58
 [e = . . _PIE1bits 0 1 -> -> 1 `i `uc ]
-[; ;Function.c: 66: INTCONbits.TMR0IF = 0;
-"66
+[; ;Function.c: 59: INTCONbits.TMR0IF = 0;
+"59
 [e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
-[; ;Function.c: 67: INTCONbits.GIE = 1;
-"67
+[; ;Function.c: 60: INTCONbits.GIE = 1;
+"60
 [e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
-[; ;Function.c: 68: INTCONbits.PEIE = 1;
-"68
+[; ;Function.c: 61: INTCONbits.PEIE = 1;
+"61
 [e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-[; ;Function.c: 69: }
-"69
+[; ;Function.c: 62: }
+"62
 [e :UE 375 ]
 }
-[v F3011 `(v ~T0 @X0 1 tf ]
-"71
-[v _INTERRUPT_InterruptManager `IF3011 ~T0 @X0 1 e ]
-"72
+[v F3009 `(v ~T0 @X0 1 tf ]
+"64
+[v _INTERRUPT_InterruptManager `IF3009 ~T0 @X0 1 e ]
+"65
 {
-[; ;Function.c: 71: void interrupt INTERRUPT_InterruptManager (void)
-[; ;Function.c: 72: {
+[; ;Function.c: 64: void interrupt INTERRUPT_InterruptManager(void)
+[; ;Function.c: 65: {
 [e :U _INTERRUPT_InterruptManager ]
 [f ]
-[; ;Function.c: 73: if(PIE1bits.TMR2IE == 1 && PIR1bits.TMR2IF == 1)
-"73
+[; ;Function.c: 66: if(PIE1bits.TMR2IE == 1 && PIR1bits.TMR2IF == 1)
+"66
 [e $ ! && == -> . . _PIE1bits 0 1 `i -> 1 `i == -> . . _PIR1bits 0 1 `i -> 1 `i 377  ]
-[; ;Function.c: 74: {
-"74
+[; ;Function.c: 67: {
+"67
 {
-[; ;Function.c: 75: TMR2_ISR();
-"75
+[; ;Function.c: 68: TMR2_ISR();
+"68
 [e ( _TMR2_ISR ..  ]
-"76
+"69
 }
 [e :U 377 ]
-[; ;Function.c: 76: }
-[; ;Function.c: 77: if(PIE1bits.RCIE == 1 && PIR1bits.RCIF == 1)
-"77
+[; ;Function.c: 69: }
+[; ;Function.c: 70: if(PIE1bits.RCIE == 1 && PIR1bits.RCIF == 1)
+"70
 [e $ ! && == -> . . _PIE1bits 0 5 `i -> 1 `i == -> . . _PIR1bits 0 5 `i -> 1 `i 378  ]
-[; ;Function.c: 78: {
-"78
+[; ;Function.c: 71: {
+"71
 {
-[; ;Function.c: 79: EUSART1_Receive_ISR();
-"79
+[; ;Function.c: 72: EUSART1_Receive_ISR();
+"72
 [e ( _EUSART1_Receive_ISR ..  ]
-"80
+"73
 }
 [e :U 378 ]
-[; ;Function.c: 80: }
-[; ;Function.c: 81: if(PIE1bits.TXIE == 1 && PIR1bits.TXIF == 1)
-"81
+[; ;Function.c: 73: }
+[; ;Function.c: 74: if(PIE1bits.TXIE == 1 && PIR1bits.TXIF == 1)
+"74
 [e $ ! && == -> . . _PIE1bits 0 4 `i -> 1 `i == -> . . _PIR1bits 0 4 `i -> 1 `i 379  ]
-[; ;Function.c: 82: {
-"82
+[; ;Function.c: 75: {
+"75
 {
-[; ;Function.c: 83: EUSART1_Transmit_ISR();
-"83
+[; ;Function.c: 76: EUSART1_Transmit_ISR();
+"76
 [e ( _EUSART1_Transmit_ISR ..  ]
-"84
+"77
 }
-[; ;Function.c: 84: }
+[; ;Function.c: 77: }
 [e $U 380  ]
-"85
+"78
 [e :U 379 ]
-[; ;Function.c: 85: else
-[; ;Function.c: 86: {
-"86
+[; ;Function.c: 78: else
+[; ;Function.c: 79: {
+"79
 {
-"88
+"81
 }
 [e :U 380 ]
-[; ;Function.c: 88: }
-[; ;Function.c: 89: }
-"89
+[; ;Function.c: 81: }
+[; ;Function.c: 82: }
+"82
 [e :UE 376 ]
 }
-"91
+"84
 [v _ReadCharger `(uc ~T0 @X0 1 ef ]
 {
-[; ;Function.c: 91: char ReadCharger(){
+[; ;Function.c: 84: char ReadCharger(void){
 [e :U _ReadCharger ]
 [f ]
-[; ;Function.c: 93: if(!PORTCbits.RC0 && PORTCbits.RC1){
-"93
+[; ;Function.c: 86: if(!PORTCbits.RC0 && PORTCbits.RC1){
+"86
 [e $ ! && ! != -> . . _PORTCbits 0 0 `i -> -> -> 0 `i `Vuc `i != -> . . _PORTCbits 0 1 `i -> -> -> 0 `i `Vuc `i 382  ]
 {
-[; ;Function.c: 94: return 1;
-"94
+[; ;Function.c: 87: return 1;
+"87
 [e ) -> -> 1 `i `uc ]
 [e $UE 381  ]
-"95
+"88
 }
 [e :U 382 ]
-[; ;Function.c: 95: }
-[; ;Function.c: 97: if(PORTCbits.RC0 && !PORTCbits.RC1){
-"97
+[; ;Function.c: 88: }
+[; ;Function.c: 90: if(PORTCbits.RC0 && !PORTCbits.RC1){
+"90
 [e $ ! && != -> . . _PORTCbits 0 0 `i -> -> -> 0 `i `Vuc `i ! != -> . . _PORTCbits 0 1 `i -> -> -> 0 `i `Vuc `i 383  ]
 {
-[; ;Function.c: 98: return 2;
-"98
+[; ;Function.c: 91: return 2;
+"91
 [e ) -> -> 2 `i `uc ]
+[e $UE 381  ]
+"92
+}
+[e :U 383 ]
+[; ;Function.c: 92: }
+[; ;Function.c: 94: if(PORTCbits.RC0 && PORTCbits.RC1){
+"94
+[e $ ! && != -> . . _PORTCbits 0 0 `i -> -> -> 0 `i `Vuc `i != -> . . _PORTCbits 0 1 `i -> -> -> 0 `i `Vuc `i 384  ]
+{
+[; ;Function.c: 95: return 0;
+"95
+[e ) -> -> 0 `i `uc ]
+[e $UE 381  ]
+"96
+}
+[; ;Function.c: 96: }
+[e $U 385  ]
+"97
+[e :U 384 ]
+[; ;Function.c: 97: else{
+{
+[; ;Function.c: 98: return 255;
+"98
+[e ) -> -> 255 `i `uc ]
 [e $UE 381  ]
 "99
 }
-[e :U 383 ]
+[e :U 385 ]
 [; ;Function.c: 99: }
-[; ;Function.c: 101: if(PORTCbits.RC0 && PORTCbits.RC1){
-"101
-[e $ ! && != -> . . _PORTCbits 0 0 `i -> -> -> 0 `i `Vuc `i != -> . . _PORTCbits 0 1 `i -> -> -> 0 `i `Vuc `i 384  ]
-{
-[; ;Function.c: 102: return 0;
-"102
-[e ) -> -> 0 `i `uc ]
-[e $UE 381  ]
-"103
-}
-[e :U 384 ]
-[; ;Function.c: 103: }
-[; ;Function.c: 104: }
-"104
+[; ;Function.c: 100: }
+"100
 [e :UE 381 ]
+}
+"102
+[v _LEDOff `(v ~T0 @X0 1 ef ]
+{
+[; ;Function.c: 102: void LEDOff(void){
+[e :U _LEDOff ]
+[f ]
+[; ;Function.c: 103: PORTCbits.RC3 = 1;
+"103
+[e = . . _PORTCbits 0 3 -> -> 1 `i `uc ]
+[; ;Function.c: 104: PORTCbits.RC4 = 1;
+"104
+[e = . . _PORTCbits 0 4 -> -> 1 `i `uc ]
+[; ;Function.c: 105: PORTCbits.RC5 = 1;
+"105
+[e = . . _PORTCbits 0 5 -> -> 1 `i `uc ]
+[; ;Function.c: 106: }
+"106
+[e :UE 386 ]
 }

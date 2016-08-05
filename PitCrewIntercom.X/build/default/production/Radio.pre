@@ -6,12 +6,12 @@ void RadioOperation();
 void RadioBegin();
 
 # 22 "SR_FRS.h"
-void SR_FRSTalk();
-void SR_RRSPowerDown();
-void SR_FRSStart();
-void SetCommandMode();
-void SetFrequency();
-void SetPowerSave();
+void SR_FRSTalk(void);
+void SR_FRSPowerDown(void);
+void SR_FRSStart(void);
+void SetCommandMode(void);
+void SetFrequency(void);
+void SetPowerSave(void);
 void SetVolume(char volume);
 void SetVOX(int volume);
 void SetMIC(char volume, char scram);
@@ -3940,28 +3940,77 @@ extern __bit __timeout;
 # 12 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\stdbool.h"
 typedef unsigned char bool;
 
-# 8 "Radio.c"
+# 11 "Timer.h"
+unsigned int GetTicker(void);
+void ClearTicker(void);
+
+void TMR2_Initialize(void);
+void TMR2_StartTimer(void);
+void TMR2_StopTimer(void);
+void TMR2_ISR(void);
+
+# 15 "ADC.h"
+void ADC_Initialize();
+int ReadVoltage(char ch);
+void SetADCChannel(char ch);
+
+# 17 "Function.H"
+void Start(void);
+void INTERRUPT_Initialize();
+void Delay(int wait);
+char ReadCharger(void);
+void LEDOff(void);
+
+# 14 "Radio.c"
+int time = 0;
 int count = 0;
-bool Talking;
+float Battery = 0;
+char Mode = 0;
+bool Talking = 0;
+bool Shutdown = 0;
 
 void RadioBegin(){
 SR_FRSStart();
 }
 
 void RadioOperation(){
-if(PORTAbits.RA2){
+if(!PORTAbits.RA2 && !Talking){
 count++;
 }
-else{
-count = 0;
-if(Talking){
+if(Talking && PORTAbits.RA2){
+count--;
+if(count < 50){
 PORTCbits.RC3 = 1;
 SR_FRSTalk();
+TMR2_StartTimer();
+count = 0;
 }
 }
-if(count > 100){
+if((count > 100) && !Talking){
 SR_FRSTalk();
 PORTCbits.RC3 = 0;
 Talking = 1;
+TMR2_StopTimer();
+ClearTicker();
 }
+if(GetTicker() > 100){
+
+SR_FRSPowerDown();
+PORTCbits.RC3 = 0;
+}
+if(time > 150){
+PORTCbits.RC4 = 0;
+Battery = ReadVoltage(1);
+Battery = (Battery*5.0)/1023.0;
+time = 0;
+Mode = ReadCharger();
+}
+if((time > 2) && (PORTCbits.RC4 == 0)){
+PORTCbits.RC4 = 1;
+}
+if(Battery < 6.2){
+SR_FRSPowerDown();
+PORTCbits.RC3 = 0;
+}
+time++;
 }

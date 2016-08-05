@@ -1,18 +1,18 @@
 #include "SR_FRS.h"
-#include "PinDef1.h"
+#include "PinDef.h"
 #include <xc.h>
 #include <stdio.h>
 #include "Function.H"
 
-void SR_FRSTalk(){
-    //RadioPushTT = 0;
+void SR_FRSTalk(void){
+    RadioPushTT = 0;
 }
 
-void SR_FRSPowerDown(){
-    //RadioPower = 0;
+void SR_FRSPowerDown(void){
+    RadioPower = 0;
 }
 
-void SR_FRSStart(){
+void SR_FRSStart(void){
     SetCommandMode();
     Delay(100);
     //Setup FRQ
@@ -31,15 +31,15 @@ void SR_FRSStart(){
     SetMIC(5,0);
 }
 
-void SetCommandMode(){
+void SetCommandMode(void){
     printf("AT+DMOCONNECT");
 }
 
-void SetFrequency(){
-    printf("AT+DMOSETGROUP=%d,%f,%f,%d,%d,%d",0,TXFrequency,RXFrequency,RXCX,SQ,TXCX,0);
+void SetFrequency(void){
+    printf("AT+DMOSETGROUP=%d,%f,%f,%d,%d,%d,%d",0,TXFrequency,RXFrequency,RXCX,SQ,TXCX,0);
 }
 
-void SetPowerSave(){
+void SetPowerSave(void){
     //We are controlling that directly, so turn feature off
     printf("AT+DMOAUTOPOWCONTR=%c",1);
 }
@@ -57,7 +57,7 @@ void SetVOX(int volume){
 }
 
 void SetMIC(char volume, char scram){
-    if((volume < 8) && (volume >= 0)){
+    if((volume < 8) && (volume > 0)){
         printf("AT+DMOSETMIC=%c,%c,%c",volume,scram,0);
     }
 }

@@ -2,10 +2,11 @@
 #include "Timer.h"
 #include "UART.h"
 #include <xc.h>
-#include "PinDef1.h"
+#include "PinDef.h"
 #include "Radio.h"
+#include "ADC.h"
 
-void Start(){
+void Start(void){
      /*
      *  I/O
      */
@@ -29,12 +30,7 @@ void Start(){
     /*
      *  ADC This is for battery level
      */
-    FVRCONbits.ADFVR0 = 1; //vref
-    FVRCONbits.ADFVR1 = 1;
-    ADCON1bits.ADCS0 = 0; //Selecting the clk division factor = FOSC/4
-    ADCON1bits.ADCS1 = 0;
-    ADCON1bits.ADCS2 = 1;
-    ADCON0bits.ADON = 1; //Turns on ADC module
+    ADC_Initialize();
     /*
      *  UART
      */
@@ -44,9 +40,6 @@ void Start(){
      */
     INTERRUPT_Initialize();
     TMR2_Initialize();
-    
-    
-
 }
 
 //Used to allow for longer delays if required. 
@@ -68,7 +61,7 @@ void INTERRUPT_Initialize(){
   INTCONbits.PEIE = 1;          // bit6 Peripheral Interrupt Enable bit...1 = Enables all unmasked peripheral interrupts
 }
 
-void interrupt INTERRUPT_InterruptManager (void)
+void interrupt INTERRUPT_InterruptManager(void)
 {
     if(PIE1bits.TMR2IE == 1 && PIR1bits.TMR2IF == 1)
     {
@@ -88,7 +81,7 @@ void interrupt INTERRUPT_InterruptManager (void)
     }
 }
 
-char ReadCharger(){
+char ReadCharger(void){
     //Precharge or charging
     if(!ChargerS0 && ChargerS1){
         return CHARGING;         
@@ -101,5 +94,13 @@ char ReadCharger(){
     if(ChargerS0 && ChargerS1){
         return OFF; 
     }
+    else{
+        return 255;
+    }
 }
 
+void LEDOff(void){
+    LED_Red = 1;
+    LED_Green = 1;
+    LED_Blue = 1;
+}

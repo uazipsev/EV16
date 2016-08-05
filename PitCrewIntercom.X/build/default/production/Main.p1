@@ -2,10 +2,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p mainexit ]
 "17 Function.H
 [v _Start `(v ~T0 @X0 0 ef ]
-"24 SR_FRS.h
-[v _SR_FRSStart `(v ~T0 @X0 0 ef ]
+"12 Radio.h
+[v _RadioBegin `(v ~T0 @X0 0 ef ]
+"21 Function.H
+[v _LEDOff `(v ~T0 @X0 0 ef ]
 "11 Radio.h
 [v _RadioOperation `(v ~T0 @X0 0 ef ]
+"19 Function.H
+[v _Delay `(v ~T0 @X0 0 ef1`i ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -2905,32 +2909,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-[; ;Function.H: 17: void Start();
+[; ;Function.H: 17: void Start(void);
 [; ;Function.H: 18: void INTERRUPT_Initialize();
 [; ;Function.H: 19: void Delay(int wait);
+[; ;Function.H: 20: char ReadCharger(void);
+[; ;Function.H: 21: void LEDOff(void);
 [; ;Radio.h: 11: void RadioOperation();
 [; ;Radio.h: 12: void RadioBegin();
-[; ;SR_FRS.h: 22: void SR_FRSTalk();
-[; ;SR_FRS.h: 23: void SR_RRSPowerDown();
-[; ;SR_FRS.h: 24: void SR_FRSStart();
-[; ;SR_FRS.h: 25: void SetCommandMode();
-[; ;SR_FRS.h: 26: void SetFrequency();
-[; ;SR_FRS.h: 27: void SetPowerSave();
-[; ;SR_FRS.h: 28: void SetVolume(char volume);
-[; ;SR_FRS.h: 29: void SetVOX(int volume);
-[; ;SR_FRS.h: 30: void SetMIC(char volume, char scram);
-"14 Main.c
+"13 Main.c
 [v _main `(i ~T0 @X0 1 ef ]
 {
-[; ;Main.c: 14: int main(void) {
+[; ;Main.c: 13: int main(void) {
 [e :U _main ]
 [f ]
-[; ;Main.c: 15: Start();
-"15
+[; ;Main.c: 14: Start();
+"14
 [e ( _Start ..  ]
-[; ;Main.c: 16: SR_FRSStart();
+[; ;Main.c: 15: RadioBegin();
+"15
+[e ( _RadioBegin ..  ]
+[; ;Main.c: 16: LEDOff();
 "16
-[e ( _SR_FRSStart ..  ]
+[e ( _LEDOff ..  ]
 [; ;Main.c: 17: while(1){
 "17
 [e :U 370 ]
@@ -2938,18 +2938,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Main.c: 18: RadioOperation();
 "18
 [e ( _RadioOperation ..  ]
+[; ;Main.c: 19: Delay(100);
 "19
+[e ( _Delay (1 -> 100 `i ]
+"20
 }
 [e :U 369 ]
 "17
 [e $U 370  ]
 [e :U 371 ]
-[; ;Main.c: 19: }
-[; ;Main.c: 20: return 0;
-"20
+[; ;Main.c: 20: }
+[; ;Main.c: 21: return 0;
+"21
 [e ) -> 0 `i ]
 [e $UE 368  ]
-[; ;Main.c: 21: }
-"21
+[; ;Main.c: 22: }
+"22
 [e :UE 368 ]
 }

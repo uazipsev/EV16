@@ -2,17 +2,13 @@
 # 1 "Timer.c"
 
 # 11 "Timer.h"
+unsigned int GetTicker(void);
+void ClearTicker(void);
+
 void TMR2_Initialize(void);
 void TMR2_StartTimer(void);
 void TMR2_StopTimer(void);
 void TMR2_ISR(void);
-void TMR2_CallBack(void);
-void TMR2_CallBack(void);
-
-void setLED(int);
-void Off_Led(int);
-void Change_Blink_Rate(char time);
-void Change_LED(char lit);
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -3935,7 +3931,9 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
-# 8 "Timer.c"
+# 7 "Timer.c"
+unsigned int ticker = 0;
+
 void TMR2_Initialize(void)
 {
 
@@ -3956,8 +3954,7 @@ PIR1bits.TMR2IF = 0;
 
 PIE1bits.TMR2IE = 1;
 
-# 32
-TMR2_StartTimer();
+# 34
 }
 
 void TMR2_StartTimer(void)
@@ -3975,8 +3972,17 @@ T2CONbits.TMR2ON = 0;
 void TMR2_ISR(void)
 {
 
+ticker++;
 
 PIR1bits.TMR2IF = 0;
 
+}
+
+void ClearTicker(void){
+ticker = 0;
+}
+
+unsigned int GetTicker(){
+return ticker;
 }
 
