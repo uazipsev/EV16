@@ -5,11 +5,11 @@
 #include "Function.H"
 
 void SR_FRSTalk(void){
-    RadioPushTT = 0;
+    RadioPushTT ^= RadioPushTT;
 }
 
 void SR_FRSPowerDown(void){
-    RadioPower = 0;
+    RadioPower ^= RadioPower;
 }
 
 void SR_FRSStart(void){

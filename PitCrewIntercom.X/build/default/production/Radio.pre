@@ -3977,26 +3977,27 @@ void RadioOperation(){
 if(!PORTAbits.RA2 && !Talking){
 count++;
 }
-if(Talking && PORTAbits.RA2){
-count--;
-if(count < 50){
-PORTCbits.RC3 = 1;
-SR_FRSTalk();
-TMR2_StartTimer();
-count = 0;
-}
-}
-if((count > 100) && !Talking){
+if((count > 5) && !Talking){
 SR_FRSTalk();
 PORTCbits.RC3 = 0;
 Talking = 1;
 TMR2_StopTimer();
 ClearTicker();
 }
-if(GetTicker() > 100){
+if(Talking && PORTAbits.RA2){
+count--;
+if(count < 2){
+PORTCbits.RC3 = 1;
+SR_FRSTalk();
+TMR2_StartTimer();
+count = 0;
+Talking = 0;
+}
+}
+if(GetTicker() > 100000){
 
 SR_FRSPowerDown();
-PORTCbits.RC3 = 0;
+PORTCbits.RC5 = 0;
 }
 if(time > 150){
 PORTCbits.RC4 = 0;
@@ -4011,6 +4012,14 @@ PORTCbits.RC4 = 1;
 if(Battery < 6.2){
 SR_FRSPowerDown();
 PORTCbits.RC3 = 0;
+}
+if(ReadCharger() == 1){
+PORTCbits.RC4 = 0;
+PORTCbits.RC5 = 0;
+}
+if(ReadCharger() == 2){
+PORTCbits.RC5 = 1;
+PORTCbits.RC4 = 0;
 }
 time++;
 }

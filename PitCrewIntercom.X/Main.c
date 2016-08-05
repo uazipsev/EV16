@@ -9,10 +9,12 @@
 #include "xc.h"
 #include "Function.H"
 #include "Radio.h"
+#include "Timer.h"
 
 int main(void) {
     Start();
     RadioBegin();
+    TMR2_StartTimer();
     LEDOff();
     while(1){
         RadioOperation();

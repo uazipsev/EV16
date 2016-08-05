@@ -7,9 +7,9 @@
 #include "ADC.h"
 #include "Function.H"
 
-#define TALKBUTTONWAIT 100
-#define LISTENBUTTONWAIT 50
-#define POWERDOWN 100
+#define TALKBUTTONWAIT 5
+#define LISTENBUTTONWAIT 2
+#define POWERDOWNTIME 100000
 
 int time = 0;
 int count = 0;
@@ -26,15 +26,6 @@ void RadioOperation(){
     if(!PushToTalk && !Talking){
         count++;
     }
-    if(Talking && PushToTalk){
-        count--;
-        if(count < LISTENBUTTONWAIT){
-            LED_Red = 1;
-            SR_FRSTalk();
-            TMR2_StartTimer();
-            count = 0;
-        }
-    }
     if((count > TALKBUTTONWAIT) && !Talking){
         SR_FRSTalk();
         LED_Red = 0;
@@ -42,10 +33,20 @@ void RadioOperation(){
         TMR2_StopTimer();
         ClearTicker();
     }
-    if(GetTicker() > POWERDOWN){
+    if(Talking && PushToTalk){
+        count--;
+        if(count < LISTENBUTTONWAIT){
+            LED_Red = 1;
+            SR_FRSTalk();
+            TMR2_StartTimer();
+            count = 0;
+            Talking = false;
+        }
+    }
+    if(GetTicker() > POWERDOWNTIME){
         //SHUT DOWN DEVICE 
         SR_FRSPowerDown();
-        LED_Red = 0;
+        LED_Blue = 0;
     }
     if(time > 150){
         LED_Green = 0;
@@ -60,6 +61,14 @@ void RadioOperation(){
     if(Battery < 6.2){
         SR_FRSPowerDown();
         LED_Red = 0;
+    }
+    if(ReadCharger() == CHARGING){
+        LED_Green = 0;
+        LED_Blue = 0;
+    }
+    if(ReadCharger() == DONE){
+        LED_Blue = 1;
+        LED_Green = 0;
     }
     time++;
 }

@@ -1,17 +1,47 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[p mainexit ]
-"17 Function.H
-[v _Start `(v ~T0 @X0 0 ef ]
-"12 Radio.h
-[v _RadioBegin `(v ~T0 @X0 0 ef ]
-"15 Timer.h
-[v _TMR2_StartTimer `(v ~T0 @X0 0 ef ]
-"21 Function.H
-[v _LEDOff `(v ~T0 @X0 0 ef ]
-"11 Radio.h
-[v _RadioOperation `(v ~T0 @X0 0 ef ]
-"19 Function.H
-[v _Delay `(v ~T0 @X0 0 ef1`i ]
+"2490 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic16f1829.h
+[s S130 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S130 . ADFVR0 ADFVR1 CDAFVR0 CDAFVR1 TSRNG TSEN FVRRDY FVREN ]
+"2500
+[s S131 :2 `uc 1 :2 `uc 1 ]
+[n S131 . ADFVR CDAFVR ]
+"2489
+[u S129 `S130 1 `S131 1 ]
+[n S129 . . . ]
+"2505
+[v _FVRCONbits `VS129 ~T0 @X0 0 e@279 ]
+"1983
+[s S107 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S107 . ADPREF0 ADPREF1 ADNREF . ADCS0 ADCS1 ADCS2 ADFM ]
+"1993
+[s S108 :2 `uc 1 :2 `uc 1 :3 `uc 1 ]
+[n S108 . ADPREF . ADCS ]
+"1982
+[u S106 `S107 1 `S108 1 ]
+[n S106 . . . ]
+"1999
+[v _ADCON1bits `VS106 ~T0 @X0 0 e@158 ]
+"1904
+[s S103 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S103 . ADON GO_nDONE CHS0 CHS1 CHS2 CHS3 CHS4 ]
+"1913
+[s S104 :1 `uc 1 :1 `uc 1 :5 `uc 1 ]
+[n S104 . . ADGO CHS ]
+"1918
+[s S105 :1 `uc 1 :1 `uc 1 ]
+[n S105 . . GO ]
+"1903
+[u S102 `S103 1 `S104 1 `S105 1 ]
+[n S102 . . . . ]
+"1923
+[v _ADCON0bits `VS102 ~T0 @X0 0 e@157 ]
+"17 ADC.h
+[v _SetADCChannel `(v ~T0 @X0 0 ef1`uc ]
+"1860 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic16f1829.h
+[v _ADRESL `Vuc ~T0 @X0 0 e@155 ]
+[; ;ADC.h: 15: void ADC_Initialize();
+[; ;ADC.h: 16: int ReadVoltage(char ch);
+[; ;ADC.h: 17: void SetADCChannel(char ch);
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -2911,59 +2941,110 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-[; ;Function.H: 17: void Start(void);
-[; ;Function.H: 18: void INTERRUPT_Initialize();
-[; ;Function.H: 19: void Delay(int wait);
-[; ;Function.H: 20: char ReadCharger(void);
-[; ;Function.H: 21: void LEDOff(void);
-[; ;Radio.h: 11: void RadioOperation();
-[; ;Radio.h: 12: void RadioBegin();
-[; ;Timer.h: 11: unsigned int GetTicker(void);
-[; ;Timer.h: 12: void ClearTicker(void);
-[; ;Timer.h: 14: void TMR2_Initialize(void);
-[; ;Timer.h: 15: void TMR2_StartTimer(void);
-[; ;Timer.h: 16: void TMR2_StopTimer(void);
-[; ;Timer.h: 17: void TMR2_ISR(void);
-"14 Main.c
-[v _main `(i ~T0 @X0 1 ef ]
+"4 ADC.c
+[v _ADC_Initialize `(v ~T0 @X0 1 ef ]
 {
-[; ;Main.c: 14: int main(void) {
-[e :U _main ]
+[; ;ADC.c: 4: void ADC_Initialize(){
+[e :U _ADC_Initialize ]
 [f ]
-[; ;Main.c: 15: Start();
-"15
-[e ( _Start ..  ]
-[; ;Main.c: 16: RadioBegin();
-"16
-[e ( _RadioBegin ..  ]
-[; ;Main.c: 17: TMR2_StartTimer();
-"17
-[e ( _TMR2_StartTimer ..  ]
-[; ;Main.c: 18: LEDOff();
-"18
-[e ( _LEDOff ..  ]
-[; ;Main.c: 19: while(1){
-"19
-[e :U 370 ]
-{
-[; ;Main.c: 20: RadioOperation();
-"20
-[e ( _RadioOperation ..  ]
-[; ;Main.c: 21: Delay(100);
-"21
-[e ( _Delay (1 -> 100 `i ]
-"22
+[; ;ADC.c: 5: FVRCONbits.ADFVR0 = 1;
+"5
+[e = . . _FVRCONbits 0 0 -> -> 1 `i `uc ]
+[; ;ADC.c: 6: FVRCONbits.ADFVR1 = 1;
+"6
+[e = . . _FVRCONbits 0 1 -> -> 1 `i `uc ]
+[; ;ADC.c: 7: ADCON1bits.ADFM = 1;
+"7
+[e = . . _ADCON1bits 0 7 -> -> 1 `i `uc ]
+[; ;ADC.c: 8: ADCON1bits.ADCS0 = 0;
+"8
+[e = . . _ADCON1bits 0 4 -> -> 0 `i `uc ]
+[; ;ADC.c: 9: ADCON1bits.ADCS1 = 0;
+"9
+[e = . . _ADCON1bits 0 5 -> -> 0 `i `uc ]
+[; ;ADC.c: 10: ADCON1bits.ADCS2 = 1;
+"10
+[e = . . _ADCON1bits 0 6 -> -> 1 `i `uc ]
+[; ;ADC.c: 11: ADCON0bits.ADON = 1;
+"11
+[e = . . _ADCON0bits 0 0 -> -> 1 `i `uc ]
+[; ;ADC.c: 12: }
+"12
+[e :UE 368 ]
 }
-[e :U 369 ]
-"19
+"14
+[v _ReadVoltage `(i ~T0 @X0 1 ef1`uc ]
+{
+[; ;ADC.c: 14: int ReadVoltage(char ch){
+[e :U _ReadVoltage ]
+[v _ch `uc ~T0 @X0 1 r1 ]
+[f ]
+[; ;ADC.c: 15: SetADCChannel(ch);
+"15
+[e ( _SetADCChannel (1 _ch ]
+[; ;ADC.c: 16: ADCON0bits.GO_nDONE = 1;
+"16
+[e = . . _ADCON0bits 0 1 -> -> 1 `i `uc ]
+[; ;ADC.c: 17: while(ADCON0bits.GO_nDONE);
+"17
 [e $U 370  ]
 [e :U 371 ]
-[; ;Main.c: 22: }
-[; ;Main.c: 23: return 0;
+[e :U 370 ]
+[e $ != -> . . _ADCON0bits 0 1 `i -> -> -> 0 `i `Vuc `i 371  ]
+[e :U 372 ]
+[; ;ADC.c: 18: return ((ADRESL << 8) + ADRESL);
+"18
+[e ) + << -> _ADRESL `i -> 8 `i -> _ADRESL `i ]
+[e $UE 369  ]
+[; ;ADC.c: 19: }
+"19
+[e :UE 369 ]
+}
+"21
+[v _SetADCChannel `(v ~T0 @X0 1 ef1`uc ]
+{
+[; ;ADC.c: 21: void SetADCChannel(char ch){
+[e :U _SetADCChannel ]
+[v _ch `uc ~T0 @X0 1 r1 ]
+[f ]
+[; ;ADC.c: 22: if(ch == 1){
+"22
+[e $ ! == -> _ch `i -> 1 `i 374  ]
+{
+[; ;ADC.c: 23: ADCON0bits.CHS = 6;
 "23
-[e ) -> 0 `i ]
-[e $UE 368  ]
-[; ;Main.c: 24: }
+[e = . . _ADCON0bits 1 2 -> -> 6 `i `uc ]
 "24
-[e :UE 368 ]
+}
+[; ;ADC.c: 24: }
+[e $U 375  ]
+"25
+[e :U 374 ]
+[; ;ADC.c: 25: else if(ch == 2){
+[e $ ! == -> _ch `i -> 2 `i 376  ]
+{
+[; ;ADC.c: 26: ADCON0bits.CHS = 29;
+"26
+[e = . . _ADCON0bits 1 2 -> -> 29 `i `uc ]
+"27
+}
+[; ;ADC.c: 27: }
+[e $U 377  ]
+"28
+[e :U 376 ]
+[; ;ADC.c: 28: else if(ch == 3){
+[e $ ! == -> _ch `i -> 3 `i 378  ]
+{
+[; ;ADC.c: 29: ADCON0bits.CHS = 3;
+"29
+[e = . . _ADCON0bits 1 2 -> -> 3 `i `uc ]
+"30
+}
+[e :U 378 ]
+"31
+[e :U 377 ]
+[e :U 375 ]
+[; ;ADC.c: 30: }
+[; ;ADC.c: 31: }
+[e :UE 373 ]
 }

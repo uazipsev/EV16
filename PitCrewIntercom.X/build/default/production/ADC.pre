@@ -1,5 +1,10 @@
 
-# 1 "Main.c"
+# 1 "ADC.c"
+
+# 15 "ADC.h"
+void ADC_Initialize();
+int ReadVoltage(char ch);
+void SetADCChannel(char ch);
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -3922,35 +3927,33 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
-# 17 "Function.H"
-void Start(void);
-void INTERRUPT_Initialize();
-void Delay(int wait);
-char ReadCharger(void);
-void LEDOff(void);
-
-# 11 "Radio.h"
-void RadioOperation();
-void RadioBegin();
-
-# 11 "Timer.h"
-unsigned int GetTicker(void);
-void ClearTicker(void);
-
-void TMR2_Initialize(void);
-void TMR2_StartTimer(void);
-void TMR2_StopTimer(void);
-void TMR2_ISR(void);
-
-# 14 "Main.c"
-int main(void) {
-Start();
-RadioBegin();
-TMR2_StartTimer();
-LEDOff();
-while(1){
-RadioOperation();
-Delay(100);
+# 4 "ADC.c"
+void ADC_Initialize(){
+FVRCONbits.ADFVR0 = 1;
+FVRCONbits.ADFVR1 = 1;
+ADCON1bits.ADFM = 1;
+ADCON1bits.ADCS0 = 0;
+ADCON1bits.ADCS1 = 0;
+ADCON1bits.ADCS2 = 1;
+ADCON0bits.ADON = 1;
 }
-return 0;
+
+int ReadVoltage(char ch){
+SetADCChannel(ch);
+ADCON0bits.GO_nDONE = 1;
+while(ADCON0bits.GO_nDONE);
+return ((ADRESL << 8) + ADRESL);
 }
+
+void SetADCChannel(char ch){
+if(ch == 1){
+ADCON0bits.CHS = 6;
+}
+else if(ch == 2){
+ADCON0bits.CHS = 29;
+}
+else if(ch == 3){
+ADCON0bits.CHS = 3;
+}
+}
+
