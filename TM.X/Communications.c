@@ -5,8 +5,14 @@
 #include "ADDRESSING.h"
 #include "UART.h"
 #include "PinDef.h"
+#include "Timers.h"
+
+#define SAMPLERATE 500
 
 char receiveArray[50];
+
+bool portClosed = true;
+bool pendingSend = false;
 
 void TSSCommsStart(){
     begin(receiveArray, sizeof (receiveArray), TM_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
@@ -14,19 +20,33 @@ void TSSCommsStart(){
 }
 
 void updateComms() {
-    if()
-    if(receiveData()) {
-       //respondTM(1);
+    if (receiveData()) {
+        //INDICATOR = !INDICATOR;
+        
     }
+    if(GetTime(TSSTIME) > SAMPLERATE){
+        pendingSend = true;
+    }
+    if (!portClosed && pendingSend ) {
+        RS485_TSS_Direction = TALK;
+        portClosed = true;
+    }
+    if (!pendingSend && portClosed) {
+
+            sendData(ECU_ADDRESS);
+            pendingSend = true;
+
+            SetTime(TSSTIME);
+    }
+    checkCommDirection();
 }
 
-void respondTM(char val) {
-    RS485_TSS_Direction = TALK;
-    if(val == 1){
-        sendData(TSS_1_ADDRESS);
+void checkCommDirection() {
+    //you have finished send and time has elapsed.. start listen
+    //if (GetTxStall() && (time_get(TLKTM) > 20) && (RS485_Port == TALK) && portClosed && !pendingSend) {
+    if ((GetTime(TSSTIME) > 20) && (RS485_TSS_Direction == TALK) && pendingSend) {
+        RS485_TSS_Direction = LISTEN;
+        portClosed = false;
+        pendingSend = false;
     }
-    if(val == 2){
-        sendData(TSS_2_ADDRESS);
-    } 
-    RS485_TSS_Direction = LISTEN;
 }

@@ -11,6 +11,7 @@
 void TSSCommsStart();
 void updateComms();
 void respondTM(char val);
+void SendData();
 
 #endif	/* COMMUNICATIONS_H */
 
