@@ -2,28 +2,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 "20 UART.h
 [s S1 `uc -> 20 `i `i 1 `i 1 `i 1 ]
 [n S1 UART_ring_buff buf head tail count ]
-"1306 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic16f1829.h
-[s S76 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S76 . TMR1IE TMR2IE CCP1IE SSP1IE TXIE RCIE ADIE TMR1GIE ]
-"1305
-[u S75 `S76 1 ]
-[n S75 . . ]
-"1317
-[v _PIE1bits `VS75 ~T0 @X0 0 e@145 ]
-"3246
-[v _SPBRG `Vus ~T0 @X0 0 e@411 ]
+"3412 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic16f1829.h
+[v _BAUDCON `Vuc ~T0 @X0 0 e@415 ]
 "3290
 [v _RCSTA `Vuc ~T0 @X0 0 e@413 ]
 "3351
 [v _TXSTA `Vuc ~T0 @X0 0 e@414 ]
-"32 UART.h
-[v _UART_buff_init `(v ~T0 @X0 0 ef1`*S1 ]
-"16 C:\Program Files (x86)\Microchip\xc8\v1.37\include\string.h
-[v _memset `(*v ~T0 @X0 0 ef3`*v`i`ui ]
-"37 UART.h
-[v _UART_buff_modulo_inc `(ui ~T0 @X0 0 ef2`Cui`Cui ]
-"3227 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic16f1829.h
-[v _TXREG `Vuc ~T0 @X0 0 e@410 ]
+"3252
+[v _SPBRGL `Vuc ~T0 @X0 0 e@411 ]
+"3271
+[v _SPBRGH `Vuc ~T0 @X0 0 e@412 ]
+"568
+[s S37 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S37 . TMR1IF TMR2IF CCP1IF SSP1IF TXIF RCIF ADIF TMR1GIF ]
+"567
+[u S36 `S37 1 ]
+[n S36 . . ]
+"579
+[v _PIR1bits `VS36 ~T0 @X0 0 e@17 ]
 "3296
 [s S180 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S180 . RX9D OERR FERR ADDEN CREN SREN RX9 SPEN ]
@@ -34,6 +30,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _RCSTAbits `VS179 ~T0 @X0 0 e@413 ]
 "3208
 [v _RCREG `Vuc ~T0 @X0 0 e@409 ]
+"3227
+[v _TXREG `Vuc ~T0 @X0 0 e@410 ]
 [; ;stdbool.h: 12: typedef unsigned char bool;
 [; ;UART.h: 17: extern volatile unsigned int talkTime;
 [; ;UART.h: 20: struct UART_ring_buff {
@@ -2994,358 +2992,140 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;string.h: 56: extern char * strichr(const char *, int);
 [; ;string.h: 57: extern char * strrchr(const char *, int);
 [; ;string.h: 58: extern char * strrichr(const char *, int);
-"16 UART.c
-[v _eusart1TxHead `uc ~T0 @X0 1 s ]
-[i _eusart1TxHead
--> -> 0 `i `uc
-]
-[; ;UART.c: 16: static char eusart1TxHead = 0;
-"17
-[v _eusart1TxTail `uc ~T0 @X0 1 s ]
-[i _eusart1TxTail
--> -> 0 `i `uc
-]
-[; ;UART.c: 17: static char eusart1TxTail = 0;
-"18
-[v _eusart1TxBuffer `uc ~T0 @X0 -> 8 `i s ]
-[; ;UART.c: 18: static char eusart1TxBuffer[8];
-"19
-[v _eusart1TxBufferRemaining `Vuc ~T0 @X0 1 e ]
-[; ;UART.c: 19: volatile char eusart1TxBufferRemaining;
-"21
-[v _eusart1RxHead `uc ~T0 @X0 1 s ]
-[i _eusart1RxHead
--> -> 0 `i `uc
-]
-[; ;UART.c: 21: static char eusart1RxHead = 0;
-"22
-[v _eusart1RxTail `uc ~T0 @X0 1 s ]
-[i _eusart1RxTail
--> -> 0 `i `uc
-]
-[; ;UART.c: 22: static char eusart1RxTail = 0;
-"23
-[v _eusart1RxBuffer `uc ~T0 @X0 -> 8 `i s ]
-[; ;UART.c: 23: static char eusart1RxBuffer[8];
-"24
-[v _eusart1RxCount `Vuc ~T0 @X0 1 e ]
-[; ;UART.c: 24: volatile char eusart1RxCount;
-"30
+"10 UART.c
 [v _EUSART1_Initialize `(v ~T0 @X0 1 ef ]
 {
-[; ;UART.c: 30: void EUSART1_Initialize(void) {
+[; ;UART.c: 10: void EUSART1_Initialize(void) {
 [e :U _EUSART1_Initialize ]
 [f ]
-[; ;UART.c: 32: PIE1bits.RCIE = 0;
-"32
-[e = . . _PIE1bits 0 5 -> -> 0 `i `uc ]
-[; ;UART.c: 33: PIE1bits.TXIE = 0;
-"33
-[e = . . _PIE1bits 0 4 -> -> 0 `i `uc ]
-[; ;UART.c: 35: SPBRG = (((4000000/9600)/4)-1);
-"35
-[e = _SPBRG -> - / / -> 4000000 `l -> -> 9600 `i `l -> -> 4 `i `l -> -> 1 `i `l `us ]
-[; ;UART.c: 37: RCSTA = 0b10010000;
-"37
+[; ;UART.c: 12: BAUDCON = 0x08;
+"12
+[e = _BAUDCON -> -> 8 `i `uc ]
+[; ;UART.c: 15: RCSTA = 0x90;
+"15
 [e = _RCSTA -> -> 144 `i `uc ]
-[; ;UART.c: 39: TXSTA = 0b00100000;
-"39
-[e = _TXSTA -> -> 32 `i `uc ]
-[; ;UART.c: 41: UART_buff_init(&input_buffer);
-"41
-[e ( _UART_buff_init (1 &U _input_buffer ]
-[; ;UART.c: 42: UART_buff_init(&output_buffer);
-"42
-[e ( _UART_buff_init (1 &U _output_buffer ]
-[; ;UART.c: 44: PIE1bits.RCIE = 1;
-"44
-[e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
-[; ;UART.c: 46: }
-"46
+[; ;UART.c: 18: TXSTA = 0x24;
+"18
+[e = _TXSTA -> -> 36 `i `uc ]
+[; ;UART.c: 21: SPBRGL = 0x67;
+"21
+[e = _SPBRGL -> -> 103 `i `uc ]
+[; ;UART.c: 24: SPBRGH = 0x00;
+"24
+[e = _SPBRGH -> -> 0 `i `uc ]
+[; ;UART.c: 25: }
+"25
 [e :UE 369 ]
 }
-"48
-[v _UART_buff_init `(v ~T0 @X0 1 ef1`*S1 ]
+"27
+[v _EUSART_Read `(uc ~T0 @X0 1 ef ]
+"28
 {
-[; ;UART.c: 48: void UART_buff_init(struct UART_ring_buff* _this) {
-[e :U _UART_buff_init ]
-[v __this `*S1 ~T0 @X0 1 r1 ]
+[; ;UART.c: 27: char EUSART_Read(void)
+[; ;UART.c: 28: {
+[e :U _EUSART_Read ]
 [f ]
-[; ;UART.c: 57: memset(_this, 0, sizeof (*_this));
-"57
-[e ( _memset (3 , , -> __this `*v -> 0 `i -> # *U __this `ui ]
-[; ;UART.c: 58: }
-"58
+[; ;UART.c: 30: while(!PIR1bits.RCIF)
+"30
+[e $U 371  ]
+[e :U 372 ]
+[; ;UART.c: 31: {
+"31
+{
+"32
+}
+[e :U 371 ]
+"30
+[e $ ! != -> . . _PIR1bits 0 5 `i -> -> -> 0 `i `Vuc `i 372  ]
+[e :U 373 ]
+[; ;UART.c: 32: }
+[; ;UART.c: 34: if(1 == RCSTAbits.OERR)
+"34
+[e $ ! == -> 1 `i -> . . _RCSTAbits 0 1 `i 374  ]
+[; ;UART.c: 35: {
+"35
+{
+[; ;UART.c: 38: RCSTAbits.CREN = 0;
+"38
+[e = . . _RCSTAbits 0 4 -> -> 0 `i `uc ]
+[; ;UART.c: 39: RCSTAbits.CREN = 1;
+"39
+[e = . . _RCSTAbits 0 4 -> -> 1 `i `uc ]
+"40
+}
+[e :U 374 ]
+[; ;UART.c: 40: }
+[; ;UART.c: 42: return RCREG;
+"42
+[e ) _RCREG ]
+[e $UE 370  ]
+[; ;UART.c: 43: }
+"43
 [e :UE 370 ]
 }
-"60
-[v _UART_buff_put `(v ~T0 @X0 1 ef2`*S1`Cuc ]
+"45
+[v _EUSART_Write `(v ~T0 @X0 1 ef1`uc ]
+"46
 {
-[; ;UART.c: 60: void UART_buff_put(struct UART_ring_buff* _this, unsigned char c) {
-[e :U _UART_buff_put ]
-[v __this `*S1 ~T0 @X0 1 r1 ]
-[v _c `uc ~T0 @X0 1 r2 ]
+[; ;UART.c: 45: void EUSART_Write(char txData)
+[; ;UART.c: 46: {
+[e :U _EUSART_Write ]
+"45
+[v _txData `uc ~T0 @X0 1 r1 ]
+"46
 [f ]
-[; ;UART.c: 61: if (_this->count < 20) {
-"61
-[e $ ! < . *U __this 3 -> 20 `i 372  ]
-{
-[; ;UART.c: 62: _this->buf[_this->head] = c;
-"62
-[e = *U + &U . *U __this 0 * -> -> . *U __this 1 `ui `ux -> -> # *U &U . *U __this 0 `ui `ux _c ]
-[; ;UART.c: 63: _this->head = UART_buff_modulo_inc(_this->head, 20);
-"63
-[e = . *U __this 1 -> ( _UART_buff_modulo_inc (2 , -> . *U __this 1 `ui -> -> 20 `i `ui `i ]
-[; ;UART.c: 64: ++_this->count;
-"64
-[e =+ . *U __this 3 -> 1 `i ]
-"65
-}
-[; ;UART.c: 65: } else {
-[e $U 373  ]
-[e :U 372 ]
-{
-[; ;UART.c: 66: _this->buf[_this->head] = c;
-"66
-[e = *U + &U . *U __this 0 * -> -> . *U __this 1 `ui `ux -> -> # *U &U . *U __this 0 `ui `ux _c ]
-[; ;UART.c: 67: _this->head = UART_buff_modulo_inc(_this->head, 20);
-"67
-[e = . *U __this 1 -> ( _UART_buff_modulo_inc (2 , -> . *U __this 1 `ui -> -> 20 `i `ui `i ]
-[; ;UART.c: 68: _this->tail = UART_buff_modulo_inc(_this->tail, 20);
-"68
-[e = . *U __this 2 -> ( _UART_buff_modulo_inc (2 , -> . *U __this 2 `ui -> -> 20 `i `ui `i ]
-"70
-}
-[e :U 373 ]
-[; ;UART.c: 70: }
-[; ;UART.c: 71: }
-"71
-[e :UE 371 ]
-}
-"73
-[v _UART_buff_get `(uc ~T0 @X0 1 ef1`*S1 ]
-{
-[; ;UART.c: 73: unsigned char UART_buff_get(struct UART_ring_buff* _this) {
-[e :U _UART_buff_get ]
-[v __this `*S1 ~T0 @X0 1 r1 ]
-[f ]
-"74
-[v _c `uc ~T0 @X0 1 a ]
-[; ;UART.c: 74: unsigned char c;
-[; ;UART.c: 75: if (_this->count > 0) {
-"75
-[e $ ! > . *U __this 3 -> 0 `i 375  ]
-{
-[; ;UART.c: 76: c = _this->buf[_this->tail];
-"76
-[e = _c *U + &U . *U __this 0 * -> -> . *U __this 2 `ui `ux -> -> # *U &U . *U __this 0 `ui `ux ]
-[; ;UART.c: 77: _this->tail = UART_buff_modulo_inc(_this->tail, 20);
-"77
-[e = . *U __this 2 -> ( _UART_buff_modulo_inc (2 , -> . *U __this 2 `ui -> -> 20 `i `ui `i ]
-[; ;UART.c: 78: --_this->count;
-"78
-[e =- . *U __this 3 -> 1 `i ]
-"79
-}
-[; ;UART.c: 79: } else {
+[; ;UART.c: 47: while(0 == PIR1bits.TXIF)
+"47
 [e $U 376  ]
-[e :U 375 ]
+[e :U 377 ]
+[; ;UART.c: 48: {
+"48
 {
-[; ;UART.c: 80: c = 0;
-"80
-[e = _c -> -> 0 `i `uc ]
-"81
+"49
 }
 [e :U 376 ]
-[; ;UART.c: 81: }
-[; ;UART.c: 82: return (c);
-"82
-[e ) _c ]
-[e $UE 374  ]
-[; ;UART.c: 83: }
-"83
-[e :UE 374 ]
+"47
+[e $ == -> 0 `i -> . . _PIR1bits 0 4 `i 377  ]
+[e :U 378 ]
+[; ;UART.c: 49: }
+[; ;UART.c: 51: TXREG = txData;
+"51
+[e = _TXREG _txData ]
+[; ;UART.c: 52: }
+"52
+[e :UE 375 ]
 }
-"85
-[v _UART_buff_size `(i ~T0 @X0 1 ef1`*S1 ]
-{
-[; ;UART.c: 85: int UART_buff_size(struct UART_ring_buff* _this) {
-[e :U _UART_buff_size ]
-[v __this `*S1 ~T0 @X0 1 r1 ]
-[f ]
-[; ;UART.c: 86: return (_this->count);
-"86
-[e ) . *U __this 3 ]
-[e $UE 377  ]
-[; ;UART.c: 87: }
-"87
-[e :UE 377 ]
-}
-"89
-[v _UART_buff_modulo_inc `(ui ~T0 @X0 1 ef2`Cui`Cui ]
-{
-[; ;UART.c: 89: unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus) {
-[e :U _UART_buff_modulo_inc ]
-[v _value `Cui ~T0 @X0 1 r1 ]
-[v _modulus `Cui ~T0 @X0 1 r2 ]
-[f ]
-"90
-[v _my_value `ui ~T0 @X0 1 a ]
-[; ;UART.c: 90: unsigned int my_value = value + 1;
-[e = _my_value + _value -> -> 1 `i `ui ]
-[; ;UART.c: 91: if (my_value >= modulus) {
-"91
-[e $ ! >= _my_value _modulus 379  ]
-{
-[; ;UART.c: 92: my_value = 0;
-"92
-[e = _my_value -> -> 0 `i `ui ]
-"93
-}
-[e :U 379 ]
-[; ;UART.c: 93: }
-[; ;UART.c: 94: return (my_value);
-"94
-[e ) _my_value ]
-[e $UE 378  ]
-[; ;UART.c: 95: }
-"95
-[e :UE 378 ]
-}
-"97
-[v _Send_put `(v ~T0 @X0 1 ef1`uc ]
-{
-[; ;UART.c: 97: void Send_put(unsigned char _data) {
-[e :U _Send_put ]
-[v __data `uc ~T0 @X0 1 r1 ]
-[f ]
-[; ;UART.c: 98: UART_buff_put(&output_buffer, _data);
-"98
-[e ( _UART_buff_put (2 , &U _output_buffer __data ]
-[; ;UART.c: 99: if (Transmit_stall == 1) {
-"99
-[e $ ! == -> _Transmit_stall `i -> 1 `i 381  ]
-{
-[; ;UART.c: 100: Transmit_stall = 0;
-"100
-[e = _Transmit_stall -> -> 0 `i `uc ]
-[; ;UART.c: 101: TXREG = UART_buff_get(&output_buffer);
-"101
-[e = _TXREG ( _UART_buff_get (1 &U _output_buffer ]
-[; ;UART.c: 102: PIE1bits.TXIE = 1;
-"102
-[e = . . _PIE1bits 0 4 -> -> 1 `i `uc ]
-"103
-}
-[e :U 381 ]
-[; ;UART.c: 103: }
-[; ;UART.c: 104: }
-"104
-[e :UE 380 ]
-}
-"106
-[v _Receive_get `(uc ~T0 @X0 1 ef ]
-{
-[; ;UART.c: 106: unsigned char Receive_get(void) {
-[e :U _Receive_get ]
-[f ]
-[; ;UART.c: 107: return UART_buff_get(&input_buffer);
-"107
-[e ) ( _UART_buff_get (1 &U _input_buffer ]
-[e $UE 382  ]
-[; ;UART.c: 108: }
-"108
-[e :UE 382 ]
-}
-"110
+"54
 [v _getch `(uc ~T0 @X0 1 ef ]
+"55
 {
-[; ;UART.c: 110: char getch(void) {
+[; ;UART.c: 54: char getch(void)
+[; ;UART.c: 55: {
 [e :U _getch ]
 [f ]
-[; ;UART.c: 111: return Receive_get();
-"111
-[e ) ( _Receive_get ..  ]
-[e $UE 383  ]
-[; ;UART.c: 112: }
-"112
-[e :UE 383 ]
+[; ;UART.c: 56: return EUSART_Read();
+"56
+[e ) ( _EUSART_Read ..  ]
+[e $UE 379  ]
+[; ;UART.c: 57: }
+"57
+[e :UE 379 ]
 }
-"114
+"59
 [v _putch `(v ~T0 @X0 1 ef1`uc ]
+"60
 {
-[; ;UART.c: 114: void putch(char txData) {
+[; ;UART.c: 59: void putch(char txData)
+[; ;UART.c: 60: {
 [e :U _putch ]
+"59
 [v _txData `uc ~T0 @X0 1 r1 ]
+"60
 [f ]
-[; ;UART.c: 115: Send_put(txData);
-"115
-[e ( _Send_put (1 _txData ]
-[; ;UART.c: 116: }
-"116
-[e :UE 384 ]
-}
-"118
-[v _EUSART1_Receive_ISR `(v ~T0 @X0 1 ef ]
-{
-[; ;UART.c: 118: void EUSART1_Receive_ISR(void) {
-[e :U _EUSART1_Receive_ISR ]
-[f ]
-[; ;UART.c: 119: if (1 == RCSTAbits.OERR) {
-"119
-[e $ ! == -> 1 `i -> . . _RCSTAbits 0 1 `i 386  ]
-{
-[; ;UART.c: 122: RCSTAbits.CREN = 0;
-"122
-[e = . . _RCSTAbits 0 4 -> -> 0 `i `uc ]
-[; ;UART.c: 123: RCSTAbits.CREN = 1;
-"123
-[e = . . _RCSTAbits 0 4 -> -> 1 `i `uc ]
-"124
-}
-[e :U 386 ]
-"125
-[v _data `uc ~T0 @X0 1 a ]
-[; ;UART.c: 124: }
-[; ;UART.c: 125: unsigned char data = RCREG;
-[e = _data _RCREG ]
-[; ;UART.c: 126: UART_buff_put(&input_buffer, data);
-"126
-[e ( _UART_buff_put (2 , &U _input_buffer _data ]
-[; ;UART.c: 127: }
-"127
-[e :UE 385 ]
-}
-"129
-[v _EUSART1_Transmit_ISR `(v ~T0 @X0 1 ef ]
-{
-[; ;UART.c: 129: void EUSART1_Transmit_ISR(void) {
-[e :U _EUSART1_Transmit_ISR ]
-[f ]
-[; ;UART.c: 131: if (UART_buff_size(&output_buffer) > 0) {
-"131
-[e $ ! > ( _UART_buff_size (1 &U _output_buffer -> 0 `i 388  ]
-{
-[; ;UART.c: 132: TXREG = UART_buff_get(&output_buffer);
-"132
-[e = _TXREG ( _UART_buff_get (1 &U _output_buffer ]
-"133
-}
-[; ;UART.c: 133: } else {
-[e $U 389  ]
-[e :U 388 ]
-{
-[; ;UART.c: 134: Transmit_stall = 1;
-"134
-[e = _Transmit_stall -> -> 1 `i `uc ]
-[; ;UART.c: 135: PIE1bits.TXIE = 0;
-"135
-[e = . . _PIE1bits 0 4 -> -> 0 `i `uc ]
-"136
-}
-[e :U 389 ]
-[; ;UART.c: 136: }
-[; ;UART.c: 137: }
-"137
-[e :UE 387 ]
+[; ;UART.c: 61: EUSART_Write(txData);
+"61
+[e ( _EUSART_Write (1 _txData ]
+[; ;UART.c: 62: }
+"62
+[e :UE 380 ]
 }

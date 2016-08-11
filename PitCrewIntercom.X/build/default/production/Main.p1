@@ -2,10 +2,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p mainexit ]
 "17 Function.H
 [v _Start `(v ~T0 @X0 0 ef ]
-"21
+"12 Radio.h
+[v _RadioBegin `(v ~T0 @X0 0 ef ]
+"21 Function.H
 [v _LEDOff `(v ~T0 @X0 0 ef ]
-"195 C:\Program Files (x86)\Microchip\xc8\v1.37\include\stdio.h
-[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"11 Radio.h
+[v _RadioOperation `(v ~T0 @X0 0 ef ]
 "19 Function.H
 [v _Delay `(v ~T0 @X0 0 ef1`i ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -2959,6 +2961,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Main.c: 17: Start();
 "17
 [e ( _Start ..  ]
+[; ;Main.c: 18: RadioBegin();
+"18
+[e ( _RadioBegin ..  ]
 [; ;Main.c: 20: LEDOff();
 "20
 [e ( _LEDOff ..  ]
@@ -2966,27 +2971,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 "21
 [e :U 371 ]
 {
-[; ;Main.c: 22: printf("Start");
+[; ;Main.c: 22: RadioOperation();
 "22
-[e ( _printf :s 1C ]
-[; ;Main.c: 24: Delay(100);
-"24
+[e ( _RadioOperation ..  ]
+[; ;Main.c: 23: Delay(100);
+"23
 [e ( _Delay (1 -> 100 `i ]
-"25
+"24
 }
 [e :U 370 ]
 "21
 [e $U 371  ]
 [e :U 372 ]
-[; ;Main.c: 25: }
-[; ;Main.c: 26: return 0;
-"26
+[; ;Main.c: 24: }
+[; ;Main.c: 25: return 0;
+"25
 [e ) -> 0 `i ]
 [e $UE 369  ]
-[; ;Main.c: 27: }
-"27
+[; ;Main.c: 26: }
+"26
 [e :UE 369 ]
 }
-[p f _printf 8388608 ]
-[a 1C 83 116 97 114 116 0 ]
-

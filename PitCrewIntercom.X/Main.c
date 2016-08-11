@@ -15,12 +15,11 @@
 
 int main(void) {
     Start();
-    //RadioBegin();
+    RadioBegin();
     //TMR2_StartTimer();
     LEDOff();
     while(1){
-        printf("Start");
-        //RadioOperation();
+        RadioOperation();
         Delay(100);
     }
     return 0;

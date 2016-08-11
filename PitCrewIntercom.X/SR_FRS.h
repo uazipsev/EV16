@@ -9,8 +9,8 @@
 #define	SR_FRS_H
 
 //TX Frequency - need to be the same, unless we use a repeater
-#define TXFrequency 450.0250
-#define RXFrequency 450.0250
+#define TXFrequency 136.0250
+#define RXFrequency 136.0250
 
 //Radio channel Code
 #define TXCX 83

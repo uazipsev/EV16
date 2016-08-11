@@ -92,14 +92,6 @@ void interrupt INTERRUPT_InterruptManager(void)
     {
         TMR2_ISR();
     }
-    if(PIE1bits.RCIE == 1 && PIR1bits.RCIF == 1)
-    {
-        EUSART1_Receive_ISR();
-    }
-    if(PIE1bits.TXIE == 1 && PIR1bits.TXIF == 1)
-    {
-        EUSART1_Transmit_ISR();
-    }
     else
     {
         //Unhandled Interrupt

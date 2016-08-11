@@ -94,10 +94,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PIE1bits `VS75 ~T0 @X0 0 e@145 ]
 "17 Timer.h
 [v _TMR2_ISR `(v ~T0 @X0 0 ef ]
-"38 UART.h
-[v _EUSART1_Receive_ISR `(v ~T0 @X0 0 ef ]
-"39
-[v _EUSART1_Transmit_ISR `(v ~T0 @X0 0 ef ]
 "507 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic16f1829.h
 [s S35 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S35 . RC0 RC1 RC2 RC3 RC4 RC5 RC6 RC7 ]
@@ -3242,122 +3238,96 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _TMR2_ISR ..  ]
 "94
 }
-[e :U 377 ]
 [; ;Function.c: 94: }
-[; ;Function.c: 95: if(PIE1bits.RCIE == 1 && PIR1bits.RCIF == 1)
+[e $U 378  ]
 "95
-[e $ ! && == -> . . _PIE1bits 0 5 `i -> 1 `i == -> . . _PIR1bits 0 5 `i -> 1 `i 378  ]
+[e :U 377 ]
+[; ;Function.c: 95: else
 [; ;Function.c: 96: {
 "96
 {
-[; ;Function.c: 97: EUSART1_Receive_ISR();
-"97
-[e ( _EUSART1_Receive_ISR ..  ]
 "98
 }
 [e :U 378 ]
 [; ;Function.c: 98: }
-[; ;Function.c: 99: if(PIE1bits.TXIE == 1 && PIR1bits.TXIF == 1)
+[; ;Function.c: 99: }
 "99
-[e $ ! && == -> . . _PIE1bits 0 4 `i -> 1 `i == -> . . _PIR1bits 0 4 `i -> 1 `i 379  ]
-[; ;Function.c: 100: {
-"100
-{
-[; ;Function.c: 101: EUSART1_Transmit_ISR();
-"101
-[e ( _EUSART1_Transmit_ISR ..  ]
-"102
-}
-[; ;Function.c: 102: }
-[e $U 380  ]
-"103
-[e :U 379 ]
-[; ;Function.c: 103: else
-[; ;Function.c: 104: {
-"104
-{
-"106
-}
-[e :U 380 ]
-[; ;Function.c: 106: }
-[; ;Function.c: 107: }
-"107
 [e :UE 376 ]
 }
-"109
+"101
 [v _ReadCharger `(uc ~T0 @X0 1 ef ]
 {
-[; ;Function.c: 109: char ReadCharger(void){
+[; ;Function.c: 101: char ReadCharger(void){
 [e :U _ReadCharger ]
 [f ]
-[; ;Function.c: 111: if(!PORTCbits.RC0 && PORTCbits.RC1){
-"111
-[e $ ! && ! != -> . . _PORTCbits 0 0 `i -> -> -> 0 `i `Vuc `i != -> . . _PORTCbits 0 1 `i -> -> -> 0 `i `Vuc `i 382  ]
+[; ;Function.c: 103: if(!PORTCbits.RC0 && PORTCbits.RC1){
+"103
+[e $ ! && ! != -> . . _PORTCbits 0 0 `i -> -> -> 0 `i `Vuc `i != -> . . _PORTCbits 0 1 `i -> -> -> 0 `i `Vuc `i 380  ]
 {
-[; ;Function.c: 112: return 1;
-"112
+[; ;Function.c: 104: return 1;
+"104
 [e ) -> -> 1 `i `uc ]
-[e $UE 381  ]
+[e $UE 379  ]
+"105
+}
+[e :U 380 ]
+[; ;Function.c: 105: }
+[; ;Function.c: 107: if(PORTCbits.RC0 && !PORTCbits.RC1){
+"107
+[e $ ! && != -> . . _PORTCbits 0 0 `i -> -> -> 0 `i `Vuc `i ! != -> . . _PORTCbits 0 1 `i -> -> -> 0 `i `Vuc `i 381  ]
+{
+[; ;Function.c: 108: return 2;
+"108
+[e ) -> -> 2 `i `uc ]
+[e $UE 379  ]
+"109
+}
+[e :U 381 ]
+[; ;Function.c: 109: }
+[; ;Function.c: 111: if(PORTCbits.RC0 && PORTCbits.RC1){
+"111
+[e $ ! && != -> . . _PORTCbits 0 0 `i -> -> -> 0 `i `Vuc `i != -> . . _PORTCbits 0 1 `i -> -> -> 0 `i `Vuc `i 382  ]
+{
+[; ;Function.c: 112: return 0;
+"112
+[e ) -> -> 0 `i `uc ]
+[e $UE 379  ]
 "113
 }
-[e :U 382 ]
 [; ;Function.c: 113: }
-[; ;Function.c: 115: if(PORTCbits.RC0 && !PORTCbits.RC1){
-"115
-[e $ ! && != -> . . _PORTCbits 0 0 `i -> -> -> 0 `i `Vuc `i ! != -> . . _PORTCbits 0 1 `i -> -> -> 0 `i `Vuc `i 383  ]
+[e $U 383  ]
+"114
+[e :U 382 ]
+[; ;Function.c: 114: else{
 {
-[; ;Function.c: 116: return 2;
+[; ;Function.c: 115: return 255;
+"115
+[e ) -> -> 255 `i `uc ]
+[e $UE 379  ]
 "116
-[e ) -> -> 2 `i `uc ]
-[e $UE 381  ]
-"117
 }
 [e :U 383 ]
+[; ;Function.c: 116: }
 [; ;Function.c: 117: }
-[; ;Function.c: 119: if(PORTCbits.RC0 && PORTCbits.RC1){
+"117
+[e :UE 379 ]
+}
 "119
-[e $ ! && != -> . . _PORTCbits 0 0 `i -> -> -> 0 `i `Vuc `i != -> . . _PORTCbits 0 1 `i -> -> -> 0 `i `Vuc `i 384  ]
-{
-[; ;Function.c: 120: return 0;
-"120
-[e ) -> -> 0 `i `uc ]
-[e $UE 381  ]
-"121
-}
-[; ;Function.c: 121: }
-[e $U 385  ]
-"122
-[e :U 384 ]
-[; ;Function.c: 122: else{
-{
-[; ;Function.c: 123: return 255;
-"123
-[e ) -> -> 255 `i `uc ]
-[e $UE 381  ]
-"124
-}
-[e :U 385 ]
-[; ;Function.c: 124: }
-[; ;Function.c: 125: }
-"125
-[e :UE 381 ]
-}
-"127
 [v _LEDOff `(v ~T0 @X0 1 ef ]
 {
-[; ;Function.c: 127: void LEDOff(void){
+[; ;Function.c: 119: void LEDOff(void){
 [e :U _LEDOff ]
 [f ]
-[; ;Function.c: 128: PORTCbits.RC3 = 0;
-"128
+[; ;Function.c: 120: PORTCbits.RC3 = 0;
+"120
 [e = . . _PORTCbits 0 3 -> -> 0 `i `uc ]
-[; ;Function.c: 129: PORTCbits.RC5 = 0;
-"129
+[; ;Function.c: 121: PORTCbits.RC5 = 0;
+"121
 [e = . . _PORTCbits 0 5 -> -> 0 `i `uc ]
-[; ;Function.c: 130: PORTCbits.RC4 = 0;
-"130
+[; ;Function.c: 122: PORTCbits.RC4 = 0;
+"122
 [e = . . _PORTCbits 0 4 -> -> 0 `i `uc ]
-[; ;Function.c: 131: }
-"131
-[e :UE 386 ]
+[; ;Function.c: 123: }
+"123
+[e :UE 384 ]
 }

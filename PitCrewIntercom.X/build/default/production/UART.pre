@@ -3994,117 +3994,57 @@ extern char * strichr(const char *, int);
 extern char * strrchr(const char *, int);
 extern char * strrichr(const char *, int);
 
-# 16 "UART.c"
-static char eusart1TxHead = 0;
-static char eusart1TxTail = 0;
-static char eusart1TxBuffer[8];
-volatile char eusart1TxBufferRemaining;
-
-static char eusart1RxHead = 0;
-static char eusart1RxTail = 0;
-static char eusart1RxBuffer[8];
-volatile char eusart1RxCount;
-
-# 30
+# 10 "UART.c"
 void EUSART1_Initialize(void) {
 
-PIE1bits.RCIE = 0;
-PIE1bits.TXIE = 0;
+BAUDCON = 0x08;
 
-SPBRG = (((4000000/9600)/4)-1);
 
-RCSTA = 0b10010000;
+RCSTA = 0x90;
 
-TXSTA = 0b00100000;
 
-UART_buff_init(&input_buffer);
-UART_buff_init(&output_buffer);
+TXSTA = 0x24;
 
-PIE1bits.RCIE = 1;
 
+SPBRGL = 0x67;
+
+
+SPBRGH = 0x00;
 }
 
-void UART_buff_init(struct UART_ring_buff* _this) {
+char EUSART_Read(void)
+{
 
-# 57
-memset(_this, 0, sizeof (*_this));
-}
-
-void UART_buff_put(struct UART_ring_buff* _this, unsigned char c) {
-if (_this->count < 20) {
-_this->buf[_this->head] = c;
-_this->head = UART_buff_modulo_inc(_this->head, 20);
-++_this->count;
-} else {
-_this->buf[_this->head] = c;
-_this->head = UART_buff_modulo_inc(_this->head, 20);
-_this->tail = UART_buff_modulo_inc(_this->tail, 20);
-
-}
+while(!PIR1bits.RCIF)
+{
 }
 
-unsigned char UART_buff_get(struct UART_ring_buff* _this) {
-unsigned char c;
-if (_this->count > 0) {
-c = _this->buf[_this->tail];
-_this->tail = UART_buff_modulo_inc(_this->tail, 20);
---_this->count;
-} else {
-c = 0;
-}
-return (c);
-}
-
-int UART_buff_size(struct UART_ring_buff* _this) {
-return (_this->count);
-}
-
-unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus) {
-unsigned int my_value = value + 1;
-if (my_value >= modulus) {
-my_value = 0;
-}
-return (my_value);
-}
-
-void Send_put(unsigned char _data) {
-UART_buff_put(&output_buffer, _data);
-if (Transmit_stall == 1) {
-Transmit_stall = 0;
-TXREG = UART_buff_get(&output_buffer);
-PIE1bits.TXIE = 1;
-}
-}
-
-unsigned char Receive_get(void) {
-return UART_buff_get(&input_buffer);
-}
-
-char getch(void) {
-return Receive_get();
-}
-
-void putch(char txData) {
-Send_put(txData);
-}
-
-void EUSART1_Receive_ISR(void) {
-if (1 == RCSTAbits.OERR) {
+if(1 == RCSTAbits.OERR)
+{
 
 
 RCSTAbits.CREN = 0;
 RCSTAbits.CREN = 1;
 }
-unsigned char data = RCREG;
-UART_buff_put(&input_buffer, data);
+
+return RCREG;
 }
 
-void EUSART1_Transmit_ISR(void) {
-
-if (UART_buff_size(&output_buffer) > 0) {
-TXREG = UART_buff_get(&output_buffer);
-} else {
-Transmit_stall = 1;
-PIE1bits.TXIE = 0;
+void EUSART_Write(char txData)
+{
+while(0 == PIR1bits.TXIF)
+{
 }
+
+TXREG = txData;
+}
+
+char getch(void)
+{
+return EUSART_Read();
+}
+
+void putch(char txData)
+{
+EUSART_Write(txData);
 }
