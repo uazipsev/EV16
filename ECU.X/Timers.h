@@ -15,12 +15,13 @@ void TimeOutSet(int num);
     
 #define COMM_TIMER_MAX_TIME 75
 
-#define SASTimer 1
-#define DDSTimer 2
-#define MCSTimer 3
-#define PDUTimer 4
-#define BMMTimer 5
-#define DebugTime 6
+#define SASTIMER 1
+#define DDSTIMER 2
+#define MCSTIMER 3
+#define PDUTIMER 4
+#define BMMTIMER 5
+#define DEBUGTIME 6
+#define TIME 7
 
 #endif	/* TIMERS_H */
 

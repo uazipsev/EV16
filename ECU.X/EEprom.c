@@ -83,21 +83,22 @@ char readRegister(char i2cAddress, char reg)
  * @note            uses getters to set up the cars settings 
  *******************************************************************/
 void SetUpDataSets(){
-    char z = 0;
+    
 //    ReadCarDriver();
 //    ReadThrottlePrecent();
 //    ReadThrottleTrigger();
 //    ReadBrakeTrigger();
-//    ReadBrakeLightTrigger();
-    for(z=0;z<16;z++){
-        writeRegister(ADDRESS, z, z);
-        Delay(2);
-    }
-    Delay(10);
-    for(z=0;z<16;z++){
-        readRegister(ADDRESS, z);
-        Delay(5);
-    }
+      SetBrakeLightValue(ReadBrakeLightTrigger());
+      //char z = 0;
+//    for(z=0;z<16;z++){
+//        writeRegister(ADDRESS, z, z);
+//        Delay(2);
+//    }
+//    Delay(10);
+//    for(z=0;z<16;z++){
+//        readRegister(ADDRESS, z);
+//        Delay(5);
+//    }
 }
 
 /*******************************************************************
@@ -127,8 +128,7 @@ void SaveCarDriver(char value){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 int ReadThrottlePrecent(){
-    
-    return 0;
+    return readRegister(ADDRESS, 5);
 }
 
 /*******************************************************************
@@ -138,7 +138,7 @@ int ReadThrottlePrecent(){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 void SaveThrottlePrecent(int value){
-    
+    writeRegister(ADDRESS, 5, value);
 }
 
 /*******************************************************************
@@ -148,8 +148,7 @@ void SaveThrottlePrecent(int value){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 int ReadThrottleTrigger(){
-    
-    return 0;
+    return readRegister(ADDRESS, 4);
 }
 
 /*******************************************************************
@@ -159,7 +158,7 @@ int ReadThrottleTrigger(){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 void SaveThrottleTrigger(int value){
-    
+    writeRegister(ADDRESS, 4, value);
 }
 
 /*******************************************************************
@@ -169,8 +168,7 @@ void SaveThrottleTrigger(int value){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 int ReadBrakeTrigger(){
-    
-    return 0;
+    return readRegister(ADDRESS, 2);
 }
 
 /*******************************************************************
@@ -180,7 +178,7 @@ int ReadBrakeTrigger(){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 void SaveBrakeTrigger(int value){
-    
+    writeRegister(ADDRESS, 2, value);
 }
 
 /*******************************************************************
@@ -190,8 +188,7 @@ void SaveBrakeTrigger(int value){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 int ReadBrakeLightTrigger(){
-    
-    return 0;
+    return readRegister(ADDRESS, 3);
 }
 
 /*******************************************************************
@@ -201,5 +198,5 @@ int ReadBrakeLightTrigger(){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 void SaveBrakeLightTrigger(int value){
-    
+    writeRegister(ADDRESS, 3, value);
 }

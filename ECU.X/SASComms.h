@@ -12,25 +12,22 @@
 #include "ADDRESSING.h"
 #include <stdbool.h>
 
-#define TRIP_THROTTLE 40
-#define TRIP_BRAKE    40
+//#define TRIP_THROTTLE 40
+//#define TRIP_BRAKE    40
 
 
 extern int SAS_FAULT_CONDITION;
     //SAS
 
-    extern void sendData1(unsigned char whereToSend);
-    extern bool receiveData1();
-    extern void ToSend1(const unsigned char where, const unsigned int what);
+//    extern void sendData1(unsigned char whereToSend);
+//    extern bool receiveData1();
+//    extern void ToSend1(const unsigned char where, const unsigned int what);
     extern volatile int receiveArray1[20];
 
-    extern void sendData2(unsigned char whereToSend);
-    extern void ToSend2(const unsigned char where, const unsigned int what);
-
-
-    extern void RS485_Direction1(int T_L);
+   // extern void RS485_Direction1(int T_L);
     bool checkSASInputs(unsigned int t1, unsigned int t2, unsigned int b);
-    void debugSAS();
+    void SetBrakeValue(int val);
+    void SetThrottleValue(int val);
 
 
 #endif	/* SASCOMMS_H */

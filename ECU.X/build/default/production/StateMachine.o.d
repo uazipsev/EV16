@@ -6,4 +6,5 @@ debug.h  \
 DriverConfigs.h  \
 StoppedState.h  \
 horn.h  \
- SlaveAddressing.h 
+ SlaveAddressing.h  \
+Communications.h 

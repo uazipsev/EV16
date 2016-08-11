@@ -7,7 +7,7 @@ bool readyToSendDDS = true;
 bool DDS_COMMS_ERROR = false;
 
 bool requestDDSData() {
-    if (((GetTime(DDSTimer) > BOARD_RESEND_MIN) && (readyToSendDDS)) || (GetTime(DDSTimer) > BOARD_TIMEOUT)) {
+    if (((GetTime(DDSTIMER) > BOARD_RESEND_MIN) && (readyToSendDDS)) || (GetTime(DDSTIMER) > BOARD_TIMEOUT)) {
         static int DDSErrorCounter = 0;
         if (!readyToSendDDS) {
             DDSErrorCounter++;
@@ -25,7 +25,7 @@ bool requestDDSData() {
         ToSend1(LED_DDS, indicators);
         RS485_Direction1(TALK);
         sendData1(DDS_ADDRESS);
-        SetTime(DDSTimer);
+        SetTime(DDSTIMER);
     }
     return true;
 
@@ -36,7 +36,7 @@ bool receiveCommDDS() {
         if (receiveArray1[RESPONSE_ADDRESS] == DDS_ADDRESS) {
             buttons = receiveArray1[BUTTONS_DDS];
             readyToSendDDS = true;
-            SetTime(DDSTimer);
+            SetTime(DDSTIMER);
             return true;
         } else return false;
     } else return false;

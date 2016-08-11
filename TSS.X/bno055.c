@@ -629,7 +629,7 @@ void readBytes(char address, char subAddress, char count, char * dest)
 //        Wire.requestFrom(address, (size_t) count);  // Read chars from slave register address 
 //	while (Wire.available()) {
 //        dest[i++] = Wire.read(); }         // Put read results in the Rx buffer
-    I2C1_MasterWrite(dest,count,address,&status);
+    //I2C1_MasterWrite(dest,count,address,&status);
 }
         
 void MadgwickQuaternionUpdate(float ax, float ay, float az, float gx, float gy, float gz, float mx, float my, float mz)

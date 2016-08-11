@@ -3,32 +3,30 @@
 #include "FastTransfer.h"
 #include "Communications.h"
 #include "ADDRESSING.h"
-#include "mcc_generated_files/eusart1.h"
+#include "UART.h"
+#include "PinDef.h"
 
 char receiveArray[50];
 
-void CommsStart(){
+void TSSCommsStart(){
     begin(receiveArray, sizeof (receiveArray), TM_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
-    EUSART1_Initialize();
+    UART_init();
 }
 
 void updateComms() {
-    if (receiveData()) {
-        //if (receiveArray[RESPONSE_ADDRESS] == ECU_ADDRESS) {
-        respondTM();
-        //}
-        //handleIndicators(receiveArray[LED_DDS]);
-        //TBbarGraphs(receiveArray[THROTTLE_DDS], receiveArray[BRAKE_DDS]);
-        //receiveArray[RESPONSE_ADDRESS] = 0;
+    if()
+    if(receiveData()) {
+       //respondTM(1);
     }
 }
 
-void respondTM() {
-    LATCbits.LATC5 = 1;
-    ToSend(RESPONSE_ADDRESS, DDS_ADDRESS);
-    //ToSend(BUTTONS_DDS, buttonsCollector());
-    Delay(9);
-    sendData(ECU_ADDRESS);
-    Delay(3);
-    LATCbits.LATC5 = 0;
+void respondTM(char val) {
+    RS485_TSS_Direction = TALK;
+    if(val == 1){
+        sendData(TSS_1_ADDRESS);
+    }
+    if(val == 2){
+        sendData(TSS_2_ADDRESS);
+    } 
+    RS485_TSS_Direction = LISTEN;
 }

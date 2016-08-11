@@ -30,59 +30,36 @@
 
 char x = 0;
 
+enum bus1CommState {
+    SAS_UPDATE = 0, DDS_UPDATE = 1, CHECK_STATE1 = 2, ERROR_STATE1 = 3, NUM_STATES1 = 4
+};
+enum bus1CommState commsBus1State = SAS_UPDATE;
+    
+enum bus2CommState {
+    MCS_UPDATE = 0, BMM_UPDATE = 1,  PDU_UPDATE = 2, CHECK_STATE2 = 3, ERROR_STATE2 = 4, NUM_STATES2 = 5
+};
+enum bus2CommState commsBus2State = MCS_UPDATE;
+
+struct commsStates {
+    bool DDS;
+    bool MCS;
+    bool SAS;
+    bool BMM;
+    bool PDU;
+    int DDS_SEND;
+    int MCS_SEND;
+    int SAS_SEND;
+    int BMM_SEND;
+    int PDU_SEND;
+};
+struct commsStates comms;
+    
 void updateComms() {
 
     bus1Update();
     bus2Update();
     checkCommDirection();
     checkCommDirection1();
-
-
-    static enum ECUstates previousState = NUM_STATES;
-    switch (currentState) {
-        case stopped:
-            //Means this is your first time in this state
-            if (previousState != currentState) {
-                previousState = currentState;
-            }
-
-            break;
-        case booting:
-            //Means this is your first time in this state
-            if (previousState != currentState) {
-                previousState = currentState;
-            }
-
-            break;
-        case running:
-            //Means this is your first time in this state
-            if (previousState != currentState) {
-                previousState = currentState;
-            }
-
-            break;
-        case stopping:
-            //Means this is your first time in this state
-            if (previousState != currentState) {
-                previousState = currentState;
-            }
-
-            break;
-        case fault:
-            //Means this is your first time in this state
-            if (previousState != currentState) {
-                previousState = currentState;
-            }
-
-            break;
-        case NUM_STATES:
-            //Means this is your first time in this state
-            if (previousState != currentState) {
-                previousState = currentState;
-            }
-
-            break;
-    }
 }
 
 void bus1Update() {
@@ -140,8 +117,8 @@ void checkCommDirection() {
 }
 
 void resetCommTimers() {
-    SetTime(SASTimer);
-    SetTime(DDSTimer);
+    SetTime(SASTIMER);
+    SetTime(DDSTIMER);
     //PDUTimer = 0;
 }
 
@@ -244,9 +221,9 @@ void checkCommDirection1() {
 }
 
 void resetCommTimers2() {
-    SetTime(MCSTimer);
-    SetTime(BMMTimer);
-    SetTime(PDUTimer);
+    SetTime(MCSTIMER);
+    SetTime(BMMTIMER);
+    SetTime(PDUTIMER);
 }
 
 void RS485_Direction2(int T_L) {
@@ -286,6 +263,20 @@ void putch(char txData) {
     Send_put2(txData);
 }
 
-//void _mon_putc(char c){
-//    Send_put2(c);
-//}
+bool ComCheck(char device){
+    if(device == MCSSTATE){
+        return comms.MCS;
+    }
+    if(device == DDSSTATE){
+        return comms.DDS;
+    }
+    if(device == SASSTATE){
+        return comms.SAS;
+    }
+    if(device == BMMSTATE){
+        return comms.BMM;
+    }
+    if(device == PDUSTATE){
+        return comms.PDU;
+    }
+}

@@ -65,44 +65,51 @@ void TimeOutSet(int num){
 }
 
 int GetTime(char data){
-    if(data == SASTimer){
+    if(data == SASTIMER){
         return SAS;
     }
-    if(data == DDSTimer){
+    if(data == DDSTIMER){
         return DDS;
     }
-    if(data == MCSTimer){
+    if(data == MCSTIMER){
         return MCS;
     }
-    if(data == PDUTimer){
+    if(data == PDUTIMER){
         return PDU;
     }
-    if(data == BMMTimer){
+    if(data == BMMTIMER){
         return BMM;
     }
-    if(data == DebugTime){
+    if(data == DEBUGTIME){
         return DebugTimer;
     }
+    if(data == TIME){
+        return time;
+    }
+    else return 255;
 }
 
 void SetTime(char data){
-    if(data == SASTimer){
+    if(data == SASTIMER){
         SAS = 0;
     }
-    if(data == DDSTimer){
+    if(data == DDSTIMER){
         DDS = 0;
     }
-    if(data == MCSTimer){
+    if(data == MCSTIMER){
         MCS = 0;
     }
-    if(data == PDUTimer){
+    if(data == PDUTIMER){
         PDU = 0;
     }
-    if(data == BMMTimer){
+    if(data == BMMTIMER){
         BMM = 0;
     }
-    if(data == DebugTime){
+    if(data == DEBUGTIME){
         DebugTimer = 0;
+    }
+    if(data == TIME){
+        time = 0;
     }
 }
 

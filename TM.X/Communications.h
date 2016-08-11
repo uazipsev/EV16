@@ -8,13 +8,9 @@
 #ifndef COMMUNICATIONS_H
 #define	COMMUNICATIONS_H
 
-unsigned int throttle, brake;
+void TSSCommsStart();
 void updateComms();
-unsigned int buttonsCollector();
-extern void Delay(int wait);
-void respondTM();
-void handleIndicators(int receivedIndicators);
-void TBbarGraphs(int t, int b);
+void respondTM(char val);
 
 #endif	/* COMMUNICATIONS_H */
 

@@ -38,7 +38,7 @@ bool readyToSendBMM = true;
 bool BMM_COMMS_ERROR = false;
 
 bool requestBMMData(char state) {
-    if (((GetTime(BMMTimer) > BOARD_RESEND_MIN) && (readyToSendBMM)) || (GetTime(BMMTimer) > BOARD_TIMEOUT)) {
+    if (((GetTime(BMMTIMER) > BOARD_RESEND_MIN) && (readyToSendBMM)) || (GetTime(BMMTIMER) > BOARD_TIMEOUT)) {
 //        static int BMMErrorCounter = 0;
 //        if (!readyToSendBMM) {
 //            BMMErrorCounter++;
@@ -50,7 +50,7 @@ bool requestBMMData(char state) {
 //            BMMErrorCounter = 0;
 //            readyToSendBMM = false;
 //        }
-        SetTime(BMMTimer);
+        SetTime(BMMTIMER);
         RS485_Direction2(TALK);
 
         switch (state) {
@@ -109,12 +109,12 @@ bool receiveCommBMM(char state) {
                 break;
         }
         readyToSendBMM = true;
-        SetTime(BMMTimer);
+        SetTime(BMMTIMER);
         return true;
     } else return false;
 }
 
-int GetVolt(char num){
+int GetVolt(unsigned char num){
     if(num == 6){
         return CellMaxVolt;
     }
@@ -126,7 +126,7 @@ int GetVolt(char num){
     }
 }
 
-int GetTemp(char num){
+int GetTemp(unsigned char num){
     if(num == 6){
         return CellMaxTemp;
     }
@@ -138,7 +138,7 @@ int GetTemp(char num){
     }
 }
 
-int GetCurrent(char num){
+int GetCurrent(unsigned  char num){
     if(num == 1){
         return current1;
     }

@@ -6,13 +6,13 @@
  *******************************************************************/
 #include "xc.h"
 #include "PinDef.h"
-#include "ADDRESSING.h"
 #include <libpic30.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include "Functions.h"
-#include "UART.h"
-#include "UART2.h"
+#include "Communications.h"
+#include "Timers.h"
+#include "pps.h"
 
 int BrakeLightThreshold = 0;
 
@@ -43,31 +43,27 @@ void Setup(void) {
 
     INTCON1bits.NSTDIS = 1; //No nesting of interrupts
 
-//    PPSUnLock;
-//    //RX0/TX0  -- RS485-1 (U3) --SAS -DDS
-//    Pin_42_Output = TX2_Output;
-//    RX1_Pin_Map = 48;
-//
-//    //RX1/TX1  -- RS485-2 (U1) --BMM -MCS
-//    Pin_49_Output = TX1_Output;
-//    RX2_Pin_Map = 43;
-//
-//    //RX/TX  --SWITCH becomes RX3/TX3 (USB) -> RX4/TX4 (WIRELESS)
-//    Pin_55_Output = TX3_Output;
-//    RX3_Pin_Map = 56;
-//
-//    //RX2/TX2 -- RS485 Full Duplex --Telem Master
-//    Pin_70_Output = TX4_Output;
-//    RX4_Pin_Map = 57;
-//
-//    //PPSout(_OC1, _RP37);
-//    PPSLock;
+    PPSUnLock;
+    //RX0/TX0  -- RS485-1 (U3) --SAS -DDS
+    Pin_42_Output = TX2_Output;
+    RX1_Pin_Map = 48;
 
-    UART_init();
-    //UART2_init();
+    //RX1/TX1  -- RS485-2 (U1) --BMM -MCS
+    Pin_49_Output = TX1_Output;
+    RX2_Pin_Map = 43;
 
-    //RS485 Bus 1
-    //begin(receiveArray, sizeof (receiveArray), ECU_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
+    //RX/TX  --SWITCH becomes RX3/TX3 (USB) -> RX4/TX4 (WIRELESS)
+    Pin_55_Output = TX3_Output;
+    RX3_Pin_Map = 56;
+
+    //RX2/TX2 -- RS485 Full Duplex --Telem Master
+    Pin_70_Output = TX4_Output;
+    RX4_Pin_Map = 57;
+
+    //PPSout(_OC1, _RP37);
+    PPSLock;
+    
+    TSSCommsStart();
 
     //This controls the timing system to control communication rates  
     initTimerOne();
@@ -93,12 +89,9 @@ void Delay(int wait) {
  * @note            Sets up I/O on the device
  *******************************************************************/
 void PinSetMode(void) {
-//    TRISBbits.TRISB10=INPUT;
-//    TRISEbits.TRISE13 = OUTPUT; //Set LED as output
-//    RS485_1_Direction_Tris = OUTPUT;
-//    RS485_2_Direction_Tris = OUTPUT;
-//    RS485_1_Direction = LISTEN;
-//    RS485_2_Direction = LISTEN;
+    TRISEbits.TRISE13 = OUTPUT; //Set LED as output
+    RS485_TSS_Direction_Tris = OUTPUT;
+    RS485_TSS_Direction = LISTEN;
 //    TRISCbits.TRISC10=OUTPUT;
 //    TRISCbits.TRISC4=OUTPUT;
 //    TRISCbits.TRISC3=OUTPUT;
@@ -115,7 +108,6 @@ void PinSetMode(void) {
 //    //TX_Tris=OUTPUT;
 //    //RX2_Tris=OUTPUT;
 //    //TX2_Tris=OUTPUT;
-
 }
 
 /*******************************************************************
@@ -125,16 +117,11 @@ void PinSetMode(void) {
  * @note            uses timer to control the function tick rate
  *******************************************************************/
 void ledDebug(){
-    if (time > 250) {
-          //  INDICATOR ^= 1;
-           // HORN_EN ^=1;
-           // BRAKELT ^= 1;
-            //SS_RELAY ^= 1;
-            //SaveCarDriver(0x55);
-            //printf("eeprom data = %c",ReadCarDriver());
-            time = 0;
-        }
+    if (GetTime(TIME) > 250) {
+        INDICATOR ^= 1;
+        SetTime(TIME);
     }
+}
 
 /*******************************************************************
  * @brief           ReadReset

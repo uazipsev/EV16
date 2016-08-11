@@ -1,8 +1,11 @@
 #include "SASComms.h"
 #include "PinDef.h"
 #include "Timers.h"
-unsigned int throttle1, throttle2, brake;
-unsigned int t1Raw, t2Raw, bRaw;
+#include "FastTransfer1.h"
+#include "Communications.h"
+
+unsigned int throttle1, throttle2, brake, TripThrottle;
+unsigned int t1Raw, t2Raw, bRaw, TripBrake;
 bool receiveCommSAS();
 bool requestSASData();
 bool readyToSendSAS = true;
@@ -12,17 +15,10 @@ int ThrottlePrecent;
 
 #define THROTTLE_SANITY_CHECK 1
 #define THROTTLE_BRAKE_CHECK  2
-void debugSAS() {
-    ToSend2(5, throttle1);
-    ToSend2(6, throttle2);
-    ToSend2(7, brake);
-    sendData2(DEBUG_ADDRESS);
-
-}
 
 bool requestSASData() {
     //If either timeout or response with delay already occurred
-    if (((GetTime(SASTimer) > BOARD_RESEND_MIN) && (readyToSendSAS)) || (GetTime(SASTimer) > BOARD_TIMEOUT)) {
+    if (((GetTime(SASTIMER) > BOARD_RESEND_MIN) && (readyToSendSAS)) || (GetTime(SASTIMER) > BOARD_TIMEOUT)) {
         static int SASErrorCounter = 0;
         if (!readyToSendSAS) {
             SASErrorCounter++;
@@ -34,7 +30,7 @@ bool requestSASData() {
             readyToSendSAS = false;
             SASErrorCounter = 0;
         }
-        SetTime(SASTimer);
+        SetTime(SASTIMER);
         RS485_Direction1(TALK);
         ToSend1(RESPONSE_ADDRESS, ECU_ADDRESS);
         sendData1(SAS_ADDRESS);
@@ -75,7 +71,7 @@ void storeSASInputs() {
 //        if (brake > 100) brake = 100;
 //    } else brake = 0;
     //    //Brake vs. throttle safety
-        if ((((throttle1 + throttle2) / 2) > TRIP_THROTTLE) && (brake > TRIP_BRAKE)) {
+        if ((((throttle1 + throttle2) / 2) > TripThrottle) && (brake > TripBrake)) {
             SAS_FAULT_CONDITION = THROTTLE_BRAKE_CHECK;  //  TODO: Fix me
             throttle1=0;
             throttle2=0;
@@ -93,9 +89,16 @@ bool receiveCommSAS() {
             }
 
             readyToSendSAS = true;
-            SetTime(SASTimer);
+            SetTime(SASTIMER);
             return true;
         } else return false;
     } else return false;
 }
 
+void SetBrakeValue(int val){
+    TripBrake = val;
+}
+
+void SetThrottleValue(int val){
+    TripThrottle = val;
+}

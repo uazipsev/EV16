@@ -15,9 +15,9 @@
     extern void RS485_Direction2(int T_L);
     bool requestBMMData(char state);
     bool receiveCommBMM(char state);
-    int GetTemp(char num);
-    int GetVolt(char num);
-    int GetCurrent(char num);
+    int GetTemp(unsigned char num);
+    int GetVolt(unsigned char num);
+    int GetCurrent(unsigned char num);
     
 #endif	/* BMMCOMMS_H */
 

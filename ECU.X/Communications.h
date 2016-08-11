@@ -8,58 +8,22 @@
 #ifndef COMMUNICATIONS_H
 #define	COMMUNICATIONS_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
-
-    enum ECUstates {
-        stopped = 0,
-        booting = 1,
-        running = 2,
-        stopping = 3,
-        fault = 4,
-        NUM_STATES = 5
-    };
-    extern enum ECUstates currentState;
-
-    enum BMM {
-        BATTERY_FAULT = 0,
-        BATTERY_VOLTS = 1,
-        BATTERY_TEMPS = 2,
-        BATTERY_POWER = 3
-    };
-
-    struct commsStates {
-        bool DDS;
-        bool MCS;
-        bool SAS;
-        bool BMM;
-        bool PDU;
-        int DDS_SEND;
-        int MCS_SEND;
-        int SAS_SEND;
-        enum BMM BMM_SEND;
-        int PDU_SEND;
-    };
-    extern struct commsStates comms;
-
+#define PDUSTATE 1
+#define MCSSTATE 2
+#define SASSTATE 3
+#define DDSSTATE 4
+#define BMMSTATE 5
     //COMMUNICATIONS METHODS
     extern void updateComms();
 
-    enum bus1CommState {
-        SAS_UPDATE = 0, DDS_UPDATE = 1, CHECK_STATE1 = 2, ERROR_STATE1 = 3, NUM_STATES1 = 4
-    };
-    enum bus1CommState commsBus1State = SAS_UPDATE;
+
     void checkCommDirection();
     void bus1Update();
     void resetCommTimers();
     void RS485_Direction1(int T_L);
     void sendErrorCode();
 
-    enum bus2CommState {
-        MCS_UPDATE = 0, BMM_UPDATE = 1,  PDU_UPDATE = 2, CHECK_STATE2 = 3, ERROR_STATE2 = 4, NUM_STATES2 = 5
-    };
-    enum bus2CommState commsBus2State = MCS_UPDATE;
+
     void checkCommDirection1();
     void bus2Update();
     void resetCommTimers2();
@@ -126,19 +90,6 @@ extern "C" {
     extern volatile int receiveArray3[20];
     extern volatile bool Transmit_stall3;
     extern volatile unsigned int talkTime3;
-
-
-
-
-
-
-
-
-
-
-#ifdef	__cplusplus
-}
-#endif
 
 #endif	/* COMMUNICATIONS_H */
 

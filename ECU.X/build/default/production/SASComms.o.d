@@ -3,4 +3,6 @@ SASComms.c  \
 SASComms.h  \
 ADDRESSING.h  \
  PinDef.h  \
-Timers.h 
+Timers.h  \
+FastTransfer1.h  \
+Communications.h 

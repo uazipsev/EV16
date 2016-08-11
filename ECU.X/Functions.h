@@ -47,9 +47,9 @@ extern void Delay(int wait);
 void PinSetMode(void);
 
 extern void initTimerOne();
-extern volatile unsigned int time;
 extern unsigned int brake;
 void updateBrakeLight();
+void SetBrakeLightValue(int val);
 void ledDebug();
 
 #endif	/* FUNCTIONS_H */

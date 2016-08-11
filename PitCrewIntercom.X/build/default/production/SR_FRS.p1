@@ -2972,9 +2972,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;SR_FRS.c: 7: void SR_FRSTalk(void){
 [e :U _SR_FRSTalk ]
 [f ]
-[; ;SR_FRS.c: 8: PORTCbits.RC7 ^= PORTCbits.RC7;
+[; ;SR_FRS.c: 8: PORTCbits.RC7 ^= 1;
 "8
-[e =^ . . _PORTCbits 0 7 . . _PORTCbits 0 7 ]
+[e =^ . . _PORTCbits 0 7 -> -> 1 `i `uc ]
 [; ;SR_FRS.c: 9: }
 "9
 [e :UE 369 ]
@@ -2985,9 +2985,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;SR_FRS.c: 11: void SR_FRSPowerDown(void){
 [e :U _SR_FRSPowerDown ]
 [f ]
-[; ;SR_FRS.c: 12: PORTCbits.RC6 ^= PORTCbits.RC6;
+[; ;SR_FRS.c: 12: PORTCbits.RC6 ^= 1;
 "12
-[e =^ . . _PORTCbits 0 6 . . _PORTCbits 0 6 ]
+[e =^ . . _PORTCbits 0 6 -> -> 1 `i `uc ]
 [; ;SR_FRS.c: 13: }
 "13
 [e :UE 370 ]

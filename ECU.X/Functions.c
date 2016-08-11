@@ -21,6 +21,7 @@
 #include "FastTransfer1.h"
 #include "FastTransfer3.h"
 #include "DriverConfigs.h"
+#include "Timers.h"
 
 
 int BrakeLightThreshold = 0;
@@ -87,7 +88,6 @@ void Setup(void) {
     initTimerOne();
     //This sets up all non constants from external EEPROM 
     SetUpDataSets();
-    //SetDriver(1);
 }
 
 /*******************************************************************
@@ -145,16 +145,12 @@ void PinSetMode(void) {
  * @note            uses timer to control the function tick rate
  *******************************************************************/
 void ledDebug(){
-    if (time > 1000) {
+    if (GetTime(TIME) > 500) {
             INDICATOR ^= 1;
-           // HORN_EN ^=1;
-           // BRAKELT ^= 1;
+            // HORN_EN ^=1;
+            // BRAKELT ^= 1;
             //SS_RELAY ^= 1;
-            //SaveCarDriver(0x55);
-            //Delay(20);
-            char xy = ReadCarDriver();
-            printf("eeprom data = %d/n",xy);
-            time = 0;
+            SetTime(TIME);
         }
     }
 
@@ -191,4 +187,15 @@ void ReadReset(){
 int GetResetValue(){
     return read;
 }
+
+/*******************************************************************
+ * @brief           SetBrakeLightValue
+ * @brief           setter
+ * @return          N/A
+ * @note            Acts are a setter to keep data integrity 
+ *******************************************************************/
+void SetBrakeLightValue(int val){
+    BrakeLightThreshold = val;
+}
+
 

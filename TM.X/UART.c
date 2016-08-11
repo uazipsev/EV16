@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include "UART.h"
 #include "PinDef.h"
+#include <string.h>
+
 #define ON         0
 #define OFF        1
 
@@ -37,21 +39,21 @@ unsigned char UART_buff_peek(struct UART_ring_buff* _this);
 
 void UART_init(void) {
     // UART config
-    U2MODEbits.STSEL = 0; // 1-stop bit
-    U2MODEbits.PDSEL = 0; // No parity, 8-data bits
-    U2MODEbits.ABAUD = 0; // Auto-baud disabled
-    U2BRG = BAUD_RATE; // Baud Rate setting for 57600
-    U2STAbits.URXISEL = 0b01; // Interrupt after all TX character transmitted
-    U2STAbits.URXISEL = 0b00; // Interrupt after one RX character is received
-    //IFS0bits.U1RXIF = 0; // Clear RX interrupt flag
-    //IFS0bits.U1TXIF = 0; // Clear TX interrupt flag
-    //IEC0bits.U1RXIE = 1; // Enable RX interrupt
-    //IEC0bits.U1TXIE = 1; // Enable TX interrupt
+    U1MODEbits.STSEL = 0; // 1-stop bit
+    U1MODEbits.PDSEL = 0; // No parity, 8-data bits
+    U1MODEbits.ABAUD = 0; // Auto-baud disabled
+    U1BRG = BAUD_RATE; // Baud Rate setting for 57600
+    U1STAbits.URXISEL = 0b01; // Interrupt after all TX character transmitted
+    U1STAbits.URXISEL = 0b00; // Interrupt after one RX character is received
+    IFS0bits.U1RXIF = 0; // Clear RX interrupt flag
+    IFS0bits.U1TXIF = 0; // Clear TX interrupt flag
+    IEC0bits.U1RXIE = 1; // Enable RX interrupt
+    IEC0bits.U1TXIE = 1; // Enable TX interrupt
 
     UART_buff_init(&input_buffer);
     UART_buff_init(&output_buffer);
-    U2MODEbits.UARTEN = 1; // Enable UART
-    U2STAbits.UTXEN = 1; // Enable UART TX
+    U1MODEbits.UARTEN = 1; // Enable UART
+    U1STAbits.UTXEN = 1; // Enable UART TX
 }
 
 void UART_buff_init(struct UART_ring_buff* _this) {
@@ -140,7 +142,7 @@ void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void) {
     if (U2STAbits.OERR) {
         U2STAbits.OERR = 0;
     }
-    unsigned char data = U2RXREG;
+    unsigned char data = U1RXREG;
     UART_buff_put(&input_buffer, data);
     IFS0bits.U1RXIF = 0; // Clear RX interrupt flag
 }
@@ -148,7 +150,7 @@ void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void) {
 void __attribute__((interrupt, no_auto_psv)) _U1TXInterrupt(void) {
     //LED ^= 1;
     if (UART_buff_size(&output_buffer) > 0) {
-        U2TXREG = UART_buff_get(&output_buffer);
+        U1TXREG = UART_buff_get(&output_buffer);
     } else {
 
         //talkTime = 0;

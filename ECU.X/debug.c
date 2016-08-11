@@ -105,7 +105,7 @@ void handleDebugRequests() {
     static int lastDebugState = 0;
     static int batterySlaveNumberV;
     static int batterySlaveNumber;
-    if (GetTime(DebugTime) > 1000) {
+    if (GetTime(DEBUGTIME) > 1000) {
         switch (debugState) {
             case NO_DEBUG:
                 //This is the first time through the loop
@@ -300,7 +300,7 @@ void handleDebugRequests() {
             MenuPrint(Menu,SubMenu);
             MenuClear = false;
         }
-        SetTime(DebugTime);
+        SetTime(DEBUGTIME);
     }
 
     if (Receive_available2()) {

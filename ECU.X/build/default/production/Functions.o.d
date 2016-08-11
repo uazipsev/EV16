@@ -12,4 +12,5 @@ UART3.h  \
  FastTransfer.h  \
 FastTransfer1.h  \
 FastTransfer3.h  \
-DriverConfigs.h 
+DriverConfigs.h  \
+Timers.h 

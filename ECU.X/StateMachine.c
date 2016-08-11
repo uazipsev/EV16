@@ -7,6 +7,7 @@
 #include "StoppedState.h"
 #include "horn.h"
 #include "SlaveAddressing.h"
+#include "Communications.h"
 
 int carActive = false;
 //Each board has a condition that says which fault it is experiencing if any
@@ -17,8 +18,6 @@ extern enum debugStates debugState;
 struct faultStates faults;
 //Record and control ECU states
 enum ECUstates currentState = stopped;// TODO make back to start
-//Record and control comm states
-struct commsStates comms;
 //Control the power rails on the PDU
 struct powerStates powerSet;
 //Check to see if boot is completed
@@ -252,7 +251,7 @@ bool StartSequenceCompleted() {
 }
 
 bool bootSequenceCompleted() {
-    if ((BootTimer > 1500) && comms.MCS) return true; 
+    if ((BootTimer > 1500) && ComCheck(MCSSTATE)) return true; 
     else return false;
 }
 

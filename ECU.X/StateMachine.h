@@ -25,26 +25,6 @@ struct powerStates {
     bool BMM;
 };
 
-enum BMM {
-    BATTERY_FAULT = 0,
-    BATTERY_VOLTS = 1,
-    BATTERY_TEMPS = 2,
-    BATTERY_POWER = 3
-};
-
-struct commsStates {
-    bool DDS;
-    bool MCS;
-    bool SAS;
-    bool BMM;
-    bool PDU;
-    int DDS_SEND;
-    int MCS_SEND;
-    int SAS_SEND;
-    enum BMM BMM_SEND;
-    int PDU_SEND;
-};
-
 struct faultStates {
     int DDS;
     int MCS;

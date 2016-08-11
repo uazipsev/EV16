@@ -14,7 +14,7 @@ bool powerChange();
 extern struct powerStates powerSet;
 
 bool requestPDUData() {
-    if (((GetTime(PDUTimer) > BOARD_RESEND_MIN) && (readyToSendPDU)) || (GetTime(PDUTimer) > BOARD_TIMEOUT)) { // if (((PDUTimer > BOARD_RESEND_MIN) && (readyToSendPDU)) || (PDUTimer > BOARD_TIMEOUT)) {
+    if (((GetTime(PDUTIMER) > BOARD_RESEND_MIN) && (readyToSendPDU)) || (GetTime(PDUTIMER) > BOARD_TIMEOUT)) { // if (((PDUTimer > BOARD_RESEND_MIN) && (readyToSendPDU)) || (PDUTimer > BOARD_TIMEOUT)) {
         static int PDUErrorCounter = 0;
         if (!readyToSendPDU) {
             PDUErrorCounter++;
@@ -26,7 +26,7 @@ bool requestPDUData() {
             PDUErrorCounter = 0;
             readyToSendPDU = false;
         }
-        SetTime(PDUTimer);
+        SetTime(PDUTIMER);
         RS485_Direction2(TALK);
         ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
         if (powerChange())
@@ -40,7 +40,7 @@ bool receiveCommPDU() {
     if (receiveData()) {
         if (receiveArray[RESPONSE_ADDRESS] == PDU_ADDRESS) {
             readyToSendPDU = true;
-            SetTime(PDUTimer);
+            SetTime(PDUTIMER);
             //INDICATOR ^= 1;
             return true;
         } else return false;

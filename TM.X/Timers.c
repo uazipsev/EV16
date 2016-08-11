@@ -9,6 +9,9 @@
 #include <stdbool.h>
 #include "Timers.h"
 
+unsigned  long Time = 0;
+unsigned  long TSSTime = 0;
+
 void initTimerOne() {
     T1CONbits.TON = 0; // turn off timer
     T1CONbits.TCS = 0;
@@ -20,27 +23,28 @@ void initTimerOne() {
 }
 
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
-    time++;
-    talkTime++;
-    talkTime1++;
-    talkTime2++;
-    talkTime3++;
-    BootTimer++;
-    DebugTimer++;
-    if (SASTimer < COMM_TIMER_MAX_TIME)
-        SASTimer++;
-    if (DDSTimer < COMM_TIMER_MAX_TIME)
-        DDSTimer++;
-    if (MCSTimer < COMM_TIMER_MAX_TIME)
-        MCSTimer++;
-    if (PDUTimer < COMM_TIMER_MAX_TIME)
-        PDUTimer++;
-    if (BMMTimer < COMM_TIMER_MAX_TIME)
-        BMMTimer++;
+    Time++;
+    TSSTime++;
     IFS0bits.T1IF = 0; // clear interrupt flag
 }
 
 void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void) {
 
     IFS0bits.T2IF = 0; // clear timer interrupt flag
+}
+
+int GetTime(char data){
+    if(data == TIME){
+        return Time;
+    }
+    else return 255;
+}
+
+void SetTime(char data){
+    if(data == TSSTIME){
+        TSSTime = 0;
+    }
+    if(data == TIME){
+        Time = 0;
+    }
 }
