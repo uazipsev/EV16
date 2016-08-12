@@ -8,11 +8,13 @@
 #ifndef EEPROM_H
 #define	EEPROM_H
 
+#define DRIVERCONFIGSTART 32
+
 void EEpromInit();
 void DataWrite(char address, char data);
 char DataRead(char address);
-char readRegister(char i2cAddress, char reg);
-void writeRegister(char i2cAddress, char reg, int value);
+char readRegister(char i2cAddress, int reg);
+void writeRegister(char i2cAddress, int reg, char value);
 char ReadCarDriver();
 void SaveCarDriver(char value);
 int ReadThrottlePrecent();

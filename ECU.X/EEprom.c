@@ -2,7 +2,7 @@
  * @brief           EEprom.c
  * @brief           gives access to the EEPROM to set and store data
  * @return          N/A
- * @note            The lib is written for 24LC00 IC ( http://ww1.microchip.com/downloads/en/DeviceDoc/21178G.pdf)
+ * @note            The lib is written for FT24C64A-ULR-T IC (http://www.fremontmicrousa.com/pdf/EN-24C32_64-300-V1p8.pdf)
  *******************************************************************/
 
 #include "I2C.h"
@@ -30,14 +30,17 @@ void EEpromInit(){
  * @return          none
  * @note            uses commands from the I2C lib to construct packets to send out on the bus 
  *******************************************************************/
-void writeRegister(char i2cAddress, char reg, int value)
+void writeRegister(char i2cAddress, int reg, char value)
 {
     IdleI2C();
 	StartI2C();						//Initiate start condition
 	WriteI2C(i2cAddress << 1);	    //write 1 byte
 	AckI2C();                       //Wait for ACK
     IdleI2C();                      //Ensure module is Idle
-	WriteI2C(reg);			    	//Write High word address
+    WriteI2C(reg >> 8);			    //Write High word address
+    AckI2C();   					//Wait for ACK
+	IdleI2C();					    //Ensure module is Idle
+    WriteI2C(reg & 0xff);			//Write Low word address
 	AckI2C();						//Wait for ACK
     IdleI2C();                      //Ensure module is idle
     WriteI2C(value);				//Write Low word address
@@ -52,14 +55,17 @@ void writeRegister(char i2cAddress, char reg, int value)
  * @return          none
  * @note            uses commands from the I2C lib to construct packets to send out on the bus 
  *******************************************************************/
-char readRegister(char i2cAddress, char reg)
+char readRegister(char i2cAddress, int reg)
 {
     IdleI2C();
     StartI2C();						    //Initiate start condition
 	WriteI2C(i2cAddress << 1);	        //write 1 byte
     AckI2C();   					    //Wait for ACK
 	IdleI2C();						    //Ensure module is Idle
-    WriteI2C(reg);			    	    //Write Low word address
+    WriteI2C(reg >> 8);			    	//Write High word address
+    AckI2C();   					    //Wait for ACK
+	IdleI2C();						    //Ensure module is Idle
+    WriteI2C(reg & 0xff);			    //Write Low word address
     AckI2C();   					    //Wait for ACK
 	IdleI2C();						    //Ensure module is Idle
 	StopI2C();				            //Send stop condition
@@ -88,17 +94,17 @@ void SetUpDataSets(){
 //    ReadThrottlePrecent();
 //    ReadThrottleTrigger();
 //    ReadBrakeTrigger();
-      SetBrakeLightValue(ReadBrakeLightTrigger());
-      //char z = 0;
-//    for(z=0;z<16;z++){
-//        writeRegister(ADDRESS, z, z);
-//        Delay(2);
-//    }
-//    Delay(10);
-//    for(z=0;z<16;z++){
-//        readRegister(ADDRESS, z);
-//        Delay(5);
-//    }
+//      SetBrakeLightValue(ReadBrakeLightTrigger());
+     char z = 0;
+    for(z=0;z<50;z++){
+        writeRegister(ADDRESS, z, z);
+        Delay(2);
+    }
+    Delay(10);
+    for(z=0;z<50;z++){
+        readRegister(ADDRESS, z);
+        Delay(5);
+    }
 }
 
 /*******************************************************************
@@ -198,5 +204,25 @@ int ReadBrakeLightTrigger(){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 void SaveBrakeLightTrigger(int value){
+    writeRegister(ADDRESS, 3, value);
+}
+
+/*******************************************************************
+ * @brief           ReadDriverName
+ * @brief           Reading driver name 
+ * @return          driver name
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
+int ReadDriverName(char dvr){
+    return readRegister(ADDRESS, 3);
+}
+
+/*******************************************************************
+ * @brief           SaveBrakeLightTrigger
+ * @brief           Saving data location for brake light threshold
+ * @return          none
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
+void SaveDriverName(char * dvrname){
     writeRegister(ADDRESS, 3, value);
 }
