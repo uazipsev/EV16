@@ -8,8 +8,9 @@
 #ifndef COMMUNICATIONS_H
 #define	COMMUNICATIONS_H
 
-    void updateComms();
-    void respondECU();
+void Delay(int wait);
+void updateComms();
+void respondECU();
 
 #endif	/* COMMUNICATIONS_H */
 

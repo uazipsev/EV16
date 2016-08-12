@@ -1,11 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [p mainexit ]
-"11 Communications.h
+"12 Communications.h
 [v _updateComms `(v ~T0 @X0 0 ef ]
-[v F7884 `(v ~T0 @X0 1 tf1`ul ]
-"157 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18.h
-[v __delay `JF7884 ~T0 @X0 0 e ]
-[p i __delay ]
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
@@ -87,8 +83,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdlib.h: 101: extern char * ltoa(char * buf, long val, int base);
 [; ;stdlib.h: 102: extern char * ultoa(char * buf, unsigned long val, int base);
 [; ;stdlib.h: 104: extern char * ftoa(float f, int * status);
-[; ;Communications.h: 11: void updateComms();
-[; ;Communications.h: 12: void respondECU();
+[; ;Communications.h: 11: void Delay(int wait);
+[; ;Communications.h: 12: void updateComms();
+[; ;Communications.h: 13: void respondECU();
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;pic18f45k22.h: 49: extern volatile unsigned char ANSELA @ 0xF38;
@@ -7438,38 +7435,4 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Main.c: 30: }
 "30
 [e :UE 1126 ]
-}
-"32
-[v _Delay `(v ~T0 @X0 1 ef1`i ]
-{
-[; ;Main.c: 32: void Delay(int wait) {
-[e :U _Delay ]
-[v _wait `i ~T0 @X0 1 r1 ]
-[f ]
-"33
-[v _x `i ~T0 @X0 1 a ]
-[; ;Main.c: 33: int x;
-[; ;Main.c: 34: for (x = 0; x < wait; x++) {
-"34
-{
-[e = _x -> 0 `i ]
-[e $U 1134  ]
-[e :U 1131 ]
-{
-[; ;Main.c: 35: _delay((unsigned long)((1)*(16000000/4000.0)));
-"35
-[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"36
-}
-"34
-[e ++ _x -> 1 `i ]
-[e :U 1134 ]
-[e $ < _x _wait 1131  ]
-[e :U 1132 ]
-"36
-}
-[; ;Main.c: 36: }
-[; ;Main.c: 37: }
-"37
-[e :UE 1130 ]
 }

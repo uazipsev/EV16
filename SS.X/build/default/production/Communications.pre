@@ -9267,25 +9267,30 @@ unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned ch
 void CRCcheck(void);
 
 # 11 "Communications.h"
+void Delay(int wait);
 void updateComms();
 void respondECU();
 
 # 8 "Communications.c"
 void updateComms() {
-
 if (receiveData()) {
-
 respondECU();
 }
 }
 
 void respondECU() {
-LATCbits.LATC5 = 1;
-ToSend(0, 3);
-ToSend(8,0);
-
+LATDbits.LATD4 = 1;
+ToSend(1,0);
+Delay(9);
 sendData(1);
+Delay(3);
+LATDbits.LATD4 = 0;
+}
 
-LATCbits.LATC5 = 0;
+void Delay(int wait) {
+int x;
+for (x = 0; x < wait; x++) {
+_delay((unsigned long)((1)*(16000000/4000.0)));
+}
 }
 

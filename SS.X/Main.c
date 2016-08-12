@@ -29,12 +29,7 @@ void main(void) {
     }
 }
 
-void Delay(int wait) {
-    int x;
-    for (x = 0; x < wait; x++) {
-        __delay_ms(1);
-    }
-}
+
 /**
  End of File
  */

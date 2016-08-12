@@ -1,64 +1,37 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F7744 `(v ~T0 @X0 0 tf1`uc ]
-[v F7747 `(uc ~T0 @X0 0 tf ]
-[v F7750 `(i ~T0 @X0 0 tf ]
-[v F7753 `(uc ~T0 @X0 0 tf ]
-"52 FastTransfer.h
-[s S1121 `uc -> 200 `i `i 1 `i 1 `i 1 ]
-[n S1121 ringBufS buf head tail count ]
-"60
-[u S1122 `uc -> 2 `i `ui 1 ]
-[n S1122 stuff parts integer ]
-"66
-[s S1123 `uc * -> 5 `i -> 3 `i `i 1 ]
-[n S1123 crcBufS buf head ]
-"16
-[v _receiveData `(uc ~T0 @X0 0 ef ]
-"13 Communications.h
-[v _respondECU `(v ~T0 @X0 0 ef ]
-"8070 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
-[s S487 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S487 . LATD0 LATD1 LATD2 LATD3 LATD4 LATD5 LATD6 LATD7 ]
-"8080
-[s S488 :1 `uc 1 ]
-[n S488 . LD0 ]
-"8083
-[s S489 :1 `uc 1 :1 `uc 1 ]
-[n S489 . . LD1 ]
-"8087
-[s S490 :2 `uc 1 :1 `uc 1 ]
-[n S490 . . LD2 ]
-"8091
-[s S491 :3 `uc 1 :1 `uc 1 ]
-[n S491 . . LD3 ]
-"8095
-[s S492 :4 `uc 1 :1 `uc 1 ]
-[n S492 . . LD4 ]
-"8099
-[s S493 :5 `uc 1 :1 `uc 1 ]
-[n S493 . . LD5 ]
-"8103
-[s S494 :6 `uc 1 :1 `uc 1 ]
-[n S494 . . LD6 ]
-"8107
-[s S495 :7 `uc 1 :1 `uc 1 ]
-[n S495 . . LD7 ]
-"8069
-[u S486 `S487 1 `S488 1 `S489 1 `S490 1 `S491 1 `S492 1 `S493 1 `S494 1 `S495 1 ]
-[n S486 . . . . . . . . . . ]
-"8112
-[v _LATDbits `VS486 ~T0 @X0 0 e@3980 ]
-"17 FastTransfer.h
-[v _ToSend `(v ~T0 @X0 0 ef2`Cuc`Cui ]
-"11 Communications.h
-[v _Delay `(v ~T0 @X0 0 ef1`i ]
-"15 FastTransfer.h
-[v _sendData `(v ~T0 @X0 0 ef1`uc ]
-[v F7702 `(v ~T0 @X0 1 tf1`ul ]
-"157 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18.h
-[v __delay `JF7702 ~T0 @X0 0 e ]
-[p i __delay ]
-[; ;stdbool.h: 12: typedef unsigned char bool;
+"16678 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+[v _T0CON `Vuc ~T0 @X0 0 e@4053 ]
+"16772
+[v _TMR0H `Vuc ~T0 @X0 0 e@4055 ]
+"16753
+[v _TMR0L `Vuc ~T0 @X0 0 e@4054 ]
+"17456
+[s S1093 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1093 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
+"17466
+[s S1094 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1094 . . INT0F T0IF . INT0E T0IE PEIE GIE ]
+"17476
+[s S1095 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1095 . . GIEL GIEH ]
+"17455
+[u S1092 `S1093 1 `S1094 1 `S1095 1 ]
+[n S1092 . . . . ]
+"17482
+[v _INTCONbits `VS1092 ~T0 @X0 0 e@4082 ]
+"135 tmr0.h
+[v _TMR0_StartTimer `(v ~T0 @X0 0 ef ]
+"16684 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+[s S1033 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1033 . T0PS PSA T0SE T0CS T08BIT TMR0ON ]
+"16692
+[s S1034 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1034 . T0PS0 T0PS1 T0PS2 ]
+"16683
+[u S1032 `S1033 1 `S1034 1 ]
+[n S1032 . . . ]
+"16698
+[v _T0CONbits `VS1032 ~T0 @X0 0 e@4053 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -7385,190 +7358,196 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 157: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 159: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 161: extern __nonreentrant void _delay3(unsigned char);
-[; ;FastTransfer.h: 14: void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
-[; ;FastTransfer.h: 15: void sendData(unsigned char whereToSend);
-[; ;FastTransfer.h: 16: bool receiveData();
-[; ;FastTransfer.h: 17: void ToSend(const unsigned char where, const unsigned int what);
-[; ;FastTransfer.h: 18: unsigned char AKNAK(unsigned char module);
-[; ;FastTransfer.h: 19: unsigned int alignError(void);
-[; ;FastTransfer.h: 20: unsigned int CRCError(void);
-[; ;FastTransfer.h: 21: unsigned int addressError(void);
-[; ;FastTransfer.h: 22: unsigned int dataAddressError(void);
-"24 FastTransfer.h
-[v _receiveArray `Vi ~T0 @X0 -> 20 `i e ]
-[; ;FastTransfer.h: 24: volatile int receiveArray[20];
-"26
-[v _serial_write `*F7744 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 26: void (*serial_write)(unsigned char);
-"27
-[v _serial_read `*F7747 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 27: unsigned char (*serial_read)(void);
-"28
-[v _serial_available `*F7750 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 28: int (*serial_available)(void);
-"29
-[v _serial_peek `*F7753 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 29: unsigned char (*serial_peek)(void);
-"30
-[v _rx_buffer `uc ~T0 @X0 -> 200 `i e ]
-[; ;FastTransfer.h: 30: unsigned char rx_buffer[200];
-"31
-[v _rx_array_inx `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 31: unsigned char rx_array_inx;
-"32
-[v _rx_len `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 32: unsigned char rx_len;
-"33
-[v _calc_CS `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 33: unsigned char calc_CS;
-"34
-[v _moduleAddress `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 34: unsigned char moduleAddress;
-"35
-[v _returnAddress `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 35: unsigned char returnAddress;
-"36
-[v _maxDataAddress `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 36: unsigned char maxDataAddress;
-"37
-[v _receiveArrayAddress `*Vi ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 37: volatile int * receiveArrayAddress;
-"38
-[v _sendStructAddress `*uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 38: unsigned char * sendStructAddress;
-"39
-[v _AKNAKsend `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 39: bool AKNAKsend;
-"40
-[v _alignErrorCounter `ui ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 40: unsigned int alignErrorCounter;
-"41
-[v _crcErrorCounter `ui ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 41: unsigned int crcErrorCounter;
-"42
-[v _addressErrorCounter `ui ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 42: unsigned int addressErrorCounter;
-"43
-[v _dataAdressErrorCounter `ui ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 43: unsigned int dataAdressErrorCounter;
-"44
-[v _rx_address `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 44: unsigned char rx_address;
-[; ;FastTransfer.h: 52: struct ringBufS {
-[; ;FastTransfer.h: 53: unsigned char buf[200];
-[; ;FastTransfer.h: 54: int head;
-[; ;FastTransfer.h: 55: int tail;
-[; ;FastTransfer.h: 56: int count;
-[; ;FastTransfer.h: 57: };
-"58
-[v _ring_buffer `S1121 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 58: struct ringBufS ring_buffer;
-[; ;FastTransfer.h: 60: union stuff {
-[; ;FastTransfer.h: 61: unsigned char parts[2];
-[; ;FastTransfer.h: 62: unsigned int integer;
-[; ;FastTransfer.h: 63: };
-"64
-[v _group `S1122 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 64: union stuff group;
-[; ;FastTransfer.h: 66: struct crcBufS {
-[; ;FastTransfer.h: 67: unsigned char buf[(5 * 3)];
-[; ;FastTransfer.h: 68: int head;
-[; ;FastTransfer.h: 69: };
-"70
-[v _crc_buffer `S1123 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 70: struct crcBufS crc_buffer;
-[; ;FastTransfer.h: 72: unsigned char CRC8(const unsigned char * data, unsigned char len);
-[; ;FastTransfer.h: 73: void FastTransfer_buffer_put(struct ringBufS *_this, const unsigned char towhere, const unsigned int towhat);
-[; ;FastTransfer.h: 74: unsigned char FastTransfer_buffer_get(struct ringBufS* _this);
-[; ;FastTransfer.h: 75: void FastTransfer_buffer_flush(struct ringBufS* _this, const int clearBuffer);
-[; ;FastTransfer.h: 76: unsigned int FastTransfer_buffer_modulo_inc(const unsigned int value, const unsigned int modulus);
-[; ;FastTransfer.h: 77: void crcBufS_put(struct crcBufS* _this, unsigned char address, unsigned char oldCRC, unsigned char status);
-[; ;FastTransfer.h: 78: void crcBufS_status_put(struct crcBufS* _this, unsigned char time, unsigned char status);
-[; ;FastTransfer.h: 79: unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned char space);
-[; ;FastTransfer.h: 80: void CRCcheck(void);
-[; ;Communications.h: 11: void Delay(int wait);
-[; ;Communications.h: 12: void updateComms();
-[; ;Communications.h: 13: void respondECU();
-"8 Communications.c
-[v _updateComms `(v ~T0 @X0 1 ef ]
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef signed short long int int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 43: typedef unsigned char uint8_t;
+[; ;stdint.h: 49: typedef unsigned int uint16_t;
+[; ;stdint.h: 56: typedef unsigned short long int uint24_t;
+[; ;stdint.h: 63: typedef unsigned long int uint32_t;
+[; ;stdint.h: 71: typedef signed char int_least8_t;
+[; ;stdint.h: 78: typedef signed int int_least16_t;
+[; ;stdint.h: 90: typedef signed short long int int_least24_t;
+[; ;stdint.h: 98: typedef signed long int int_least32_t;
+[; ;stdint.h: 105: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 111: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 121: typedef unsigned short long int uint_least24_t;
+[; ;stdint.h: 128: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 137: typedef signed char int_fast8_t;
+[; ;stdint.h: 144: typedef signed int int_fast16_t;
+[; ;stdint.h: 156: typedef signed short long int int_fast24_t;
+[; ;stdint.h: 164: typedef signed long int int_fast32_t;
+[; ;stdint.h: 171: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 177: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 187: typedef unsigned short long int uint_fast24_t;
+[; ;stdint.h: 194: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 200: typedef int32_t intmax_t;
+[; ;stdint.h: 205: typedef uint32_t uintmax_t;
+[; ;stdint.h: 210: typedef int16_t intptr_t;
+[; ;stdint.h: 215: typedef uint16_t uintptr_t;
+[; ;stdbool.h: 12: typedef unsigned char bool;
+[; ;tmr0.h: 106: void TMR0_Initialize(void);
+[; ;tmr0.h: 135: void TMR0_StartTimer(void);
+[; ;tmr0.h: 167: void TMR0_StopTimer(void);
+[; ;tmr0.h: 203: uint16_t TMR0_Read16bitTimer(void);
+[; ;tmr0.h: 242: void TMR0_Write16bitTimer(uint16_t timerVal);
+[; ;tmr0.h: 278: void TMR0_Reload16bit(void);
+[; ;tmr0.h: 296: void TMR0_ISR(void);
+[; ;tmr0.h: 314: void TMR0_CallBack(void);
+"316 tmr0.h
+[v _time `Vui ~T0 @X0 1 e ]
+[; ;tmr0.h: 316: volatile unsigned int time;
+"13 tmr0.c
+[v _timer0ReloadVal16bit `Vui ~T0 @X0 1 e ]
+[; ;tmr0.c: 13: volatile uint16_t timer0ReloadVal16bit;
+"20
+[v _TMR0_Initialize `(v ~T0 @X0 1 ef ]
 {
-[; ;Communications.c: 8: void updateComms() {
-[e :U _updateComms ]
+[; ;tmr0.c: 20: void TMR0_Initialize(void) {
+[e :U _TMR0_Initialize ]
 [f ]
-[; ;Communications.c: 9: if (receiveData()) {
-"9
-[e $ ! != -> ( _receiveData ..  `i -> -> -> 0 `i `uc `i 1125  ]
-{
-[; ;Communications.c: 10: respondECU();
-"10
-[e ( _respondECU ..  ]
-"11
+[; ;tmr0.c: 24: T0CON = 0x94;
+"24
+[e = _T0CON -> -> 148 `i `uc ]
+[; ;tmr0.c: 27: TMR0H = 0xCF;
+"27
+[e = _TMR0H -> -> 207 `i `uc ]
+[; ;tmr0.c: 30: TMR0L = 0x2C;
+"30
+[e = _TMR0L -> -> 44 `i `uc ]
+[; ;tmr0.c: 33: timer0ReloadVal16bit = 53036;
+"33
+[e = _timer0ReloadVal16bit -> -> 53036 `l `ui ]
+[; ;tmr0.c: 36: INTCONbits.TMR0IF = 0;
+"36
+[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+[; ;tmr0.c: 39: INTCONbits.TMR0IE = 1;
+"39
+[e = . . _INTCONbits 0 5 -> -> 1 `i `uc ]
+[; ;tmr0.c: 42: TMR0_StartTimer();
+"42
+[e ( _TMR0_StartTimer ..  ]
+[; ;tmr0.c: 43: }
+"43
+[e :UE 1121 ]
 }
-[e :U 1125 ]
-[; ;Communications.c: 11: }
-[; ;Communications.c: 12: }
-"12
+"45
+[v _TMR0_StartTimer `(v ~T0 @X0 1 ef ]
+{
+[; ;tmr0.c: 45: void TMR0_StartTimer(void) {
+[e :U _TMR0_StartTimer ]
+[f ]
+[; ;tmr0.c: 47: T0CONbits.TMR0ON = 1;
+"47
+[e = . . _T0CONbits 0 5 -> -> 1 `i `uc ]
+[; ;tmr0.c: 48: }
+"48
+[e :UE 1122 ]
+}
+"50
+[v _TMR0_StopTimer `(v ~T0 @X0 1 ef ]
+{
+[; ;tmr0.c: 50: void TMR0_StopTimer(void) {
+[e :U _TMR0_StopTimer ]
+[f ]
+[; ;tmr0.c: 52: T0CONbits.TMR0ON = 0;
+"52
+[e = . . _T0CONbits 0 5 -> -> 0 `i `uc ]
+[; ;tmr0.c: 53: }
+"53
+[e :UE 1123 ]
+}
+"55
+[v _TMR0_Read16bitTimer `(ui ~T0 @X0 1 ef ]
+{
+[; ;tmr0.c: 55: uint16_t TMR0_Read16bitTimer(void) {
+[e :U _TMR0_Read16bitTimer ]
+[f ]
+"56
+[v _readVal `ui ~T0 @X0 1 a ]
+"57
+[v _readValLow `uc ~T0 @X0 1 a ]
+"58
+[v _readValHigh `uc ~T0 @X0 1 a ]
+[; ;tmr0.c: 56: uint16_t readVal;
+[; ;tmr0.c: 57: uint8_t readValLow;
+[; ;tmr0.c: 58: uint8_t readValHigh;
+[; ;tmr0.c: 60: readValLow = TMR0L;
+"60
+[e = _readValLow _TMR0L ]
+[; ;tmr0.c: 61: readValHigh = TMR0H;
+"61
+[e = _readValHigh _TMR0H ]
+[; ;tmr0.c: 62: readVal = ((uint16_t) readValHigh << 8) + readValLow;
+"62
+[e = _readVal + << -> _readValHigh `ui -> 8 `i -> _readValLow `ui ]
+[; ;tmr0.c: 64: return readVal;
+"64
+[e ) _readVal ]
+[e $UE 1124  ]
+[; ;tmr0.c: 65: }
+"65
 [e :UE 1124 ]
 }
-"14
-[v _respondECU `(v ~T0 @X0 1 ef ]
+"67
+[v _TMR0_Write16bitTimer `(v ~T0 @X0 1 ef1`ui ]
 {
-[; ;Communications.c: 14: void respondECU() {
-[e :U _respondECU ]
+[; ;tmr0.c: 67: void TMR0_Write16bitTimer(uint16_t timerVal) {
+[e :U _TMR0_Write16bitTimer ]
+[v _timerVal `ui ~T0 @X0 1 r1 ]
 [f ]
-[; ;Communications.c: 15: LATDbits.LATD4 = 1;
-"15
-[e = . . _LATDbits 0 4 -> -> 1 `i `uc ]
-[; ;Communications.c: 16: ToSend(1,0);
-"16
-[e ( _ToSend (2 , -> -> 1 `i `uc -> -> 0 `i `ui ]
-[; ;Communications.c: 17: Delay(9);
-"17
-[e ( _Delay (1 -> 9 `i ]
-[; ;Communications.c: 18: sendData(1);
-"18
-[e ( _sendData (1 -> -> 1 `i `uc ]
-[; ;Communications.c: 19: Delay(3);
-"19
-[e ( _Delay (1 -> 3 `i ]
-[; ;Communications.c: 20: LATDbits.LATD4 = 0;
-"20
-[e = . . _LATDbits 0 4 -> -> 0 `i `uc ]
-[; ;Communications.c: 21: }
-"21
+[; ;tmr0.c: 69: TMR0H = timerVal >> 8;
+"69
+[e = _TMR0H -> >> _timerVal -> 8 `i `uc ]
+[; ;tmr0.c: 70: TMR0L = (uint8_t) timerVal;
+"70
+[e = _TMR0L -> _timerVal `uc ]
+[; ;tmr0.c: 71: }
+"71
+[e :UE 1125 ]
+}
+"73
+[v _TMR0_Reload16bit `(v ~T0 @X0 1 ef ]
+{
+[; ;tmr0.c: 73: void TMR0_Reload16bit(void) {
+[e :U _TMR0_Reload16bit ]
+[f ]
+[; ;tmr0.c: 75: TMR0H = timer0ReloadVal16bit >> 8;
+"75
+[e = _TMR0H -> >> _timer0ReloadVal16bit -> 8 `i `uc ]
+[; ;tmr0.c: 76: TMR0L = (uint8_t) timer0ReloadVal16bit;
+"76
+[e = _TMR0L -> _timer0ReloadVal16bit `uc ]
+[; ;tmr0.c: 77: }
+"77
 [e :UE 1126 ]
 }
-"23
-[v _Delay `(v ~T0 @X0 1 ef1`i ]
+"79
+[v _TMR0_ISR `(v ~T0 @X0 1 ef ]
 {
-[; ;Communications.c: 23: void Delay(int wait) {
-[e :U _Delay ]
-[v _wait `i ~T0 @X0 1 r1 ]
+[; ;tmr0.c: 79: void TMR0_ISR(void) {
+[e :U _TMR0_ISR ]
 [f ]
-"24
-[v _x `i ~T0 @X0 1 a ]
-[; ;Communications.c: 24: int x;
-[; ;Communications.c: 25: for (x = 0; x < wait; x++) {
-"25
-{
-[e = _x -> 0 `i ]
-[e $U 1131  ]
-[e :U 1128 ]
-{
-[; ;Communications.c: 26: _delay((unsigned long)((1)*(16000000/4000.0)));
-"26
-[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"27
-}
-"25
-[e ++ _x -> 1 `i ]
-[e :U 1131 ]
-[e $ < _x _wait 1128  ]
-[e :U 1129 ]
-"27
-}
-[; ;Communications.c: 27: }
-[; ;Communications.c: 28: }
-"28
+"80
+[v F7768 `Vui ~T0 @X0 1 s CountCallBack ]
+[i F7768
+-> -> 0 `i `ui
+]
+[; ;tmr0.c: 80: static volatile uint16_t CountCallBack = 0;
+[; ;tmr0.c: 83: TMR0H = timer0ReloadVal16bit >> 8;
+"83
+[e = _TMR0H -> >> _timer0ReloadVal16bit -> 8 `i `uc ]
+[; ;tmr0.c: 84: TMR0L = (uint8_t) timer0ReloadVal16bit;
+"84
+[e = _TMR0L -> _timer0ReloadVal16bit `uc ]
+[; ;tmr0.c: 86: time++;
+"86
+[e ++ _time -> -> 1 `i `ui ]
+[; ;tmr0.c: 88: INTCONbits.TMR0IF = 0;
+"88
+[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+[; ;tmr0.c: 89: }
+"89
 [e :UE 1127 ]
 }
