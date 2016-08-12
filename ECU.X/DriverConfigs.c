@@ -2,6 +2,8 @@
 #include "EEprom.h"
 #include <stdbool.h>
 
+char *DriverNamesList[10];
+
 struct DriverData
 {
     char NAME[3];        //Driver Name Initials 
@@ -45,14 +47,17 @@ void SetUpDataSets(){
 //    }
     //This sets up the I2C to EEPROM com's to save car data. 
     EEpromInit();
-    SaveCarDriverCount(0);
-    ReadCarDriverCount();
     //Delay(100);
-    //char RCJ[3] = {'R','C','J'};
-    //SaveDriverConfig(RCJ,100,0,100,0,0, 1, 0, 1);
+    char RCJ[3] = {'T','B','H'};
+    SaveDriverConfig(RCJ,100,0,100,0,0, 1, 0, 1);
+    DriverCountNum = ReadCarDriverCount();
+    int i = 0;
+    for(i = 0;i<DriverCountNum;i++){
+        DriverNamesList[i] = ReadDriverNames(i);
+    }
     //SaveCarDriver(1);
     SetDriver(ReadCarDriver());
-    DriverCountNum = ReadCarDriverCount();
+    
 }
 
 void SetDriver(char num){
@@ -70,7 +75,7 @@ char *CurrentDriverName(){
 }
 
 char *DriverNames(int num){
-    
+    return DriverNamesList[num];
 }
 
 char DriverActive(){
