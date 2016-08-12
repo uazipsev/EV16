@@ -29,6 +29,7 @@
     void resetCommTimers2();
     void RS485_Direction2(int T_L);
     void sendErrorCode2();
+    bool ComCheck(char device);
 
 
 

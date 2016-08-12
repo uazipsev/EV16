@@ -15,6 +15,9 @@
 #include "Timers.h"
 #include "PinDef.h"
 #include "BMMComms.h"
+#include "FastTransfer.h"
+#include "FastTransfer1.h"
+#include "FastTransfer3.h"
 
 #include <errno.h>
 
@@ -103,8 +106,6 @@ int write(int handle, void *buffer, unsigned int len) {
  *******************************************************************/
 void handleDebugRequests() {
     static int lastDebugState = 0;
-    static int batterySlaveNumberV;
-    static int batterySlaveNumber;
     if (GetTime(DEBUGTIME) > 1000) {
         switch (debugState) {
             case NO_DEBUG:
@@ -578,12 +579,12 @@ void DriverMenu(char menuitem){
     printf("|---Driver Config---|\n");
     printf("1) Driver Select\n");
     printf("2) Driver Config\n");
-    printf("------%s IS ACTIVE-------\n",DriverName(DriverActive()));
+    printf("------%s IS ACTIVE-------\n",CurrentDriverName());
     if(menuitem == 1){
         printf("|---Driver List---|\n");
         int i;
         for(i = 1;i < DriverCount();i++){
-            printf("%d) Driver %d - %s\n",i,i,DriverName(i));
+            printf("%d) Driver %d - %s\n",i,i,DriverNames(i));
         }
         FunctionDataGrab = 4;
     }
@@ -592,7 +593,7 @@ void DriverMenu(char menuitem){
         printf("|-----To Config-----|\n");
         int i;
         for(i = 1;i < DriverCount();i++){
-            printf("%d) Driver %d - %s\n",i,i,DriverName(i));
+            printf("%d) Driver %d - %s\n",i,i,DriverNames(i));
         }
         FunctionDataGrab = 5;
     }

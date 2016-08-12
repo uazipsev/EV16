@@ -279,4 +279,7 @@ bool ComCheck(char device){
     if(device == PDUSTATE){
         return comms.PDU;
     }
+    else{
+        return 0;
+    }
 }

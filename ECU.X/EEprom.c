@@ -4,31 +4,20 @@
  * @return          N/A
  * @note            The lib is written for FT24C64A-ULR-T IC (http://www.fremontmicrousa.com/pdf/EN-24C32_64-300-V1p8.pdf)
  *******************************************************************/
-
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
 #include "I2C.h"
 #include "EEprom.h"
 #include "Function.h"
-#include <stdio.h>
-#include <string.h>
+#include "DriverConfigs.h"
+
 
 #define ADDRESS 0x50
 
 char data[8];
 
-struct DriverData
-{
-    char NAME[3];        //Driver Name Initials 
-    int MaxThrottle;    //Max Driver Throttle
-    int MaxRegen;       //Max Driver Regen
-    int LowBatCutoff;   //Battery Cutoff
-    int Ramp;           //Throttle Ramp
-    char Falt;          //Fault allowed 
-    bool FW_RW_EN;      //Motor Direction control allowed 
-    bool RegenInput;    //What input is used for regen control
-    bool DebugEn;       //Enable debugging - overrides  
-};
 
-struct DriverData DriverConfig;
 
 /*******************************************************************
  * @brief           EEpromInit
@@ -38,7 +27,6 @@ struct DriverData DriverConfig;
  *******************************************************************/
 
 void EEpromInit(){
-    
     InitI2C();
 }
 
@@ -65,6 +53,7 @@ void writeRegister(char i2cAddress, int reg, char value)
 	AckI2C();					    //Wait for ACK
     IdleI2C();                      //Ensure module is idle
 	StopI2C();				        //Send stop condition
+    Delay(3);
 }
 
 /*******************************************************************
@@ -100,30 +89,7 @@ char readRegister(char i2cAddress, int reg)
     return data[0];
 }
 
-/*******************************************************************
- * @brief           SetUpDataSets
- * @brief           Runs a bunch of getters to set up dynamics for car
- * @return          none
- * @note            uses getters to set up the cars settings 
- *******************************************************************/
-void SetUpDataSets(){
-    
-//    ReadCarDriver();
-//    ReadThrottlePrecent();
-//    ReadThrottleTrigger();
-//    ReadBrakeTrigger();
-//      SetBrakeLightValue(ReadBrakeLightTrigger());
-     char z = 0;
-    for(z=0;z<50;z++){
-        writeRegister(ADDRESS, z, z);
-        Delay(2);
-    }
-    Delay(10);
-    for(z=0;z<50;z++){
-        readRegister(ADDRESS, z);
-        Delay(5);
-    }
-}
+
 
 /*******************************************************************
  * @brief           ReadCarDriver
@@ -143,7 +109,6 @@ char ReadCarDriver(){
  *******************************************************************/
 void SaveCarDriver(char value){
     writeRegister(ADDRESS, 1,value);
-    Delay(5);
 }
 
 /*******************************************************************
@@ -254,26 +219,26 @@ void SaveBrakeLightTrigger(int value){
  *******************************************************************/
 void ReadDriverConfig(char dvr){
     char data[2];
-    DriverConfig.NAME[0] = readRegister(ADDRESS, (dvr+DRIVERCONFIGSTART));
-    DriverConfig.NAME[1] = readRegister(ADDRESS, (dvr+DRIVERCONFIGSTART+1));
-    DriverConfig.NAME[2] = readRegister(ADDRESS, (dvr+DRIVERCONFIGSTART+2));
+    DriverNameChar(readRegister(ADDRESS, (dvr+DRIVERCONFIGSTART)), 0);
+    DriverNameChar(readRegister(ADDRESS, (dvr+DRIVERCONFIGSTART+1)), 1);
+    DriverNameChar(readRegister(ADDRESS, (dvr+DRIVERCONFIGSTART+2)), 2);
     data[0] = readRegister(ADDRESS, dvr+DRIVERCONFIGSTART+3);
     data[1] = readRegister(ADDRESS, dvr+DRIVERCONFIGSTART+4);
-    DriverConfig.MaxThrottle = (data[0] << 8) + data[1];
+    DriverMaxThrottle((data[0] << 8) + data[1]);
     data[0] = readRegister(ADDRESS, dvr+DRIVERCONFIGSTART+5);
     data[1] = readRegister(ADDRESS, dvr+DRIVERCONFIGSTART+6);
-    DriverConfig.MaxRegen = (data[0] << 8) + data[1];
+    DriverMaxMaxRegen((data[0] << 8) + data[1]);
     data[0] = readRegister(ADDRESS, dvr+DRIVERCONFIGSTART+7);
     data[1] = readRegister(ADDRESS, dvr+DRIVERCONFIGSTART+8);
-    DriverConfig.LowBatCutoff = (data[0] << 8) + data[1];
+    DriverLowBatCutoff((data[0] << 8) + data[1]);
     data[0] = readRegister(ADDRESS, dvr+DRIVERCONFIGSTART+9);
     data[1] = readRegister(ADDRESS, dvr+DRIVERCONFIGSTART+10);
-    DriverConfig.Ramp = (data[0] << 8) + data[1];
-    DriverConfig.Falt = readRegister(ADDRESS, dvr+DRIVERCONFIGSTART+11);
+    DriverRamp((data[0] << 8) + data[1]);
+    DriverFalt(readRegister(ADDRESS, dvr+DRIVERCONFIGSTART+11));
     data[0] = readRegister(ADDRESS, dvr+DRIVERCONFIGSTART+12);
-    DriverConfig.FW_RW_EN = ((data[0] >> 1)&(0x01));
-    DriverConfig.RegenInput = ((data[0] >> 2)&(0x01));
-    DriverConfig.DebugEn = ((data[0] >> 3)&(0x01));
+    DriverFW_RW_EN((data[0] >> 1)&(0x01));
+    DriverRegenInput(((data[0] >> 2)&(0x01)));
+    DriverDebugEn(((data[0] >> 3)&(0x01)));
 }
 
 /*******************************************************************
@@ -286,17 +251,17 @@ void SaveDriverConfig(char NAME[3], int MaxThrottle, int MaxRegen, int LowBatCut
     char number = ReadCarDriverCount();
     number++;
     SaveCarDriverCount(number);
-    writeRegister(ADDRESS, number, NAME[0]);
-    writeRegister(ADDRESS, number+1, NAME[1]);
-    writeRegister(ADDRESS, number+2, NAME[2]);
-    writeRegister(ADDRESS, number+3, MaxThrottle>>8);
-    writeRegister(ADDRESS, number+4, MaxThrottle & 0xff);
-    writeRegister(ADDRESS, number+5, MaxRegen>>8);
-    writeRegister(ADDRESS, number+6, MaxRegen & 0xff);
-    writeRegister(ADDRESS, number+7, LowBatCutoff>>8);
-    writeRegister(ADDRESS, number+8, LowBatCutoff & 0xff);
-    writeRegister(ADDRESS, number+9, Ramp>>8);
-    writeRegister(ADDRESS, number+10, Ramp & 0xff);
-    writeRegister(ADDRESS, number+11, Fault);
-    writeRegister(ADDRESS, number+12, ((DebugEn&0x01) << 2) | ((RegenInput&0x01) << 2) | ((Fw_Rv&0x01) << 1));
+    writeRegister(ADDRESS, DRIVERCONFIGSTART+number, NAME[0]);
+    writeRegister(ADDRESS, DRIVERCONFIGSTART+number+1, NAME[1]);
+    writeRegister(ADDRESS, DRIVERCONFIGSTART+number+2, NAME[2]);
+    writeRegister(ADDRESS, DRIVERCONFIGSTART+number+3, MaxThrottle>>8);
+    writeRegister(ADDRESS, DRIVERCONFIGSTART+number+4, MaxThrottle & 0xff);
+    writeRegister(ADDRESS, DRIVERCONFIGSTART+number+5, MaxRegen>>8);
+    writeRegister(ADDRESS, DRIVERCONFIGSTART+number+6, MaxRegen & 0xff);
+    writeRegister(ADDRESS, DRIVERCONFIGSTART+number+7, LowBatCutoff>>8);
+    writeRegister(ADDRESS, DRIVERCONFIGSTART+number+8, LowBatCutoff & 0xff);
+    writeRegister(ADDRESS, DRIVERCONFIGSTART+number+9, Ramp>>8);
+    writeRegister(ADDRESS, DRIVERCONFIGSTART+number+10, Ramp & 0xff);
+    writeRegister(ADDRESS, DRIVERCONFIGSTART+number+11, Fault);
+    writeRegister(ADDRESS, DRIVERCONFIGSTART+number+12, ((DebugEn&0x01) << 2) | ((RegenInput&0x01) << 2) | ((Fw_Rv&0x01) << 1));
 }

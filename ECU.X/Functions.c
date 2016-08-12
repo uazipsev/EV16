@@ -22,6 +22,7 @@
 #include "FastTransfer3.h"
 #include "DriverConfigs.h"
 #include "Timers.h"
+#include "DriverConfigs.h"
 
 
 int BrakeLightThreshold = 0;
@@ -82,10 +83,11 @@ void Setup(void) {
     StartFastTransfer1();
     StartFastTransfer3();
     
-    //This sets up the I2C to EEPROM com's to save car data. 
-    EEpromInit();
+
     //This controls the timing system to control communication rates  
     initTimerOne();
+    //Save Driver
+
     //This sets up all non constants from external EEPROM 
     SetUpDataSets();
 }

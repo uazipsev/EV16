@@ -8,6 +8,8 @@
 #ifndef EEPROM_H
 #define	EEPROM_H
 
+#include <stdbool.h>
+
 #define DRIVERCONFIGSTART 31
 
 void EEpromInit();
@@ -17,6 +19,8 @@ char readRegister(char i2cAddress, int reg);
 void writeRegister(char i2cAddress, int reg, char value);
 char ReadCarDriver();
 void SaveCarDriver(char value);
+void SaveCarDriverCount(char value);
+char ReadCarDriverCount();
 int ReadThrottlePrecent();
 void SaveThrottlePrecent(int value);
 int ReadThrottleTrigger();
@@ -25,7 +29,6 @@ int ReadBrakeTrigger();
 void SaveBrakeTrigger(int value);
 int ReadBrakeLightTrigger();
 void SaveBrakeLightTrigger(int value);
-void SetUpDataSets();
 void SaveDriverConfig(char NAME[3], int MaxThrottle, int MaxRegen, int LowBatCutoff, int Ramp, char Fault, bool Fw_Rv, bool RegenInput, bool DebugEn);
 void ReadDriverConfig(char dvr);
 

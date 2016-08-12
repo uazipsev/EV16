@@ -130,7 +130,7 @@ int GetTemp(unsigned char num){
     if(num == 6){
         return CellMaxTemp;
     }
-    if(num == 7){
+    else if(num == 7){
         return CellMinTemp;
     }
     else{
@@ -142,10 +142,13 @@ int GetCurrent(unsigned  char num){
     if(num == 1){
         return current1;
     }
-    if(num == 2){
+    else if(num == 2){
         return current2;
     }
-    if(num == 3){
+    else if(num == 3){
         return current3;
+    }
+    else{
+        return 0;
     }
 }

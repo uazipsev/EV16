@@ -10,4 +10,7 @@ StoppedState.h  \
  EEprom.h  \
 Timers.h  \
 PinDef.h  \
-BMMComms.h 
+BMMComms.h  \
+FastTransfer.h  \
+FastTransfer1.h  \
+ FastTransfer3.h 
