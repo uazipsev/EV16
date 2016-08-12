@@ -8,7 +8,7 @@
 #ifndef EEPROM_H
 #define	EEPROM_H
 
-#define DRIVERCONFIGSTART 32
+#define DRIVERCONFIGSTART 31
 
 void EEpromInit();
 void DataWrite(char address, char data);
@@ -26,6 +26,8 @@ void SaveBrakeTrigger(int value);
 int ReadBrakeLightTrigger();
 void SaveBrakeLightTrigger(int value);
 void SetUpDataSets();
+void SaveDriverConfig(char NAME[3], int MaxThrottle, int MaxRegen, int LowBatCutoff, int Ramp, char Fault, bool Fw_Rv, bool RegenInput, bool DebugEn);
+void ReadDriverConfig(char dvr);
 
 #endif	/* EEPROM_H */
 
