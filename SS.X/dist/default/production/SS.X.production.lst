@@ -1,0 +1,2899 @@
+
+
+Microchip Technology PIC18 LITE Macro Assembler V1.37 build -260352376 
+                                                                                               Thu Aug 11 22:53:02 2016
+
+Microchip Technology Omniscient Code Generator v1.37 (Free mode) build 201603110536
+     1                           	processor	18F45K22
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	lm
+     5                           	psect	idataCOMRAM,global,class=CODE,delta=1
+     6                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     7                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1
+     8                           	psect	dataCOMRAM,global,class=COMRAM,space=1,delta=1
+     9                           	psect	bssBANK0,global,class=BANK0,space=1,delta=1
+    10                           	psect	bssBANK1,global,class=BANK1,space=1,delta=1
+    11                           	psect	bssBANK2,global,class=BANK2,space=1,delta=1
+    12                           	psect	bssBANK3,global,class=BANK3,space=1,delta=1
+    13                           	psect	bssBANK4,global,class=BANK4,space=1,delta=1
+    14                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1
+    15                           	psect	text0,global,reloc=2,class=CODE,delta=1
+    16                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    17                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    18                           	psect	text3,global,reloc=2,class=CODE,delta=1
+    19                           	psect	text4,global,reloc=2,class=CODE,delta=1
+    20                           	psect	text5,global,reloc=2,class=CODE,delta=1
+    21                           	psect	text6,global,reloc=2,class=CODE,delta=1
+    22                           	psect	text7,global,reloc=2,class=CODE,delta=1
+    23                           	psect	text8,global,reloc=2,class=CODE,delta=1
+    24                           	psect	text9,global,reloc=2,class=CODE,delta=1
+    25                           	psect	text10,global,reloc=2,class=CODE,delta=1
+    26                           	psect	text11,global,reloc=2,class=CODE,delta=1
+    27                           	psect	text12,global,reloc=2,class=CODE,delta=1
+    28                           	psect	text13,global,reloc=2,class=CODE,delta=1
+    29                           	psect	text14,global,reloc=2,class=CODE,delta=1
+    30                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1
+    31                           	psect	rparam,global,class=COMRAM,space=1,delta=1
+    32  0000                     
+    33                           	psect	idataCOMRAM
+    34  007763                     __pidataCOMRAM:
+    35                           	opt stack 0
+    36                           
+    37                           ;initializer for _Transmit_stall
+    38  007763  01                 	db	1
+    39  0000                     _BAUD1CON	set	4024
+    40  0000                     _LATCbits	set	3979
+    41  0000                     _PIE1bits	set	3997
+    42  0000                     _RC1STA	set	4011
+    43  0000                     _RC1STAbits	set	4011
+    44  0000                     _RCREG1	set	4014
+    45  0000                     _SPBRG1	set	4015
+    46  0000                     _SPBRGH1	set	4016
+    47  0000                     _TX1STA	set	4012
+    48  0000                     _TXREG1	set	4013
+    49                           
+    50                           ; #config settings
+    51                           
+    52                           	psect	cinit
+    53  0078C0                     __pcinit:
+    54                           	opt stack 0
+    55  0078C0                     start_initialization:
+    56                           	opt stack 0
+    57  0078C0                     __initialization:
+    58                           	opt stack 0
+    59                           
+    60                           ; Clear objects allocated to BANK4 (200 bytes)
+    61  0078C0  EE04  F000         	lfsr	0,__pbssBANK4
+    62  0078C4  0EC8               	movlw	200
+    63  0078C6                     clear_0:
+    64  0078C6  6AEE               	clrf	postinc0,c
+    65  0078C8  06E8               	decf	wreg,f,c
+    66  0078CA  E1FD               	bnz	clear_0
+    67                           
+    68                           ; Clear objects allocated to BANK3 (206 bytes)
+    69  0078CC  EE03  F000         	lfsr	0,__pbssBANK3
+    70  0078D0  0ECE               	movlw	206
+    71  0078D2                     clear_1:
+    72  0078D2  6AEE               	clrf	postinc0,c
+    73  0078D4  06E8               	decf	wreg,f,c
+    74  0078D6  E1FD               	bnz	clear_1
+    75                           
+    76                           ; Clear objects allocated to BANK2 (206 bytes)
+    77  0078D8  EE02  F000         	lfsr	0,__pbssBANK2
+    78  0078DC  0ECE               	movlw	206
+    79  0078DE                     clear_2:
+    80  0078DE  6AEE               	clrf	postinc0,c
+    81  0078E0  06E8               	decf	wreg,f,c
+    82  0078E2  E1FD               	bnz	clear_2
+    83                           
+    84                           ; Clear objects allocated to BANK1 (206 bytes)
+    85  0078E4  EE01  F000         	lfsr	0,__pbssBANK1
+    86  0078E8  0ECE               	movlw	206
+    87  0078EA                     clear_3:
+    88  0078EA  6AEE               	clrf	postinc0,c
+    89  0078EC  06E8               	decf	wreg,f,c
+    90  0078EE  E1FD               	bnz	clear_3
+    91                           
+    92                           ; Clear objects allocated to BANK0 (40 bytes)
+    93  0078F0  EE00  F060         	lfsr	0,__pbssBANK0
+    94  0078F4  0E28               	movlw	40
+    95  0078F6                     clear_4:
+    96  0078F6  6AEE               	clrf	postinc0,c
+    97  0078F8  06E8               	decf	wreg,f,c
+    98  0078FA  E1FD               	bnz	clear_4
+    99                           
+   100                           ; Clear objects allocated to COMRAM (47 bytes)
+   101  0078FC  EE00  F001         	lfsr	0,__pbssCOMRAM
+   102  007900  0E2F               	movlw	47
+   103  007902                     clear_5:
+   104  007902  6AEE               	clrf	postinc0,c
+   105  007904  06E8               	decf	wreg,f,c
+   106  007906  E1FD               	bnz	clear_5
+   107                           
+   108                           ; Initialize objects allocated to COMRAM (1 bytes)
+   109                           ; load TBLPTR registers with __pidataCOMRAM
+   110  007908  0E63               	movlw	low __pidataCOMRAM
+   111  00790A  6EF6               	movwf	tblptrl,c
+   112  00790C  0E77               	movlw	high __pidataCOMRAM
+   113  00790E  6EF7               	movwf	tblptrh,c
+   114  007910  0E00               	movlw	low (__pidataCOMRAM shr (0+16))
+   115  007912  6EF8               	movwf	tblptru,c
+   116  007914  0009               	tblrd		*+	;fetch initializer
+   117  007916  CFF5 F055          	movff	tablat,__pdataCOMRAM
+   118  00791A                     end_of_initialization:
+   119                           	opt stack 0
+   120  00791A                     __end_of__initialization:
+   121                           	opt stack 0
+   122  00791A  0E00               	movlw	low (__Lmediumconst shr (0+16))
+   123  00791C  6EF8               	movwf	tblptru,c
+   124  00791E  0100               	movlb	0
+   125  007920  EFB2  F03B         	goto	_main	;jump to C main() function
+   126                           tblptru	equ	0xFF8
+   127                           tblptrh	equ	0xFF7
+   128                           tblptrl	equ	0xFF6
+   129                           tablat	equ	0xFF5
+   130                           postinc0	equ	0xFEE
+   131                           wreg	equ	0xFE8
+   132                           
+   133                           	psect	bssCOMRAM
+   134  000001                     __pbssCOMRAM:
+   135                           	opt stack 0
+   136  000001                     _addressErrorCounter:
+   137                           	opt stack 0
+   138  000001                     	ds	2
+   139  000003                     _alignErrorCounter:
+   140                           	opt stack 0
+   141  000003                     	ds	2
+   142  000005                     _crcErrorCounter:
+   143                           	opt stack 0
+   144  000005                     	ds	2
+   145  000007                     _dataAdressErrorCounter:
+   146                           	opt stack 0
+   147  000007                     	ds	2
+   148  000009                     _group:
+   149                           	opt stack 0
+   150  000009                     	ds	2
+   151  00000B                     _receiveArrayAddress:
+   152                           	opt stack 0
+   153  00000B                     	ds	2
+   154  00000D                     _sendStructAddress:
+   155                           	opt stack 0
+   156  00000D                     	ds	2
+   157  00000F                     _serial_available:
+   158                           	opt stack 0
+   159  00000F                     	ds	2
+   160  000011                     _serial_peek:
+   161                           	opt stack 0
+   162  000011                     	ds	2
+   163  000013                     _serial_read:
+   164                           	opt stack 0
+   165  000013                     	ds	2
+   166  000015                     _serial_write:
+   167                           	opt stack 0
+   168  000015                     	ds	2
+   169  000017                     _AKNAKsend:
+   170                           	opt stack 0
+   171  000017                     	ds	1
+   172  000018                     _calc_CS:
+   173                           	opt stack 0
+   174  000018                     	ds	1
+   175  000019                     _maxDataAddress:
+   176                           	opt stack 0
+   177  000019                     	ds	1
+   178  00001A                     _moduleAddress:
+   179                           	opt stack 0
+   180  00001A                     	ds	1
+   181  00001B                     _returnAddress:
+   182                           	opt stack 0
+   183  00001B                     	ds	1
+   184  00001C                     _rx_address:
+   185                           	opt stack 0
+   186  00001C                     	ds	1
+   187  00001D                     _rx_array_inx:
+   188                           	opt stack 0
+   189  00001D                     	ds	1
+   190  00001E                     _rx_len:
+   191                           	opt stack 0
+   192  00001E                     	ds	1
+   193  00001F                     _crc_buffer:
+   194                           	opt stack 0
+   195  00001F                     	ds	17
+   196                           tblptru	equ	0xFF8
+   197                           tblptrh	equ	0xFF7
+   198                           tblptrl	equ	0xFF6
+   199                           tablat	equ	0xFF5
+   200                           postinc0	equ	0xFEE
+   201                           wreg	equ	0xFE8
+   202                           
+   203                           	psect	dataCOMRAM
+   204  000055                     __pdataCOMRAM:
+   205                           	opt stack 0
+   206  000055                     _Transmit_stall:
+   207                           	opt stack 0
+   208  000055                     	ds	1
+   209                           tblptru	equ	0xFF8
+   210                           tblptrh	equ	0xFF7
+   211                           tblptrl	equ	0xFF6
+   212                           tablat	equ	0xFF5
+   213                           postinc0	equ	0xFEE
+   214                           wreg	equ	0xFE8
+   215                           
+   216                           	psect	bssBANK0
+   217  000060                     __pbssBANK0:
+   218                           	opt stack 0
+   219  000060                     _receiveArray:
+   220                           	opt stack 0
+   221  000060                     	ds	40
+   222                           tblptru	equ	0xFF8
+   223                           tblptrh	equ	0xFF7
+   224                           tblptrl	equ	0xFF6
+   225                           tablat	equ	0xFF5
+   226                           postinc0	equ	0xFEE
+   227                           wreg	equ	0xFE8
+   228                           
+   229                           	psect	bssBANK1
+   230  000100                     __pbssBANK1:
+   231                           	opt stack 0
+   232  000100                     _ring_buffer:
+   233                           	opt stack 0
+   234  000100                     	ds	206
+   235                           tblptru	equ	0xFF8
+   236                           tblptrh	equ	0xFF7
+   237                           tblptrl	equ	0xFF6
+   238                           tablat	equ	0xFF5
+   239                           postinc0	equ	0xFEE
+   240                           wreg	equ	0xFE8
+   241                           
+   242                           	psect	bssBANK2
+   243  000200                     __pbssBANK2:
+   244                           	opt stack 0
+   245  000200                     _input_buffer:
+   246                           	opt stack 0
+   247  000200                     	ds	206
+   248                           tblptru	equ	0xFF8
+   249                           tblptrh	equ	0xFF7
+   250                           tblptrl	equ	0xFF6
+   251                           tablat	equ	0xFF5
+   252                           postinc0	equ	0xFEE
+   253                           wreg	equ	0xFE8
+   254                           
+   255                           	psect	bssBANK3
+   256  000300                     __pbssBANK3:
+   257                           	opt stack 0
+   258  000300                     _output_buffer:
+   259                           	opt stack 0
+   260  000300                     	ds	206
+   261                           tblptru	equ	0xFF8
+   262                           tblptrh	equ	0xFF7
+   263                           tblptrl	equ	0xFF6
+   264                           tablat	equ	0xFF5
+   265                           postinc0	equ	0xFEE
+   266                           wreg	equ	0xFE8
+   267                           
+   268                           	psect	bssBANK4
+   269  000400                     __pbssBANK4:
+   270                           	opt stack 0
+   271  000400                     _rx_buffer:
+   272                           	opt stack 0
+   273  000400                     	ds	200
+   274                           tblptru	equ	0xFF8
+   275                           tblptrh	equ	0xFF7
+   276                           tblptrl	equ	0xFF6
+   277                           tablat	equ	0xFF5
+   278                           postinc0	equ	0xFEE
+   279                           wreg	equ	0xFE8
+   280                           
+   281                           	psect	cstackCOMRAM
+   282  000030                     __pcstackCOMRAM:
+   283                           	opt stack 0
+   284  000030                     ?_FastTransfer_buffer_modulo_inc:
+   285                           	opt stack 0
+   286  000030                     CRC8@data:
+   287                           	opt stack 0
+   288  000030                     FastTransfer_buffer_modulo_inc@value:
+   289                           	opt stack 0
+   290  000030                     crcBufS_put@_this:
+   291                           	opt stack 0
+   292  000030                     crcBufS_status_put@_this:
+   293                           	opt stack 0
+   294  000030                     crcBufS_get@_this:
+   295                           	opt stack 0
+   296  000030                     memset@p1:
+   297                           	opt stack 0
+   298                           
+   299                           ; 2 bytes @ 0x0
+   300  000030                     	ds	2
+   301  000032                     CRC8@len:
+   302                           	opt stack 0
+   303  000032                     crcBufS_put@address:
+   304                           	opt stack 0
+   305  000032                     crcBufS_status_put@time:
+   306                           	opt stack 0
+   307  000032                     crcBufS_get@time:
+   308                           	opt stack 0
+   309  000032                     FastTransfer_buffer_modulo_inc@modulus:
+   310                           	opt stack 0
+   311  000032                     memset@c:
+   312                           	opt stack 0
+   313                           
+   314                           ; 2 bytes @ 0x2
+   315  000032                     	ds	1
+   316  000033                     CRC8@sum:
+   317                           	opt stack 0
+   318  000033                     crcBufS_put@oldCRC:
+   319                           	opt stack 0
+   320  000033                     crcBufS_status_put@status:
+   321                           	opt stack 0
+   322  000033                     crcBufS_get@space:
+   323                           	opt stack 0
+   324                           
+   325                           ; 1 bytes @ 0x3
+   326  000033                     	ds	1
+   327  000034                     ??_crcBufS_get:
+   328  000034                     ??_crcBufS_status_put:
+   329  000034                     CRC8@extract:
+   330                           	opt stack 0
+   331  000034                     crcBufS_put@status:
+   332                           	opt stack 0
+   333  000034                     FastTransfer_buffer_modulo_inc@my_value:
+   334                           	opt stack 0
+   335  000034                     memset@n:
+   336                           	opt stack 0
+   337                           
+   338                           ; 2 bytes @ 0x4
+   339  000034                     	ds	1
+   340  000035                     ??_crcBufS_put:
+   341  000035                     CRC8@tempI:
+   342                           	opt stack 0
+   343                           
+   344                           ; 1 bytes @ 0x5
+   345  000035                     	ds	1
+   346  000036                     CRC8@crc:
+   347                           	opt stack 0
+   348  000036                     FastTransfer_buffer_put@_this:
+   349                           	opt stack 0
+   350  000036                     memset@p:
+   351                           	opt stack 0
+   352                           
+   353                           ; 2 bytes @ 0x6
+   354  000036                     	ds	2
+   355  000038                     FastTransfer_buffer_put@towhere:
+   356                           	opt stack 0
+   357  000038                     FastTransfer_buffer_flush@_this:
+   358                           	opt stack 0
+   359  000038                     crcBufS_status_put@wantedTime:
+   360                           	opt stack 0
+   361                           
+   362                           ; 2 bytes @ 0x8
+   363  000038                     	ds	1
+   364  000039                     FastTransfer_buffer_put@towhat:
+   365                           	opt stack 0
+   366                           
+   367                           ; 2 bytes @ 0x9
+   368  000039                     	ds	1
+   369  00003A                     FastTransfer_buffer_flush@clearBuffer:
+   370                           	opt stack 0
+   371  00003A                     crcBufS_get@wantedTime:
+   372                           	opt stack 0
+   373                           
+   374                           ; 2 bytes @ 0xA
+   375  00003A                     	ds	1
+   376  00003B                     ??_FastTransfer_buffer_put:
+   377                           
+   378                           ; 1 bytes @ 0xB
+   379  00003B                     	ds	1
+   380  00003C                     ??_sendData:
+   381  00003C                     CRCcheck@SentCRC:
+   382                           	opt stack 0
+   383                           
+   384                           ; 1 bytes @ 0xC
+   385  00003C                     	ds	1
+   386  00003D                     sendData@whereToSend:
+   387                           	opt stack 0
+   388  00003D                     CRCcheck@calculatedCRC:
+   389                           	opt stack 0
+   390  00003D                     ToSend@what:
+   391                           	opt stack 0
+   392                           
+   393                           ; 2 bytes @ 0xD
+   394  00003D                     	ds	1
+   395  00003E                     sendData@i:
+   396                           	opt stack 0
+   397  00003E                     CRCcheck@arrayHolder:
+   398                           	opt stack 0
+   399                           
+   400                           ; 3 bytes @ 0xE
+   401  00003E                     	ds	1
+   402  00003F                     ToSend@where:
+   403                           	opt stack 0
+   404                           
+   405                           ; 1 bytes @ 0xF
+   406  00003F                     	ds	1
+   407  000040                     sendData@CS:
+   408                           	opt stack 0
+   409                           
+   410                           ; 1 bytes @ 0x10
+   411  000040                     	ds	1
+   412  000041                     CRCcheck@rt:
+   413                           	opt stack 0
+   414                           
+   415                           ; 2 bytes @ 0x11
+   416  000041                     	ds	2
+   417  000043                     ??_receiveData:
+   418                           
+   419                           ; 1 bytes @ 0x13
+   420  000043                     	ds	6
+   421  000049                     receiveData@crcHolder:
+   422                           	opt stack 0
+   423                           
+   424                           ; 1 bytes @ 0x19
+   425  000049                     	ds	1
+   426  00004A                     receiveData@crcHolder_308:
+   427                           	opt stack 0
+   428                           
+   429                           ; 1 bytes @ 0x1A
+   430  00004A                     	ds	1
+   431  00004B                     receiveData@holder:
+   432                           	opt stack 0
+   433                           
+   434                           ; 3 bytes @ 0x1B
+   435  00004B                     	ds	3
+   436  00004E                     receiveData@holder_307:
+   437                           	opt stack 0
+   438                           
+   439                           ; 3 bytes @ 0x1E
+   440  00004E                     	ds	3
+   441  000051                     receiveData@u:
+   442                           	opt stack 0
+   443                           
+   444                           ; 2 bytes @ 0x21
+   445  000051                     	ds	2
+   446  000053                     receiveData@r:
+   447                           	opt stack 0
+   448                           
+   449                           ; 2 bytes @ 0x23
+   450  000053                     	ds	2
+   451  000055                     tblptru	equ	0xFF8
+   452                           tblptrh	equ	0xFF7
+   453                           tblptrl	equ	0xFF6
+   454                           tablat	equ	0xFF5
+   455                           postinc0	equ	0xFEE
+   456                           wreg	equ	0xFE8
+   457                           
+   458                           ; 1 bytes @ 0x25
+   459 ;;
+   460 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   461 ;;
+   462 ;; *************** function _main *****************
+   463 ;; Defined at:
+   464 ;;		line 25 in file "Main.c"
+   465 ;; Parameters:    Size  Location     Type
+   466 ;;		None
+   467 ;; Auto vars:     Size  Location     Type
+   468 ;;		None
+   469 ;; Return value:  Size  Location     Type
+   470 ;;                  1    wreg      void 
+   471 ;; Registers used:
+   472 ;;		wreg, fsr2l, fsr2h, status,2, status,0, prodl, prodh, cstack
+   473 ;; Tracked objects:
+   474 ;;		On entry : 0/0
+   475 ;;		On exit  : 0/0
+   476 ;;		Unchanged: 0/0
+   477 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   478 ;;      Params:         0       0       0       0       0       0       0
+   479 ;;      Locals:         0       0       0       0       0       0       0
+   480 ;;      Temps:          0       0       0       0       0       0       0
+   481 ;;      Totals:         0       0       0       0       0       0       0
+   482 ;;Total ram usage:        0 bytes
+   483 ;; Hardware stack levels required when called:    5
+   484 ;; This function calls:
+   485 ;;		_updateComms
+   486 ;; This function is called by:
+   487 ;;		Startup code after reset
+   488 ;; This function uses a non-reentrant model
+   489 ;;
+   490                           
+   491                           	psect	text0
+   492  007764                     __ptext0:
+   493                           	opt stack 0
+   494  007764                     _main:
+   495                           	opt stack 26
+   496  007764                     
+   497                           ;Main.c: 28: updateComms();
+   498  007764  ECB5  F03B         	call	_updateComms	;wreg free
+   499  007768  D7FD               	goto	l1763
+   500  00776A                     __end_of_main:
+   501                           	opt stack 0
+   502                           tblptru	equ	0xFF8
+   503                           tblptrh	equ	0xFF7
+   504                           tblptrl	equ	0xFF6
+   505                           tablat	equ	0xFF5
+   506                           postinc0	equ	0xFEE
+   507                           wreg	equ	0xFE8
+   508                           
+   509 ;; *************** function _updateComms *****************
+   510 ;; Defined at:
+   511 ;;		line 8 in file "Communications.c"
+   512 ;; Parameters:    Size  Location     Type
+   513 ;;		None
+   514 ;; Auto vars:     Size  Location     Type
+   515 ;;		None
+   516 ;; Return value:  Size  Location     Type
+   517 ;;                  1    wreg      void 
+   518 ;; Registers used:
+   519 ;;		wreg, fsr2l, fsr2h, status,2, status,0, prodl, prodh, cstack
+   520 ;; Tracked objects:
+   521 ;;		On entry : 0/0
+   522 ;;		On exit  : 0/0
+   523 ;;		Unchanged: 0/0
+   524 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   525 ;;      Params:         0       0       0       0       0       0       0
+   526 ;;      Locals:         0       0       0       0       0       0       0
+   527 ;;      Temps:          0       0       0       0       0       0       0
+   528 ;;      Totals:         0       0       0       0       0       0       0
+   529 ;;Total ram usage:        0 bytes
+   530 ;; Hardware stack levels used:    1
+   531 ;; Hardware stack levels required when called:    4
+   532 ;; This function calls:
+   533 ;;		_receiveData
+   534 ;;		_respondECU
+   535 ;; This function is called by:
+   536 ;;		_main
+   537 ;; This function uses a non-reentrant model
+   538 ;;
+   539                           
+   540                           	psect	text1
+   541  00776A                     __ptext1:
+   542                           	opt stack 0
+   543  00776A                     _updateComms:
+   544                           	opt stack 26
+   545                           
+   546                           ;Communications.c: 10: if (receiveData()) {
+   547                           
+   548                           ;incstack = 0
+   549  00776A  EC06  F03F         	call	_receiveData	;wreg free
+   550  00776E  0900               	iorlw	0
+   551  007770  B4D8               	btfsc	status,2,c
+   552  007772  0012               	return	
+   553                           
+   554                           ;Communications.c: 12: respondECU();
+   555  007774  ECCB  F03B         	call	_respondECU	;wreg free
+   556  007778  0012               	return	
+   557  00777A                     __end_of_updateComms:
+   558                           	opt stack 0
+   559                           tblptru	equ	0xFF8
+   560                           tblptrh	equ	0xFF7
+   561                           tblptrl	equ	0xFF6
+   562                           tablat	equ	0xFF5
+   563                           postinc0	equ	0xFEE
+   564                           wreg	equ	0xFE8
+   565                           status	equ	0xFD8
+   566                           
+   567 ;; *************** function _respondECU *****************
+   568 ;; Defined at:
+   569 ;;		line 16 in file "Communications.c"
+   570 ;; Parameters:    Size  Location     Type
+   571 ;;		None
+   572 ;; Auto vars:     Size  Location     Type
+   573 ;;		None
+   574 ;; Return value:  Size  Location     Type
+   575 ;;                  1    wreg      void 
+   576 ;; Registers used:
+   577 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+   578 ;; Tracked objects:
+   579 ;;		On entry : 0/0
+   580 ;;		On exit  : 0/0
+   581 ;;		Unchanged: 0/0
+   582 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   583 ;;      Params:         0       0       0       0       0       0       0
+   584 ;;      Locals:         0       0       0       0       0       0       0
+   585 ;;      Temps:          0       0       0       0       0       0       0
+   586 ;;      Totals:         0       0       0       0       0       0       0
+   587 ;;Total ram usage:        0 bytes
+   588 ;; Hardware stack levels used:    1
+   589 ;; Hardware stack levels required when called:    3
+   590 ;; This function calls:
+   591 ;;		_ToSend
+   592 ;;		_sendData
+   593 ;; This function is called by:
+   594 ;;		_updateComms
+   595 ;; This function uses a non-reentrant model
+   596 ;;
+   597                           
+   598                           	psect	text2
+   599  007796                     __ptext2:
+   600                           	opt stack 0
+   601  007796                     _respondECU:
+   602                           	opt stack 26
+   603                           
+   604                           ;Communications.c: 17: LATCbits.LATC5 = 1;
+   605                           
+   606                           ;incstack = 0
+   607  007796  8A8B               	bsf	3979,5,c	;volatile
+   608                           
+   609                           ;Communications.c: 18: ToSend(0, 3);
+   610  007798  0E00               	movlw	0
+   611  00779A  6E3E               	movwf	ToSend@what+1,c
+   612  00779C  0E03               	movlw	3
+   613  00779E  6E3D               	movwf	ToSend@what,c
+   614  0077A0  0E00               	movlw	0
+   615  0077A2  ECBD  F03B         	call	_ToSend
+   616                           
+   617                           ;Communications.c: 19: ToSend(8,0);
+   618  0077A6  0E00               	movlw	0
+   619  0077A8  6E3E               	movwf	ToSend@what+1,c
+   620  0077AA  0E00               	movlw	0
+   621  0077AC  6E3D               	movwf	ToSend@what,c
+   622  0077AE  0E08               	movlw	8
+   623  0077B0  ECBD  F03B         	call	_ToSend
+   624                           
+   625                           ;Communications.c: 21: sendData(1);
+   626  0077B4  0E01               	movlw	1
+   627  0077B6  EC92  F03C         	call	_sendData
+   628                           
+   629                           ;Communications.c: 23: LATCbits.LATC5 = 0;
+   630  0077BA  9A8B               	bcf	3979,5,c	;volatile
+   631  0077BC  0012               	return		;funcret
+   632  0077BE                     __end_of_respondECU:
+   633                           	opt stack 0
+   634                           tblptru	equ	0xFF8
+   635                           tblptrh	equ	0xFF7
+   636                           tblptrl	equ	0xFF6
+   637                           tablat	equ	0xFF5
+   638                           postinc0	equ	0xFEE
+   639                           wreg	equ	0xFE8
+   640                           status	equ	0xFD8
+   641                           
+   642 ;; *************** function _sendData *****************
+   643 ;; Defined at:
+   644 ;;		line 50 in file "FastTransfer.c"
+   645 ;; Parameters:    Size  Location     Type
+   646 ;;  whereToSend     1    wreg     unsigned char 
+   647 ;; Auto vars:     Size  Location     Type
+   648 ;;  whereToSend     1   13[COMRAM] unsigned char 
+   649 ;;  i               2   14[COMRAM] int 
+   650 ;;  CS              1   16[COMRAM] unsigned char 
+   651 ;; Return value:  Size  Location     Type
+   652 ;;                  1    wreg      void 
+   653 ;; Registers used:
+   654 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+   655 ;; Tracked objects:
+   656 ;;		On entry : 0/0
+   657 ;;		On exit  : 0/0
+   658 ;;		Unchanged: 0/0
+   659 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   660 ;;      Params:         0       0       0       0       0       0       0
+   661 ;;      Locals:         4       0       0       0       0       0       0
+   662 ;;      Temps:          1       0       0       0       0       0       0
+   663 ;;      Totals:         5       0       0       0       0       0       0
+   664 ;;Total ram usage:        5 bytes
+   665 ;; Hardware stack levels used:    1
+   666 ;; Hardware stack levels required when called:    2
+   667 ;; This function calls:
+   668 ;;		_CRC8
+   669 ;;		_FastTransfer_buffer_flush
+   670 ;;		_crcBufS_put
+   671 ;; This function is called by:
+   672 ;;		_respondECU
+   673 ;; This function uses a non-reentrant model
+   674 ;;
+   675                           
+   676                           	psect	text3
+   677  007924                     __ptext3:
+   678                           	opt stack 0
+   679  007924                     _sendData:
+   680                           	opt stack 26
+   681                           
+   682                           ;incstack = 0
+   683                           ;sendData@whereToSend stored from wreg
+   684  007924  6E3D               	movwf	sendData@whereToSend,c
+   685                           
+   686                           ;FastTransfer.c: 59: serial_write(ring_buffer.count);
+   687  007926  C00D  F030         	movff	_sendStructAddress,CRC8@data
+   688  00792A  C00E  F031         	movff	_sendStructAddress+1,CRC8@data+1
+   689  00792E  C1CC  F032         	movff	_ring_buffer+204,CRC8@len
+   690  007932  EC0A  F03C         	call	_CRC8	;wreg free
+   691  007936  6E40               	movwf	sendData@CS,c
+   692                           
+   693                           ;FastTransfer.c: 63: int i;
+   694                           ;FastTransfer.c: 64: for (i = 0; i < ring_buffer.count; i++) {
+   695  007938  0E00               	movlw	0
+   696  00793A  6E3F               	movwf	sendData@i+1,c
+   697  00793C  0E00               	movlw	0
+   698  00793E  6E3E               	movwf	sendData@i,c
+   699  007940  D002               	goto	l1517
+   700  007942                     l1515:
+   701  007942  4A3E               	infsnz	sendData@i,f,c
+   702  007944  2A3F               	incf	sendData@i+1,f,c
+   703  007946                     l1517:
+   704  007946  0101               	movlb	1	; () banked
+   705  007948  51CC               	movf	(_ring_buffer+204)& (0+255),w,b
+   706  00794A  5C3E               	subwf	sendData@i,w,c
+   707  00794C  503F               	movf	sendData@i+1,w,c
+   708  00794E  0A80               	xorlw	128
+   709  007950  6E3C               	movwf	??_sendData& (0+255),c
+   710  007952  0101               	movlb	1	; () banked
+   711  007954  51CD               	movf	(_ring_buffer+205)& (0+255),w,b
+   712  007956  0A80               	xorlw	128
+   713  007958  583C               	subwfb	??_sendData& (0+255),w,c
+   714  00795A  A0D8               	btfss	status,0,c
+   715  00795C  D7F2               	goto	l1515
+   716                           
+   717                           ; BSR set to: 1
+   718                           ;FastTransfer.c: 72: crcBufS_put(&crc_buffer, whereToSend, CS, 0);
+   719                           
+   720                           ; BSR set to: 1
+   721                           
+   722                           ;FastTransfer.c: 66: }
+   723                           ;FastTransfer.c: 69: serial_write(CS);
+   724  00795E  0E1F               	movlw	low _crc_buffer
+   725  007960  6E30               	movwf	crcBufS_put@_this,c
+   726  007962  0E00               	movlw	high _crc_buffer
+   727  007964  6E31               	movwf	crcBufS_put@_this+1,c
+   728  007966  C03D  F032         	movff	sendData@whereToSend,crcBufS_put@address
+   729  00796A  C040  F033         	movff	sendData@CS,crcBufS_put@oldCRC
+   730  00796E  0E00               	movlw	0
+   731  007970  6E34               	movwf	crcBufS_put@status,c
+   732  007972  EC75  F03D         	call	_crcBufS_put	;wreg free
+   733                           
+   734                           ;FastTransfer.c: 75: FastTransfer_buffer_flush(&ring_buffer, 1);
+   735  007976  0E00               	movlw	low _ring_buffer
+   736  007978  6E38               	movwf	FastTransfer_buffer_flush@_this,c
+   737  00797A  0E01               	movlw	high _ring_buffer
+   738  00797C  6E39               	movwf	FastTransfer_buffer_flush@_this+1,c
+   739  00797E  0E00               	movlw	0
+   740  007980  6E3B               	movwf	FastTransfer_buffer_flush@clearBuffer+1,c
+   741  007982  0E01               	movlw	1
+   742  007984  6E3A               	movwf	FastTransfer_buffer_flush@clearBuffer,c
+   743  007986  EC2F  F03C         	call	_FastTransfer_buffer_flush	;wreg free
+   744  00798A  0012               	return		;funcret
+   745  00798C                     __end_of_sendData:
+   746                           	opt stack 0
+   747                           tblptru	equ	0xFF8
+   748                           tblptrh	equ	0xFF7
+   749                           tblptrl	equ	0xFF6
+   750                           tablat	equ	0xFF5
+   751                           postinc0	equ	0xFEE
+   752                           wreg	equ	0xFE8
+   753                           status	equ	0xFD8
+   754                           
+   755 ;; *************** function _crcBufS_put *****************
+   756 ;; Defined at:
+   757 ;;		line 319 in file "FastTransfer.c"
+   758 ;; Parameters:    Size  Location     Type
+   759 ;;  _this           2    0[COMRAM] PTR struct crcBufS
+   760 ;;		 -> crc_buffer(17), 
+   761 ;;  address         1    2[COMRAM] unsigned char 
+   762 ;;  oldCRC          1    3[COMRAM] unsigned char 
+   763 ;;  status          1    4[COMRAM] unsigned char 
+   764 ;; Auto vars:     Size  Location     Type
+   765 ;;		None
+   766 ;; Return value:  Size  Location     Type
+   767 ;;                  1    wreg      void 
+   768 ;; Registers used:
+   769 ;;		wreg, fsr2l, fsr2h, status,2, status,0
+   770 ;; Tracked objects:
+   771 ;;		On entry : 0/0
+   772 ;;		On exit  : 0/0
+   773 ;;		Unchanged: 0/0
+   774 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   775 ;;      Params:         5       0       0       0       0       0       0
+   776 ;;      Locals:         0       0       0       0       0       0       0
+   777 ;;      Temps:          2       0       0       0       0       0       0
+   778 ;;      Totals:         7       0       0       0       0       0       0
+   779 ;;Total ram usage:        7 bytes
+   780 ;; Hardware stack levels used:    1
+   781 ;; This function calls:
+   782 ;;		Nothing
+   783 ;; This function is called by:
+   784 ;;		_sendData
+   785 ;; This function uses a non-reentrant model
+   786 ;;
+   787                           
+   788                           	psect	text4
+   789  007AEA                     __ptext4:
+   790                           	opt stack 0
+   791  007AEA                     _crcBufS_put:
+   792                           	opt stack 27
+   793                           
+   794                           ;FastTransfer.c: 320: _this->buf[_this->head] = address;
+   795                           
+   796                           ;incstack = 0
+   797  007AEA  EE20 F00F          	lfsr	2,15
+   798  007AEE  5030               	movf	crcBufS_put@_this,w,c
+   799  007AF0  26D9               	addwf	fsr2l,f,c
+   800  007AF2  5031               	movf	crcBufS_put@_this+1,w,c
+   801  007AF4  22DA               	addwfc	fsr2h,f,c
+   802  007AF6  CFDE F035          	movff	postinc2,??_crcBufS_put
+   803  007AFA  CFDD F036          	movff	postdec2,??_crcBufS_put+1
+   804  007AFE  5035               	movf	??_crcBufS_put,w,c
+   805  007B00  2430               	addwf	crcBufS_put@_this,w,c
+   806  007B02  6ED9               	movwf	fsr2l,c
+   807  007B04  5036               	movf	??_crcBufS_put+1,w,c
+   808  007B06  2031               	addwfc	crcBufS_put@_this+1,w,c
+   809  007B08  6EDA               	movwf	fsr2h,c
+   810  007B0A  C032  FFDF         	movff	crcBufS_put@address,indf2
+   811                           
+   812                           ;FastTransfer.c: 321: _this->head++;
+   813  007B0E  EE20 F00F          	lfsr	2,15
+   814  007B12  5030               	movf	crcBufS_put@_this,w,c
+   815  007B14  26D9               	addwf	fsr2l,f,c
+   816  007B16  5031               	movf	crcBufS_put@_this+1,w,c
+   817  007B18  22DA               	addwfc	fsr2h,f,c
+   818  007B1A  2ADE               	incf	postinc2,f,c
+   819  007B1C  0E00               	movlw	0
+   820  007B1E  22DD               	addwfc	postdec2,f,c
+   821                           
+   822                           ;FastTransfer.c: 322: _this->buf[_this->head] = oldCRC;
+   823  007B20  EE20 F00F          	lfsr	2,15
+   824  007B24  5030               	movf	crcBufS_put@_this,w,c
+   825  007B26  26D9               	addwf	fsr2l,f,c
+   826  007B28  5031               	movf	crcBufS_put@_this+1,w,c
+   827  007B2A  22DA               	addwfc	fsr2h,f,c
+   828  007B2C  CFDE F035          	movff	postinc2,??_crcBufS_put
+   829  007B30  CFDD F036          	movff	postdec2,??_crcBufS_put+1
+   830  007B34  5035               	movf	??_crcBufS_put,w,c
+   831  007B36  2430               	addwf	crcBufS_put@_this,w,c
+   832  007B38  6ED9               	movwf	fsr2l,c
+   833  007B3A  5036               	movf	??_crcBufS_put+1,w,c
+   834  007B3C  2031               	addwfc	crcBufS_put@_this+1,w,c
+   835  007B3E  6EDA               	movwf	fsr2h,c
+   836  007B40  C033  FFDF         	movff	crcBufS_put@oldCRC,indf2
+   837                           
+   838                           ;FastTransfer.c: 323: _this->head++;
+   839  007B44  EE20 F00F          	lfsr	2,15
+   840  007B48  5030               	movf	crcBufS_put@_this,w,c
+   841  007B4A  26D9               	addwf	fsr2l,f,c
+   842  007B4C  5031               	movf	crcBufS_put@_this+1,w,c
+   843  007B4E  22DA               	addwfc	fsr2h,f,c
+   844  007B50  2ADE               	incf	postinc2,f,c
+   845  007B52  0E00               	movlw	0
+   846  007B54  22DD               	addwfc	postdec2,f,c
+   847                           
+   848                           ;FastTransfer.c: 324: _this->buf[_this->head] = status;
+   849  007B56  EE20 F00F          	lfsr	2,15
+   850  007B5A  5030               	movf	crcBufS_put@_this,w,c
+   851  007B5C  26D9               	addwf	fsr2l,f,c
+   852  007B5E  5031               	movf	crcBufS_put@_this+1,w,c
+   853  007B60  22DA               	addwfc	fsr2h,f,c
+   854  007B62  CFDE F035          	movff	postinc2,??_crcBufS_put
+   855  007B66  CFDD F036          	movff	postdec2,??_crcBufS_put+1
+   856  007B6A  5035               	movf	??_crcBufS_put,w,c
+   857  007B6C  2430               	addwf	crcBufS_put@_this,w,c
+   858  007B6E  6ED9               	movwf	fsr2l,c
+   859  007B70  5036               	movf	??_crcBufS_put+1,w,c
+   860  007B72  2031               	addwfc	crcBufS_put@_this+1,w,c
+   861  007B74  6EDA               	movwf	fsr2h,c
+   862  007B76  C034  FFDF         	movff	crcBufS_put@status,indf2
+   863                           
+   864                           ;FastTransfer.c: 325: _this->head++;
+   865  007B7A  EE20 F00F          	lfsr	2,15
+   866  007B7E  5030               	movf	crcBufS_put@_this,w,c
+   867  007B80  26D9               	addwf	fsr2l,f,c
+   868  007B82  5031               	movf	crcBufS_put@_this+1,w,c
+   869  007B84  22DA               	addwfc	fsr2h,f,c
+   870  007B86  2ADE               	incf	postinc2,f,c
+   871  007B88  0E00               	movlw	0
+   872  007B8A  22DD               	addwfc	postdec2,f,c
+   873                           
+   874                           ;FastTransfer.c: 326: if (_this->head >= (5 * 3)) {
+   875  007B8C  EE20 F00F          	lfsr	2,15
+   876  007B90  5030               	movf	crcBufS_put@_this,w,c
+   877  007B92  26D9               	addwf	fsr2l,f,c
+   878  007B94  5031               	movf	crcBufS_put@_this+1,w,c
+   879  007B96  22DA               	addwfc	fsr2h,f,c
+   880  007B98  0E01               	movlw	1
+   881  007B9A  BEDB               	btfsc	plusw2,7,c
+   882  007B9C  0012               	return	
+   883  007B9E  0E01               	movlw	1
+   884  007BA0  50DB               	movf	plusw2,w,c
+   885  007BA2  E104               	bnz	u510
+   886  007BA4  0E0F               	movlw	15
+   887  007BA6  5CDE               	subwf	postinc2,w,c
+   888  007BA8  A0D8               	btfss	status,0,c
+   889  007BAA  0012               	return	
+   890  007BAC                     u510:
+   891                           
+   892                           ;FastTransfer.c: 327: _this->head = 0;
+   893  007BAC  EE20 F00F          	lfsr	2,15
+   894  007BB0  5030               	movf	crcBufS_put@_this,w,c
+   895  007BB2  26D9               	addwf	fsr2l,f,c
+   896  007BB4  5031               	movf	crcBufS_put@_this+1,w,c
+   897  007BB6  22DA               	addwfc	fsr2h,f,c
+   898  007BB8  0E00               	movlw	0
+   899  007BBA  6EDE               	movwf	postinc2,c
+   900  007BBC  0E00               	movlw	0
+   901  007BBE  6EDD               	movwf	postdec2,c
+   902  007BC0  0012               	return	
+   903  007BC2                     __end_of_crcBufS_put:
+   904                           	opt stack 0
+   905                           tblptru	equ	0xFF8
+   906                           tblptrh	equ	0xFF7
+   907                           tblptrl	equ	0xFF6
+   908                           tablat	equ	0xFF5
+   909                           postinc0	equ	0xFEE
+   910                           wreg	equ	0xFE8
+   911                           indf2	equ	0xFDF
+   912                           postinc2	equ	0xFDE
+   913                           postdec2	equ	0xFDD
+   914                           plusw2	equ	0xFDB
+   915                           fsr2h	equ	0xFDA
+   916                           fsr2l	equ	0xFD9
+   917                           status	equ	0xFD8
+   918                           
+   919 ;; *************** function _FastTransfer_buffer_flush *****************
+   920 ;; Defined at:
+   921 ;;		line 259 in file "FastTransfer.c"
+   922 ;; Parameters:    Size  Location     Type
+   923 ;;  _this           2    8[COMRAM] PTR struct ringBufS
+   924 ;;		 -> ring_buffer(206), 
+   925 ;;  clearBuffer     2   10[COMRAM] const int 
+   926 ;; Auto vars:     Size  Location     Type
+   927 ;;		None
+   928 ;; Return value:  Size  Location     Type
+   929 ;;                  1    wreg      void 
+   930 ;; Registers used:
+   931 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+   932 ;; Tracked objects:
+   933 ;;		On entry : 0/0
+   934 ;;		On exit  : 0/0
+   935 ;;		Unchanged: 0/0
+   936 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   937 ;;      Params:         4       0       0       0       0       0       0
+   938 ;;      Locals:         0       0       0       0       0       0       0
+   939 ;;      Temps:          0       0       0       0       0       0       0
+   940 ;;      Totals:         4       0       0       0       0       0       0
+   941 ;;Total ram usage:        4 bytes
+   942 ;; Hardware stack levels used:    1
+   943 ;; Hardware stack levels required when called:    1
+   944 ;; This function calls:
+   945 ;;		_memset
+   946 ;; This function is called by:
+   947 ;;		_sendData
+   948 ;; This function uses a non-reentrant model
+   949 ;;
+   950                           
+   951                           	psect	text5
+   952  00785E                     __ptext5:
+   953                           	opt stack 0
+   954  00785E                     _FastTransfer_buffer_flush:
+   955                           	opt stack 26
+   956                           
+   957                           ;FastTransfer.c: 260: _this->count = 0;
+   958                           
+   959                           ;incstack = 0
+   960  00785E  EE20 F0CC          	lfsr	2,204
+   961  007862  5038               	movf	FastTransfer_buffer_flush@_this,w,c
+   962  007864  26D9               	addwf	fsr2l,f,c
+   963  007866  5039               	movf	FastTransfer_buffer_flush@_this+1,w,c
+   964  007868  22DA               	addwfc	fsr2h,f,c
+   965  00786A  0E00               	movlw	0
+   966  00786C  6EDE               	movwf	postinc2,c
+   967  00786E  0E00               	movlw	0
+   968  007870  6EDD               	movwf	postdec2,c
+   969                           
+   970                           ;FastTransfer.c: 261: _this->head = 0;
+   971  007872  EE20 F0C8          	lfsr	2,200
+   972  007876  5038               	movf	FastTransfer_buffer_flush@_this,w,c
+   973  007878  26D9               	addwf	fsr2l,f,c
+   974  00787A  5039               	movf	FastTransfer_buffer_flush@_this+1,w,c
+   975  00787C  22DA               	addwfc	fsr2h,f,c
+   976  00787E  0E00               	movlw	0
+   977  007880  6EDE               	movwf	postinc2,c
+   978  007882  0E00               	movlw	0
+   979  007884  6EDD               	movwf	postdec2,c
+   980                           
+   981                           ;FastTransfer.c: 262: _this->tail = 0;
+   982  007886  EE20 F0CA          	lfsr	2,202
+   983  00788A  5038               	movf	FastTransfer_buffer_flush@_this,w,c
+   984  00788C  26D9               	addwf	fsr2l,f,c
+   985  00788E  5039               	movf	FastTransfer_buffer_flush@_this+1,w,c
+   986  007890  22DA               	addwfc	fsr2h,f,c
+   987  007892  0E00               	movlw	0
+   988  007894  6EDE               	movwf	postinc2,c
+   989  007896  0E00               	movlw	0
+   990  007898  6EDD               	movwf	postdec2,c
+   991                           
+   992                           ;FastTransfer.c: 263: if (clearBuffer) {
+   993  00789A  503A               	movf	FastTransfer_buffer_flush@clearBuffer,w,c
+   994  00789C  103B               	iorwf	FastTransfer_buffer_flush@clearBuffer+1,w,c
+   995  00789E  B4D8               	btfsc	status,2,c
+   996  0078A0  0012               	return	
+   997                           
+   998                           ;FastTransfer.c: 264: memset(_this->buf, 0, sizeof (_this->buf));
+   999  0078A2  C038  F030         	movff	FastTransfer_buffer_flush@_this,memset@p1
+  1000  0078A6  C039  F031         	movff	FastTransfer_buffer_flush@_this+1,memset@p1+1
+  1001  0078AA  0E00               	movlw	0
+  1002  0078AC  6E33               	movwf	memset@c+1,c
+  1003  0078AE  0E00               	movlw	0
+  1004  0078B0  6E32               	movwf	memset@c,c
+  1005  0078B2  0E00               	movlw	0
+  1006  0078B4  6E35               	movwf	memset@n+1,c
+  1007  0078B6  0EC8               	movlw	200
+  1008  0078B8  6E34               	movwf	memset@n,c
+  1009  0078BA  ECF4  F03B         	call	_memset	;wreg free
+  1010  0078BE  0012               	return	
+  1011  0078C0                     __end_of_FastTransfer_buffer_flush:
+  1012                           	opt stack 0
+  1013                           tblptru	equ	0xFF8
+  1014                           tblptrh	equ	0xFF7
+  1015                           tblptrl	equ	0xFF6
+  1016                           tablat	equ	0xFF5
+  1017                           postinc0	equ	0xFEE
+  1018                           wreg	equ	0xFE8
+  1019                           indf2	equ	0xFDF
+  1020                           postinc2	equ	0xFDE
+  1021                           postdec2	equ	0xFDD
+  1022                           plusw2	equ	0xFDB
+  1023                           fsr2h	equ	0xFDA
+  1024                           fsr2l	equ	0xFD9
+  1025                           status	equ	0xFD8
+  1026                           
+  1027 ;; *************** function _memset *****************
+  1028 ;; Defined at:
+  1029 ;;		line 8 in file "C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\memset.c"
+  1030 ;; Parameters:    Size  Location     Type
+  1031 ;;  p1              2    0[COMRAM] PTR void 
+  1032 ;;		 -> output_buffer(206), input_buffer(206), ring_buffer(206), 
+  1033 ;;  c               2    2[COMRAM] int 
+  1034 ;;  n               2    4[COMRAM] unsigned int 
+  1035 ;; Auto vars:     Size  Location     Type
+  1036 ;;  p               2    6[COMRAM] PTR unsigned char 
+  1037 ;;		 -> output_buffer(206), input_buffer(206), ring_buffer(206), 
+  1038 ;; Return value:  Size  Location     Type
+  1039 ;;                  2    0[COMRAM] PTR void 
+  1040 ;; Registers used:
+  1041 ;;		wreg, fsr2l, fsr2h, status,2, status,0
+  1042 ;; Tracked objects:
+  1043 ;;		On entry : 0/0
+  1044 ;;		On exit  : 0/0
+  1045 ;;		Unchanged: 0/0
+  1046 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1047 ;;      Params:         6       0       0       0       0       0       0
+  1048 ;;      Locals:         2       0       0       0       0       0       0
+  1049 ;;      Temps:          0       0       0       0       0       0       0
+  1050 ;;      Totals:         8       0       0       0       0       0       0
+  1051 ;;Total ram usage:        8 bytes
+  1052 ;; Hardware stack levels used:    1
+  1053 ;; This function calls:
+  1054 ;;		Nothing
+  1055 ;; This function is called by:
+  1056 ;;		_FastTransfer_buffer_flush
+  1057 ;;		_UART_buff_init
+  1058 ;;		_UART_buff_flush
+  1059 ;; This function uses a non-reentrant model
+  1060 ;;
+  1061                           
+  1062                           	psect	text6
+  1063  0077E8                     __ptext6:
+  1064                           	opt stack 0
+  1065  0077E8                     _memset:
+  1066                           	opt stack 26
+  1067                           
+  1068                           ;incstack = 0
+  1069  0077E8  C030  F036         	movff	memset@p1,memset@p
+  1070  0077EC  C031  F037         	movff	memset@p1+1,memset@p+1
+  1071  0077F0  D008               	goto	l1417
+  1072  0077F2                     l1413:
+  1073  0077F2  C036  FFD9         	movff	memset@p,fsr2l
+  1074  0077F6  C037  FFDA         	movff	memset@p+1,fsr2h
+  1075  0077FA  C032  FFDF         	movff	memset@c,indf2
+  1076  0077FE  4A36               	infsnz	memset@p,f,c
+  1077  007800  2A37               	incf	memset@p+1,f,c
+  1078  007802                     l1417:
+  1079  007802  0634               	decf	memset@n,f,c
+  1080  007804  A0D8               	btfss	status,0,c
+  1081  007806  0635               	decf	memset@n+1,f,c
+  1082  007808  2834               	incf	memset@n,w,c
+  1083  00780A  E1F3               	bnz	l1413
+  1084  00780C  2835               	incf	memset@n+1,w,c
+  1085  00780E  B4D8               	btfsc	status,2,c
+  1086  007810  0012               	return	
+  1087  007812  D7EF               	goto	l1413
+  1088  007814                     __end_of_memset:
+  1089                           	opt stack 0
+  1090                           tblptru	equ	0xFF8
+  1091                           tblptrh	equ	0xFF7
+  1092                           tblptrl	equ	0xFF6
+  1093                           tablat	equ	0xFF5
+  1094                           postinc0	equ	0xFEE
+  1095                           wreg	equ	0xFE8
+  1096                           indf2	equ	0xFDF
+  1097                           postinc2	equ	0xFDE
+  1098                           postdec2	equ	0xFDD
+  1099                           plusw2	equ	0xFDB
+  1100                           fsr2h	equ	0xFDA
+  1101                           fsr2l	equ	0xFD9
+  1102                           status	equ	0xFD8
+  1103                           
+  1104 ;; *************** function _ToSend *****************
+  1105 ;; Defined at:
+  1106 ;;		line 214 in file "FastTransfer.c"
+  1107 ;; Parameters:    Size  Location     Type
+  1108 ;;  where           1    wreg     unsigned char 
+  1109 ;;  what            2   13[COMRAM] unsigned int 
+  1110 ;; Auto vars:     Size  Location     Type
+  1111 ;;  where           1   15[COMRAM] unsigned char 
+  1112 ;; Return value:  Size  Location     Type
+  1113 ;;                  1    wreg      void 
+  1114 ;; Registers used:
+  1115 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+  1116 ;; Tracked objects:
+  1117 ;;		On entry : 0/0
+  1118 ;;		On exit  : 0/0
+  1119 ;;		Unchanged: 0/0
+  1120 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1121 ;;      Params:         2       0       0       0       0       0       0
+  1122 ;;      Locals:         1       0       0       0       0       0       0
+  1123 ;;      Temps:          0       0       0       0       0       0       0
+  1124 ;;      Totals:         3       0       0       0       0       0       0
+  1125 ;;Total ram usage:        3 bytes
+  1126 ;; Hardware stack levels used:    1
+  1127 ;; Hardware stack levels required when called:    2
+  1128 ;; This function calls:
+  1129 ;;		_FastTransfer_buffer_put
+  1130 ;; This function is called by:
+  1131 ;;		_respondECU
+  1132 ;; This function uses a non-reentrant model
+  1133 ;;
+  1134                           
+  1135                           	psect	text7
+  1136  00777A                     __ptext7:
+  1137                           	opt stack 0
+  1138  00777A                     _ToSend:
+  1139                           	opt stack 26
+  1140                           
+  1141                           ;incstack = 0
+  1142                           ;ToSend@where stored from wreg
+  1143  00777A  6E3F               	movwf	ToSend@where,c
+  1144                           
+  1145                           ;FastTransfer.c: 215: FastTransfer_buffer_put(&ring_buffer, where, what);
+  1146  00777C  0E00               	movlw	low _ring_buffer
+  1147  00777E  6E36               	movwf	FastTransfer_buffer_put@_this,c
+  1148  007780  0E01               	movlw	high _ring_buffer
+  1149  007782  6E37               	movwf	FastTransfer_buffer_put@_this+1,c
+  1150  007784  C03F  F038         	movff	ToSend@where,FastTransfer_buffer_put@towhere
+  1151  007788  C03D  F039         	movff	ToSend@what,FastTransfer_buffer_put@towhat
+  1152  00778C  C03E  F03A         	movff	ToSend@what+1,FastTransfer_buffer_put@towhat+1
+  1153  007790  EC52  F03E         	call	_FastTransfer_buffer_put	;wreg free
+  1154  007794  0012               	return		;funcret
+  1155  007796                     __end_of_ToSend:
+  1156                           	opt stack 0
+  1157                           tblptru	equ	0xFF8
+  1158                           tblptrh	equ	0xFF7
+  1159                           tblptrl	equ	0xFF6
+  1160                           tablat	equ	0xFF5
+  1161                           postinc0	equ	0xFEE
+  1162                           wreg	equ	0xFE8
+  1163                           indf2	equ	0xFDF
+  1164                           postinc2	equ	0xFDE
+  1165                           postdec2	equ	0xFDD
+  1166                           plusw2	equ	0xFDB
+  1167                           fsr2h	equ	0xFDA
+  1168                           fsr2l	equ	0xFD9
+  1169                           status	equ	0xFD8
+  1170                           
+  1171 ;; *************** function _FastTransfer_buffer_put *****************
+  1172 ;; Defined at:
+  1173 ;;		line 221 in file "FastTransfer.c"
+  1174 ;; Parameters:    Size  Location     Type
+  1175 ;;  _this           2    6[COMRAM] PTR struct ringBufS
+  1176 ;;		 -> ring_buffer(206), 
+  1177 ;;  towhere         1    8[COMRAM] unsigned char 
+  1178 ;;  towhat          2    9[COMRAM] unsigned int 
+  1179 ;; Auto vars:     Size  Location     Type
+  1180 ;;		None
+  1181 ;; Return value:  Size  Location     Type
+  1182 ;;                  1    wreg      void 
+  1183 ;; Registers used:
+  1184 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+  1185 ;; Tracked objects:
+  1186 ;;		On entry : 0/0
+  1187 ;;		On exit  : 0/0
+  1188 ;;		Unchanged: 0/0
+  1189 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1190 ;;      Params:         5       0       0       0       0       0       0
+  1191 ;;      Locals:         0       0       0       0       0       0       0
+  1192 ;;      Temps:          2       0       0       0       0       0       0
+  1193 ;;      Totals:         7       0       0       0       0       0       0
+  1194 ;;Total ram usage:        7 bytes
+  1195 ;; Hardware stack levels used:    1
+  1196 ;; Hardware stack levels required when called:    1
+  1197 ;; This function calls:
+  1198 ;;		_FastTransfer_buffer_modulo_inc
+  1199 ;; This function is called by:
+  1200 ;;		_ToSend
+  1201 ;; This function uses a non-reentrant model
+  1202 ;;
+  1203                           
+  1204                           	psect	text8
+  1205  007CA4                     __ptext8:
+  1206                           	opt stack 0
+  1207  007CA4                     _FastTransfer_buffer_put:
+  1208                           	opt stack 26
+  1209                           
+  1210                           ;FastTransfer.c: 223: group.integer = towhat;
+  1211                           
+  1212                           ;incstack = 0
+  1213  007CA4  C039  F009         	movff	FastTransfer_buffer_put@towhat,_group
+  1214  007CA8  C03A  F00A         	movff	FastTransfer_buffer_put@towhat+1,_group+1
+  1215                           
+  1216                           ;FastTransfer.c: 225: if (_this->count < (200 - 3)) {
+  1217  007CAC  EE20 F0CC          	lfsr	2,204
+  1218  007CB0  5036               	movf	FastTransfer_buffer_put@_this,w,c
+  1219  007CB2  26D9               	addwf	fsr2l,f,c
+  1220  007CB4  5037               	movf	FastTransfer_buffer_put@_this+1,w,c
+  1221  007CB6  22DA               	addwfc	fsr2h,f,c
+  1222  007CB8  0E01               	movlw	1
+  1223  007CBA  BEDB               	btfsc	plusw2,7,c
+  1224  007CBC  D007               	goto	l1457
+  1225  007CBE  0E01               	movlw	1
+  1226  007CC0  50DB               	movf	plusw2,w,c
+  1227  007CC2  E103               	bnz	u531
+  1228  007CC4  0EC5               	movlw	197
+  1229  007CC6  5CDE               	subwf	postinc2,w,c
+  1230  007CC8  B0D8               	btfsc	status,0,c
+  1231  007CCA                     u531:
+  1232  007CCA  0012               	return	
+  1233  007CCC                     l1457:
+  1234                           
+  1235                           ;FastTransfer.c: 226: _this->buf[_this->head] = towhere;
+  1236  007CCC  EE20 F0C8          	lfsr	2,200
+  1237  007CD0  5036               	movf	FastTransfer_buffer_put@_this,w,c
+  1238  007CD2  26D9               	addwf	fsr2l,f,c
+  1239  007CD4  5037               	movf	FastTransfer_buffer_put@_this+1,w,c
+  1240  007CD6  22DA               	addwfc	fsr2h,f,c
+  1241  007CD8  CFDE F03B          	movff	postinc2,??_FastTransfer_buffer_put
+  1242  007CDC  CFDD F03C          	movff	postdec2,??_FastTransfer_buffer_put+1
+  1243  007CE0  503B               	movf	??_FastTransfer_buffer_put,w,c
+  1244  007CE2  2436               	addwf	FastTransfer_buffer_put@_this,w,c
+  1245  007CE4  6ED9               	movwf	fsr2l,c
+  1246  007CE6  503C               	movf	??_FastTransfer_buffer_put+1,w,c
+  1247  007CE8  2037               	addwfc	FastTransfer_buffer_put@_this+1,w,c
+  1248  007CEA  6EDA               	movwf	fsr2h,c
+  1249  007CEC  C038  FFDF         	movff	FastTransfer_buffer_put@towhere,indf2
+  1250                           
+  1251                           ;FastTransfer.c: 227: _this->head = FastTransfer_buffer_modulo_inc(_this->head, 200);
+  1252  007CF0  EE20 F0C8          	lfsr	2,200
+  1253  007CF4  5036               	movf	FastTransfer_buffer_put@_this,w,c
+  1254  007CF6  26D9               	addwf	fsr2l,f,c
+  1255  007CF8  5037               	movf	FastTransfer_buffer_put@_this+1,w,c
+  1256  007CFA  22DA               	addwfc	fsr2h,f,c
+  1257  007CFC  CFDE F030          	movff	postinc2,FastTransfer_buffer_modulo_inc@value
+  1258  007D00  CFDD F031          	movff	postdec2,FastTransfer_buffer_modulo_inc@value+1
+  1259  007D04  0E00               	movlw	0
+  1260  007D06  6E33               	movwf	FastTransfer_buffer_modulo_inc@modulus+1,c
+  1261  007D08  0EC8               	movlw	200
+  1262  007D0A  6E32               	movwf	FastTransfer_buffer_modulo_inc@modulus,c
+  1263  007D0C  ECDF  F03B         	call	_FastTransfer_buffer_modulo_inc	;wreg free
+  1264  007D10  EE20 F0C8          	lfsr	2,200
+  1265  007D14  5036               	movf	FastTransfer_buffer_put@_this,w,c
+  1266  007D16  26D9               	addwf	fsr2l,f,c
+  1267  007D18  5037               	movf	FastTransfer_buffer_put@_this+1,w,c
+  1268  007D1A  22DA               	addwfc	fsr2h,f,c
+  1269  007D1C  C030  FFDE         	movff	?_FastTransfer_buffer_modulo_inc,postinc2
+  1270  007D20  C031  FFDD         	movff	?_FastTransfer_buffer_modulo_inc+1,postdec2
+  1271                           
+  1272                           ;FastTransfer.c: 228: ++_this->count;
+  1273  007D24  EE20 F0CC          	lfsr	2,204
+  1274  007D28  5036               	movf	FastTransfer_buffer_put@_this,w,c
+  1275  007D2A  26D9               	addwf	fsr2l,f,c
+  1276  007D2C  5037               	movf	FastTransfer_buffer_put@_this+1,w,c
+  1277  007D2E  22DA               	addwfc	fsr2h,f,c
+  1278  007D30  2ADE               	incf	postinc2,f,c
+  1279  007D32  0E00               	movlw	0
+  1280  007D34  22DD               	addwfc	postdec2,f,c
+  1281                           
+  1282                           ;FastTransfer.c: 229: _this->buf[_this->head] = group.parts[0];
+  1283  007D36  EE20 F0C8          	lfsr	2,200
+  1284  007D3A  5036               	movf	FastTransfer_buffer_put@_this,w,c
+  1285  007D3C  26D9               	addwf	fsr2l,f,c
+  1286  007D3E  5037               	movf	FastTransfer_buffer_put@_this+1,w,c
+  1287  007D40  22DA               	addwfc	fsr2h,f,c
+  1288  007D42  CFDE F03B          	movff	postinc2,??_FastTransfer_buffer_put
+  1289  007D46  CFDD F03C          	movff	postdec2,??_FastTransfer_buffer_put+1
+  1290  007D4A  503B               	movf	??_FastTransfer_buffer_put,w,c
+  1291  007D4C  2436               	addwf	FastTransfer_buffer_put@_this,w,c
+  1292  007D4E  6ED9               	movwf	fsr2l,c
+  1293  007D50  503C               	movf	??_FastTransfer_buffer_put+1,w,c
+  1294  007D52  2037               	addwfc	FastTransfer_buffer_put@_this+1,w,c
+  1295  007D54  6EDA               	movwf	fsr2h,c
+  1296  007D56  C009  FFDF         	movff	_group,indf2
+  1297                           
+  1298                           ;FastTransfer.c: 230: _this->head = FastTransfer_buffer_modulo_inc(_this->head, 200);
+  1299  007D5A  EE20 F0C8          	lfsr	2,200
+  1300  007D5E  5036               	movf	FastTransfer_buffer_put@_this,w,c
+  1301  007D60  26D9               	addwf	fsr2l,f,c
+  1302  007D62  5037               	movf	FastTransfer_buffer_put@_this+1,w,c
+  1303  007D64  22DA               	addwfc	fsr2h,f,c
+  1304  007D66  CFDE F030          	movff	postinc2,FastTransfer_buffer_modulo_inc@value
+  1305  007D6A  CFDD F031          	movff	postdec2,FastTransfer_buffer_modulo_inc@value+1
+  1306  007D6E  0E00               	movlw	0
+  1307  007D70  6E33               	movwf	FastTransfer_buffer_modulo_inc@modulus+1,c
+  1308  007D72  0EC8               	movlw	200
+  1309  007D74  6E32               	movwf	FastTransfer_buffer_modulo_inc@modulus,c
+  1310  007D76  ECDF  F03B         	call	_FastTransfer_buffer_modulo_inc	;wreg free
+  1311  007D7A  EE20 F0C8          	lfsr	2,200
+  1312  007D7E  5036               	movf	FastTransfer_buffer_put@_this,w,c
+  1313  007D80  26D9               	addwf	fsr2l,f,c
+  1314  007D82  5037               	movf	FastTransfer_buffer_put@_this+1,w,c
+  1315  007D84  22DA               	addwfc	fsr2h,f,c
+  1316  007D86  C030  FFDE         	movff	?_FastTransfer_buffer_modulo_inc,postinc2
+  1317  007D8A  C031  FFDD         	movff	?_FastTransfer_buffer_modulo_inc+1,postdec2
+  1318                           
+  1319                           ;FastTransfer.c: 231: ++_this->count;
+  1320  007D8E  EE20 F0CC          	lfsr	2,204
+  1321  007D92  5036               	movf	FastTransfer_buffer_put@_this,w,c
+  1322  007D94  26D9               	addwf	fsr2l,f,c
+  1323  007D96  5037               	movf	FastTransfer_buffer_put@_this+1,w,c
+  1324  007D98  22DA               	addwfc	fsr2h,f,c
+  1325  007D9A  2ADE               	incf	postinc2,f,c
+  1326  007D9C  0E00               	movlw	0
+  1327  007D9E  22DD               	addwfc	postdec2,f,c
+  1328                           
+  1329                           ;FastTransfer.c: 232: _this->buf[_this->head] = group.parts[1];
+  1330  007DA0  EE20 F0C8          	lfsr	2,200
+  1331  007DA4  5036               	movf	FastTransfer_buffer_put@_this,w,c
+  1332  007DA6  26D9               	addwf	fsr2l,f,c
+  1333  007DA8  5037               	movf	FastTransfer_buffer_put@_this+1,w,c
+  1334  007DAA  22DA               	addwfc	fsr2h,f,c
+  1335  007DAC  CFDE F03B          	movff	postinc2,??_FastTransfer_buffer_put
+  1336  007DB0  CFDD F03C          	movff	postdec2,??_FastTransfer_buffer_put+1
+  1337  007DB4  503B               	movf	??_FastTransfer_buffer_put,w,c
+  1338  007DB6  2436               	addwf	FastTransfer_buffer_put@_this,w,c
+  1339  007DB8  6ED9               	movwf	fsr2l,c
+  1340  007DBA  503C               	movf	??_FastTransfer_buffer_put+1,w,c
+  1341  007DBC  2037               	addwfc	FastTransfer_buffer_put@_this+1,w,c
+  1342  007DBE  6EDA               	movwf	fsr2h,c
+  1343  007DC0  C00A  FFDF         	movff	_group+1,indf2
+  1344                           
+  1345                           ;FastTransfer.c: 233: _this->head = FastTransfer_buffer_modulo_inc(_this->head, 200);
+  1346  007DC4  EE20 F0C8          	lfsr	2,200
+  1347  007DC8  5036               	movf	FastTransfer_buffer_put@_this,w,c
+  1348  007DCA  26D9               	addwf	fsr2l,f,c
+  1349  007DCC  5037               	movf	FastTransfer_buffer_put@_this+1,w,c
+  1350  007DCE  22DA               	addwfc	fsr2h,f,c
+  1351  007DD0  CFDE F030          	movff	postinc2,FastTransfer_buffer_modulo_inc@value
+  1352  007DD4  CFDD F031          	movff	postdec2,FastTransfer_buffer_modulo_inc@value+1
+  1353  007DD8  0E00               	movlw	0
+  1354  007DDA  6E33               	movwf	FastTransfer_buffer_modulo_inc@modulus+1,c
+  1355  007DDC  0EC8               	movlw	200
+  1356  007DDE  6E32               	movwf	FastTransfer_buffer_modulo_inc@modulus,c
+  1357  007DE0  ECDF  F03B         	call	_FastTransfer_buffer_modulo_inc	;wreg free
+  1358  007DE4  EE20 F0C8          	lfsr	2,200
+  1359  007DE8  5036               	movf	FastTransfer_buffer_put@_this,w,c
+  1360  007DEA  26D9               	addwf	fsr2l,f,c
+  1361  007DEC  5037               	movf	FastTransfer_buffer_put@_this+1,w,c
+  1362  007DEE  22DA               	addwfc	fsr2h,f,c
+  1363  007DF0  C030  FFDE         	movff	?_FastTransfer_buffer_modulo_inc,postinc2
+  1364  007DF4  C031  FFDD         	movff	?_FastTransfer_buffer_modulo_inc+1,postdec2
+  1365                           
+  1366                           ;FastTransfer.c: 234: ++_this->count;
+  1367  007DF8  EE20 F0CC          	lfsr	2,204
+  1368  007DFC  5036               	movf	FastTransfer_buffer_put@_this,w,c
+  1369  007DFE  26D9               	addwf	fsr2l,f,c
+  1370  007E00  5037               	movf	FastTransfer_buffer_put@_this+1,w,c
+  1371  007E02  22DA               	addwfc	fsr2h,f,c
+  1372  007E04  2ADE               	incf	postinc2,f,c
+  1373  007E06  0E00               	movlw	0
+  1374  007E08  22DD               	addwfc	postdec2,f,c
+  1375  007E0A  0012               	return	
+  1376  007E0C                     __end_of_FastTransfer_buffer_put:
+  1377                           	opt stack 0
+  1378                           tblptru	equ	0xFF8
+  1379                           tblptrh	equ	0xFF7
+  1380                           tblptrl	equ	0xFF6
+  1381                           tablat	equ	0xFF5
+  1382                           postinc0	equ	0xFEE
+  1383                           wreg	equ	0xFE8
+  1384                           indf2	equ	0xFDF
+  1385                           postinc2	equ	0xFDE
+  1386                           postdec2	equ	0xFDD
+  1387                           plusw2	equ	0xFDB
+  1388                           fsr2h	equ	0xFDA
+  1389                           fsr2l	equ	0xFD9
+  1390                           status	equ	0xFD8
+  1391                           
+  1392 ;; *************** function _FastTransfer_buffer_modulo_inc *****************
+  1393 ;; Defined at:
+  1394 ;;		line 271 in file "FastTransfer.c"
+  1395 ;; Parameters:    Size  Location     Type
+  1396 ;;  value           2    0[COMRAM] const unsigned int 
+  1397 ;;  modulus         2    2[COMRAM] const unsigned int 
+  1398 ;; Auto vars:     Size  Location     Type
+  1399 ;;  my_value        2    4[COMRAM] unsigned int 
+  1400 ;; Return value:  Size  Location     Type
+  1401 ;;                  2    0[COMRAM] unsigned int 
+  1402 ;; Registers used:
+  1403 ;;		wreg, status,2, status,0
+  1404 ;; Tracked objects:
+  1405 ;;		On entry : 0/0
+  1406 ;;		On exit  : 0/0
+  1407 ;;		Unchanged: 0/0
+  1408 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1409 ;;      Params:         4       0       0       0       0       0       0
+  1410 ;;      Locals:         2       0       0       0       0       0       0
+  1411 ;;      Temps:          0       0       0       0       0       0       0
+  1412 ;;      Totals:         6       0       0       0       0       0       0
+  1413 ;;Total ram usage:        6 bytes
+  1414 ;; Hardware stack levels used:    1
+  1415 ;; This function calls:
+  1416 ;;		Nothing
+  1417 ;; This function is called by:
+  1418 ;;		_FastTransfer_buffer_put
+  1419 ;;		_FastTransfer_buffer_get
+  1420 ;; This function uses a non-reentrant model
+  1421 ;;
+  1422                           
+  1423                           	psect	text9
+  1424  0077BE                     __ptext9:
+  1425                           	opt stack 0
+  1426  0077BE                     _FastTransfer_buffer_modulo_inc:
+  1427                           	opt stack 26
+  1428                           
+  1429                           ;FastTransfer.c: 272: unsigned int my_value = value + 1;
+  1430                           
+  1431                           ;incstack = 0
+  1432  0077BE  0E01               	movlw	1
+  1433  0077C0  2430               	addwf	FastTransfer_buffer_modulo_inc@value,w,c
+  1434  0077C2  6E34               	movwf	FastTransfer_buffer_modulo_inc@my_value,c
+  1435  0077C4  0E00               	movlw	0
+  1436  0077C6  2031               	addwfc	FastTransfer_buffer_modulo_inc@value+1,w,c
+  1437  0077C8  6E35               	movwf	FastTransfer_buffer_modulo_inc@my_value+1,c
+  1438                           
+  1439                           ;FastTransfer.c: 273: if (my_value >= modulus) {
+  1440  0077CA  5032               	movf	FastTransfer_buffer_modulo_inc@modulus,w,c
+  1441  0077CC  5C34               	subwf	FastTransfer_buffer_modulo_inc@my_value,w,c
+  1442  0077CE  5033               	movf	FastTransfer_buffer_modulo_inc@modulus+1,w,c
+  1443  0077D0  5835               	subwfb	FastTransfer_buffer_modulo_inc@my_value+1,w,c
+  1444  0077D2  A0D8               	btfss	status,0,c
+  1445  0077D4  D004               	goto	l1407
+  1446                           
+  1447                           ;FastTransfer.c: 274: my_value = 0;
+  1448  0077D6  0E00               	movlw	0
+  1449  0077D8  6E35               	movwf	FastTransfer_buffer_modulo_inc@my_value+1,c
+  1450  0077DA  0E00               	movlw	0
+  1451  0077DC  6E34               	movwf	FastTransfer_buffer_modulo_inc@my_value,c
+  1452  0077DE                     l1407:
+  1453                           
+  1454                           ;FastTransfer.c: 275: }
+  1455                           ;FastTransfer.c: 276: return (my_value);
+  1456  0077DE  C034  F030         	movff	FastTransfer_buffer_modulo_inc@my_value,?_FastTransfer_buffer_modulo_inc
+  1457  0077E2  C035  F031         	movff	FastTransfer_buffer_modulo_inc@my_value+1,?_FastTransfer_buffer_modulo_inc+1
+  1458  0077E6  0012               	return	
+  1459  0077E8                     __end_of_FastTransfer_buffer_modulo_inc:
+  1460                           	opt stack 0
+  1461                           tblptru	equ	0xFF8
+  1462                           tblptrh	equ	0xFF7
+  1463                           tblptrl	equ	0xFF6
+  1464                           tablat	equ	0xFF5
+  1465                           postinc0	equ	0xFEE
+  1466                           wreg	equ	0xFE8
+  1467                           indf2	equ	0xFDF
+  1468                           postinc2	equ	0xFDE
+  1469                           postdec2	equ	0xFDD
+  1470                           plusw2	equ	0xFDB
+  1471                           fsr2h	equ	0xFDA
+  1472                           fsr2l	equ	0xFD9
+  1473                           status	equ	0xFD8
+  1474                           
+  1475 ;; *************** function _receiveData *****************
+  1476 ;; Defined at:
+  1477 ;;		line 79 in file "FastTransfer.c"
+  1478 ;; Parameters:    Size  Location     Type
+  1479 ;;		None
+  1480 ;; Auto vars:     Size  Location     Type
+  1481 ;;  holder          3   30[COMRAM] unsigned char [3]
+  1482 ;;  crcHolder       1   26[COMRAM] unsigned char 
+  1483 ;;  holder          3   27[COMRAM] unsigned char [3]
+  1484 ;;  crcHolder       1   25[COMRAM] unsigned char 
+  1485 ;;  u               2   33[COMRAM] int 
+  1486 ;;  r               2   35[COMRAM] int 
+  1487 ;; Return value:  Size  Location     Type
+  1488 ;;                  1    wreg      unsigned char 
+  1489 ;; Registers used:
+  1490 ;;		wreg, fsr2l, fsr2h, status,2, status,0, prodl, prodh, cstack
+  1491 ;; Tracked objects:
+  1492 ;;		On entry : 0/0
+  1493 ;;		On exit  : 0/0
+  1494 ;;		Unchanged: 0/0
+  1495 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1496 ;;      Params:         0       0       0       0       0       0       0
+  1497 ;;      Locals:        12       0       0       0       0       0       0
+  1498 ;;      Temps:          6       0       0       0       0       0       0
+  1499 ;;      Totals:        18       0       0       0       0       0       0
+  1500 ;;Total ram usage:       18 bytes
+  1501 ;; Hardware stack levels used:    1
+  1502 ;; Hardware stack levels required when called:    2
+  1503 ;; This function calls:
+  1504 ;;		_CRC8
+  1505 ;;		_CRCcheck
+  1506 ;; This function is called by:
+  1507 ;;		_updateComms
+  1508 ;; This function uses a non-reentrant model
+  1509 ;;
+  1510                           
+  1511                           	psect	text10
+  1512  007E0C                     __ptext10:
+  1513                           	opt stack 0
+  1514  007E0C                     _receiveData:
+  1515                           	opt stack 27
+  1516                           
+  1517                           ;FastTransfer.c: 84: if (serial_available() > 4) {
+  1518                           
+  1519                           ;incstack = 0
+  1520  007E0C  D017               	goto	l1593
+  1521  007E0E                     l1583:
+  1522  007E0E  4A51               	infsnz	receiveData@u,f,c
+  1523  007E10  2A52               	incf	receiveData@u+1,f,c
+  1524  007E12  501E               	movf	_rx_len,w,c
+  1525  007E14  6E43               	movwf	??_receiveData& (0+255),c
+  1526  007E16  6A44               	clrf	(??_receiveData+1)& (0+255),c
+  1527  007E18  0E01               	movlw	1
+  1528  007E1A  2643               	addwf	??_receiveData,f,c
+  1529  007E1C  0E00               	movlw	0
+  1530  007E1E  2244               	addwfc	??_receiveData+1,f,c
+  1531  007E20  5051               	movf	receiveData@u,w,c
+  1532  007E22  5C43               	subwf	??_receiveData,w,c
+  1533  007E24  5044               	movf	??_receiveData+1,w,c
+  1534  007E26  0A80               	xorlw	128
+  1535  007E28  6E45               	movwf	(??_receiveData+2)& (0+255),c
+  1536  007E2A  5052               	movf	receiveData@u+1,w,c
+  1537  007E2C  0A80               	xorlw	128
+  1538  007E2E  5845               	subwfb	(??_receiveData+2)& (0+255),w,c
+  1539  007E30  B0D8               	btfsc	status,0,c
+  1540  007E32  D7ED               	goto	l1583
+  1541                           
+  1542                           ;FastTransfer.c: 107: }
+  1543                           ;FastTransfer.c: 108: rx_len = 0;
+  1544  007E34  0E00               	movlw	0
+  1545  007E36  6E1E               	movwf	_rx_len,c
+  1546                           
+  1547                           ;FastTransfer.c: 109: return 0;
+  1548  007E38  0E00               	movlw	0
+  1549  007E3A  0012               	return	
+  1550  007E3C                     l1593:
+  1551                           
+  1552                           ;FastTransfer.c: 110: }
+  1553                           ;FastTransfer.c: 112: }
+  1554                           ;FastTransfer.c: 113: }
+  1555                           ;FastTransfer.c: 114: }
+  1556                           ;FastTransfer.c: 117: if (rx_len != 0) {
+  1557  007E3C  501E               	movf	_rx_len,w,c
+  1558  007E3E  B4D8               	btfsc	status,2,c
+  1559  007E40  D0DD               	goto	l1675
+  1560                           
+  1561                           ;FastTransfer.c: 120: if (rx_array_inx == 0) {
+  1562  007E42  501D               	movf	_rx_array_inx,w,c
+  1563  007E44  B4D8               	btfsc	status,2,c
+  1564  007E46                     l160:
+  1565  007E46  D7FF               	goto	l160
+  1566                           
+  1567                           ;FastTransfer.c: 133: }
+  1568                           ;FastTransfer.c: 135: if (rx_len == (rx_array_inx - 1)) {
+  1569                           
+  1570                           ;FastTransfer.c: 132: rx_buffer[rx_array_inx++] = serial_read();
+  1571                           
+  1572                           ;FastTransfer.c: 127: }
+  1573                           ;FastTransfer.c: 128: }
+  1574                           ;FastTransfer.c: 131: while (serial_available() && rx_array_inx <= rx_len) {
+  1575                           
+  1576                           ;FastTransfer.c: 126: return 0;
+  1577                           
+  1578                           ;FastTransfer.c: 125: rx_array_inx = 0;
+  1579                           
+  1580                           ;FastTransfer.c: 124: rx_len = 0;
+  1581                           
+  1582                           ;FastTransfer.c: 123: CRCcheck();
+  1583                           
+  1584                           ;FastTransfer.c: 122: if (255 == serial_peek()) {
+  1585  007E48  501E               	movf	_rx_len,w,c
+  1586  007E4A  6E43               	movwf	??_receiveData& (0+255),c
+  1587  007E4C  6A44               	clrf	(??_receiveData+1)& (0+255),c
+  1588  007E4E  0EFF               	movlw	255
+  1589  007E50  6E45               	movwf	(??_receiveData+2)& (0+255),c
+  1590  007E52  0EFF               	movlw	255
+  1591  007E54  6E46               	movwf	(??_receiveData+3)& (0+255),c
+  1592  007E56  501D               	movf	_rx_array_inx,w,c
+  1593  007E58  6E47               	movwf	(??_receiveData+4)& (0+255),c
+  1594  007E5A  6A48               	clrf	(??_receiveData+5)& (0+255),c
+  1595  007E5C  5045               	movf	??_receiveData+2,w,c
+  1596  007E5E  2647               	addwf	??_receiveData+4,f,c
+  1597  007E60  5046               	movf	??_receiveData+3,w,c
+  1598  007E62  2248               	addwfc	??_receiveData+5,f,c
+  1599  007E64  5043               	movf	??_receiveData,w,c
+  1600  007E66  1847               	xorwf	??_receiveData+4,w,c
+  1601  007E68  E103               	bnz	u731
+  1602  007E6A  5044               	movf	??_receiveData+1,w,c
+  1603  007E6C  1848               	xorwf	??_receiveData+5,w,c
+  1604  007E6E  A4D8               	btfss	status,2,c
+  1605  007E70                     u731:
+  1606  007E70  D0C5               	goto	l1675
+  1607                           
+  1608                           ;FastTransfer.c: 138: calc_CS = CRC8(rx_buffer, rx_len);
+  1609  007E72  0E00               	movlw	low _rx_buffer
+  1610  007E74  6E30               	movwf	CRC8@data,c
+  1611  007E76  0E04               	movlw	high _rx_buffer
+  1612  007E78  6E31               	movwf	CRC8@data+1,c
+  1613  007E7A  C01E  F032         	movff	_rx_len,CRC8@len
+  1614  007E7E  EC0A  F03C         	call	_CRC8	;wreg free
+  1615  007E82  6E18               	movwf	_calc_CS,c
+  1616                           
+  1617                           ;FastTransfer.c: 142: if (calc_CS == rx_buffer[rx_array_inx - 1]) {
+  1618  007E84  0EFF               	movlw	255
+  1619  007E86  6E43               	movwf	??_receiveData& (0+255),c
+  1620  007E88  0EFF               	movlw	255
+  1621  007E8A  6E44               	movwf	(??_receiveData+1)& (0+255),c
+  1622  007E8C  501D               	movf	_rx_array_inx,w,c
+  1623  007E8E  6E45               	movwf	(??_receiveData+2)& (0+255),c
+  1624  007E90  6A46               	clrf	(??_receiveData+3)& (0+255),c
+  1625  007E92  5043               	movf	??_receiveData,w,c
+  1626  007E94  2645               	addwf	??_receiveData+2,f,c
+  1627  007E96  5044               	movf	??_receiveData+1,w,c
+  1628  007E98  2246               	addwfc	??_receiveData+3,f,c
+  1629  007E9A  0E00               	movlw	low _rx_buffer
+  1630  007E9C  2445               	addwf	??_receiveData+2,w,c
+  1631  007E9E  6ED9               	movwf	fsr2l,c
+  1632  007EA0  0E04               	movlw	high _rx_buffer
+  1633  007EA2  2046               	addwfc	??_receiveData+3,w,c
+  1634  007EA4  6EDA               	movwf	fsr2h,c
+  1635  007EA6  5018               	movf	_calc_CS,w,c
+  1636  007EA8  18DE               	xorwf	postinc2,w,c
+  1637  007EAA  A4D8               	btfss	status,2,c
+  1638  007EAC  D07D               	goto	l1655
+  1639                           
+  1640                           ;FastTransfer.c: 145: int r;
+  1641                           ;FastTransfer.c: 146: for (r = 0; r < rx_len; r = r + 3) {
+  1642  007EAE  0E00               	movlw	0
+  1643  007EB0  6E54               	movwf	receiveData@r+1,c
+  1644  007EB2  0E00               	movlw	0
+  1645  007EB4  6E53               	movwf	receiveData@r,c
+  1646  007EB6  D043               	goto	l1633
+  1647  007EB8                     l1623:
+  1648                           
+  1649                           ;FastTransfer.c: 147: if (rx_buffer[r] < maxDataAddress) {
+  1650  007EB8  0E00               	movlw	low _rx_buffer
+  1651  007EBA  2453               	addwf	receiveData@r,w,c
+  1652  007EBC  6ED9               	movwf	fsr2l,c
+  1653  007EBE  0E04               	movlw	high _rx_buffer
+  1654  007EC0  2054               	addwfc	receiveData@r+1,w,c
+  1655  007EC2  6EDA               	movwf	fsr2h,c
+  1656  007EC4  5019               	movf	_maxDataAddress,w,c
+  1657  007EC6  5CDE               	subwf	postinc2,w,c
+  1658  007EC8  B0D8               	btfsc	status,0,c
+  1659  007ECA  D031               	goto	l1629
+  1660                           
+  1661                           ;FastTransfer.c: 148: group.parts[0] = rx_buffer[r + 1];
+  1662  007ECC  0E01               	movlw	1
+  1663  007ECE  2453               	addwf	receiveData@r,w,c
+  1664  007ED0  6E43               	movwf	??_receiveData& (0+255),c
+  1665  007ED2  0E00               	movlw	0
+  1666  007ED4  2054               	addwfc	receiveData@r+1,w,c
+  1667  007ED6  6E44               	movwf	(??_receiveData+1)& (0+255),c
+  1668  007ED8  0E00               	movlw	low _rx_buffer
+  1669  007EDA  2443               	addwf	??_receiveData,w,c
+  1670  007EDC  6ED9               	movwf	fsr2l,c
+  1671  007EDE  0E04               	movlw	high _rx_buffer
+  1672  007EE0  2044               	addwfc	??_receiveData+1,w,c
+  1673  007EE2  6EDA               	movwf	fsr2h,c
+  1674  007EE4  50DF               	movf	indf2,w,c
+  1675  007EE6  6E09               	movwf	_group,c
+  1676                           
+  1677                           ;FastTransfer.c: 149: group.parts[1] = rx_buffer[r + 2];
+  1678  007EE8  0E02               	movlw	2
+  1679  007EEA  2453               	addwf	receiveData@r,w,c
+  1680  007EEC  6E43               	movwf	??_receiveData& (0+255),c
+  1681  007EEE  0E00               	movlw	0
+  1682  007EF0  2054               	addwfc	receiveData@r+1,w,c
+  1683  007EF2  6E44               	movwf	(??_receiveData+1)& (0+255),c
+  1684  007EF4  0E00               	movlw	low _rx_buffer
+  1685  007EF6  2443               	addwf	??_receiveData,w,c
+  1686  007EF8  6ED9               	movwf	fsr2l,c
+  1687  007EFA  0E04               	movlw	high _rx_buffer
+  1688  007EFC  2044               	addwfc	??_receiveData+1,w,c
+  1689  007EFE  6EDA               	movwf	fsr2h,c
+  1690  007F00  50DF               	movf	indf2,w,c
+  1691  007F02  6E0A               	movwf	_group+1,c
+  1692                           
+  1693                           ;FastTransfer.c: 150: receiveArrayAddress[(rx_buffer[r])] = group.integer;
+  1694  007F04  0E00               	movlw	low _rx_buffer
+  1695  007F06  2453               	addwf	receiveData@r,w,c
+  1696  007F08  6ED9               	movwf	fsr2l,c
+  1697  007F0A  0E04               	movlw	high _rx_buffer
+  1698  007F0C  2054               	addwfc	receiveData@r+1,w,c
+  1699  007F0E  6EDA               	movwf	fsr2h,c
+  1700  007F10  50DF               	movf	indf2,w,c
+  1701  007F12  6E43               	movwf	??_receiveData& (0+255),c
+  1702  007F14  5043               	movf	??_receiveData,w,c
+  1703  007F16  0D02               	mullw	2
+  1704  007F18  50F3               	movf	prodl,w,c
+  1705  007F1A  240B               	addwf	_receiveArrayAddress,w,c
+  1706  007F1C  6ED9               	movwf	fsr2l,c
+  1707  007F1E  50F4               	movf	prodh,w,c
+  1708  007F20  200C               	addwfc	_receiveArrayAddress+1,w,c
+  1709  007F22  6EDA               	movwf	fsr2h,c
+  1710  007F24  C009  FFDE         	movff	_group,postinc2
+  1711  007F28  C00A  FFDD         	movff	_group+1,postdec2
+  1712                           
+  1713                           ;FastTransfer.c: 151: } else {
+  1714  007F2C  D002               	goto	l1631
+  1715  007F2E                     l1629:
+  1716                           
+  1717                           ;FastTransfer.c: 152: dataAdressErrorCounter++;
+  1718  007F2E  4A07               	infsnz	_dataAdressErrorCounter,f,c
+  1719  007F30  2A08               	incf	_dataAdressErrorCounter+1,f,c
+  1720  007F32                     l1631:
+  1721  007F32  0E03               	movlw	3
+  1722  007F34  2453               	addwf	receiveData@r,w,c
+  1723  007F36  6E53               	movwf	receiveData@r,c
+  1724  007F38  0E00               	movlw	0
+  1725  007F3A  2054               	addwfc	receiveData@r+1,w,c
+  1726  007F3C  6E54               	movwf	receiveData@r+1,c
+  1727  007F3E                     l1633:
+  1728  007F3E  501E               	movf	_rx_len,w,c
+  1729  007F40  6E43               	movwf	??_receiveData& (0+255),c
+  1730  007F42  6A44               	clrf	(??_receiveData+1)& (0+255),c
+  1731  007F44  5043               	movf	??_receiveData,w,c
+  1732  007F46  5C53               	subwf	receiveData@r,w,c
+  1733  007F48  5054               	movf	receiveData@r+1,w,c
+  1734  007F4A  0A80               	xorlw	128
+  1735  007F4C  6E45               	movwf	(??_receiveData+2)& (0+255),c
+  1736  007F4E  5044               	movf	??_receiveData+1,w,c
+  1737  007F50  0A80               	xorlw	128
+  1738  007F52  5845               	subwfb	(??_receiveData+2)& (0+255),w,c
+  1739  007F54  A0D8               	btfss	status,0,c
+  1740  007F56  D7B0               	goto	l1623
+  1741                           
+  1742                           ;FastTransfer.c: 153: }
+  1743                           ;FastTransfer.c: 154: }
+  1744                           ;FastTransfer.c: 157: if (AKNAKsend) {
+  1745  007F58  5017               	movf	_AKNAKsend,w,c
+  1746  007F5A  B4D8               	btfsc	status,2,c
+  1747  007F5C  D01F               	goto	l1645
+  1748                           
+  1749                           ;FastTransfer.c: 158: unsigned char holder[3];
+  1750                           ;FastTransfer.c: 159: holder[0] = 255;
+  1751  007F5E  684B               	setf	receiveData@holder,c
+  1752                           
+  1753                           ;FastTransfer.c: 160: holder[1] = 1;
+  1754  007F60  0E01               	movlw	1
+  1755  007F62  6E4C               	movwf	receiveData@holder+1,c
+  1756                           
+  1757                           ;FastTransfer.c: 161: holder[2] = rx_buffer[rx_array_inx - 1];
+  1758  007F64  0EFF               	movlw	255
+  1759  007F66  6E43               	movwf	??_receiveData& (0+255),c
+  1760  007F68  0EFF               	movlw	255
+  1761  007F6A  6E44               	movwf	(??_receiveData+1)& (0+255),c
+  1762  007F6C  501D               	movf	_rx_array_inx,w,c
+  1763  007F6E  6E45               	movwf	(??_receiveData+2)& (0+255),c
+  1764  007F70  6A46               	clrf	(??_receiveData+3)& (0+255),c
+  1765  007F72  5043               	movf	??_receiveData,w,c
+  1766  007F74  2645               	addwf	??_receiveData+2,f,c
+  1767  007F76  5044               	movf	??_receiveData+1,w,c
+  1768  007F78  2246               	addwfc	??_receiveData+3,f,c
+  1769  007F7A  0E00               	movlw	low _rx_buffer
+  1770  007F7C  2445               	addwf	??_receiveData+2,w,c
+  1771  007F7E  6ED9               	movwf	fsr2l,c
+  1772  007F80  0E04               	movlw	high _rx_buffer
+  1773  007F82  2046               	addwfc	??_receiveData+3,w,c
+  1774  007F84  6EDA               	movwf	fsr2h,c
+  1775  007F86  50DF               	movf	indf2,w,c
+  1776  007F88  6E4D               	movwf	receiveData@holder+2,c
+  1777                           
+  1778                           ;FastTransfer.c: 171: serial_write(crcHolder);
+  1779  007F8A  0E4B               	movlw	low receiveData@holder
+  1780  007F8C  6E30               	movwf	CRC8@data,c
+  1781  007F8E  0E00               	movlw	high receiveData@holder
+  1782  007F90  6E31               	movwf	CRC8@data+1,c
+  1783  007F92  0E03               	movlw	3
+  1784  007F94  6E32               	movwf	CRC8@len,c
+  1785  007F96  EC0A  F03C         	call	_CRC8	;wreg free
+  1786  007F9A  6E49               	movwf	receiveData@crcHolder,c
+  1787  007F9C                     l1645:
+  1788                           
+  1789                           ;FastTransfer.c: 172: }
+  1790                           ;FastTransfer.c: 176: rx_len = 0;
+  1791  007F9C  0E00               	movlw	0
+  1792  007F9E  6E1E               	movwf	_rx_len,c
+  1793                           
+  1794                           ;FastTransfer.c: 177: rx_array_inx = 0;
+  1795  007FA0  0E00               	movlw	0
+  1796  007FA2  6E1D               	movwf	_rx_array_inx,c
+  1797                           
+  1798                           ;FastTransfer.c: 178: return 1;
+  1799  007FA4  0E01               	movlw	1
+  1800  007FA6  0012               	return	
+  1801  007FA8                     l1655:
+  1802                           
+  1803                           ;FastTransfer.c: 180: crcErrorCounter++;
+  1804  007FA8  4A05               	infsnz	_crcErrorCounter,f,c
+  1805  007FAA  2A06               	incf	_crcErrorCounter+1,f,c
+  1806                           
+  1807                           ;FastTransfer.c: 182: if (AKNAKsend) {
+  1808  007FAC  5017               	movf	_AKNAKsend,w,c
+  1809  007FAE  B4D8               	btfsc	status,2,c
+  1810  007FB0  D01F               	goto	l1667
+  1811                           
+  1812                           ;FastTransfer.c: 183: unsigned char holder[3];
+  1813                           ;FastTransfer.c: 184: holder[0] = 255;
+  1814  007FB2  684E               	setf	receiveData@holder_307,c
+  1815                           
+  1816                           ;FastTransfer.c: 185: holder[1] = 2;
+  1817  007FB4  0E02               	movlw	2
+  1818  007FB6  6E4F               	movwf	receiveData@holder_307+1,c
+  1819                           
+  1820                           ;FastTransfer.c: 186: holder[2] = rx_buffer[rx_array_inx - 1];
+  1821  007FB8  0EFF               	movlw	255
+  1822  007FBA  6E43               	movwf	??_receiveData& (0+255),c
+  1823  007FBC  0EFF               	movlw	255
+  1824  007FBE  6E44               	movwf	(??_receiveData+1)& (0+255),c
+  1825  007FC0  501D               	movf	_rx_array_inx,w,c
+  1826  007FC2  6E45               	movwf	(??_receiveData+2)& (0+255),c
+  1827  007FC4  6A46               	clrf	(??_receiveData+3)& (0+255),c
+  1828  007FC6  5043               	movf	??_receiveData,w,c
+  1829  007FC8  2645               	addwf	??_receiveData+2,f,c
+  1830  007FCA  5044               	movf	??_receiveData+1,w,c
+  1831  007FCC  2246               	addwfc	??_receiveData+3,f,c
+  1832  007FCE  0E00               	movlw	low _rx_buffer
+  1833  007FD0  2445               	addwf	??_receiveData+2,w,c
+  1834  007FD2  6ED9               	movwf	fsr2l,c
+  1835  007FD4  0E04               	movlw	high _rx_buffer
+  1836  007FD6  2046               	addwfc	??_receiveData+3,w,c
+  1837  007FD8  6EDA               	movwf	fsr2h,c
+  1838  007FDA  50DF               	movf	indf2,w,c
+  1839  007FDC  6E50               	movwf	receiveData@holder_307+2,c
+  1840                           
+  1841                           ;FastTransfer.c: 196: serial_write(crcHolder);
+  1842  007FDE  0E4E               	movlw	low receiveData@holder_307
+  1843  007FE0  6E30               	movwf	CRC8@data,c
+  1844  007FE2  0E00               	movlw	high receiveData@holder_307
+  1845  007FE4  6E31               	movwf	CRC8@data+1,c
+  1846  007FE6  0E03               	movlw	3
+  1847  007FE8  6E32               	movwf	CRC8@len,c
+  1848  007FEA  EC0A  F03C         	call	_CRC8	;wreg free
+  1849  007FEE  6E4A               	movwf	receiveData@crcHolder_308,c
+  1850  007FF0                     l1667:
+  1851                           
+  1852                           ;FastTransfer.c: 197: }
+  1853                           ;FastTransfer.c: 200: rx_len = 0;
+  1854  007FF0  0E00               	movlw	0
+  1855  007FF2  6E1E               	movwf	_rx_len,c
+  1856                           
+  1857                           ;FastTransfer.c: 201: rx_array_inx = 0;
+  1858  007FF4  0E00               	movlw	0
+  1859  007FF6  6E1D               	movwf	_rx_array_inx,c
+  1860                           
+  1861                           ;FastTransfer.c: 202: return 0;
+  1862  007FF8  0E00               	movlw	0
+  1863  007FFA  0012               	return	
+  1864  007FFC                     l1675:
+  1865                           
+  1866                           ;FastTransfer.c: 203: }
+  1867                           ;FastTransfer.c: 204: }
+  1868                           ;FastTransfer.c: 205: }
+  1869                           ;FastTransfer.c: 208: return 0;
+  1870  007FFC  0E00               	movlw	0
+  1871  007FFE  0012               	return	
+  1872  008000                     __end_of_receiveData:
+  1873                           	opt stack 0
+  1874                           tblptru	equ	0xFF8
+  1875                           tblptrh	equ	0xFF7
+  1876                           tblptrl	equ	0xFF6
+  1877                           tablat	equ	0xFF5
+  1878                           prodh	equ	0xFF4
+  1879                           prodl	equ	0xFF3
+  1880                           postinc0	equ	0xFEE
+  1881                           wreg	equ	0xFE8
+  1882                           indf2	equ	0xFDF
+  1883                           postinc2	equ	0xFDE
+  1884                           postdec2	equ	0xFDD
+  1885                           plusw2	equ	0xFDB
+  1886                           fsr2h	equ	0xFDA
+  1887                           fsr2l	equ	0xFD9
+  1888                           status	equ	0xFD8
+  1889                           
+  1890 ;; *************** function _CRCcheck *****************
+  1891 ;; Defined at:
+  1892 ;;		line 371 in file "FastTransfer.c"
+  1893 ;; Parameters:    Size  Location     Type
+  1894 ;;		None
+  1895 ;; Auto vars:     Size  Location     Type
+  1896 ;;  rt              2   17[COMRAM] int 
+  1897 ;;  arrayHolder     3   14[COMRAM] unsigned char [3]
+  1898 ;;  calculatedCR    1   13[COMRAM] unsigned char 
+  1899 ;;  SentCRC         1   12[COMRAM] unsigned char 
+  1900 ;; Return value:  Size  Location     Type
+  1901 ;;                  1    wreg      void 
+  1902 ;; Registers used:
+  1903 ;;		wreg, fsr2l, fsr2h, status,2, status,0, prodl, prodh, cstack
+  1904 ;; Tracked objects:
+  1905 ;;		On entry : 0/0
+  1906 ;;		On exit  : 0/0
+  1907 ;;		Unchanged: 0/0
+  1908 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1909 ;;      Params:         0       0       0       0       0       0       0
+  1910 ;;      Locals:         7       0       0       0       0       0       0
+  1911 ;;      Temps:          0       0       0       0       0       0       0
+  1912 ;;      Totals:         7       0       0       0       0       0       0
+  1913 ;;Total ram usage:        7 bytes
+  1914 ;; Hardware stack levels used:    1
+  1915 ;; Hardware stack levels required when called:    1
+  1916 ;; This function calls:
+  1917 ;;		_CRC8
+  1918 ;;		_crcBufS_get
+  1919 ;;		_crcBufS_status_put
+  1920 ;; This function is called by:
+  1921 ;;		_receiveData
+  1922 ;; This function uses a non-reentrant model
+  1923 ;;
+  1924                           
+  1925                           	psect	text11
+  1926  00798C                     __ptext11:
+  1927                           	opt stack 0
+  1928  00798C                     _CRCcheck:
+  1929                           	opt stack 27
+  1930  00798C                     l236:
+  1931  00798C  D7FF               	goto	l236
+  1932  00798E                     l1531:
+  1933  00798E  BE42               	btfsc	CRCcheck@rt+1,7,c
+  1934  007990  D006               	goto	l1535
+  1935  007992  5042               	movf	CRCcheck@rt+1,w,c
+  1936  007994  E13E               	bnz	l247
+  1937  007996  0E05               	movlw	5
+  1938  007998  5C41               	subwf	CRCcheck@rt,w,c
+  1939  00799A  B0D8               	btfsc	status,0,c
+  1940  00799C  0012               	return	
+  1941  00799E                     l1535:
+  1942                           
+  1943                           ;FastTransfer.c: 387: if (returnAddress == crcBufS_get(&crc_buffer, rt, 0)) {
+  1944  00799E  0E1F               	movlw	low _crc_buffer
+  1945  0079A0  6E30               	movwf	crcBufS_get@_this,c
+  1946  0079A2  0E00               	movlw	high _crc_buffer
+  1947  0079A4  6E31               	movwf	crcBufS_get@_this+1,c
+  1948  0079A6  C041  F032         	movff	CRCcheck@rt,crcBufS_get@time
+  1949  0079AA  0E00               	movlw	0
+  1950  0079AC  6E33               	movwf	crcBufS_get@space,c
+  1951  0079AE  ECE1  F03D         	call	_crcBufS_get	;wreg free
+  1952  0079B2  181B               	xorwf	_returnAddress,w,c
+  1953  0079B4  A4D8               	btfss	status,2,c
+  1954  0079B6  D02A               	goto	l1549
+  1955                           
+  1956                           ;FastTransfer.c: 388: if (arrayHolder[2] == crcBufS_get(&crc_buffer, rt, 1)) {
+  1957  0079B8  0E1F               	movlw	low _crc_buffer
+  1958  0079BA  6E30               	movwf	crcBufS_get@_this,c
+  1959  0079BC  0E00               	movlw	high _crc_buffer
+  1960  0079BE  6E31               	movwf	crcBufS_get@_this+1,c
+  1961  0079C0  C041  F032         	movff	CRCcheck@rt,crcBufS_get@time
+  1962  0079C4  0E01               	movlw	1
+  1963  0079C6  6E33               	movwf	crcBufS_get@space,c
+  1964  0079C8  ECE1  F03D         	call	_crcBufS_get	;wreg free
+  1965  0079CC  1840               	xorwf	CRCcheck@arrayHolder+2,w,c
+  1966  0079CE  A4D8               	btfss	status,2,c
+  1967  0079D0  D01D               	goto	l1549
+  1968                           
+  1969                           ;FastTransfer.c: 389: if (arrayHolder[1] == 1) {
+  1970  0079D2  043F               	decf	CRCcheck@arrayHolder+1,w,c
+  1971  0079D4  A4D8               	btfss	status,2,c
+  1972  0079D6  D00B               	goto	l1545
+  1973                           
+  1974                           ;FastTransfer.c: 390: crcBufS_status_put(&crc_buffer, rt, 1);
+  1975  0079D8  0E1F               	movlw	low _crc_buffer
+  1976  0079DA  6E30               	movwf	crcBufS_status_put@_this,c
+  1977  0079DC  0E00               	movlw	high _crc_buffer
+  1978  0079DE  6E31               	movwf	crcBufS_status_put@_this+1,c
+  1979  0079E0  C041  F032         	movff	CRCcheck@rt,crcBufS_status_put@time
+  1980  0079E4  0E01               	movlw	1
+  1981  0079E6  6E33               	movwf	crcBufS_status_put@status,c
+  1982  0079E8  EC0A  F03D         	call	_crcBufS_status_put	;wreg free
+  1983                           
+  1984                           ;FastTransfer.c: 391: break;
+  1985  0079EC  0012               	return	
+  1986  0079EE                     l1545:
+  1987  0079EE  0E02               	movlw	2
+  1988  0079F0  183F               	xorwf	CRCcheck@arrayHolder+1,w,c
+  1989  0079F2  A4D8               	btfss	status,2,c
+  1990  0079F4  D00B               	goto	l1549
+  1991                           
+  1992                           ;FastTransfer.c: 393: crcBufS_status_put(&crc_buffer, rt, 2);
+  1993  0079F6  0E1F               	movlw	low _crc_buffer
+  1994  0079F8  6E30               	movwf	crcBufS_status_put@_this,c
+  1995  0079FA  0E00               	movlw	high _crc_buffer
+  1996  0079FC  6E31               	movwf	crcBufS_status_put@_this+1,c
+  1997  0079FE  C041  F032         	movff	CRCcheck@rt,crcBufS_status_put@time
+  1998  007A02  0E02               	movlw	2
+  1999  007A04  6E33               	movwf	crcBufS_status_put@status,c
+  2000  007A06  EC0A  F03D         	call	_crcBufS_status_put	;wreg free
+  2001                           
+  2002                           ;FastTransfer.c: 394: break;
+  2003  007A0A  0012               	return	
+  2004  007A0C                     l1549:
+  2005  007A0C  4A41               	infsnz	CRCcheck@rt,f,c
+  2006  007A0E  2A42               	incf	CRCcheck@rt+1,f,c
+  2007  007A10  D7BE               	goto	l1531
+  2008  007A12                     l247:
+  2009  007A12  0012               	return		;funcret
+  2010  007A14                     __end_of_CRCcheck:
+  2011                           	opt stack 0
+  2012                           tblptru	equ	0xFF8
+  2013                           tblptrh	equ	0xFF7
+  2014                           tblptrl	equ	0xFF6
+  2015                           tablat	equ	0xFF5
+  2016                           prodh	equ	0xFF4
+  2017                           prodl	equ	0xFF3
+  2018                           postinc0	equ	0xFEE
+  2019                           wreg	equ	0xFE8
+  2020                           indf2	equ	0xFDF
+  2021                           postinc2	equ	0xFDE
+  2022                           postdec2	equ	0xFDD
+  2023                           plusw2	equ	0xFDB
+  2024                           fsr2h	equ	0xFDA
+  2025                           fsr2l	equ	0xFD9
+  2026                           status	equ	0xFD8
+  2027                           
+  2028 ;; *************** function _crcBufS_status_put *****************
+  2029 ;; Defined at:
+  2030 ;;		line 334 in file "FastTransfer.c"
+  2031 ;; Parameters:    Size  Location     Type
+  2032 ;;  _this           2    0[COMRAM] PTR struct crcBufS
+  2033 ;;		 -> crc_buffer(17), 
+  2034 ;;  time            1    2[COMRAM] unsigned char 
+  2035 ;;  status          1    3[COMRAM] unsigned char 
+  2036 ;; Auto vars:     Size  Location     Type
+  2037 ;;  wantedTime      2    8[COMRAM] int 
+  2038 ;; Return value:  Size  Location     Type
+  2039 ;;                  1    wreg      void 
+  2040 ;; Registers used:
+  2041 ;;		wreg, fsr2l, fsr2h, status,2, status,0, prodl, prodh
+  2042 ;; Tracked objects:
+  2043 ;;		On entry : 0/0
+  2044 ;;		On exit  : 0/0
+  2045 ;;		Unchanged: 0/0
+  2046 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  2047 ;;      Params:         4       0       0       0       0       0       0
+  2048 ;;      Locals:         2       0       0       0       0       0       0
+  2049 ;;      Temps:          4       0       0       0       0       0       0
+  2050 ;;      Totals:        10       0       0       0       0       0       0
+  2051 ;;Total ram usage:       10 bytes
+  2052 ;; Hardware stack levels used:    1
+  2053 ;; This function calls:
+  2054 ;;		Nothing
+  2055 ;; This function is called by:
+  2056 ;;		_CRCcheck
+  2057 ;; This function uses a non-reentrant model
+  2058 ;;
+  2059                           
+  2060                           	psect	text12
+  2061  007A14                     __ptext12:
+  2062                           	opt stack 0
+  2063  007A14                     _crcBufS_status_put:
+  2064                           	opt stack 27
+  2065                           
+  2066                           ;FastTransfer.c: 335: if (time >= 5) {
+  2067                           
+  2068                           ;incstack = 0
+  2069  007A14  0E04               	movlw	4
+  2070  007A16  6432               	cpfsgt	crcBufS_status_put@time,c
+  2071  007A18  D002               	goto	l1499
+  2072                           
+  2073                           ;FastTransfer.c: 336: time = 5 - 1;
+  2074  007A1A  0E04               	movlw	4
+  2075  007A1C  6E32               	movwf	crcBufS_status_put@time,c
+  2076  007A1E                     l1499:
+  2077                           
+  2078                           ;FastTransfer.c: 337: }
+  2079                           ;FastTransfer.c: 338: time = time + 1;
+  2080  007A1E  2832               	incf	crcBufS_status_put@time,w,c
+  2081  007A20  6E32               	movwf	crcBufS_status_put@time,c
+  2082                           
+  2083                           ;FastTransfer.c: 339: int wantedTime = time * 3;
+  2084  007A22  5032               	movf	crcBufS_status_put@time,w,c
+  2085  007A24  0D03               	mullw	3
+  2086  007A26  CFF3 F038          	movff	prodl,crcBufS_status_put@wantedTime
+  2087  007A2A  CFF4 F039          	movff	prodh,crcBufS_status_put@wantedTime+1
+  2088                           
+  2089                           ;FastTransfer.c: 340: if (wantedTime > _this->head) {
+  2090  007A2E  EE20 F00F          	lfsr	2,15
+  2091  007A32  5030               	movf	crcBufS_status_put@_this,w,c
+  2092  007A34  26D9               	addwf	fsr2l,f,c
+  2093  007A36  5031               	movf	crcBufS_status_put@_this+1,w,c
+  2094  007A38  22DA               	addwfc	fsr2h,f,c
+  2095  007A3A  5038               	movf	crcBufS_status_put@wantedTime,w,c
+  2096  007A3C  5CDE               	subwf	postinc2,w,c
+  2097  007A3E  50DE               	movf	postinc2,w,c
+  2098  007A40  0A80               	xorlw	128
+  2099  007A42  6E36               	movwf	(??_crcBufS_status_put+2)& (0+255),c
+  2100  007A44  5039               	movf	crcBufS_status_put@wantedTime+1,w,c
+  2101  007A46  0A80               	xorlw	128
+  2102  007A48  5836               	subwfb	(??_crcBufS_status_put+2)& (0+255),w,c
+  2103  007A4A  B0D8               	btfsc	status,0,c
+  2104  007A4C  D02B               	goto	l1507
+  2105                           
+  2106                           ;FastTransfer.c: 341: wantedTime = ((5 * 3)) - (wantedTime - _this->head);
+  2107  007A4E  EE20 F00F          	lfsr	2,15
+  2108  007A52  5030               	movf	crcBufS_status_put@_this,w,c
+  2109  007A54  26D9               	addwf	fsr2l,f,c
+  2110  007A56  5031               	movf	crcBufS_status_put@_this+1,w,c
+  2111  007A58  22DA               	addwfc	fsr2h,f,c
+  2112  007A5A  CFDE F034          	movff	postinc2,??_crcBufS_status_put
+  2113  007A5E  CFDD F035          	movff	postdec2,??_crcBufS_status_put+1
+  2114  007A62  1E34               	comf	??_crcBufS_status_put,f,c
+  2115  007A64  1E35               	comf	??_crcBufS_status_put+1,f,c
+  2116  007A66  4A34               	infsnz	??_crcBufS_status_put,f,c
+  2117  007A68  2A35               	incf	??_crcBufS_status_put+1,f,c
+  2118  007A6A  5038               	movf	crcBufS_status_put@wantedTime,w,c
+  2119  007A6C  2634               	addwf	??_crcBufS_status_put,f,c
+  2120  007A6E  5039               	movf	crcBufS_status_put@wantedTime+1,w,c
+  2121  007A70  2235               	addwfc	??_crcBufS_status_put+1,f,c
+  2122  007A72  1E34               	comf	??_crcBufS_status_put,f,c
+  2123  007A74  1E35               	comf	??_crcBufS_status_put+1,f,c
+  2124  007A76  4A34               	infsnz	??_crcBufS_status_put,f,c
+  2125  007A78  2A35               	incf	??_crcBufS_status_put+1,f,c
+  2126  007A7A  0E0F               	movlw	15
+  2127  007A7C  2434               	addwf	??_crcBufS_status_put,w,c
+  2128  007A7E  6E38               	movwf	crcBufS_status_put@wantedTime,c
+  2129  007A80  0E00               	movlw	0
+  2130  007A82  2035               	addwfc	??_crcBufS_status_put+1,w,c
+  2131  007A84  6E39               	movwf	crcBufS_status_put@wantedTime+1,c
+  2132                           
+  2133                           ;FastTransfer.c: 342: _this->buf[(wantedTime + 2)] = status;
+  2134  007A86  0E02               	movlw	2
+  2135  007A88  2438               	addwf	crcBufS_status_put@wantedTime,w,c
+  2136  007A8A  6E34               	movwf	??_crcBufS_status_put& (0+255),c
+  2137  007A8C  0E00               	movlw	0
+  2138  007A8E  2039               	addwfc	crcBufS_status_put@wantedTime+1,w,c
+  2139  007A90  6E35               	movwf	(??_crcBufS_status_put+1)& (0+255),c
+  2140  007A92  5034               	movf	??_crcBufS_status_put,w,c
+  2141  007A94  2430               	addwf	crcBufS_status_put@_this,w,c
+  2142  007A96  6ED9               	movwf	fsr2l,c
+  2143  007A98  5035               	movf	??_crcBufS_status_put+1,w,c
+  2144  007A9A  2031               	addwfc	crcBufS_status_put@_this+1,w,c
+  2145  007A9C  6EDA               	movwf	fsr2h,c
+  2146  007A9E  C033  FFDF         	movff	crcBufS_status_put@status,indf2
+  2147                           
+  2148                           ;FastTransfer.c: 343: } else {
+  2149  007AA2  0012               	return	
+  2150  007AA4                     l1507:
+  2151                           
+  2152                           ;FastTransfer.c: 344: _this->buf[(_this->head - wantedTime) + 2] = status;
+  2153  007AA4  EE20 F00F          	lfsr	2,15
+  2154  007AA8  5030               	movf	crcBufS_status_put@_this,w,c
+  2155  007AAA  26D9               	addwf	fsr2l,f,c
+  2156  007AAC  5031               	movf	crcBufS_status_put@_this+1,w,c
+  2157  007AAE  22DA               	addwfc	fsr2h,f,c
+  2158  007AB0  CFDE F034          	movff	postinc2,??_crcBufS_status_put
+  2159  007AB4  CFDD F035          	movff	postdec2,??_crcBufS_status_put+1
+  2160  007AB8  C038  F036         	movff	crcBufS_status_put@wantedTime,??_crcBufS_status_put+2
+  2161  007ABC  C039  F037         	movff	crcBufS_status_put@wantedTime+1,??_crcBufS_status_put+3
+  2162  007AC0  1E36               	comf	??_crcBufS_status_put+2,f,c
+  2163  007AC2  1E37               	comf	??_crcBufS_status_put+3,f,c
+  2164  007AC4  4A36               	infsnz	??_crcBufS_status_put+2,f,c
+  2165  007AC6  2A37               	incf	??_crcBufS_status_put+3,f,c
+  2166  007AC8  5034               	movf	??_crcBufS_status_put,w,c
+  2167  007ACA  2636               	addwf	??_crcBufS_status_put+2,f,c
+  2168  007ACC  5035               	movf	??_crcBufS_status_put+1,w,c
+  2169  007ACE  2237               	addwfc	??_crcBufS_status_put+3,f,c
+  2170  007AD0  0E02               	movlw	2
+  2171  007AD2  2636               	addwf	??_crcBufS_status_put+2,f,c
+  2172  007AD4  0E00               	movlw	0
+  2173  007AD6  2237               	addwfc	??_crcBufS_status_put+3,f,c
+  2174  007AD8  5036               	movf	??_crcBufS_status_put+2,w,c
+  2175  007ADA  2430               	addwf	crcBufS_status_put@_this,w,c
+  2176  007ADC  6ED9               	movwf	fsr2l,c
+  2177  007ADE  5037               	movf	??_crcBufS_status_put+3,w,c
+  2178  007AE0  2031               	addwfc	crcBufS_status_put@_this+1,w,c
+  2179  007AE2  6EDA               	movwf	fsr2h,c
+  2180  007AE4  C033  FFDF         	movff	crcBufS_status_put@status,indf2
+  2181  007AE8  0012               	return	
+  2182  007AEA                     __end_of_crcBufS_status_put:
+  2183                           	opt stack 0
+  2184                           tblptru	equ	0xFF8
+  2185                           tblptrh	equ	0xFF7
+  2186                           tblptrl	equ	0xFF6
+  2187                           tablat	equ	0xFF5
+  2188                           prodh	equ	0xFF4
+  2189                           prodl	equ	0xFF3
+  2190                           postinc0	equ	0xFEE
+  2191                           wreg	equ	0xFE8
+  2192                           indf2	equ	0xFDF
+  2193                           postinc2	equ	0xFDE
+  2194                           postdec2	equ	0xFDD
+  2195                           plusw2	equ	0xFDB
+  2196                           fsr2h	equ	0xFDA
+  2197                           fsr2l	equ	0xFD9
+  2198                           status	equ	0xFD8
+  2199                           
+  2200 ;; *************** function _crcBufS_get *****************
+  2201 ;; Defined at:
+  2202 ;;		line 351 in file "FastTransfer.c"
+  2203 ;; Parameters:    Size  Location     Type
+  2204 ;;  _this           2    0[COMRAM] PTR struct crcBufS
+  2205 ;;		 -> crc_buffer(17), 
+  2206 ;;  time            1    2[COMRAM] unsigned char 
+  2207 ;;  space           1    3[COMRAM] unsigned char 
+  2208 ;; Auto vars:     Size  Location     Type
+  2209 ;;  wantedTime      2   10[COMRAM] int 
+  2210 ;; Return value:  Size  Location     Type
+  2211 ;;                  1    wreg      unsigned char 
+  2212 ;; Registers used:
+  2213 ;;		wreg, fsr2l, fsr2h, status,2, status,0, prodl, prodh
+  2214 ;; Tracked objects:
+  2215 ;;		On entry : 0/0
+  2216 ;;		On exit  : 0/0
+  2217 ;;		Unchanged: 0/0
+  2218 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  2219 ;;      Params:         4       0       0       0       0       0       0
+  2220 ;;      Locals:         2       0       0       0       0       0       0
+  2221 ;;      Temps:          6       0       0       0       0       0       0
+  2222 ;;      Totals:        12       0       0       0       0       0       0
+  2223 ;;Total ram usage:       12 bytes
+  2224 ;; Hardware stack levels used:    1
+  2225 ;; This function calls:
+  2226 ;;		Nothing
+  2227 ;; This function is called by:
+  2228 ;;		_CRCcheck
+  2229 ;;		_AKNAK
+  2230 ;; This function uses a non-reentrant model
+  2231 ;;
+  2232                           
+  2233                           	psect	text13
+  2234  007BC2                     __ptext13:
+  2235                           	opt stack 0
+  2236  007BC2                     _crcBufS_get:
+  2237                           	opt stack 27
+  2238                           
+  2239                           ;FastTransfer.c: 352: if (time >= 5) {
+  2240                           
+  2241                           ;incstack = 0
+  2242  007BC2  0E04               	movlw	4
+  2243  007BC4  6432               	cpfsgt	crcBufS_get@time,c
+  2244  007BC6  D002               	goto	l1475
+  2245                           
+  2246                           ;FastTransfer.c: 353: time = 5 - 1;
+  2247  007BC8  0E04               	movlw	4
+  2248  007BCA  6E32               	movwf	crcBufS_get@time,c
+  2249  007BCC                     l1475:
+  2250                           
+  2251                           ;FastTransfer.c: 354: }
+  2252                           ;FastTransfer.c: 355: if (space >= 3) {
+  2253  007BCC  0E02               	movlw	2
+  2254  007BCE  6433               	cpfsgt	crcBufS_get@space,c
+  2255  007BD0  D002               	goto	l1479
+  2256                           
+  2257                           ;FastTransfer.c: 356: space = 3 - 1;
+  2258  007BD2  0E02               	movlw	2
+  2259  007BD4  6E33               	movwf	crcBufS_get@space,c
+  2260  007BD6                     l1479:
+  2261                           
+  2262                           ;FastTransfer.c: 357: }
+  2263                           ;FastTransfer.c: 358: time = time + 1;
+  2264  007BD6  2832               	incf	crcBufS_get@time,w,c
+  2265  007BD8  6E32               	movwf	crcBufS_get@time,c
+  2266                           
+  2267                           ;FastTransfer.c: 359: int wantedTime = time * 3;
+  2268  007BDA  5032               	movf	crcBufS_get@time,w,c
+  2269  007BDC  0D03               	mullw	3
+  2270  007BDE  CFF3 F03A          	movff	prodl,crcBufS_get@wantedTime
+  2271  007BE2  CFF4 F03B          	movff	prodh,crcBufS_get@wantedTime+1
+  2272                           
+  2273                           ;FastTransfer.c: 360: if (wantedTime > _this->head) {
+  2274  007BE6  EE20 F00F          	lfsr	2,15
+  2275  007BEA  5030               	movf	crcBufS_get@_this,w,c
+  2276  007BEC  26D9               	addwf	fsr2l,f,c
+  2277  007BEE  5031               	movf	crcBufS_get@_this+1,w,c
+  2278  007BF0  22DA               	addwfc	fsr2h,f,c
+  2279  007BF2  503A               	movf	crcBufS_get@wantedTime,w,c
+  2280  007BF4  5CDE               	subwf	postinc2,w,c
+  2281  007BF6  50DE               	movf	postinc2,w,c
+  2282  007BF8  0A80               	xorlw	128
+  2283  007BFA  6E36               	movwf	(??_crcBufS_get+2)& (0+255),c
+  2284  007BFC  503B               	movf	crcBufS_get@wantedTime+1,w,c
+  2285  007BFE  0A80               	xorlw	128
+  2286  007C00  5836               	subwfb	(??_crcBufS_get+2)& (0+255),w,c
+  2287  007C02  B0D8               	btfsc	status,0,c
+  2288  007C04  D02A               	goto	l1491
+  2289                           
+  2290                           ;FastTransfer.c: 361: wantedTime = ((5 * 3)) - (wantedTime - _this->head);
+  2291  007C06  EE20 F00F          	lfsr	2,15
+  2292  007C0A  5030               	movf	crcBufS_get@_this,w,c
+  2293  007C0C  26D9               	addwf	fsr2l,f,c
+  2294  007C0E  5031               	movf	crcBufS_get@_this+1,w,c
+  2295  007C10  22DA               	addwfc	fsr2h,f,c
+  2296  007C12  CFDE F034          	movff	postinc2,??_crcBufS_get
+  2297  007C16  CFDD F035          	movff	postdec2,??_crcBufS_get+1
+  2298  007C1A  1E34               	comf	??_crcBufS_get,f,c
+  2299  007C1C  1E35               	comf	??_crcBufS_get+1,f,c
+  2300  007C1E  4A34               	infsnz	??_crcBufS_get,f,c
+  2301  007C20  2A35               	incf	??_crcBufS_get+1,f,c
+  2302  007C22  503A               	movf	crcBufS_get@wantedTime,w,c
+  2303  007C24  2634               	addwf	??_crcBufS_get,f,c
+  2304  007C26  503B               	movf	crcBufS_get@wantedTime+1,w,c
+  2305  007C28  2235               	addwfc	??_crcBufS_get+1,f,c
+  2306  007C2A  1E34               	comf	??_crcBufS_get,f,c
+  2307  007C2C  1E35               	comf	??_crcBufS_get+1,f,c
+  2308  007C2E  4A34               	infsnz	??_crcBufS_get,f,c
+  2309  007C30  2A35               	incf	??_crcBufS_get+1,f,c
+  2310  007C32  0E0F               	movlw	15
+  2311  007C34  2434               	addwf	??_crcBufS_get,w,c
+  2312  007C36  6E3A               	movwf	crcBufS_get@wantedTime,c
+  2313  007C38  0E00               	movlw	0
+  2314  007C3A  2035               	addwfc	??_crcBufS_get+1,w,c
+  2315  007C3C  6E3B               	movwf	crcBufS_get@wantedTime+1,c
+  2316                           
+  2317                           ;FastTransfer.c: 362: return (_this->buf[(wantedTime + space)]);
+  2318  007C3E  5033               	movf	crcBufS_get@space,w,c
+  2319  007C40  243A               	addwf	crcBufS_get@wantedTime,w,c
+  2320  007C42  6E34               	movwf	??_crcBufS_get& (0+255),c
+  2321  007C44  0E00               	movlw	0
+  2322  007C46  203B               	addwfc	crcBufS_get@wantedTime+1,w,c
+  2323  007C48  6E35               	movwf	(??_crcBufS_get+1)& (0+255),c
+  2324  007C4A  5034               	movf	??_crcBufS_get,w,c
+  2325  007C4C  2430               	addwf	crcBufS_get@_this,w,c
+  2326  007C4E  6ED9               	movwf	fsr2l,c
+  2327  007C50  5035               	movf	??_crcBufS_get+1,w,c
+  2328  007C52  2031               	addwfc	crcBufS_get@_this+1,w,c
+  2329  007C54  6EDA               	movwf	fsr2h,c
+  2330  007C56  50DF               	movf	indf2,w,c
+  2331                           
+  2332                           ;FastTransfer.c: 363: } else {
+  2333  007C58  0012               	return	
+  2334  007C5A                     l1491:
+  2335                           
+  2336                           ;FastTransfer.c: 364: return (_this->buf[(_this->head - wantedTime) + space]);
+  2337  007C5A  EE20 F00F          	lfsr	2,15
+  2338  007C5E  5030               	movf	crcBufS_get@_this,w,c
+  2339  007C60  26D9               	addwf	fsr2l,f,c
+  2340  007C62  5031               	movf	crcBufS_get@_this+1,w,c
+  2341  007C64  22DA               	addwfc	fsr2h,f,c
+  2342  007C66  CFDE F034          	movff	postinc2,??_crcBufS_get
+  2343  007C6A  CFDD F035          	movff	postdec2,??_crcBufS_get+1
+  2344  007C6E  C03A  F036         	movff	crcBufS_get@wantedTime,??_crcBufS_get+2
+  2345  007C72  C03B  F037         	movff	crcBufS_get@wantedTime+1,??_crcBufS_get+3
+  2346  007C76  1E36               	comf	??_crcBufS_get+2,f,c
+  2347  007C78  1E37               	comf	??_crcBufS_get+3,f,c
+  2348  007C7A  4A36               	infsnz	??_crcBufS_get+2,f,c
+  2349  007C7C  2A37               	incf	??_crcBufS_get+3,f,c
+  2350  007C7E  5033               	movf	crcBufS_get@space,w,c
+  2351  007C80  6E38               	movwf	(??_crcBufS_get+4)& (0+255),c
+  2352  007C82  6A39               	clrf	(??_crcBufS_get+5)& (0+255),c
+  2353  007C84  5036               	movf	??_crcBufS_get+2,w,c
+  2354  007C86  2638               	addwf	??_crcBufS_get+4,f,c
+  2355  007C88  5037               	movf	??_crcBufS_get+3,w,c
+  2356  007C8A  2239               	addwfc	??_crcBufS_get+5,f,c
+  2357  007C8C  5034               	movf	??_crcBufS_get,w,c
+  2358  007C8E  2638               	addwf	??_crcBufS_get+4,f,c
+  2359  007C90  5035               	movf	??_crcBufS_get+1,w,c
+  2360  007C92  2239               	addwfc	??_crcBufS_get+5,f,c
+  2361  007C94  5038               	movf	??_crcBufS_get+4,w,c
+  2362  007C96  2430               	addwf	crcBufS_get@_this,w,c
+  2363  007C98  6ED9               	movwf	fsr2l,c
+  2364  007C9A  5039               	movf	??_crcBufS_get+5,w,c
+  2365  007C9C  2031               	addwfc	crcBufS_get@_this+1,w,c
+  2366  007C9E  6EDA               	movwf	fsr2h,c
+  2367  007CA0  50DF               	movf	indf2,w,c
+  2368  007CA2  0012               	return	
+  2369  007CA4                     __end_of_crcBufS_get:
+  2370                           	opt stack 0
+  2371                           tblptru	equ	0xFF8
+  2372                           tblptrh	equ	0xFF7
+  2373                           tblptrl	equ	0xFF6
+  2374                           tablat	equ	0xFF5
+  2375                           prodh	equ	0xFF4
+  2376                           prodl	equ	0xFF3
+  2377                           postinc0	equ	0xFEE
+  2378                           wreg	equ	0xFE8
+  2379                           indf2	equ	0xFDF
+  2380                           postinc2	equ	0xFDE
+  2381                           postdec2	equ	0xFDD
+  2382                           plusw2	equ	0xFDB
+  2383                           fsr2h	equ	0xFDA
+  2384                           fsr2l	equ	0xFD9
+  2385                           status	equ	0xFD8
+  2386                           
+  2387 ;; *************** function _CRC8 *****************
+  2388 ;; Defined at:
+  2389 ;;		line 31 in file "FastTransfer.c"
+  2390 ;; Parameters:    Size  Location     Type
+  2391 ;;  data            2    0[COMRAM] PTR const unsigned char 
+  2392 ;;		 -> NULL(0), CRCcheck@arrayHolder(3), receiveData@holder_307(3), receiveData@holder(3), 
+  2393 ;;		 -> rx_buffer(200), ring_buffer(206), 
+  2394 ;;  len             1    2[COMRAM] unsigned char 
+  2395 ;; Auto vars:     Size  Location     Type
+  2396 ;;  sum             1    3[COMRAM] unsigned char 
+  2397 ;;  tempI           1    5[COMRAM] unsigned char 
+  2398 ;;  extract         1    4[COMRAM] unsigned char 
+  2399 ;;  crc             1    6[COMRAM] unsigned char 
+  2400 ;; Return value:  Size  Location     Type
+  2401 ;;                  1    wreg      unsigned char 
+  2402 ;; Registers used:
+  2403 ;;		wreg, fsr2l, fsr2h, status,2, status,0
+  2404 ;; Tracked objects:
+  2405 ;;		On entry : 0/0
+  2406 ;;		On exit  : 0/0
+  2407 ;;		Unchanged: 0/0
+  2408 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  2409 ;;      Params:         3       0       0       0       0       0       0
+  2410 ;;      Locals:         4       0       0       0       0       0       0
+  2411 ;;      Temps:          0       0       0       0       0       0       0
+  2412 ;;      Totals:         7       0       0       0       0       0       0
+  2413 ;;Total ram usage:        7 bytes
+  2414 ;; Hardware stack levels used:    1
+  2415 ;; This function calls:
+  2416 ;;		Nothing
+  2417 ;; This function is called by:
+  2418 ;;		_sendData
+  2419 ;;		_receiveData
+  2420 ;;		_CRCcheck
+  2421 ;; This function uses a non-reentrant model
+  2422 ;;
+  2423                           
+  2424                           	psect	text14
+  2425  007814                     __ptext14:
+  2426                           	opt stack 0
+  2427  007814                     _CRC8:
+  2428                           	opt stack 27
+  2429                           
+  2430                           ;FastTransfer.c: 32: unsigned char crc = 0x00;
+  2431                           
+  2432                           ;incstack = 0
+  2433  007814  0E00               	movlw	0
+  2434  007816  6E36               	movwf	CRC8@crc,c
+  2435                           
+  2436                           ;FastTransfer.c: 33: while (len--) {
+  2437  007818  D01C               	goto	l1437
+  2438  00781A                     l1421:
+  2439                           
+  2440                           ;FastTransfer.c: 34: unsigned char extract = *data++;
+  2441  00781A  C030  FFD9         	movff	CRC8@data,fsr2l
+  2442  00781E  C031  FFDA         	movff	CRC8@data+1,fsr2h
+  2443  007822  50DF               	movf	indf2,w,c
+  2444  007824  6E34               	movwf	CRC8@extract,c
+  2445  007826  4A30               	infsnz	CRC8@data,f,c
+  2446  007828  2A31               	incf	CRC8@data+1,f,c
+  2447                           
+  2448                           ;FastTransfer.c: 35: unsigned char tempI;
+  2449                           ;FastTransfer.c: 36: for (tempI = 8; tempI; tempI--) {
+  2450  00782A  0E08               	movlw	8
+  2451  00782C  6E35               	movwf	CRC8@tempI,c
+  2452  00782E  D00E               	goto	l1435
+  2453  007830                     l1427:
+  2454                           
+  2455                           ;FastTransfer.c: 37: unsigned char sum = (crc ^ extract) & 0x01;
+  2456  007830  5036               	movf	CRC8@crc,w,c
+  2457  007832  1834               	xorwf	CRC8@extract,w,c
+  2458  007834  0B01               	andlw	1
+  2459  007836  6E33               	movwf	CRC8@sum,c
+  2460                           
+  2461                           ;FastTransfer.c: 38: crc >>= 1;
+  2462  007838  90D8               	bcf	status,0,c
+  2463  00783A  3236               	rrcf	CRC8@crc,f,c
+  2464                           
+  2465                           ;FastTransfer.c: 39: if (sum) {
+  2466  00783C  5033               	movf	CRC8@sum,w,c
+  2467  00783E  B4D8               	btfsc	status,2,c
+  2468  007840  D002               	goto	l133
+  2469                           
+  2470                           ;FastTransfer.c: 40: crc ^= 0x8C;
+  2471  007842  0E8C               	movlw	140
+  2472  007844  1A36               	xorwf	CRC8@crc,f,c
+  2473  007846                     l133:
+  2474                           
+  2475                           ;FastTransfer.c: 41: }
+  2476                           ;FastTransfer.c: 42: extract >>= 1;
+  2477  007846  90D8               	bcf	status,0,c
+  2478  007848  3234               	rrcf	CRC8@extract,f,c
+  2479  00784A  0635               	decf	CRC8@tempI,f,c
+  2480  00784C                     l1435:
+  2481  00784C  5035               	movf	CRC8@tempI,w,c
+  2482  00784E  A4D8               	btfss	status,2,c
+  2483  007850  D7EF               	goto	l1427
+  2484  007852                     l1437:
+  2485  007852  0632               	decf	CRC8@len,f,c
+  2486  007854  2832               	incf	CRC8@len,w,c
+  2487  007856  A4D8               	btfss	status,2,c
+  2488  007858  D7E0               	goto	l1421
+  2489                           
+  2490                           ;FastTransfer.c: 43: }
+  2491                           ;FastTransfer.c: 44: }
+  2492                           ;FastTransfer.c: 45: return crc;
+  2493  00785A  5036               	movf	CRC8@crc,w,c
+  2494  00785C  0012               	return	
+  2495  00785E                     __end_of_CRC8:
+  2496                           	opt stack 0
+  2497  0000                     tblptru	equ	0xFF8
+  2498                           tblptrh	equ	0xFF7
+  2499                           tblptrl	equ	0xFF6
+  2500                           tablat	equ	0xFF5
+  2501                           prodh	equ	0xFF4
+  2502                           prodl	equ	0xFF3
+  2503                           postinc0	equ	0xFEE
+  2504                           wreg	equ	0xFE8
+  2505                           indf2	equ	0xFDF
+  2506                           postinc2	equ	0xFDE
+  2507                           postdec2	equ	0xFDD
+  2508                           plusw2	equ	0xFDB
+  2509                           fsr2h	equ	0xFDA
+  2510                           fsr2l	equ	0xFD9
+  2511                           status	equ	0xFD8
+  2512                           tblptru	equ	0xFF8
+  2513                           tblptrh	equ	0xFF7
+  2514                           tblptrl	equ	0xFF6
+  2515                           tablat	equ	0xFF5
+  2516                           prodh	equ	0xFF4
+  2517                           prodl	equ	0xFF3
+  2518                           postinc0	equ	0xFEE
+  2519                           wreg	equ	0xFE8
+  2520                           indf2	equ	0xFDF
+  2521                           postinc2	equ	0xFDE
+  2522                           postdec2	equ	0xFDD
+  2523                           plusw2	equ	0xFDB
+  2524                           fsr2h	equ	0xFDA
+  2525                           fsr2l	equ	0xFD9
+  2526                           status	equ	0xFD8
+  2527                           
+  2528                           	psect	rparam
+  2529  0000                     tblptru	equ	0xFF8
+  2530                           tblptrh	equ	0xFF7
+  2531                           tblptrl	equ	0xFF6
+  2532                           tablat	equ	0xFF5
+  2533                           prodh	equ	0xFF4
+  2534                           prodl	equ	0xFF3
+  2535                           postinc0	equ	0xFEE
+  2536                           wreg	equ	0xFE8
+  2537                           indf2	equ	0xFDF
+  2538                           postinc2	equ	0xFDE
+  2539                           postdec2	equ	0xFDD
+  2540                           plusw2	equ	0xFDB
+  2541                           fsr2h	equ	0xFDA
+  2542                           fsr2l	equ	0xFD9
+  2543                           status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        1
+    BSS         905
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95     37      85
+    BANK0           160      0      40
+    BANK1           256      0     206
+    BANK2           256      0     206
+    BANK3           256      0     206
+    BANK4           256      0     200
+    BANK5           256      0       0
+
+Pointer List with Targets:
+
+    memset@p1	PTR void  size(2) Largest target is 206
+		 -> output_buffer(BANK3[206]), input_buffer(BANK2[206]), ring_buffer(BANK1[206]), 
+
+    memset@p	PTR unsigned char  size(2) Largest target is 206
+		 -> output_buffer(BANK3[206]), input_buffer(BANK2[206]), ring_buffer(BANK1[206]), 
+
+    crcBufS_get@_this	PTR struct crcBufS size(2) Largest target is 17
+		 -> crc_buffer(COMRAM[17]), 
+
+    crcBufS_status_put@_this	PTR struct crcBufS size(2) Largest target is 17
+		 -> crc_buffer(COMRAM[17]), 
+
+    crcBufS_put@_this	PTR struct crcBufS size(2) Largest target is 17
+		 -> crc_buffer(COMRAM[17]), 
+
+    sp__memset	PTR void  size(2) Largest target is 206
+		 -> output_buffer(BANK3[206]), input_buffer(BANK2[206]), ring_buffer(BANK1[206]), 
+
+    FastTransfer_buffer_flush@_this	PTR struct ringBufS size(2) Largest target is 206
+		 -> ring_buffer(BANK1[206]), 
+
+    FastTransfer_buffer_put@_this	PTR struct ringBufS size(2) Largest target is 206
+		 -> ring_buffer(BANK1[206]), 
+
+    CRC8@data	PTR const unsigned char  size(2) Largest target is 206
+		 -> NULL(NULL[0]), CRCcheck@arrayHolder(COMRAM[3]), receiveData@holder_307(COMRAM[3]), receiveData@holder(COMRAM[3]), 
+		 -> rx_buffer(BANK4[200]), ring_buffer(BANK1[206]), 
+
+    sendStructAddress	PTR unsigned char  size(2) Largest target is 206
+		 -> NULL(NULL[0]), ring_buffer(BANK1[206]), 
+
+    serial_read	PTR FTN()unsigned char  size(2) Largest target is 1
+		 -> Absolute function(), 
+
+    serial_peek	PTR FTN()unsigned char  size(2) Largest target is 1
+		 -> Absolute function(), 
+
+    serial_available	PTR FTN()int  size(2) Largest target is 1
+		 -> Absolute function(), 
+
+    serial_write	PTR FTN(unsigned char ,)void  size(2) Largest target is 1
+		 -> Absolute function(), 
+
+    receiveArrayAddress	PTR volatile int  size(2) Largest target is 0
+		 -> NULL(NULL[0]), 
+
+
+Critical Paths under _main in COMRAM
+
+    _updateComms->_receiveData
+    _respondECU->_sendData
+    _sendData->_FastTransfer_buffer_flush
+    _FastTransfer_buffer_flush->_memset
+    _ToSend->_FastTransfer_buffer_put
+    _FastTransfer_buffer_put->_FastTransfer_buffer_modulo_inc
+    _receiveData->_CRCcheck
+    _CRCcheck->_crcBufS_get
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 0     0      0    7738
+                        _updateComms
+ ---------------------------------------------------------------------------------
+ (1) _updateComms                                          0     0      0    7738
+                        _receiveData
+                         _respondECU
+ ---------------------------------------------------------------------------------
+ (2) _respondECU                                           0     0      0    3708
+                             _ToSend
+                           _sendData
+ ---------------------------------------------------------------------------------
+ (3) _sendData                                             5     5      0    2346
+                                             12 COMRAM     5     5      0
+                               _CRC8
+          _FastTransfer_buffer_flush
+                        _crcBufS_put
+ ---------------------------------------------------------------------------------
+ (4) _crcBufS_put                                          7     2      5     564
+                                              0 COMRAM     7     2      5
+ ---------------------------------------------------------------------------------
+ (4) _FastTransfer_buffer_flush                            4     0      4     910
+                                              8 COMRAM     4     0      4
+                             _memset
+ ---------------------------------------------------------------------------------
+ (5) _memset                                               8     2      6     672
+                                              0 COMRAM     8     2      6
+ ---------------------------------------------------------------------------------
+ (3) _ToSend                                               3     1      2    1362
+                                             13 COMRAM     3     1      2
+            _FastTransfer_buffer_put
+ ---------------------------------------------------------------------------------
+ (4) _FastTransfer_buffer_put                              7     2      5    1190
+                                              6 COMRAM     7     2      5
+     _FastTransfer_buffer_modulo_inc
+ ---------------------------------------------------------------------------------
+ (5) _FastTransfer_buffer_modulo_inc                       6     2      4     602
+                                              0 COMRAM     6     2      4
+ ---------------------------------------------------------------------------------
+ (2) _receiveData                                         18    18      0    4030
+                                             19 COMRAM    18    18      0
+                               _CRC8
+                           _CRCcheck
+ ---------------------------------------------------------------------------------
+ (3) _CRCcheck                                             7     7      0    2923
+                                             12 COMRAM     7     7      0
+                               _CRC8
+                        _crcBufS_get
+                 _crcBufS_status_put
+ ---------------------------------------------------------------------------------
+ (4) _crcBufS_status_put                                  10     6      4     696
+                                              0 COMRAM    10     6      4
+ ---------------------------------------------------------------------------------
+ (4) _crcBufS_get                                         12     8      4    1103
+                                              0 COMRAM    12     8      4
+ ---------------------------------------------------------------------------------
+ (4) _CRC8                                                 7     4      3     803
+                                              0 COMRAM     7     4      3
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 5
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _updateComms
+     _receiveData
+       _CRC8
+       _CRCcheck
+         _CRC8
+         _crcBufS_get
+         _crcBufS_status_put
+     _respondECU
+       _ToSend
+         _FastTransfer_buffer_put
+           _FastTransfer_buffer_modulo_inc
+       _sendData
+         _CRC8
+         _FastTransfer_buffer_flush
+           _memset
+         _crcBufS_put
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM             5FF      0       0      16        0.0%
+EEDATA             100      0       0       0        0.0%
+BITBANK5           100      0       0      14        0.0%
+BANK5              100      0       0      15        0.0%
+BITBANK4           100      0       0      12        0.0%
+BANK4              100      0      C8      13       78.1%
+BITBANK3           100      0       0      10        0.0%
+BANK3              100      0      CE      11       80.5%
+BITBANK2           100      0       0       7        0.0%
+BANK2              100      0      CE       8       80.5%
+BITBANK1           100      0       0       5        0.0%
+BANK1              100      0      CE       6       80.5%
+BITBANK0            A0      0       0       3        0.0%
+BANK0               A0      0      28       4       25.0%
+BITCOMRAM           5F      0       0       0        0.0%
+COMRAM              5F     25      55       1       89.5%
+BITSFR_1             0      0       0      40        0.0%
+SFR_1                0      0       0      40        0.0%
+BITSFR               0      0       0      40        0.0%
+SFR                  0      0       0      40        0.0%
+STACK                0      0       0       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0     3AF       9        0.0%
+DATA                 0      0     3AF      17        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V1.37 build -260352376 
+Symbol Table                                                                                   Thu Aug 11 22:53:02 2016
+
+      __end_of_FastTransfer_buffer_flush 78C0                             _rx_array_inx 001D  
+                                    l133 7846                                      l160 7E46  
+                                    l236 798C                                      l247 7A12  
+                                    u510 7BAC                                      u531 7CCA  
+                                    u731 7E70     FastTransfer_buffer_flush@clearBuffer 003A  
+                                    prod 000FF3                                      wreg 000FE8  
+                                   l1421 781A                                     l1413 77F2  
+                                   l1407 77DE                                     l1417 7802  
+                                   l1427 7830                                     l1435 784C  
+                                   l1507 7AA4                                     l1531 798E  
+                                   l1515 7942                                     l1437 7852  
+                                   l1517 7946                                     l1535 799E  
+                                   l1631 7F32                                     l1623 7EB8  
+                                   l1545 79EE                                     l1633 7F3E  
+                                   l1457 7CCC                                     l1491 7C5A  
+                                   l1475 7BCC                                     l1549 7A0C  
+                                   l1645 7F9C                                     l1629 7F2E  
+                                   l1479 7BD6                                     l1655 7FA8  
+                                   l1583 7E0E                                     l1593 7E3C  
+                                   l1499 7A1E                                     l1667 7FF0  
+                                   l1675 7FFC                                     l1763 7764  
+                   receiveData@crcHolder 0049                                     _CRC8 7814  
+                                   _main 7764                                     fsr2h 000FDA  
+                                   indf2 000FDF                                     fsr2l 000FD9  
+                                   prodh 000FF4                                     prodl 000FF3  
+        __end_of_FastTransfer_buffer_put 7E0C                                     start 0000  
+                           ___param_bank 000010                                    ?_CRC8 0030  
+                       __end_of_CRCcheck 7A14                       crcBufS_put@address 0032  
+                                  ?_main 0030                                    _group 0009  
+                                  tablat 000FF5                     __size_of_crcBufS_get 00E2  
+                                  plusw2 000FDB                     __size_of_crcBufS_put 00D8  
+                                  status 000FD8                             ?_receiveData 0030  
+                           __end_of_CRC8 785E                          CRCcheck@SentCRC 003C  
+                        __initialization 78C0                             __end_of_main 776A  
+                             ToSend@what 003D                                   ??_CRC8 0033  
+                                 ??_main 0055                    receiveData@holder_307 004E  
+                          __activetblptr 000002            FastTransfer_buffer_put@towhat 0039  
+                                 _RC1STA 000FAB                                   _RCREG1 000FAE  
+                                 _SPBRG1 000FAF                                   _TX1STA 000FAC  
+                                 _TXREG1 000FAD                                   _ToSend 777A  
+                       crcBufS_get@_this 0030              ??_FastTransfer_buffer_flush 003C  
+                          _output_buffer 0300                         crcBufS_get@space 0033  
+                              CRC8@tempI 0035                                   _memset 77E8  
+                                 clear_0 78C6                                   clear_1 78D2  
+                                 clear_2 78DE                                   clear_3 78EA  
+                                 clear_4 78F6                                   clear_5 7902  
+                                 _rx_len 001E                         __end_of_sendData 798C  
+                           __pdataCOMRAM 0055                                   tblptrh 000FF7  
+                                 tblptrl 000FF6                                   tblptru 000FF8  
+       __size_of_FastTransfer_buffer_put 0168                               __accesstop 0060  
+                __end_of__initialization 791A                                ?_CRCcheck 0030  
+                          ___rparam_used 000001                             ?_updateComms 0030  
+                         __pcstackCOMRAM 0030                       _crcBufS_status_put 7A14  
+                       crcBufS_put@_this 0030   __end_of_FastTransfer_buffer_modulo_inc 77E8  
+__size_of_FastTransfer_buffer_modulo_inc 002A           _FastTransfer_buffer_modulo_inc 77BE  
+           FastTransfer_buffer_put@_this 0036                              ToSend@where 003F  
+                    ?_crcBufS_status_put 0030                _FastTransfer_buffer_flush 785E  
+                                CRC8@crc 0036                                  CRC8@len 0032  
+                                CRC8@sum 0033                      _addressErrorCounter 0001  
+                             __pbssBANK0 0060                               __pbssBANK1 0100  
+                             __pbssBANK2 0200                               __pbssBANK3 0300  
+                             __pbssBANK4 0400                               ??_CRCcheck 003C  
+                   ??_crcBufS_status_put 0034                     __size_of_receiveData 01F4  
+                                ?_ToSend 003D      FastTransfer_buffer_modulo_inc@value 0030  
+                                ?_memset 0030                               _crc_buffer 001F  
+                                _SPBRGH1 000FB0                      sendData@whereToSend 003D  
+                    _receiveArrayAddress 000B                                ?_sendData 0030  
+                      _alignErrorCounter 0003                                  __Hparam 0000  
+                                __Lparam 0000                          __size_of_ToSend 001C  
+                              _AKNAKsend 0017                                  _calc_CS 0018  
+                                __pcinit 78C0                          __size_of_memset 002C  
+                                __ramtop 0600                                  __ptext0 7764  
+                                __ptext1 776A                                  __ptext2 7796  
+                                __ptext3 7924                                  __ptext4 7AEA  
+                                __ptext5 785E                                  __ptext6 77E8  
+                                __ptext7 777A                                  __ptext8 7CA4  
+                                __ptext9 77BE                  _FastTransfer_buffer_put 7CA4  
+                  CRCcheck@calculatedCRC 003D             crcBufS_status_put@wantedTime 0038  
+                          ??_crcBufS_get 0034                            ??_crcBufS_put 0035  
+                   end_of_initialization 791A                                  memset@c 0032  
+                                memset@n 0034                                  memset@p 0036  
+                          __Lmediumconst 0000                               ??_sendData 003C  
+                   __size_of_updateComms 0010                                  postdec2 000FDD  
+                                postinc0 000FEE                                  postinc2 000FDE  
+                             _respondECU 7796                      CRCcheck@arrayHolder 003E  
+                 _dataAdressErrorCounter 0007                               _rx_address 001C  
+     __size_of_FastTransfer_buffer_flush 0062                      __end_of_crcBufS_get 7CA4  
+                    __end_of_crcBufS_put 7BC2                        __size_of_CRCcheck 0088  
+                          _moduleAddress 001A                               CRCcheck@rt 0041  
+                         __end_of_ToSend 7796                          _crcErrorCounter 0005  
+                      crcBufS_put@oldCRC 0033                            __pidataCOMRAM 7763  
+              ??_FastTransfer_buffer_put 003B                           __end_of_memset 7814  
+                      crcBufS_put@status 0034                             receiveData@r 0053  
+                           receiveData@u 0051                      start_initialization 78C0  
+                  crcBufS_get@wantedTime 003A                                 ??_ToSend 003F  
+                               CRC8@data 0030                          crcBufS_get@time 0032  
+                            ?_respondECU 0030                                 ??_memset 0036  
+                            __pbssCOMRAM 0001                              _crcBufS_get 7BC2  
+                            _crcBufS_put 7AEA                            ??_receiveData 0043  
+            __size_of_crcBufS_status_put 00D6                               sendData@CS 0040  
+                      __size_of_sendData 0068                 receiveData@crcHolder_308 004A  
+                               _BAUD1CON 000FB8                      __size_of_respondECU 0028  
+                           _receiveArray 0060                                 _CRCcheck 798C  
+                               _LATCbits 000F8B                                 _PIE1bits 000F9D  
+                    __end_of_receiveData 8000           FastTransfer_buffer_flush@_this 0038  
+                           _input_buffer 0200                                _rx_buffer 0400  
+                      _sendStructAddress 000D                            ??_updateComms 0055  
+                               __Hrparam 0000                                 __Lrparam 0000  
+                            CRC8@extract 0034                                sendData@i 003E  
+               crcBufS_status_put@status 0033                                 __ptext10 7E0C  
+                               __ptext11 798C                                 __ptext12 7A14  
+                               __ptext13 7BC2                                 __ptext14 7814  
+                          __size_of_CRC8 004A                            _returnAddress 001B  
+                          __size_of_main 0006                              _receiveData 7E0C  
+                         _Transmit_stall 0055                                 _sendData 7924  
+                             _RC1STAbits 000FAB                             ??_respondECU 0041  
+                           _serial_write 0015                      __end_of_updateComms 777A  
+                      receiveData@holder 004B                                 memset@p1 0030  
+                       _serial_available 000F                             ?_crcBufS_get 0030  
+                           ?_crcBufS_put 0030                  crcBufS_status_put@_this 0030  
+                     __end_of_respondECU 77BE   FastTransfer_buffer_modulo_inc@my_value 0034  
+         FastTransfer_buffer_put@towhere 0038                              _ring_buffer 0100  
+             ?_FastTransfer_buffer_flush 0038                              _serial_peek 0011  
+                            _serial_read 0013                 ?_FastTransfer_buffer_put 0036  
+  FastTransfer_buffer_modulo_inc@modulus 0032                   crcBufS_status_put@time 0032  
+                         _maxDataAddress 0019               __end_of_crcBufS_status_put 7AEA  
+       ??_FastTransfer_buffer_modulo_inc 0034          ?_FastTransfer_buffer_modulo_inc 0030  
+                            _updateComms 776A  

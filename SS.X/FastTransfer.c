@@ -9,10 +9,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "FastTransfer.h"
-#include "mcc_generated_files/pin_manager.h"
-
-
-
 
 //Captures address of receive array, the max data address, the address of the module, true/false if AKNAKs are wanted and the Serial address
 
