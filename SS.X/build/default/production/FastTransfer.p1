@@ -1,34 +1,34 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F7864 `(v ~T0 @X0 0 tf1`uc ]
-[v F7867 `(uc ~T0 @X0 0 tf ]
-[v F7870 `(i ~T0 @X0 0 tf ]
-[v F7873 `(uc ~T0 @X0 0 tf ]
-"52 FastTransfer.h
+[v F7863 `(v ~T0 @X0 0 tf1`uc ]
+[v F7866 `(uc ~T0 @X0 0 tf ]
+[v F7869 `(i ~T0 @X0 0 tf ]
+[v F7872 `(uc ~T0 @X0 0 tf ]
+"40 FastTransfer.c
 [s S1125 `uc -> 200 `i `i 1 `i 1 `i 1 ]
 [n S1125 ringBufS buf head tail count ]
-"60
+"48
 [u S1126 `uc -> 2 `i `ui 1 ]
 [n S1126 stuff parts integer ]
-"66
+"54
 [s S1127 `uc * -> 5 `i -> 3 `i `i 1 ]
 [n S1127 crcBufS buf head ]
 [v F7835 `(v ~T0 @X0 0 tf1`uc ]
 [v F7838 `(uc ~T0 @X0 0 tf ]
 [v F7841 `(i ~T0 @X0 0 tf ]
 [v F7844 `(uc ~T0 @X0 0 tf ]
-"77
+"65
 [v _crcBufS_put `(v ~T0 @X0 0 ef4`*S1127`uc`uc`uc ]
-"75
+"63
 [v _FastTransfer_buffer_flush `(v ~T0 @X0 0 ef2`*S1125`Ci ]
-"80
+"68
 [v _CRCcheck `(v ~T0 @X0 0 ef ]
-"73
+"61
 [v _FastTransfer_buffer_put `(v ~T0 @X0 0 ef3`*S1125`Cuc`Cui ]
-"76
+"64
 [v _FastTransfer_buffer_modulo_inc `(ui ~T0 @X0 0 ef2`Cui`Cui ]
-"255 FastTransfer.c
+"313
 [v _memset `(*v ~T0 @X0 0 ef3`*v`i`ui ]
-"79 FastTransfer.h
+"67
 [v _crcBufS_get `(uc ~T0 @X0 0 ef3`*S1127`uc`uc ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
@@ -7417,1211 +7417,1208 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;FastTransfer.h: 20: unsigned int CRCError(void);
 [; ;FastTransfer.h: 21: unsigned int addressError(void);
 [; ;FastTransfer.h: 22: unsigned int dataAddressError(void);
-"24 FastTransfer.h
-[v _receiveArray `Vi ~T0 @X0 -> 20 `i e ]
-[; ;FastTransfer.h: 24: volatile int receiveArray[20];
-"26
-[v _serial_write `*F7864 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 26: void (*serial_write)(unsigned char);
-"27
-[v _serial_read `*F7867 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 27: unsigned char (*serial_read)(void);
-"28
-[v _serial_available `*F7870 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 28: int (*serial_available)(void);
-"29
-[v _serial_peek `*F7873 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 29: unsigned char (*serial_peek)(void);
-"30
+"14 FastTransfer.c
+[v _serial_write `*F7863 ~T0 @X0 1 e ]
+[; ;FastTransfer.c: 14: void (*serial_write)(unsigned char);
+"15
+[v _serial_read `*F7866 ~T0 @X0 1 e ]
+[; ;FastTransfer.c: 15: unsigned char (*serial_read)(void);
+"16
+[v _serial_available `*F7869 ~T0 @X0 1 e ]
+[; ;FastTransfer.c: 16: int (*serial_available)(void);
+"17
+[v _serial_peek `*F7872 ~T0 @X0 1 e ]
+[; ;FastTransfer.c: 17: unsigned char (*serial_peek)(void);
+"18
 [v _rx_buffer `uc ~T0 @X0 -> 200 `i e ]
-[; ;FastTransfer.h: 30: unsigned char rx_buffer[200];
-"31
+[; ;FastTransfer.c: 18: unsigned char rx_buffer[200];
+"19
 [v _rx_array_inx `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 31: unsigned char rx_array_inx;
-"32
+[; ;FastTransfer.c: 19: unsigned char rx_array_inx;
+"20
 [v _rx_len `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 32: unsigned char rx_len;
-"33
+[; ;FastTransfer.c: 20: unsigned char rx_len;
+"21
 [v _calc_CS `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 33: unsigned char calc_CS;
-"34
+[; ;FastTransfer.c: 21: unsigned char calc_CS;
+"22
 [v _moduleAddress `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 34: unsigned char moduleAddress;
-"35
+[; ;FastTransfer.c: 22: unsigned char moduleAddress;
+"23
 [v _returnAddress `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 35: unsigned char returnAddress;
-"36
+[; ;FastTransfer.c: 23: unsigned char returnAddress;
+"24
 [v _maxDataAddress `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 36: unsigned char maxDataAddress;
-"37
+[; ;FastTransfer.c: 24: unsigned char maxDataAddress;
+"25
 [v _receiveArrayAddress `*Vi ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 37: volatile int * receiveArrayAddress;
-"38
+[; ;FastTransfer.c: 25: volatile int * receiveArrayAddress;
+"26
 [v _sendStructAddress `*uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 38: unsigned char * sendStructAddress;
-"39
+[; ;FastTransfer.c: 26: unsigned char * sendStructAddress;
+"27
 [v _AKNAKsend `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 39: bool AKNAKsend;
-"40
+[; ;FastTransfer.c: 27: bool AKNAKsend;
+"28
 [v _alignErrorCounter `ui ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 40: unsigned int alignErrorCounter;
-"41
+[; ;FastTransfer.c: 28: unsigned int alignErrorCounter;
+"29
 [v _crcErrorCounter `ui ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 41: unsigned int crcErrorCounter;
-"42
+[; ;FastTransfer.c: 29: unsigned int crcErrorCounter;
+"30
 [v _addressErrorCounter `ui ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 42: unsigned int addressErrorCounter;
-"43
+[; ;FastTransfer.c: 30: unsigned int addressErrorCounter;
+"31
 [v _dataAdressErrorCounter `ui ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 43: unsigned int dataAdressErrorCounter;
-"44
+[; ;FastTransfer.c: 31: unsigned int dataAdressErrorCounter;
+"32
 [v _rx_address `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 44: unsigned char rx_address;
-[; ;FastTransfer.h: 52: struct ringBufS {
-[; ;FastTransfer.h: 53: unsigned char buf[200];
-[; ;FastTransfer.h: 54: int head;
-[; ;FastTransfer.h: 55: int tail;
-[; ;FastTransfer.h: 56: int count;
-[; ;FastTransfer.h: 57: };
-"58
+[; ;FastTransfer.c: 32: unsigned char rx_address;
+[; ;FastTransfer.c: 40: struct ringBufS {
+[; ;FastTransfer.c: 41: unsigned char buf[200];
+[; ;FastTransfer.c: 42: int head;
+[; ;FastTransfer.c: 43: int tail;
+[; ;FastTransfer.c: 44: int count;
+[; ;FastTransfer.c: 45: };
+"46
 [v _ring_buffer `S1125 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 58: struct ringBufS ring_buffer;
-[; ;FastTransfer.h: 60: union stuff {
-[; ;FastTransfer.h: 61: unsigned char parts[2];
-[; ;FastTransfer.h: 62: unsigned int integer;
-[; ;FastTransfer.h: 63: };
-"64
+[; ;FastTransfer.c: 46: struct ringBufS ring_buffer;
+[; ;FastTransfer.c: 48: union stuff {
+[; ;FastTransfer.c: 49: unsigned char parts[2];
+[; ;FastTransfer.c: 50: unsigned int integer;
+[; ;FastTransfer.c: 51: };
+"52
 [v _group `S1126 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 64: union stuff group;
-[; ;FastTransfer.h: 66: struct crcBufS {
-[; ;FastTransfer.h: 67: unsigned char buf[(5 * 3)];
-[; ;FastTransfer.h: 68: int head;
-[; ;FastTransfer.h: 69: };
-"70
+[; ;FastTransfer.c: 52: union stuff group;
+[; ;FastTransfer.c: 54: struct crcBufS {
+[; ;FastTransfer.c: 55: unsigned char buf[(5 * 3)];
+[; ;FastTransfer.c: 56: int head;
+[; ;FastTransfer.c: 57: };
+"58
 [v _crc_buffer `S1127 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 70: struct crcBufS crc_buffer;
-[; ;FastTransfer.h: 72: unsigned char CRC8(const unsigned char * data, unsigned char len);
-[; ;FastTransfer.h: 73: void FastTransfer_buffer_put(struct ringBufS *_this, const unsigned char towhere, const unsigned int towhat);
-[; ;FastTransfer.h: 74: unsigned char FastTransfer_buffer_get(struct ringBufS* _this);
-[; ;FastTransfer.h: 75: void FastTransfer_buffer_flush(struct ringBufS* _this, const int clearBuffer);
-[; ;FastTransfer.h: 76: unsigned int FastTransfer_buffer_modulo_inc(const unsigned int value, const unsigned int modulus);
-[; ;FastTransfer.h: 77: void crcBufS_put(struct crcBufS* _this, unsigned char address, unsigned char oldCRC, unsigned char status);
-[; ;FastTransfer.h: 78: void crcBufS_status_put(struct crcBufS* _this, unsigned char time, unsigned char status);
-[; ;FastTransfer.h: 79: unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned char space);
-[; ;FastTransfer.h: 80: void CRCcheck(void);
-"15 FastTransfer.c
+[; ;FastTransfer.c: 58: struct crcBufS crc_buffer;
+[; ;FastTransfer.c: 60: unsigned char CRC8(const unsigned char * data, unsigned char len);
+[; ;FastTransfer.c: 61: void FastTransfer_buffer_put(struct ringBufS *_this, const unsigned char towhere, const unsigned int towhat);
+[; ;FastTransfer.c: 62: unsigned char FastTransfer_buffer_get(struct ringBufS* _this);
+[; ;FastTransfer.c: 63: void FastTransfer_buffer_flush(struct ringBufS* _this, const int clearBuffer);
+[; ;FastTransfer.c: 64: unsigned int FastTransfer_buffer_modulo_inc(const unsigned int value, const unsigned int modulus);
+[; ;FastTransfer.c: 65: void crcBufS_put(struct crcBufS* _this, unsigned char address, unsigned char oldCRC, unsigned char status);
+[; ;FastTransfer.c: 66: void crcBufS_status_put(struct crcBufS* _this, unsigned char time, unsigned char status);
+[; ;FastTransfer.c: 67: unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned char space);
+[; ;FastTransfer.c: 68: void CRCcheck(void);
+"73
 [v _begin `(v ~T0 @X0 1 ef8`*Vi`uc`uc`uc`*F7835`*F7838`*F7841`*F7844 ]
 {
-[; ;FastTransfer.c: 15: void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void)) {
+[; ;FastTransfer.c: 73: void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void)) {
 [e :U _begin ]
 [v _ptr `*Vi ~T0 @X0 1 r1 ]
 [v _maxSize `uc ~T0 @X0 1 r2 ]
 [v _givenAddress `uc ~T0 @X0 1 r3 ]
 [v _error `uc ~T0 @X0 1 r4 ]
-[v F7939 `(v ~T0 @X0 0 tf1`uc ]
-[v _stufftosend `*F7939 ~T0 @X0 1 r5 ]
-[v F7942 `(uc ~T0 @X0 0 tf ]
-[v _stufftoreceive `*F7942 ~T0 @X0 1 r6 ]
-[v F7945 `(i ~T0 @X0 0 tf ]
-[v _stuffavailable `*F7945 ~T0 @X0 1 r7 ]
-[v F7948 `(uc ~T0 @X0 0 tf ]
-[v _stuffpeek `*F7948 ~T0 @X0 1 r8 ]
+[v F7938 `(v ~T0 @X0 0 tf1`uc ]
+[v _stufftosend `*F7938 ~T0 @X0 1 r5 ]
+[v F7941 `(uc ~T0 @X0 0 tf ]
+[v _stufftoreceive `*F7941 ~T0 @X0 1 r6 ]
+[v F7944 `(i ~T0 @X0 0 tf ]
+[v _stuffavailable `*F7944 ~T0 @X0 1 r7 ]
+[v F7947 `(uc ~T0 @X0 0 tf ]
+[v _stuffpeek `*F7947 ~T0 @X0 1 r8 ]
 [f ]
-[; ;FastTransfer.c: 16: receiveArrayAddress = ptr;
-"16
+[; ;FastTransfer.c: 74: receiveArrayAddress = ptr;
+"74
 [e = _receiveArrayAddress _ptr ]
-[; ;FastTransfer.c: 17: moduleAddress = givenAddress;
-"17
+[; ;FastTransfer.c: 75: moduleAddress = givenAddress;
+"75
 [e = _moduleAddress _givenAddress ]
-[; ;FastTransfer.c: 18: serial_write = stufftosend;
-"18
+[; ;FastTransfer.c: 76: serial_write = stufftosend;
+"76
 [e = _serial_write _stufftosend ]
-[; ;FastTransfer.c: 19: serial_available = stuffavailable;
-"19
+[; ;FastTransfer.c: 77: serial_available = stuffavailable;
+"77
 [e = _serial_available _stuffavailable ]
-[; ;FastTransfer.c: 20: serial_peek = stuffpeek;
-"20
+[; ;FastTransfer.c: 78: serial_peek = stuffpeek;
+"78
 [e = _serial_peek _stuffpeek ]
-[; ;FastTransfer.c: 21: serial_read = stufftoreceive;
-"21
+[; ;FastTransfer.c: 79: serial_read = stufftoreceive;
+"79
 [e = _serial_read _stufftoreceive ]
-[; ;FastTransfer.c: 22: maxDataAddress = maxSize / 2;
-"22
+[; ;FastTransfer.c: 80: maxDataAddress = maxSize / 2;
+"80
 [e = _maxDataAddress -> / -> _maxSize `i -> 2 `i `uc ]
-[; ;FastTransfer.c: 23: sendStructAddress = (unsigned char*) & ring_buffer;
-"23
+[; ;FastTransfer.c: 81: sendStructAddress = (unsigned char*) & ring_buffer;
+"81
 [e = _sendStructAddress -> &U _ring_buffer `*uc ]
-[; ;FastTransfer.c: 24: AKNAKsend = error;
-"24
+[; ;FastTransfer.c: 82: AKNAKsend = error;
+"82
 [e = _AKNAKsend _error ]
-[; ;FastTransfer.c: 25: alignErrorCounter = 0;
-"25
+[; ;FastTransfer.c: 83: alignErrorCounter = 0;
+"83
 [e = _alignErrorCounter -> -> 0 `i `ui ]
-[; ;FastTransfer.c: 27: }
-"27
+[; ;FastTransfer.c: 85: }
+"85
 [e :UE 1128 ]
 }
-"31
+"89
 [v _CRC8 `(uc ~T0 @X0 1 ef2`*Cuc`uc ]
 {
-[; ;FastTransfer.c: 31: unsigned char CRC8(const unsigned char * data, unsigned char len) {
+[; ;FastTransfer.c: 89: unsigned char CRC8(const unsigned char * data, unsigned char len) {
 [e :U _CRC8 ]
 [v _data `*Cuc ~T0 @X0 1 r1 ]
 [v _len `uc ~T0 @X0 1 r2 ]
 [f ]
-"32
+"90
 [v _crc `uc ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 32: unsigned char crc = 0x00;
+[; ;FastTransfer.c: 90: unsigned char crc = 0x00;
 [e = _crc -> -> 0 `i `uc ]
-[; ;FastTransfer.c: 33: while (len--) {
-"33
+[; ;FastTransfer.c: 91: while (len--) {
+"91
 [e $U 1130  ]
 [e :U 1131 ]
 {
-"34
+"92
 [v _extract `uc ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 34: unsigned char extract = *data++;
+[; ;FastTransfer.c: 92: unsigned char extract = *data++;
 [e = _extract *U ++ _data * -> -> 1 `i `x -> -> # *U _data `i `x ]
-"35
+"93
 [v _tempI `uc ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 35: unsigned char tempI;
-[; ;FastTransfer.c: 36: for (tempI = 8; tempI; tempI--) {
-"36
+[; ;FastTransfer.c: 93: unsigned char tempI;
+[; ;FastTransfer.c: 94: for (tempI = 8; tempI; tempI--) {
+"94
 {
 [e = _tempI -> -> 8 `i `uc ]
 [e $U 1136  ]
 [e :U 1133 ]
 {
-"37
+"95
 [v _sum `uc ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 37: unsigned char sum = (crc ^ extract) & 0x01;
+[; ;FastTransfer.c: 95: unsigned char sum = (crc ^ extract) & 0x01;
 [e = _sum -> & ^ -> _crc `i -> _extract `i -> 1 `i `uc ]
-[; ;FastTransfer.c: 38: crc >>= 1;
-"38
+[; ;FastTransfer.c: 96: crc >>= 1;
+"96
 [e =>> _crc -> 1 `i ]
-[; ;FastTransfer.c: 39: if (sum) {
-"39
+[; ;FastTransfer.c: 97: if (sum) {
+"97
 [e $ ! != -> _sum `i -> -> -> 0 `i `uc `i 1137  ]
 {
-[; ;FastTransfer.c: 40: crc ^= 0x8C;
-"40
+[; ;FastTransfer.c: 98: crc ^= 0x8C;
+"98
 [e =^ _crc -> -> 140 `i `uc ]
-"41
+"99
 }
 [e :U 1137 ]
-[; ;FastTransfer.c: 41: }
-[; ;FastTransfer.c: 42: extract >>= 1;
-"42
+[; ;FastTransfer.c: 99: }
+[; ;FastTransfer.c: 100: extract >>= 1;
+"100
 [e =>> _extract -> 1 `i ]
-"43
+"101
 }
-"36
+"94
 [e -- _tempI -> -> 1 `i `uc ]
 [e :U 1136 ]
 [e $ != -> _tempI `i -> -> -> 0 `i `uc `i 1133  ]
 [e :U 1134 ]
-"43
+"101
 }
-"44
+"102
 }
 [e :U 1130 ]
-"33
+"91
 [e $ != -> -- _len -> -> 1 `i `uc `i -> -> -> 0 `i `uc `i 1131  ]
 [e :U 1132 ]
-[; ;FastTransfer.c: 43: }
-[; ;FastTransfer.c: 44: }
-[; ;FastTransfer.c: 45: return crc;
-"45
+[; ;FastTransfer.c: 101: }
+[; ;FastTransfer.c: 102: }
+[; ;FastTransfer.c: 103: return crc;
+"103
 [e ) _crc ]
 [e $UE 1129  ]
-[; ;FastTransfer.c: 46: }
-"46
+[; ;FastTransfer.c: 104: }
+"104
 [e :UE 1129 ]
 }
-"50
+"108
 [v _sendData `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;FastTransfer.c: 50: void sendData(unsigned char whereToSend) {
+[; ;FastTransfer.c: 108: void sendData(unsigned char whereToSend) {
 [e :U _sendData ]
 [v _whereToSend `uc ~T0 @X0 1 r1 ]
 [f ]
 [v _CS `uc ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 53: unsigned char CS = CRC8(sendStructAddress, ring_buffer.count);
-"53
+[; ;FastTransfer.c: 111: unsigned char CS = CRC8(sendStructAddress, ring_buffer.count);
+"111
 [e = _CS ( _CRC8 (2 , -> _sendStructAddress `*Cuc -> . _ring_buffer 3 `uc ]
-[; ;FastTransfer.c: 55: serial_write(0x06);
-"55
+[; ;FastTransfer.c: 113: serial_write(0x06);
+"113
 [e ( *U _serial_write (1 -> -> 6 `i `uc ]
-[; ;FastTransfer.c: 56: serial_write(0x85);
-"56
+[; ;FastTransfer.c: 114: serial_write(0x85);
+"114
 [e ( *U _serial_write (1 -> -> 133 `i `uc ]
-[; ;FastTransfer.c: 57: serial_write(whereToSend);
-"57
+[; ;FastTransfer.c: 115: serial_write(whereToSend);
+"115
 [e ( *U _serial_write (1 _whereToSend ]
-[; ;FastTransfer.c: 58: serial_write(moduleAddress);
-"58
+[; ;FastTransfer.c: 116: serial_write(moduleAddress);
+"116
 [e ( *U _serial_write (1 _moduleAddress ]
-[; ;FastTransfer.c: 59: serial_write(ring_buffer.count);
-"59
+[; ;FastTransfer.c: 117: serial_write(ring_buffer.count);
+"117
 [e ( *U _serial_write (1 -> . _ring_buffer 3 `uc ]
-"63
+"121
 [v _i `i ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 63: int i;
-[; ;FastTransfer.c: 64: for (i = 0; i < ring_buffer.count; i++) {
-"64
+[; ;FastTransfer.c: 121: int i;
+[; ;FastTransfer.c: 122: for (i = 0; i < ring_buffer.count; i++) {
+"122
 {
 [e = _i -> 0 `i ]
 [e $U 1142  ]
 [e :U 1139 ]
 {
-[; ;FastTransfer.c: 65: serial_write(*(sendStructAddress + i));
-"65
+[; ;FastTransfer.c: 123: serial_write(*(sendStructAddress + i));
+"123
 [e ( *U _serial_write (1 *U + _sendStructAddress * -> _i `x -> -> # *U _sendStructAddress `i `x ]
-"66
+"124
 }
-"64
+"122
 [e ++ _i -> 1 `i ]
 [e :U 1142 ]
 [e $ < _i . _ring_buffer 3 1139  ]
 [e :U 1140 ]
-"66
+"124
 }
-[; ;FastTransfer.c: 66: }
-[; ;FastTransfer.c: 69: serial_write(CS);
-"69
+[; ;FastTransfer.c: 124: }
+[; ;FastTransfer.c: 127: serial_write(CS);
+"127
 [e ( *U _serial_write (1 _CS ]
-[; ;FastTransfer.c: 72: crcBufS_put(&crc_buffer, whereToSend, CS, 0);
-"72
+[; ;FastTransfer.c: 130: crcBufS_put(&crc_buffer, whereToSend, CS, 0);
+"130
 [e ( _crcBufS_put (4 , , , &U _crc_buffer _whereToSend _CS -> -> 0 `i `uc ]
-[; ;FastTransfer.c: 75: FastTransfer_buffer_flush(&ring_buffer, 1);
-"75
+[; ;FastTransfer.c: 133: FastTransfer_buffer_flush(&ring_buffer, 1);
+"133
 [e ( _FastTransfer_buffer_flush (2 , &U _ring_buffer -> 1 `i ]
-[; ;FastTransfer.c: 77: }
-"77
+[; ;FastTransfer.c: 135: }
+"135
 [e :UE 1138 ]
 }
-"79
+"137
 [v _receiveData `(uc ~T0 @X0 1 ef ]
 {
-[; ;FastTransfer.c: 79: bool receiveData() {
+[; ;FastTransfer.c: 137: bool receiveData() {
 [e :U _receiveData ]
 [f ]
-[; ;FastTransfer.c: 82: if (rx_len == 0) {
-"82
+[; ;FastTransfer.c: 140: if (rx_len == 0) {
+"140
 [e $ ! == -> _rx_len `i -> 0 `i 1144  ]
 {
-[; ;FastTransfer.c: 84: if (serial_available() > 4) {
-"84
+[; ;FastTransfer.c: 142: if (serial_available() > 4) {
+"142
 [e $ ! > ( *U _serial_available ..  -> 4 `i 1145  ]
 {
-[; ;FastTransfer.c: 86: while (serial_read() != 0x06) {
-"86
+[; ;FastTransfer.c: 144: while (serial_read() != 0x06) {
+"144
 [e $U 1146  ]
 [e :U 1147 ]
 {
-[; ;FastTransfer.c: 90: alignErrorCounter++;
-"90
+[; ;FastTransfer.c: 148: alignErrorCounter++;
+"148
 [e ++ _alignErrorCounter -> -> 1 `i `ui ]
-[; ;FastTransfer.c: 91: if (serial_available() < 5)
-"91
+[; ;FastTransfer.c: 149: if (serial_available() < 5)
+"149
 [e $ ! < ( *U _serial_available ..  -> 5 `i 1149  ]
-[; ;FastTransfer.c: 92: return 0;
-"92
+[; ;FastTransfer.c: 150: return 0;
+"150
 [e ) -> -> 0 `i `uc ]
 [e $UE 1143  ]
 [e :U 1149 ]
-"93
+"151
 }
 [e :U 1146 ]
-"86
+"144
 [e $ != -> ( *U _serial_read ..  `i -> 6 `i 1147  ]
 [e :U 1148 ]
-[; ;FastTransfer.c: 93: }
-[; ;FastTransfer.c: 94: if (serial_read() == 0x85) {
-"94
+[; ;FastTransfer.c: 151: }
+[; ;FastTransfer.c: 152: if (serial_read() == 0x85) {
+"152
 [e $ ! == -> ( *U _serial_read ..  `i -> 133 `i 1150  ]
 {
-[; ;FastTransfer.c: 96: rx_address = serial_read();
-"96
+[; ;FastTransfer.c: 154: rx_address = serial_read();
+"154
 [e = _rx_address ( *U _serial_read ..  ]
-[; ;FastTransfer.c: 97: returnAddress = serial_read();
-"97
+[; ;FastTransfer.c: 155: returnAddress = serial_read();
+"155
 [e = _returnAddress ( *U _serial_read ..  ]
-[; ;FastTransfer.c: 98: rx_len = serial_read();
-"98
+[; ;FastTransfer.c: 156: rx_len = serial_read();
+"156
 [e = _rx_len ( *U _serial_read ..  ]
-[; ;FastTransfer.c: 100: if (rx_address != moduleAddress) {
-"100
+[; ;FastTransfer.c: 158: if (rx_address != moduleAddress) {
+"158
 [e $ ! != -> _rx_address `i -> _moduleAddress `i 1151  ]
 {
-[; ;FastTransfer.c: 101: addressErrorCounter++;
-"101
+[; ;FastTransfer.c: 159: addressErrorCounter++;
+"159
 [e ++ _addressErrorCounter -> -> 1 `i `ui ]
-"104
+"162
 [v _u `i ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 104: int u;
-[; ;FastTransfer.c: 105: for (u = 0; u <= (rx_len + 1); u++) {
-"105
+[; ;FastTransfer.c: 162: int u;
+[; ;FastTransfer.c: 163: for (u = 0; u <= (rx_len + 1); u++) {
+"163
 {
 [e = _u -> 0 `i ]
 [e $U 1155  ]
 [e :U 1152 ]
 {
-[; ;FastTransfer.c: 106: serial_read();
-"106
+[; ;FastTransfer.c: 164: serial_read();
+"164
 [e ( *U _serial_read ..  ]
-"107
+"165
 }
-"105
+"163
 [e ++ _u -> 1 `i ]
 [e :U 1155 ]
 [e $ <= _u + -> _rx_len `i -> 1 `i 1152  ]
 [e :U 1153 ]
-"107
+"165
 }
-[; ;FastTransfer.c: 107: }
-[; ;FastTransfer.c: 108: rx_len = 0;
-"108
+[; ;FastTransfer.c: 165: }
+[; ;FastTransfer.c: 166: rx_len = 0;
+"166
 [e = _rx_len -> -> 0 `i `uc ]
-[; ;FastTransfer.c: 109: return 0;
-"109
+[; ;FastTransfer.c: 167: return 0;
+"167
 [e ) -> -> 0 `i `uc ]
 [e $UE 1143  ]
-"110
+"168
 }
 [e :U 1151 ]
-"112
+"170
 }
 [e :U 1150 ]
-"113
+"171
 }
 [e :U 1145 ]
-"114
+"172
 }
 [e :U 1144 ]
-[; ;FastTransfer.c: 110: }
-[; ;FastTransfer.c: 112: }
-[; ;FastTransfer.c: 113: }
-[; ;FastTransfer.c: 114: }
-[; ;FastTransfer.c: 117: if (rx_len != 0) {
-"117
+[; ;FastTransfer.c: 168: }
+[; ;FastTransfer.c: 170: }
+[; ;FastTransfer.c: 171: }
+[; ;FastTransfer.c: 172: }
+[; ;FastTransfer.c: 175: if (rx_len != 0) {
+"175
 [e $ ! != -> _rx_len `i -> 0 `i 1156  ]
 {
-[; ;FastTransfer.c: 120: if (rx_array_inx == 0) {
-"120
+[; ;FastTransfer.c: 178: if (rx_array_inx == 0) {
+"178
 [e $ ! == -> _rx_array_inx `i -> 0 `i 1157  ]
 {
-[; ;FastTransfer.c: 121: while (!(serial_available() >= 1));
-"121
+[; ;FastTransfer.c: 179: while (!(serial_available() >= 1));
+"179
 [e $U 1158  ]
 [e :U 1159 ]
 [e :U 1158 ]
 [e $ ! >= ( *U _serial_available ..  -> 1 `i 1159  ]
 [e :U 1160 ]
-[; ;FastTransfer.c: 122: if (255 == serial_peek()) {
-"122
+[; ;FastTransfer.c: 180: if (255 == serial_peek()) {
+"180
 [e $ ! == -> 255 `i -> ( *U _serial_peek ..  `i 1161  ]
 {
-[; ;FastTransfer.c: 123: CRCcheck();
-"123
+[; ;FastTransfer.c: 181: CRCcheck();
+"181
 [e ( _CRCcheck ..  ]
-[; ;FastTransfer.c: 124: rx_len = 0;
-"124
+[; ;FastTransfer.c: 182: rx_len = 0;
+"182
 [e = _rx_len -> -> 0 `i `uc ]
-[; ;FastTransfer.c: 125: rx_array_inx = 0;
-"125
+[; ;FastTransfer.c: 183: rx_array_inx = 0;
+"183
 [e = _rx_array_inx -> -> 0 `i `uc ]
-[; ;FastTransfer.c: 126: return 0;
-"126
+[; ;FastTransfer.c: 184: return 0;
+"184
 [e ) -> -> 0 `i `uc ]
 [e $UE 1143  ]
-"127
+"185
 }
 [e :U 1161 ]
-"128
+"186
 }
 [e :U 1157 ]
-[; ;FastTransfer.c: 127: }
-[; ;FastTransfer.c: 128: }
-[; ;FastTransfer.c: 131: while (serial_available() && rx_array_inx <= rx_len) {
-"131
+[; ;FastTransfer.c: 185: }
+[; ;FastTransfer.c: 186: }
+[; ;FastTransfer.c: 189: while (serial_available() && rx_array_inx <= rx_len) {
+"189
 [e $U 1162  ]
 [e :U 1163 ]
 {
-[; ;FastTransfer.c: 132: rx_buffer[rx_array_inx++] = serial_read();
-"132
+[; ;FastTransfer.c: 190: rx_buffer[rx_array_inx++] = serial_read();
+"190
 [e = *U + &U _rx_buffer * -> ++ _rx_array_inx -> -> 1 `i `uc `ux -> -> # *U &U _rx_buffer `ui `ux ( *U _serial_read ..  ]
-"133
+"191
 }
 [e :U 1162 ]
-"131
+"189
 [e $ && != ( *U _serial_available ..  -> 0 `i <= -> _rx_array_inx `i -> _rx_len `i 1163  ]
 [e :U 1164 ]
-[; ;FastTransfer.c: 133: }
-[; ;FastTransfer.c: 135: if (rx_len == (rx_array_inx - 1)) {
-"135
+[; ;FastTransfer.c: 191: }
+[; ;FastTransfer.c: 193: if (rx_len == (rx_array_inx - 1)) {
+"193
 [e $ ! == -> _rx_len `i - -> _rx_array_inx `i -> 1 `i 1165  ]
 {
-[; ;FastTransfer.c: 138: calc_CS = CRC8(rx_buffer, rx_len);
-"138
+[; ;FastTransfer.c: 196: calc_CS = CRC8(rx_buffer, rx_len);
+"196
 [e = _calc_CS ( _CRC8 (2 , -> &U _rx_buffer `*Cuc _rx_len ]
-[; ;FastTransfer.c: 142: if (calc_CS == rx_buffer[rx_array_inx - 1]) {
-"142
+[; ;FastTransfer.c: 200: if (calc_CS == rx_buffer[rx_array_inx - 1]) {
+"200
 [e $ ! == -> _calc_CS `i -> *U + &U _rx_buffer * -> -> - -> _rx_array_inx `i -> 1 `i `ui `ux -> -> # *U &U _rx_buffer `ui `ux `i 1166  ]
 {
-"145
+"203
 [v _r `i ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 145: int r;
-[; ;FastTransfer.c: 146: for (r = 0; r < rx_len; r = r + 3) {
-"146
+[; ;FastTransfer.c: 203: int r;
+[; ;FastTransfer.c: 204: for (r = 0; r < rx_len; r = r + 3) {
+"204
 {
 [e = _r -> 0 `i ]
 [e $U 1170  ]
 [e :U 1167 ]
 {
-[; ;FastTransfer.c: 147: if (rx_buffer[r] < maxDataAddress) {
-"147
+[; ;FastTransfer.c: 205: if (rx_buffer[r] < maxDataAddress) {
+"205
 [e $ ! < -> *U + &U _rx_buffer * -> -> _r `ui `ux -> -> # *U &U _rx_buffer `ui `ux `i -> _maxDataAddress `i 1171  ]
 {
-[; ;FastTransfer.c: 148: group.parts[0] = rx_buffer[r + 1];
-"148
+[; ;FastTransfer.c: 206: group.parts[0] = rx_buffer[r + 1];
+"206
 [e = *U + &U . _group 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _group 0 `ui `ux *U + &U _rx_buffer * -> -> + _r -> 1 `i `ui `ux -> -> # *U &U _rx_buffer `ui `ux ]
-[; ;FastTransfer.c: 149: group.parts[1] = rx_buffer[r + 2];
-"149
+[; ;FastTransfer.c: 207: group.parts[1] = rx_buffer[r + 2];
+"207
 [e = *U + &U . _group 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _group 0 `ui `ux *U + &U _rx_buffer * -> -> + _r -> 2 `i `ui `ux -> -> # *U &U _rx_buffer `ui `ux ]
-[; ;FastTransfer.c: 150: receiveArrayAddress[(rx_buffer[r])] = group.integer;
-"150
+[; ;FastTransfer.c: 208: receiveArrayAddress[(rx_buffer[r])] = group.integer;
+"208
 [e = *U + _receiveArrayAddress * -> *U + &U _rx_buffer * -> -> _r `ui `ux -> -> # *U &U _rx_buffer `ui `ux `ux -> -> # *U _receiveArrayAddress `ui `ux -> . _group 1 `i ]
-"151
+"209
 }
-[; ;FastTransfer.c: 151: } else {
+[; ;FastTransfer.c: 209: } else {
 [e $U 1172  ]
 [e :U 1171 ]
 {
-[; ;FastTransfer.c: 152: dataAdressErrorCounter++;
-"152
+[; ;FastTransfer.c: 210: dataAdressErrorCounter++;
+"210
 [e ++ _dataAdressErrorCounter -> -> 1 `i `ui ]
-"153
+"211
 }
 [e :U 1172 ]
-"154
+"212
 }
-"146
+"204
 [e = _r + _r -> 3 `i ]
 [e :U 1170 ]
 [e $ < _r -> _rx_len `i 1167  ]
 [e :U 1168 ]
-"154
+"212
 }
-[; ;FastTransfer.c: 153: }
-[; ;FastTransfer.c: 154: }
-[; ;FastTransfer.c: 157: if (AKNAKsend) {
-"157
+[; ;FastTransfer.c: 211: }
+[; ;FastTransfer.c: 212: }
+[; ;FastTransfer.c: 215: if (AKNAKsend) {
+"215
 [e $ ! != -> _AKNAKsend `i -> -> -> 0 `i `uc `i 1173  ]
 {
-"158
+"216
 [v _holder `uc ~T0 @X0 -> 3 `i a ]
-[; ;FastTransfer.c: 158: unsigned char holder[3];
-[; ;FastTransfer.c: 159: holder[0] = 255;
-"159
+[; ;FastTransfer.c: 216: unsigned char holder[3];
+[; ;FastTransfer.c: 217: holder[0] = 255;
+"217
 [e = *U + &U _holder * -> -> -> 0 `i `ui `ux -> -> # *U &U _holder `ui `ux -> -> 255 `i `uc ]
-[; ;FastTransfer.c: 160: holder[1] = 1;
-"160
+[; ;FastTransfer.c: 218: holder[1] = 1;
+"218
 [e = *U + &U _holder * -> -> -> 1 `i `ui `ux -> -> # *U &U _holder `ui `ux -> -> 1 `i `uc ]
-[; ;FastTransfer.c: 161: holder[2] = rx_buffer[rx_array_inx - 1];
-"161
+[; ;FastTransfer.c: 219: holder[2] = rx_buffer[rx_array_inx - 1];
+"219
 [e = *U + &U _holder * -> -> -> 2 `i `ui `ux -> -> # *U &U _holder `ui `ux *U + &U _rx_buffer * -> -> - -> _rx_array_inx `i -> 1 `i `ui `ux -> -> # *U &U _rx_buffer `ui `ux ]
-"162
+"220
 [v _crcHolder `uc ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 162: unsigned char crcHolder = CRC8(holder, 3);
+[; ;FastTransfer.c: 220: unsigned char crcHolder = CRC8(holder, 3);
 [e = _crcHolder ( _CRC8 (2 , -> &U _holder `*Cuc -> -> 3 `i `uc ]
-[; ;FastTransfer.c: 163: serial_write(0x06);
-"163
+[; ;FastTransfer.c: 221: serial_write(0x06);
+"221
 [e ( *U _serial_write (1 -> -> 6 `i `uc ]
-[; ;FastTransfer.c: 164: serial_write(0x85);
-"164
+[; ;FastTransfer.c: 222: serial_write(0x85);
+"222
 [e ( *U _serial_write (1 -> -> 133 `i `uc ]
-[; ;FastTransfer.c: 165: serial_write(returnAddress);
-"165
+[; ;FastTransfer.c: 223: serial_write(returnAddress);
+"223
 [e ( *U _serial_write (1 _returnAddress ]
-[; ;FastTransfer.c: 166: serial_write(moduleAddress);
-"166
+[; ;FastTransfer.c: 224: serial_write(moduleAddress);
+"224
 [e ( *U _serial_write (1 _moduleAddress ]
-[; ;FastTransfer.c: 167: serial_write(3);
-"167
+[; ;FastTransfer.c: 225: serial_write(3);
+"225
 [e ( *U _serial_write (1 -> -> 3 `i `uc ]
-[; ;FastTransfer.c: 168: serial_write(255);
-"168
+[; ;FastTransfer.c: 226: serial_write(255);
+"226
 [e ( *U _serial_write (1 -> -> 255 `i `uc ]
-[; ;FastTransfer.c: 169: serial_write(1);
-"169
+[; ;FastTransfer.c: 227: serial_write(1);
+"227
 [e ( *U _serial_write (1 -> -> 1 `i `uc ]
-[; ;FastTransfer.c: 170: serial_write(rx_buffer[rx_array_inx - 1]);
-"170
+[; ;FastTransfer.c: 228: serial_write(rx_buffer[rx_array_inx - 1]);
+"228
 [e ( *U _serial_write (1 *U + &U _rx_buffer * -> -> - -> _rx_array_inx `i -> 1 `i `ui `ux -> -> # *U &U _rx_buffer `ui `ux ]
-[; ;FastTransfer.c: 171: serial_write(crcHolder);
-"171
+[; ;FastTransfer.c: 229: serial_write(crcHolder);
+"229
 [e ( *U _serial_write (1 _crcHolder ]
-"172
+"230
 }
 [e :U 1173 ]
-[; ;FastTransfer.c: 172: }
-[; ;FastTransfer.c: 176: rx_len = 0;
-"176
+[; ;FastTransfer.c: 230: }
+[; ;FastTransfer.c: 234: rx_len = 0;
+"234
 [e = _rx_len -> -> 0 `i `uc ]
-[; ;FastTransfer.c: 177: rx_array_inx = 0;
-"177
+[; ;FastTransfer.c: 235: rx_array_inx = 0;
+"235
 [e = _rx_array_inx -> -> 0 `i `uc ]
-[; ;FastTransfer.c: 178: return 1;
-"178
+[; ;FastTransfer.c: 236: return 1;
+"236
 [e ) -> -> 1 `i `uc ]
 [e $UE 1143  ]
-"179
+"237
 }
-[; ;FastTransfer.c: 179: } else {
+[; ;FastTransfer.c: 237: } else {
 [e $U 1174  ]
 [e :U 1166 ]
 {
-[; ;FastTransfer.c: 180: crcErrorCounter++;
-"180
+[; ;FastTransfer.c: 238: crcErrorCounter++;
+"238
 [e ++ _crcErrorCounter -> -> 1 `i `ui ]
-[; ;FastTransfer.c: 182: if (AKNAKsend) {
-"182
+[; ;FastTransfer.c: 240: if (AKNAKsend) {
+"240
 [e $ ! != -> _AKNAKsend `i -> -> -> 0 `i `uc `i 1175  ]
 {
-"183
+"241
 [v _holder `uc ~T0 @X0 -> 3 `i a ]
-[; ;FastTransfer.c: 183: unsigned char holder[3];
-[; ;FastTransfer.c: 184: holder[0] = 255;
-"184
+[; ;FastTransfer.c: 241: unsigned char holder[3];
+[; ;FastTransfer.c: 242: holder[0] = 255;
+"242
 [e = *U + &U _holder * -> -> -> 0 `i `ui `ux -> -> # *U &U _holder `ui `ux -> -> 255 `i `uc ]
-[; ;FastTransfer.c: 185: holder[1] = 2;
-"185
+[; ;FastTransfer.c: 243: holder[1] = 2;
+"243
 [e = *U + &U _holder * -> -> -> 1 `i `ui `ux -> -> # *U &U _holder `ui `ux -> -> 2 `i `uc ]
-[; ;FastTransfer.c: 186: holder[2] = rx_buffer[rx_array_inx - 1];
-"186
+[; ;FastTransfer.c: 244: holder[2] = rx_buffer[rx_array_inx - 1];
+"244
 [e = *U + &U _holder * -> -> -> 2 `i `ui `ux -> -> # *U &U _holder `ui `ux *U + &U _rx_buffer * -> -> - -> _rx_array_inx `i -> 1 `i `ui `ux -> -> # *U &U _rx_buffer `ui `ux ]
-"187
+"245
 [v _crcHolder `uc ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 187: unsigned char crcHolder = CRC8(holder, 3);
+[; ;FastTransfer.c: 245: unsigned char crcHolder = CRC8(holder, 3);
 [e = _crcHolder ( _CRC8 (2 , -> &U _holder `*Cuc -> -> 3 `i `uc ]
-[; ;FastTransfer.c: 188: serial_write(0x06);
-"188
+[; ;FastTransfer.c: 246: serial_write(0x06);
+"246
 [e ( *U _serial_write (1 -> -> 6 `i `uc ]
-[; ;FastTransfer.c: 189: serial_write(0x85);
-"189
+[; ;FastTransfer.c: 247: serial_write(0x85);
+"247
 [e ( *U _serial_write (1 -> -> 133 `i `uc ]
-[; ;FastTransfer.c: 190: serial_write(returnAddress);
-"190
+[; ;FastTransfer.c: 248: serial_write(returnAddress);
+"248
 [e ( *U _serial_write (1 _returnAddress ]
-[; ;FastTransfer.c: 191: serial_write(moduleAddress);
-"191
+[; ;FastTransfer.c: 249: serial_write(moduleAddress);
+"249
 [e ( *U _serial_write (1 _moduleAddress ]
-[; ;FastTransfer.c: 192: serial_write(3);
-"192
+[; ;FastTransfer.c: 250: serial_write(3);
+"250
 [e ( *U _serial_write (1 -> -> 3 `i `uc ]
-[; ;FastTransfer.c: 193: serial_write(255);
-"193
+[; ;FastTransfer.c: 251: serial_write(255);
+"251
 [e ( *U _serial_write (1 -> -> 255 `i `uc ]
-[; ;FastTransfer.c: 194: serial_write(2);
-"194
+[; ;FastTransfer.c: 252: serial_write(2);
+"252
 [e ( *U _serial_write (1 -> -> 2 `i `uc ]
-[; ;FastTransfer.c: 195: serial_write(rx_buffer[rx_array_inx - 1]);
-"195
+[; ;FastTransfer.c: 253: serial_write(rx_buffer[rx_array_inx - 1]);
+"253
 [e ( *U _serial_write (1 *U + &U _rx_buffer * -> -> - -> _rx_array_inx `i -> 1 `i `ui `ux -> -> # *U &U _rx_buffer `ui `ux ]
-[; ;FastTransfer.c: 196: serial_write(crcHolder);
-"196
+[; ;FastTransfer.c: 254: serial_write(crcHolder);
+"254
 [e ( *U _serial_write (1 _crcHolder ]
-"197
+"255
 }
 [e :U 1175 ]
-[; ;FastTransfer.c: 197: }
-[; ;FastTransfer.c: 200: rx_len = 0;
-"200
+[; ;FastTransfer.c: 255: }
+[; ;FastTransfer.c: 258: rx_len = 0;
+"258
 [e = _rx_len -> -> 0 `i `uc ]
-[; ;FastTransfer.c: 201: rx_array_inx = 0;
-"201
+[; ;FastTransfer.c: 259: rx_array_inx = 0;
+"259
 [e = _rx_array_inx -> -> 0 `i `uc ]
-[; ;FastTransfer.c: 202: return 0;
-"202
+[; ;FastTransfer.c: 260: return 0;
+"260
 [e ) -> -> 0 `i `uc ]
 [e $UE 1143  ]
-"203
+"261
 }
 [e :U 1174 ]
-"204
+"262
 }
 [e :U 1165 ]
-"205
+"263
 }
 [e :U 1156 ]
-[; ;FastTransfer.c: 203: }
-[; ;FastTransfer.c: 204: }
-[; ;FastTransfer.c: 205: }
-[; ;FastTransfer.c: 208: return 0;
-"208
+[; ;FastTransfer.c: 261: }
+[; ;FastTransfer.c: 262: }
+[; ;FastTransfer.c: 263: }
+[; ;FastTransfer.c: 266: return 0;
+"266
 [e ) -> -> 0 `i `uc ]
 [e $UE 1143  ]
-[; ;FastTransfer.c: 209: }
-"209
+[; ;FastTransfer.c: 267: }
+"267
 [e :UE 1143 ]
 }
-"214
+"272
 [v _ToSend `(v ~T0 @X0 1 ef2`Cuc`Cui ]
 {
-[; ;FastTransfer.c: 214: void ToSend(unsigned char where, unsigned int what) {
+[; ;FastTransfer.c: 272: void ToSend(unsigned char where, unsigned int what) {
 [e :U _ToSend ]
 [v _where `uc ~T0 @X0 1 r1 ]
 [v _what `ui ~T0 @X0 1 r2 ]
 [f ]
-[; ;FastTransfer.c: 215: FastTransfer_buffer_put(&ring_buffer, where, what);
-"215
+[; ;FastTransfer.c: 273: FastTransfer_buffer_put(&ring_buffer, where, what);
+"273
 [e ( _FastTransfer_buffer_put (3 , , &U _ring_buffer _where _what ]
-[; ;FastTransfer.c: 216: }
-"216
+[; ;FastTransfer.c: 274: }
+"274
 [e :UE 1176 ]
 }
-"221
+"279
 [v _FastTransfer_buffer_put `(v ~T0 @X0 1 ef3`*S1125`Cuc`Cui ]
 {
-[; ;FastTransfer.c: 221: void FastTransfer_buffer_put(struct ringBufS *_this, unsigned char towhere, unsigned int towhat) {
+[; ;FastTransfer.c: 279: void FastTransfer_buffer_put(struct ringBufS *_this, unsigned char towhere, unsigned int towhat) {
 [e :U _FastTransfer_buffer_put ]
 [v __this `*S1125 ~T0 @X0 1 r1 ]
 [v _towhere `uc ~T0 @X0 1 r2 ]
 [v _towhat `ui ~T0 @X0 1 r3 ]
 [f ]
-[; ;FastTransfer.c: 223: group.integer = towhat;
-"223
+[; ;FastTransfer.c: 281: group.integer = towhat;
+"281
 [e = . _group 1 _towhat ]
-[; ;FastTransfer.c: 225: if (_this->count < (200 - 3)) {
-"225
+[; ;FastTransfer.c: 283: if (_this->count < (200 - 3)) {
+"283
 [e $ ! < . *U __this 3 - -> 200 `i -> 3 `i 1178  ]
 {
-[; ;FastTransfer.c: 226: _this->buf[_this->head] = towhere;
-"226
+[; ;FastTransfer.c: 284: _this->buf[_this->head] = towhere;
+"284
 [e = *U + &U . *U __this 0 * -> -> . *U __this 1 `ui `ux -> -> # *U &U . *U __this 0 `ui `ux _towhere ]
-[; ;FastTransfer.c: 227: _this->head = FastTransfer_buffer_modulo_inc(_this->head, 200);
-"227
+[; ;FastTransfer.c: 285: _this->head = FastTransfer_buffer_modulo_inc(_this->head, 200);
+"285
 [e = . *U __this 1 -> ( _FastTransfer_buffer_modulo_inc (2 , -> . *U __this 1 `ui -> -> 200 `i `ui `i ]
-[; ;FastTransfer.c: 228: ++_this->count;
-"228
+[; ;FastTransfer.c: 286: ++_this->count;
+"286
 [e =+ . *U __this 3 -> 1 `i ]
-[; ;FastTransfer.c: 229: _this->buf[_this->head] = group.parts[0];
-"229
+[; ;FastTransfer.c: 287: _this->buf[_this->head] = group.parts[0];
+"287
 [e = *U + &U . *U __this 0 * -> -> . *U __this 1 `ui `ux -> -> # *U &U . *U __this 0 `ui `ux *U + &U . _group 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _group 0 `ui `ux ]
-[; ;FastTransfer.c: 230: _this->head = FastTransfer_buffer_modulo_inc(_this->head, 200);
-"230
+[; ;FastTransfer.c: 288: _this->head = FastTransfer_buffer_modulo_inc(_this->head, 200);
+"288
 [e = . *U __this 1 -> ( _FastTransfer_buffer_modulo_inc (2 , -> . *U __this 1 `ui -> -> 200 `i `ui `i ]
-[; ;FastTransfer.c: 231: ++_this->count;
-"231
+[; ;FastTransfer.c: 289: ++_this->count;
+"289
 [e =+ . *U __this 3 -> 1 `i ]
-[; ;FastTransfer.c: 232: _this->buf[_this->head] = group.parts[1];
-"232
+[; ;FastTransfer.c: 290: _this->buf[_this->head] = group.parts[1];
+"290
 [e = *U + &U . *U __this 0 * -> -> . *U __this 1 `ui `ux -> -> # *U &U . *U __this 0 `ui `ux *U + &U . _group 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _group 0 `ui `ux ]
-[; ;FastTransfer.c: 233: _this->head = FastTransfer_buffer_modulo_inc(_this->head, 200);
-"233
+[; ;FastTransfer.c: 291: _this->head = FastTransfer_buffer_modulo_inc(_this->head, 200);
+"291
 [e = . *U __this 1 -> ( _FastTransfer_buffer_modulo_inc (2 , -> . *U __this 1 `ui -> -> 200 `i `ui `i ]
-[; ;FastTransfer.c: 234: ++_this->count;
-"234
+[; ;FastTransfer.c: 292: ++_this->count;
+"292
 [e =+ . *U __this 3 -> 1 `i ]
-"236
+"294
 }
 [e :U 1178 ]
-[; ;FastTransfer.c: 236: }
-[; ;FastTransfer.c: 238: }
-"238
+[; ;FastTransfer.c: 294: }
+[; ;FastTransfer.c: 296: }
+"296
 [e :UE 1177 ]
 }
-"243
+"301
 [v _FastTransfer_buffer_get `(uc ~T0 @X0 1 ef1`*S1125 ]
 {
-[; ;FastTransfer.c: 243: unsigned char FastTransfer_buffer_get(struct ringBufS* _this) {
+[; ;FastTransfer.c: 301: unsigned char FastTransfer_buffer_get(struct ringBufS* _this) {
 [e :U _FastTransfer_buffer_get ]
 [v __this `*S1125 ~T0 @X0 1 r1 ]
 [f ]
-"244
+"302
 [v _c `uc ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 244: unsigned char c;
-[; ;FastTransfer.c: 245: if (_this->count > 0) {
-"245
+[; ;FastTransfer.c: 302: unsigned char c;
+[; ;FastTransfer.c: 303: if (_this->count > 0) {
+"303
 [e $ ! > . *U __this 3 -> 0 `i 1180  ]
 {
-[; ;FastTransfer.c: 246: c = _this->buf[_this->tail];
-"246
+[; ;FastTransfer.c: 304: c = _this->buf[_this->tail];
+"304
 [e = _c *U + &U . *U __this 0 * -> -> . *U __this 2 `ui `ux -> -> # *U &U . *U __this 0 `ui `ux ]
-[; ;FastTransfer.c: 247: _this->tail = FastTransfer_buffer_modulo_inc(_this->tail, 200);
-"247
+[; ;FastTransfer.c: 305: _this->tail = FastTransfer_buffer_modulo_inc(_this->tail, 200);
+"305
 [e = . *U __this 2 -> ( _FastTransfer_buffer_modulo_inc (2 , -> . *U __this 2 `ui -> -> 200 `i `ui `i ]
-[; ;FastTransfer.c: 248: --_this->count;
-"248
+[; ;FastTransfer.c: 306: --_this->count;
+"306
 [e =- . *U __this 3 -> 1 `i ]
-"249
+"307
 }
-[; ;FastTransfer.c: 249: } else {
+[; ;FastTransfer.c: 307: } else {
 [e $U 1181  ]
 [e :U 1180 ]
 {
-[; ;FastTransfer.c: 250: c = 0;
-"250
+[; ;FastTransfer.c: 308: c = 0;
+"308
 [e = _c -> -> 0 `i `uc ]
-"251
+"309
 }
 [e :U 1181 ]
-[; ;FastTransfer.c: 251: }
-[; ;FastTransfer.c: 252: return (c);
-"252
+[; ;FastTransfer.c: 309: }
+[; ;FastTransfer.c: 310: return (c);
+"310
 [e ) _c ]
 [e $UE 1179  ]
-[; ;FastTransfer.c: 253: }
-"253
+[; ;FastTransfer.c: 311: }
+"311
 [e :UE 1179 ]
 }
-[; ;FastTransfer.c: 255: void *memset(void *s, int c, size_t n);
-"259
+[; ;FastTransfer.c: 313: void *memset(void *s, int c, size_t n);
+"317
 [v _FastTransfer_buffer_flush `(v ~T0 @X0 1 ef2`*S1125`Ci ]
 {
-[; ;FastTransfer.c: 259: void FastTransfer_buffer_flush(struct ringBufS* _this, const int clearBuffer) {
+[; ;FastTransfer.c: 317: void FastTransfer_buffer_flush(struct ringBufS* _this, const int clearBuffer) {
 [e :U _FastTransfer_buffer_flush ]
 [v __this `*S1125 ~T0 @X0 1 r1 ]
 [v _clearBuffer `Ci ~T0 @X0 1 r2 ]
 [f ]
-[; ;FastTransfer.c: 260: _this->count = 0;
-"260
+[; ;FastTransfer.c: 318: _this->count = 0;
+"318
 [e = . *U __this 3 -> 0 `i ]
-[; ;FastTransfer.c: 261: _this->head = 0;
-"261
+[; ;FastTransfer.c: 319: _this->head = 0;
+"319
 [e = . *U __this 1 -> 0 `i ]
-[; ;FastTransfer.c: 262: _this->tail = 0;
-"262
+[; ;FastTransfer.c: 320: _this->tail = 0;
+"320
 [e = . *U __this 2 -> 0 `i ]
-[; ;FastTransfer.c: 263: if (clearBuffer) {
-"263
+[; ;FastTransfer.c: 321: if (clearBuffer) {
+"321
 [e $ ! != _clearBuffer -> 0 `i 1183  ]
 {
-[; ;FastTransfer.c: 264: memset(_this->buf, 0, sizeof (_this->buf));
-"264
+[; ;FastTransfer.c: 322: memset(_this->buf, 0, sizeof (_this->buf));
+"322
 [e ( _memset (3 , , -> &U . *U __this 0 `*v -> 0 `i * -> # *U &U . *U __this 0 `ui -> -> 200 `i `ui ]
-"265
+"323
 }
 [e :U 1183 ]
-[; ;FastTransfer.c: 265: }
-[; ;FastTransfer.c: 266: }
-"266
+[; ;FastTransfer.c: 323: }
+[; ;FastTransfer.c: 324: }
+"324
 [e :UE 1182 ]
 }
-"271
+"329
 [v _FastTransfer_buffer_modulo_inc `(ui ~T0 @X0 1 ef2`Cui`Cui ]
 {
-[; ;FastTransfer.c: 271: unsigned int FastTransfer_buffer_modulo_inc(const unsigned int value, const unsigned int modulus) {
+[; ;FastTransfer.c: 329: unsigned int FastTransfer_buffer_modulo_inc(const unsigned int value, const unsigned int modulus) {
 [e :U _FastTransfer_buffer_modulo_inc ]
 [v _value `Cui ~T0 @X0 1 r1 ]
 [v _modulus `Cui ~T0 @X0 1 r2 ]
 [f ]
-"272
+"330
 [v _my_value `ui ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 272: unsigned int my_value = value + 1;
+[; ;FastTransfer.c: 330: unsigned int my_value = value + 1;
 [e = _my_value + _value -> -> 1 `i `ui ]
-[; ;FastTransfer.c: 273: if (my_value >= modulus) {
-"273
+[; ;FastTransfer.c: 331: if (my_value >= modulus) {
+"331
 [e $ ! >= _my_value _modulus 1185  ]
 {
-[; ;FastTransfer.c: 274: my_value = 0;
-"274
+[; ;FastTransfer.c: 332: my_value = 0;
+"332
 [e = _my_value -> -> 0 `i `ui ]
-"275
+"333
 }
 [e :U 1185 ]
-[; ;FastTransfer.c: 275: }
-[; ;FastTransfer.c: 276: return (my_value);
-"276
+[; ;FastTransfer.c: 333: }
+[; ;FastTransfer.c: 334: return (my_value);
+"334
 [e ) _my_value ]
 [e $UE 1184  ]
-[; ;FastTransfer.c: 277: }
-"277
+[; ;FastTransfer.c: 335: }
+"335
 [e :UE 1184 ]
 }
-"282
+"340
 [v _AKNAK `(uc ~T0 @X0 1 ef1`uc ]
 {
-[; ;FastTransfer.c: 282: unsigned char AKNAK(unsigned char module) {
+[; ;FastTransfer.c: 340: unsigned char AKNAK(unsigned char module) {
 [e :U _AKNAK ]
 [v _module `uc ~T0 @X0 1 r1 ]
 [f ]
-"283
+"341
 [v _r `i ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 283: int r;
-[; ;FastTransfer.c: 284: for (r = 0; r < 5; r++) {
-"284
+[; ;FastTransfer.c: 341: int r;
+[; ;FastTransfer.c: 342: for (r = 0; r < 5; r++) {
+"342
 {
 [e = _r -> 0 `i ]
 [e $ < _r -> 5 `i 1187  ]
 [e $U 1188  ]
 [e :U 1187 ]
 {
-[; ;FastTransfer.c: 285: if (module == crcBufS_get(&crc_buffer, r, 0)) {
-"285
+[; ;FastTransfer.c: 343: if (module == crcBufS_get(&crc_buffer, r, 0)) {
+"343
 [e $ ! == -> _module `i -> ( _crcBufS_get (3 , , &U _crc_buffer -> _r `uc -> -> 0 `i `uc `i 1190  ]
 {
-[; ;FastTransfer.c: 286: return crcBufS_get(&crc_buffer, r, 2);
-"286
+[; ;FastTransfer.c: 344: return crcBufS_get(&crc_buffer, r, 2);
+"344
 [e ) ( _crcBufS_get (3 , , &U _crc_buffer -> _r `uc -> -> 2 `i `uc ]
 [e $UE 1186  ]
-"287
+"345
 }
 [e :U 1190 ]
-"288
+"346
 }
-"284
+"342
 [e ++ _r -> 1 `i ]
 [e $ < _r -> 5 `i 1187  ]
 [e :U 1188 ]
-"288
+"346
 }
-[; ;FastTransfer.c: 287: }
-[; ;FastTransfer.c: 288: }
-[; ;FastTransfer.c: 289: return 4;
-"289
+[; ;FastTransfer.c: 345: }
+[; ;FastTransfer.c: 346: }
+[; ;FastTransfer.c: 347: return 4;
+"347
 [e ) -> -> 4 `i `uc ]
 [e $UE 1186  ]
-[; ;FastTransfer.c: 290: }
-"290
+[; ;FastTransfer.c: 348: }
+"348
 [e :UE 1186 ]
 }
-"295
+"353
 [v _alignError `(ui ~T0 @X0 1 ef ]
 {
-[; ;FastTransfer.c: 295: unsigned int alignError(void) {
+[; ;FastTransfer.c: 353: unsigned int alignError(void) {
 [e :U _alignError ]
 [f ]
-[; ;FastTransfer.c: 296: return alignErrorCounter;
-"296
+[; ;FastTransfer.c: 354: return alignErrorCounter;
+"354
 [e ) _alignErrorCounter ]
 [e $UE 1191  ]
-[; ;FastTransfer.c: 297: }
-"297
+[; ;FastTransfer.c: 355: }
+"355
 [e :UE 1191 ]
 }
-"302
+"360
 [v _CRCError `(ui ~T0 @X0 1 ef ]
 {
-[; ;FastTransfer.c: 302: unsigned int CRCError(void) {
+[; ;FastTransfer.c: 360: unsigned int CRCError(void) {
 [e :U _CRCError ]
 [f ]
-[; ;FastTransfer.c: 303: return crcErrorCounter;
-"303
+[; ;FastTransfer.c: 361: return crcErrorCounter;
+"361
 [e ) _crcErrorCounter ]
 [e $UE 1192  ]
-[; ;FastTransfer.c: 304: }
-"304
+[; ;FastTransfer.c: 362: }
+"362
 [e :UE 1192 ]
 }
-"309
+"367
 [v _addressError `(ui ~T0 @X0 1 ef ]
 {
-[; ;FastTransfer.c: 309: unsigned int addressError(void) {
+[; ;FastTransfer.c: 367: unsigned int addressError(void) {
 [e :U _addressError ]
 [f ]
-[; ;FastTransfer.c: 310: return addressErrorCounter;
-"310
+[; ;FastTransfer.c: 368: return addressErrorCounter;
+"368
 [e ) _addressErrorCounter ]
 [e $UE 1193  ]
-[; ;FastTransfer.c: 311: }
-"311
+[; ;FastTransfer.c: 369: }
+"369
 [e :UE 1193 ]
 }
-"313
+"371
 [v _dataAddressError `(ui ~T0 @X0 1 ef ]
 {
-[; ;FastTransfer.c: 313: unsigned int dataAddressError(void) {
+[; ;FastTransfer.c: 371: unsigned int dataAddressError(void) {
 [e :U _dataAddressError ]
 [f ]
-[; ;FastTransfer.c: 314: return dataAdressErrorCounter;
-"314
+[; ;FastTransfer.c: 372: return dataAdressErrorCounter;
+"372
 [e ) _dataAdressErrorCounter ]
 [e $UE 1194  ]
-[; ;FastTransfer.c: 315: }
-"315
+[; ;FastTransfer.c: 373: }
+"373
 [e :UE 1194 ]
 }
-"319
+"377
 [v _crcBufS_put `(v ~T0 @X0 1 ef4`*S1127`uc`uc`uc ]
 {
-[; ;FastTransfer.c: 319: void crcBufS_put(struct crcBufS* _this, unsigned char address, unsigned char oldCRC, unsigned char status) {
+[; ;FastTransfer.c: 377: void crcBufS_put(struct crcBufS* _this, unsigned char address, unsigned char oldCRC, unsigned char status) {
 [e :U _crcBufS_put ]
 [v __this `*S1127 ~T0 @X0 1 r1 ]
 [v _address `uc ~T0 @X0 1 r2 ]
 [v _oldCRC `uc ~T0 @X0 1 r3 ]
 [v _status `uc ~T0 @X0 1 r4 ]
 [f ]
-[; ;FastTransfer.c: 320: _this->buf[_this->head] = address;
-"320
+[; ;FastTransfer.c: 378: _this->buf[_this->head] = address;
+"378
 [e = *U + &U . *U __this 0 * -> -> . *U __this 1 `ui `ux -> -> # *U &U . *U __this 0 `ui `ux _address ]
-[; ;FastTransfer.c: 321: _this->head++;
-"321
+[; ;FastTransfer.c: 379: _this->head++;
+"379
 [e ++ . *U __this 1 -> 1 `i ]
-[; ;FastTransfer.c: 322: _this->buf[_this->head] = oldCRC;
-"322
+[; ;FastTransfer.c: 380: _this->buf[_this->head] = oldCRC;
+"380
 [e = *U + &U . *U __this 0 * -> -> . *U __this 1 `ui `ux -> -> # *U &U . *U __this 0 `ui `ux _oldCRC ]
-[; ;FastTransfer.c: 323: _this->head++;
-"323
+[; ;FastTransfer.c: 381: _this->head++;
+"381
 [e ++ . *U __this 1 -> 1 `i ]
-[; ;FastTransfer.c: 324: _this->buf[_this->head] = status;
-"324
+[; ;FastTransfer.c: 382: _this->buf[_this->head] = status;
+"382
 [e = *U + &U . *U __this 0 * -> -> . *U __this 1 `ui `ux -> -> # *U &U . *U __this 0 `ui `ux _status ]
-[; ;FastTransfer.c: 325: _this->head++;
-"325
+[; ;FastTransfer.c: 383: _this->head++;
+"383
 [e ++ . *U __this 1 -> 1 `i ]
-[; ;FastTransfer.c: 326: if (_this->head >= (5 * 3)) {
-"326
+[; ;FastTransfer.c: 384: if (_this->head >= (5 * 3)) {
+"384
 [e $ ! >= . *U __this 1 * -> 5 `i -> 3 `i 1196  ]
 {
-[; ;FastTransfer.c: 327: _this->head = 0;
-"327
+[; ;FastTransfer.c: 385: _this->head = 0;
+"385
 [e = . *U __this 1 -> 0 `i ]
-"328
+"386
 }
 [e :U 1196 ]
-[; ;FastTransfer.c: 328: }
-[; ;FastTransfer.c: 329: }
-"329
+[; ;FastTransfer.c: 386: }
+[; ;FastTransfer.c: 387: }
+"387
 [e :UE 1195 ]
 }
-"334
+"392
 [v _crcBufS_status_put `(v ~T0 @X0 1 ef3`*S1127`uc`uc ]
 {
-[; ;FastTransfer.c: 334: void crcBufS_status_put(struct crcBufS* _this, unsigned char time, unsigned char status) {
+[; ;FastTransfer.c: 392: void crcBufS_status_put(struct crcBufS* _this, unsigned char time, unsigned char status) {
 [e :U _crcBufS_status_put ]
 [v __this `*S1127 ~T0 @X0 1 r1 ]
 [v _time `uc ~T0 @X0 1 r2 ]
 [v _status `uc ~T0 @X0 1 r3 ]
 [f ]
-[; ;FastTransfer.c: 335: if (time >= 5) {
-"335
+[; ;FastTransfer.c: 393: if (time >= 5) {
+"393
 [e $ ! >= -> _time `i -> 5 `i 1198  ]
 {
-[; ;FastTransfer.c: 336: time = 5 - 1;
-"336
+[; ;FastTransfer.c: 394: time = 5 - 1;
+"394
 [e = _time -> - -> 5 `i -> 1 `i `uc ]
-"337
+"395
 }
 [e :U 1198 ]
-[; ;FastTransfer.c: 337: }
-[; ;FastTransfer.c: 338: time = time + 1;
-"338
+[; ;FastTransfer.c: 395: }
+[; ;FastTransfer.c: 396: time = time + 1;
+"396
 [e = _time -> + -> _time `i -> 1 `i `uc ]
-"339
+"397
 [v _wantedTime `i ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 339: int wantedTime = time * 3;
+[; ;FastTransfer.c: 397: int wantedTime = time * 3;
 [e = _wantedTime * -> _time `i -> 3 `i ]
-[; ;FastTransfer.c: 340: if (wantedTime > _this->head) {
-"340
+[; ;FastTransfer.c: 398: if (wantedTime > _this->head) {
+"398
 [e $ ! > _wantedTime . *U __this 1 1199  ]
 {
-[; ;FastTransfer.c: 341: wantedTime = ((5 * 3)) - (wantedTime - _this->head);
-"341
+[; ;FastTransfer.c: 399: wantedTime = ((5 * 3)) - (wantedTime - _this->head);
+"399
 [e = _wantedTime - * -> 5 `i -> 3 `i - _wantedTime . *U __this 1 ]
-[; ;FastTransfer.c: 342: _this->buf[(wantedTime + 2)] = status;
-"342
+[; ;FastTransfer.c: 400: _this->buf[(wantedTime + 2)] = status;
+"400
 [e = *U + &U . *U __this 0 * -> -> + _wantedTime -> 2 `i `ui `ux -> -> # *U &U . *U __this 0 `ui `ux _status ]
-"343
+"401
 }
-[; ;FastTransfer.c: 343: } else {
+[; ;FastTransfer.c: 401: } else {
 [e $U 1200  ]
 [e :U 1199 ]
 {
-[; ;FastTransfer.c: 344: _this->buf[(_this->head - wantedTime) + 2] = status;
-"344
+[; ;FastTransfer.c: 402: _this->buf[(_this->head - wantedTime) + 2] = status;
+"402
 [e = *U + &U . *U __this 0 * -> -> + - . *U __this 1 _wantedTime -> 2 `i `ui `ux -> -> # *U &U . *U __this 0 `ui `ux _status ]
-"345
+"403
 }
 [e :U 1200 ]
-[; ;FastTransfer.c: 345: }
-[; ;FastTransfer.c: 346: }
-"346
+[; ;FastTransfer.c: 403: }
+[; ;FastTransfer.c: 404: }
+"404
 [e :UE 1197 ]
 }
-"351
+"409
 [v _crcBufS_get `(uc ~T0 @X0 1 ef3`*S1127`uc`uc ]
 {
-[; ;FastTransfer.c: 351: unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned char space) {
+[; ;FastTransfer.c: 409: unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned char space) {
 [e :U _crcBufS_get ]
 [v __this `*S1127 ~T0 @X0 1 r1 ]
 [v _time `uc ~T0 @X0 1 r2 ]
 [v _space `uc ~T0 @X0 1 r3 ]
 [f ]
-[; ;FastTransfer.c: 352: if (time >= 5) {
-"352
+[; ;FastTransfer.c: 410: if (time >= 5) {
+"410
 [e $ ! >= -> _time `i -> 5 `i 1202  ]
 {
-[; ;FastTransfer.c: 353: time = 5 - 1;
-"353
+[; ;FastTransfer.c: 411: time = 5 - 1;
+"411
 [e = _time -> - -> 5 `i -> 1 `i `uc ]
-"354
+"412
 }
 [e :U 1202 ]
-[; ;FastTransfer.c: 354: }
-[; ;FastTransfer.c: 355: if (space >= 3) {
-"355
+[; ;FastTransfer.c: 412: }
+[; ;FastTransfer.c: 413: if (space >= 3) {
+"413
 [e $ ! >= -> _space `i -> 3 `i 1203  ]
 {
-[; ;FastTransfer.c: 356: space = 3 - 1;
-"356
+[; ;FastTransfer.c: 414: space = 3 - 1;
+"414
 [e = _space -> - -> 3 `i -> 1 `i `uc ]
-"357
+"415
 }
 [e :U 1203 ]
-[; ;FastTransfer.c: 357: }
-[; ;FastTransfer.c: 358: time = time + 1;
-"358
+[; ;FastTransfer.c: 415: }
+[; ;FastTransfer.c: 416: time = time + 1;
+"416
 [e = _time -> + -> _time `i -> 1 `i `uc ]
-"359
+"417
 [v _wantedTime `i ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 359: int wantedTime = time * 3;
+[; ;FastTransfer.c: 417: int wantedTime = time * 3;
 [e = _wantedTime * -> _time `i -> 3 `i ]
-[; ;FastTransfer.c: 360: if (wantedTime > _this->head) {
-"360
+[; ;FastTransfer.c: 418: if (wantedTime > _this->head) {
+"418
 [e $ ! > _wantedTime . *U __this 1 1204  ]
 {
-[; ;FastTransfer.c: 361: wantedTime = ((5 * 3)) - (wantedTime - _this->head);
-"361
+[; ;FastTransfer.c: 419: wantedTime = ((5 * 3)) - (wantedTime - _this->head);
+"419
 [e = _wantedTime - * -> 5 `i -> 3 `i - _wantedTime . *U __this 1 ]
-[; ;FastTransfer.c: 362: return (_this->buf[(wantedTime + space)]);
-"362
+[; ;FastTransfer.c: 420: return (_this->buf[(wantedTime + space)]);
+"420
 [e ) *U + &U . *U __this 0 * -> -> + _wantedTime -> _space `i `ui `ux -> -> # *U &U . *U __this 0 `ui `ux ]
 [e $UE 1201  ]
-"363
+"421
 }
-[; ;FastTransfer.c: 363: } else {
+[; ;FastTransfer.c: 421: } else {
 [e $U 1205  ]
 [e :U 1204 ]
 {
-[; ;FastTransfer.c: 364: return (_this->buf[(_this->head - wantedTime) + space]);
-"364
+[; ;FastTransfer.c: 422: return (_this->buf[(_this->head - wantedTime) + space]);
+"422
 [e ) *U + &U . *U __this 0 * -> -> + - . *U __this 1 _wantedTime -> _space `i `ui `ux -> -> # *U &U . *U __this 0 `ui `ux ]
 [e $UE 1201  ]
-"365
+"423
 }
 [e :U 1205 ]
-[; ;FastTransfer.c: 365: }
-[; ;FastTransfer.c: 366: }
-"366
+[; ;FastTransfer.c: 423: }
+[; ;FastTransfer.c: 424: }
+"424
 [e :UE 1201 ]
 }
-"371
+"429
 [v _CRCcheck `(v ~T0 @X0 1 ef ]
 {
-[; ;FastTransfer.c: 371: void CRCcheck(void) {
+[; ;FastTransfer.c: 429: void CRCcheck(void) {
 [e :U _CRCcheck ]
 [f ]
-[; ;FastTransfer.c: 373: while (!(serial_available() > 3));
-"373
+[; ;FastTransfer.c: 431: while (!(serial_available() > 3));
+"431
 [e $U 1207  ]
 [e :U 1208 ]
 [e :U 1207 ]
 [e $ ! > ( *U _serial_available ..  -> 3 `i 1208  ]
 [e :U 1209 ]
-"375
+"433
 [v _arrayHolder `uc ~T0 @X0 -> 3 `i a ]
-[; ;FastTransfer.c: 375: unsigned char arrayHolder[3];
-[; ;FastTransfer.c: 376: arrayHolder[0] = serial_read();
-"376
+[; ;FastTransfer.c: 433: unsigned char arrayHolder[3];
+[; ;FastTransfer.c: 434: arrayHolder[0] = serial_read();
+"434
 [e = *U + &U _arrayHolder * -> -> -> 0 `i `ui `ux -> -> # *U &U _arrayHolder `ui `ux ( *U _serial_read ..  ]
-[; ;FastTransfer.c: 377: arrayHolder[1] = serial_read();
-"377
+[; ;FastTransfer.c: 435: arrayHolder[1] = serial_read();
+"435
 [e = *U + &U _arrayHolder * -> -> -> 1 `i `ui `ux -> -> # *U &U _arrayHolder `ui `ux ( *U _serial_read ..  ]
-[; ;FastTransfer.c: 378: arrayHolder[2] = serial_read();
-"378
+[; ;FastTransfer.c: 436: arrayHolder[2] = serial_read();
+"436
 [e = *U + &U _arrayHolder * -> -> -> 2 `i `ui `ux -> -> # *U &U _arrayHolder `ui `ux ( *U _serial_read ..  ]
-"379
+"437
 [v _SentCRC `uc ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 379: unsigned char SentCRC = serial_read();
+[; ;FastTransfer.c: 437: unsigned char SentCRC = serial_read();
 [e = _SentCRC ( *U _serial_read ..  ]
-"380
+"438
 [v _calculatedCRC `uc ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 380: unsigned char calculatedCRC = CRC8(arrayHolder, 3);
+[; ;FastTransfer.c: 438: unsigned char calculatedCRC = CRC8(arrayHolder, 3);
 [e = _calculatedCRC ( _CRC8 (2 , -> &U _arrayHolder `*Cuc -> -> 3 `i `uc ]
-[; ;FastTransfer.c: 383: if (SentCRC == calculatedCRC) {
-"383
+[; ;FastTransfer.c: 441: if (SentCRC == calculatedCRC) {
+"441
 [e $ ! == -> _SentCRC `i -> _calculatedCRC `i 1210  ]
 {
-"385
+"443
 [v _rt `i ~T0 @X0 1 a ]
-[; ;FastTransfer.c: 385: int rt;
-[; ;FastTransfer.c: 386: for (rt = 0; rt < 5; rt++) {
-"386
+[; ;FastTransfer.c: 443: int rt;
+[; ;FastTransfer.c: 444: for (rt = 0; rt < 5; rt++) {
+"444
 {
 [e = _rt -> 0 `i ]
 [e $ < _rt -> 5 `i 1211  ]
 [e $U 1212  ]
 [e :U 1211 ]
 {
-[; ;FastTransfer.c: 387: if (returnAddress == crcBufS_get(&crc_buffer, rt, 0)) {
-"387
+[; ;FastTransfer.c: 445: if (returnAddress == crcBufS_get(&crc_buffer, rt, 0)) {
+"445
 [e $ ! == -> _returnAddress `i -> ( _crcBufS_get (3 , , &U _crc_buffer -> _rt `uc -> -> 0 `i `uc `i 1214  ]
 {
-[; ;FastTransfer.c: 388: if (arrayHolder[2] == crcBufS_get(&crc_buffer, rt, 1)) {
-"388
+[; ;FastTransfer.c: 446: if (arrayHolder[2] == crcBufS_get(&crc_buffer, rt, 1)) {
+"446
 [e $ ! == -> *U + &U _arrayHolder * -> -> -> 2 `i `ui `ux -> -> # *U &U _arrayHolder `ui `ux `i -> ( _crcBufS_get (3 , , &U _crc_buffer -> _rt `uc -> -> 1 `i `uc `i 1215  ]
 {
-[; ;FastTransfer.c: 389: if (arrayHolder[1] == 1) {
-"389
+[; ;FastTransfer.c: 447: if (arrayHolder[1] == 1) {
+"447
 [e $ ! == -> *U + &U _arrayHolder * -> -> -> 1 `i `ui `ux -> -> # *U &U _arrayHolder `ui `ux `i -> 1 `i 1216  ]
 {
-[; ;FastTransfer.c: 390: crcBufS_status_put(&crc_buffer, rt, 1);
-"390
+[; ;FastTransfer.c: 448: crcBufS_status_put(&crc_buffer, rt, 1);
+"448
 [e ( _crcBufS_status_put (3 , , &U _crc_buffer -> _rt `uc -> -> 1 `i `uc ]
-[; ;FastTransfer.c: 391: break;
-"391
+[; ;FastTransfer.c: 449: break;
+"449
 [e $U 1212  ]
-"392
+"450
 }
-[; ;FastTransfer.c: 392: } else if (arrayHolder[1] == 2) {
+[; ;FastTransfer.c: 450: } else if (arrayHolder[1] == 2) {
 [e $U 1217  ]
 [e :U 1216 ]
 [e $ ! == -> *U + &U _arrayHolder * -> -> -> 1 `i `ui `ux -> -> # *U &U _arrayHolder `ui `ux `i -> 2 `i 1218  ]
 {
-[; ;FastTransfer.c: 393: crcBufS_status_put(&crc_buffer, rt, 2);
-"393
+[; ;FastTransfer.c: 451: crcBufS_status_put(&crc_buffer, rt, 2);
+"451
 [e ( _crcBufS_status_put (3 , , &U _crc_buffer -> _rt `uc -> -> 2 `i `uc ]
-[; ;FastTransfer.c: 394: break;
-"394
+[; ;FastTransfer.c: 452: break;
+"452
 [e $U 1212  ]
-"395
+"453
 }
 [e :U 1218 ]
-"396
+"454
 [e :U 1217 ]
 }
 [e :U 1215 ]
-"397
+"455
 }
 [e :U 1214 ]
-"398
+"456
 }
-"386
+"444
 [e ++ _rt -> 1 `i ]
 [e $ < _rt -> 5 `i 1211  ]
 [e :U 1212 ]
-"398
+"456
 }
-"399
+"457
 }
-[; ;FastTransfer.c: 395: }
-[; ;FastTransfer.c: 396: }
-[; ;FastTransfer.c: 397: }
-[; ;FastTransfer.c: 398: }
-[; ;FastTransfer.c: 399: } else {
+[; ;FastTransfer.c: 453: }
+[; ;FastTransfer.c: 454: }
+[; ;FastTransfer.c: 455: }
+[; ;FastTransfer.c: 456: }
+[; ;FastTransfer.c: 457: } else {
 [e $U 1219  ]
 [e :U 1210 ]
 {
-[; ;FastTransfer.c: 400: crcErrorCounter++;
-"400
+[; ;FastTransfer.c: 458: crcErrorCounter++;
+"458
 [e ++ _crcErrorCounter -> -> 1 `i `ui ]
-"401
+"459
 }
 [e :U 1219 ]
-[; ;FastTransfer.c: 401: }
-[; ;FastTransfer.c: 402: }
-"402
+[; ;FastTransfer.c: 459: }
+[; ;FastTransfer.c: 460: }
+"460
 [e :UE 1206 ]
 }

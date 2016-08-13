@@ -13,9 +13,6 @@
  *               -Read in button inputs (Safty switches)
  *               -Read RS485 BUS for data and reply with expectied data (rely with safty states)
  *********************************************************************************************************/
-
-//#include <stdio.h>
-//#include <stdlib.h>
 #include "Communications.h"
 #include "tmr0.h"
 #include <xc.h>
@@ -24,13 +21,13 @@
 
 
 void main(void) {
-    Start();
+    Start(); //Set up pic for application use
     while (1) {
-        updateComms();
-        if(GetTime() > 1000){
-            INDICATOR ^= 1;
-            SetTime();
-            ReadFaults();
+        updateComms(); //Read UART ring buffer and look if packet is here for us!
+        if(GetTime() > 1000){  //read ticker and if it greater than one second
+            INDICATOR ^= 1;    //blink LED
+            SetTime();         // Clear timer 
+            ReadFaults();      //Read ports and load data into bytes
         }
     }
 }

@@ -27,31 +27,35 @@
 [v ___flmul __flmul `(d  1 e 3 0 ]
 "15 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
-"9 C:\EV16.git\trunk\SS.X\Communications.c
+"12 C:\EV16.git\trunk\SS.X\Communications.c
+[v _ComStart ComStart `(v  1 e 1 0 ]
+"17
 [v _updateComms updateComms `(v  1 e 1 0 ]
-"15
+"23
 [v _respondECU respondECU `(v  1 e 1 0 ]
-"31 C:\EV16.git\trunk\SS.X\FastTransfer.c
+"73 C:\EV16.git\trunk\SS.X\FastTransfer.c
+[v _begin begin `(v  1 e 1 0 ]
+"89
 [v _CRC8 CRC8 `(uc  1 e 1 0 ]
-"50
+"108
 [v _sendData sendData `(v  1 e 1 0 ]
-"79
+"137
 [v _receiveData receiveData `(uc  1 e 1 0 ]
-"214
+"272
 [v _ToSend ToSend `(v  1 e 1 0 ]
-"221
+"279
 [v _FastTransfer_buffer_put FastTransfer_buffer_put `(v  1 e 1 0 ]
-"259
+"317
 [v _FastTransfer_buffer_flush FastTransfer_buffer_flush `(v  1 e 1 0 ]
-"271
+"329
 [v _FastTransfer_buffer_modulo_inc FastTransfer_buffer_modulo_inc `(ui  1 e 2 0 ]
-"319
+"377
 [v _crcBufS_put crcBufS_put `(v  1 e 1 0 ]
-"334
+"392
 [v _crcBufS_status_put crcBufS_status_put `(v  1 e 1 0 ]
-"351
+"409
 [v _crcBufS_get crcBufS_get `(uc  1 e 1 0 ]
-"371
+"429
 [v _CRCcheck CRCcheck `(v  1 e 1 0 ]
 "9 C:\EV16.git\trunk\SS.X\Function.c
 [v _ReadFaults ReadFaults `(v  1 e 1 0 ]
@@ -59,13 +63,13 @@
 [v _GetFaults GetFaults `(uc  1 e 1 0 ]
 "32
 [v _Start Start `(v  1 e 1 0 ]
-"118
+"133
 [v _INTERRUPT_Initialize INTERRUPT_Initialize `(v  1 e 1 0 ]
-"141
+"156
 [v _INTERRUPT_InterruptManager INTERRUPT_InterruptManager `II(v  1 e 1 0 ]
-"162
+"177
 [v _Delay Delay `(v  1 e 1 0 ]
-"26 C:\EV16.git\trunk\SS.X\Main.c
+"23 C:\EV16.git\trunk\SS.X\Main.c
 [v _main main `(v  1 e 1 0 ]
 "23 C:\EV16.git\trunk\SS.X\tmr0.c
 [v _TMR0_Initialize TMR0_Initialize `(v  1 e 1 0 ]
@@ -77,18 +81,28 @@
 [v _GetTime GetTime `(l  1 e 4 0 ]
 "98
 [v _SetTime SetTime `(v  1 e 1 0 ]
-"56 C:\EV16.git\trunk\SS.X\UART.c
+"21 C:\EV16.git\trunk\SS.X\UART.c
+[v _EUSART1_Initialize EUSART1_Initialize `(v  1 e 1 0 ]
+"56
 [v _UART_buff_init UART_buff_init `(v  1 e 1 0 ]
 "68
 [v _UART_buff_put UART_buff_put `(v  1 e 1 0 ]
+[v i2_UART_buff_put UART_buff_put `(v  1 e 1 0 ]
 "81
 [v _UART_buff_get UART_buff_get `(uc  1 e 1 0 ]
+[v i2_UART_buff_get UART_buff_get `(uc  1 e 1 0 ]
 "102
 [v _UART_buff_size UART_buff_size `(i  1 e 2 0 ]
+[v i2_UART_buff_size UART_buff_size `(i  1 e 2 0 ]
 "106
 [v _UART_buff_modulo_inc UART_buff_modulo_inc `(ui  1 e 2 0 ]
+[v i2_UART_buff_modulo_inc UART_buff_modulo_inc `(ui  1 e 2 0 ]
 "114
 [v _UART_buff_peek UART_buff_peek `(uc  1 e 1 0 ]
+"118
+[v _Receive_peek Receive_peek `(uc  1 e 1 0 ]
+"122
+[v _Receive_available Receive_available `(i  1 e 2 0 ]
 "126
 [v _Receive_get Receive_get `(uc  1 e 1 0 ]
 "130
@@ -97,7 +111,13 @@
 [v _EUSART1_Receive_ISR EUSART1_Receive_ISR `(v  1 e 1 0 ]
 "150
 [v _EUSART1_Transmit_ISR EUSART1_Transmit_ISR `(v  1 e 1 0 ]
-[s S391 . 1 `uc 1 LATA0 1 0 :1:0 
+"49 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+[v _ANSELA ANSELA `VEuc  1 e 1 @3896 ]
+"142
+[v _ANSELC ANSELC `VEuc  1 e 1 @3898 ]
+"192
+[v _ANSELD ANSELD `VEuc  1 e 1 @3899 ]
+[s S403 . 1 `uc 1 LATA0 1 0 :1:0 
 `uc 1 LATA1 1 0 :1:1 
 `uc 1 LATA2 1 0 :1:2 
 `uc 1 LATA3 1 0 :1:3 
@@ -106,33 +126,33 @@
 `uc 1 LATA6 1 0 :1:6 
 `uc 1 LATA7 1 0 :1:7 
 ]
-"7716 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
-[s S400 . 1 `uc 1 LA0 1 0 :1:0 
+"7716
+[s S412 . 1 `uc 1 LA0 1 0 :1:0 
 ]
-[s S402 . 1 `uc 1 . 1 0 :1:0 
+[s S414 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 LA1 1 0 :1:1 
 ]
-[s S405 . 1 `uc 1 . 1 0 :2:0 
+[s S417 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LA2 1 0 :1:2 
 ]
-[s S408 . 1 `uc 1 . 1 0 :3:0 
+[s S420 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 LA3 1 0 :1:3 
 ]
-[s S411 . 1 `uc 1 . 1 0 :4:0 
+[s S423 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 LA4 1 0 :1:4 
 ]
-[s S414 . 1 `uc 1 . 1 0 :5:0 
+[s S426 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 LA5 1 0 :1:5 
 ]
-[s S417 . 1 `uc 1 . 1 0 :6:0 
+[s S429 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 LA6 1 0 :1:6 
 ]
-[s S420 . 1 `uc 1 . 1 0 :7:0 
+[s S432 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 LA7 1 0 :1:7 
 ]
-[u S423 . 1 `S391 1 . 1 0 `S400 1 . 1 0 `S402 1 . 1 0 `S405 1 . 1 0 `S408 1 . 1 0 `S411 1 . 1 0 `S414 1 . 1 0 `S417 1 . 1 0 `S420 1 . 1 0 ]
-[v _LATAbits LATAbits `VES423  1 e 1 @3977 ]
-[s S811 . 1 `uc 1 LATC0 1 0 :1:0 
+[u S435 . 1 `S403 1 . 1 0 `S412 1 . 1 0 `S414 1 . 1 0 `S417 1 . 1 0 `S420 1 . 1 0 `S423 1 . 1 0 `S426 1 . 1 0 `S429 1 . 1 0 `S432 1 . 1 0 ]
+[v _LATAbits LATAbits `VES435  1 e 1 @3977 ]
+[s S813 . 1 `uc 1 LATC0 1 0 :1:0 
 `uc 1 LATC1 1 0 :1:1 
 `uc 1 LATC2 1 0 :1:2 
 `uc 1 LATC3 1 0 :1:3 
@@ -142,32 +162,32 @@
 `uc 1 LATC7 1 0 :1:7 
 ]
 "7980
-[s S820 . 1 `uc 1 LC0 1 0 :1:0 
+[s S822 . 1 `uc 1 LC0 1 0 :1:0 
 ]
-[s S822 . 1 `uc 1 . 1 0 :1:0 
+[s S824 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 LC1 1 0 :1:1 
 ]
-[s S825 . 1 `uc 1 . 1 0 :2:0 
+[s S827 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LC2 1 0 :1:2 
 ]
-[s S828 . 1 `uc 1 . 1 0 :3:0 
+[s S830 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 LC3 1 0 :1:3 
 ]
-[s S831 . 1 `uc 1 . 1 0 :4:0 
+[s S833 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 LC4 1 0 :1:4 
 ]
-[s S834 . 1 `uc 1 . 1 0 :5:0 
+[s S836 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 LC5 1 0 :1:5 
 ]
-[s S837 . 1 `uc 1 . 1 0 :6:0 
+[s S839 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 LC6 1 0 :1:6 
 ]
-[s S840 . 1 `uc 1 . 1 0 :7:0 
+[s S842 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 LC7 1 0 :1:7 
 ]
-[u S843 . 1 `S811 1 . 1 0 `S820 1 . 1 0 `S822 1 . 1 0 `S825 1 . 1 0 `S828 1 . 1 0 `S831 1 . 1 0 `S834 1 . 1 0 `S837 1 . 1 0 `S840 1 . 1 0 ]
-[v _LATCbits LATCbits `VES843  1 e 1 @3979 ]
-[s S44 . 1 `uc 1 LATD0 1 0 :1:0 
+[u S845 . 1 `S813 1 . 1 0 `S822 1 . 1 0 `S824 1 . 1 0 `S827 1 . 1 0 `S830 1 . 1 0 `S833 1 . 1 0 `S836 1 . 1 0 `S839 1 . 1 0 `S842 1 . 1 0 ]
+[v _LATCbits LATCbits `VES845  1 e 1 @3979 ]
+[s S71 . 1 `uc 1 LATD0 1 0 :1:0 
 `uc 1 LATD1 1 0 :1:1 
 `uc 1 LATD2 1 0 :1:2 
 `uc 1 LATD3 1 0 :1:3 
@@ -177,32 +197,32 @@
 `uc 1 LATD7 1 0 :1:7 
 ]
 "8112
-[s S53 . 1 `uc 1 LD0 1 0 :1:0 
+[s S80 . 1 `uc 1 LD0 1 0 :1:0 
 ]
-[s S55 . 1 `uc 1 . 1 0 :1:0 
+[s S82 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 LD1 1 0 :1:1 
 ]
-[s S58 . 1 `uc 1 . 1 0 :2:0 
+[s S85 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LD2 1 0 :1:2 
 ]
-[s S61 . 1 `uc 1 . 1 0 :3:0 
+[s S88 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 LD3 1 0 :1:3 
 ]
-[s S64 . 1 `uc 1 . 1 0 :4:0 
+[s S91 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 LD4 1 0 :1:4 
 ]
-[s S67 . 1 `uc 1 . 1 0 :5:0 
+[s S94 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 LD5 1 0 :1:5 
 ]
-[s S70 . 1 `uc 1 . 1 0 :6:0 
+[s S97 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 LD6 1 0 :1:6 
 ]
-[s S73 . 1 `uc 1 . 1 0 :7:0 
+[s S100 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 LD7 1 0 :1:7 
 ]
-[u S76 . 1 `S44 1 . 1 0 `S53 1 . 1 0 `S55 1 . 1 0 `S58 1 . 1 0 `S61 1 . 1 0 `S64 1 . 1 0 `S67 1 . 1 0 `S70 1 . 1 0 `S73 1 . 1 0 ]
-[v _LATDbits LATDbits `VES76  1 e 1 @3980 ]
-[s S1052 . 1 `uc 1 TRISA0 1 0 :1:0 
+[u S103 . 1 `S71 1 . 1 0 `S80 1 . 1 0 `S82 1 . 1 0 `S85 1 . 1 0 `S88 1 . 1 0 `S91 1 . 1 0 `S94 1 . 1 0 `S97 1 . 1 0 `S100 1 . 1 0 ]
+[v _LATDbits LATDbits `VES103  1 e 1 @3980 ]
+[s S1054 . 1 `uc 1 TRISA0 1 0 :1:0 
 `uc 1 TRISA1 1 0 :1:1 
 `uc 1 TRISA2 1 0 :1:2 
 `uc 1 TRISA3 1 0 :1:3 
@@ -212,7 +232,7 @@
 `uc 1 TRISA7 1 0 :1:7 
 ]
 "8285
-[s S1061 . 1 `uc 1 RA0 1 0 :1:0 
+[s S1063 . 1 `uc 1 RA0 1 0 :1:0 
 `uc 1 RA1 1 0 :1:1 
 `uc 1 RA2 1 0 :1:2 
 `uc 1 RA3 1 0 :1:3 
@@ -221,9 +241,9 @@
 `uc 1 RA6 1 0 :1:6 
 `uc 1 RA7 1 0 :1:7 
 ]
-[u S1070 . 1 `S1052 1 . 1 0 `S1061 1 . 1 0 ]
-[v _TRISAbits TRISAbits `VES1070  1 e 1 @3986 ]
-[s S972 . 1 `uc 1 TRISC0 1 0 :1:0 
+[u S1072 . 1 `S1054 1 . 1 0 `S1063 1 . 1 0 ]
+[v _TRISAbits TRISAbits `VES1072  1 e 1 @3986 ]
+[s S974 . 1 `uc 1 TRISC0 1 0 :1:0 
 `uc 1 TRISC1 1 0 :1:1 
 `uc 1 TRISC2 1 0 :1:2 
 `uc 1 TRISC3 1 0 :1:3 
@@ -233,7 +253,7 @@
 `uc 1 TRISC7 1 0 :1:7 
 ]
 "8727
-[s S981 . 1 `uc 1 RC0 1 0 :1:0 
+[s S983 . 1 `uc 1 RC0 1 0 :1:0 
 `uc 1 RC1 1 0 :1:1 
 `uc 1 RC2 1 0 :1:2 
 `uc 1 RC3 1 0 :1:3 
@@ -242,9 +262,9 @@
 `uc 1 RC6 1 0 :1:6 
 `uc 1 RC7 1 0 :1:7 
 ]
-[u S990 . 1 `S972 1 . 1 0 `S981 1 . 1 0 ]
-[v _TRISCbits TRISCbits `VES990  1 e 1 @3988 ]
-[s S1012 . 1 `uc 1 TRISD0 1 0 :1:0 
+[u S992 . 1 `S974 1 . 1 0 `S983 1 . 1 0 ]
+[v _TRISCbits TRISCbits `VES992  1 e 1 @3988 ]
+[s S1014 . 1 `uc 1 TRISD0 1 0 :1:0 
 `uc 1 TRISD1 1 0 :1:1 
 `uc 1 TRISD2 1 0 :1:2 
 `uc 1 TRISD3 1 0 :1:3 
@@ -254,7 +274,7 @@
 `uc 1 TRISD7 1 0 :1:7 
 ]
 "8948
-[s S1021 . 1 `uc 1 RD0 1 0 :1:0 
+[s S1023 . 1 `uc 1 RD0 1 0 :1:0 
 `uc 1 RD1 1 0 :1:1 
 `uc 1 RD2 1 0 :1:2 
 `uc 1 RD3 1 0 :1:3 
@@ -263,11 +283,11 @@
 `uc 1 RD6 1 0 :1:6 
 `uc 1 RD7 1 0 :1:7 
 ]
-[u S1030 . 1 `S1012 1 . 1 0 `S1021 1 . 1 0 ]
-[v _TRISDbits TRISDbits `VES1030  1 e 1 @3989 ]
+[u S1032 . 1 `S1014 1 . 1 0 `S1023 1 . 1 0 ]
+[v _TRISDbits TRISDbits `VES1032  1 e 1 @3989 ]
 "9252
 [v _OSCTUNE OSCTUNE `VEuc  1 e 1 @3995 ]
-[s S489 . 1 `uc 1 TMR1IE 1 0 :1:0 
+[s S501 . 1 `uc 1 TMR1IE 1 0 :1:0 
 `uc 1 TMR2IE 1 0 :1:1 
 `uc 1 CCP1IE 1 0 :1:2 
 `uc 1 SSP1IE 1 0 :1:3 
@@ -276,14 +296,14 @@
 `uc 1 ADIE 1 0 :1:6 
 ]
 "9622
-[s S497 . 1 `uc 1 . 1 0 :3:0 
+[s S509 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 SSPIE 1 0 :1:3 
 `uc 1 TXIE 1 0 :1:4 
 `uc 1 RCIE 1 0 :1:5 
 ]
-[u S502 . 1 `S489 1 . 1 0 `S497 1 . 1 0 ]
-[v _PIE1bits PIE1bits `VES502  1 e 1 @3997 ]
-[s S1286 . 1 `uc 1 TMR1IF 1 0 :1:0 
+[u S514 . 1 `S501 1 . 1 0 `S509 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES514  1 e 1 @3997 ]
+[s S1292 . 1 `uc 1 TMR1IF 1 0 :1:0 
 `uc 1 TMR2IF 1 0 :1:1 
 `uc 1 CCP1IF 1 0 :1:2 
 `uc 1 SSP1IF 1 0 :1:3 
@@ -292,14 +312,14 @@
 `uc 1 ADIF 1 0 :1:6 
 ]
 "9698
-[s S1294 . 1 `uc 1 . 1 0 :3:0 
+[s S1300 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 SSPIF 1 0 :1:3 
 `uc 1 TXIF 1 0 :1:4 
 `uc 1 RCIF 1 0 :1:5 
 ]
-[u S1299 . 1 `S1286 1 . 1 0 `S1294 1 . 1 0 ]
-[v _PIR1bits PIR1bits `VES1299  1 e 1 @3998 ]
-[s S1167 . 1 `uc 1 TMR1IP 1 0 :1:0 
+[u S1305 . 1 `S1292 1 . 1 0 `S1300 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES1305  1 e 1 @3998 ]
+[s S1173 . 1 `uc 1 TMR1IP 1 0 :1:0 
 `uc 1 TMR2IP 1 0 :1:1 
 `uc 1 CCP1IP 1 0 :1:2 
 `uc 1 SSP1IP 1 0 :1:3 
@@ -308,14 +328,14 @@
 `uc 1 ADIP 1 0 :1:6 
 ]
 "9774
-[s S1175 . 1 `uc 1 . 1 0 :3:0 
+[s S1181 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 SSPIP 1 0 :1:3 
 `uc 1 TXIP 1 0 :1:4 
 `uc 1 RCIP 1 0 :1:5 
 ]
-[u S1180 . 1 `S1167 1 . 1 0 `S1175 1 . 1 0 ]
-[v _IPR1bits IPR1bits `VES1180  1 e 1 @3999 ]
-[s S1232 . 1 `uc 1 CCP2IP 1 0 :1:0 
+[u S1186 . 1 `S1173 1 . 1 0 `S1181 1 . 1 0 ]
+[v _IPR1bits IPR1bits `VES1186  1 e 1 @3999 ]
+[s S1238 . 1 `uc 1 CCP2IP 1 0 :1:0 
 `uc 1 TMR3IP 1 0 :1:1 
 `uc 1 HLVDIP 1 0 :1:2 
 `uc 1 BCL1IP 1 0 :1:3 
@@ -325,18 +345,18 @@
 `uc 1 OSCFIP 1 0 :1:7 
 ]
 "10024
-[s S1241 . 1 `uc 1 . 1 0 :2:0 
+[s S1247 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LVDIP 1 0 :1:2 
 `uc 1 BCLIP 1 0 :1:3 
 ]
-[s S1245 . 1 `uc 1 . 1 0 :6:0 
+[s S1251 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 CMIP 1 0 :1:6 
 ]
-[u S1248 . 1 `S1232 1 . 1 0 `S1241 1 . 1 0 `S1245 1 . 1 0 ]
-[v _IPR2bits IPR2bits `VES1248  1 e 1 @4002 ]
+[u S1254 . 1 `S1238 1 . 1 0 `S1247 1 . 1 0 `S1251 1 . 1 0 ]
+[v _IPR2bits IPR2bits `VES1254  1 e 1 @4002 ]
 "10545
 [v _RC1STA RC1STA `VEuc  1 e 1 @4011 ]
-[s S538 . 1 `uc 1 RX9D 1 0 :1:0 
+[s S550 . 1 `uc 1 RX9D 1 0 :1:0 
 `uc 1 OERR 1 0 :1:1 
 `uc 1 FERR 1 0 :1:2 
 `uc 1 ADDEN 1 0 :1:3 
@@ -346,10 +366,10 @@
 `uc 1 SPEN 1 0 :1:7 
 ]
 "10888
-[s S547 . 1 `uc 1 . 1 0 :3:0 
+[s S559 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 ADEN 1 0 :1:3 
 ]
-[s S550 . 1 `uc 1 RX9D1 1 0 :1:0 
+[s S562 . 1 `uc 1 RX9D1 1 0 :1:0 
 `uc 1 OERR1 1 0 :1:1 
 `uc 1 FERR1 1 0 :1:2 
 `uc 1 ADDEN1 1 0 :1:3 
@@ -358,19 +378,19 @@
 `uc 1 RX91 1 0 :1:6 
 `uc 1 SPEN1 1 0 :1:7 
 ]
-[s S559 . 1 `uc 1 . 1 0 :6:0 
+[s S571 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC8_9 1 0 :1:6 
 ]
-[s S562 . 1 `uc 1 . 1 0 :6:0 
+[s S574 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC9 1 0 :1:6 
 ]
-[s S565 . 1 `uc 1 RCD8 1 0 :1:0 
+[s S577 . 1 `uc 1 RCD8 1 0 :1:0 
 ]
-[s S567 . 1 `uc 1 . 1 0 :5:0 
+[s S579 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 SRENA 1 0 :1:5 
 ]
-[u S570 . 1 `S538 1 . 1 0 `S547 1 . 1 0 `S550 1 . 1 0 `S559 1 . 1 0 `S562 1 . 1 0 `S565 1 . 1 0 `S567 1 . 1 0 ]
-[v _RC1STAbits RC1STAbits `VES570  1 e 1 @4011 ]
+[u S582 . 1 `S550 1 . 1 0 `S559 1 . 1 0 `S562 1 . 1 0 `S571 1 . 1 0 `S574 1 . 1 0 `S577 1 . 1 0 `S579 1 . 1 0 ]
+[v _RC1STAbits RC1STAbits `VES582  1 e 1 @4011 ]
 "11006
 [v _TX1STA TX1STA `VEuc  1 e 1 @4012 ]
 "11377
@@ -383,22 +403,22 @@
 [v _SPBRGH1 SPBRGH1 `VEuc  1 e 1 @4016 ]
 "12579
 [v _BAUD1CON BAUD1CON `VEuc  1 e 1 @4024 ]
-[s S1100 . 1 `uc 1 NOT_BOR 1 0 :1:0 
+[s S1106 . 1 `uc 1 NOT_BOR 1 0 :1:0 
 ]
 "16424
-[s S1102 . 1 `uc 1 . 1 0 :1:0 
+[s S1108 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 NOT_POR 1 0 :1:1 
 ]
-[s S1105 . 1 `uc 1 . 1 0 :2:0 
+[s S1111 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 NOT_PD 1 0 :1:2 
 ]
-[s S1108 . 1 `uc 1 . 1 0 :3:0 
+[s S1114 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 NOT_TO 1 0 :1:3 
 ]
-[s S1111 . 1 `uc 1 . 1 0 :4:0 
+[s S1117 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 NOT_RI 1 0 :1:4 
 ]
-[s S1114 . 1 `uc 1 nBOR 1 0 :1:0 
+[s S1120 . 1 `uc 1 nBOR 1 0 :1:0 
 `uc 1 nPOR 1 0 :1:1 
 `uc 1 nPD 1 0 :1:2 
 `uc 1 nTO 1 0 :1:3 
@@ -407,21 +427,21 @@
 `uc 1 SBOREN 1 0 :1:6 
 `uc 1 IPEN 1 0 :1:7 
 ]
-[s S1123 . 1 `uc 1 BOR 1 0 :1:0 
+[s S1129 . 1 `uc 1 BOR 1 0 :1:0 
 `uc 1 POR 1 0 :1:1 
 `uc 1 PD 1 0 :1:2 
 `uc 1 TO 1 0 :1:3 
 `uc 1 RI 1 0 :1:4 
 ]
-[u S1129 . 1 `S1100 1 . 1 0 `S1102 1 . 1 0 `S1105 1 . 1 0 `S1108 1 . 1 0 `S1111 1 . 1 0 `S1114 1 . 1 0 `S1123 1 . 1 0 ]
-[v _RCONbits RCONbits `VES1129  1 e 1 @4048 ]
+[u S1135 . 1 `S1106 1 . 1 0 `S1108 1 . 1 0 `S1111 1 . 1 0 `S1114 1 . 1 0 `S1117 1 . 1 0 `S1120 1 . 1 0 `S1129 1 . 1 0 ]
+[v _RCONbits RCONbits `VES1135  1 e 1 @4048 ]
 "16540
 [v _OSCCON2 OSCCON2 `VEuc  1 e 1 @4050 ]
 "16596
 [v _OSCCON OSCCON `VEuc  1 e 1 @4051 ]
 "16678
 [v _T0CON T0CON `VEuc  1 e 1 @4053 ]
-[s S750 . 1 `uc 1 T0PS 1 0 :3:0 
+[s S752 . 1 `uc 1 T0PS 1 0 :3:0 
 `uc 1 PSA 1 0 :1:3 
 `uc 1 T0SE 1 0 :1:4 
 `uc 1 T0CS 1 0 :1:5 
@@ -429,21 +449,21 @@
 `uc 1 TMR0ON 1 0 :1:7 
 ]
 "16698
-[s S757 . 1 `uc 1 T0PS0 1 0 :1:0 
+[s S759 . 1 `uc 1 T0PS0 1 0 :1:0 
 `uc 1 T0PS1 1 0 :1:1 
 `uc 1 T0PS2 1 0 :1:2 
 ]
-[u S761 . 1 `S750 1 . 1 0 `S757 1 . 1 0 ]
-[v _T0CONbits T0CONbits `VES761  1 e 1 @4053 ]
+[u S763 . 1 `S752 1 . 1 0 `S759 1 . 1 0 ]
+[v _T0CONbits T0CONbits `VES763  1 e 1 @4053 ]
 "16753
 [v _TMR0L TMR0L `VEuc  1 e 1 @4054 ]
 "16772
 [v _TMR0H TMR0H `VEuc  1 e 1 @4055 ]
-[s S1197 . 1 `uc 1 . 1 0 :7:0 
+[s S1203 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 NOT_RBPU 1 0 :1:7 
 ]
 "17406
-[s S1200 . 1 `uc 1 RBIP 1 0 :1:0 
+[s S1206 . 1 `uc 1 RBIP 1 0 :1:0 
 `uc 1 . 1 0 :1:1 
 `uc 1 TMR0IP 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -452,12 +472,12 @@
 `uc 1 INTEDG0 1 0 :1:6 
 `uc 1 nRBPU 1 0 :1:7 
 ]
-[s S1209 . 1 `uc 1 . 1 0 :7:0 
+[s S1215 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 RBPU 1 0 :1:7 
 ]
-[u S1212 . 1 `S1197 1 . 1 0 `S1200 1 . 1 0 `S1209 1 . 1 0 ]
-[v _INTCON2bits INTCON2bits `VES1212  1 e 1 @4081 ]
-[s S697 . 1 `uc 1 RBIF 1 0 :1:0 
+[u S1218 . 1 `S1203 1 . 1 0 `S1206 1 . 1 0 `S1215 1 . 1 0 ]
+[v _INTCON2bits INTCON2bits `VES1218  1 e 1 @4081 ]
+[s S699 . 1 `uc 1 RBIF 1 0 :1:0 
 `uc 1 INT0IF 1 0 :1:1 
 `uc 1 TMR0IF 1 0 :1:2 
 `uc 1 RBIE 1 0 :1:3 
@@ -467,7 +487,7 @@
 `uc 1 GIE_GIEH 1 0 :1:7 
 ]
 "17482
-[s S706 . 1 `uc 1 . 1 0 :1:0 
+[s S708 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 INT0F 1 0 :1:1 
 `uc 1 T0IF 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -476,61 +496,61 @@
 `uc 1 PEIE 1 0 :1:6 
 `uc 1 GIE 1 0 :1:7 
 ]
-[s S715 . 1 `uc 1 . 1 0 :6:0 
+[s S717 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 GIEL 1 0 :1:6 
 `uc 1 GIEH 1 0 :1:7 
 ]
-[u S719 . 1 `S697 1 . 1 0 `S706 1 . 1 0 `S715 1 . 1 0 ]
-[v _INTCONbits INTCONbits `VES719  1 e 1 @4082 ]
-"24 C:\EV16.git\trunk\SS.X\FastTransfer.h
-[v _receiveArray receiveArray `VE[20]i  1 e 40 0 ]
-"26
+[u S721 . 1 `S699 1 . 1 0 `S708 1 . 1 0 `S717 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES721  1 e 1 @4082 ]
+"10 C:\EV16.git\trunk\SS.X\Communications.c
+[v _receiveArray receiveArray `[10]uc  1 e 10 0 ]
+"14 C:\EV16.git\trunk\SS.X\FastTransfer.c
 [v _serial_write serial_write `*.37(v  1 e 2 0 ]
-"27
+"15
 [v _serial_read serial_read `*.37(uc  1 e 2 0 ]
-"28
+"16
 [v _serial_available serial_available `*.37(i  1 e 2 0 ]
-"29
+"17
 [v _serial_peek serial_peek `*.37(uc  1 e 2 0 ]
-"30
+"18
 [v _rx_buffer rx_buffer `[200]uc  1 e 200 0 ]
-"31
+"19
 [v _rx_array_inx rx_array_inx `uc  1 e 1 0 ]
-"32
+"20
 [v _rx_len rx_len `uc  1 e 1 0 ]
-"33
+"21
 [v _calc_CS calc_CS `uc  1 e 1 0 ]
-"34
+"22
 [v _moduleAddress moduleAddress `uc  1 e 1 0 ]
-"35
+"23
 [v _returnAddress returnAddress `uc  1 e 1 0 ]
-"36
+"24
 [v _maxDataAddress maxDataAddress `uc  1 e 1 0 ]
-"37
-[v _receiveArrayAddress receiveArrayAddress `*.2VEi  1 e 2 0 ]
-"38
+"25
+[v _receiveArrayAddress receiveArrayAddress `*.39VEi  1 e 2 0 ]
+"26
 [v _sendStructAddress sendStructAddress `*.39uc  1 e 2 0 ]
-"39
+"27
 [v _AKNAKsend AKNAKsend `uc  1 e 1 0 ]
-"40
+"28
 [v _alignErrorCounter alignErrorCounter `ui  1 e 2 0 ]
-"41
+"29
 [v _crcErrorCounter crcErrorCounter `ui  1 e 2 0 ]
-"42
+"30
 [v _addressErrorCounter addressErrorCounter `ui  1 e 2 0 ]
-"43
+"31
 [v _dataAdressErrorCounter dataAdressErrorCounter `ui  1 e 2 0 ]
-"44
+"32
 [v _rx_address rx_address `uc  1 e 1 0 ]
-[s S25 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[s S194 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+"46
+[v _ring_buffer ring_buffer `S194  1 e 206 0 ]
+[u S199 stuff 2 `[2]uc 1 parts 2 0 `ui 1 integer 2 0 ]
+"52
+[v _group group `S199  1 e 2 0 ]
+[s S202 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
 "58
-[v _ring_buffer ring_buffer `S25  1 e 206 0 ]
-[u S30 stuff 2 `[2]uc 1 parts 2 0 `ui 1 integer 2 0 ]
-"64
-[v _group group `S30  1 e 2 0 ]
-[s S33 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
-"70
-[v _crc_buffer crc_buffer `S33  1 e 17 0 ]
+[v _crc_buffer crc_buffer `S202  1 e 17 0 ]
 "7 C:\EV16.git\trunk\SS.X\Function.c
 [v _ByteHigh ByteHigh `uc  1 e 1 0 ]
 [v _ByteLow ByteLow `uc  1 e 1 0 ]
@@ -538,97 +558,86 @@
 [v _timer0ReloadVal16bit timer0ReloadVal16bit `VEui  1 e 2 0 ]
 "20
 [v _time time `l  1 e 4 0 ]
-[s S484 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[s S21 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
 "109 C:\EV16.git\trunk\SS.X\UART.h
-[v _input_buffer input_buffer `S484  1 e 206 0 ]
+[v _input_buffer input_buffer `S21  1 e 206 0 ]
 "110
-[v _output_buffer output_buffer `S484  1 e 206 0 ]
+[v _output_buffer output_buffer `S21  1 e 206 0 ]
 "112
 [v _Transmit_stall Transmit_stall `uc  1 e 1 0 ]
-"26 C:\EV16.git\trunk\SS.X\Main.c
+"23 C:\EV16.git\trunk\SS.X\Main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"36
+"33
 } 0
-"9 C:\EV16.git\trunk\SS.X\Communications.c
+"17 C:\EV16.git\trunk\SS.X\Communications.c
 [v _updateComms updateComms `(v  1 e 1 0 ]
 {
-"13
+"21
 } 0
-"15
+"23
 [v _respondECU respondECU `(v  1 e 1 0 ]
 {
-"23
+"31
 } 0
-"50 C:\EV16.git\trunk\SS.X\FastTransfer.c
+"108 C:\EV16.git\trunk\SS.X\FastTransfer.c
 [v _sendData sendData `(v  1 e 1 0 ]
 {
 [v sendData@whereToSend whereToSend `uc  1 a 1 wreg ]
-"63
-[v sendData@i i `i  1 a 2 6 ]
-"50
-[v sendData@CS CS `uc  1 a 1 5 ]
+"121
+[v sendData@i i `i  1 a 2 7 ]
+"108
+[v sendData@CS CS `uc  1 a 1 6 ]
 [v sendData@whereToSend whereToSend `uc  1 a 1 wreg ]
-"53
-[v sendData@whereToSend whereToSend `uc  1 a 1 4 ]
-"77
+"111
+[v sendData@whereToSend whereToSend `uc  1 a 1 5 ]
+"135
 } 0
-"319
+"377
 [v _crcBufS_put crcBufS_put `(v  1 e 1 0 ]
 {
-[s S33 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
-[v crcBufS_put@_this _this `*.39S33  1 p 2 26 ]
+[s S202 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
+[v crcBufS_put@_this _this `*.39S202  1 p 2 26 ]
 [v crcBufS_put@address address `uc  1 p 1 28 ]
 [v crcBufS_put@oldCRC oldCRC `uc  1 p 1 29 ]
 [v crcBufS_put@status status `uc  1 p 1 30 ]
-"329
+"387
 } 0
-"259
+"317
 [v _FastTransfer_buffer_flush FastTransfer_buffer_flush `(v  1 e 1 0 ]
 {
-[s S25 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
-[v FastTransfer_buffer_flush@_this _this `*.39S25  1 p 2 0 ]
+[s S194 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[v FastTransfer_buffer_flush@_this _this `*.39S194  1 p 2 0 ]
 [v FastTransfer_buffer_flush@clearBuffer clearBuffer `Ci  1 p 2 2 ]
-"266
+"324
 } 0
-"8 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\memset.c
-[v _memset memset `(*.39v  1 e 2 0 ]
-{
-"15
-[v memset@p p `*.39uc  1 a 2 32 ]
-"8
-[v memset@p1 p1 `*.39v  1 p 2 26 ]
-[v memset@c c `i  1 p 2 28 ]
-[v memset@n n `ui  1 p 2 30 ]
-"22
-} 0
-"214 C:\EV16.git\trunk\SS.X\FastTransfer.c
+"272
 [v _ToSend ToSend `(v  1 e 1 0 ]
 {
 [v ToSend@where where `uc  1 a 1 wreg ]
 [v ToSend@where where `uc  1 a 1 wreg ]
 [v ToSend@what what `ui  1 p 2 2 ]
 [v ToSend@where where `uc  1 a 1 4 ]
-"216
+"274
 } 0
-"221
+"279
 [v _FastTransfer_buffer_put FastTransfer_buffer_put `(v  1 e 1 0 ]
 {
-[s S25 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
-[v FastTransfer_buffer_put@_this _this `*.39S25  1 p 2 32 ]
+[s S194 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[v FastTransfer_buffer_put@_this _this `*.39S194  1 p 2 32 ]
 [v FastTransfer_buffer_put@towhere towhere `uc  1 p 1 34 ]
 [v FastTransfer_buffer_put@towhat towhat `ui  1 p 2 35 ]
-"238
+"296
 } 0
-"271
+"329
 [v _FastTransfer_buffer_modulo_inc FastTransfer_buffer_modulo_inc `(ui  1 e 2 0 ]
 {
-"272
+"330
 [v FastTransfer_buffer_modulo_inc@my_value my_value `ui  1 a 2 30 ]
-"271
+"329
 [v FastTransfer_buffer_modulo_inc@value value `Cui  1 p 2 26 ]
 [v FastTransfer_buffer_modulo_inc@modulus modulus `Cui  1 p 2 28 ]
-"277
+"335
 } 0
 "23 C:\EV16.git\trunk\SS.X\Function.c
 [v _GetFaults GetFaults `(uc  1 e 1 0 ]
@@ -638,89 +647,154 @@
 [v GetFaults@num num `uc  1 a 1 26 ]
 "30
 } 0
-"162
+"177
 [v _Delay Delay `(v  1 e 1 0 ]
 {
-"163
+"178
 [v Delay@x x `i  1 a 2 29 ]
-"162
+"177
 [v Delay@wait wait `i  1 p 2 26 ]
-"167
+"182
 } 0
-"79 C:\EV16.git\trunk\SS.X\FastTransfer.c
+"137 C:\EV16.git\trunk\SS.X\FastTransfer.c
 [v _receiveData receiveData `(uc  1 e 1 0 ]
 {
-"183
-[v receiveData@holder_317 holder `[3]uc  1 a 3 20 ]
-"187
-[v receiveData@crcHolder_318 crcHolder `uc  1 a 1 16 ]
-"158
-[v receiveData@holder holder `[3]uc  1 a 3 17 ]
+"241
+[v receiveData@holder_329 holder `[3]uc  1 a 3 18 ]
+"245
+[v receiveData@crcHolder_330 crcHolder `uc  1 a 1 22 ]
+"216
+[v receiveData@holder holder `[3]uc  1 a 3 15 ]
+"220
+[v receiveData@crcHolder crcHolder `uc  1 a 1 21 ]
 "162
-[v receiveData@crcHolder crcHolder `uc  1 a 1 15 ]
-"104
 [v receiveData@u u `i  1 a 2 23 ]
-"145
+"203
 [v receiveData@r r `i  1 a 2 25 ]
-"209
+"267
 } 0
-"371
+"130 C:\EV16.git\trunk\SS.X\UART.c
+[v _Send_put Send_put `(v  1 e 1 0 ]
+{
+[v Send_put@_data _data `uc  1 a 1 wreg ]
+[v Send_put@_data _data `uc  1 a 1 wreg ]
+[v Send_put@_data _data `uc  1 a 1 0 ]
+"137
+} 0
+"68
+[v _UART_buff_put UART_buff_put `(v  1 e 1 0 ]
+{
+[s S21 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[v UART_buff_put@_this _this `*.39S21  1 p 2 32 ]
+[v UART_buff_put@c c `Cuc  1 p 1 34 ]
+"79
+} 0
+"118
+[v _Receive_peek Receive_peek `(uc  1 e 1 0 ]
+{
+"120
+} 0
+"114
+[v _UART_buff_peek UART_buff_peek `(uc  1 e 1 0 ]
+{
+[s S21 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[v UART_buff_peek@_this _this `*.39S21  1 p 2 26 ]
+"116
+} 0
+"429 C:\EV16.git\trunk\SS.X\FastTransfer.c
 [v _CRCcheck CRCcheck `(v  1 e 1 0 ]
 {
-"385
+"443
 [v CRCcheck@rt rt `i  1 a 2 7 ]
-"375
+"433
 [v CRCcheck@arrayHolder arrayHolder `[3]uc  1 a 3 4 ]
-"380
+"438
 [v CRCcheck@calculatedCRC calculatedCRC `uc  1 a 1 3 ]
-"379
+"437
 [v CRCcheck@SentCRC SentCRC `uc  1 a 1 2 ]
-"402
+"460
 } 0
-"334
+"392
 [v _crcBufS_status_put crcBufS_status_put `(v  1 e 1 0 ]
 {
-"339
+"397
 [v crcBufS_status_put@wantedTime wantedTime `i  1 a 2 34 ]
-[s S33 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
-"334
-[v crcBufS_status_put@_this _this `*.39S33  1 p 2 26 ]
+[s S202 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
+"392
+[v crcBufS_status_put@_this _this `*.39S202  1 p 2 26 ]
 [v crcBufS_status_put@time time `uc  1 p 1 28 ]
 [v crcBufS_status_put@status status `uc  1 p 1 29 ]
-"346
+"404
 } 0
-"351
+"409
 [v _crcBufS_get crcBufS_get `(uc  1 e 1 0 ]
 {
-"359
+"417
 [v crcBufS_get@wantedTime wantedTime `i  1 a 2 0 ]
-[s S33 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
-"351
-[v crcBufS_get@_this _this `*.39S33  1 p 2 26 ]
+[s S202 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
+"409
+[v crcBufS_get@_this _this `*.39S202  1 p 2 26 ]
 [v crcBufS_get@time time `uc  1 p 1 28 ]
 [v crcBufS_get@space space `uc  1 p 1 29 ]
-"366
+"424
 } 0
-"31
+"126 C:\EV16.git\trunk\SS.X\UART.c
+[v _Receive_get Receive_get `(uc  1 e 1 0 ]
+{
+"128
+} 0
+"81
+[v _UART_buff_get UART_buff_get `(uc  1 e 1 0 ]
+{
+"82
+[v UART_buff_get@c c `uc  1 a 1 36 ]
+[s S21 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+"81
+[v UART_buff_get@_this _this `*.39S21  1 p 2 32 ]
+"91
+} 0
+"106
+[v _UART_buff_modulo_inc UART_buff_modulo_inc `(ui  1 e 2 0 ]
+{
+"107
+[v UART_buff_modulo_inc@my_value my_value `ui  1 a 2 30 ]
+"106
+[v UART_buff_modulo_inc@value value `Cui  1 p 2 26 ]
+[v UART_buff_modulo_inc@modulus modulus `Cui  1 p 2 28 ]
+"112
+} 0
+"122
+[v _Receive_available Receive_available `(i  1 e 2 0 ]
+{
+"124
+} 0
+"102
+[v _UART_buff_size UART_buff_size `(i  1 e 2 0 ]
+{
+[s S21 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[v UART_buff_size@_this _this `*.39S21  1 p 2 26 ]
+"104
+} 0
+"89 C:\EV16.git\trunk\SS.X\FastTransfer.c
 [v _CRC8 CRC8 `(uc  1 e 1 0 ]
 {
-"37
+"95
 [v CRC8@sum sum `uc  1 a 1 29 ]
-"35
+"93
 [v CRC8@tempI tempI `uc  1 a 1 31 ]
-"34
+"92
 [v CRC8@extract extract `uc  1 a 1 30 ]
-"32
+"90
 [v CRC8@crc crc `uc  1 a 1 32 ]
-"31
+"89
 [v CRC8@data data `*.39Cuc  1 p 2 26 ]
 [v CRC8@len len `uc  1 p 1 28 ]
-"46
+"104
 } 0
 "32 C:\EV16.git\trunk\SS.X\Function.c
 [v _Start Start `(v  1 e 1 0 ]
 {
-"116
+"131
 } 0
 "23 C:\EV16.git\trunk\SS.X\tmr0.c
 [v _TMR0_Initialize TMR0_Initialize `(v  1 e 1 0 ]
@@ -732,10 +806,64 @@
 {
 "51
 } 0
-"118 C:\EV16.git\trunk\SS.X\Function.c
+"133 C:\EV16.git\trunk\SS.X\Function.c
 [v _INTERRUPT_Initialize INTERRUPT_Initialize `(v  1 e 1 0 ]
 {
-"139
+"154
+} 0
+"12 C:\EV16.git\trunk\SS.X\Communications.c
+[v _ComStart ComStart `(v  1 e 1 0 ]
+{
+"15
+} 0
+"73 C:\EV16.git\trunk\SS.X\FastTransfer.c
+[v _begin begin `(v  1 e 1 0 ]
+{
+[v begin@ptr ptr `*.39VEi  1 p 2 0 ]
+[v begin@maxSize maxSize `uc  1 p 1 2 ]
+[v begin@givenAddress givenAddress `uc  1 p 1 3 ]
+[v begin@error error `uc  1 p 1 4 ]
+[v begin@stufftosend stufftosend `*.37(v  1 p 2 5 ]
+[v begin@stufftoreceive stufftoreceive `*.37(uc  1 p 2 7 ]
+[v begin@stuffavailable stuffavailable `*.37(i  1 p 2 9 ]
+[v begin@stuffpeek stuffpeek `*.37(uc  1 p 2 11 ]
+"85
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+{
+"11
+[v ___awdiv@quotient quotient `i  1 a 2 32 ]
+"12
+[v ___awdiv@sign sign `uc  1 a 1 31 ]
+[v ___awdiv@counter counter `uc  1 a 1 30 ]
+"8
+[v ___awdiv@dividend dividend `i  1 p 2 26 ]
+[v ___awdiv@divisor divisor `i  1 p 2 28 ]
+"42
+} 0
+"21 C:\EV16.git\trunk\SS.X\UART.c
+[v _EUSART1_Initialize EUSART1_Initialize `(v  1 e 1 0 ]
+{
+"54
+} 0
+"56
+[v _UART_buff_init UART_buff_init `(v  1 e 1 0 ]
+{
+[s S21 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[v UART_buff_init@_this _this `*.39S21  1 p 2 34 ]
+"66
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\memset.c
+[v _memset memset `(*.39v  1 e 2 0 ]
+{
+"15
+[v memset@p p `*.39uc  1 a 2 32 ]
+"8
+[v memset@p1 p1 `*.39v  1 p 2 26 ]
+[v memset@c c `i  1 p 2 28 ]
+[v memset@n n `ui  1 p 2 30 ]
+"22
 } 0
 "98 C:\EV16.git\trunk\SS.X\tmr0.c
 [v _SetTime SetTime `(v  1 e 1 0 ]
@@ -752,10 +880,10 @@
 {
 "96
 } 0
-"141 C:\EV16.git\trunk\SS.X\Function.c
+"156 C:\EV16.git\trunk\SS.X\Function.c
 [v _INTERRUPT_InterruptManager INTERRUPT_InterruptManager `II(v  1 e 1 0 ]
 {
-"160
+"175
 } 0
 "82 C:\EV16.git\trunk\SS.X\tmr0.c
 [v _TMR0_ISR TMR0_ISR `(v  1 e 1 0 ]
@@ -770,20 +898,18 @@
 "158
 } 0
 "102
-[v _UART_buff_size UART_buff_size `(i  1 e 2 0 ]
+[v i2_UART_buff_size UART_buff_size `(i  1 e 2 0 ]
 {
-[s S484 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
-[v UART_buff_size@_this _this `*.39S484  1 p 2 0 ]
+[s S21 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[v i2UART_buff_size@_this _this `*.39S21  1 p 2 0 ]
 "104
 } 0
 "81
-[v _UART_buff_get UART_buff_get `(uc  1 e 1 0 ]
+[v i2_UART_buff_get UART_buff_get `(uc  1 e 1 0 ]
 {
-"82
-[v UART_buff_get@c c `uc  1 a 1 10 ]
-[s S484 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
-"81
-[v UART_buff_get@_this _this `*.39S484  1 p 2 6 ]
+[v i2UART_buff_get@c UART_buff_get `uc  1 a 1 10 ]
+[s S21 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[v i2UART_buff_get@_this _this `*.39S21  1 p 2 6 ]
 "91
 } 0
 "139
@@ -794,20 +920,18 @@
 "148
 } 0
 "68
-[v _UART_buff_put UART_buff_put `(v  1 e 1 0 ]
+[v i2_UART_buff_put UART_buff_put `(v  1 e 1 0 ]
 {
-[s S484 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
-[v UART_buff_put@_this _this `*.39S484  1 p 2 6 ]
-[v UART_buff_put@c c `Cuc  1 p 1 8 ]
+[s S21 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[v i2UART_buff_put@_this _this `*.39S21  1 p 2 6 ]
+[v i2UART_buff_put@c c `Cuc  1 p 1 8 ]
 "79
 } 0
 "106
-[v _UART_buff_modulo_inc UART_buff_modulo_inc `(ui  1 e 2 0 ]
+[v i2_UART_buff_modulo_inc UART_buff_modulo_inc `(ui  1 e 2 0 ]
 {
-"107
-[v UART_buff_modulo_inc@my_value my_value `ui  1 a 2 4 ]
-"106
-[v UART_buff_modulo_inc@value value `Cui  1 p 2 0 ]
-[v UART_buff_modulo_inc@modulus modulus `Cui  1 p 2 2 ]
+[v i2UART_buff_modulo_inc@my_value UART_buff_modulo_inc `ui  1 a 2 4 ]
+[v i2UART_buff_modulo_inc@value value `Cui  1 p 2 0 ]
+[v i2UART_buff_modulo_inc@modulus modulus `Cui  1 p 2 2 ]
 "112
 } 0

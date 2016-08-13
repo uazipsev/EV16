@@ -86,7 +86,7 @@ void TMR0_ISR(void) {
     TMR0H = timer0ReloadVal16bit >> 8;
     TMR0L = (uint8_t) timer0ReloadVal16bit;
 
-    time++;
+    time++; //ticker for time
     // clear the TMR0 interrupt flag
     INTCONbits.TMR0IF = 0;
 }

@@ -91,6 +91,9 @@ void Start(){
     // CONFIG7H
     #pragma config EBTRB = OFF    // Boot Block Table Read Protection bit->Boot Block (000000-0007FFh) not protected from table reads executed in other blocks
 
+    /*
+     Set pins as inputs
+     */
     ECU_FAULT_TRIS = INPUT;
     BOTS_FAULT_TRIS = INPUT;
     AMD_FAULT_TRIS = INPUT;
@@ -106,6 +109,14 @@ void Start(){
     RTG_INPUT_TRIS = INPUT;
     IMD_INPUT_TRIS = INPUT;
     
+    /*
+     Set ADC pins as digital
+     */
+    
+    ANSELA = 0;
+    ANSELC = 0;
+    ANSELD = 0;
+    
     // SCS INTOSC; IDLEN disabled; IRCF 16MHz_HFINTOSC/4; 
     OSCCON = 0x72;
     // PRISD enabled; MFIOSEL disabled; SOSCGO disabled; 
@@ -114,6 +125,7 @@ void Start(){
     OSCTUNE = 0x00;
     // Set the secondary oscillator
 
+    ComStart();
     INTERRUPT_Initialize();
     TMR0_Initialize();
 }

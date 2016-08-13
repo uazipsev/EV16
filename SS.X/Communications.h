@@ -8,7 +8,7 @@
 #ifndef COMMUNICATIONS_H
 #define	COMMUNICATIONS_H
 
-
+void ComStart();
 void updateComms();
 void respondECU();
 
