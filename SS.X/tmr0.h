@@ -312,8 +312,9 @@ extern "C" {
         None
      */
     void TMR0_CallBack(void);
+    long GetTime();
+    void SetTime();
 
-    volatile unsigned int time;
 #ifdef __cplusplus  // Provide C++ Compatibility
 
 }

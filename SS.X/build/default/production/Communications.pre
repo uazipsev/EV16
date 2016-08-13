@@ -9266,12 +9266,18 @@ void crcBufS_status_put(struct crcBufS* _this, unsigned char time, unsigned char
 unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned char space);
 void CRCcheck(void);
 
-# 11 "Communications.h"
-void Delay(int wait);
+# 12 "Communications.h"
 void updateComms();
 void respondECU();
 
-# 8 "Communications.c"
+# 11 "Function.h"
+void Start();
+void INTERRUPT_Initialize();
+void ReadFaults();
+char GetFaults(char num);
+void Delay(int wait);
+
+# 9 "Communications.c"
 void updateComms() {
 if (receiveData()) {
 respondECU();
@@ -9280,17 +9286,11 @@ respondECU();
 
 void respondECU() {
 LATDbits.LATD4 = 1;
-ToSend(1,0);
+ToSend(1,GetFaults(1));
+ToSend(2,GetFaults(0));
 Delay(9);
 sendData(1);
 Delay(3);
 LATDbits.LATD4 = 0;
-}
-
-void Delay(int wait) {
-int x;
-for (x = 0; x < wait; x++) {
-_delay((unsigned long)((1)*(16000000/4000.0)));
-}
 }
 

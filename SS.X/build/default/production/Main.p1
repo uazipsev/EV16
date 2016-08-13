@@ -1,93 +1,91 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [p mainexit ]
+"11 Function.h
+[v _Start `(v ~T0 @X0 0 ef ]
 "12 Communications.h
 [v _updateComms `(v ~T0 @X0 0 ef ]
-[; ;__size_t.h: 4: typedef unsigned size_t;
-[; ;stdarg.h: 7: typedef void * va_list[1];
-[; ;stdarg.h: 10: extern void * __va_start(void);
-[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
-[; ;stdio.h: 43: struct __prbuf
-[; ;stdio.h: 44: {
-[; ;stdio.h: 45: char * ptr;
-[; ;stdio.h: 46: void (* func)(char);
-[; ;stdio.h: 47: };
-[; ;errno.h: 29: extern int errno;
-[; ;conio.h: 12: extern void init_uart(void);
-[; ;conio.h: 14: extern char getch(void);
-[; ;conio.h: 15: extern char getche(void);
-[; ;conio.h: 16: extern void putch(char);
-[; ;conio.h: 17: extern void ungetch(char);
-[; ;conio.h: 19: extern __bit kbhit(void);
-[; ;conio.h: 23: extern char * cgets(char *);
-[; ;conio.h: 24: extern void cputs(const char *);
-[; ;stdio.h: 88: extern int cprintf(char *, ...);
-[; ;stdio.h: 93: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-[; ;stdio.h: 183: extern char * gets(char *);
-[; ;stdio.h: 184: extern int puts(const char *);
-[; ;stdio.h: 185: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
-[; ;stdio.h: 186: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
-[; ;stdio.h: 187: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
-[; ;stdio.h: 188: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-[; ;stdio.h: 189: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
-[; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
-[; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
-[; ;stdio.h: 195: extern int printf(const char *, ...);
-[; ;stdlib.h: 7: typedef unsigned short wchar_t;
-[; ;stdlib.h: 15: typedef struct {
-[; ;stdlib.h: 16: int rem;
-[; ;stdlib.h: 17: int quot;
-[; ;stdlib.h: 18: } div_t;
-[; ;stdlib.h: 19: typedef struct {
-[; ;stdlib.h: 20: unsigned rem;
-[; ;stdlib.h: 21: unsigned quot;
-[; ;stdlib.h: 22: } udiv_t;
-[; ;stdlib.h: 23: typedef struct {
-[; ;stdlib.h: 24: long quot;
-[; ;stdlib.h: 25: long rem;
-[; ;stdlib.h: 26: } ldiv_t;
-[; ;stdlib.h: 27: typedef struct {
-[; ;stdlib.h: 28: unsigned long quot;
-[; ;stdlib.h: 29: unsigned long rem;
-[; ;stdlib.h: 30: } uldiv_t;
-[; ;stdlib.h: 53: extern double atof(const char *);
-[; ;stdlib.h: 54: extern double strtod(const char *, const char **);
-[; ;stdlib.h: 55: extern int atoi(const char *);
-[; ;stdlib.h: 56: extern unsigned xtoi(const char *);
-[; ;stdlib.h: 57: extern long atol(const char *);
-[; ;stdlib.h: 58: extern long strtol(const char *, char **, int);
-[; ;stdlib.h: 60: extern int rand(void);
-[; ;stdlib.h: 61: extern void srand(unsigned int);
-[; ;stdlib.h: 62: extern void * calloc(size_t, size_t);
-[; ;stdlib.h: 63: extern div_t div(int numer, int denom);
-[; ;stdlib.h: 64: extern udiv_t udiv(unsigned numer, unsigned denom);
-[; ;stdlib.h: 65: extern ldiv_t ldiv(long numer, long denom);
-[; ;stdlib.h: 66: extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
-[; ;stdlib.h: 67: extern unsigned long _lrotl(unsigned long value, unsigned int shift);
-[; ;stdlib.h: 68: extern unsigned long _lrotr(unsigned long value, unsigned int shift);
-[; ;stdlib.h: 69: extern unsigned int _rotl(unsigned int value, unsigned int shift);
-[; ;stdlib.h: 70: extern unsigned int _rotr(unsigned int value, unsigned int shift);
-[; ;stdlib.h: 75: extern void * malloc(size_t);
-[; ;stdlib.h: 76: extern void free(void *);
-[; ;stdlib.h: 77: extern void * realloc(void *, size_t);
-[; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
-[; ;stdlib.h: 86: extern int atexit(void (*)(void));
-[; ;stdlib.h: 87: extern char * getenv(const char *);
-[; ;stdlib.h: 88: extern char ** environ;
-[; ;stdlib.h: 89: extern int system(char *);
-[; ;stdlib.h: 90: extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
-[; ;stdlib.h: 91: extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
-[; ;stdlib.h: 92: extern int abs(int);
-[; ;stdlib.h: 93: extern long labs(long);
-[; ;stdlib.h: 95: extern char * itoa(char * buf, int val, int base);
-[; ;stdlib.h: 96: extern char * utoa(char * buf, unsigned val, int base);
-[; ;stdlib.h: 101: extern char * ltoa(char * buf, long val, int base);
-[; ;stdlib.h: 102: extern char * ultoa(char * buf, unsigned long val, int base);
-[; ;stdlib.h: 104: extern char * ftoa(float f, int * status);
-[; ;Communications.h: 11: void Delay(int wait);
+"315 tmr0.h
+[v _GetTime `(l ~T0 @X0 0 ef ]
+"7674 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+[s S457 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S457 . LATA0 LATA1 LATA2 LATA3 LATA4 LATA5 LATA6 LATA7 ]
+"7684
+[s S458 :1 `uc 1 ]
+[n S458 . LA0 ]
+"7687
+[s S459 :1 `uc 1 :1 `uc 1 ]
+[n S459 . . LA1 ]
+"7691
+[s S460 :2 `uc 1 :1 `uc 1 ]
+[n S460 . . LA2 ]
+"7695
+[s S461 :3 `uc 1 :1 `uc 1 ]
+[n S461 . . LA3 ]
+"7699
+[s S462 :4 `uc 1 :1 `uc 1 ]
+[n S462 . . LA4 ]
+"7703
+[s S463 :5 `uc 1 :1 `uc 1 ]
+[n S463 . . LA5 ]
+"7707
+[s S464 :6 `uc 1 :1 `uc 1 ]
+[n S464 . . LA6 ]
+"7711
+[s S465 :7 `uc 1 :1 `uc 1 ]
+[n S465 . . LA7 ]
+"7673
+[u S456 `S457 1 `S458 1 `S459 1 `S460 1 `S461 1 `S462 1 `S463 1 `S464 1 `S465 1 ]
+[n S456 . . . . . . . . . . ]
+"7716
+[v _LATAbits `VS456 ~T0 @X0 0 e@3977 ]
+"316 tmr0.h
+[v _SetTime `(v ~T0 @X0 0 ef ]
+"13 Function.h
+[v _ReadFaults `(v ~T0 @X0 0 ef ]
 [; ;Communications.h: 12: void updateComms();
 [; ;Communications.h: 13: void respondECU();
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef signed short long int int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 43: typedef unsigned char uint8_t;
+[; ;stdint.h: 49: typedef unsigned int uint16_t;
+[; ;stdint.h: 56: typedef unsigned short long int uint24_t;
+[; ;stdint.h: 63: typedef unsigned long int uint32_t;
+[; ;stdint.h: 71: typedef signed char int_least8_t;
+[; ;stdint.h: 78: typedef signed int int_least16_t;
+[; ;stdint.h: 90: typedef signed short long int int_least24_t;
+[; ;stdint.h: 98: typedef signed long int int_least32_t;
+[; ;stdint.h: 105: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 111: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 121: typedef unsigned short long int uint_least24_t;
+[; ;stdint.h: 128: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 137: typedef signed char int_fast8_t;
+[; ;stdint.h: 144: typedef signed int int_fast16_t;
+[; ;stdint.h: 156: typedef signed short long int int_fast24_t;
+[; ;stdint.h: 164: typedef signed long int int_fast32_t;
+[; ;stdint.h: 171: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 177: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 187: typedef unsigned short long int uint_fast24_t;
+[; ;stdint.h: 194: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 200: typedef int32_t intmax_t;
+[; ;stdint.h: 205: typedef uint32_t uintmax_t;
+[; ;stdint.h: 210: typedef int16_t intptr_t;
+[; ;stdint.h: 215: typedef uint16_t uintptr_t;
+[; ;stdbool.h: 12: typedef unsigned char bool;
+[; ;tmr0.h: 106: void TMR0_Initialize(void);
+[; ;tmr0.h: 135: void TMR0_StartTimer(void);
+[; ;tmr0.h: 167: void TMR0_StopTimer(void);
+[; ;tmr0.h: 203: uint16_t TMR0_Read16bitTimer(void);
+[; ;tmr0.h: 242: void TMR0_Write16bitTimer(uint16_t timerVal);
+[; ;tmr0.h: 278: void TMR0_Reload16bit(void);
+[; ;tmr0.h: 296: void TMR0_ISR(void);
+[; ;tmr0.h: 314: void TMR0_CallBack(void);
+[; ;tmr0.h: 315: long GetTime();
+[; ;tmr0.h: 316: void SetTime();
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
+[; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic18f45k22.h: 49: extern volatile unsigned char ANSELA @ 0xF38;
 "51 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
 [; ;pic18f45k22.h: 51: asm("ANSELA equ 0F38h");
@@ -7411,28 +7409,52 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 157: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 159: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 161: extern __nonreentrant void _delay3(unsigned char);
-[; ;Main.c: 23: void Delay(int wait);
-"25 Main.c
+[; ;Function.h: 11: void Start();
+[; ;Function.h: 12: void INTERRUPT_Initialize();
+[; ;Function.h: 13: void ReadFaults();
+[; ;Function.h: 14: char GetFaults(char num);
+[; ;Function.h: 15: void Delay(int wait);
+"26 Main.c
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;Main.c: 25: void main(void) {
+[; ;Main.c: 26: void main(void) {
 [e :U _main ]
 [f ]
-[; ;Main.c: 27: while (1) {
+[; ;Main.c: 27: Start();
 "27
-[e :U 1128 ]
-{
-[; ;Main.c: 28: updateComms();
+[e ( _Start ..  ]
+[; ;Main.c: 28: while (1) {
 "28
-[e ( _updateComms ..  ]
+[e :U 1123 ]
+{
+[; ;Main.c: 29: updateComms();
 "29
-}
-[e :U 1127 ]
-"27
-[e $U 1128  ]
-[e :U 1129 ]
-[; ;Main.c: 29: }
-[; ;Main.c: 30: }
+[e ( _updateComms ..  ]
+[; ;Main.c: 30: if(GetTime() > 1000){
 "30
-[e :UE 1126 ]
+[e $ ! > ( _GetTime ..  -> -> 1000 `i `l 1125  ]
+{
+[; ;Main.c: 31: LATAbits.LATA3 ^= 1;
+"31
+[e =^ . . _LATAbits 0 3 -> -> 1 `i `uc ]
+[; ;Main.c: 32: SetTime();
+"32
+[e ( _SetTime ..  ]
+[; ;Main.c: 33: ReadFaults();
+"33
+[e ( _ReadFaults ..  ]
+"34
+}
+[e :U 1125 ]
+"35
+}
+[e :U 1122 ]
+"28
+[e $U 1123  ]
+[e :U 1124 ]
+[; ;Main.c: 34: }
+[; ;Main.c: 35: }
+[; ;Main.c: 36: }
+"36
+[e :UE 1121 ]
 }

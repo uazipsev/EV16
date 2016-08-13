@@ -6,6 +6,7 @@
 
 #include <xc.h>
 #include "tmr0.h"
+#include "PinDef.h"
 
 /**
   Section: Global Variables Definitions
@@ -15,6 +16,8 @@ volatile uint16_t timer0ReloadVal16bit;
 /**
   Section: TMR0 APIs
  */
+
+long time = 0;
 
 
 void TMR0_Initialize(void) {
@@ -88,6 +91,15 @@ void TMR0_ISR(void) {
     INTCONbits.TMR0IF = 0;
 }
 
+long GetTime(){
+    return time;
+}
+
+void SetTime(){
+    time = 0;
+}
+
 /**
   End of File
  */
+

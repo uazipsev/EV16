@@ -50,14 +50,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LATDbits `VS486 ~T0 @X0 0 e@3980 ]
 "17 FastTransfer.h
 [v _ToSend `(v ~T0 @X0 0 ef2`Cuc`Cui ]
-"11 Communications.h
+"14 Function.h
+[v _GetFaults `(uc ~T0 @X0 0 ef1`uc ]
+"15
 [v _Delay `(v ~T0 @X0 0 ef1`i ]
 "15 FastTransfer.h
 [v _sendData `(v ~T0 @X0 0 ef1`uc ]
-[v F7702 `(v ~T0 @X0 1 tf1`ul ]
-"157 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18.h
-[v __delay `JF7702 ~T0 @X0 0 e ]
-[p i __delay ]
 [; ;stdbool.h: 12: typedef unsigned char bool;
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
@@ -7486,89 +7484,62 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;FastTransfer.h: 78: void crcBufS_status_put(struct crcBufS* _this, unsigned char time, unsigned char status);
 [; ;FastTransfer.h: 79: unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned char space);
 [; ;FastTransfer.h: 80: void CRCcheck(void);
-[; ;Communications.h: 11: void Delay(int wait);
 [; ;Communications.h: 12: void updateComms();
 [; ;Communications.h: 13: void respondECU();
-"8 Communications.c
+[; ;Function.h: 11: void Start();
+[; ;Function.h: 12: void INTERRUPT_Initialize();
+[; ;Function.h: 13: void ReadFaults();
+[; ;Function.h: 14: char GetFaults(char num);
+[; ;Function.h: 15: void Delay(int wait);
+"9 Communications.c
 [v _updateComms `(v ~T0 @X0 1 ef ]
 {
-[; ;Communications.c: 8: void updateComms() {
+[; ;Communications.c: 9: void updateComms() {
 [e :U _updateComms ]
 [f ]
-[; ;Communications.c: 9: if (receiveData()) {
-"9
+[; ;Communications.c: 10: if (receiveData()) {
+"10
 [e $ ! != -> ( _receiveData ..  `i -> -> -> 0 `i `uc `i 1125  ]
 {
-[; ;Communications.c: 10: respondECU();
-"10
-[e ( _respondECU ..  ]
+[; ;Communications.c: 11: respondECU();
 "11
+[e ( _respondECU ..  ]
+"12
 }
 [e :U 1125 ]
-[; ;Communications.c: 11: }
 [; ;Communications.c: 12: }
-"12
+[; ;Communications.c: 13: }
+"13
 [e :UE 1124 ]
 }
-"14
+"15
 [v _respondECU `(v ~T0 @X0 1 ef ]
 {
-[; ;Communications.c: 14: void respondECU() {
+[; ;Communications.c: 15: void respondECU() {
 [e :U _respondECU ]
 [f ]
-[; ;Communications.c: 15: LATDbits.LATD4 = 1;
-"15
-[e = . . _LATDbits 0 4 -> -> 1 `i `uc ]
-[; ;Communications.c: 16: ToSend(1,0);
+[; ;Communications.c: 16: LATDbits.LATD4 = 1;
 "16
-[e ( _ToSend (2 , -> -> 1 `i `uc -> -> 0 `i `ui ]
-[; ;Communications.c: 17: Delay(9);
+[e = . . _LATDbits 0 4 -> -> 1 `i `uc ]
+[; ;Communications.c: 17: ToSend(1,GetFaults(1));
 "17
-[e ( _Delay (1 -> 9 `i ]
-[; ;Communications.c: 18: sendData(1);
+[e ( _ToSend (2 , -> -> 1 `i `uc -> ( _GetFaults (1 -> -> 1 `i `uc `ui ]
+[; ;Communications.c: 18: ToSend(2,GetFaults(0));
 "18
-[e ( _sendData (1 -> -> 1 `i `uc ]
-[; ;Communications.c: 19: Delay(3);
+[e ( _ToSend (2 , -> -> 2 `i `uc -> ( _GetFaults (1 -> -> 0 `i `uc `ui ]
+[; ;Communications.c: 19: Delay(9);
 "19
-[e ( _Delay (1 -> 3 `i ]
-[; ;Communications.c: 20: LATDbits.LATD4 = 0;
+[e ( _Delay (1 -> 9 `i ]
+[; ;Communications.c: 20: sendData(1);
 "20
-[e = . . _LATDbits 0 4 -> -> 0 `i `uc ]
-[; ;Communications.c: 21: }
+[e ( _sendData (1 -> -> 1 `i `uc ]
+[; ;Communications.c: 21: Delay(3);
 "21
-[e :UE 1126 ]
-}
+[e ( _Delay (1 -> 3 `i ]
+[; ;Communications.c: 22: LATDbits.LATD4 = 0;
+"22
+[e = . . _LATDbits 0 4 -> -> 0 `i `uc ]
+[; ;Communications.c: 23: }
 "23
-[v _Delay `(v ~T0 @X0 1 ef1`i ]
-{
-[; ;Communications.c: 23: void Delay(int wait) {
-[e :U _Delay ]
-[v _wait `i ~T0 @X0 1 r1 ]
-[f ]
-"24
-[v _x `i ~T0 @X0 1 a ]
-[; ;Communications.c: 24: int x;
-[; ;Communications.c: 25: for (x = 0; x < wait; x++) {
-"25
-{
-[e = _x -> 0 `i ]
-[e $U 1131  ]
-[e :U 1128 ]
-{
-[; ;Communications.c: 26: _delay((unsigned long)((1)*(16000000/4000.0)));
-"26
-[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"27
-}
-"25
-[e ++ _x -> 1 `i ]
-[e :U 1131 ]
-[e $ < _x _wait 1128  ]
-[e :U 1129 ]
-"27
-}
-[; ;Communications.c: 27: }
-[; ;Communications.c: 28: }
-"28
-[e :UE 1127 ]
+[e :UE 1126 ]
 }
