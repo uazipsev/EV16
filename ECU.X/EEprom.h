@@ -31,7 +31,7 @@ int ReadBrakeLightTrigger();
 void SaveBrakeLightTrigger(int value);
 void SaveDriverConfig(char NAME[3], int MaxThrottle, int MaxRegen, int LowBatCutoff, int Ramp, char Fault, bool Fw_Rv, bool RegenInput, bool DebugEn);
 void ReadDriverConfig(char dvr);
-char *ReadDriverNames(char dvr);
+void ReadDriverNames(char dvr);
 
 #endif	/* EEPROM_H */
 

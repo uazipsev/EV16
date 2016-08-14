@@ -582,8 +582,9 @@ void DriverMenu(char menuitem){
     if(menuitem == 1){
         printf("|---Driver List---|\n");
         int i;
-        for(i = 1;i < DriverCount();i++){
-            printf("%d) Driver %d - %s\n",i,i,DriverNames(i-1));
+        for(i = 1;i < DriverCount()+1;i++){
+            printf("%d) Driver %d - ",i,i);
+            DriverNamePrint(i);
         }
         FunctionDataGrab = 4;
     }
@@ -591,8 +592,9 @@ void DriverMenu(char menuitem){
         printf("|--Select a Driver--|\n");
         printf("|-----To Config-----|\n");
         int i;
-        for(i = 1;i < DriverCount();i++){
-            printf("%d) Driver %d - %s\n",i,i,DriverNames(i));
+        for(i = 1;i < DriverCount()+1;i++){
+            printf("%d) Driver %d - ",i,i);
+            DriverNamePrint(i);
         }
         FunctionDataGrab = 5;
     }

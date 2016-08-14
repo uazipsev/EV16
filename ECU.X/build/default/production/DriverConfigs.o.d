@@ -1,3 +1,4 @@
 build/default/production/DriverConfigs.o:  \
 DriverConfigs.c  \
-EEprom.h 
+EEprom.h  \
+ DriverConfigs.h 

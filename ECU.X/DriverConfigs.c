@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "EEprom.h"
 #include <stdbool.h>
+#include "DriverConfigs.h"
 
 char DriverNamesList[40];
 
@@ -18,6 +19,14 @@ struct DriverData
 };
 
 struct DriverData DriverConfig;
+
+
+struct Names {
+       char data;
+       struct Names* next;
+};
+
+struct node* head = NULL;
 
 char CurentDriver;
 char DriverCountNum;
@@ -48,20 +57,18 @@ void SetUpDataSets(){
     //This sets up the I2C to EEPROM com's to save car data. 
     EEpromInit();
     //Delay(100);
-    SaveCarDriverCount(0);
-    char RCJ[3] = {'R','C','J'};
-    SaveDriverConfig(RCJ,100,0,100,0,0, 1, 0, 1);
-    char BKB[3] = {'B','K','B'};
-    SaveDriverConfig(BKB,100,0,100,0,0, 1, 0, 1);
-    char TYH[3] = {'T','Y','H'};
-    SaveDriverConfig(TYH,100,0,100,0,0, 1, 0, 1);
+    //SaveCarDriverCount(0);
+//    char RCJ[3] = {'R','C','J'};
+//    SaveDriverConfig(RCJ,100,0,100,0,0, 1, 0, 1);
+//    char BKB[3] = {'B','K','B'};
+//    SaveDriverConfig(BKB,100,0,100,0,0, 1, 0, 1);
+//    char TYH[3] = {'T','Y','H'};
+//    SaveDriverConfig(TYH,100,0,100,0,0, 1, 0, 1);
+    insert('0');
     DriverCountNum = ReadCarDriverCount();
     int i = 0;
-    char TEMP;
     for(i = 0;i<DriverCountNum;i++){
-        TEMP = ReadDriverNames(i+1);
-        //strcpy(DriverNamesList[i], TEMP);
-        //printf("Name = %s",TEMP);
+        ReadDriverNames(i+1);
     }
     //SaveCarDriver(1);
     SetDriver(ReadCarDriver());
@@ -82,8 +89,35 @@ char *CurrentDriverName(){
     return DriverConfig.NAME;
 }
 
-char *DriverNames(char num){
-    return DriverNamesList[num];
+void DriverNamePrint(char num){
+    struct Names *temp;
+    temp = head;
+    int k = 0;
+    int offset  = num*4-3;
+    for(k = 0;k<offset;k++){
+        temp = temp->next;
+    }
+    printf("%c",temp->data);
+    temp = temp->next;
+    printf("%c",temp->data);
+    temp = temp->next;
+    printf("%c\n",temp->data);  
+}
+
+void insert(char str){
+    struct Names* temp = (struct Names*)malloc(sizeof(struct Names));
+    temp->data = str;
+    temp->next = NULL;
+
+    if(head){//head != NULL
+        struct Names* temp1 = head;
+        while(temp1->next != NULL) {//search last element
+            temp1 = temp1->next;
+        }
+        temp1->next = temp;//insert new node
+    } else {
+        head = temp;//if head == NULL then replace with new node
+    }
 }
 
 char DriverActive(){
