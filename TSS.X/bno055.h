@@ -1,6 +1,8 @@
 #ifndef __BNO055_H__
 #define __BNO055_H__
 
+void Setup();
+void loop();
 void readAccelData(int * destination);
 void readGyroData(int * destination);
 char readGyroTempData();

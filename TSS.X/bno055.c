@@ -2,8 +2,11 @@
 #include <math.h>
 #include "Function.h"
 #include <stdio.h>
+#include "mcc_generated_files/i2c1.h"
 
 #define PI 3.1425
+
+#define SLAVE_I2C_GENERIC_RETRY_MAX 2
 
 // Pin definitions
 char intPin = 8;  // These can be changed, 2 and 3 are the Arduinos ext int pins
@@ -49,57 +52,54 @@ float q[4] = {1.0f, 0.0f, 0.0f, 0.0f};    // vector to hold quaternion
 float quat[4] = {1.0f, 0.0f, 0.0f, 0.0f};    // vector to hold quaternion
 float eInt[3] = {0.0f, 0.0f, 0.0f};       // vector to hold integral error for Mahony method
 
-void setup()
+void Setup()
 {
+    
     beta = sqrt(3.0 / 4.0) * GyroMeasError;   // compute beta
     zeta = sqrt(3.0 / 4.0) * GyroMeasDrift;   // compute zeta, the other free parameter in the Madgwick scheme usually set to a small or zero value
 //  Wire.begin();
 //  TWBR = 12;  // 400 kbit/sec I2C speed for Pro Mini
   // Setup for Master mode, pins 16/17, external pullups, 400kHz for Teensy 3.1
   //Wire.begin(I2C_MASTER, 0x00, I2C_PINS_16_17, I2C_PULLUP_EXT, I2C_RATE_400);
-  Delay(4000);
-  //Serial.begin(38400);
-  
-  Delay(1000);
+
   
   // Read the WHO_AM_I register, this is a good test of communication
-  printf("BNO055 9-axis motion sensor...");
+  printf("BNO055 9-axis motion sensor.../n");
+  Delay(200);
   char c = readByte(BNO055_ADDRESS, BNO055_CHIP_ID);  // Read WHO_AM_I register for BNO055
-  printf("BNO055 Address = 0x%c",BNO055_ADDRESS);
-  printf("BNO055 WHO_AM_I = 0x%c ", BNO055_CHIP_ID);
-  printf("BNO055 - I AM %c  - I should be 0xA0",c); 
- 
-  Delay(1000); 
+  Delay(200);
+  printf("BNO055 Address = 0x%s/n",BNO055_ADDRESS);
+  Delay(200);
+  printf("BNO055 WHO_AM_I = 0x%s/n", BNO055_CHIP_ID);
+  Delay(200);
+  printf("BNO055 - I AM %s  - I should be 0xA0/n",c); 
+  Delay(200);
   
-   
+
     // Read the WHO_AM_I register of the accelerometer, this is a good test of communication
   char d = readByte(BNO055_ADDRESS, BNO055_ACC_ID);  // Read WHO_AM_I register for accelerometer
-  printf("BNO055 ACC I AM %c I should be 0xFB",d);
- 
-  Delay(1000); 
-  
+  printf("BNO055 ACC I AM %c I should be 0xFB/n",d);
+    Delay(200);
   // Read the WHO_AM_I register of the magnetometer, this is a good test of communication
   char e = readByte(BNO055_ADDRESS, BNO055_MAG_ID);  // Read WHO_AM_I register for magnetometer
-  printf("BNO055 MAG I AM %c I should be 0x32",e); 
- 
-  Delay(1000);   
-  
+  printf("BNO055 MAG I AM %c I should be 0x32/n",e);  
+    Delay(200);
   // Read the WHO_AM_I register of the gyroscope, this is a good test of communication
   char f = readByte(BNO055_ADDRESS, BNO055_GYRO_ID);  // Read WHO_AM_I register for LIS3MDL
-  printf("BNO055 GYRO I AM %f  I should be 0x0F",f); 
- 
-  Delay(1000); 
-
+  printf("BNO055 GYRO I AM %c  I should be 0x0F/n",f); 
+  Delay(200);
   if (c == 0xA0) // BNO055 WHO_AM_I should always be 0xA0
   {  
     printf("BNO055 is online...");
-    
+      Delay(200);
     // Check software revision ID
     char swlsb = readByte(BNO055_ADDRESS, BNO055_SW_REV_ID_LSB);
+    Delay(10);
     char swmsb = readByte(BNO055_ADDRESS, BNO055_SW_REV_ID_MSB);
-    printf("BNO055 SW Revision ID: %c.%c",swmsb,swlsb);  
-    printf("Should be 03.04");
-    
+    Delay(200);
+    printf("BNO055 SW Revision ID: %c.%c/n",swmsb,swlsb);  
+    printf("Should be 03.04/n");
+      Delay(200);
     // Check bootloader version
     char blid = readByte(BNO055_ADDRESS, BNO055_BL_REV_ID);
     printf("BNO055 bootloader Version: %c", blid);
@@ -108,22 +108,22 @@ void setup()
     char selftest = readByte(BNO055_ADDRESS, BNO055_ST_RESULT);
     
     if(selftest & 0x01) {
-      printf("accelerometer passed self test"); 
+      printf("accelerometer passed self test/n"); 
     } else {
       printf("accelerometer failed self test"); 
     }
     if(selftest & 0x02) {
-      printf("magnetometer passed self test"); 
+      printf("magnetometer passed self test/n"); 
     } else {
       printf("magnetometer failed self test"); 
     }  
     if(selftest & 0x04) {
-      printf("gyroscope passed self test"); 
+      printf("gyroscope passed self test/n"); 
     } else {
       printf("gyroscope failed self test"); 
     }      
     if(selftest & 0x08) {
-      printf("MCU passed self test"); 
+      printf("MCU passed self test/n"); 
     } else {
       printf("MCU failed self test"); 
     }
@@ -221,7 +221,7 @@ void loop()
   // in the LSM9DS0 and MPU9250 sensors. This rotation can be modified to allow any convenient orientation convention.
   // This is ok by aircraft orientation standards!  
   // Pass gyro rate as rad/s
-  MadgwickQuaternionUpdate(ax, ay, az, gx*PI/180.0f, gy*PI/180.0f, gz*PI/180.0f,  mx,  my,  mz);
+ // MadgwickQuaternionUpdate(ax, ay, az, gx*PI/180.0f, gy*PI/180.0f, gz*PI/180.0f,  mx,  my,  mz);
 //  MahonyQuaternionUpdate(ax, ay, az, gx*PI/180.0f, gy*PI/180.0f, gz*PI/180.0f, mx, my, mz);
     
     // Serial print and/or display at 0.5 s rate independent of data rates
@@ -230,9 +230,10 @@ void loop()
 
            // check BNO-055 error status at 2 Hz rate
         char sysstat = readByte(BNO055_ADDRESS, BNO055_SYS_STATUS); // check system status
-        printf("System Status = 0x5c",sysstat);
+        Delay(50);
+        printf("System Status = 0x5c\n",sysstat);
         if(sysstat == 0x05){
-            printf("Sensor fusion algorithm running");
+            printf("Sensor fusion algorithm running\n");
         }
         if(sysstat == 0x06) {
             printf("Sensor fusion not algorithm running");
@@ -252,31 +253,31 @@ void loop()
             if(syserr == 0x0A) printf("Sensor configuration error");    
         }  
 
-        if(1) {
-            printf("ax = %d", ax);  
-            printf(" ay = %d", ay); 
-            printf(" az = %d mg\n",az);
-            printf("gx = %d", gx); 
-            printf(" gy = %d", gy); 
-            printf(" gz = %d deg/s\n", gz);
-            printf("mx = %d", mx ); 
-            printf(" my = %d", my ); 
-            printf(" mz = %d mG\n", mz );
-
-            printf("qx = %f", q[0]);
-            printf(" qy = %f", q[1]); 
-            printf(" qz = %f", q[2]); 
-            printf(" qw = %f\n", q[3]); 
-            printf("quatw = %f", quat[0]);
-            printf(" quatx = %f", quat[1]); 
-            printf(" quaty = %f", quat[2]); 
-            printf(" quatz = %f\n", quat[3]); 
-        } 
+//        if(1) {
+//            printf("ax = %d", ax);  
+//            printf(" ay = %d", ay); 
+//            printf(" az = %d mg\n",az);
+//            printf("gx = %d", gx); 
+//            printf(" gy = %d", gy); 
+//            printf(" gz = %d deg/s\n", gz);
+//            printf("mx = %d", mx ); 
+//            printf(" my = %d", my ); 
+//            printf(" mz = %d mG\n", mz );
+//
+//            printf("qx = %f", q[0]);
+//            printf(" qy = %f", q[1]); 
+//            printf(" qz = %f", q[2]); 
+//            printf(" qw = %f\n", q[3]); 
+//            printf("quatw = %f", quat[0]);
+//            printf(" quatx = %f", quat[1]); 
+//            printf(" quaty = %f", quat[2]); 
+//            printf(" quatz = %f\n", quat[3]); 
+//        } 
 
         tempGCount = readGyroTempData();  // Read the gyro adc values
         Gtemperature = (float) tempGCount; // Gyro chip temperature in degrees Centigrade
        // Print gyro die temperature in degrees Centigrade      
-        printf("Gyro temperature is = %f degrees C", Gtemperature); // Print T values to tenths of a degree C
+        printf("Gyro temperature is = %f degrees C\n", Gtemperature); // Print T values to tenths of a degree C
 
       // Define output variables from updated quaternion---these are Tait-Bryan angles, commonly used in aircraft orientation.
       // In this coordinate system, the positive z-axis is down toward Earth. 
@@ -287,28 +288,28 @@ void loop()
       // Tait-Bryan angles as well as Euler angles are non-commutative; that is, the get the correct orientation the rotations must be
       // applied in the correct order which for this configuration is yaw, pitch, and then roll.
       // For more see http://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles which has additional links.
-        yaw   = atan2(2.0f * (q[1] * q[2] + q[0] * q[3]), q[0] * q[0] + q[1] * q[1] - q[2] * q[2] - q[3] * q[3]);   
-        pitch = -asin(2.0f * (q[1] * q[3] - q[0] * q[2]));
-        roll  = atan2(2.0f * (q[0] * q[1] + q[2] * q[3]), q[0] * q[0] - q[1] * q[1] - q[2] * q[2] + q[3] * q[3]);
-        pitch *= 180.0f / PI;
-        yaw   *= 180.0f / PI; 
+       // yaw   = atan2(2.0f * (q[1] * q[2] + q[0] * q[3]), q[0] * q[0] + q[1] * q[1] - q[2] * q[2] - q[3] * q[3]);   
+       // pitch = -asin(2.0f * (q[1] * q[3] - q[0] * q[2]));
+       // roll  = atan2(2.0f * (q[0] * q[1] + q[2] * q[3]), q[0] * q[0] - q[1] * q[1] - q[2] * q[2] + q[3] * q[3]);
+      //  pitch *= 180.0f / PI;
+     //   yaw   *= 180.0f / PI; 
      //   yaw   -= 13.8f; // Declination at Danville, California is 13 degrees 48 minutes and 47 seconds on 2014-04-04
-        roll  *= 180.0f / PI;
+       // roll  *= 180.0f / PI;
 
         if(1) {
-            printf("Software Yaw, Pitch, Roll:\n ");
-            printf("         %f   %f     %f",yaw, pitch, roll);
+//            printf("Software Yaw, Pitch, Roll:\n ");
+//            printf("         %f   %f     %f",yaw, pitch, roll);
+//
+//            printf("Software Yaw, Pitch, Roll:\n ");
+//            printf("         %f   %f     %f",yaw, pitch, roll);
 
-            printf("Software Yaw, Pitch, Roll:\n ");
-            printf("         %f   %f     %f",yaw, pitch, roll);
-
-            printf("Hardware x, y, z linear acceleration:\n ");
-            printf("     %f   %f     %f",LIAx, LIAy, LIAz);
-
+            printf("Hardware x, y, z linear acceleration:");
+            printf(" %f.1, %f.1,%f.1",LIAx, LIAy, LIAz);
+            Delay(50);
             printf("Hardware x, y, z gravity vector: ");
-            printf("     %f   %f     %f",GRVx, GRVy, GRVz);
-
-            printf("rate = %f Hz", sumCount/sum);
+            printf(" %f.1, %f.1,%f.1\n",GRVx, GRVy, GRVz);
+            Delay(50);
+            printf("rate = %f.1 Hz\n", sumCount/sum);
         }
 
         //digitalWrite(myLed, !digitalRead(myLed));
@@ -603,6 +604,35 @@ char writeByte(char address, char subAddress, char data)
 //	Wire.write(subAddress);           // Put slave register address in Tx buffer
 //	Wire.write(data);                 // Put data in Tx buffer
 //	Wire.endTransmission();           // Send the Tx buffer
+    I2C1_MESSAGE_STATUS status;
+    char timeOut = 0;
+    char Data[3];
+    Data[0] = subAddress;
+    Data[1] = data;
+    while(status != I2C1_MESSAGE_FAIL)
+    {
+        // write one byte to EEPROM (3 is the number of bytes to write)
+        I2C1_MasterWrite(  Data,2,address,&status);
+
+        // wait for the message to be sent or status has changed.
+        while(status == I2C1_MESSAGE_PENDING);
+
+        if (status == I2C1_MESSAGE_COMPLETE)
+            break;
+
+        // if status is  I2C1_MESSAGE_ADDRESS_NO_ACK,
+        //               or I2C1_DATA_NO_ACK,
+        // The device may be busy and needs more time for the last
+        // write so we can retry writing the data, this is why we
+        // use a while loop here
+
+        // check for max retry and skip this byte
+        if (timeOut == SLAVE_I2C_GENERIC_RETRY_MAX)
+            break;
+        else
+            timeOut++;
+    }
+    timeOut = 0;  
 }
 
 char readByte(char address, char subAddress)
@@ -615,7 +645,61 @@ char readByte(char address, char subAddress)
 ////	Wire.requestFrom(address, 1);  // Read one char from slave register address 
 //	Wire.requestFrom(address, (size_t) 1);   // Read one char from slave register address 
 //	data = Wire.read();                      // Fill Rx buffer with result
-	return data;                             // Return data read from slave register
+    I2C1_MESSAGE_STATUS status;
+    char Data[3];
+    Data[0] = subAddress;
+    char timeOut = 0;
+    while(status != I2C1_MESSAGE_FAIL)
+    {
+        // write one byte to EEPROM (3 is the number of bytes to write)
+        I2C1_MasterWrite(Data,1,address,&status);
+
+        // wait for the message to be sent or status has changed.
+        while(status == I2C1_MESSAGE_PENDING);
+
+        if (status == I2C1_MESSAGE_COMPLETE)
+            break;
+
+        // if status is  I2C1_MESSAGE_ADDRESS_NO_ACK,
+        //               or I2C1_DATA_NO_ACK,
+        // The device may be busy and needs more time for the last
+        // write so we can retry writing the data, this is why we
+        // use a while loop here
+
+        // check for max retry and skip this byte
+        if (timeOut == SLAVE_I2C_GENERIC_RETRY_MAX)
+            break;
+        else
+            timeOut++;
+    }
+    timeOut = 0;
+    while(status != I2C1_MESSAGE_FAIL)
+    {
+        // write one byte to EEPROM (3 is the number of bytes to write)
+        I2C1_MasterRead(  Data,
+                                1,
+                                address,
+                                &status);
+
+        // wait for the message to be sent or status has changed.
+        while(status == I2C1_MESSAGE_PENDING);
+
+        if (status == I2C1_MESSAGE_COMPLETE)
+            break;
+
+        // if status is  I2C1_MESSAGE_ADDRESS_NO_ACK,
+        //               or I2C1_DATA_NO_ACK,
+        // The device may be busy and needs more time for the last
+        // write so we can retry writing the data, this is why we
+        // use a while loop here
+
+        // check for max retry and skip this byte
+        if (timeOut == SLAVE_I2C_GENERIC_RETRY_MAX)
+            break;
+        else
+            timeOut++;
+    }
+	return Data[0];                             // Return data read from slave register
 }
 
 void readBytes(char address, char subAddress, char count, char * dest)
@@ -629,101 +713,154 @@ void readBytes(char address, char subAddress, char count, char * dest)
 //        Wire.requestFrom(address, (size_t) count);  // Read chars from slave register address 
 //	while (Wire.available()) {
 //        dest[i++] = Wire.read(); }         // Put read results in the Rx buffer
-    //I2C1_MasterWrite(dest,count,address,&status);
+    I2C1_MESSAGE_STATUS status;
+    char timeOut = 0;
+    char Data[3];
+    Data[0] = subAddress;
+    while(status != I2C1_MESSAGE_FAIL)
+    {
+        // write one byte to EEPROM (3 is the number of bytes to write)
+        I2C1_MasterWrite(Data,1,address,&status);
+
+        // wait for the message to be sent or status has changed.
+        while(status == I2C1_MESSAGE_PENDING);
+
+        if (status == I2C1_MESSAGE_COMPLETE)
+            break;
+
+        // if status is  I2C1_MESSAGE_ADDRESS_NO_ACK,
+        //               or I2C1_DATA_NO_ACK,
+        // The device may be busy and needs more time for the last
+        // write so we can retry writing the data, this is why we
+        // use a while loop here
+
+        // check for max retry and skip this byte
+        if (timeOut == SLAVE_I2C_GENERIC_RETRY_MAX)
+            break;
+        else
+            timeOut++;
+    }
+    timeOut = 0;
+    while(status != I2C1_MESSAGE_FAIL)
+    {
+        // write one byte to EEPROM (3 is the number of bytes to write)
+        I2C1_MasterRead(  dest,
+                                count,
+                                address,
+                                &status);
+
+        // wait for the message to be sent or status has changed.
+        while(status == I2C1_MESSAGE_PENDING);
+
+        if (status == I2C1_MESSAGE_COMPLETE)
+            break;
+
+        // if status is  I2C1_MESSAGE_ADDRESS_NO_ACK,
+        //               or I2C1_DATA_NO_ACK,
+        // The device may be busy and needs more time for the last
+        // write so we can retry writing the data, this is why we
+        // use a while loop here
+
+        // check for max retry and skip this byte
+        if (timeOut == SLAVE_I2C_GENERIC_RETRY_MAX)
+            break;
+        else
+            timeOut++;
+    }
 }
         
-void MadgwickQuaternionUpdate(float ax, float ay, float az, float gx, float gy, float gz, float mx, float my, float mz)
-{
-    float q1 = q[0], q2 = q[1], q3 = q[2], q4 = q[3];   // short name local variable for readability
-    float norm;
-    float hx, hy, _2bx, _2bz;
-    float s1, s2, s3, s4;
-    float qDot1, qDot2, qDot3, qDot4;
-
-    // Auxiliary variables to avoid repeated arithmetic
-    float _2q1mx;
-    float _2q1my;
-    float _2q1mz;
-    float _2q2mx;
-    float _4bx;
-    float _4bz;
-    float _2q1 = 2.0f * q1;
-    float _2q2 = 2.0f * q2;
-    float _2q3 = 2.0f * q3;
-    float _2q4 = 2.0f * q4;
-    float _2q1q3 = 2.0f * q1 * q3;
-    float _2q3q4 = 2.0f * q3 * q4;
-    float q1q1 = q1 * q1;
-    float q1q2 = q1 * q2;
-    float q1q3 = q1 * q3;
-    float q1q4 = q1 * q4;
-    float q2q2 = q2 * q2;
-    float q2q3 = q2 * q3;
-    float q2q4 = q2 * q4;
-    float q3q3 = q3 * q3;
-    float q3q4 = q3 * q4;
-    float q4q4 = q4 * q4;
-
-    // Normalise accelerometer measurement
-    norm = sqrt(ax * ax + ay * ay + az * az);
-    if (norm == 0.0f) return; // handle NaN
-    norm = 1.0f/norm;
-    ax *= norm;
-    ay *= norm;
-    az *= norm;
-
-    // Normalise magnetometer measurement
-    norm = sqrt(mx * mx + my * my + mz * mz);
-    if (norm == 0.0f) return; // handle NaN
-    norm = 1.0f/norm;
-    mx *= norm;
-    my *= norm;
-    mz *= norm;
-
-    // Reference direction of Earth's magnetic field
-    _2q1mx = 2.0f * q1 * mx;
-    _2q1my = 2.0f * q1 * my;
-    _2q1mz = 2.0f * q1 * mz;
-    _2q2mx = 2.0f * q2 * mx;
-    hx = mx * q1q1 - _2q1my * q4 + _2q1mz * q3 + mx * q2q2 + _2q2 * my * q3 + _2q2 * mz * q4 - mx * q3q3 - mx * q4q4;
-    hy = _2q1mx * q4 + my * q1q1 - _2q1mz * q2 + _2q2mx * q3 - my * q2q2 + my * q3q3 + _2q3 * mz * q4 - my * q4q4;
-    _2bx = sqrt(hx * hx + hy * hy);
-    _2bz = -_2q1mx * q3 + _2q1my * q2 + mz * q1q1 + _2q2mx * q4 - mz * q2q2 + _2q3 * my * q4 - mz * q3q3 + mz * q4q4;
-    _4bx = 2.0f * _2bx;
-    _4bz = 2.0f * _2bz;
-
-    // Gradient decent algorithm corrective step
-    float i1 = ((2.0f * q2q4) - _2q1q3 - ax);
-    float i2 = ((2.0f * q1q2) + _2q3q4 - ay);
-    float i3 = (_2bx * (0.5f - q3q3 - q4q4));
-    float i4 = ((-_2bx * q4) + (_2bz * q2));
-    //s1 = -_2q3 * (i1) + _2q2 * (i2) - _2bz * q3 * (i3) + _2bz * (q2q4 - q1q3) - mx) + (i4) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + _2bx * q3 * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
-    //s2 = _2q4 * (2.0f * q2q4 - _2q1q3 - ax) + _2q1 * (2.0f * q1q2 + _2q3q4 - ay) - 4.0f * q2 * (1.0f - 2.0f * q2q2 - 2.0f * q3q3 - az) + _2bz * q4 * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (_2bx * q3 + _2bz * q1) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + (_2bx * q4 - _4bz * q2) * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
-    //s3 = -_2q1 * (2.0f * q2q4 - _2q1q3 - ax) + _2q4 * (2.0f * q1q2 + _2q3q4 - ay) - 4.0f * q3 * (1.0f - 2.0f * q2q2 - 2.0f * q3q3 - az) + (-_4bx * q3 - _2bz * q1) * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (_2bx * q2 + _2bz * q4) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + (_2bx * q1 - _4bz * q3) * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
-    //s4 = _2q2 * (2.0f * q2q4 - _2q1q3 - ax) + _2q3 * (2.0f * q1q2 + _2q3q4 - ay) + (-_4bx * q4 + _2bz * q2) * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (-_2bx * q1 + _2bz * q3) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + _2bx * q2 * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
-    norm = sqrt(s1 * s1 + s2 * s2 + s3 * s3 + s4 * s4);    // normalise step magnitude
-    norm = 1.0f/norm;
-    s1 *= norm;
-    s2 *= norm;
-    s3 *= norm;
-    s4 *= norm;
-
-    // Compute rate of change of quaternion
-    qDot1 = 0.5f * (-q2 * gx - q3 * gy - q4 * gz) - beta * s1;
-    qDot2 = 0.5f * (q1 * gx + q3 * gz - q4 * gy) - beta * s2;
-    qDot3 = 0.5f * (q1 * gy - q2 * gz + q4 * gx) - beta * s3;
-    qDot4 = 0.5f * (q1 * gz + q2 * gy - q3 * gx) - beta * s4;
-
-    // Integrate to yield quaternion
-    q1 += qDot1 * deltat;
-    q2 += qDot2 * deltat;
-    q3 += qDot3 * deltat;
-    q4 += qDot4 * deltat;
-    norm = sqrt(q1 * q1 + q2 * q2 + q3 * q3 + q4 * q4);    // normalise quaternion
-    norm = 1.0f/norm;
-    q[0] = q1 * norm;
-    q[1] = q2 * norm;
-    q[2] = q3 * norm;
-    q[3] = q4 * norm;
-
-}
+//void MadgwickQuaternionUpdate(float ax, float ay, float az, float gx, float gy, float gz, float mx, float my, float mz)
+//{
+//    float q1 = q[0], q2 = q[1], q3 = q[2], q4 = q[3];   // short name local variable for readability
+//    float norm;
+//    float hx, hy, _2bx, _2bz;
+//    float s1, s2, s3, s4;
+//    float qDot1, qDot2, qDot3, qDot4;
+//
+//    // Auxiliary variables to avoid repeated arithmetic
+//    float _2q1mx;
+//    float _2q1my;
+//    float _2q1mz;
+//    float _2q2mx;
+//    float _4bx;
+//    float _4bz;
+//    float _2q1 = 2.0f * q1;
+//    float _2q2 = 2.0f * q2;
+//    float _2q3 = 2.0f * q3;
+//    float _2q4 = 2.0f * q4;
+//    float _2q1q3 = 2.0f * q1 * q3;
+//    float _2q3q4 = 2.0f * q3 * q4;
+//    float q1q1 = q1 * q1;
+//    float q1q2 = q1 * q2;
+//    float q1q3 = q1 * q3;
+//    float q1q4 = q1 * q4;
+//    float q2q2 = q2 * q2;
+//    float q2q3 = q2 * q3;
+//    float q2q4 = q2 * q4;
+//    float q3q3 = q3 * q3;
+//    float q3q4 = q3 * q4;
+//    float q4q4 = q4 * q4;
+//
+//    // Normalise accelerometer measurement
+//    norm = sqrt(ax * ax + ay * ay + az * az);
+//    if (norm == 0.0f) return; // handle NaN
+//    norm = 1.0f/norm;
+//    ax *= norm;
+//    ay *= norm;
+//    az *= norm;
+//
+//    // Normalise magnetometer measurement
+//    norm = sqrt(mx * mx + my * my + mz * mz);
+//    if (norm == 0.0f) return; // handle NaN
+//    norm = 1.0f/norm;
+//    mx *= norm;
+//    my *= norm;
+//    mz *= norm;
+//
+//    // Reference direction of Earth's magnetic field
+//    _2q1mx = 2.0f * q1 * mx;
+//    _2q1my = 2.0f * q1 * my;
+//    _2q1mz = 2.0f * q1 * mz;
+//    _2q2mx = 2.0f * q2 * mx;
+//    hx = mx * q1q1 - _2q1my * q4 + _2q1mz * q3 + mx * q2q2 + _2q2 * my * q3 + _2q2 * mz * q4 - mx * q3q3 - mx * q4q4;
+//    hy = _2q1mx * q4 + my * q1q1 - _2q1mz * q2 + _2q2mx * q3 - my * q2q2 + my * q3q3 + _2q3 * mz * q4 - my * q4q4;
+//    _2bx = sqrt(hx * hx + hy * hy);
+//    _2bz = -_2q1mx * q3 + _2q1my * q2 + mz * q1q1 + _2q2mx * q4 - mz * q2q2 + _2q3 * my * q4 - mz * q3q3 + mz * q4q4;
+//    _4bx = 2.0f * _2bx;
+//    _4bz = 2.0f * _2bz;
+//
+//    // Gradient decent algorithm corrective step
+//    float i1 = ((2.0f * q2q4) - _2q1q3 - ax);
+//    float i2 = ((2.0f * q1q2) + _2q3q4 - ay);
+//    float i3 = (_2bx * (0.5f - q3q3 - q4q4));
+//    float i4 = ((-_2bx * q4) + (_2bz * q2));
+//    //s1 = -_2q3 * (i1) + _2q2 * (i2) - _2bz * q3 * (i3) + _2bz * (q2q4 - q1q3) - mx) + (i4) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + _2bx * q3 * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
+//    //s2 = _2q4 * (2.0f * q2q4 - _2q1q3 - ax) + _2q1 * (2.0f * q1q2 + _2q3q4 - ay) - 4.0f * q2 * (1.0f - 2.0f * q2q2 - 2.0f * q3q3 - az) + _2bz * q4 * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (_2bx * q3 + _2bz * q1) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + (_2bx * q4 - _4bz * q2) * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
+//    //s3 = -_2q1 * (2.0f * q2q4 - _2q1q3 - ax) + _2q4 * (2.0f * q1q2 + _2q3q4 - ay) - 4.0f * q3 * (1.0f - 2.0f * q2q2 - 2.0f * q3q3 - az) + (-_4bx * q3 - _2bz * q1) * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (_2bx * q2 + _2bz * q4) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + (_2bx * q1 - _4bz * q3) * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
+//    //s4 = _2q2 * (2.0f * q2q4 - _2q1q3 - ax) + _2q3 * (2.0f * q1q2 + _2q3q4 - ay) + (-_4bx * q4 + _2bz * q2) * (_2bx * (0.5f - q3q3 - q4q4) + _2bz * (q2q4 - q1q3) - mx) + (-_2bx * q1 + _2bz * q3) * (_2bx * (q2q3 - q1q4) + _2bz * (q1q2 + q3q4) - my) + _2bx * q2 * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f - q2q2 - q3q3) - mz);
+//    norm = sqrt(s1 * s1 + s2 * s2 + s3 * s3 + s4 * s4);    // normalise step magnitude
+//    norm = 1.0f/norm;
+//    s1 *= norm;
+//    s2 *= norm;
+//    s3 *= norm;
+//    s4 *= norm;
+//
+//    // Compute rate of change of quaternion
+//    qDot1 = 0.5f * (-q2 * gx - q3 * gy - q4 * gz) - beta * s1;
+//    qDot2 = 0.5f * (q1 * gx + q3 * gz - q4 * gy) - beta * s2;
+//    qDot3 = 0.5f * (q1 * gy - q2 * gz + q4 * gx) - beta * s3;
+//    qDot4 = 0.5f * (q1 * gz + q2 * gy - q3 * gx) - beta * s4;
+//
+//    // Integrate to yield quaternion
+//    q1 += qDot1 * deltat;
+//    q2 += qDot2 * deltat;
+//    q3 += qDot3 * deltat;
+//    q4 += qDot4 * deltat;
+//    norm = sqrt(q1 * q1 + q2 * q2 + q3 * q3 + q4 * q4);    // normalise quaternion
+//    norm = 1.0f/norm;
+//    q[0] = q1 * norm;
+//    q[1] = q2 * norm;
+//    q[2] = q3 * norm;
+//    q[3] = q4 * norm;
+//
+//}

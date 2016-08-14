@@ -113,12 +113,12 @@ void SYSTEM_Initialize(void) {
     OSCILLATOR_Initialize();
     PIN_MANAGER_Initialize();
     INTERRUPT_Initialize();
-    EUSART1_Initialize();
-    TMR1_Initialize();
-    ECCP1_Initialize();
-    ECCP2_Initialize();
-    TMR2_Initialize();
-    ADC_Initialize();
+    //EUSART1_Initialize();
+    //TMR1_Initialize();
+   // ECCP1_Initialize();
+   // ECCP2_Initialize();
+   // TMR2_Initialize();
+   // ADC_Initialize();
 }
 
 void OSCILLATOR_Initialize(void) {

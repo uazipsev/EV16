@@ -5,7 +5,7 @@
 #include "ADDRESSING.h"
 #include "mcc_generated_files/eusart1.h"
 
-char receiveArray[50];
+char receiveArray[10];
 
 void CommsStart(){
     begin(receiveArray, sizeof (receiveArray), TM_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
