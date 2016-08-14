@@ -21,6 +21,8 @@ extern void RS485_Direction1(int T_L);
 int seekButtonChange();
 void changeLEDState(int LED, int state);
 int GetDDSerrorCounter();
+bool receiveCommDDS();
+bool requestDDSData();
 
 #endif	/* DDSCOMMS_H */
 

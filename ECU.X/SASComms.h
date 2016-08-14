@@ -31,6 +31,8 @@ bool checkSASInputs(unsigned int t1, unsigned int t2, unsigned int b);
 void SetBrakeValue(int val);
 void SetThrottleValue(int val);
 char GetSASFalts();
+bool receiveCommSAS();
+bool requestSASData();
 unsigned int GetSASValue(char request);
 unsigned int GetSASRaw(char request);
 

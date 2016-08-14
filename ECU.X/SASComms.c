@@ -10,7 +10,7 @@ bool receiveCommSAS();
 bool requestSASData();
 bool readyToSendSAS = true;
 bool SAS_COMMS_ERROR = false;
-
+static int SASErrorCounter = 0;
 int ThrottlePrecent;
 
 #define THROTTLE_SANITY_CHECK 1
@@ -19,7 +19,7 @@ int ThrottlePrecent;
 bool requestSASData() {
     //If either timeout or response with delay already occurred
     if (((GetTime(SASTIMER) > BOARD_RESEND_MIN) && (readyToSendSAS)) || (GetTime(SASTIMER) > BOARD_TIMEOUT)) {
-        static int SASErrorCounter = 0;
+        SASErrorCounter = 0;
         if (!readyToSendSAS) {
             SASErrorCounter++;
             if (SASErrorCounter > 1) {

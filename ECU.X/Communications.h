@@ -31,30 +31,12 @@
     void sendErrorCode2();
     bool ComCheck(char device);
 
-
-
-    //SAS
-    extern bool receiveCommSAS();
-    extern bool requestSASData();
-    extern bool readyToSendSAS;
-    extern bool SAS_COMMS_ERROR;
-
-    //
-    extern bool readyToSendBMM;
-    extern bool BMM_COMMS_ERROR;
     //
     extern bool requestMCSData();
     extern bool receiveCommMCS();
     extern bool readyToSendMCS;
     extern bool MCS_COMMS_ERROR;
     //
-
-    extern bool requestDDSData();
-    extern bool receiveCommDDS();
-    extern bool readyToSendDDS;
-    extern bool DDS_COMMS_ERROR;
-    //
-
 
     extern bool requestPDUData();
     extern bool receiveCommPDU();

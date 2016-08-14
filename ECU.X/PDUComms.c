@@ -4,6 +4,7 @@
 #include "PinDef.h"
 #include "xc.h"
 #include "Timers.h"
+#include "FastTransfer.h"
 
 bool requestPDUData();
 int constructPowerSet();
@@ -38,7 +39,7 @@ bool requestPDUData() {
 
 bool receiveCommPDU() {
     if (receiveData()) {
-        if (receiveArray[RESPONSE_ADDRESS] == PDU_ADDRESS) {
+        if (ReceiveArrayGet(RESPONSE_ADDRESS) == PDU_ADDRESS) {
             readyToSendPDU = true;
             SetTime(PDUTIMER);
             //INDICATOR ^= 1;

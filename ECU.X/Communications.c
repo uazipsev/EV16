@@ -73,7 +73,7 @@ void bus1Update() {
                 }
             } else {
                 //FLAG ERROR ON SAS COMMS -- Move on
-                SAS_COMMS_ERROR = true;
+                comms.SAS = false;
                 commsBus1State++;
                 resetCommTimers();
             }
@@ -87,7 +87,7 @@ void bus1Update() {
                 }
             } else {
                 //FLAG ERROR ON DDS COMMS -- Move on
-                DDS_COMMS_ERROR = true;
+                comms.DDS = false;
                 commsBus1State++;
                 resetCommTimers();
             }
@@ -101,7 +101,7 @@ void bus1Update() {
                 commsBus1State = SAS_UPDATE;
             break;
         case ERROR_STATE1:
-            sendErrorCode();
+            //sendErrorCode();
             commsBus1State = SAS_UPDATE;
             break;
         case NUM_STATES1:
@@ -125,27 +125,6 @@ void resetCommTimers() {
 void RS485_Direction1(int T_L) {
     RS485_1_Direction = T_L;
     talkTime = 0;
-}
-
-void sendErrorCode() {
-    unsigned int errorState = 0;
-    if (DDS_COMMS_ERROR) {
-        comms.DDS = false;
-        errorState = errorState | 0x01;
-        DDS_COMMS_ERROR = false;
-    }
-    if (SAS_COMMS_ERROR) {
-        comms.SAS = false;
-        errorState = errorState | 0x02;
-        SAS_COMMS_ERROR = false;
-    }
-    if (PDU_COMMS_ERROR) {
-        comms.PDU = false;
-        errorState = errorState | 0x04;
-        PDU_COMMS_ERROR = false;
-    }
-    //ToSend2(BUS_1_ERROR_DEBUG, errorState);
-    //sendData2(DEBUG_ADDRESS);
 }
 
 void bus2Update() {
@@ -175,7 +154,7 @@ void bus2Update() {
                 }
             } else {
                 //FLAG ERROR ON MCS COMMS -- Move on
-                BMM_COMMS_ERROR = true;
+                comms.BMM = false;
                 commsBus2State++;
                 resetCommTimers2();
             }
@@ -192,7 +171,7 @@ void bus2Update() {
                 }
             } else {
                 //FLAG ERROR ON PDU COMMS -- Move on
-                PDU_COMMS_ERROR = true;
+                comms.PDU = false;
                 commsBus2State++;
                 resetCommTimers2();
             }
@@ -205,7 +184,7 @@ void bus2Update() {
                 commsBus2State = MCS_UPDATE;
             break;
         case ERROR_STATE2:
-            sendErrorCode2();
+            //sendErrorCode2();
             commsBus2State = MCS_UPDATE;
             break;
         case NUM_STATES2:
@@ -230,26 +209,6 @@ void RS485_Direction2(int T_L) {
     RS485_2_Direction = T_L;
     talkTime1 = 0;
 }
-
-void sendErrorCode2() {
-    unsigned int errorState = 0;
-    if (MCS_COMMS_ERROR) {
-        comms.MCS = false;
-        errorState = errorState | 0x01;
-        MCS_COMMS_ERROR = false;
-    }
-    if (BMM_COMMS_ERROR) {
-        comms.BMM = false;
-        errorState = errorState | 0x02;
-        BMM_COMMS_ERROR = false;
-    }
-    //debugSAS();
-    //ToSend2(BUS_2_ERROR_DEBUG, errorState);
-    //sendData2(DEBUG_ADDRESS);
-}
-
-
-
 
 //Debug interface for printf
 extern void Send_put2(unsigned char _data);
