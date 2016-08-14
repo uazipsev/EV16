@@ -23,6 +23,7 @@
 #include "DriverConfigs.h"
 #include "Timers.h"
 #include "DriverConfigs.h"
+#include "SASComms.h"
 
 
 int BrakeLightThreshold = 0;
@@ -163,10 +164,12 @@ void ledDebug(){
  * @note            This fcn uses data from the SAS to read in the brake pressure sensor
  *******************************************************************/
 void updateBrakeLight() {
-    if (brake > BrakeLightThreshold) {
+    if(GetSASValue(GETSASB1) > BrakeLightThreshold) {
         BRAKELT = 1;
-    } else if (brake<(BrakeLightThreshold-3))  //Prevent Oscillation Number
+    }
+    else if(GetSASValue(GETSASB1)<(BrakeLightThreshold-3)){  //Prevent Oscillation Number
        BRAKELT = 0;
+    }
 }
 
 /*******************************************************************

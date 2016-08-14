@@ -4,7 +4,7 @@
 #include "FastTransfer1.h"
 #include "Communications.h"
 
-unsigned int throttle1, throttle2, brake, TripThrottle;
+unsigned int throttle1, throttle2, brake1,brake2, TripThrottle;
 unsigned int t1Raw, t2Raw, bRaw, TripBrake;
 bool receiveCommSAS();
 bool requestSASData();
@@ -66,25 +66,25 @@ void storeSASInputs() {
 //        if (throttle2 > 100) throttle2 = 100;
 //    } else throttle2 = 0;
 //    if (bRaw < 100 && bRaw > 0) {
-        brake = bRaw;
+        brake1 = bRaw;
 //        if (brake < 0) brake = 0;
 //        if (brake > 100) brake = 100;
 //    } else brake = 0;
     //    //Brake vs. throttle safety
-        if ((((throttle1 + throttle2) / 2) > TripThrottle) && (brake > TripBrake)) {
+        if ((((throttle1 + throttle2) / 2) > TripThrottle) && (brake1 > TripBrake)) {
             SAS_FAULT_CONDITION = THROTTLE_BRAKE_CHECK;  //  TODO: Fix me
             throttle1=0;
             throttle2=0;
-            brake=0;
+            brake1=0;
         }
 }
 
 bool receiveCommSAS() {
     if (receiveData1()) {
         //INDICATOR ^= 1;
-        if (receiveArray1[RESPONSE_ADDRESS] == SAS_ADDRESS) {
+        if (ReceiveArray1Get(RESPONSE_ADDRESS) == SAS_ADDRESS) {
            // INDICATOR ^= 1;
-            if (checkSASInputs(receiveArray1[THROTTLE1_SAS], receiveArray1[THROTTLE2_SAS], receiveArray1[BRAKE_SAS])) {
+            if (checkSASInputs(ReceiveArray1Get(THROTTLE1_SAS), ReceiveArray1Get(THROTTLE2_SAS), ReceiveArray1Get(BRAKE_SAS))) {
                 storeSASInputs();
             }
 
@@ -101,4 +101,40 @@ void SetBrakeValue(int val){
 
 void SetThrottleValue(int val){
     TripThrottle = val;
+}
+
+char GetSASFalts(){
+    return SAS_FAULT_CONDITION;
+}
+
+unsigned int GetSASValue(char request){
+    if(request == GETSAST1){
+        return throttle1;
+    }
+    else if(request == GETSAST2){
+        return throttle2;
+    }
+    else if(request == GETSASB1){
+        return brake1;
+    }
+    else if(request == GETSASB2){
+        return brake2;
+    }
+    else return 0;
+}
+
+unsigned int GetSASRaw(char request){
+    if(request == GETSAST1RAW){
+        return t1Raw;
+    }
+    else if(request == GETSAST2RAW){
+        return t2Raw;
+    }
+    else if(request == GETSASB1RAW){
+        return bRaw;
+    }
+    else if(request == GETSASB2RAW){
+        return 0;
+    }
+    else return 0;
 }

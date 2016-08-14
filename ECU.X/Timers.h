@@ -21,6 +21,7 @@ void TimeOutSet(int num);
 #define PDUTIMER 4
 #define BMMTIMER 5
 #define DEBUGTIME 6
+#define SSTIMER 8
 #define TIME 7
 
 #endif	/* TIMERS_H */

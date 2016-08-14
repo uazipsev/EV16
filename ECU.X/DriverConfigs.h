@@ -12,7 +12,7 @@ void SetDriver(char num);
 void SetUpDataSets();
 char DriverCount();
 char *CurrentDriverName();
-char *DriverNames(int num);
+char *DriverNames(char num);
 char DriverActive();
 void DriverNameChar(char byte, char num);
 void DriverMaxThrottle(int value);
@@ -26,11 +26,11 @@ void DriverDebugEn(bool value);
 int GetDriverMaxThrottle();
 int GetDriverMaxMaxRegen();
 int GetDriverLowBatCutoff();
-int GetDriverRamp(int value);
-char GetDriverFalt(char value);
+int GetDriverRamp();
+char GetDriverFalt();
 bool GetDriverFW_RW_EN();
-bool GetDriverRegenInput(bool value);
-bool GetDriverDebugEn(bool value);
+bool GetDriverRegenInput();
+bool GetDriverDebugEn();
 
 #endif	/* DRIVERCONFIGS_H */
 

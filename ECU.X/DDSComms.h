@@ -8,34 +8,19 @@
 #ifndef DDSCOMMS_H
 #define	DDSCOMMS_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
-
-
 #include "ADDRESSING.h"
 #include <stdbool.h>
 
-extern int DDS_FAULT_CONDITION;
+//#define START_BUTTON 0
+#define START_LED  0
+#define DASH_LED2  1
 
+extern unsigned int throttle1, throttle2, brake;
 
-    extern volatile unsigned int DDSTimer;
-
-    //DDS
-    extern unsigned int indicators;
-    extern unsigned int buttons;
-    extern unsigned int throttle1, throttle2, brake;
-
-    extern void sendData1(unsigned char whereToSend);
-    extern bool receiveData1();
-    extern void ToSend1(const unsigned char where, const unsigned int what);
-    extern volatile int receiveArray1[20];
-
-    extern void RS485_Direction1(int T_L);
-
-#ifdef	__cplusplus
-}
-#endif
+extern void RS485_Direction1(int T_L);
+int seekButtonChange();
+void changeLEDState(int LED, int state);
+int GetDDSerrorCounter();
 
 #endif	/* DDSCOMMS_H */
 

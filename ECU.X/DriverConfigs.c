@@ -2,7 +2,7 @@
 #include "EEprom.h"
 #include <stdbool.h>
 
-char *DriverNamesList[10];
+char DriverNamesList[40];
 
 struct DriverData
 {
@@ -48,12 +48,20 @@ void SetUpDataSets(){
     //This sets up the I2C to EEPROM com's to save car data. 
     EEpromInit();
     //Delay(100);
-    char RCJ[3] = {'T','B','H'};
+    SaveCarDriverCount(0);
+    char RCJ[3] = {'R','C','J'};
     SaveDriverConfig(RCJ,100,0,100,0,0, 1, 0, 1);
+    char BKB[3] = {'B','K','B'};
+    SaveDriverConfig(BKB,100,0,100,0,0, 1, 0, 1);
+    char TYH[3] = {'T','Y','H'};
+    SaveDriverConfig(TYH,100,0,100,0,0, 1, 0, 1);
     DriverCountNum = ReadCarDriverCount();
     int i = 0;
+    char TEMP;
     for(i = 0;i<DriverCountNum;i++){
-        DriverNamesList[i] = ReadDriverNames(i);
+        TEMP = ReadDriverNames(i+1);
+        //strcpy(DriverNamesList[i], TEMP);
+        //printf("Name = %s",TEMP);
     }
     //SaveCarDriver(1);
     SetDriver(ReadCarDriver());
@@ -74,7 +82,7 @@ char *CurrentDriverName(){
     return DriverConfig.NAME;
 }
 
-char *DriverNames(int num){
+char *DriverNames(char num){
     return DriverNamesList[num];
 }
 
@@ -94,11 +102,11 @@ int GetDriverLowBatCutoff(){
     return DriverConfig.LowBatCutoff;
 }
 
-int GetDriverRamp(int value){
+int GetDriverRamp(){
     return DriverConfig.Ramp;
 }
 
-char GetDriverFalt(char value){
+char GetDriverFalt(){
     return DriverConfig.Falt;
 }
 
@@ -106,11 +114,11 @@ bool GetDriverFW_RW_EN(){
     return DriverConfig.FW_RW_EN;
 }
 
-bool GetDriverRegenInput(bool value){
+bool GetDriverRegenInput(){
     return DriverConfig.RegenInput;
 }
 
-bool GetDriverDebugEn(bool value){
+bool GetDriverDebugEn(){
     return DriverConfig.DebugEn;
 }
 

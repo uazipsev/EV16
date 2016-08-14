@@ -14,21 +14,25 @@
 
 //#define TRIP_THROTTLE 40
 //#define TRIP_BRAKE    40
-
-
-extern int SAS_FAULT_CONDITION;
     //SAS
 
-//    extern void sendData1(unsigned char whereToSend);
-//    extern bool receiveData1();
-//    extern void ToSend1(const unsigned char where, const unsigned int what);
-    extern volatile int receiveArray1[20];
+#define GETSAST1 1
+#define GETSAST2 2
+#define GETSASB1 3
+#define GETSASB2 4
+#define GETSASBP 5
 
-   // extern void RS485_Direction1(int T_L);
-    bool checkSASInputs(unsigned int t1, unsigned int t2, unsigned int b);
-    void SetBrakeValue(int val);
-    void SetThrottleValue(int val);
+#define GETSAST1RAW 6
+#define GETSAST2RAW 7
+#define GETSASB1RAW 8
+#define GETSASB2RAW 9
 
+bool checkSASInputs(unsigned int t1, unsigned int t2, unsigned int b);
+void SetBrakeValue(int val);
+void SetThrottleValue(int val);
+char GetSASFalts();
+unsigned int GetSASValue(char request);
+unsigned int GetSASRaw(char request);
 
 #endif	/* SASCOMMS_H */
 

@@ -15,7 +15,7 @@ unsigned int TimeOut = 0;
 unsigned int LastTime = 0;
 bool TimeOutActive = 0;
 
-unsigned int SAS, DDS, MCS, PDU, BMM, BootTimer,DebugTimer;
+unsigned int SAS, DDS, MCS, PDU, BMM, BootTimer,DebugTimer,SSTimer;
 unsigned int time;
 unsigned int talkTime;
 unsigned int talkTime1;
@@ -40,6 +40,7 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     talkTime3++;
     BootTimer++;
     DebugTimer++;
+    SSTimer++;
     if (SAS < COMM_TIMER_MAX_TIME)
         SAS++;
     if (DDS < COMM_TIMER_MAX_TIME)
@@ -83,6 +84,9 @@ int GetTime(char data){
     if(data == DEBUGTIME){
         return DebugTimer;
     }
+    if(data == SSTIMER){
+        return SSTimer;
+    }
     if(data == TIME){
         return time;
     }
@@ -107,6 +111,9 @@ void SetTime(char data){
     }
     if(data == DEBUGTIME){
         DebugTimer = 0;
+    }
+    if(data == SSTIMER){
+        SSTimer = 0;
     }
     if(data == TIME){
         time = 0;

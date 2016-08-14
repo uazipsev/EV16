@@ -70,6 +70,9 @@ void crcBufS_status_put(struct crcBufS* _this, unsigned char time, unsigned char
 unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned char space);
 void CRCcheck(void);
 
+char ReceiveArrayGet(int location){
+    return receiveArray[location];
+}
 
 void wipeRxBuffer(void)
 {

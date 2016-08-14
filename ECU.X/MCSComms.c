@@ -1,6 +1,8 @@
 #include "MCSComms.h"
 #include "PinDef.h"
 #include "Timers.h"
+#include "SASComms.h"
+#include "FastTransfer.h"
 
 
 bool requestMCSData();
@@ -8,6 +10,7 @@ bool receiveCommMCS();
 bool readyToSendMCS = true;
 bool MCS_COMMS_ERROR = false;
 extern int carActive;
+static int MCSErrorCounter = 0;
 
 bool requestMCSData() {
     if (((GetTime(MCSTIMER) > BOARD_RESEND_MIN+100) && (readyToSendMCS)) || (GetTime(MCSTIMER) > BOARD_TIMEOUT)) {
@@ -27,8 +30,8 @@ bool requestMCSData() {
         
         ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
         ToSend(OUTPUT_ACTIVE, carActive);
-        ToSend(THROTTLE_OUTPUT, throttle1 );//TODO may need to add 40.95 if mcs gets rid of theres
-        ToSend(BRAKE_OUTPUT, brake); //TODO may need to add 40.95 if mcs gets rid of theres
+        ToSend(THROTTLE_OUTPUT, GetSASValue(GETSAST1));//TODO may need to add 40.95 if mcs gets rid of theres
+        ToSend(BRAKE_OUTPUT, GetSASValue(GETSASB1)); //TODO may need to add 40.95 if mcs gets rid of theres
         sendData(MCS_ADDRESS);
         SetTime(MCSTIMER);
     }
@@ -37,11 +40,15 @@ bool requestMCSData() {
 
 bool receiveCommMCS() {
     if (receiveData()) {
-        if (receiveArray[RESPONSE_ADDRESS] == MCS_ADDRESS) {
+        if (ReceiveArrayGet(RESPONSE_ADDRESS) == MCS_ADDRESS) {
             readyToSendMCS = true;
             SetTime(MCSTIMER);
             return true;
         } else return false;
     } else return false;
     return true;
+}
+
+char GetMCSFault(){
+    return MCSErrorCounter;
 }

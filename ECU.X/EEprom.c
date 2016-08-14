@@ -274,11 +274,16 @@ void SaveDriverConfig(char NAME[3], int MaxThrottle, int MaxRegen, int LowBatCut
  * @return          Driver name
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
-char *ReadDriverNames(char dvr){
+char* ReadDriverNames(char dvr){
     char data[3];
-    int offset = DRIVERCONFIGSTART*drv;
+    int offset = DRIVERCONFIGSTART*dvr;
     data[0] = readRegister(ADDRESS, (offset));
     data[1] = readRegister(ADDRESS, (offset+1));
     data[2] = readRegister(ADDRESS, (offset+2));
+    printf("Data 0 =%c\n",data[0]);
+    printf("Data 1 =%c\n",data[1]);
+    printf("Data 2 =%c\n",data[2]);
+    data[3] = '\0';
+    printf("Data array =%s\n",data);
     return data;
 }

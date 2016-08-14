@@ -18,7 +18,7 @@
 #include "FastTransfer.h"
 #include "FastTransfer1.h"
 #include "FastTransfer3.h"
-
+#include "SASComms.h"
 #include <errno.h>
 
 #define LOW_VOLTAGE_FLAG 1
@@ -53,7 +53,6 @@ struct commsStates {
     int PDU_SEND;
 };
 extern struct commsStates comms;
- extern unsigned int t1Raw, t2Raw, bRaw;
                int State_Value =0;
                int StateFault_Value=0;
 enum debugStates debugState;
@@ -121,13 +120,13 @@ void handleDebugRequests() {
                     lastDebugState = debugState;
                 }
                 printf("\n-----Throttle Brake Raw Debug----\n");
-                printf("Throttle1:      %d\n", t1Raw);
-                printf("Throttle2:      %d\n", t2Raw);
-                printf("Brake:          %d\n\n", bRaw);
+                printf("Throttle1:      %d\n", GetSASRaw(GETSAST1RAW));
+                printf("Throttle2:      %d\n", GetSASRaw(GETSAST2RAW));
+                printf("Brake:          %d\n\n", GetSASRaw(GETSASB1RAW));
                 printf("\n-----Throttle Brake Signal Debug----\n");
-                printf("Throttle1:      %d\n", throttle1);
-                printf("Throttle2:      %d\n", throttle2);
-                printf("Brake:          %d\n", brake);
+                printf("Throttle1:      %d\n",  GetSASValue(GETSAST1));
+                printf("Throttle2:      %d\n",  GetSASValue(GETSAST2));
+                printf("Brake:          %d\n",  GetSASValue(GETSASB1));
                 break;
             case BATTERY_DEBUG_VOLTS:
                 //This is the first time through the loop
@@ -584,7 +583,7 @@ void DriverMenu(char menuitem){
         printf("|---Driver List---|\n");
         int i;
         for(i = 1;i < DriverCount();i++){
-            printf("%d) Driver %d - %s\n",i,i,DriverNames(i));
+            printf("%d) Driver %d - %s\n",i,i,DriverNames(i-1));
         }
         FunctionDataGrab = 4;
     }

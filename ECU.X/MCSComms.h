@@ -8,30 +8,13 @@
 #ifndef MCSCOMMS_H
 #define	MCSCOMMS_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
-
-
 #include "ADDRESSING.h"
 #include <stdbool.h>
+    
+//MCS
 
-
-extern int MCS_FAULT_CONDITION;
-    //MCS
-    extern volatile unsigned int MCSTimer;
-
-    extern unsigned int throttle1, throttle2, brake;
-
-    extern void sendData(unsigned char whereToSend);
-    extern bool receiveData();
-    extern void ToSend(const unsigned char where, const unsigned int what);
-    extern volatile int receiveArray[100];
-
-    extern void RS485_Direction2(int T_L);
-#ifdef	__cplusplus
-}
-#endif
+extern void RS485_Direction2(int T_L);
+char GetMCSFault();
 
 #endif	/* MCSCOMMS_H */
 

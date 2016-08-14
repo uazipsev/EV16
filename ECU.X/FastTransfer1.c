@@ -74,6 +74,10 @@ void StartFastTransfer1(){
     begin1(receiveArray1, sizeof (receiveArray1), ECU_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);
 }
 
+char ReceiveArray1Get(int location){
+    return receiveArray1[location];
+}
+
 void wipeRxBuffer1(void)
 {
 	int i=0;
