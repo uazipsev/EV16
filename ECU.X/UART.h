@@ -20,6 +20,7 @@ unsigned char Receive_peek(void);
 int Receive_available(void);
 unsigned char Receive_get(void);
 void Send_put(unsigned char _data);
+bool TXStallGet();
 
 #endif	/* UART_HANDLER_H */
 

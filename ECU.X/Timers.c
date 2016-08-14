@@ -90,6 +90,12 @@ int GetTime(char data){
     if(data == TIME){
         return time;
     }
+    if(data == TALKTIME){
+        return talkTime;
+    }
+    if(data == TALKTIME1){
+        return talkTime1;
+    }
     else return 255;
 }
 
@@ -117,6 +123,12 @@ void SetTime(char data){
     }
     if(data == TIME){
         time = 0;
+    }
+    if(data == TALKTIME){
+        talkTime = 0;
+    }
+    if(data == TALKTIME1){
+        talkTime1 = 0;
     }
 }
 

@@ -27,6 +27,9 @@
 #include "PDUComms.h"
 #include "BMMComms.h"
 #include "Timers.h"
+#include "UART.h"
+#include "UART1.h"
+
 
 char x = 0;
 
@@ -111,7 +114,7 @@ void bus1Update() {
 
 void checkCommDirection() {
     //you have finished send and time has elapsed.. start listen
-    if (Transmit_stall && (talkTime > CLOSE_COMM_TIME)) {
+    if (TXStallGet() && (GetTime(TALKTIME) > CLOSE_COMM_TIME)) {
         RS485_Direction1(LISTEN);
     }
 }
@@ -124,7 +127,7 @@ void resetCommTimers() {
 
 void RS485_Direction1(int T_L) {
     RS485_1_Direction = T_L;
-    talkTime = 0;
+    SetTime(TALKTIME);
 }
 
 void bus2Update() {
@@ -194,7 +197,7 @@ void bus2Update() {
 
 void checkCommDirection1() {
     //you have finished send and time has elapsed.. start listen
-    if (Transmit_stall1 && (talkTime1 > CLOSE_COMM_TIME)) {
+    if (TXStallGet1() && (GetTime(TALKTIME1) > CLOSE_COMM_TIME)) {
         RS485_Direction2(LISTEN);
     }
 }
@@ -207,7 +210,7 @@ void resetCommTimers2() {
 
 void RS485_Direction2(int T_L) {
     RS485_2_Direction = T_L;
-    talkTime1 = 0;
+    SetTime(TALKTIME1);
 }
 
 //Debug interface for printf

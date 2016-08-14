@@ -156,3 +156,7 @@ void __attribute__((interrupt, no_auto_psv)) _U1TXInterrupt(void) {
     }
     IFS0bits.U1TXIF = 0; // Clear TX interrupt flag
 }
+
+bool TXStallGet(){
+    return Transmit_stall;
+}

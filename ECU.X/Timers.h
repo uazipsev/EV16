@@ -24,5 +24,8 @@ void TimeOutSet(int num);
 #define SSTIMER 8
 #define TIME 7
 
+#define TALKTIME 9
+#define TALKTIME1 10
+
 #endif	/* TIMERS_H */
 
