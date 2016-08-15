@@ -14,7 +14,7 @@
 #define delay_us(x) __delay32(((x*FCY)/1000000L)) // delays x us
 #define delay_ms(x) __delay32(((x*FCY)/1000L))  // delays x ms
 #define __DELAY_H 1
-#incle <libpic30.h>
+#include <libpic30.h>
 #endif
 
 #define PPSin(fn,pin)    iPPSInput(IN_FN_PPS##fn,IN_PIN_PPS##pin)

@@ -76,6 +76,7 @@ bool MenuClear = false;
 int Data = 0;
 char DataHold[10];
 char TimeOutMenu = 0;
+char next = 0;
 
 /*******************************************************************
  * @brief           write
@@ -297,6 +298,7 @@ void handleDebugRequests() {
         }
         if(MenuClear){
             ClearScreen();
+            
             MenuPrint(Menu,SubMenu);
             MenuClear = false;
         }
@@ -334,7 +336,10 @@ void handleDebugRequests() {
             if(FunctionDataGrab == 4){
                 //Get data of the pipe
                 DataHold[i] = Receive_get2();
-                 DriverMenu(3);    
+                SetDriver(DataHold[0]-48);
+                TimeOutSet(3000);
+                SubMenu = 0;
+                //ClearScreen();
                 //We are done grabbing data off the pipeline
                 FunctionDataGrab = false;
                 i = 0;
@@ -376,7 +381,7 @@ void handleDebugRequests() {
                 }
             }
             //Brake Light Setpoint
-            if(FunctionDataGrab == 6){
+            else if(FunctionDataGrab == 6){
                 //Get data of the pipe
                 DataHold[i] = Receive_get2();
                 i++;
@@ -390,6 +395,166 @@ void handleDebugRequests() {
                     FunctionDataGrab = false;
                     i = 0;
                 }
+            }
+            //Config data for Driver settings 
+            else if(FunctionDataGrab == 6){
+                //Get data of the pipe
+                DataHold[i] = Receive_get2();
+                i++;
+                //We are looking for 3 chars...
+                if(i>2){
+                    //Get data array to int
+                    sscanf(DataHold, "%d", &Data);
+                    //We have data and are ready to save it to the car
+                    MenuBrakeLightValue(1);
+                    //We are done grabbing data off the pipeline
+                    FunctionDataGrab = false;
+                    i = 0;
+                }
+            }
+            //Config data for Driver Max Throttle 
+            else if(FunctionDataGrab == 7){
+                //Get data of the pipe
+                DataHold[i] = Receive_get2();
+                i++;
+                //We are looking for 3 chars...
+                if(i>2){
+                    //Get data array to int
+                    sscanf(DataHold, "%d", &Data);
+                    //We have data and are ready to save it to the car
+                    printf("New Max throttle = %d",Data);
+                    //We are done grabbing data off the pipeline
+                    FunctionDataGrab = false;
+                    SubMenu = 0;
+                    TimeOutSet(3000);
+                    i = 0;
+                }
+            }
+            //Config data for Driver Max Regen 
+            else if(FunctionDataGrab == 8){
+                //Get data of the pipe
+                DataHold[i] = Receive_get2();
+                i++;
+                //We are looking for 3 chars...
+                if(i>2){
+                    //Get data array to int
+                    sscanf(DataHold, "%d", &Data);
+                    //We have data and are ready to save it to the car
+                    printf("New Max Regen = %d",Data);
+                    //We are done grabbing data off the pipeline
+                    FunctionDataGrab = false;
+                    SubMenu = 0;
+                    TimeOutSet(3000);
+                    i = 0;
+                }
+            }
+            //Config data for Driver Max LowBatCutoff 
+            else if(FunctionDataGrab == 9){
+                //Get data of the pipe
+                DataHold[i] = Receive_get2();
+                i++;
+                //We are looking for 3 chars...
+                if(i>2){
+                    //Get data array to int
+                    sscanf(DataHold, "%d", &Data);
+                    //We have data and are ready to save it to the car
+                    printf("New LowBatCutoff = %d",Data);
+                    //We are done grabbing data off the pipeline
+                    FunctionDataGrab = false;
+                    SubMenu = 0;
+                    TimeOutSet(3000);
+                    i = 0;
+                }
+            }
+            //Config data for Driver Max LowBatCutoff 
+            else if(FunctionDataGrab == 10){
+                //Get data of the pipe
+                DataHold[i] = Receive_get2();
+                i++;
+                //We are looking for 3 chars...
+                if(i>2){
+                    //Get data array to int
+                    sscanf(DataHold, "%d", &Data);
+                    //We have data and are ready to save it to the car
+                    printf("New Ramp = %d",Data);
+                    //We are done grabbing data off the pipeline
+                    FunctionDataGrab = false;
+                    SubMenu = 0;
+                    TimeOutSet(3000);
+                    i = 0;
+                }
+            }
+            //Config data for Driver Max LowBatCutoff 
+            else if(FunctionDataGrab == 11){
+                //Get data of the pipe
+                if(next == 0){
+                    
+                    DataHold[0] = Receive_get2();
+                    //Get data array to int
+                    sscanf(DataHold, "%d", &Data);
+                    //We have data and are ready to save it to the car
+                    printf("Faults allowed = %d\n",Data);
+                    next++;
+                    //We are done grabbing data off the pipeline
+                    FunctionDataGrab = 11;
+                    //TimeOutSet(1500);
+                    printf("Debugging allowed? (1 = yes 0 = no\n");
+                    i = 0;
+                }
+                else if(next == 1){
+                    
+                    DataHold[0] = Receive_get2();
+                    //Get data array to int
+                    sscanf(DataHold, "%d", &Data);
+                    //We have data and are ready to save it to the car
+                    printf("Debugging = ");
+                    if(Data == 1){
+                        printf("yes\n");
+                    }
+                    else printf("no\n");
+                    next++;
+                    //We are done grabbing data off the pipeline
+                    FunctionDataGrab = 11;
+                    printf("FW-RV allowed? (1 = yes 0 = no\n");
+                    //TimeOutSet(1500);
+                    i = 0;
+                }
+                else if(next == 2){
+                    
+                    DataHold[0] = Receive_get2();
+                    //Get data array to int
+                    sscanf(DataHold, "%d", &Data);
+                    //We have data and are ready to save it to the car
+                    printf("FW-RV = ");
+                    if(Data == 1){
+                        printf("yes\n");
+                    }
+                    else printf("no\n");
+                    next++;
+                    //We are done grabbing data off the pipeline
+                    FunctionDataGrab = 11;
+                    printf("Regen source (1 = brake 0 = throttle\n");
+                    i = 0;
+                }
+                else if(next == 3){
+                    
+                    DataHold[0] = Receive_get2();
+                    //Get data array to int
+                    sscanf(DataHold, "%d", &Data);
+                    //We have data and are ready to save it to the car
+                    printf("Regen source = ");
+                    if(Data == 1){
+                        printf("Brake\n");
+                    }
+                    else printf("Throttle\n");
+                    next++;
+                    //We are done grabbing data off the pipeline
+                    FunctionDataGrab = false;
+                    SubMenu = 0;
+                    TimeOutSet(3000);
+                    i = 0;
+                }
+                
             }
         }
     }
@@ -577,12 +742,17 @@ void DriverMenu(char menuitem){
     SubMenuActive = true;
     printf("|---Driver Config---|\n");
     printf("1) Driver Select\n");
-    printf("2) Driver Config\n");
+    printf("2) New Driver Config\n");
+    printf("3) Driver Max Throttle \n");
+    printf("4) Driver Max Regen \n");
+    printf("5) Driver LowBatCutoff \n");
+    printf("6) Driver Ramp \n");
+    printf("7) Driver ETC\n");
     printf("------%s IS ACTIVE-------\n",CurrentDriverName());
     if(menuitem == 1){
         printf("|---Driver List---|\n");
         int i;
-        for(i = 1;i < DriverCount()+1;i++){
+        for(i = 1;i < DriverCount()+1;i++){ //added the offset of driver count to offset the i = 1
             printf("%d) Driver %d - ",i,i);
             DriverNamePrint(i);
         }
@@ -599,10 +769,35 @@ void DriverMenu(char menuitem){
         FunctionDataGrab = 5;
     }
     else if(menuitem == 3){
-        ClearScreen();
-        SetDriver(DataHold[0]-48);
-        TimeOutSet(3000);
-        SubMenu = 0;
+        printf("|----Max Throttle---|\n");
+        printf("|------0 to 100-----|\n");
+        printf("|-Must Be 3 digits--|\n");
+        FunctionDataGrab = 7;
+    }
+    else if(menuitem == 4){
+        printf("|-----Max Regen-----|\n");
+        printf("|------0 to 100-----|\n");
+        printf("|-Must Be 3 digits--|\n");
+        FunctionDataGrab = 8;
+    }
+    else if(menuitem == 5){
+        printf("|----LowBatCutoff---|\n");
+        printf("|------0 to 100-----|\n");
+        printf("|-Must Be 3 digits--|\n");
+        FunctionDataGrab = 9;
+    }
+    else if(menuitem == 6){
+        printf("|--------Ramp-------|\n");
+        printf("|------0 to 100-----|\n");
+        printf("|-Must Be 3 digits--|\n");
+        FunctionDataGrab = 10;
+    }
+    else if(menuitem == 7){
+        printf("|---Fault Allowed---|\n");
+        printf("|------Debug En-----|\n");
+        printf("|RegenInput & FW/RV-|\n");
+        printf("What faults are allowed?\n");
+        FunctionDataGrab = 11;
     }
 }
 
