@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include "ADDRESSING.h"
 #include "Timers.h"
+#include "FastTransfer1.h"
 
 bool readyToSendSS = 0;
 
@@ -36,7 +37,7 @@ bool receiveCommSS() {
 //            buttons = receiveArray1[BUTTONS_DDS];
 //            readyToSendDDS = true;
 //            SetTime(DDSTIMER);
-//            return true;
+            return true;
 //        } else return false;
     } else return false;
 }

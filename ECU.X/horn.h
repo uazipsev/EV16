@@ -8,9 +8,9 @@
 #ifndef HORN_H
 #define	HORN_H
 
-extern void RTD(int lenth);
-extern void Boot(int lenth);
-extern void Fault(int lenth);
+void RTD(int lenth);
+void Boot(int lenth);
+void Fault(int lenth);
 
 #endif	/* HORN_H */
 

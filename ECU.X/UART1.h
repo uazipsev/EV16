@@ -21,7 +21,7 @@ unsigned char Receive_peek1(void);
 int Receive_available1(void);
 unsigned char Receive_get1(void);
 void Send_put1(unsigned char _data);
-bool TXStallGet();
+bool TXStallGet1();
 
 
 

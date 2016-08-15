@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=DDSComms.c BMMComms.c MCSComms.c PDUComms.c SASComms.c Communications.c Horn.c StoppedState.c StateMachine.c debug.c DriverConfigs.c EEprom.c Functions.c pwm.c I2C.c Timers.c FastTransfer.c FastTransfer1.c FastTransfer2.c FastTransfer3.c UART3.c UART2.c UART1.c UART.c main.c ConfigBits.c SScomms.c
+SOURCEFILES_QUOTED_IF_SPACED=DDSComms.c BMMComms.c MCSComms.c PDUComms.c SASComms.c Communications.c SScomms.c Horn.c StoppedState.c StateMachine.c debug.c DriverConfigs.c EEprom.c Functions.c pwm.c I2C.c Timers.c FastTransfer.c FastTransfer1.c FastTransfer2.c FastTransfer3.c UART3.c UART2.c UART1.c UART.c main.c ConfigBits.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/DDSComms.o ${OBJECTDIR}/BMMComms.o ${OBJECTDIR}/MCSComms.o ${OBJECTDIR}/PDUComms.o ${OBJECTDIR}/SASComms.o ${OBJECTDIR}/Communications.o ${OBJECTDIR}/Horn.o ${OBJECTDIR}/StoppedState.o ${OBJECTDIR}/StateMachine.o ${OBJECTDIR}/debug.o ${OBJECTDIR}/DriverConfigs.o ${OBJECTDIR}/EEprom.o ${OBJECTDIR}/Functions.o ${OBJECTDIR}/pwm.o ${OBJECTDIR}/I2C.o ${OBJECTDIR}/Timers.o ${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/FastTransfer1.o ${OBJECTDIR}/FastTransfer2.o ${OBJECTDIR}/FastTransfer3.o ${OBJECTDIR}/UART3.o ${OBJECTDIR}/UART2.o ${OBJECTDIR}/UART1.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/main.o ${OBJECTDIR}/ConfigBits.o ${OBJECTDIR}/SScomms.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/DDSComms.o.d ${OBJECTDIR}/BMMComms.o.d ${OBJECTDIR}/MCSComms.o.d ${OBJECTDIR}/PDUComms.o.d ${OBJECTDIR}/SASComms.o.d ${OBJECTDIR}/Communications.o.d ${OBJECTDIR}/Horn.o.d ${OBJECTDIR}/StoppedState.o.d ${OBJECTDIR}/StateMachine.o.d ${OBJECTDIR}/debug.o.d ${OBJECTDIR}/DriverConfigs.o.d ${OBJECTDIR}/EEprom.o.d ${OBJECTDIR}/Functions.o.d ${OBJECTDIR}/pwm.o.d ${OBJECTDIR}/I2C.o.d ${OBJECTDIR}/Timers.o.d ${OBJECTDIR}/FastTransfer.o.d ${OBJECTDIR}/FastTransfer1.o.d ${OBJECTDIR}/FastTransfer2.o.d ${OBJECTDIR}/FastTransfer3.o.d ${OBJECTDIR}/UART3.o.d ${OBJECTDIR}/UART2.o.d ${OBJECTDIR}/UART1.o.d ${OBJECTDIR}/UART.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/ConfigBits.o.d ${OBJECTDIR}/SScomms.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/DDSComms.o ${OBJECTDIR}/BMMComms.o ${OBJECTDIR}/MCSComms.o ${OBJECTDIR}/PDUComms.o ${OBJECTDIR}/SASComms.o ${OBJECTDIR}/Communications.o ${OBJECTDIR}/SScomms.o ${OBJECTDIR}/Horn.o ${OBJECTDIR}/StoppedState.o ${OBJECTDIR}/StateMachine.o ${OBJECTDIR}/debug.o ${OBJECTDIR}/DriverConfigs.o ${OBJECTDIR}/EEprom.o ${OBJECTDIR}/Functions.o ${OBJECTDIR}/pwm.o ${OBJECTDIR}/I2C.o ${OBJECTDIR}/Timers.o ${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/FastTransfer1.o ${OBJECTDIR}/FastTransfer2.o ${OBJECTDIR}/FastTransfer3.o ${OBJECTDIR}/UART3.o ${OBJECTDIR}/UART2.o ${OBJECTDIR}/UART1.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/main.o ${OBJECTDIR}/ConfigBits.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/DDSComms.o.d ${OBJECTDIR}/BMMComms.o.d ${OBJECTDIR}/MCSComms.o.d ${OBJECTDIR}/PDUComms.o.d ${OBJECTDIR}/SASComms.o.d ${OBJECTDIR}/Communications.o.d ${OBJECTDIR}/SScomms.o.d ${OBJECTDIR}/Horn.o.d ${OBJECTDIR}/StoppedState.o.d ${OBJECTDIR}/StateMachine.o.d ${OBJECTDIR}/debug.o.d ${OBJECTDIR}/DriverConfigs.o.d ${OBJECTDIR}/EEprom.o.d ${OBJECTDIR}/Functions.o.d ${OBJECTDIR}/pwm.o.d ${OBJECTDIR}/I2C.o.d ${OBJECTDIR}/Timers.o.d ${OBJECTDIR}/FastTransfer.o.d ${OBJECTDIR}/FastTransfer1.o.d ${OBJECTDIR}/FastTransfer2.o.d ${OBJECTDIR}/FastTransfer3.o.d ${OBJECTDIR}/UART3.o.d ${OBJECTDIR}/UART2.o.d ${OBJECTDIR}/UART1.o.d ${OBJECTDIR}/UART.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/ConfigBits.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/DDSComms.o ${OBJECTDIR}/BMMComms.o ${OBJECTDIR}/MCSComms.o ${OBJECTDIR}/PDUComms.o ${OBJECTDIR}/SASComms.o ${OBJECTDIR}/Communications.o ${OBJECTDIR}/Horn.o ${OBJECTDIR}/StoppedState.o ${OBJECTDIR}/StateMachine.o ${OBJECTDIR}/debug.o ${OBJECTDIR}/DriverConfigs.o ${OBJECTDIR}/EEprom.o ${OBJECTDIR}/Functions.o ${OBJECTDIR}/pwm.o ${OBJECTDIR}/I2C.o ${OBJECTDIR}/Timers.o ${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/FastTransfer1.o ${OBJECTDIR}/FastTransfer2.o ${OBJECTDIR}/FastTransfer3.o ${OBJECTDIR}/UART3.o ${OBJECTDIR}/UART2.o ${OBJECTDIR}/UART1.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/main.o ${OBJECTDIR}/ConfigBits.o ${OBJECTDIR}/SScomms.o
+OBJECTFILES=${OBJECTDIR}/DDSComms.o ${OBJECTDIR}/BMMComms.o ${OBJECTDIR}/MCSComms.o ${OBJECTDIR}/PDUComms.o ${OBJECTDIR}/SASComms.o ${OBJECTDIR}/Communications.o ${OBJECTDIR}/SScomms.o ${OBJECTDIR}/Horn.o ${OBJECTDIR}/StoppedState.o ${OBJECTDIR}/StateMachine.o ${OBJECTDIR}/debug.o ${OBJECTDIR}/DriverConfigs.o ${OBJECTDIR}/EEprom.o ${OBJECTDIR}/Functions.o ${OBJECTDIR}/pwm.o ${OBJECTDIR}/I2C.o ${OBJECTDIR}/Timers.o ${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/FastTransfer1.o ${OBJECTDIR}/FastTransfer2.o ${OBJECTDIR}/FastTransfer3.o ${OBJECTDIR}/UART3.o ${OBJECTDIR}/UART2.o ${OBJECTDIR}/UART1.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/main.o ${OBJECTDIR}/ConfigBits.o
 
 # Source Files
-SOURCEFILES=DDSComms.c BMMComms.c MCSComms.c PDUComms.c SASComms.c Communications.c Horn.c StoppedState.c StateMachine.c debug.c DriverConfigs.c EEprom.c Functions.c pwm.c I2C.c Timers.c FastTransfer.c FastTransfer1.c FastTransfer2.c FastTransfer3.c UART3.c UART2.c UART1.c UART.c main.c ConfigBits.c SScomms.c
+SOURCEFILES=DDSComms.c BMMComms.c MCSComms.c PDUComms.c SASComms.c Communications.c SScomms.c Horn.c StoppedState.c StateMachine.c debug.c DriverConfigs.c EEprom.c Functions.c pwm.c I2C.c Timers.c FastTransfer.c FastTransfer1.c FastTransfer2.c FastTransfer3.c UART3.c UART2.c UART1.c UART.c main.c ConfigBits.c
 
 
 CFLAGS=
@@ -129,6 +129,13 @@ ${OBJECTDIR}/Communications.o: Communications.c  nbproject/Makefile-${CND_CONF}.
 	@${RM} ${OBJECTDIR}/Communications.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  Communications.c  -o ${OBJECTDIR}/Communications.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Communications.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mlarge-data -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/Communications.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/SScomms.o: SScomms.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/SScomms.o.d 
+	@${RM} ${OBJECTDIR}/SScomms.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  SScomms.c  -o ${OBJECTDIR}/SScomms.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/SScomms.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mlarge-data -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/SScomms.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/Horn.o: Horn.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -270,13 +277,6 @@ ${OBJECTDIR}/ConfigBits.o: ConfigBits.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  ConfigBits.c  -o ${OBJECTDIR}/ConfigBits.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/ConfigBits.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mlarge-data -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/ConfigBits.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
-${OBJECTDIR}/SScomms.o: SScomms.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/SScomms.o.d 
-	@${RM} ${OBJECTDIR}/SScomms.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  SScomms.c  -o ${OBJECTDIR}/SScomms.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/SScomms.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mlarge-data -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/SScomms.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 else
 ${OBJECTDIR}/DDSComms.o: DDSComms.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -319,6 +319,13 @@ ${OBJECTDIR}/Communications.o: Communications.c  nbproject/Makefile-${CND_CONF}.
 	@${RM} ${OBJECTDIR}/Communications.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  Communications.c  -o ${OBJECTDIR}/Communications.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Communications.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mlarge-data -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/Communications.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/SScomms.o: SScomms.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/SScomms.o.d 
+	@${RM} ${OBJECTDIR}/SScomms.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  SScomms.c  -o ${OBJECTDIR}/SScomms.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/SScomms.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mlarge-data -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/SScomms.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/Horn.o: Horn.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -459,13 +466,6 @@ ${OBJECTDIR}/ConfigBits.o: ConfigBits.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/ConfigBits.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  ConfigBits.c  -o ${OBJECTDIR}/ConfigBits.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/ConfigBits.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mlarge-data -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/ConfigBits.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/SScomms.o: SScomms.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/SScomms.o.d 
-	@${RM} ${OBJECTDIR}/SScomms.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  SScomms.c  -o ${OBJECTDIR}/SScomms.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/SScomms.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mlarge-data -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/SScomms.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

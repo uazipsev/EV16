@@ -14,6 +14,8 @@
 //MCS
 
 extern void RS485_Direction2(int T_L);
+bool requestMCSData();
+bool receiveCommMCS();
 char GetMCSFault();
 
 #endif	/* MCSCOMMS_H */

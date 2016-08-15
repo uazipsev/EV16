@@ -29,6 +29,7 @@
 #include "Timers.h"
 #include "UART.h"
 #include "UART1.h"
+#include "horn.h"
 
 
 char x = 0;
@@ -141,7 +142,7 @@ void bus2Update() {
                 }
             } else {
                 //FLAG ERROR ON MCS COMMS -- Move on
-                MCS_COMMS_ERROR = true;
+                comms.MCS = false;
                 commsBus2State++;
                 resetCommTimers2();
             }

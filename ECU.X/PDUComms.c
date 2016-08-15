@@ -6,12 +6,9 @@
 #include "Timers.h"
 #include "FastTransfer.h"
 
-bool requestPDUData();
-int constructPowerSet();
-bool receiveCommPDU();
+
 bool readyToSendPDU = true;
 bool PDU_COMMS_ERROR = false;
-bool powerChange();
 extern struct powerStates powerSet;
 
 bool requestPDUData() {

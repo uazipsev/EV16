@@ -275,7 +275,6 @@ void SaveDriverConfig(char NAME[3], int MaxThrottle, int MaxRegen, int LowBatCut
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 void ReadDriverNames(char dvr){
-    char data[3];
     int offset = DRIVERCONFIGSTART*dvr;
     insert(readRegister(ADDRESS, (offset)));
     insert(readRegister(ADDRESS, (offset+1)));

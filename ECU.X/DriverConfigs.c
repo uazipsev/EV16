@@ -2,6 +2,8 @@
 #include "EEprom.h"
 #include <stdbool.h>
 #include "DriverConfigs.h"
+#include <string.h>
+#include <stdlib.h>
 
 char DriverNamesList[40];
 
@@ -90,8 +92,7 @@ char *CurrentDriverName(){
 }
 
 void DriverNamePrint(char num){
-    struct Names *temp;
-    temp = head;
+    struct Names *temp = head;
     int k = 0;
     int offset  = num*4-3;
     for(k = 0;k<offset;k++){
