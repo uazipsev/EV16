@@ -3,6 +3,7 @@
 #include "Timers.h"
 #include "SASComms.h"
 #include "FastTransfer.h"
+#include "Communications.h"
 
 
 bool requestMCSData();

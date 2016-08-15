@@ -11,9 +11,6 @@
 #include "ADDRESSING.h"
 #include <stdbool.h>
     
-//MCS
-
-extern void RS485_Direction2(int T_L);
 bool requestMCSData();
 bool receiveCommMCS();
 char GetMCSFault();

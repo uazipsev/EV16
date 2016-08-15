@@ -15,9 +15,6 @@
 #define START_LED  0
 #define DASH_LED2  1
 
-extern unsigned int throttle1, throttle2, brake;
-
-extern void RS485_Direction1(int T_L);
 int seekButtonChange();
 void changeLEDState(int LED, int state);
 int GetDDSerrorCounter();

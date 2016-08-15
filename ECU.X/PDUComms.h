@@ -11,7 +11,6 @@
 #include "ADDRESSING.h"
 #include <stdbool.h>
 
-extern void RS485_Direction2(int T_L);
 bool requestPDUData();
 bool receiveCommPDU();
 bool powerChange();

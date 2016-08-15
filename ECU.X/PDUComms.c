@@ -5,7 +5,7 @@
 #include "xc.h"
 #include "Timers.h"
 #include "FastTransfer.h"
-
+#include "Communications.h"
 
 bool readyToSendPDU = true;
 bool PDU_COMMS_ERROR = false;

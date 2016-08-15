@@ -5,4 +5,5 @@ ADDRESSING.h  \
  StateMachine.h  \
 PinDef.h  \
 Timers.h  \
-FastTransfer.h 
+FastTransfer.h  \
+Communications.h 

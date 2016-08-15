@@ -2,6 +2,7 @@
 #include "Timers.h"
 #include "FastTransfer1.h"
 #include "SASComms.h"
+#include "Communications.h"
 
 bool requestDDSData();
 bool receiveCommDDS();

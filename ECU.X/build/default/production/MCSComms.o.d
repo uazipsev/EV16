@@ -5,4 +5,5 @@ ADDRESSING.h  \
  PinDef.h  \
 Timers.h  \
 SASComms.h  \
-FastTransfer.h 
+FastTransfer.h  \
+Communications.h 
