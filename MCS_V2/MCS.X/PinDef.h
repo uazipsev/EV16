@@ -59,7 +59,11 @@
  */
 #define DACRELAY _LATB5
 #define DACRELAY_TRIS TRISBbits.TRISB5 
-
+/*
+ *    Relay
+ */
+#define WDI _LATB12
+#define WDI_TRIS TRISBbits.TRISB12
 
 #define RX1_Pin_Tris TRISCbits.TRISC7
 #define TX1_Pin_Tris TRISCbits.TRISC6

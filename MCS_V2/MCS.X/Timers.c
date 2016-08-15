@@ -51,7 +51,7 @@ void ClearTalkTime(){
 }
 
 int GetBootTime(){
-    return GetBootTime;
+    return bootTime;
 }
 
 void ClearBootTime(){

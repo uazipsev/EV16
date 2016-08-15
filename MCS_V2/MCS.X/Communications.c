@@ -50,7 +50,7 @@ void updateComms() {
                     //if the current output is not what we received, set it correctly 
                     if (brakeOut != receiveArray[BRAKE_OUTPUT]) {
                         brakeOut = receiveArray[BRAKE_OUTPUT];
-                        //SetRegen(brakeOut);
+                        SetRegen(brakeOut);
                     }
                 //}
             }

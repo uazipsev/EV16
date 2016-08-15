@@ -52,7 +52,10 @@ void Delay(int wait) {
 void ledDebug() {
     if (getLEDTime() > 1000) {
         ClearLEDTime();
+            //Toggle light
             INDICATOR ^= 1;
+            //Toggle hardware watchdog 
+            WDI ^= 1;
     }
 }
     
@@ -75,4 +78,5 @@ void PinSetMode(void) {
     REGENEN_TRIS = OUTPUT;
     IGNEN_TRIS = OUTPUT;
     DACRELAY_TRIS = OUTPUT;
+    WDI_TRIS = OUTPUT;
 }

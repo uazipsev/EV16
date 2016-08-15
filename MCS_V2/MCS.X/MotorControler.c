@@ -84,8 +84,8 @@ void directionMismatchCheck(int direction) {
 void SetRegen(int amount) {
     static int lastRegen;
     if(amount != lastRegen){
-    SetDAC1(amount);
-    lastRegen=amount;
+        SetDAC1(amount);
+        lastRegen=amount;
     }
 }
 
