@@ -2,6 +2,8 @@
 #include "Timers.h"
 #include "MotorControler.h"
 #include "PinDef.h"
+#include "FastTransfer.h"
+
 int throttleOut = 0, brakeOut = 0;
 bool pendingSend = false;
 bool portClosed = true;

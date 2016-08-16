@@ -8,11 +8,6 @@
 #ifndef COMMUNICATIONS_H
 #define	COMMUNICATIONS_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
-
-
 #include <xc.h>
 #include <stdbool.h>
 #include "PinDef.h"
@@ -28,11 +23,6 @@ extern "C" {
     void updateComms();
     void checkCommDirection();
     void respondECU();
-
-
-#ifdef	__cplusplus
-}
-#endif
 
 #endif	/* COMMUNICATIONS_H */
 
