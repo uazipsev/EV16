@@ -1,7 +1,7 @@
 
 # 1 "SR_FRS.c"
 
-# 22 "SR_FRS.h"
+# 21 "SR_FRS.h"
 void SR_FRSTalk(void);
 void SR_FRSPowerDown(void);
 void SR_FRSStart(void);
@@ -4003,7 +4003,7 @@ void Delay(int wait);
 char ReadCharger(void);
 void LEDOff(void);
 
-# 7 "SR_FRS.c"
+# 10 "SR_FRS.c"
 void SR_FRSTalk(void){
 PORTCbits.RC7 ^= 1;
 }
@@ -4013,51 +4013,63 @@ PORTCbits.RC6 ^= 1;
 }
 
 void SR_FRSStart(void){
+SR_FRSPowerDown();
+Delay(500);
 SetCommandMode();
-Delay(100);
+Delay(1000);
 
 SetFrequency();
-Delay(100);
+Delay(1000);
 
 SetPowerSave();
-Delay(100);
+Delay(1000);
 
 SetVolume(5);
-Delay(100);
+Delay(1000);
 
 SetVOX(0);
-Delay(100);
+Delay(1000);
 
-SetMIC(5,0);
+SetMIC(8,0);
 }
 
 void SetCommandMode(void){
+printf("\r\n");
 printf("AT+DMOCONNECT");
+printf("\r\n");
 }
 
 void SetFrequency(void){
-printf("AT+DMOSETGROUP=%d,%f,%f,%d,%d,%d,%d",0,136.0250,136.0250,83,2,83,0);
+printf("\r\n");
+printf("AT+DMOSETGROUP=0,145.5500,145.5500,43,8,51,0");
+printf("\r\n");
 }
 
 void SetPowerSave(void){
 
+printf("\r\n");
 printf("AT+DMOAUTOPOWCONTR=%c",1);
+printf("\r\n");
 }
 
 void SetVolume(char volume){
 if((volume < 9) && (volume > 1)){
+printf("\r\n");
 printf("AT+DMOSETVOLUME=%c",volume);
+printf("\r\n");
 }
 }
 
 void SetVOX(int volume){
 if((volume < 8) && (volume >= 0)){
-printf("AT+DMOSETVOLUME=%c",volume);
+printf("\r\n");
+printf("AT+DMOSETVOX=%c",volume);
+printf("\r\n");
 }
 }
 
 void SetMIC(char volume, char scram){
-if((volume < 8) && (volume > 0)){
-printf("AT+DMOSETMIC=%c,%c,%c",volume,scram,0);
-}
+printf("\r\n");
+printf("AT+DMOSETMIC=%c,%c,0",volume,scram);
+printf("\r\n");
 }

@@ -9,15 +9,14 @@
 #define	SR_FRS_H
 
 //TX Frequency - need to be the same, unless we use a repeater
-#define TXFrequency 136.0250
-#define RXFrequency 136.0250
+
 
 //Radio channel Code
-#define TXCX 83
-#define RXCX 83
+#define TXCX 0
+#define RXCX 0
 
 //Squelch
-#define SQ 2
+#define SQ 0
 
 void SR_FRSTalk(void);
 void SR_FRSPowerDown(void);

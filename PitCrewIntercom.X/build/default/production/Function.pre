@@ -25,7 +25,7 @@ extern volatile unsigned int talkTime;
 
 
 struct UART_ring_buff {
-unsigned char buf[20];
+unsigned char buf[40];
 int head;
 int tail;
 int count;
@@ -4015,8 +4015,9 @@ TRISCbits.TRISC3 = 0;
 TRISAbits.TRISA2 = 1;
 TRISCbits.TRISC0 = 1;
 TRISCbits.TRISC1 = 1;
+TRISAbits.TRISA4 = 1;
 
-# 49
+# 50
 ANSELCbits.ANSC0 = 0;
 ANSELCbits.ANSC1 = 0;
 ANSELAbits.ANSA2 = 0;
@@ -4025,12 +4026,16 @@ ANSELCbits.ANSC6 = 0;
 ANSELCbits.ANSC7 = 0;
 
 # 58
+APFCON0bits.RXDTSEL = 0;
+APFCON0bits.TXCKSEL = 0;
+
+# 63
 ADC_Initialize();
 
-# 62
+# 67
 EUSART1_Initialize();
 
-# 66
+# 71
 INTERRUPT_Initialize();
 TMR2_Initialize();
 }

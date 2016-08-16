@@ -66,7 +66,7 @@ void RadioOperation(){
         //LED_Red = 0;
     }
     if(ReadCharger() == CHARGING){
-        LED_Green = 1;
+        //LED_Green = 1;
         LED_Blue = 1;
     }
     if(ReadCharger() == DONE){

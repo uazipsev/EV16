@@ -43,6 +43,7 @@ void Start(void){
     TRISAbits.TRISA2 = 1; //set RA2 as input  PushToTalkButton
     TRISCbits.TRISC0 = 1; //set RC0 as input  S1
     TRISCbits.TRISC1 = 1; //set RC1 as input  S2
+    TRISAbits.TRISA4 = 1; //set RA4 as input  MIC
     /*
      *  Analog pins that we want digital
      */
@@ -52,6 +53,10 @@ void Start(void){
     ANSELCbits.ANSC3 = 0; //set RC3 as digital LED Red
     ANSELCbits.ANSC6 = 0; //set RC6 as digital RadioPowerDown
     ANSELCbits.ANSC7 = 0; //set RC7 as digital PushToTalkRadio
+    /*
+     */
+    APFCON0bits.RXDTSEL = 0;
+    APFCON0bits.TXCKSEL = 0;
     /*
      *  ADC This is for battery level
      */

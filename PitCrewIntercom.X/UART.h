@@ -10,7 +10,7 @@
 
 #include <stdbool.h>
 #define BAUD_SET 9600
-#define UART_BUFFER_SIZE 20
+#define UART_BUFFER_SIZE 40
 #define CLOCK_RATE   4000000
 #define BAUD_RATE (((CLOCK_RATE/BAUD_SET)/4)-1)
 

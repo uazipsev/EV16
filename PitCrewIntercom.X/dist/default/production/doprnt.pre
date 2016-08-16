@@ -261,56 +261,6 @@ extern double round(double);
 # 13 "C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\doprnt.c"
 #pragma warning disable 350
 
-# 354
-const static unsigned long dpowers[] = {1, 10, 100, 1000, 10000,
-
-100000, 1000000, 10000000, 100000000,
-1000000000
-
-};
-
-# 388
-extern const double _powers_[], _npowers_[];
-
-
-
-extern unsigned long _div_to_l_(double, double);
-
-extern unsigned long _tdiv_to_l_(float, float);
-
-# 408
-static double
-fround(unsigned char prec)
-{
-
-
-if(prec>=110)
-return 0.5 * _npowers_[prec/100+18] * _npowers_[(prec%100)/10+9] * _npowers_[prec%10];
-else if(prec > 10)
-return 0.5 * _npowers_[prec/10+9] * _npowers_[prec%10];
-return 0.5 * _npowers_[prec];
-}
-
-# 424
-static double
-scale(signed char scl)
-{
-
-if(scl < 0) {
-scl = -scl;
-if(scl>=110)
-return _npowers_[scl/100+18] * _npowers_[(scl%100)/10+9] * _npowers_[scl%10];
-else if(scl > 10)
-return _npowers_[scl/10+9] * _npowers_[scl%10];
-return _npowers_[scl];
-}
-if(scl>=110)
-return _powers_[scl/100+18] * _powers_[(scl%100)/10+9] * _powers_[scl%10];
-else if(scl > 10)
-return _powers_[scl/10+9] * _powers_[scl%10];
-return _powers_[scl];
-}
-
 # 455
 int
 
@@ -322,18 +272,10 @@ va_list ap;
 # 499
 signed char c;
 
-int width;
+# 506
+signed char prec;
 
-
-int prec;
-
-# 508
-unsigned short flag;
-
-# 515
-char d;
-double fval;
-int exp;
+unsigned char flag;
 
 # 523
 union {
@@ -341,7 +283,7 @@ unsigned long vd;
 double integ;
 } tmpval;
 
-unsigned long val;
+unsigned int val;
 unsigned len;
 const char * cp;
 
@@ -367,16 +309,6 @@ switch(c = *f++) {
 case 0:
 goto alldone;
 
-# 662
-case 'f':
-flag |= 0x400;
-break;
-
-# 697
-case 'd':
-case 'i':
-break;
-
 # 784
 case 'c':
 
@@ -393,161 +325,10 @@ continue;
 # 822
 }
 
-
-if(flag & (0x700)) {
-
-# 829
-prec = 6;
-fval = (*(double *)__va_arg((*(double **)ap), (double)0));
-if(fval < 0.0) {
-fval = -fval;
-flag |= 0x03;
-}
-exp = 0;
-if( fval!=0) {
-(void)(*(&exp) = ((*(unsigned long *)&fval >> 15) & 255) - 126);
-exp--;
-exp *= 3;
-exp /= 10;
-if(exp < 0)
-exp--;
-
-
-
-tmpval.integ = scale(-exp);
-tmpval.integ *= fval;
-if(tmpval.integ < 1.0)
-exp--;
-else if(tmpval.integ >= 10.0)
-exp++;
-}
-
-# 1112
-if(prec <= 12)
-fval += fround(prec);
-
-
-if((exp > 9)||(fval != 0 && (unsigned long)fval == 0 && exp > 1)) {
-
-
-
-if(tmpval.integ < 4.294967296){
-exp -= (sizeof dpowers/sizeof dpowers[0])-1;
-}else{
-exp -= (sizeof dpowers/sizeof dpowers[0])-2;
-}
-tmpval.integ = scale(exp);
-val = ((sizeof(double)== 3) ? _tdiv_to_l_(fval,tmpval.integ) : _div_to_l_(fval,tmpval.integ));
-
-
-fval = 0.0;
-} else {
-val = (unsigned long)fval;
-fval -= (double)val;
-exp = 0;
-}
-
-for(c = 1 ; c != (sizeof dpowers/sizeof dpowers[0]) ; c++)
-if(val < dpowers[c])
-break;
-
-# 1175
-{
-
-# 1188
-if(flag & 0x03)
-
-(putch('-') );
-
-# 1195
-}
-while(c--) {
-
-
-
-{
-tmpval.vd = val/dpowers[c];
-tmpval.vd %= 10;
-(putch('0' + tmpval.vd) );
-}
-
-}
-while(exp > 0) {
-(putch('0') );
-exp--;
-}
-if(prec > (int)((sizeof dpowers/sizeof dpowers[0])-2))
-c = (sizeof dpowers/sizeof dpowers[0])-2;
-else
-c = prec;
-prec -= c;
-
-
-
-if(c)
-
-(putch('.') );
-
-# 1227
-val = (long)(fval * scale(c));
-while(c--) {
-tmpval.vd = val/dpowers[c];
-tmpval.vd %= 10;
-(putch('0' + tmpval.vd) );
-val %= dpowers[c];
-}
-
-while(prec) {
-(putch('0') );
-prec--;
-}
-
-# 1245
-continue;
-}
-
-# 1253
-{
-
-# 1259
-val = (long)(*(int *)__va_arg((*(int **)ap), (int)0));
-
-if((long)val < 0) {
-flag |= 0x03;
-val = -val;
-}
-
-}
-
-# 1305
-for(c = 1 ; c != sizeof dpowers/sizeof dpowers[0] ; c++)
-if(val < dpowers[c])
-break;
-
 # 1422
 {
 
-# 1438
-if(flag & 0x03)
-(putch('-') );
-
 # 1469
-}
-
-
-prec = c;
-
-while(prec--) {
-
-# 1478
-{
-
-# 1489
-c = (val / dpowers[prec]) % 10 + '0';
-
-# 1523
-}
-(putch(c) );
 }
 
 # 1533
