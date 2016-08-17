@@ -7,23 +7,15 @@
 #include "xc.h"
 #include "pps.h"
 #include "PinDef.h"
-#include "ADDRESSING.h"
 #include <libpic30.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include "Functions.h"
 #include "EEprom.h"
-#include "UART.h"
-#include "UART1.h"
-#include "UART2.h"
-#include "UART3.h"
-#include "FastTransfer.h"
-#include "FastTransfer1.h"
-#include "FastTransfer3.h"
-#include "DriverConfigs.h"
 #include "Timers.h"
 #include "DriverConfigs.h"
 #include "SASComms.h"
+#include "Communications.h"
 
 
 int BrakeLightThreshold = 0;
@@ -74,17 +66,9 @@ void Setup(void) {
     //PPSout(_OC1, _RP37);
     PPSLock;
 
-    UART_init();
-    UART1_init();
-    UART2_init();
-    UART3_init();
+    //Start comm's
+    ComStart();
     
-    
-    StartFastTransfer();
-    StartFastTransfer1();
-    StartFastTransfer3();
-    
-
     //This controls the timing system to control communication rates  
     initTimerOne();
     //Save Driver

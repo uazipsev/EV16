@@ -11,4 +11,6 @@ BMMComms.h  \
 Timers.h  \
 UART.h  \
 UART1.h  \
-horn.h 
+horn.h  \
+FastTransfer.h  \
+ FastTransfer1.h 

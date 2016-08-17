@@ -32,6 +32,16 @@ char GetDriverFalt();
 bool GetDriverFW_RW_EN();
 bool GetDriverRegenInput();
 bool GetDriverDebugEn();
+void NewDriverNameChar(char byte, unsigned char num);
+void NewDriverMaxThrottle(int value);
+void NewDriverMaxMaxRegen(int value);
+void NewDriverLowBatCutoff(int value);
+void NewDriverRamp(int value);
+void NewDriverFalt(char value);
+void NewDriverFW_RW_EN(bool value);
+void NewDriverRegenInput(bool value);
+void NewDriverDebugEn(bool value);
+void NewDriverSave();
 
 #endif	/* DRIVERCONFIGS_H */
 

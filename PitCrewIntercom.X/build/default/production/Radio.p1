@@ -2954,219 +2954,230 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Function.H: 19: void Delay(int wait);
 [; ;Function.H: 20: char ReadCharger(void);
 [; ;Function.H: 21: void LEDOff(void);
-"14 Radio.c
+"17 Radio.c
 [v _time `i ~T0 @X0 1 e ]
 [i _time
 -> 0 `i
 ]
-[; ;Radio.c: 14: int time = 0;
-"15
+[; ;Radio.c: 17: int time = 0;
+"18
 [v _count `i ~T0 @X0 1 e ]
 [i _count
 -> 0 `i
 ]
-[; ;Radio.c: 15: int count = 0;
-"16
+[; ;Radio.c: 18: int count = 0;
+"19
 [v _Battery `f ~T0 @X0 1 e ]
 [i _Battery
 -> -> 0 `i `f
 ]
-[; ;Radio.c: 16: float Battery = 0;
-"17
+[; ;Radio.c: 19: float Battery = 0;
+"20
 [v _Mode `uc ~T0 @X0 1 e ]
 [i _Mode
 -> -> 0 `i `uc
 ]
-[; ;Radio.c: 17: char Mode = 0;
-"18
+[; ;Radio.c: 20: char Mode = 0;
+"21
 [v _Talking `uc ~T0 @X0 1 e ]
 [i _Talking
 -> -> 0 `i `uc
 ]
-[; ;Radio.c: 18: bool Talking = 0;
-"19
+[; ;Radio.c: 21: bool Talking = 0;
+"22
 [v _Shutdown `uc ~T0 @X0 1 e ]
 [i _Shutdown
 -> -> 0 `i `uc
 ]
-[; ;Radio.c: 19: bool Shutdown = 0;
-"21
+[; ;Radio.c: 22: bool Shutdown = 0;
+"24
 [v _RadioBegin `(v ~T0 @X0 1 ef ]
 {
-[; ;Radio.c: 21: void RadioBegin(){
+[; ;Radio.c: 24: void RadioBegin(){
 [e :U _RadioBegin ]
 [f ]
-[; ;Radio.c: 22: SR_FRSStart();
-"22
+[; ;Radio.c: 25: SR_FRSStart();
+"25
 [e ( _SR_FRSStart ..  ]
-[; ;Radio.c: 23: }
-"23
+[; ;Radio.c: 26: }
+"26
 [e :UE 368 ]
 }
-"25
+"28
 [v _RadioOperation `(v ~T0 @X0 1 ef ]
 {
-[; ;Radio.c: 25: void RadioOperation(){
+[; ;Radio.c: 28: void RadioOperation(){
 [e :U _RadioOperation ]
 [f ]
-[; ;Radio.c: 26: if(!PORTAbits.RA2 && !Talking){
-"26
+[; ;Radio.c: 29: if(!PORTAbits.RA2 && !Talking){
+"29
 [e $ ! && ! != -> . . _PORTAbits 0 2 `i -> -> -> 0 `i `Vuc `i ! != -> _Talking `i -> -> -> 0 `i `uc `i 370  ]
 {
-[; ;Radio.c: 27: count++;
-"27
+[; ;Radio.c: 30: count++;
+"30
 [e ++ _count -> 1 `i ]
-"28
+"31
 }
 [e :U 370 ]
-[; ;Radio.c: 28: }
-[; ;Radio.c: 29: if((count > 5) && !Talking){
-"29
+[; ;Radio.c: 31: }
+[; ;Radio.c: 32: if((count > 5) && !Talking){
+"32
 [e $ ! && > _count -> 5 `i ! != -> _Talking `i -> -> -> 0 `i `uc `i 371  ]
 {
-[; ;Radio.c: 30: SR_FRSTalk();
-"30
+[; ;Radio.c: 33: SR_FRSTalk();
+"33
 [e ( _SR_FRSTalk ..  ]
-[; ;Radio.c: 31: PORTCbits.RC3 = 1;
-"31
-[e = . . _PORTCbits 0 3 -> -> 1 `i `uc ]
-[; ;Radio.c: 32: Talking = 1;
-"32
-[e = _Talking -> -> 1 `i `uc ]
-[; ;Radio.c: 34: ClearTicker();
+[; ;Radio.c: 34: PORTCbits.RC3 = 1;
 "34
-[e ( _ClearTicker ..  ]
+[e = . . _PORTCbits 0 3 -> -> 1 `i `uc ]
+[; ;Radio.c: 35: Talking = 1;
 "35
+[e = _Talking -> -> 1 `i `uc ]
+[; ;Radio.c: 37: ClearTicker();
+"37
+[e ( _ClearTicker ..  ]
+"38
 }
 [e :U 371 ]
-[; ;Radio.c: 35: }
-[; ;Radio.c: 36: if(Talking && PORTAbits.RA2){
-"36
+[; ;Radio.c: 38: }
+[; ;Radio.c: 39: if(Talking && PORTAbits.RA2){
+"39
 [e $ ! && != -> _Talking `i -> -> -> 0 `i `uc `i != -> . . _PORTAbits 0 2 `i -> -> -> 0 `i `Vuc `i 372  ]
 {
-[; ;Radio.c: 37: count--;
-"37
+[; ;Radio.c: 40: count--;
+"40
 [e -- _count -> 1 `i ]
-[; ;Radio.c: 38: if(count < 5){
-"38
+[; ;Radio.c: 41: if(count < 5){
+"41
 [e $ ! < _count -> 5 `i 373  ]
 {
-[; ;Radio.c: 39: PORTCbits.RC3 = 0;
-"39
-[e = . . _PORTCbits 0 3 -> -> 0 `i `uc ]
-[; ;Radio.c: 40: SR_FRSTalk();
-"40
-[e ( _SR_FRSTalk ..  ]
-[; ;Radio.c: 42: count = 0;
+[; ;Radio.c: 42: PORTCbits.RC3 = 0;
 "42
-[e = _count -> 0 `i ]
-[; ;Radio.c: 43: Talking = 0;
+[e = . . _PORTCbits 0 3 -> -> 0 `i `uc ]
+[; ;Radio.c: 43: SR_FRSTalk();
 "43
+[e ( _SR_FRSTalk ..  ]
+[; ;Radio.c: 45: count = 0;
+"45
+[e = _count -> 0 `i ]
+[; ;Radio.c: 46: Talking = 0;
+"46
 [e = _Talking -> -> 0 `i `uc ]
-"44
+"47
 }
 [e :U 373 ]
-"45
-}
-[e :U 372 ]
-[; ;Radio.c: 44: }
-[; ;Radio.c: 45: }
-[; ;Radio.c: 46: if(Talking && !PORTAbits.RA2){
-"46
-[e $ ! && != -> _Talking `i -> -> -> 0 `i `uc `i ! != -> . . _PORTAbits 0 2 `i -> -> -> 0 `i `Vuc `i 374  ]
-{
-[; ;Radio.c: 47: count = 5;
-"47
-[e = _count -> 5 `i ]
 "48
 }
-[e :U 374 ]
+[e :U 372 ]
+[; ;Radio.c: 47: }
 [; ;Radio.c: 48: }
-[; ;Radio.c: 49: if(GetTicker() > 100000){
+[; ;Radio.c: 49: if(Talking && !PORTAbits.RA2){
 "49
-[e $ ! > -> ( _GetTicker ..  `l -> 100000 `l 375  ]
+[e $ ! && != -> _Talking `i -> -> -> 0 `i `uc `i ! != -> . . _PORTAbits 0 2 `i -> -> -> 0 `i `Vuc `i 374  ]
 {
-[; ;Radio.c: 51: SR_FRSPowerDown();
+[; ;Radio.c: 50: count = 5;
+"50
+[e = _count -> 5 `i ]
 "51
-[e ( _SR_FRSPowerDown ..  ]
-[; ;Radio.c: 52: PORTCbits.RC4 = 1;
+}
+[e :U 374 ]
+[; ;Radio.c: 51: }
+[; ;Radio.c: 52: if(!Talking && PORTAbits.RA2){
 "52
-[e = . . _PORTCbits 0 4 -> -> 1 `i `uc ]
+[e $ ! && ! != -> _Talking `i -> -> -> 0 `i `uc `i != -> . . _PORTAbits 0 2 `i -> -> -> 0 `i `Vuc `i 375  ]
+{
+[; ;Radio.c: 53: count = 0;
 "53
+[e = _count -> 0 `i ]
+"54
 }
 [e :U 375 ]
-[; ;Radio.c: 53: }
-[; ;Radio.c: 54: if(time > 15){
-"54
-[e $ ! > _time -> 15 `i 376  ]
-{
-[; ;Radio.c: 55: PORTCbits.RC5 = 1;
+[; ;Radio.c: 54: }
+[; ;Radio.c: 55: if(GetTicker() > 100000){
 "55
-[e = . . _PORTCbits 0 5 -> -> 1 `i `uc ]
-[; ;Radio.c: 56: Battery = ReadVoltage(1);
-"56
-[e = _Battery -> ( _ReadVoltage (1 -> -> 1 `i `uc `f ]
-[; ;Radio.c: 57: Battery = (Battery*5.0)/1023.0;
+[e $ ! > -> ( _GetTicker ..  `l -> 100000 `l 376  ]
+{
+[; ;Radio.c: 57: SR_FRSPowerDown();
 "57
-[e = _Battery -> / * -> _Battery `d .5.0 .1023.0 `f ]
-[; ;Radio.c: 58: time = 0;
+[e ( _SR_FRSPowerDown ..  ]
+[; ;Radio.c: 58: PORTCbits.RC4 = 1;
 "58
-[e = _time -> 0 `i ]
-[; ;Radio.c: 59: Mode = ReadCharger();
+[e = . . _PORTCbits 0 4 -> -> 1 `i `uc ]
 "59
-[e = _Mode ( _ReadCharger ..  ]
-"60
 }
 [e :U 376 ]
-[; ;Radio.c: 60: }
-[; ;Radio.c: 61: if((time > 1) && (PORTCbits.RC5 == 1)){
-"61
-[e $ ! && > _time -> 1 `i == -> . . _PORTCbits 0 5 `i -> 1 `i 377  ]
+[; ;Radio.c: 59: }
+[; ;Radio.c: 60: if(time > 15){
+"60
+[e $ ! > _time -> 15 `i 377  ]
 {
-[; ;Radio.c: 62: PORTCbits.RC5 = 0;
+[; ;Radio.c: 61: PORTCbits.RC5 = 1;
+"61
+[e = . . _PORTCbits 0 5 -> -> 1 `i `uc ]
+[; ;Radio.c: 62: Battery = ReadVoltage(1);
 "62
-[e = . . _PORTCbits 0 5 -> -> 0 `i `uc ]
+[e = _Battery -> ( _ReadVoltage (1 -> -> 1 `i `uc `f ]
+[; ;Radio.c: 63: Battery = (Battery*5.0)/1023.0;
 "63
+[e = _Battery -> / * -> _Battery `d .5.0 .1023.0 `f ]
+[; ;Radio.c: 64: Battery = Battery*3;
+"64
+[e = _Battery * _Battery -> -> 3 `i `f ]
+[; ;Radio.c: 65: time = 0;
+"65
+[e = _time -> 0 `i ]
+"66
 }
 [e :U 377 ]
-[; ;Radio.c: 63: }
-[; ;Radio.c: 64: if(Battery < 6.2){
-"64
-[e $ ! < -> _Battery `d .6.2 378  ]
-{
+[; ;Radio.c: 66: }
+[; ;Radio.c: 67: if((time > 1) && (PORTCbits.RC5 == 1)){
 "67
+[e $ ! && > _time -> 1 `i == -> . . _PORTCbits 0 5 `i -> 1 `i 378  ]
+{
+[; ;Radio.c: 68: PORTCbits.RC5 = 0;
+"68
+[e = . . _PORTCbits 0 5 -> -> 0 `i `uc ]
+"69
 }
 [e :U 378 ]
-[; ;Radio.c: 67: }
-[; ;Radio.c: 68: if(ReadCharger() == 1){
-"68
-[e $ ! == -> ( _ReadCharger ..  `i -> 1 `i 379  ]
-{
-[; ;Radio.c: 70: PORTCbits.RC4 = 1;
+[; ;Radio.c: 69: }
+[; ;Radio.c: 70: if(Battery < 6.2){
 "70
-[e = . . _PORTCbits 0 4 -> -> 1 `i `uc ]
-"71
+[e $ ! < -> _Battery `d .6.2 379  ]
+{
+"73
 }
 [e :U 379 ]
-[; ;Radio.c: 71: }
-[; ;Radio.c: 72: if(ReadCharger() == 2){
-"72
-[e $ ! == -> ( _ReadCharger ..  `i -> 2 `i 380  ]
-{
-[; ;Radio.c: 73: PORTCbits.RC4 = 0;
-"73
-[e = . . _PORTCbits 0 4 -> -> 0 `i `uc ]
-[; ;Radio.c: 74: PORTCbits.RC5 = 1;
+[; ;Radio.c: 73: }
+[; ;Radio.c: 74: if(ReadCharger() == 1){
 "74
-[e = . . _PORTCbits 0 5 -> -> 1 `i `uc ]
+[e $ ! == -> ( _ReadCharger ..  `i -> 1 `i 380  ]
+{
+[; ;Radio.c: 75: PORTCbits.RC4 = 1;
 "75
+[e = . . _PORTCbits 0 4 -> -> 1 `i `uc ]
+"76
 }
 [e :U 380 ]
-[; ;Radio.c: 75: }
-[; ;Radio.c: 76: time++;
-"76
-[e ++ _time -> 1 `i ]
-[; ;Radio.c: 77: }
+[; ;Radio.c: 76: }
+[; ;Radio.c: 77: if(ReadCharger() == 2){
 "77
+[e $ ! == -> ( _ReadCharger ..  `i -> 2 `i 381  ]
+{
+[; ;Radio.c: 78: PORTCbits.RC4 = 0;
+"78
+[e = . . _PORTCbits 0 4 -> -> 0 `i `uc ]
+[; ;Radio.c: 79: PORTCbits.RC5 = 1;
+"79
+[e = . . _PORTCbits 0 5 -> -> 1 `i `uc ]
+"80
+}
+[e :U 381 ]
+[; ;Radio.c: 80: }
+[; ;Radio.c: 81: time++;
+"81
+[e ++ _time -> 1 `i ]
+[; ;Radio.c: 82: }
+"82
 [e :UE 369 ]
 }

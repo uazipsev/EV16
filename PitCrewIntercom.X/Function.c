@@ -1,3 +1,9 @@
+/*******************************************************************
+ * @brief           Function.c
+ * @brief           Trash can collection for random fcn's
+ * @return          N/A
+ * @note            
+ *******************************************************************/
 #include "Function.H"
 #include "Timer.h"
 #include "UART.h"
@@ -25,6 +31,12 @@
 #pragma config BORV = LO        // Brown-out Reset Voltage Selection (Brown-out Reset Voltage (Vbor), low trip point selected.)
 #pragma config LVP = ON         // Low-Voltage Programming Enable (Low-voltage programming enabled)
 
+/*******************************************************************
+ * @brief           Start
+ * @brief           Setup procesor
+ * @return          N/A
+ * @note            
+ *******************************************************************/
 void Start(void){
     /*
      * OSS
@@ -72,7 +84,12 @@ void Start(void){
     TMR2_Initialize();
 }
 
-//Used to allow for longer delays if required. 
+/*******************************************************************
+ * @brief           Delay
+ * @brief           Delay...duh
+ * @return          N/A
+ * @note            Uses xc.h fcn
+ *******************************************************************/
 void Delay(int wait) {
     int x;
     for (x = 0; x < wait; x++) {
@@ -80,6 +97,12 @@ void Delay(int wait) {
     }
 }
 
+/*******************************************************************
+ * @brief           INTERRUPT_Initialize
+ * @brief           Setup interrupts 
+ * @return          N/A
+ * @note            
+ *******************************************************************/
 void INTERRUPT_Initialize(){
 // Interrupt Registers
   INTCON = 0;           // clear the interrpt control register
@@ -91,6 +114,12 @@ void INTERRUPT_Initialize(){
   INTCONbits.PEIE = 1;          // bit6 Peripheral Interrupt Enable bit...1 = Enables all unmasked peripheral interrupts
 }
 
+/*******************************************************************
+ * @brief           INTERRUPT_InterruptManager
+ * @brief           Sets interupt priority
+ * @return          N/A
+ * @note            Controls what the interup fires
+ *******************************************************************/
 void interrupt INTERRUPT_InterruptManager(void)
 {
     if(PIE1bits.TMR2IE == 1 && PIR1bits.TMR2IF == 1)

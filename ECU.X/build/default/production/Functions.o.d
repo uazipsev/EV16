@@ -2,16 +2,10 @@ build/default/production/Functions.o:  \
 Functions.c  \
 pps.h  \
 PinDef.h  \
- ADDRESSING.h  \
-Functions.h  \
+ Functions.h  \
 EEprom.h  \
-UART.h  \
-UART1.h  \
-UART2.h  \
-UART3.h  \
- FastTransfer.h  \
-FastTransfer1.h  \
-FastTransfer3.h  \
-DriverConfigs.h  \
 Timers.h  \
- SASComms.h 
+DriverConfigs.h  \
+SASComms.h  \
+ADDRESSING.h  \
+ Communications.h 

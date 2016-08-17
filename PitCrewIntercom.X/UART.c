@@ -1,3 +1,9 @@
+/*******************************************************************
+ * @brief           Radio.c
+ * @brief           Controls radio functions, state system 
+ * @return          N/A
+ * @note            
+ *******************************************************************/
 #include <stdbool.h>
 #include "UART.h"
 #include <xc.h>

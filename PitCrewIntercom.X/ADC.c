@@ -1,6 +1,18 @@
+/*******************************************************************
+ * @brief           ADC.c
+ * @brief           Runs and reports back ADC vales
+ * @return          N/A
+ * @note            
+ *******************************************************************/
 #include "ADC.h"
 #include <xc.h>
 
+/*******************************************************************
+ * @brief           ADC_Initialize
+ * @brief           Strtup ADC
+ * @return          none
+ * @note            
+ *******************************************************************/
 void ADC_Initialize(){
     FVRCONbits.ADFVR0 = 1; //vref
     FVRCONbits.ADFVR1 = 1;
@@ -11,6 +23,12 @@ void ADC_Initialize(){
     ADCON0bits.ADON = 1; //Turns on ADC module
 }
 
+/*******************************************************************
+ * @brief           ReadVoltage
+ * @brief           reads ADC value
+ * @return          int - ADC value
+ * @note            Blocking call
+ *******************************************************************/
 int ReadVoltage(char ch){
     SetADCChannel(ch);
     ADCON0bits.GO_nDONE = 1;
@@ -18,6 +36,12 @@ int ReadVoltage(char ch){
     return ((ADRESL << 8) + ADRESL);
 }
 
+/*******************************************************************
+ * @brief           SetADCChannel
+ * @brief           sets channel for ADC
+ * @return          N/A
+ * @note            
+ *******************************************************************/
 void SetADCChannel(char ch){
     if(ch == BATT){
         ADCON0bits.CHS = 6;
@@ -29,85 +53,3 @@ void SetADCChannel(char ch){
         ADCON0bits.CHS = 3;
     }
 }
-
-/*
- #define ACQ_US_DELAY 5
-
-
-void ADC_Initialize(void)
-{
-    // set the ADC to the options selected in the User Interface
-    
-    // GO_nDONE stop; ADON enabled; CHS AN0; 
-    ADCON0 = 0x01;
-    
-    // ADFM left; ADNREF VSS; ADPREF VDD; ADCS FOSC/4; 
-    ADCON1 = 0x40;
-    
-    // ADRESL 0; 
-    ADRESL = 0x00;
-    
-    // ADRESH 0; 
-    ADRESH = 0x00;
-    
-    // Enabling ADC interrupt.
-    PIE1bits.ADIE = 1;
-}
-
-void ADC_StartConversion(adc_channel_t channel)
-{
-    // select the A/D channel
-    ADCON0bits.CHS = channel;    
-    // Turn on the ADC module
-    ADCON0bits.ADON = 1;
-
-    // Acquisition time delay
-    __delay_us(ACQ_US_DELAY);
-
-    // Start the conversion
-    ADCON0bits.GO_nDONE = 1;
-    
-}
-
-bool ADC_IsConversionDone()
-{
-    // Start the conversion
-    return (!ADCON0bits.GO_nDONE);
-}
-
-adc_result_t ADC_GetConversionResult(void)
-{
-    // Conversion finished, return the result
-    return ((ADRESH << 8) + ADRESL);
-}
-
-adc_result_t ADC_GetConversion(adc_channel_t channel)
-{
-    // select the A/D channel
-    ADCON0bits.CHS = channel;    
-
-    // Turn on the ADC module
-    ADCON0bits.ADON = 1;
-
-    // Acquisition time delay
-    __delay_us(ACQ_US_DELAY);
-
-    // Start the conversion
-    ADCON0bits.GO_nDONE = 1;
-
-    // Wait for the conversion to finish
-    while (ADCON0bits.GO_nDONE)
-    {
-    }
-    
-    // Conversion finished, return the result
-    return ((ADRESH << 8) + ADRESL);
-}
-
-void ADC_ISR(void)
-{
-    // Clear the ADC interrupt flag
-    PIR1bits.ADIF = 0;
-}
- 
- */

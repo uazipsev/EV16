@@ -1,3 +1,9 @@
+/*******************************************************************
+ * @brief           Radio.c
+ * @brief           Controls radio functions, state system 
+ * @return          N/A
+ * @note            
+ *******************************************************************/
 #include "Timer.h"
 #include <xc.h>
 /**

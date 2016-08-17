@@ -380,23 +380,25 @@ void handleDebugRequests() {
                     i = 0;
                 }
             }
-            //Brake Light Setpoint
-            else if(FunctionDataGrab == 6){
+            //Add Driver 
+            else if(FunctionDataGrab == 5){
                 //Get data of the pipe
                 DataHold[i] = Receive_get2();
                 i++;
                 //We are looking for 3 chars...
                 if(i>2){
                     //Get data array to int
-                    sscanf(DataHold, "%d", &Data);
+                    sscanf(DataHold, "%s", &Data);
+                    //Print Driver name for sanity
+                    printf("Driver name = %s",Data);
                     //We have data and are ready to save it to the car
-                    MenuBrakeLightValue(1);
+                    //MenuBrakeLightValue(1);
                     //We are done grabbing data off the pipeline
-                    FunctionDataGrab = false;
+                    FunctionDataGrab = 5;
                     i = 0;
                 }
             }
-            //Config data for Driver settings 
+            //Brake Light Setpoint
             else if(FunctionDataGrab == 6){
                 //Get data of the pipe
                 DataHold[i] = Receive_get2();
@@ -759,13 +761,10 @@ void DriverMenu(char menuitem){
         FunctionDataGrab = 4;
     }
     else if(menuitem == 2){
-        printf("|--Select a Driver--|\n");
-        printf("|-----To Config-----|\n");
+        printf("|--Add a Driver--|\n");
+        printf("|--Drivers initals--|\n");
+        printf("|--Max three chars--|\n");
         int i;
-        for(i = 1;i < DriverCount()+1;i++){
-            printf("%d) Driver %d - ",i,i);
-            DriverNamePrint(i);
-        }
         FunctionDataGrab = 5;
     }
     else if(menuitem == 3){

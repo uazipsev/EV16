@@ -30,6 +30,8 @@
 #include "UART.h"
 #include "UART1.h"
 #include "horn.h"
+#include "FastTransfer.h"
+#include "FastTransfer1.h"
 
 
 char x = 0;
@@ -57,6 +59,16 @@ struct commsStates {
     int PDU_SEND;
 };
 struct commsStates comms;
+
+void ComStart(){
+    UART_init();
+    UART1_init();
+    UART2_init();
+    UART3_init();   
+    StartFastTransfer();
+    StartFastTransfer1();
+    StartFastTransfer3();
+}
     
 void updateComms() {
 

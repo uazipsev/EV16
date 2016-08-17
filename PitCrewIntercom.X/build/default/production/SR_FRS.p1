@@ -2966,213 +2966,213 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Function.H: 19: void Delay(int wait);
 [; ;Function.H: 20: char ReadCharger(void);
 [; ;Function.H: 21: void LEDOff(void);
-"10 SR_FRS.c
+"16 SR_FRS.c
 [v _SR_FRSTalk `(v ~T0 @X0 1 ef ]
 {
-[; ;SR_FRS.c: 10: void SR_FRSTalk(void){
+[; ;SR_FRS.c: 16: void SR_FRSTalk(void){
 [e :U _SR_FRSTalk ]
 [f ]
-[; ;SR_FRS.c: 11: PORTCbits.RC7 ^= 1;
-"11
+[; ;SR_FRS.c: 17: PORTCbits.RC7 ^= 1;
+"17
 [e =^ . . _PORTCbits 0 7 -> -> 1 `i `uc ]
-[; ;SR_FRS.c: 12: }
-"12
+[; ;SR_FRS.c: 18: }
+"18
 [e :UE 369 ]
 }
-"14
+"26
 [v _SR_FRSPowerDown `(v ~T0 @X0 1 ef ]
 {
-[; ;SR_FRS.c: 14: void SR_FRSPowerDown(void){
+[; ;SR_FRS.c: 26: void SR_FRSPowerDown(void){
 [e :U _SR_FRSPowerDown ]
 [f ]
-[; ;SR_FRS.c: 15: PORTCbits.RC6 ^= 1;
-"15
+[; ;SR_FRS.c: 27: PORTCbits.RC6 ^= 1;
+"27
 [e =^ . . _PORTCbits 0 6 -> -> 1 `i `uc ]
-[; ;SR_FRS.c: 16: }
-"16
+[; ;SR_FRS.c: 28: }
+"28
 [e :UE 370 ]
 }
-"18
+"36
 [v _SR_FRSStart `(v ~T0 @X0 1 ef ]
 {
-[; ;SR_FRS.c: 18: void SR_FRSStart(void){
+[; ;SR_FRS.c: 36: void SR_FRSStart(void){
 [e :U _SR_FRSStart ]
 [f ]
-[; ;SR_FRS.c: 19: SR_FRSPowerDown();
-"19
-[e ( _SR_FRSPowerDown ..  ]
-[; ;SR_FRS.c: 20: Delay(500);
-"20
-[e ( _Delay (1 -> 500 `i ]
-[; ;SR_FRS.c: 21: SetCommandMode();
-"21
-[e ( _SetCommandMode ..  ]
-[; ;SR_FRS.c: 22: Delay(1000);
-"22
-[e ( _Delay (1 -> 1000 `i ]
-[; ;SR_FRS.c: 24: SetFrequency();
-"24
-[e ( _SetFrequency ..  ]
-[; ;SR_FRS.c: 25: Delay(1000);
-"25
-[e ( _Delay (1 -> 1000 `i ]
-[; ;SR_FRS.c: 27: SetPowerSave();
-"27
-[e ( _SetPowerSave ..  ]
-[; ;SR_FRS.c: 28: Delay(1000);
-"28
-[e ( _Delay (1 -> 1000 `i ]
-[; ;SR_FRS.c: 30: SetVolume(5);
-"30
-[e ( _SetVolume (1 -> -> 5 `i `uc ]
-[; ;SR_FRS.c: 31: Delay(1000);
-"31
-[e ( _Delay (1 -> 1000 `i ]
-[; ;SR_FRS.c: 33: SetVOX(0);
-"33
-[e ( _SetVOX (1 -> 0 `i ]
-[; ;SR_FRS.c: 34: Delay(1000);
-"34
-[e ( _Delay (1 -> 1000 `i ]
-[; ;SR_FRS.c: 36: SetMIC(8,0);
-"36
-[e ( _SetMIC (2 , -> -> 8 `i `uc -> -> 0 `i `uc ]
-[; ;SR_FRS.c: 37: }
+[; ;SR_FRS.c: 37: SR_FRSPowerDown();
 "37
+[e ( _SR_FRSPowerDown ..  ]
+[; ;SR_FRS.c: 38: Delay(500);
+"38
+[e ( _Delay (1 -> 500 `i ]
+[; ;SR_FRS.c: 39: SetCommandMode();
+"39
+[e ( _SetCommandMode ..  ]
+[; ;SR_FRS.c: 40: Delay(1000);
+"40
+[e ( _Delay (1 -> 1000 `i ]
+[; ;SR_FRS.c: 41: SetFrequency();
+"41
+[e ( _SetFrequency ..  ]
+[; ;SR_FRS.c: 42: Delay(1000);
+"42
+[e ( _Delay (1 -> 1000 `i ]
+[; ;SR_FRS.c: 43: SetPowerSave();
+"43
+[e ( _SetPowerSave ..  ]
+[; ;SR_FRS.c: 44: Delay(1000);
+"44
+[e ( _Delay (1 -> 1000 `i ]
+[; ;SR_FRS.c: 45: SetVolume(5);
+"45
+[e ( _SetVolume (1 -> -> 5 `i `uc ]
+[; ;SR_FRS.c: 46: Delay(1000);
+"46
+[e ( _Delay (1 -> 1000 `i ]
+[; ;SR_FRS.c: 47: SetVOX(0);
+"47
+[e ( _SetVOX (1 -> 0 `i ]
+[; ;SR_FRS.c: 48: Delay(1000);
+"48
+[e ( _Delay (1 -> 1000 `i ]
+[; ;SR_FRS.c: 49: SetMIC(8,0);
+"49
+[e ( _SetMIC (2 , -> -> 8 `i `uc -> -> 0 `i `uc ]
+[; ;SR_FRS.c: 50: }
+"50
 [e :UE 371 ]
 }
-"39
+"58
 [v _SetCommandMode `(v ~T0 @X0 1 ef ]
 {
-[; ;SR_FRS.c: 39: void SetCommandMode(void){
+[; ;SR_FRS.c: 58: void SetCommandMode(void){
 [e :U _SetCommandMode ]
 [f ]
-[; ;SR_FRS.c: 40: printf("\r\n");
-"40
+[; ;SR_FRS.c: 59: printf("\r\n");
+"59
 [e ( _printf :s 1C ]
-[; ;SR_FRS.c: 41: printf("AT+DMOCONNECT");
-"41
+[; ;SR_FRS.c: 60: printf("AT+DMOCONNECT");
+"60
 [e ( _printf :s 2C ]
-[; ;SR_FRS.c: 42: printf("\r\n");
-"42
+[; ;SR_FRS.c: 61: printf("\r\n");
+"61
 [e ( _printf :s 3C ]
-[; ;SR_FRS.c: 43: }
-"43
+[; ;SR_FRS.c: 62: }
+"62
 [e :UE 372 ]
 }
-"45
+"70
 [v _SetFrequency `(v ~T0 @X0 1 ef ]
 {
-[; ;SR_FRS.c: 45: void SetFrequency(void){
+[; ;SR_FRS.c: 70: void SetFrequency(void){
 [e :U _SetFrequency ]
 [f ]
-[; ;SR_FRS.c: 46: printf("\r\n");
-"46
+[; ;SR_FRS.c: 71: printf("\r\n");
+"71
 [e ( _printf :s 4C ]
-[; ;SR_FRS.c: 47: printf("AT+DMOSETGROUP=0,145.5500,145.5500,43,8,51,0");
-"47
+[; ;SR_FRS.c: 72: printf("AT+DMOSETGROUP=0,145.5500,145.5500,43,8,51,0");
+"72
 [e ( _printf :s 5C ]
-[; ;SR_FRS.c: 48: printf("\r\n");
-"48
+[; ;SR_FRS.c: 73: printf("\r\n");
+"73
 [e ( _printf :s 6C ]
-[; ;SR_FRS.c: 49: }
-"49
+[; ;SR_FRS.c: 74: }
+"74
 [e :UE 373 ]
 }
-"51
+"82
 [v _SetPowerSave `(v ~T0 @X0 1 ef ]
 {
-[; ;SR_FRS.c: 51: void SetPowerSave(void){
+[; ;SR_FRS.c: 82: void SetPowerSave(void){
 [e :U _SetPowerSave ]
 [f ]
-[; ;SR_FRS.c: 53: printf("\r\n");
-"53
+[; ;SR_FRS.c: 84: printf("\r\n");
+"84
 [e ( _printf :s 7C ]
-[; ;SR_FRS.c: 54: printf("AT+DMOAUTOPOWCONTR=%c",1);
-"54
+[; ;SR_FRS.c: 85: printf("AT+DMOAUTOPOWCONTR=%c",1);
+"85
 [e ( _printf , (. :s 8C -> 1 `i ]
-[; ;SR_FRS.c: 55: printf("\r\n");
-"55
+[; ;SR_FRS.c: 86: printf("\r\n");
+"86
 [e ( _printf :s 9C ]
-[; ;SR_FRS.c: 56: }
-"56
+[; ;SR_FRS.c: 87: }
+"87
 [e :UE 374 ]
 }
-"58
+"95
 [v _SetVolume `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;SR_FRS.c: 58: void SetVolume(char volume){
+[; ;SR_FRS.c: 95: void SetVolume(char volume){
 [e :U _SetVolume ]
 [v _volume `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;SR_FRS.c: 59: if((volume < 9) && (volume > 1)){
-"59
+[; ;SR_FRS.c: 96: if((volume < 9) && (volume > 1)){
+"96
 [e $ ! && < -> _volume `i -> 9 `i > -> _volume `i -> 1 `i 376  ]
 {
-[; ;SR_FRS.c: 60: printf("\r\n");
-"60
+[; ;SR_FRS.c: 97: printf("\r\n");
+"97
 [e ( _printf :s 10C ]
-[; ;SR_FRS.c: 61: printf("AT+DMOSETVOLUME=%c",volume);
-"61
+[; ;SR_FRS.c: 98: printf("AT+DMOSETVOLUME=%c",volume);
+"98
 [e ( _printf , (. :s 11C -> _volume `i ]
-[; ;SR_FRS.c: 62: printf("\r\n");
-"62
+[; ;SR_FRS.c: 99: printf("\r\n");
+"99
 [e ( _printf :s 12C ]
-"63
+"100
 }
 [e :U 376 ]
-[; ;SR_FRS.c: 63: }
-[; ;SR_FRS.c: 64: }
-"64
+[; ;SR_FRS.c: 100: }
+[; ;SR_FRS.c: 101: }
+"101
 [e :UE 375 ]
 }
-"66
+"109
 [v _SetVOX `(v ~T0 @X0 1 ef1`i ]
 {
-[; ;SR_FRS.c: 66: void SetVOX(int volume){
+[; ;SR_FRS.c: 109: void SetVOX(int volume){
 [e :U _SetVOX ]
 [v _volume `i ~T0 @X0 1 r1 ]
 [f ]
-[; ;SR_FRS.c: 67: if((volume < 8) && (volume >= 0)){
-"67
+[; ;SR_FRS.c: 110: if((volume < 8) && (volume >= 0)){
+"110
 [e $ ! && < _volume -> 8 `i >= _volume -> 0 `i 378  ]
 {
-[; ;SR_FRS.c: 68: printf("\r\n");
-"68
+[; ;SR_FRS.c: 111: printf("\r\n");
+"111
 [e ( _printf :s 13C ]
-[; ;SR_FRS.c: 69: printf("AT+DMOSETVOX=%c",volume);
-"69
+[; ;SR_FRS.c: 112: printf("AT+DMOSETVOX=%c",volume);
+"112
 [e ( _printf , (. :s 14C _volume ]
-[; ;SR_FRS.c: 70: printf("\r\n");
-"70
+[; ;SR_FRS.c: 113: printf("\r\n");
+"113
 [e ( _printf :s 15C ]
-"71
+"114
 }
 [e :U 378 ]
-[; ;SR_FRS.c: 71: }
-[; ;SR_FRS.c: 72: }
-"72
+[; ;SR_FRS.c: 114: }
+[; ;SR_FRS.c: 115: }
+"115
 [e :UE 377 ]
 }
-"74
+"123
 [v _SetMIC `(v ~T0 @X0 1 ef2`uc`uc ]
 {
-[; ;SR_FRS.c: 74: void SetMIC(char volume, char scram){
+[; ;SR_FRS.c: 123: void SetMIC(char volume, char scram){
 [e :U _SetMIC ]
 [v _volume `uc ~T0 @X0 1 r1 ]
 [v _scram `uc ~T0 @X0 1 r2 ]
 [f ]
-[; ;SR_FRS.c: 75: printf("\r\n");
-"75
+[; ;SR_FRS.c: 124: printf("\r\n");
+"124
 [e ( _printf :s 16C ]
-[; ;SR_FRS.c: 76: printf("AT+DMOSETMIC=%c,%c,0",volume,scram);
-"76
+[; ;SR_FRS.c: 125: printf("AT+DMOSETMIC=%c,%c,0",volume,scram);
+"125
 [e ( _printf , , (. :s 17C -> _volume `i -> _scram `i ]
-[; ;SR_FRS.c: 77: printf("\r\n");
-"77
+[; ;SR_FRS.c: 126: printf("\r\n");
+"126
 [e ( _printf :s 18C ]
-[; ;SR_FRS.c: 78: }
-"78
+[; ;SR_FRS.c: 127: }
+"127
 [e :UE 379 ]
 }
 [p f _printf 8912896 ]

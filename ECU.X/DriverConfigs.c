@@ -21,6 +21,8 @@ struct DriverData
 };
 
 struct DriverData DriverConfig;
+struct DriverData NewDriver;
+
 
 
 struct Names {
@@ -191,4 +193,44 @@ void DriverRegenInput(bool value){
 
 void DriverDebugEn(bool value){
     DriverConfig.DebugEn = value;
+}
+
+void NewDriverNameChar(char byte, unsigned char num){
+    NewDriver.NAME[num] = byte;
+}
+
+void NewDriverMaxThrottle(int value){
+    NewDriver.MaxThrottle = value;
+}
+
+void NewDriverMaxMaxRegen(int value){
+    NewDriver.MaxRegen = value;
+}
+
+void NewDriverLowBatCutoff(int value){
+    NewDriver.LowBatCutoff = value;
+}
+
+void NewDriverRamp(int value){
+    NewDriver.Ramp = value;
+}
+
+void NewDriverFalt(char value){
+    NewDriver.Falt = value;
+}
+
+void NewDriverFW_RW_EN(bool value){
+    NewDriver.FW_RW_EN = value;
+}
+
+void NewDriverRegenInput(bool value){
+    NewDriver.RegenInput = value;
+}
+
+void NewDriverDebugEn(bool value){
+    NewDriver.DebugEn = value;
+}
+
+void NewDriverSave(){
+    SaveDriverConfig(NewDriver.NAME, NewDriver.MaxThrottle, NewDriver.MaxRegen, NewDriver.LowBatCutoff, NewDriver.Ramp, NewDriver.Falt, NewDriver.FW_RW_EN, NewDriver.RegenInput, NewDriver.DebugEn);
 }

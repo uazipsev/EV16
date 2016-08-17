@@ -3961,7 +3961,7 @@ void Delay(int wait);
 char ReadCharger(void);
 void LEDOff(void);
 
-# 14 "Radio.c"
+# 17 "Radio.c"
 int time = 0;
 int count = 0;
 float Battery = 0;
@@ -3997,6 +3997,9 @@ Talking = 0;
 if(Talking && !PORTAbits.RA2){
 count = 5;
 }
+if(!Talking && PORTAbits.RA2){
+count = 0;
+}
 if(GetTicker() > 100000){
 
 SR_FRSPowerDown();
@@ -4006,8 +4009,8 @@ if(time > 15){
 PORTCbits.RC5 = 1;
 Battery = ReadVoltage(1);
 Battery = (Battery*5.0)/1023.0;
+Battery = Battery*3;
 time = 0;
-Mode = ReadCharger();
 }
 if((time > 1) && (PORTCbits.RC5 == 1)){
 PORTCbits.RC5 = 0;
@@ -4017,7 +4020,6 @@ if(Battery < 6.2){
 
 }
 if(ReadCharger() == 1){
-
 PORTCbits.RC4 = 1;
 }
 if(ReadCharger() == 2){

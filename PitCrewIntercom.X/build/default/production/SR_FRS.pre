@@ -4003,48 +4003,48 @@ void Delay(int wait);
 char ReadCharger(void);
 void LEDOff(void);
 
-# 10 "SR_FRS.c"
+# 16 "SR_FRS.c"
 void SR_FRSTalk(void){
 PORTCbits.RC7 ^= 1;
 }
 
+# 26
 void SR_FRSPowerDown(void){
 PORTCbits.RC6 ^= 1;
 }
 
+# 36
 void SR_FRSStart(void){
 SR_FRSPowerDown();
 Delay(500);
 SetCommandMode();
 Delay(1000);
-
 SetFrequency();
 Delay(1000);
-
 SetPowerSave();
 Delay(1000);
-
 SetVolume(5);
 Delay(1000);
-
 SetVOX(0);
 Delay(1000);
-
 SetMIC(8,0);
 }
 
+# 58
 void SetCommandMode(void){
 printf("\r\n");
 printf("AT+DMOCONNECT");
 printf("\r\n");
 }
 
+# 70
 void SetFrequency(void){
 printf("\r\n");
 printf("AT+DMOSETGROUP=0,145.5500,145.5500,43,8,51,0");
 printf("\r\n");
 }
 
+# 82
 void SetPowerSave(void){
 
 printf("\r\n");
@@ -4052,6 +4052,7 @@ printf("AT+DMOAUTOPOWCONTR=%c",1);
 printf("\r\n");
 }
 
+# 95
 void SetVolume(char volume){
 if((volume < 9) && (volume > 1)){
 printf("\r\n");
@@ -4060,6 +4061,7 @@ printf("\r\n");
 }
 }
 
+# 109
 void SetVOX(int volume){
 if((volume < 8) && (volume >= 0)){
 printf("\r\n");
@@ -4068,6 +4070,7 @@ printf("\r\n");
 }
 }
 
+# 123
 void SetMIC(char volume, char scram){
 printf("\r\n");
 printf("AT+DMOSETMIC=%c,%c,0",volume,scram);

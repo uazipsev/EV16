@@ -14,6 +14,8 @@
 #define DDSSTATE 4
 #define BMMSTATE 5
 
+void ComStart();
+
     //COMMUNICATIONS METHODS
 void updateComms();
 void checkCommDirection();
