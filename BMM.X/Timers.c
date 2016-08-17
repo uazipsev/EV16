@@ -4,7 +4,7 @@
 #include "BatteryManagment.h"
 #include "Function.h" //TODO get rid of
 int timer_3_Function=0;
-int *Sample_Number=0;
+int *Sample_Number=0; //Need to figure what the fuck was this for.
 unsigned long int slaveTime,time,ADCTime;
 unsigned long int LEDtime = 0, talkTime = 0, time =0;
 static unsigned long int lastLEDTime=0, lastTalkTime=0, lastSlaveTime=0,lastADCTime=0;// TODO could be issue with timer was intilized in update timers with not decleration. 
