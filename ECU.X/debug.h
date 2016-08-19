@@ -11,8 +11,6 @@
 #include <xc.h>
 #include <stdbool.h>
 #include "DriverConfigs.h"
-    
-extern int buttonArray[8];
 
 enum debugStates {
     NO_DEBUG = 0,
@@ -30,7 +28,6 @@ enum debugStates {
             error_rate = 11
 };
 
-    extern unsigned int throttle1, throttle2, brake;
 void handleDebugRequests();
 //    extern void Send_put2(unsigned char _data);
 //    extern void sendData2(unsigned char whereToSend);
