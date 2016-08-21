@@ -9,7 +9,7 @@
 
 #define SAMPLERATE 500
 
-char receiveArray[50];
+int receiveArray[50];
 
 bool portClosed = true;
 bool pendingSend = false;

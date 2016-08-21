@@ -10,6 +10,8 @@
 
 #define true 1
 #define false 0
+#define ON    0
+#define OFF   1
 
 /*
  *  RS485 Flow control

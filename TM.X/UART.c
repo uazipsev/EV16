@@ -12,10 +12,6 @@
 #include "PinDef.h"
 #include <string.h>
 
-#define ON         0
-#define OFF        1
-
-extern volatile unsigned int talkTime;
 
 struct UART_ring_buff {
     unsigned char buf[UART_BUFFER_SIZE];

@@ -7,15 +7,15 @@
  * Edited on May 31, 2015
  */
 
-#ifndef UART_HANDLER_H
-#define	UART_HANDLER_H
+#ifndef UART2_H
+#define	UART2_H
 
 #define BAUD_SET 38400
 #define UART_BUFFER_SIZE 200
 #define CLOCK_RATE   36000000
 #define BAUD_RATE (((CLOCK_RATE/BAUD_SET)/16)-1)
 
-void *memset(void *s, int c, size_t n);
+//void *memset(void *s, int c, size_t n);
 
 void UART2_init(void);
 

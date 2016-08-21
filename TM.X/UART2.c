@@ -10,11 +10,7 @@
 #include <stdlib.h>
 #include "UART2.h"
 #include "PinDef.h"
-#define ON         0
-#define OFF        1
-
-
-extern volatile unsigned int talkTime;
+#include <string.h>
 
 struct UART2_ring_buff {
     unsigned char buf[UART_BUFFER_SIZE];
@@ -38,21 +34,21 @@ unsigned char UART2_buff_peek(struct UART2_ring_buff* _this);
 
 void UART2_init(void) {
     // UART config
-    U1MODEbits.STSEL = 0; // 1-stop bit
-    U1MODEbits.PDSEL = 0; // No parity, 8-data bits
-    U1MODEbits.ABAUD = 0; // Auto-baud disabled
+    U2MODEbits.STSEL = 0; // 1-stop bit
+    U2MODEbits.PDSEL = 0; // No parity, 8-data bits
+    U2MODEbits.ABAUD = 0; // Auto-baud disabled
     U2BRG = BAUD_RATE; // Baud Rate setting for 57600
-    U1STAbits.URXISEL = 0b01; // Interrupt after all TX character transmitted
-    U1STAbits.URXISEL = 0b00; // Interrupt after one RX character is received
-    IFS0bits.U1RXIF = 0; // Clear RX interrupt flag
-    IFS0bits.U1TXIF = 0; // Clear TX interrupt flag
-    IEC0bits.U1RXIE = 1; // Enable RX interrupt
-    IEC0bits.U1TXIE = 1; // Enable TX interrupt
+    U2STAbits.URXISEL = 0b01; // Interrupt after all TX character transmitted
+    U2STAbits.URXISEL = 0b00; // Interrupt after one RX character is received
+    IFS1bits.U2RXIF = 0; // Clear RX interrupt flag
+    IFS1bits.U2TXIF = 0; // Clear TX interrupt flag
+    IEC1bits.U2RXIE = 1; // Enable RX interrupt
+    IEC1bits.U2TXIE = 1; // Enable TX interrupt
 
     UART2_buff_init(&input_buffer2);
     UART2_buff_init(&output_buffer2);
-    U1MODEbits.UARTEN = 1; // Enable UART
-    U1STAbits.UTXEN = 1; // Enable UART TX
+    U2MODEbits.UARTEN = 1; // Enable UART
+    U2STAbits.UTXEN = 1; // Enable UART TX
 }
 
 void UART2_buff_init(struct UART2_ring_buff* _this) {
@@ -138,12 +134,12 @@ void Send_put2(unsigned char _data) {
 }
 
 void __attribute__((interrupt, no_auto_psv)) _U2RXInterrupt(void) {
-    if (U1STAbits.OERR) {
-        U1STAbits.OERR = 0;
+    if (U2STAbits.OERR) {
+        U2STAbits.OERR = 0;
     }
     unsigned char data = U2RXREG;
     UART2_buff_put(&input_buffer2, data);
-    IFS0bits.U1RXIF = 0; // Clear RX interrupt flag
+    IFS1bits.U2RXIF = 0; // Clear RX interrupt flag
 }
 
 void __attribute__((interrupt, no_auto_psv)) _U2TXInterrupt(void) {
@@ -155,5 +151,5 @@ void __attribute__((interrupt, no_auto_psv)) _U2TXInterrupt(void) {
         //talkTime = 0;
         Transmit_stall2 = true;
     }
-    IFS0bits.U1TXIF = 0; // Clear TX interrupt flag
+    IFS1bits.U2TXIF = 0; // Clear TX interrupt flag
 }

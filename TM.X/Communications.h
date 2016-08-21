@@ -12,6 +12,7 @@ void TSSCommsStart();
 void updateComms();
 void respondTM(char val);
 void SendData();
+void checkCommDirection();
 
 #endif	/* COMMUNICATIONS_H */
 
