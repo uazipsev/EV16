@@ -59,7 +59,7 @@ void writeRegister(char i2cAddress, int reg, char value)
 /*******************************************************************
  * @brief           readRegister
  * @brief           reads data from the I2C device
- * @return          none
+ * @return          returns a byte from the bus
  * @note            uses commands from the I2C lib to construct packets to send out on the bus 
  *******************************************************************/
 char readRegister(char i2cAddress, int reg)
@@ -93,8 +93,8 @@ char readRegister(char i2cAddress, int reg)
 
 /*******************************************************************
  * @brief           ReadCarDriver
- * @brief           Reading data location for car driver
- * @return          none
+ * @brief           Reading data location for "current" car driver
+ * @return          returns char
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 char ReadCarDriver(){
@@ -103,9 +103,9 @@ char ReadCarDriver(){
 
 /*******************************************************************
  * @brief           SaveCarDriver
- * @brief           Saving data location for car driver
+ * @brief           Saving data location for "current" car driver
  * @return          none
- * @note            assembles bytes together to make a valid data packet 
+ * @note            assembles bytes together to make a valid data packet
  *******************************************************************/
 void SaveCarDriver(char value){
     writeRegister(ADDRESS, 1,value);
@@ -113,8 +113,8 @@ void SaveCarDriver(char value){
 
 /*******************************************************************
  * @brief           ReadCarDriverCount
- * @brief           Reading car driver count
- * @return          none
+ * @brief           Reading car driver count - how many drivers we have saved
+ * @return          returns byte
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 char ReadCarDriverCount(){
@@ -134,7 +134,7 @@ void SaveCarDriverCount(char value){
 /*******************************************************************
  * @brief           ReadThrottlePrecent
  * @brief           Reading data location for car throttle mismatch %
- * @return          none
+ * @return          return byte
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 int ReadThrottlePrecent(){
@@ -154,7 +154,7 @@ void SaveThrottlePrecent(int value){
 /*******************************************************************
  * @brief           ReadThrottleTrigger
  * @brief           Reading data location for throttle max value for software safety system
- * @return          none
+ * @return          return byte
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 int ReadThrottleTrigger(){
@@ -174,7 +174,7 @@ void SaveThrottleTrigger(int value){
 /*******************************************************************
  * @brief           ReadBrakeTrigger
  * @brief           Reading data location for brake max value for software safety system
- * @return          none
+ * @return          return byte
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 int ReadBrakeTrigger(){
@@ -194,7 +194,7 @@ void SaveBrakeTrigger(int value){
 /*******************************************************************
  * @brief           ReadBrakeLightTrigger
  * @brief           Reading data location for brake light threshold
- * @return          none
+ * @return          return byte
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 int ReadBrakeLightTrigger(){
@@ -271,7 +271,7 @@ void SaveDriverConfig(char NAME[3], int MaxThrottle, int MaxRegen, int LowBatCut
 /*******************************************************************
  * @brief           ReadDriverName
  * @brief           Reading driver names for list  
- * @return          Driver name
+ * @return          N/A
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 void ReadDriverNames(char dvr){

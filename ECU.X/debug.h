@@ -1,9 +1,9 @@
-/* 
- * File:   debug.h
- * Author: User
- *
- * Created on June 8, 2015, 7:10 PM
- */
+/*******************************************************************
+ * @brief           DriverConfig.c
+ * @brief           
+ * @return          N/A
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
 
 #ifndef DEBUG_H
 #define	DEBUG_H
