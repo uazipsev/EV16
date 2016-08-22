@@ -2,8 +2,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p mainexit ]
 "11 Function.h
 [v _Start `(v ~T0 @X0 0 ef ]
-"12 Communications.h
-[v _updateComms `(v ~T0 @X0 0 ef ]
 "315 tmr0.h
 [v _GetTime `(l ~T0 @X0 0 ef ]
 "7674 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
@@ -40,8 +38,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LATAbits `VS456 ~T0 @X0 0 e@3977 ]
 "316 tmr0.h
 [v _SetTime `(v ~T0 @X0 0 ef ]
-"13 Function.h
-[v _ReadFaults `(v ~T0 @X0 0 ef ]
 [; ;Communications.h: 11: void ComStart();
 [; ;Communications.h: 12: void updateComms();
 [; ;Communications.h: 13: void respondECU();
@@ -7428,34 +7424,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 "25
 [e :U 1123 ]
 {
-[; ;Main.c: 26: updateComms();
-"26
-[e ( _updateComms ..  ]
 [; ;Main.c: 27: if(GetTime() > 1000){
 "27
 [e $ ! > ( _GetTime ..  -> -> 1000 `i `l 1125  ]
 {
-[; ;Main.c: 28: LATAbits.LATA3 ^= 1;
-"28
-[e =^ . . _LATAbits 0 3 -> -> 1 `i `uc ]
-[; ;Main.c: 29: SetTime();
-"29
-[e ( _SetTime ..  ]
-[; ;Main.c: 30: ReadFaults();
-"30
-[e ( _ReadFaults ..  ]
+[; ;Main.c: 31: LATAbits.LATA3 ^= 1;
 "31
+[e =^ . . _LATAbits 0 3 -> -> 1 `i `uc ]
+[; ;Main.c: 32: SetTime();
+"32
+[e ( _SetTime ..  ]
+"34
 }
 [e :U 1125 ]
-"32
+"35
 }
 [e :U 1122 ]
 "25
 [e $U 1123  ]
 [e :U 1124 ]
-[; ;Main.c: 31: }
-[; ;Main.c: 32: }
-[; ;Main.c: 33: }
-"33
+[; ;Main.c: 34: }
+[; ;Main.c: 35: }
+[; ;Main.c: 36: }
+"36
 [e :UE 1121 ]
 }

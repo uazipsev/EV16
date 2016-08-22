@@ -7401,11 +7401,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _timer0ReloadVal16bit `Vui ~T0 @X0 1 e ]
 [; ;tmr0.c: 14: volatile uint16_t timer0ReloadVal16bit;
 "20
-[v _time `l ~T0 @X0 1 e ]
+[v _time `ul ~T0 @X0 1 e ]
 [i _time
--> -> 0 `i `l
+-> -> -> 0 `i `l `ul
 ]
-[; ;tmr0.c: 20: long time = 0;
+[; ;tmr0.c: 20: unsigned long time = 0;
 "23
 [v _TMR0_Initialize `(v ~T0 @X0 1 ef ]
 {
@@ -7534,21 +7534,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr0.c: 82: void TMR0_ISR(void) {
 [e :U _TMR0_ISR ]
 [f ]
-"83
-[v F7770 `Vui ~T0 @X0 1 s CountCallBack ]
-[i F7770
--> -> 0 `i `ui
-]
-[; ;tmr0.c: 83: static volatile uint16_t CountCallBack = 0;
-[; ;tmr0.c: 86: TMR0H = timer0ReloadVal16bit >> 8;
-"86
+[; ;tmr0.c: 85: TMR0H = timer0ReloadVal16bit >> 8;
+"85
 [e = _TMR0H -> >> _timer0ReloadVal16bit -> 8 `i `uc ]
-[; ;tmr0.c: 87: TMR0L = (uint8_t) timer0ReloadVal16bit;
-"87
+[; ;tmr0.c: 86: TMR0L = (uint8_t) timer0ReloadVal16bit;
+"86
 [e = _TMR0L -> _timer0ReloadVal16bit `uc ]
-[; ;tmr0.c: 89: time++;
-"89
-[e ++ _time -> -> 1 `i `l ]
+[; ;tmr0.c: 88: time++;
+"88
+[e ++ _time -> -> -> 1 `i `l `ul ]
 [; ;tmr0.c: 91: INTCONbits.TMR0IF = 0;
 "91
 [e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
@@ -7564,7 +7558,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;tmr0.c: 95: return time;
 "95
-[e ) _time ]
+[e ) -> _time `l ]
 [e $UE 1128  ]
 [; ;tmr0.c: 96: }
 "96
@@ -7578,7 +7572,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;tmr0.c: 99: time = 0;
 "99
-[e = _time -> -> 0 `i `l ]
+[e = _time -> -> -> 0 `i `l `ul ]
 [; ;tmr0.c: 100: }
 "100
 [e :UE 1129 ]

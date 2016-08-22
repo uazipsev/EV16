@@ -9322,7 +9322,7 @@ void SetTime();
 volatile uint16_t timer0ReloadVal16bit;
 
 # 20
-long time = 0;
+unsigned long time = 0;
 
 
 void TMR0_Initialize(void) {
@@ -9385,13 +9385,13 @@ TMR0L = (uint8_t) timer0ReloadVal16bit;
 }
 
 void TMR0_ISR(void) {
-static volatile uint16_t CountCallBack = 0;
 
 
 TMR0H = timer0ReloadVal16bit >> 8;
 TMR0L = (uint8_t) timer0ReloadVal16bit;
 
 time++;
+
 
 INTCONbits.TMR0IF = 0;
 }

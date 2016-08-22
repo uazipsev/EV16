@@ -108,7 +108,7 @@ void Start(){
     
     RTG_INPUT_TRIS = INPUT;
     IMD_INPUT_TRIS = INPUT;
-    
+    INDICATOR_TRIS = OUTPUT;
     /*
      Set ADC pins as digital
      */
@@ -125,7 +125,7 @@ void Start(){
     OSCTUNE = 0x00;
     // Set the secondary oscillator
 
-    ComStart();
+    //ComStart();
     INTERRUPT_Initialize();
     TMR0_Initialize();
 }

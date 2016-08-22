@@ -143,8 +143,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _OSCCON2 `Vuc ~T0 @X0 0 e@4050 ]
 "9252
 [v _OSCTUNE `Vuc ~T0 @X0 0 e@3995 ]
-"128 Function.c
-[v _ComStart `(i ~T0 @X0 0 ef ]
 "12 Function.h
 [v _INTERRUPT_Initialize `(v ~T0 @X0 0 ef ]
 "106 tmr0.h
@@ -7956,6 +7954,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Function.c: 110: TRISAbits.TRISA6 = 1;
 "110
 [e = . . _TRISAbits 0 6 -> -> 1 `i `uc ]
+[; ;Function.c: 111: TRISAbits.TRISA3 = 0;
+"111
+[e = . . _TRISAbits 0 3 -> -> 0 `i `uc ]
 [; ;Function.c: 116: ANSELA = 0;
 "116
 [e = _ANSELA -> -> 0 `i `uc ]
@@ -7974,9 +7975,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Function.c: 125: OSCTUNE = 0x00;
 "125
 [e = _OSCTUNE -> -> 0 `i `uc ]
-[; ;Function.c: 128: ComStart();
-"128
-[e ( _ComStart ..  ]
 [; ;Function.c: 129: INTERRUPT_Initialize();
 "129
 [e ( _INTERRUPT_Initialize ..  ]
@@ -8023,9 +8021,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "154
 [e :UE 1132 ]
 }
-[v F8000 `(v ~T0 @X0 1 tf ]
+[v F7999 `(v ~T0 @X0 1 tf ]
 "156
-[v _INTERRUPT_InterruptManager `IF8000 ~T0 @X0 1 e ]
+[v _INTERRUPT_InterruptManager `IF7999 ~T0 @X0 1 e ]
 "157
 {
 [; ;Function.c: 156: void interrupt INTERRUPT_InterruptManager (void)

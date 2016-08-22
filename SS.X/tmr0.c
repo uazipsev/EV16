@@ -17,7 +17,7 @@ volatile uint16_t timer0ReloadVal16bit;
   Section: TMR0 APIs
  */
 
-long time = 0;
+unsigned long time = 0;
 
 
 void TMR0_Initialize(void) {
@@ -80,13 +80,13 @@ void TMR0_Reload16bit(void) {
 }
 
 void TMR0_ISR(void) {
-    static volatile uint16_t CountCallBack = 0;
     // reload TMR0
     // Write to the Timer0 register
     TMR0H = timer0ReloadVal16bit >> 8;
     TMR0L = (uint8_t) timer0ReloadVal16bit;
 
     time++; //ticker for time
+    //INDICATOR ^= 1; 
     // clear the TMR0 interrupt flag
     INTCONbits.TMR0IF = 0;
 }
