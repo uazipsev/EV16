@@ -29,14 +29,14 @@
 #define LISTEN 0
 #define RS485_TSS_Direction_Tris TRISFbits.TRISF1
 #define RS485_TSS_Direction   LATFbits.LATF1
-#define RX0_Tris TRISBbits.TRISB11
-#define TX0_Tris TRISBbits.TRISB10
-#define RX1_Tris TRISCbits.TRISC0
-#define TX1_Tris TRISCbits.TRISC1
-#define RX_Tris TRISCbits.TRISC8
-#define TX_Tris TRISCbits.TRISC7
-#define RX2_Tris TRISCbits.TRISC9
-#define TX2_Tris TRISDbits.TRISD6
+//#define RX1_Tris TRISBbits.TRISB11
+//#define TX1_Tris TRISBbits.TRISB10
+//#define RX2_Tris TRISCbits.TRISC0
+//#define TX2_Tris TRISCbits.TRISC1
+//#define RX3_Tris TRISCbits.TRISC8
+//#define TX3_Tris TRISCbits.TRISC7
+#define RX4_Tris TRISCbits.TRISC1
+#define TX4_Tris TRISCbits.TRISC0
 
 #endif	/* PINDEF_H */
 

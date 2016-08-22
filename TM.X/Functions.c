@@ -13,6 +13,8 @@
 #include "Communications.h"
 #include "Timers.h"
 #include "pps.h"
+#include "cam-m8.h"
+#include "UART4.h"
 
 int BrakeLightThreshold = 0;
 
@@ -27,7 +29,7 @@ int read= 0;
  *******************************************************************/
 void Setup(void) {
 
-                  // __C30_UART=2;
+    __C30_UART=4;
     PinSetMode();
     // setup internal clock for 72MHz/36MIPS
     // 12/2=6*24=132/2=72
@@ -44,25 +46,28 @@ void Setup(void) {
     INTCON1bits.NSTDIS = 1; //No nesting of interrupts
 
     PPSUnLock;
-    //RX0/TX0  -- RS485-1 (U3) --SAS -DDS
+    //RX0/TX0  -- RS485-1 TSS comms
     PPSout(_U1TX, _RP43);
     PPSin(_U1RX, _RP42);
 
-    //RX1/TX1  -- RS485-2 (U1) --BMM -MCS
-    PPSout(_U2TX, _RP48);
-    PPSin(_U2RX, _RP49);
+    //RX2/TX2 - GPS
+    PPSout(_U4TX, _RP48);
+    PPSin(_U4RX, _RP49);
 
-    //RX2/TX2  --SWITCH becomes RX3/TX3 (USB) -> RX4/TX4 (WIRELESS)
+    //RX3/TX3  --TM and ECU comms
     PPSout(_U3TX, _RP57);
     PPSin(_U3RX, _RP70);
 
-    //RX2/TX2 -- RS485 Full Duplex --Telem Master
-    PPSout(_U4TX, _RP55);
-    PPSin(_U4RX, _RP56);
+    //RX4/TX4 -- select swith Wireless and USB
+    PPSout(_U2TX, _RP55);
+    PPSin(_U2RX, _RP56);
     
     PPSLock;
     
+    UART2_init();
+    
     TSSCommsStart();
+    CamM8Init();
 
     //This controls the timing system to control communication rates  
     initTimerOne();
@@ -98,15 +103,15 @@ void PinSetMode(void) {
 //    LATCbits.LATC10 = 0;
 //    ANSELCbits.ANSC0 = 0;
 //    ANSELAbits.ANSA4 = 1;
-//    ANSELCbits.ANSC3 = 1;
+    ANSELCbits.ANSC1 = 0;
 //    //RX0_Tris=OUTPUT;
 //    //TX0_Tris=OUTPUT;
 //    //RX1_Tris=OUTPUT;
 //    //TX1_Tris=OUTPUT;
 //    //RX_Tris=OUTPUT;
 //    //TX_Tris=OUTPUT;
-//    //RX2_Tris=OUTPUT;
-//    //TX2_Tris=OUTPUT;
+   // RX4_Tris=OUTPUT;
+   // TX4_Tris=OUTPUT;
 }
 
 /*******************************************************************
@@ -119,6 +124,7 @@ void ledDebug(){
     if (GetTime(TIME) > 250) {
         INDICATOR ^= 1;
         SetTime(TIME);
+        CamM8Read();
     }
 }
 

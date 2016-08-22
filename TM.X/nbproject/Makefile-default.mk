@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=FastTransfer.c Communications.c cam-m8.c UART.c UART2.c Timers.c ConfigBits.c main.c Functions.c UART3.c UART4.c
+SOURCEFILES_QUOTED_IF_SPACED=FastTransfer.c Communications.c cam-m8.c UART.c UART2.c Timers.c UART3.c UART4.c ConfigBits.c main.c Functions.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/Communications.o ${OBJECTDIR}/cam-m8.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/UART2.o ${OBJECTDIR}/Timers.o ${OBJECTDIR}/ConfigBits.o ${OBJECTDIR}/main.o ${OBJECTDIR}/Functions.o ${OBJECTDIR}/UART3.o ${OBJECTDIR}/UART4.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/FastTransfer.o.d ${OBJECTDIR}/Communications.o.d ${OBJECTDIR}/cam-m8.o.d ${OBJECTDIR}/UART.o.d ${OBJECTDIR}/UART2.o.d ${OBJECTDIR}/Timers.o.d ${OBJECTDIR}/ConfigBits.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/Functions.o.d ${OBJECTDIR}/UART3.o.d ${OBJECTDIR}/UART4.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/Communications.o ${OBJECTDIR}/cam-m8.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/UART2.o ${OBJECTDIR}/Timers.o ${OBJECTDIR}/UART3.o ${OBJECTDIR}/UART4.o ${OBJECTDIR}/ConfigBits.o ${OBJECTDIR}/main.o ${OBJECTDIR}/Functions.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/FastTransfer.o.d ${OBJECTDIR}/Communications.o.d ${OBJECTDIR}/cam-m8.o.d ${OBJECTDIR}/UART.o.d ${OBJECTDIR}/UART2.o.d ${OBJECTDIR}/Timers.o.d ${OBJECTDIR}/UART3.o.d ${OBJECTDIR}/UART4.o.d ${OBJECTDIR}/ConfigBits.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/Functions.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/Communications.o ${OBJECTDIR}/cam-m8.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/UART2.o ${OBJECTDIR}/Timers.o ${OBJECTDIR}/ConfigBits.o ${OBJECTDIR}/main.o ${OBJECTDIR}/Functions.o ${OBJECTDIR}/UART3.o ${OBJECTDIR}/UART4.o
+OBJECTFILES=${OBJECTDIR}/FastTransfer.o ${OBJECTDIR}/Communications.o ${OBJECTDIR}/cam-m8.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/UART2.o ${OBJECTDIR}/Timers.o ${OBJECTDIR}/UART3.o ${OBJECTDIR}/UART4.o ${OBJECTDIR}/ConfigBits.o ${OBJECTDIR}/main.o ${OBJECTDIR}/Functions.o
 
 # Source Files
-SOURCEFILES=FastTransfer.c Communications.c cam-m8.c UART.c UART2.c Timers.c ConfigBits.c main.c Functions.c UART3.c UART4.c
+SOURCEFILES=FastTransfer.c Communications.c cam-m8.c UART.c UART2.c Timers.c UART3.c UART4.c ConfigBits.c main.c Functions.c
 
 
 CFLAGS=
@@ -130,6 +130,20 @@ ${OBJECTDIR}/Timers.o: Timers.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  Timers.c  -o ${OBJECTDIR}/Timers.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Timers.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/Timers.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/UART3.o: UART3.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/UART3.o.d 
+	@${RM} ${OBJECTDIR}/UART3.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  UART3.c  -o ${OBJECTDIR}/UART3.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/UART3.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/UART3.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/UART4.o: UART4.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/UART4.o.d 
+	@${RM} ${OBJECTDIR}/UART4.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  UART4.c  -o ${OBJECTDIR}/UART4.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/UART4.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/UART4.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 ${OBJECTDIR}/ConfigBits.o: ConfigBits.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/ConfigBits.o.d 
@@ -150,20 +164,6 @@ ${OBJECTDIR}/Functions.o: Functions.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/Functions.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  Functions.c  -o ${OBJECTDIR}/Functions.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Functions.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/Functions.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/UART3.o: UART3.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/UART3.o.d 
-	@${RM} ${OBJECTDIR}/UART3.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  UART3.c  -o ${OBJECTDIR}/UART3.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/UART3.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/UART3.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/UART4.o: UART4.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/UART4.o.d 
-	@${RM} ${OBJECTDIR}/UART4.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  UART4.c  -o ${OBJECTDIR}/UART4.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/UART4.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/UART4.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 else
 ${OBJECTDIR}/FastTransfer.o: FastTransfer.c  nbproject/Makefile-${CND_CONF}.mk
@@ -208,6 +208,20 @@ ${OBJECTDIR}/Timers.o: Timers.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  Timers.c  -o ${OBJECTDIR}/Timers.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Timers.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/Timers.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/UART3.o: UART3.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/UART3.o.d 
+	@${RM} ${OBJECTDIR}/UART3.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  UART3.c  -o ${OBJECTDIR}/UART3.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/UART3.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/UART3.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/UART4.o: UART4.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/UART4.o.d 
+	@${RM} ${OBJECTDIR}/UART4.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  UART4.c  -o ${OBJECTDIR}/UART4.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/UART4.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/UART4.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 ${OBJECTDIR}/ConfigBits.o: ConfigBits.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/ConfigBits.o.d 
@@ -228,20 +242,6 @@ ${OBJECTDIR}/Functions.o: Functions.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/Functions.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  Functions.c  -o ${OBJECTDIR}/Functions.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Functions.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/Functions.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/UART3.o: UART3.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/UART3.o.d 
-	@${RM} ${OBJECTDIR}/UART3.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  UART3.c  -o ${OBJECTDIR}/UART3.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/UART3.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/UART3.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/UART4.o: UART4.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/UART4.o.d 
-	@${RM} ${OBJECTDIR}/UART4.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  UART4.c  -o ${OBJECTDIR}/UART4.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/UART4.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/UART4.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

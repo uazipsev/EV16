@@ -8,6 +8,9 @@
 #ifndef CAM_M8_H
 #define	CAM_M8_H
 
+void CamM8Init();
+void CamM8Read();
+
 //Start info
 
 #define GPS_START 0xB562
@@ -81,7 +84,7 @@
 #define POSITION 0xF100
 #define RATE 0xF140
 #define SVSTATUS 0xF103
-#define TIME 0xF104
+//#define TIME 0xF104
 
 
 
