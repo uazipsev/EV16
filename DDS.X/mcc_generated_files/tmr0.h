@@ -311,9 +311,9 @@ extern "C" {
       @Returns
         None
      */
-    void TMR0_CallBack(void);
-
-    volatile unsigned int time;
+    int GetTime();
+    void ClearTime();
+    
 #ifdef __cplusplus  // Provide C++ Compatibility
 
 }

@@ -5,14 +5,15 @@
  */
 
 #include <xc.h>
-#include "tmr0.h"
-#include "pin_manager.h"
-#include "../IO.h"
+#include "mcc_generated_files/tmr0.h"
+#include "mcc_generated_files/pin_manager.h"
+#include "IO.h"
 
 /**
   Section: Global Variables Definitions
  */
 volatile uint16_t timer0ReloadVal16bit;
+unsigned int time;
 
 /**
   Section: TMR0 APIs
@@ -79,7 +80,6 @@ void TMR0_Reload16bit(void) {
 }
 
 void TMR0_ISR(void) {
-    static volatile uint16_t CountCallBack = 0;
     // reload TMR0
     // Write to the Timer0 register
     TMR0H = timer0ReloadVal16bit >> 8;
@@ -90,22 +90,17 @@ void TMR0_ISR(void) {
     }
     time++;
     // callback function - called every 5th pass
-    if (++CountCallBack >= TMR0_INTERRUPT_TICKER_FACTOR) {
-        // ticker function call
-        TMR0_CallBack();
-
-        // reset ticker counter
-        CountCallBack = 0;
-    }
     // clear the TMR0 interrupt flag
     INTCONbits.TMR0IF = 0;
 }
 
-void TMR0_CallBack(void) {
-  INDICATOR_Toggle();
-    //    bit a = Button8_PORT;
-    // Add your custom callback code here
-    // this code executes every 5 TMR0 periods
+int GetTime(){
+    return time;
+}
+
+
+void ClearTime(){
+    time = 0;
 }
 /**
   End of File

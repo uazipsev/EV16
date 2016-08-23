@@ -54,6 +54,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "interrupt_manager.h"
 #include "adc.h"
 #include "tmr0.h"
+#include "tmr2.h"
 #include "..\UART.h"
 #include "i2c1.h"
 

@@ -137,7 +137,7 @@ void I2C1_Stop(I2C1_MESSAGE_STATUS completion_code);
 static I2C_TR_QUEUE_ENTRY                  i2c1_tr_queue[I2C1_CONFIG_TR_QUEUE_LENGTH];
 static I2C_OBJECT                          i2c1_object;
 static I2C_MASTER_STATES                   i2c1_state = S_MASTER_IDLE;
-static uint8_t                                 i2c1_trb_count = 0;
+static int                                 i2c1_trb_count = 0;
 
 static I2C1_TRANSACTION_REQUEST_BLOCK       *p_i2c1_trb_current = NULL;
 static I2C_TR_QUEUE_ENTRY                  *p_i2c1_current = NULL;
@@ -164,7 +164,7 @@ void I2C1_Initialize(void)
     // BOEN disabled; AHEN disabled; SBCDE disabled; SDAHT 100ns; DHEN disabled; ACKTIM ackseq; PCIE disabled; SCIE disabled; 
     SSP1CON3 = 0x00;
     // Baud Rate Generator Value: SSP1ADD 9;   
-    SSP1ADD = 0x09;
+    SSP1ADD = 0x03;
 
     /* Byte sent or received */
     // clear the master interrupt flag
@@ -188,7 +188,7 @@ void I2C1_ISR ( void )
   
     static uint8_t  *pi2c_buf_ptr;
     static uint16_t i2c_address         = 0;
-    static uint8_t  i2c_bytes_left      = 0;
+    static int  i2c_bytes_left      = 0;
     static uint8_t  i2c_10bit_address_restart = 0;
 
     PIR1bits.SSP1IF = 0;
@@ -550,7 +550,7 @@ void I2C1_Stop(I2C1_MESSAGE_STATUS completion_code)
 
 void I2C1_MasterWrite(
                                 uint8_t *pdata,
-                                uint8_t length,
+                                int length,
                                 uint16_t address,
                                 I2C1_MESSAGE_STATUS *pflag)
 {
@@ -592,7 +592,7 @@ void I2C1_MasterRead(
 }
 
 void I2C1_MasterTRBInsert(
-                                uint8_t count,
+                                int count,
                                 I2C1_TRANSACTION_REQUEST_BLOCK *ptrb_list,
                                 I2C1_MESSAGE_STATUS *pflag)
 {
@@ -647,7 +647,7 @@ void I2C1_MasterTRBInsert(
 void I2C1_MasterReadTRBBuild(
                                 I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
                                 uint8_t *pdata,
-                                uint8_t length,
+                                int length,
                                 uint16_t address)
 {
     ptrb->address  = address << 1;
@@ -660,7 +660,7 @@ void I2C1_MasterReadTRBBuild(
 void I2C1_MasterWriteTRBBuild(
                                 I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
                                 uint8_t *pdata,
-                                uint8_t length,
+                                int length,
                                 uint16_t address)
 {
     ptrb->address = address << 1;

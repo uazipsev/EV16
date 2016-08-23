@@ -1,11 +1,12 @@
 Version 3.2 HI-TECH Software Intermediate Code
+[v F8749 `(v ~T0 @X0 0 tf ]
 "102 mcc_generated_files/..\UART.h
 [s S1163 `uc -> 200 `i `i 1 `i 1 `i 1 ]
 [n S1163 UART_ring_buff buf head tail count ]
 [p mainexit ]
-"73 mcc_generated_files/mcc.h
+"74 mcc_generated_files/mcc.h
 [v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
-"17456 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+"17456 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
 [s S1093 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S1093 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
 "17466
@@ -19,9 +20,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1092 . . . . ]
 "17482
 [v _INTCONbits `VS1092 ~T0 @X0 0 e@4082 ]
-"34 LED_BarGraph.h
-[v _LEDbegin `(v ~T0 @X0 0 ef1`uc ]
-"18805 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+"23 Display.h
+[v _Setupdisplay `(v ~T0 @X0 0 ef ]
+"24
+[v _Splash `(v ~T0 @X0 0 ef ]
+"18805 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
 [v _LATA3 `Vb ~T0 @X0 0 e@31819 ]
 "7938
 [s S477 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -55,23 +58,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S476 . . . . . . . . . . ]
 "7980
 [v _LATCbits `VS476 ~T0 @X0 0 e@3979 ]
-"15 Communications.h
-[v _updateComms `(v ~T0 @X0 0 ef ]
-"31 LED_BarGraph.h
-[v _LEDsetValue `(v ~T0 @X0 0 ef2`i`i ]
-"35
-[v _LEDwriteDisplay `(v ~T0 @X0 0 ef1`uc ]
+"314 mcc_generated_files/tmr0.h
+[v _GetTime `(i ~T0 @X0 0 ef ]
+"315
+[v _ClearTime `(v ~T0 @X0 0 ef ]
 "13 IO.h
 [v _GetButtonState `(uc ~T0 @X0 0 ef1`i ]
 [v F8642 `(v ~T0 @X0 1 tf1`ul ]
-"157 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18.h
+"156 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18.h
 [v __delay `JF8642 ~T0 @X0 0 e ]
 [p i __delay ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic18f45k22.h: 49: extern volatile unsigned char ANSELA @ 0xF38;
-"51 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+"51 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
 [; ;pic18f45k22.h: 51: asm("ANSELA equ 0F38h");
 [; <" ANSELA equ 0F38h ;# ">
 [; ;pic18f45k22.h: 54: typedef union {
@@ -8092,12 +8093,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 18: __attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
 [; ;pic18.h: 19: __attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
 [; ;pic18.h: 43: extern void __nop(void);
-[; ;pic18.h: 126: __attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
-[; ;pic18.h: 127: __attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
-[; ;pic18.h: 128: __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
-[; ;pic18.h: 157: extern __nonreentrant void _delay(unsigned long);
-[; ;pic18.h: 159: extern __nonreentrant void _delaywdt(unsigned long);
-[; ;pic18.h: 161: extern __nonreentrant void _delay3(unsigned char);
+[; ;pic18.h: 125: __attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
+[; ;pic18.h: 126: __attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
+[; ;pic18.h: 127: __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
+[; ;pic18.h: 156: extern __nonreentrant void _delay(unsigned long);
+[; ;pic18.h: 158: extern __nonreentrant void _delaywdt(unsigned long);
+[; ;pic18.h: 160: extern __nonreentrant void _delay3(unsigned char);
 [; ;pin_manager.h: 386: void PIN_MANAGER_Initialize (void);
 [; ;pin_manager.h: 398: void PIN_MANAGER_IOC(void);
 [; ;stdint.h: 13: typedef signed char int8_t;
@@ -8152,10 +8153,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr0.h: 242: void TMR0_Write16bitTimer(uint16_t timerVal);
 [; ;tmr0.h: 278: void TMR0_Reload16bit(void);
 [; ;tmr0.h: 296: void TMR0_ISR(void);
-[; ;tmr0.h: 314: void TMR0_CallBack(void);
-"316 mcc_generated_files/tmr0.h
-[v _time `Vui ~T0 @X0 1 e ]
-[; ;tmr0.h: 316: volatile unsigned int time;
+[; ;tmr0.h: 314: int GetTime();
+[; ;tmr0.h: 315: void ClearTime();
+[; ;tmr2.h: 103: void TMR2_Initialize(void);
+[; ;tmr2.h: 132: void TMR2_StartTimer(void);
+[; ;tmr2.h: 164: void TMR2_StopTimer(void);
+[; ;tmr2.h: 199: uint8_t TMR2_ReadTimer(void);
+[; ;tmr2.h: 238: void TMR2_WriteTimer(uint8_t timerVal);
+[; ;tmr2.h: 290: void TMR2_LoadPeriodRegister(uint8_t periodVal);
+[; ;tmr2.h: 308: void TMR2_ISR(void);
+[; ;tmr2.h: 326: void TMR2_CallBack(void);
+[; ;tmr2.h: 343: void TMR2_CallBack(void);
+[; ;tmr2.h: 346: void setLED(int);
+[; ;tmr2.h: 347: void Off_Led(int);
+[; ;tmr2.h: 348: void Change_Blink_Rate(int);
+[; ;tmr2.h: 349: int Get_Blink_State(int) ;
+[; ;tmr2.h: 350: void TMR2_SetInterruptHandler(void *InterruptHandler);
+"368 mcc_generated_files/tmr2.h
+[v _TMR2_InterruptHandler `*F8749 ~T0 @X0 1 e ]
+[; ;tmr2.h: 368: void (*TMR2_InterruptHandler)(void);
+[; ;tmr2.h: 386: void TMR2_DefaultInterruptHandler(void);
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
 [; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
@@ -8292,7 +8309,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;i2c1.h: 177: void I2C1_Initialize(void);
 [; ;i2c1.h: 216: void I2C1_MasterWrite(
 [; ;i2c1.h: 217: uint8_t *pdata,
-[; ;i2c1.h: 218: uint8_t length,
+[; ;i2c1.h: 218: int length,
 [; ;i2c1.h: 219: uint16_t address,
 [; ;i2c1.h: 220: I2C1_MESSAGE_STATUS *pstatus);
 [; ;i2c1.h: 363: void I2C1_MasterRead(
@@ -8301,31 +8318,31 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;i2c1.h: 366: uint16_t address,
 [; ;i2c1.h: 367: I2C1_MESSAGE_STATUS *pstatus);
 [; ;i2c1.h: 473: void I2C1_MasterTRBInsert(
-[; ;i2c1.h: 474: uint8_t count,
+[; ;i2c1.h: 474: int count,
 [; ;i2c1.h: 475: I2C1_TRANSACTION_REQUEST_BLOCK *ptrb_list,
 [; ;i2c1.h: 476: I2C1_MESSAGE_STATUS *pflag);
 [; ;i2c1.h: 517: void I2C1_MasterReadTRBBuild(
 [; ;i2c1.h: 518: I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
 [; ;i2c1.h: 519: uint8_t *pdata,
-[; ;i2c1.h: 520: uint8_t length,
+[; ;i2c1.h: 520: int length,
 [; ;i2c1.h: 521: uint16_t address);
 [; ;i2c1.h: 562: void I2C1_MasterWriteTRBBuild(
 [; ;i2c1.h: 563: I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
 [; ;i2c1.h: 564: uint8_t *pdata,
-[; ;i2c1.h: 565: uint8_t length,
+[; ;i2c1.h: 565: int length,
 [; ;i2c1.h: 566: uint16_t address);
 [; ;i2c1.h: 604: bool I2C1_MasterQueueIsEmpty(void);
 [; ;i2c1.h: 642: bool I2C1_MasterQueueIsFull(void);
 [; ;i2c1.h: 643: void I2C1_BusCollisionISR( void );
 [; ;i2c1.h: 644: void I2C1_ISR ( void );
-[; ;mcc.h: 73: void SYSTEM_Initialize(void);
-[; ;mcc.h: 86: void OSCILLATOR_Initialize(void);
-[; ;mcc.h: 87: extern void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
-[; ;mcc.h: 89: extern unsigned char Receive_peek(void);
-[; ;mcc.h: 90: extern int Receive_available(void);
-[; ;mcc.h: 91: extern unsigned char Receive_get(void);
-[; ;mcc.h: 92: extern void Send_put(unsigned char _data);
-[; ;mcc.h: 94: extern volatile int receiveArray[20];
+[; ;mcc.h: 74: void SYSTEM_Initialize(void);
+[; ;mcc.h: 87: void OSCILLATOR_Initialize(void);
+[; ;mcc.h: 88: extern void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
+[; ;mcc.h: 90: extern unsigned char Receive_peek(void);
+[; ;mcc.h: 91: extern int Receive_available(void);
+[; ;mcc.h: 92: extern unsigned char Receive_get(void);
+[; ;mcc.h: 93: extern void Send_put(unsigned char _data);
+[; ;mcc.h: 95: extern volatile int receiveArray[20];
 "29 LED_BarGraph.h
 [v _displaybuffer `l ~T0 @X0 -> 10 `i e ]
 [; ;LED_BarGraph.h: 29: long int displaybuffer[10];
@@ -8349,131 +8366,137 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Communications.h: 18: void respondECU();
 [; ;Communications.h: 19: void handleIndicators(int receivedIndicators);
 [; ;Communications.h: 20: void TBbarGraphs(int t, int b);
-[; ;main.c: 30: void Delay(int wait);
-"32 main.c
+[; ;Display.h: 13: typedef enum{
+[; ;Display.h: 14: BV,
+[; ;Display.h: 15: BC,
+[; ;Display.h: 16: BT,
+[; ;Display.h: 17: MT,
+[; ;Display.h: 18: MCT,
+[; ;Display.h: 19: FLT
+[; ;Display.h: 20: }my_data;
+[; ;Display.h: 22: void SetData(my_data data, int numb);
+[; ;Display.h: 23: void Setupdisplay();
+[; ;Display.h: 24: void Splash();
+[; ;Display.h: 25: void Normal();
+[; ;OLED_Display.h: 14: void oledClear();
+[; ;OLED_Display.h: 15: void oledPrint( char *s );
+[; ;OLED_Display.h: 16: void OLED_init();
+[; ;OLED_Display.h: 17: void OLED_command(char com);
+[; ;OLED_Display.h: 18: void oledGotoYX(unsigned char Row, unsigned char Column);
+[; ;OLED_Display.h: 19: void Display(void);
+[; ;main.c: 34: void Delay(int wait);
+"36 main.c
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 32: void main(void) {
+[; ;main.c: 36: void main(void) {
 [e :U _main ]
 [f ]
-[; ;main.c: 34: SYSTEM_Initialize();
-"34
+[; ;main.c: 38: SYSTEM_Initialize();
+"38
 [e ( _SYSTEM_Initialize ..  ]
-[; ;main.c: 53: (INTCONbits.GIE = 1);
-"53
+[; ;main.c: 57: (INTCONbits.GIE = 1);
+"57
 [e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-[; ;main.c: 56: (INTCONbits.PEIE = 1);
-"56
+[; ;main.c: 60: (INTCONbits.PEIE = 1);
+"60
 [e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
-"63
-[v _ADCNT `i ~T0 @X0 1 a ]
-[; ;main.c: 63: int ADCNT = 1;
-[e = _ADCNT -> 1 `i ]
-[; ;main.c: 64: LEDbegin(0x70);
-"64
-[e ( _LEDbegin (1 -> -> 112 `i `uc ]
-[; ;main.c: 65: LEDbegin(0x71);
-"65
-[e ( _LEDbegin (1 -> -> 113 `i `uc ]
-[; ;main.c: 66: do { LATA3 = 1; } while(0);
-"66
+[; ;main.c: 70: Setupdisplay();
+"70
+[e ( _Setupdisplay ..  ]
+[; ;main.c: 71: Splash();
+"71
+[e ( _Splash ..  ]
+[; ;main.c: 73: do { LATA3 = 1; } while(0);
+"73
 [e :U 1168 ]
 {
 [e = _LATA3 -> -> 1 `i `b ]
 }
 [e :U 1167 ]
-[; ;main.c: 67: LATCbits.LATC5 = 0;
-"67
+[; ;main.c: 74: LATCbits.LATC5 = 0;
+"74
 [e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
-[; ;main.c: 68: while (1) {
-"68
+[; ;main.c: 75: while (1) {
+"75
 [e :U 1170 ]
 {
-[; ;main.c: 69: updateComms();
-"69
-[e ( _updateComms ..  ]
-[; ;main.c: 75: if (time > 1) {
-"75
-[e $ ! > _time -> -> 1 `i `ui 1172  ]
+[; ;main.c: 87: if (GetTime() > 1) {
+"87
+[e $ ! > ( _GetTime ..  -> 1 `i 1172  ]
 {
-[; ;main.c: 76: LEDsetValue((throttle)*(24.0 / 100.0), 1);
-"76
-[e ( _LEDsetValue (2 , -> * -> _throttle `d / .24.0 .100.0 `i -> 1 `i ]
-[; ;main.c: 77: LEDwriteDisplay(0x70);
-"77
-[e ( _LEDwriteDisplay (1 -> -> 112 `i `uc ]
-[; ;main.c: 78: LEDsetValue((brake)*(24.0 / 100.0), 1);
-"78
-[e ( _LEDsetValue (2 , -> * -> _brake `d / .24.0 .100.0 `i -> 1 `i ]
-[; ;main.c: 79: LEDwriteDisplay(0x71);
-"79
-[e ( _LEDwriteDisplay (1 -> -> 113 `i `uc ]
-[; ;main.c: 81: time = 0;
-"81
-[e = _time -> -> 0 `i `ui ]
-"82
-}
-[e :U 1172 ]
-[; ;main.c: 82: }
-[; ;main.c: 110: if(GetButtonState(4) == 0)
-"110
-[e $ ! == -> ( _GetButtonState (1 -> 4 `i `i -> 0 `i 1173  ]
-[; ;main.c: 111: {
-"111
-{
-[; ;main.c: 112: do { LATA3 = ~LATA3; } while(0);
-"112
-[e :U 1176 ]
+[; ;main.c: 92: do { LATA3 = ~LATA3; } while(0);
+"92
+[e :U 1175 ]
 {
 [e = _LATA3 -> ~ -> _LATA3 `ui `b ]
 }
-[e :U 1175 ]
-"113
+[e :U 1174 ]
+[; ;main.c: 94: ClearTime();
+"94
+[e ( _ClearTime ..  ]
+"95
 }
-[e :U 1173 ]
-"114
+[e :U 1172 ]
+[; ;main.c: 95: }
+[; ;main.c: 123: if(GetButtonState(4) == 0)
+"123
+[e $ ! == -> ( _GetButtonState (1 -> 4 `i `i -> 0 `i 1176  ]
+[; ;main.c: 124: {
+"124
+{
+[; ;main.c: 125: do { LATA3 = ~LATA3; } while(0);
+"125
+[e :U 1179 ]
+{
+[e = _LATA3 -> ~ -> _LATA3 `ui `b ]
+}
+[e :U 1178 ]
+"126
+}
+[e :U 1176 ]
+"127
 }
 [e :U 1169 ]
-"68
+"75
 [e $U 1170  ]
 [e :U 1171 ]
-[; ;main.c: 113: }
-[; ;main.c: 114: }
-[; ;main.c: 115: }
-"115
+[; ;main.c: 126: }
+[; ;main.c: 127: }
+[; ;main.c: 128: }
+"128
 [e :UE 1165 ]
 }
-"117
+"130
 [v _Delay `(v ~T0 @X0 1 ef1`i ]
 {
-[; ;main.c: 117: void Delay(int wait) {
+[; ;main.c: 130: void Delay(int wait) {
 [e :U _Delay ]
 [v _wait `i ~T0 @X0 1 r1 ]
 [f ]
-"118
+"131
 [v _x `i ~T0 @X0 1 a ]
-[; ;main.c: 118: int x;
-[; ;main.c: 119: for (x = 0; x < wait; x++) {
-"119
+[; ;main.c: 131: int x;
+[; ;main.c: 132: for (x = 0; x < wait; x++) {
+"132
 {
 [e = _x -> 0 `i ]
-[e $U 1181  ]
-[e :U 1178 ]
-{
-[; ;main.c: 120: _delay((unsigned long)((1)*(16000000/4000.0)));
-"120
-[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"121
-}
-"119
-[e ++ _x -> 1 `i ]
+[e $U 1184  ]
 [e :U 1181 ]
-[e $ < _x _wait 1178  ]
-[e :U 1179 ]
-"121
+{
+[; ;main.c: 133: _delay((unsigned long)((1)*(16000000/4000.0)));
+"133
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"134
 }
-[; ;main.c: 121: }
-[; ;main.c: 122: }
-"122
-[e :UE 1177 ]
+"132
+[e ++ _x -> 1 `i ]
+[e :U 1184 ]
+[e $ < _x _wait 1181  ]
+[e :U 1182 ]
+"134
+}
+[; ;main.c: 134: }
+[; ;main.c: 135: }
+"135
+[e :UE 1180 ]
 }

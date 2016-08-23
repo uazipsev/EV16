@@ -1,15 +1,15 @@
 Version 3.2 HI-TECH Software Intermediate Code
+[v F8749 `(v ~T0 @X0 0 tf ]
 "102 mcc_generated_files/..\UART.h
 [s S1163 `uc -> 200 `i `i 1 `i 1 `i 1 ]
 [n S1163 UART_ring_buff buf head tail count ]
-[v F9054 `(v ~T0 @X0 0 tf ]
 "347 mcc_generated_files/tmr2.h
 [v _Off_Led `(v ~T0 @X0 0 ef1`i ]
-"18833 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+"18833 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
 [v _LATC1 `Vb ~T0 @X0 0 e@31833 ]
 "346 mcc_generated_files/tmr2.h
 [v _setLED `(v ~T0 @X0 0 ef1`i ]
-"18811 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+"18811 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
 [v _LATA6 `Vb ~T0 @X0 0 e@31822 ]
 "18813
 [v _LATA7 `Vb ~T0 @X0 0 e@31823 ]
@@ -21,7 +21,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LATE0 `Vb ~T0 @X0 0 e@31848 ]
 "348 mcc_generated_files/tmr2.h
 [v _Change_Blink_Rate `(v ~T0 @X0 0 ef1`i ]
-"7240 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+"7240 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
 [s S434 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S434 . RD0 RD1 RD2 RD3 RD4 RD5 RD6 RD7 ]
 "7250
@@ -127,7 +127,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic18f45k22.h: 49: extern volatile unsigned char ANSELA @ 0xF38;
-"51 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+"51 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f45k22.h
 [; ;pic18f45k22.h: 51: asm("ANSELA equ 0F38h");
 [; <" ANSELA equ 0F38h ;# ">
 [; ;pic18f45k22.h: 54: typedef union {
@@ -8148,12 +8148,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 18: __attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
 [; ;pic18.h: 19: __attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
 [; ;pic18.h: 43: extern void __nop(void);
-[; ;pic18.h: 126: __attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
-[; ;pic18.h: 127: __attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
-[; ;pic18.h: 128: __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
-[; ;pic18.h: 157: extern __nonreentrant void _delay(unsigned long);
-[; ;pic18.h: 159: extern __nonreentrant void _delaywdt(unsigned long);
-[; ;pic18.h: 161: extern __nonreentrant void _delay3(unsigned char);
+[; ;pic18.h: 125: __attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
+[; ;pic18.h: 126: __attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
+[; ;pic18.h: 127: __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
+[; ;pic18.h: 156: extern __nonreentrant void _delay(unsigned long);
+[; ;pic18.h: 158: extern __nonreentrant void _delaywdt(unsigned long);
+[; ;pic18.h: 160: extern __nonreentrant void _delay3(unsigned char);
 [; ;pin_manager.h: 386: void PIN_MANAGER_Initialize (void);
 [; ;pin_manager.h: 398: void PIN_MANAGER_IOC(void);
 [; ;stdint.h: 13: typedef signed char int8_t;
@@ -8208,10 +8208,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr0.h: 242: void TMR0_Write16bitTimer(uint16_t timerVal);
 [; ;tmr0.h: 278: void TMR0_Reload16bit(void);
 [; ;tmr0.h: 296: void TMR0_ISR(void);
-[; ;tmr0.h: 314: void TMR0_CallBack(void);
-"316 mcc_generated_files/tmr0.h
-[v _time `Vui ~T0 @X0 1 e ]
-[; ;tmr0.h: 316: volatile unsigned int time;
+[; ;tmr0.h: 314: int GetTime();
+[; ;tmr0.h: 315: void ClearTime();
+[; ;tmr2.h: 103: void TMR2_Initialize(void);
+[; ;tmr2.h: 132: void TMR2_StartTimer(void);
+[; ;tmr2.h: 164: void TMR2_StopTimer(void);
+[; ;tmr2.h: 199: uint8_t TMR2_ReadTimer(void);
+[; ;tmr2.h: 238: void TMR2_WriteTimer(uint8_t timerVal);
+[; ;tmr2.h: 290: void TMR2_LoadPeriodRegister(uint8_t periodVal);
+[; ;tmr2.h: 308: void TMR2_ISR(void);
+[; ;tmr2.h: 326: void TMR2_CallBack(void);
+[; ;tmr2.h: 343: void TMR2_CallBack(void);
+[; ;tmr2.h: 346: void setLED(int);
+[; ;tmr2.h: 347: void Off_Led(int);
+[; ;tmr2.h: 348: void Change_Blink_Rate(int);
+[; ;tmr2.h: 349: int Get_Blink_State(int) ;
+[; ;tmr2.h: 350: void TMR2_SetInterruptHandler(void *InterruptHandler);
+"368 mcc_generated_files/tmr2.h
+[v _TMR2_InterruptHandler `*F8749 ~T0 @X0 1 e ]
+[; ;tmr2.h: 368: void (*TMR2_InterruptHandler)(void);
+[; ;tmr2.h: 386: void TMR2_DefaultInterruptHandler(void);
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
 [; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
@@ -8348,7 +8364,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;i2c1.h: 177: void I2C1_Initialize(void);
 [; ;i2c1.h: 216: void I2C1_MasterWrite(
 [; ;i2c1.h: 217: uint8_t *pdata,
-[; ;i2c1.h: 218: uint8_t length,
+[; ;i2c1.h: 218: int length,
 [; ;i2c1.h: 219: uint16_t address,
 [; ;i2c1.h: 220: I2C1_MESSAGE_STATUS *pstatus);
 [; ;i2c1.h: 363: void I2C1_MasterRead(
@@ -8357,49 +8373,31 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;i2c1.h: 366: uint16_t address,
 [; ;i2c1.h: 367: I2C1_MESSAGE_STATUS *pstatus);
 [; ;i2c1.h: 473: void I2C1_MasterTRBInsert(
-[; ;i2c1.h: 474: uint8_t count,
+[; ;i2c1.h: 474: int count,
 [; ;i2c1.h: 475: I2C1_TRANSACTION_REQUEST_BLOCK *ptrb_list,
 [; ;i2c1.h: 476: I2C1_MESSAGE_STATUS *pflag);
 [; ;i2c1.h: 517: void I2C1_MasterReadTRBBuild(
 [; ;i2c1.h: 518: I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
 [; ;i2c1.h: 519: uint8_t *pdata,
-[; ;i2c1.h: 520: uint8_t length,
+[; ;i2c1.h: 520: int length,
 [; ;i2c1.h: 521: uint16_t address);
 [; ;i2c1.h: 562: void I2C1_MasterWriteTRBBuild(
 [; ;i2c1.h: 563: I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
 [; ;i2c1.h: 564: uint8_t *pdata,
-[; ;i2c1.h: 565: uint8_t length,
+[; ;i2c1.h: 565: int length,
 [; ;i2c1.h: 566: uint16_t address);
 [; ;i2c1.h: 604: bool I2C1_MasterQueueIsEmpty(void);
 [; ;i2c1.h: 642: bool I2C1_MasterQueueIsFull(void);
 [; ;i2c1.h: 643: void I2C1_BusCollisionISR( void );
 [; ;i2c1.h: 644: void I2C1_ISR ( void );
-[; ;mcc.h: 73: void SYSTEM_Initialize(void);
-[; ;mcc.h: 86: void OSCILLATOR_Initialize(void);
-[; ;mcc.h: 87: extern void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
-[; ;mcc.h: 89: extern unsigned char Receive_peek(void);
-[; ;mcc.h: 90: extern int Receive_available(void);
-[; ;mcc.h: 91: extern unsigned char Receive_get(void);
-[; ;mcc.h: 92: extern void Send_put(unsigned char _data);
-[; ;mcc.h: 94: extern volatile int receiveArray[20];
-[; ;tmr2.h: 103: void TMR2_Initialize(void);
-[; ;tmr2.h: 132: void TMR2_StartTimer(void);
-[; ;tmr2.h: 164: void TMR2_StopTimer(void);
-[; ;tmr2.h: 199: uint8_t TMR2_ReadTimer(void);
-[; ;tmr2.h: 238: void TMR2_WriteTimer(uint8_t timerVal);
-[; ;tmr2.h: 290: void TMR2_LoadPeriodRegister(uint8_t periodVal);
-[; ;tmr2.h: 308: void TMR2_ISR(void);
-[; ;tmr2.h: 326: void TMR2_CallBack(void);
-[; ;tmr2.h: 343: void TMR2_CallBack(void);
-[; ;tmr2.h: 346: void setLED(int);
-[; ;tmr2.h: 347: void Off_Led(int);
-[; ;tmr2.h: 348: void Change_Blink_Rate(int);
-[; ;tmr2.h: 349: int Get_Blink_State(int) ;
-[; ;tmr2.h: 350: void TMR2_SetInterruptHandler(void *InterruptHandler);
-"368 mcc_generated_files/tmr2.h
-[v _TMR2_InterruptHandler `*F9054 ~T0 @X0 1 e ]
-[; ;tmr2.h: 368: void (*TMR2_InterruptHandler)(void);
-[; ;tmr2.h: 386: void TMR2_DefaultInterruptHandler(void);
+[; ;mcc.h: 74: void SYSTEM_Initialize(void);
+[; ;mcc.h: 87: void OSCILLATOR_Initialize(void);
+[; ;mcc.h: 88: extern void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
+[; ;mcc.h: 90: extern unsigned char Receive_peek(void);
+[; ;mcc.h: 91: extern int Receive_available(void);
+[; ;mcc.h: 92: extern unsigned char Receive_get(void);
+[; ;mcc.h: 93: extern void Send_put(unsigned char _data);
+[; ;mcc.h: 95: extern volatile int receiveArray[20];
 "14 IO.c
 [v _LED_array `i ~T0 @X0 -> 8 `i e ]
 [; ;IO.c: 14: int LED_array[8];

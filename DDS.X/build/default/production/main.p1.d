@@ -10,5 +10,8 @@ IO.h  \
 mcc_generated_files/../ADDRESSING.h  \
 mcc_generated_files/interrupt_manager.h  \
 mcc_generated_files/tmr0.h  \
+mcc_generated_files/tmr2.h  \
+OLED_Display.h  \
 mcc_generated_files/pin_manager.h  \
+Display.h  \
 Communications.h 

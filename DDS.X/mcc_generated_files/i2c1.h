@@ -215,7 +215,7 @@ void I2C1_Initialize(void);
 
 void I2C1_MasterWrite(
                                 uint8_t *pdata,
-                                uint8_t length,
+                                int length,
                                 uint16_t address,
                                 I2C1_MESSAGE_STATUS *pstatus);
 
@@ -471,7 +471,7 @@ void I2C1_MasterRead(
 */
 
 void I2C1_MasterTRBInsert(
-                                uint8_t count,
+                                int count,
                                 I2C1_TRANSACTION_REQUEST_BLOCK *ptrb_list,
                                 I2C1_MESSAGE_STATUS *pflag);
 
@@ -517,7 +517,7 @@ void I2C1_MasterTRBInsert(
 void I2C1_MasterReadTRBBuild(
                                 I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
                                 uint8_t *pdata,
-                                uint8_t length,
+                                int length,
                                 uint16_t address);
 
 /**
@@ -562,7 +562,7 @@ void I2C1_MasterReadTRBBuild(
 void I2C1_MasterWriteTRBBuild(
                                 I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
                                 uint8_t *pdata,
-                                uint8_t length,
+                                int length,
                                 uint16_t address);
 
 /**

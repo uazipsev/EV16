@@ -49,8 +49,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 */
 
 #include <xc.h>
-#include "tmr2.h"
-#include "mcc.h"
+#include "mcc_generated_files/tmr2.h"
+#include "mcc_generated_files/mcc.h"
 #include <stdio.h>
 #include <stdlib.h>
 /**
@@ -263,25 +263,21 @@ void Off_Led(int led){
     
 }
 int Get_Blink_State(int LED){
-switch (LED){
-    case 0: 
-        return LEDState[0]=0;
-                break;
-    case 1: 
-               return LEDState[1]=0; 
-                break;
-    case 2: 
-                return LEDState[2]=0;
-                break;
-    case 3: 
-                return LEDState[3]=0;
-                break;
-    case 4: 
-                return LEDState[4]=0;
-                break;
-    case 5: 
-                return LEDState[5]=0;
-                break;}
+    switch (LED)
+    {
+        case 0: 
+            return LEDState[0]=0;
+        case 1: 
+            return LEDState[1]=0; 
+        case 2: 
+            return LEDState[2]=0;
+        case 3: 
+            return LEDState[3]=0;
+        case 4: 
+            return LEDState[4]=0;
+        case 5: 
+            return LEDState[5]=0;
+    }
 ;}
 //Problem with int function
 void Change_Blink_Rate(int time){

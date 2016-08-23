@@ -27,6 +27,10 @@
 #include "LED_BarGraph.h"
 #include "IO.h"
 #include "Communications.h"
+#include "mcc_generated_files/tmr0.h"
+#include "Display.h"
+#include "OLED_Display.h"
+
 void Delay(int wait);
 
 void main(void) {
@@ -60,35 +64,44 @@ void main(void) {
 
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
-    int ADCNT = 1;
-    LEDbegin(0x70);
-    LEDbegin(0x71);
+    //int ADCNT = 1;
+    //LEDbegin(0x70);
+    //LEDbegin(0x71);
+    Setupdisplay();
+    Splash();
+    //Display();
     INDICATOR_SetHigh();
     LATCbits.LATC5 = 0;
     while (1) {
-        updateComms();
+        //updateComms();
 
         // ADCNT = ADC_GetConversion(Volume);
         // Add your application code
         //printf("ADC Volume = %d",ADCNT);
-
-        if (time > 1) {
-            LEDsetValue((throttle)*(24.0 / 100.0), LED_RED);
-            LEDwriteDisplay(0x70);
-            LEDsetValue((brake)*(24.0 / 100.0), LED_RED);
-            LEDwriteDisplay(0x71);
+            //LEDsetValue((throttle)*(24.0 / 100.0), LED_RED);
+            //LEDwriteDisplay(0x70);
+            //LEDsetValue((brake)*(24.0 / 100.0), LED_RED);
+            //LEDwriteDisplay(0x71);
+            //Delay(1000);
             //INDICATOR_Toggle();
-            time = 0;
+        if (GetTime() > 1) {
+            //LEDsetValue((throttle)*(24.0 / 100.0), LED_RED);
+            //LEDwriteDisplay(0x70);
+            //LEDsetValue((brake)*(24.0 / 100.0), LED_RED);
+            //LEDwriteDisplay(0x71);
+            INDICATOR_Toggle();
+            //INDICATOR_Toggle();
+            ClearTime();
         }
-        //        for (uint8_t b=0; b<24; b++) {
-        //           LEDsetBar(b, LED_YELLOW);
-        //           LEDwriteDisplay(0x70);
-        //           LEDwriteDisplay(0x71);
-        //           Delay(100);
-        //           LEDsetBar(b, LED_OFF);
-        //           LEDwriteDisplay(0x70);
-        //           LEDwriteDisplay(0x71);
-        //         }
+//                for (uint8_t b=0; b<24; b++) {
+//                   LEDsetBar(b, LED_YELLOW);
+//                   LEDwriteDisplay(0x70);
+//                   LEDwriteDisplay(0x71);
+//                   Delay(100);
+//                   LEDsetBar(b, LED_OFF);
+//                   LEDwriteDisplay(0x70);
+//                   LEDwriteDisplay(0x71);
+//                 }
         //          for (uint8_t b=0; b<24; b++) {
         //           LEDsetBar(b, LED_GREEN);
         //           LEDwriteDisplay(0x70);
@@ -99,7 +112,7 @@ void main(void) {
         //           LEDwriteDisplay(0x71);
         //         }
 
-        //INDICATOR_Toggle();
+        
 
         /*
         SetLEDOut(ADCNT++);

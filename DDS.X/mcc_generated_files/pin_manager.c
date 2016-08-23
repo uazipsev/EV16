@@ -60,7 +60,7 @@ void PIN_MANAGER_Initialize(void)
 
     LATC = 0x18;
     TRISC = 0xDF;
-    ANSELC = 0x04;
+    //ANSELC = 0x04;
 
     LATD = 0x00;
     TRISD = 0xFD;
@@ -69,6 +69,8 @@ void PIN_MANAGER_Initialize(void)
     LATE = 0x00;
     TRISE = 0x00;
     ANSELE = 0x00;
+    
+    ANSELC = 0xE4;
     
     
     

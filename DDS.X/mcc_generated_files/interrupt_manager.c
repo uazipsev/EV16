@@ -1,4 +1,6 @@
 #include <xc.h>
+#include "../UART.h"
+#include "tmr0.h"
 
 void  INTERRUPT_Initialize (void)
 {
@@ -37,6 +39,14 @@ void interrupt INTERRUPT_InterruptManager (void)
     else if(INTCONbits.TMR0IE == 1 && INTCONbits.TMR0IF == 1)
     {
         TMR0_ISR();
+    }
+    if(PIE2bits.BCL1IE == 1 && PIR2bits.BCL1IF == 1)
+    {
+        I2C1_BusCollisionISR();
+    }
+    else if(PIE1bits.SSP1IE == 1 && PIR1bits.SSP1IF == 1)
+    {
+        I2C1_ISR();
     }
     else
     {

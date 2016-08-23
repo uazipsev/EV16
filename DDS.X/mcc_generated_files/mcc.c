@@ -114,14 +114,12 @@ void SYSTEM_Initialize(void)
     OSCILLATOR_Initialize();
     PIN_MANAGER_Initialize();
     INTERRUPT_Initialize();
-    ADC_Initialize();
-    TMR0_Initialize();
-    TMR2_Initialize();
-    EUSART1_Initialize();    
-    begin(receiveArray, sizeof (receiveArray), DDS_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
+    //ADC_Initialize();
+    //TMR0_Initialize();
+    //TMR2_Initialize();
+    //EUSART1_Initialize();    
+    //begin(receiveArray, sizeof (receiveArray), DDS_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
     I2C1_Initialize();
-    //Setupdisplay();
-    //Splash();
 }
 
 void OSCILLATOR_Initialize(void)
