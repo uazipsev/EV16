@@ -808,7 +808,7 @@ void setup() {
   // reset configuration if the green button is pressed at charger start
   // on first connection, do zero cal of mainsV, as well
   if(configuration.CC<=0 || digitalRead(pin_pwrCtrl2Button)==1) {
-    //forceConfig=1; // first time running the charger after assembly
+    forceConfig=1; // first time running the charger after assembly
     configuration.CV=350;
     // set the rest of the vars
     configuration.Vcal=0;
@@ -821,7 +821,9 @@ void setup() {
   const byte STATE_CV = 0x1;
   const byte STATE_CELLS = 0x2;
   const byte STATE_CAPACITY = 0x4;
-  const byte STATE_CALIBRATE = 0x5; // sensitivity calibration only. zero point calibration done automatically on power-on
+  const byte STATE_CONFIG_PWRC = 0x5;
+  const byte STATE_CONFIG_PWRCC = 0x6;
+  const byte STATE_CALIBRATE = 0x7; // sensitivity calibration only. zero point calibration done automatically on power-on
   state = STATE_CV;
     
 //  if(LCD_on) {  
@@ -842,7 +844,7 @@ void setup() {
        // if config is not forced, just timeout and send to end of config. Else, wait until button press
        if(forceConfig==255) {
          printClrMsg(MSG_THX, 50, 0, 0x3f, 0);
-         forceConfig=1;//BtnTimeout(5, 7); // this will return 0 if no button pressed; 1 otherwise; 5 seconds, line #7
+         forceConfig=BtnTimeout(5, 7); // this will return 0 if no button pressed; 1 otherwise; 5 seconds, line #7
        }
        if(forceConfig==0) {
          state=STATE_DONE;
@@ -867,7 +869,21 @@ void setup() {
        Serial.println("Please type Ah of a cell (multipy for parallel cells), format xxx (3 char)");
        configuration.AH = DecimalDigitInput3(configuration.AH);
        Serial.print("Ah of Cells =");Serial.println(configuration.AH);
-       state = STATE_CALIBRATE;       
+       state = STATE_CONFIG_PWRC;       
+       break;
+     case STATE_CONFIG_PWRC:
+       printConstStr(0, 0, 2, 0x1f, 0x3f, 0x00, MSG_LCD_INC);
+       Serial.println("Please type current limit from wall, format xxx (3 char)");      
+       configuration.mainsC = DecimalDigitInput3(configuration.mainsC);
+       Serial.print("IN current limit =");Serial.println(configuration.mainsC);
+       state = STATE_CONFIG_PWRCC;
+       break;
+     case STATE_CONFIG_PWRCC:
+       printConstStr(0, 0, 2, 0x1f, 0x3f, 0x00, MSG_LCD_OUTC);
+       Serial.println("Please type current limit in battery pack, format xxx (3 char)");          
+       configuration.CC = DecimalDigitInput3(configuration.CC);
+       Serial.print("OUT constant current =");Serial.println(configuration.CC);
+       state = STATE_CALIBRATE;
        break;
      case STATE_CALIBRATE:
        // output current zero calibration - this assumes that there is no load on startup 
@@ -987,13 +1003,13 @@ void loop() {
       const byte STATE_WAIT_TIMEOUT = 0x05;
       const byte STATE_SERIALCONTROL = 0x10;
       const byte STATE_SHUTDOWN = 0xff;
-      if(!LCD_on) {
+//      if(!LCD_on) {
         // drop us directly into a serial control loop
         state=STATE_SERIALCONTROL;
-      } else {
-        state = STATE_WAIT_TIMEOUT;
-      }
-      if(configuration.CC<=0) state=STATE_CONFIG_PWR;
+//      } else {
+//        state = STATE_WAIT_TIMEOUT;
+//      }
+      //if(configuration.CC<=0) state=STATE_CONFIG_PWR;
       
       while(state != STATE_SHUTDOWN)
       {
