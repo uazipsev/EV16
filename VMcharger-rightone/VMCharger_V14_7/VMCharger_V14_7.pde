@@ -843,14 +843,20 @@ void setup() {
      case STATE_CV:
        // if config is not forced, just timeout and send to end of config. Else, wait until button press
        if(forceConfig==255) {
-         printClrMsg(MSG_THX, 50, 0, 0x3f, 0);
+         //printClrMsg(MSG_THX, 50, 0, 0x3f, 0);
          forceConfig=BtnTimeout(5, 7); // this will return 0 if no button pressed; 1 otherwise; 5 seconds, line #7
        }
        if(forceConfig==0) {
          state=STATE_DONE;
+         Serial.println("saved configs:");
+         Serial.print("saved CV:");Serial.println(configuration.CV);
+         Serial.print("saved nCells:");Serial.println(configuration.nCells);
+         Serial.print("saved AH:");Serial.println(configuration.AH);
+         Serial.print("saved mainsC:");Serial.println(configuration.mainsC);
+         Serial.print("saved CC:");Serial.println(configuration.CC);
        } else { // forceConfig=1 here
          //myLCD->clrScreen();
-         printConstStr(0, 0, 2, 0x1f, 0x3f, 0x00, MSG_LCD_CV);
+         //printConstStr(0, 0, 2, 0x1f, 0x3f, 0x00, MSG_LCD_CV);
          Serial.println("Please type CV PER CELL, format xxx (3 char)");
          configuration.CV = DecimalDigitInput3(configuration.CV); 
          Serial.print("CV PER CELL =");Serial.println(configuration.CV);
@@ -858,28 +864,28 @@ void setup() {
        }
        break;
      case STATE_CELLS:
-       printConstStr(0, 0, 2, 0x1f, 0x3f, 0x00, MSG_LCD_NCELLS);
+       //printConstStr(0, 0, 2, 0x1f, 0x3f, 0x00, MSG_LCD_NCELLS);
        Serial.println("Please type Numb of cells, format xxx (3 char)");
        configuration.nCells = DecimalDigitInput3(configuration.nCells);
        Serial.print("Numb of Cells =");Serial.println(configuration.nCells);
        state = STATE_CAPACITY;
        break;
      case STATE_CAPACITY:
-       printConstStr(0, 0, 2, 0x1f, 0x3f, 0x00, MSG_LCD_CAPACITY);
+       //printConstStr(0, 0, 2, 0x1f, 0x3f, 0x00, MSG_LCD_CAPACITY);
        Serial.println("Please type Ah of a cell (multipy for parallel cells), format xxx (3 char)");
        configuration.AH = DecimalDigitInput3(configuration.AH);
        Serial.print("Ah of Cells =");Serial.println(configuration.AH);
        state = STATE_CONFIG_PWRC;       
        break;
      case STATE_CONFIG_PWRC:
-       printConstStr(0, 0, 2, 0x1f, 0x3f, 0x00, MSG_LCD_INC);
+       //printConstStr(0, 0, 2, 0x1f, 0x3f, 0x00, MSG_LCD_INC);
        Serial.println("Please type current limit from wall, format xxx (3 char)");      
        configuration.mainsC = DecimalDigitInput3(configuration.mainsC);
        Serial.print("IN current limit =");Serial.println(configuration.mainsC);
        state = STATE_CONFIG_PWRCC;
        break;
      case STATE_CONFIG_PWRCC:
-       printConstStr(0, 0, 2, 0x1f, 0x3f, 0x00, MSG_LCD_OUTC);
+       //printConstStr(0, 0, 2, 0x1f, 0x3f, 0x00, MSG_LCD_OUTC);
        Serial.println("Please type current limit in battery pack, format xxx (3 char)");          
        configuration.CC = DecimalDigitInput3(configuration.CC);
        Serial.print("OUT constant current =");Serial.println(configuration.CC);
@@ -900,8 +906,10 @@ void setup() {
        // this will generally NOT work on PFCdirect units as there is always voltage on the output
        // to calibrate at the factory / right after build, power 12V ONLY and follow through calibration
        outV=readV();
-       sprintf(str, "Drain %dV, hit any key when drained", int(outV));  
-       printMsg(str, 0, 0, 0, 0x1f, 0x3f, 0x00);
+       //sprintf(str, "Drain %dV, hit any key when drained", int(outV));  
+       //printMsg(str, 0, 0, 0, 0x1f, 0x3f, 0x00);
+       Serial.println("Drain Output, hit any key when drained");
+       Serial.print("Output  = ");Serial.println(outV);
        //while(!(digitalRead(pin_pwrCtrlButton) || digitalRead(pin_pwrCtrl2Button)));
        while(!Serial.available());
        outV=readV(); // re-read after discharge
