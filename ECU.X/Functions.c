@@ -65,16 +65,15 @@ void Setup(void) {
 
     //PPSout(_OC1, _RP37);
     PPSLock;
+    
+    //This sets up all non constants from external EEPROM 
+    SetUpDataSets();
 
     //Start comm's
     ComStart();
     
     //This controls the timing system to control communication rates  
     initTimerOne();
-    //Save Driver
-
-    //This sets up all non constants from external EEPROM 
-    SetUpDataSets();
 }
 
 /*******************************************************************
@@ -133,7 +132,7 @@ void PinSetMode(void) {
  *******************************************************************/
 void ledDebug(){
     if (GetTime(TIME) > 500) {
-            //INDICATOR ^= 1;
+            INDICATOR ^= 1;
             // HORN_EN ^=1;
             // BRAKELT ^= 1;
             //SS_RELAY ^= 1;

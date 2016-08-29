@@ -52,7 +52,7 @@ bool requestBMMData(char state) {
 //            BMMErrorCounter = 0;
            // readyToSendBMM = false;
 //        }
-        INDICATOR = !INDICATOR;
+        //INDICATOR = !INDICATOR;
         SetTime(BMMTIMER);
         RS485_Direction2(TALK);
 
