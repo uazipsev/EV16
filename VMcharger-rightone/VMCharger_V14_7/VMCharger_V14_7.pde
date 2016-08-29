@@ -1,3 +1,11 @@
+/******************************************************
+                Richard Johnson 
+                VM Charger code V14.7
+                Mods:
+                -Removes LCD controls
+                -Adds code to calibrate over serial
+******************************************************/
+
 /*
 This is the firmware for EMotorWerks Intelligent DC Charging Systems - covering the following products:
 * SmartCharge-12000 - a 12kW+ charging system
