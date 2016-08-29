@@ -72,15 +72,23 @@ void PIN_MANAGER_Initialize(void)
     
     ANSELC = 0xE4;
     
-    
+    //RS485 flow control 
+    TRISCbits.RC5 = 0;
+    ANSELCbits.ANSC5 = 0;
+    LATCbits.LATC5 = 0;
     
     TRISCbits.TRISC5=0;
     INTCON2bits.nRBPU = 0x01;  
     
-    //LED Control
-    LATCbits.LATC5 = 0;
-    TRISCbits.RC1 = 0;
-    TRISAbits.RA6 = 0;
+    //LED
+    TRISAbits.RA3 = 0;
+    ANSELAbits.ANSA3 = 0;
+    
+    //UART
+    TRISCbits.RC6 = 0;
+    TRISCbits.RC7 = 1;
+    ANSELCbits.ANSC6 = 0;
+    ANSELCbits.ANSC7 = 0;
 }
 /**
  End of File
