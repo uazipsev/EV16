@@ -8,9 +8,9 @@
 #ifndef LED_H
 #define	LED_H
 
-extern void SetLEDOut(int lednum, int state);
-extern void ReadButtonState(int btnnum);
-extern bool GetButtonState(int btnnum);
+void SetLEDOut(int lednum, int state);
+void ReadButtonState(int btnnum);
+bool GetButtonState(int btnnum);
 
 #endif	/* LED_H */
 

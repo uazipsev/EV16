@@ -219,7 +219,7 @@ void oledClear()
     }
 }
 
-void oledPrint( char *s )
+void oledPrint( const char *s )
 {
     while (*s) oledPutChar( *s++);
 }
@@ -261,19 +261,6 @@ void Display(void) {
     #if SSD1306_LCDHEIGHT == 16
     OLED_command(1); // Page end address
     #endif
-
-    // I2C
-//    for (uint16_t i=0; i<(SSD1306_LCDWIDTH*SSD1306_LCDHEIGHT/8); i++) {
-//      // send a bunch of data in one xmission
-//      Wire.beginTransmission(_i2caddr);
-//      WIRE_WRITE(0x40);
-//      for (uint8_t x=0; x<16; x++) {
-//        WIRE_WRITE(buffer[i]);
-//        i++;
-//      }
-//      i--;
-//      Wire.endTransmission();
-//    }
     
     I2C1_MESSAGE_STATUS status = I2C1_MESSAGE_PENDING;
     int number = SSD1306_LCDWIDTH*SSD1306_LCDHEIGHT/8;

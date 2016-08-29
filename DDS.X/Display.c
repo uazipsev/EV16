@@ -42,15 +42,3 @@ void Splash(){
     oledGotoYX(5,3);
     oledPrint("ZIPS-EV");
 }
-
-void Normal(){
-    oledClear(); 
-    oledGotoYX(3,2);
-    oledPrint("University");
-    oledGotoYX(3,3);
-    oledPrint("OF");
-    oledGotoYX(3,4);
-    oledPrint("Akron");
-    oledGotoYX(3,5);
-    oledPrint("ZIPS-EV");
-}

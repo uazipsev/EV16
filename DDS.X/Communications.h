@@ -8,19 +8,16 @@
 #ifndef COMMUNICATIONS_H
 #define	COMMUNICATIONS_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
-    unsigned int throttle, brake;
+#define NUM_BUTTONS 8
+#define NUM_INDICATORS 6
+
     void updateComms();
     unsigned int buttonsCollector();
-    extern void Delay(int wait);
     void respondECU();
     void handleIndicators(int receivedIndicators);
-    void TBbarGraphs(int t, int b);
-#ifdef	__cplusplus
-}
-#endif
+    void DataBarGraphs(int BGA, int BGB);
+    unsigned int GetDataBarGraphA();
+    unsigned int GetDataBarGraphB();
 
 #endif	/* COMMUNICATIONS_H */
 

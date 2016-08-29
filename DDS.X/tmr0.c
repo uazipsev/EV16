@@ -13,7 +13,7 @@
   Section: Global Variables Definitions
  */
 volatile uint16_t timer0ReloadVal16bit;
-unsigned int time;
+volatile unsigned char time;
 
 /**
   Section: TMR0 APIs

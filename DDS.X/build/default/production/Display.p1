@@ -4,10 +4,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n E1 . BV BC BT MT MCT FLT  ]
 "18 OLED_Display.h
 [v _oledGotoYX `(v ~T0 @X0 0 ef2`uc`uc ]
-"95 C:\Program Files (x86)\Microchip\xc8\v1.35\include\stdlib.h
+"95 C:\Program Files (x86)\Microchip\xc8\v1.36\include\stdlib.h
 [v _itoa `(*uc ~T0 @X0 0 ef3`*uc`i`i ]
 "15 OLED_Display.h
-[v _oledPrint `(v ~T0 @X0 0 ef1`*uc ]
+[v _oledPrint `(v ~T0 @X0 0 ef1`*Cuc ]
 "16
 [v _OLED_init `(v ~T0 @X0 0 ef ]
 "14
@@ -25,7 +25,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Display.h: 24: void Splash();
 [; ;Display.h: 25: void Normal();
 [; ;OLED_Display.h: 14: void oledClear();
-[; ;OLED_Display.h: 15: void oledPrint( char *s );
+[; ;OLED_Display.h: 15: void oledPrint( const char *s );
 [; ;OLED_Display.h: 16: void OLED_init();
 [; ;OLED_Display.h: 17: void OLED_command(char com);
 [; ;OLED_Display.h: 18: void oledGotoYX(unsigned char Row, unsigned char Column);
@@ -174,7 +174,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _itoa (3 , , &U _s _numb -> 10 `i ]
 [; ;Display.c: 27: oledPrint( s );
 "27
-[e ( _oledPrint (1 &U _s ]
+[e ( _oledPrint (1 -> &U _s `*Cuc ]
 [; ;Display.c: 28: }
 "28
 [e :UE 5 ]
@@ -206,71 +206,30 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _oledGotoYX (2 , -> -> 2 `i `uc -> -> 3 `i `uc ]
 [; ;Display.c: 37: oledPrint("University");
 "37
-[e ( _oledPrint (1 -> :s 1C `*uc ]
+[e ( _oledPrint (1 :s 1C ]
 [; ;Display.c: 38: oledGotoYX(3,3);
 "38
 [e ( _oledGotoYX (2 , -> -> 3 `i `uc -> -> 3 `i `uc ]
 [; ;Display.c: 39: oledPrint("OF");
 "39
-[e ( _oledPrint (1 -> :s 2C `*uc ]
+[e ( _oledPrint (1 :s 2C ]
 [; ;Display.c: 40: oledGotoYX(4,3);
 "40
 [e ( _oledGotoYX (2 , -> -> 4 `i `uc -> -> 3 `i `uc ]
 [; ;Display.c: 41: oledPrint("Akron");
 "41
-[e ( _oledPrint (1 -> :s 3C `*uc ]
+[e ( _oledPrint (1 :s 3C ]
 [; ;Display.c: 42: oledGotoYX(5,3);
 "42
 [e ( _oledGotoYX (2 , -> -> 5 `i `uc -> -> 3 `i `uc ]
 [; ;Display.c: 43: oledPrint("ZIPS-EV");
 "43
-[e ( _oledPrint (1 -> :s 4C `*uc ]
+[e ( _oledPrint (1 :s 4C ]
 [; ;Display.c: 44: }
 "44
 [e :UE 18 ]
 }
-"46
-[v _Normal `(v ~T0 @X0 1 ef ]
-{
-[; ;Display.c: 46: void Normal(){
-[e :U _Normal ]
-[f ]
-[; ;Display.c: 47: oledClear();
-"47
-[e ( _oledClear ..  ]
-[; ;Display.c: 48: oledGotoYX(3,2);
-"48
-[e ( _oledGotoYX (2 , -> -> 3 `i `uc -> -> 2 `i `uc ]
-[; ;Display.c: 49: oledPrint("University");
-"49
-[e ( _oledPrint (1 -> :s 5C `*uc ]
-[; ;Display.c: 50: oledGotoYX(3,3);
-"50
-[e ( _oledGotoYX (2 , -> -> 3 `i `uc -> -> 3 `i `uc ]
-[; ;Display.c: 51: oledPrint("OF");
-"51
-[e ( _oledPrint (1 -> :s 6C `*uc ]
-[; ;Display.c: 52: oledGotoYX(3,4);
-"52
-[e ( _oledGotoYX (2 , -> -> 3 `i `uc -> -> 4 `i `uc ]
-[; ;Display.c: 53: oledPrint("Akron");
-"53
-[e ( _oledPrint (1 -> :s 7C `*uc ]
-[; ;Display.c: 54: oledGotoYX(3,5);
-"54
-[e ( _oledGotoYX (2 , -> -> 3 `i `uc -> -> 5 `i `uc ]
-[; ;Display.c: 55: oledPrint("ZIPS-EV");
-"55
-[e ( _oledPrint (1 -> :s 8C `*uc ]
-[; ;Display.c: 56: }
-"56
-[e :UE 19 ]
-}
 [a 1C 85 110 105 118 101 114 115 105 116 121 0 ]
-[a 5C 85 110 105 118 101 114 115 105 116 121 0 ]
 [a 3C 65 107 114 111 110 0 ]
-[a 7C 65 107 114 111 110 0 ]
 [a 4C 90 73 80 83 45 69 86 0 ]
-[a 8C 90 73 80 83 45 69 86 0 ]
 [a 2C 79 70 0 ]
-[a 6C 79 70 0 ]

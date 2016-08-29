@@ -3,18 +3,22 @@
 #include "FastTransfer.h"
 #include "Communications.h"
 #include "ADDRESSING.h"
+#include "IO.h"
 #include "mcc_generated_files/pin_manager.h"
+#include "Function.h"
+
+unsigned int DataBarGraphA, DataBarGraphB;
 
 void updateComms() {
   
     if (receiveData()) {
-        INDICATOR_Toggle();
-        if (receiveArray[RESPONSE_ADDRESS] == ECU_ADDRESS) {
+        //INDICATOR_Toggle();
+        //if (receiveArray[RESPONSE_ADDRESS] == ECU_ADDRESS) {
             respondECU();
             handleIndicators(receiveArray[LED_DDS]);
-            TBbarGraphs(receiveArray[THROTTLE_DDS], receiveArray[BRAKE_DDS]);
+            DataBarGraphs(receiveArray[THROTTLE_DDS], receiveArray[BRAKE_DDS]);
             receiveArray[RESPONSE_ADDRESS] = 0;
-        }
+        //}
 
     }
 }
@@ -29,9 +33,6 @@ void respondECU() {
     LATCbits.LATC5 = 0;
 }
 
-extern void SetLEDOut(int lednum, int state);
-#define NUM_INDICATORS 6
-
 void handleIndicators(int receivedIndicators) {
     static int oldIndicators = 0;
     if (receivedIndicators != oldIndicators) {
@@ -44,14 +45,18 @@ void handleIndicators(int receivedIndicators) {
 
 }
 
-void TBbarGraphs(int t, int b) {
-    throttle = t;
-    brake = b;
+void DataBarGraphs(int BGA, int BGB) {
+    DataBarGraphA = BGA;
+    DataBarGraphB = BGB;
 }
 
+unsigned int GetDataBarGraphA() {
+    return DataBarGraphA;
+}
 
-extern bool GetButtonState(int btnnum);
-#define NUM_BUTTONS 8
+unsigned int GetDataBarGraphB() {
+    return DataBarGraphA;
+}
 
 unsigned int buttonsCollector() {
     unsigned int sendVal = 0;

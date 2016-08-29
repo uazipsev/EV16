@@ -12,7 +12,7 @@
 #define SLAVE_I2C_GENERIC_RETRY_MAX     100
 
 void oledClear();
-void oledPrint( char *s );
+void oledPrint( const char *s );
 void OLED_init();
 void OLED_command(char com);
 void oledGotoYX(unsigned char Row, unsigned char Column);

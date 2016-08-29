@@ -28,13 +28,13 @@
 
 long int displaybuffer[10];
 
-extern void LEDsetValue(int value, int color);
-extern void LEDBsetBrightness(int b, char i2c_addr);
-extern void LEDblinkRate(int b, char i2c_addr);
-extern void LEDbegin(char i2c_addr);
-extern void LEDwriteDisplay(char i2c_addr);
-extern void LEDclear(void);
-extern void LEDsetBar(int bar, int color);
+void LEDsetValue(int value, int color);
+void LEDBsetBrightness(int b, char i2c_addr);
+void LEDblinkRate(int b, char i2c_addr);
+void LEDbegin(char i2c_addr);
+void LEDwriteDisplay(char i2c_addr);
+void LEDclear(void);
+void LEDsetBar(int bar, int color);
 
 
 

@@ -277,8 +277,10 @@ int Get_Blink_State(int LED){
             return LEDState[4]=0;
         case 5: 
             return LEDState[5]=0;
+        default:
+            return 0;
     }
-;}
+}
 //Problem with int function
 void Change_Blink_Rate(int time){
 PR2=time;
