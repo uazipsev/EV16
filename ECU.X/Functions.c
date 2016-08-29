@@ -16,7 +16,6 @@
 #include "DriverConfigs.h"
 #include "SASComms.h"
 #include "Communications.h"
-#include "cam-m8.h"
 
 
 int BrakeLightThreshold = 0;
@@ -139,7 +138,7 @@ void ledDebug(){
             // BRAKELT ^= 1;
             //SS_RELAY ^= 1;
             SetTime(TIME);
-            CamM8Read();
+            
         }
     }
 

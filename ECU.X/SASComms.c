@@ -3,6 +3,7 @@
 #include "Timers.h"
 #include "FastTransfer1.h"
 #include "Communications.h"
+#include <xc.h>
 
 unsigned int throttle1, throttle2, brake1,brake2, TripThrottle;
 unsigned int t1Raw, t2Raw, bRaw, TripBrake;
@@ -18,22 +19,25 @@ int ThrottlePrecent;
 
 bool requestSASData() {
     //If either timeout or response with delay already occurred
+    
     if (((GetTime(SASTIMER) > BOARD_RESEND_MIN) && (readyToSendSAS)) || (GetTime(SASTIMER) > BOARD_TIMEOUT)) {
-        SASErrorCounter = 0;
-        if (!readyToSendSAS) {
-            SASErrorCounter++;
-            if (SASErrorCounter > 1) {
-                SASErrorCounter = 0;
-                return false;
-            }
-        } else {
-            readyToSendSAS = false;
-            SASErrorCounter = 0;
-        }
+        
+//        SASErrorCounter = 0;
+//        if (!readyToSendSAS) {
+//            SASErrorCounter++;
+//            if (SASErrorCounter > 1) {
+//                SASErrorCounter = 0;
+//                return false;
+//            }
+//        } else {
+//            readyToSendSAS = false;
+//            SASErrorCounter = 0;
+//        }
         SetTime(SASTIMER);
         RS485_Direction1(TALK);
         ToSend1(RESPONSE_ADDRESS, ECU_ADDRESS);
         sendData1(SAS_ADDRESS);
+        
     }
 
     return true;

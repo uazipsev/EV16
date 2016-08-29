@@ -32,6 +32,7 @@
 #include "horn.h"
 #include "FastTransfer.h"
 #include "FastTransfer1.h"
+#include "Functions.h"
 
 
 char x = 0;
@@ -76,16 +77,19 @@ void updateComms() {
     bus2Update();
     checkCommDirection();
     checkCommDirection1();
+    //Delay(100);
 }
 
 void bus1Update() {
     switch (commsBus1State) {
         case SAS_UPDATE:
             if (requestSASData()) {
+                //INDICATOR ^= 1;
                 if (receiveCommSAS()) {
                     comms.SAS = true;
                     commsBus1State++;
                     resetCommTimers();
+                    
                 }
             } else {
                 //FLAG ERROR ON SAS COMMS -- Move on
@@ -160,25 +164,26 @@ void bus2Update() {
             }
             break;
         case BMM_UPDATE:
-            if (requestBMMData(x)) {
-                if (receiveCommBMM(x)) {
-                    //INDICATOR ^= 1;
-                    comms.BMM = true;
-                    commsBus2State++;
-                    resetCommTimers2();
-                    x++;
-                }
-            } else {
-                //FLAG ERROR ON MCS COMMS -- Move on
-                comms.BMM = false;
+//            if (requestBMMData(x)) {
+//                if (receiveCommBMM(x)) {
+//                    //INDICATOR ^= 1;
+//                    comms.BMM = true;
+//                    commsBus2State++;
+//                    resetCommTimers2();
+//                    x++;
+//                }
+//            } else {
+//                //FLAG ERROR ON MCS COMMS -- Move on
+//                comms.BMM = false;
                 commsBus2State++;
-                resetCommTimers2();
-            }
-            if(x>3){
-                x = 0;
-            }
+//                resetCommTimers2();
+//            }
+//            if(x>3){
+//                x = 0;
+//            }
             break;
         case PDU_UPDATE:
+            
             if (requestPDUData()) {
                 if (receiveCommPDU()) {
                     comms.PDU = true;

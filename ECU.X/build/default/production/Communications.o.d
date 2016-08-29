@@ -13,4 +13,5 @@ UART.h  \
 UART1.h  \
 horn.h  \
 FastTransfer.h  \
- FastTransfer1.h 
+ FastTransfer1.h  \
+Functions.h 
