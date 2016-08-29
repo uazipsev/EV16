@@ -32,8 +32,6 @@
 #include "OLED_Display.h"
 #include "LED_BarGraph.h"
 
-void Delay(int wait);
-
 void main(void) {
     // Initialize the device
     SYSTEM_Initialize();
@@ -72,7 +70,6 @@ void main(void) {
     Splash();
     //Display();
     INDICATOR_SetHigh();
-    LATCbits.LATC5 = 0;
     while (1) {
         updateComms();
 
@@ -81,7 +78,7 @@ void main(void) {
             LEDwriteDisplay(0x70);
             LEDsetValue((GetDataBarGraphB())*(24 / 100), LED_RED);
             LEDwriteDisplay(0x71);
-            //INDICATOR_Toggle();
+            INDICATOR_Toggle();
             ClearTime();
         }
     }

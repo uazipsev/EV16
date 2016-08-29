@@ -4,4 +4,5 @@ BMMComms.h  \
 ADDRESSING.h  \
  SlaveAddressing.h  \
 Timers.h  \
-FastTransfer.h 
+FastTransfer.h  \
+PinDef.h 

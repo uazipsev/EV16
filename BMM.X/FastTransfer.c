@@ -96,6 +96,7 @@ bool receiveData() {
     if (rx_len == 0) {
         //this size check may be redundant due to the size check below, but for now I'll leave it the way it is.
         if (serial_available() > 4) {
+            
             //this will block until a 0x06 is found or buffer size becomes less then 3.
             while (serial_read() != 0x06) {
                 //This will trash any preamble junk in the serial buffer
@@ -124,6 +125,9 @@ bool receiveData() {
                     rx_len = 0; // reset length
                     return false;
                 }
+                else{
+                    INDICATOR = !INDICATOR;
+                }
                 // if the address matches the a dynamic buffer is created to store the received data
                 rx_buffer = (unsigned char*) malloc(rx_len + 1);
             }
@@ -132,7 +136,7 @@ bool receiveData() {
 
     //we get here if we already found the header bytes, the address matched what we know, and now we are byte aligned.
     if (rx_len != 0) {
-
+        //INDICATOR = !INDICATOR;
         //this check is preformed to see if the first data address is a 255, if it is then this packet is an AKNAK
         if (rx_array_inx == 0) {
             while (!(serial_available() >= 1));

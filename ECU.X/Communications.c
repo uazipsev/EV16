@@ -167,23 +167,23 @@ void bus2Update() {
             }
             break;
         case BMM_UPDATE:
-//            if (requestBMMData(x)) {
-//                if (receiveCommBMM(x)) {
-//                    //INDICATOR ^= 1;
-//                    comms.BMM = true;
-//                    commsBus2State++;
-//                    resetCommTimers2();
-//                    x++;
-//                }
-//            } else {
-//                //FLAG ERROR ON MCS COMMS -- Move on
-//                comms.BMM = false;
+            if (requestBMMData(x)) {
+                if (receiveCommBMM(x)) {
+                    //INDICATOR ^= 1;
+                    comms.BMM = true;
+                    commsBus2State++;
+                    resetCommTimers2();
+                    x++;
+                }
+            } else {
+                //FLAG ERROR ON MCS COMMS -- Move on
+                comms.BMM = false;
                 commsBus2State++;
-//                resetCommTimers2();
-//            }
-//            if(x>3){
-//                x = 0;
-//            }
+                resetCommTimers2();
+            }
+            if(x>3){
+                x = 0;
+            }
             break;
         case PDU_UPDATE:
             
@@ -218,7 +218,7 @@ void bus2Update() {
 
 void checkCommDirection1() {
     //you have finished send and time has elapsed.. start listen
-    if (TXStallGet1() && (GetTime(TALKTIME1) > CLOSE_COMM_TIME)) {
+    if (TXStallGet1() && (GetTime(TALKTIME1) > 4)) { //5CLOSE_COMM_TIME
         RS485_Direction2(LISTEN);
     }
 }

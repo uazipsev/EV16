@@ -2,6 +2,8 @@
 #include "SlaveAddressing.h"
 #include "Timers.h"
 #include "FastTransfer.h"
+#include <xc.h>
+#include "PinDef.h"
 
 extern int BMM_FAULT_CONDITION;
 int BMMADC[4];
@@ -48,8 +50,9 @@ bool requestBMMData(char state) {
 //            }
 //        } else {
 //            BMMErrorCounter = 0;
-            readyToSendBMM = false;
+           // readyToSendBMM = false;
 //        }
+        INDICATOR = !INDICATOR;
         SetTime(BMMTIMER);
         RS485_Direction2(TALK);
 
@@ -71,9 +74,9 @@ bool requestBMMData(char state) {
         sendData(BMM_ADDRESS);
         RS485_Direction2(TALK);
         return true;
-    }
-    else{
-        return false;
+    //}
+    //else{
+    //    return false;
     }
 }
 

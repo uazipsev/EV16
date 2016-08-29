@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
 //        }
        ledDebug();
        //Run_Mode();
-        updateComms();
+       updateComms();
     }
 
     return (EXIT_SUCCESS);

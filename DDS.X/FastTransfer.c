@@ -86,7 +86,7 @@ bool receiveData() {
     if (rx_len == 0) {
         //this size check may be redundant due to the size check below, but for now I'll leave it the way it is.
         if (serial_available() > 4) {
-            INDICATOR_Toggle();
+            //INDICATOR_Toggle();
             //this will block until a 0x06 is found or buffer size becomes less then 3.
             while (serial_read() != 0x06) {
                 //This will trash any preamble junk in the serial buffer
@@ -102,6 +102,7 @@ bool receiveData() {
                 returnAddress = serial_read(); // pulls where the message came from
                 rx_len = serial_read(); // pulls the length
                 //make sure the address received is a match for this module if not throw the packet away
+                //INDICATOR_Toggle();
                 if (rx_address != moduleAddress) {
                     addressErrorCounter++; // increments a counter whenever the wrong address is received
                     //if the address does not match the buffer is flushed for the size of
@@ -120,6 +121,7 @@ bool receiveData() {
 
     //we get here if we already found the header bytes, the address matched what we know, and now we are byte aligned.
     if (rx_len != 0) {
+        
 
         //this check is preformed to see if the first data address is a 255, if it is then this packet is an AKNAK
         if (rx_array_inx == 0) {
