@@ -81,7 +81,7 @@ char next = 0;
 /*******************************************************************
  * @brief           write
  * @brief           WTF
- * @return          returns lenth of data
+ * @return          returns length (how many chars) of data
  * @note            I have no idea what the fuck this is for...may be removed (printf maybe?)
  *******************************************************************/
 int write(int handle, void *buffer, unsigned int len) {
@@ -115,7 +115,7 @@ void handleDebugRequests() {
 
                 }
                 break;
-            case THROTTLE_BRAKE:
+            case THROTTLE:
                 //This is the first time through the loop
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
@@ -123,11 +123,21 @@ void handleDebugRequests() {
                 printf("\n-----Throttle Brake Raw Debug----\n");
                 printf("Throttle1:      %d\n", GetSASRaw(GETSAST1RAW));
                 printf("Throttle2:      %d\n", GetSASRaw(GETSAST2RAW));
-                printf("Brake:          %d\n\n", GetSASRaw(GETSASB1RAW));
                 printf("\n-----Throttle Brake Signal Debug----\n");
                 printf("Throttle1:      %d\n",  GetSASValue(GETSAST1));
                 printf("Throttle2:      %d\n",  GetSASValue(GETSAST2));
-                printf("Brake:          %d\n",  GetSASValue(GETSASB1));
+                break;
+            case BRAKE:
+                //This is the first time through the loop
+                if (lastDebugState != debugState) {
+                    lastDebugState = debugState;
+                }
+                printf("\n---- Brake Raw Debug----\n");
+                printf("Brake1:          %d\n\n", GetSASRaw(GETSASB1RAW));
+                printf("Brake2:          %d\n\n", GetSASRaw(GETSASB1RAW));
+                printf("\n-----Throttle Brake Signal Debug----\n");
+                printf("Brake1:          %d\n",  GetSASValue(GETSASB1));
+                printf("Brake2:          %d\n",  GetSASValue(GETSASB1));
                 break;
             case BATTERY_DEBUG_VOLTS:
                 //This is the first time through the loop
@@ -216,6 +226,8 @@ void handleDebugRequests() {
                 }
                 if (ECU_FAULT_CONDITION) {
                 }
+                StateFault_Value=getstatefault();
+                printf("State Machine Fault = %d\n", StateFault_Value);
                 break;
             case NUM_DEBUG_STATES:
                 //This is the first time through the loop
@@ -223,7 +235,7 @@ void handleDebugRequests() {
                     lastDebugState = debugState;
                 }
                 break;
-            case Find_State:
+            case FIND_STATE:
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
                 }
@@ -231,13 +243,11 @@ void handleDebugRequests() {
                 printf("State On ECU State Machine\n");
                 printf("The Current State Is %d\n", State_Value);
                 break;
-            case State_fault:
+            case FAULT:
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
                 }
-                StateFault_Value=getstatefault();
-                printf("Fault Value On State Machine\n");
-                printf("The Current Fault On The State Machine Is %d\n", StateFault_Value);
+
                 break;
             case Reset:
                 if (lastDebugState != debugState) {
@@ -405,6 +415,7 @@ void handleDebugRequests() {
                         next++;
                     }
                 }
+                //Get Max throttle
                 else if(next == 1){ 
                     printf("i = %d",i);
                     DataHold[i] = Receive_get2();
@@ -427,6 +438,7 @@ void handleDebugRequests() {
                         next++;
                     }
                 }
+                //Get master Regen 
                 else if(next == 2){ 
                     DataHold[i] = Receive_get2();
                     i++;
@@ -447,6 +459,7 @@ void handleDebugRequests() {
                         next++;
                     }
                 }
+                //Get Bat low
                 else if(next == 3){ 
                     DataHold[i] = Receive_get2();
                     i++;
@@ -467,6 +480,7 @@ void handleDebugRequests() {
                         next++;
                     }
                 }
+                //Get driver ramp
                 else if(next == 4){ 
                     DataHold[i] = Receive_get2();
                     i++;
@@ -488,6 +502,7 @@ void handleDebugRequests() {
                         next++;
                     }
                 }
+                //Get Faults allowed
                 else if(next == 5){ 
                     DataHold[0] = Receive_get2();
                     //Get data array to int
@@ -502,6 +517,7 @@ void handleDebugRequests() {
                     printf("Debugging allowed? (1 = yes 0 = no\n");
                     i = 0;
                 }
+                //Get Debug allowed
                 else if(next == 6){ 
                     DataHold[0] = Receive_get2();
                     //Get data array to int
@@ -544,8 +560,8 @@ void handleDebugRequests() {
                     printf("Regen source (1 = brake 0 = throttle)\n");
                     i = 0;
                 }
-                else if(next == 8){
-                    
+                //Get Regen info
+                else if(next == 8){  
                     DataHold[0] = Receive_get2();
                     //Get data array to int
                     sscanf(DataHold, "%d", &Data);
@@ -776,7 +792,7 @@ void ThrottleMenu(char menuitem){
     printf("2) Throttle Trip Set\n");
     printf("3) Throttle Mismatch\n");
     if(menuitem == 1){
-        debugState = THROTTLE_BRAKE;
+        debugState = THROTTLE;
     }
     else if(menuitem == 2){
         FunctionDataGrab = 1;
@@ -798,7 +814,7 @@ void BrakeMenu(char menuitem){
     printf("1) Brake Display\n");
     printf("2) Brake Max Set\n");
     if(menuitem == 1){
-        debugState = THROTTLE_BRAKE;
+        debugState = BRAKE;
     }
     else if(menuitem == 2){
         FunctionDataGrab = 3;
@@ -818,6 +834,8 @@ void SettingMenu(char menuitem){
     printf("2) Reset Value\n");
     printf("3) About\n");
     printf("4) Brake Light Threshold\n");
+    printf("5) Car State\n");
+    printf("6) Car Fault\n");
     if(menuitem == 1){
         VerboseEn ^= VerboseEn;
         SubMenu = 0;
@@ -835,6 +853,16 @@ void SettingMenu(char menuitem){
     else if(menuitem == 4){
         ClearScreen();
         MenuBrakeLightValue(0);
+        SubMenu = 0;      
+    }
+    else if(menuitem == 5){
+        ClearScreen();
+        debugState = FIND_STATE;
+        SubMenu = 0;      
+    }
+    else if(menuitem == 6){
+        ClearScreen();
+        debugState = FAULT_RECOVERY;
         SubMenu = 0;      
     }
 }
@@ -921,7 +949,6 @@ void DriverMenu(char menuitem){
         printf("|--Add a Driver--|\n");
         printf("|--Drivers initals--|\n");
         printf("|--Max three chars--|\n");
-        int i;
         FunctionDataGrab = 5;
     }
     else if(menuitem == 3){

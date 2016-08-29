@@ -29,9 +29,12 @@
 #include "Timers.h"
 #include "UART.h"
 #include "UART1.h"
+#include "UART2.h"
+#include "UART3.h"
 #include "horn.h"
 #include "FastTransfer.h"
 #include "FastTransfer1.h"
+#include "FastTransfer3.h"
 #include "Functions.h"
 
 

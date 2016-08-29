@@ -48,7 +48,7 @@ bool requestBMMData(char state) {
 //            }
 //        } else {
 //            BMMErrorCounter = 0;
-//            readyToSendBMM = false;
+            readyToSendBMM = false;
 //        }
         SetTime(BMMTIMER);
         RS485_Direction2(TALK);
@@ -70,8 +70,11 @@ bool requestBMMData(char state) {
         //ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
         sendData(BMM_ADDRESS);
         RS485_Direction2(TALK);
+        return true;
     }
-    return true;
+    else{
+        return false;
+    }
 }
 
 bool receiveCommBMM(char state) {
@@ -111,7 +114,10 @@ bool receiveCommBMM(char state) {
         readyToSendBMM = true;
         SetTime(BMMTIMER);
         return true;
-    } else return false;
+    } 
+    else{
+        return false;
+    }
 }
 
 int GetVolt(unsigned char num){

@@ -98,30 +98,30 @@ void SetDriver(char num){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
- * @brief           Setup EEprom
+ * @brief           DriverCount
+ * @brief           Reads how many Drivers saved 
  * @return          none
- * @note            Sets up the I2C here
+ * @note            gets data from location 
  *******************************************************************/
 char DriverCount(){
     return DriverCountNum;
 }
 
 /*******************************************************************
- * @brief           EEpromInit
- * @brief           Setup EEprom
- * @return          none
- * @note            Sets up the I2C here
+ * @brief           CurrentDriverName
+ * @brief           
+ * @return          driver name from current driver 
+ * @note            reads driver name from struct
  *******************************************************************/
 char *CurrentDriverName(){
     return DriverConfig.NAME;
 }
 
 /*******************************************************************
- * @brief           EEpromInit
- * @brief           Setup EEprom
+ * @brief           DriverNamePrint
+ * @brief           Prints driver names 
  * @return          none
- * @note            Sets up the I2C here
+ * @note            reads drivers initals from a struct created at boot from driver configs
  *******************************************************************/
 void DriverNamePrint(char num){
     struct Names *temp = head;
@@ -138,10 +138,10 @@ void DriverNamePrint(char num){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
- * @brief           Setup EEprom
+ * @brief           insert
+ * @brief           Puts string in a list
  * @return          none
- * @note            Sets up the I2C here
+ * @note            Stores 3 chars based by the eeprom reading 
  *******************************************************************/
 void insert(char str){
     struct Names* temp = (struct Names*)malloc(sizeof(struct Names));
@@ -160,107 +160,107 @@ void insert(char str){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
- * @brief           Setup EEprom
- * @return          none
- * @note            Sets up the I2C here
+ * @brief           DriverActive
+ * @brief           what driver is active
+ * @return          char CurentDriver
+ * @note            the number that represents what driver is active 
  *******************************************************************/
 char DriverActive(){
     return CurentDriver;
 }
 
 /*******************************************************************
- * @brief           EEpromInit
- * @brief           Setup EEprom
- * @return          none
- * @note            Sets up the I2C here
+ * @brief           GetDriverMaxThrottle
+ * @brief           Get data from struct 
+ * @return          int max throttle
+ * @note            data is from eeprom stored  at boot
  *******************************************************************/
 int GetDriverMaxThrottle(){
     return DriverConfig.MaxThrottle;
 }
 
 /*******************************************************************
- * @brief           EEpromInit
- * @brief           Setup EEprom
- * @return          none
- * @note            Sets up the I2C here
+ * @brief           GetDriverMaxMaxRegen
+ * @brief           Get data from struct
+ * @return          int Max Regen
+ * @note            data is from eeprom stored  at boot
  *******************************************************************/
 int GetDriverMaxMaxRegen(){
     return DriverConfig.MaxRegen;
 }
 
 /*******************************************************************
- * @brief           EEpromInit
- * @brief           Setup EEprom
- * @return          none
- * @note            Sets up the I2C here
+ * @brief           GetDriverLowBatCutoff
+ * @brief           Get data from struct
+ * @return          int LowBatCutoff
+ * @note            data is from eeprom stored  at boot
  *******************************************************************/
 int GetDriverLowBatCutoff(){
     return DriverConfig.LowBatCutoff;
 }
 
 /*******************************************************************
- * @brief           EEpromInit
- * @brief           Setup EEprom
- * @return          none
- * @note            Sets up the I2C here
+ * @brief           GetDriverRamp
+ * @brief           Get data from struct
+ * @return          int Ramp
+ * @note            data is from eeprom stored  at boot
  *******************************************************************/
 int GetDriverRamp(){
     return DriverConfig.Ramp;
 }
 
 /*******************************************************************
- * @brief           EEpromInit
- * @brief           Setup EEprom
- * @return          none
- * @note            Sets up the I2C here
+ * @brief           GetDriverFalt
+ * @brief           Get data from struct
+ * @return          char Falt
+ * @note            data is from eeprom stored  at boot
  *******************************************************************/
 char GetDriverFalt(){
     return DriverConfig.Falt;
 }
 
 /*******************************************************************
- * @brief           EEpromInit
- * @brief           Setup EEprom
- * @return          none
- * @note            Sets up the I2C here
+ * @brief           GetDriverFW_RW_EN
+ * @brief           Get data from struct
+ * @return          bool FW_RW_EN
+ * @note            data is from eeprom stored  at boot
  *******************************************************************/
 bool GetDriverFW_RW_EN(){
     return DriverConfig.FW_RW_EN;
 }
 
 /*******************************************************************
- * @brief           EEpromInit
- * @brief           Setup EEprom
- * @return          none
- * @note            Sets up the I2C here
+ * @brief           GetDriverRegenInput
+ * @brief           Get data from struct
+ * @return          bool RegenInput
+ * @note            data is from eeprom stored  at boot
  *******************************************************************/
 bool GetDriverRegenInput(){
     return DriverConfig.RegenInput;
 }
 
 /*******************************************************************
- * @brief           EEpromInit
- * @brief           Setup EEprom
- * @return          none
- * @note            Sets up the I2C here
+ * @brief           GetDriverDebugEn
+ * @brief           Get data from struct
+ * @return          bool DebugEn
+ * @note            data is from eeprom stored  at boot
  *******************************************************************/
 bool GetDriverDebugEn(){
     return DriverConfig.DebugEn;
 }
 
 /*******************************************************************
- * @brief           EEpromInit
- * @brief           Setup EEprom
+ * @brief           DriverNameChar
+ * @brief           
  * @return          none
- * @note            Sets up the I2C here
+ * @note            
  *******************************************************************/
 void DriverNameChar(char byte, unsigned char num){
     DriverConfig.NAME[num] = byte;
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           DriverMaxThrottle
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -270,7 +270,7 @@ void DriverMaxThrottle(int value){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           DriverMaxMaxRegen
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -280,7 +280,7 @@ void DriverMaxMaxRegen(int value){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           DriverLowBatCutoff
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -290,7 +290,7 @@ void DriverLowBatCutoff(int value){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           DriverRamp
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -300,7 +300,7 @@ void DriverRamp(int value){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           DriverFalt
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -310,7 +310,7 @@ void DriverFalt(char value){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           DriverFW_RW_EN
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -320,7 +320,7 @@ void DriverFW_RW_EN(bool value){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           DriverRegenInput
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -330,7 +330,7 @@ void DriverRegenInput(bool value){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           DriverDebugEn
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -340,7 +340,7 @@ void DriverDebugEn(bool value){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           NewDriverNameChar
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -350,7 +350,7 @@ void NewDriverNameChar(char byte, unsigned char num){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           NewDriverMaxThrottle
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -360,7 +360,7 @@ void NewDriverMaxThrottle(int value){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           NewDriverMaxMaxRegen
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -370,7 +370,7 @@ void NewDriverMaxMaxRegen(int value){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           NewDriverLowBatCutoff
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -380,7 +380,7 @@ void NewDriverLowBatCutoff(int value){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           NewDriverRamp
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -390,7 +390,7 @@ void NewDriverRamp(int value){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           NewDriverFalt
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -400,7 +400,7 @@ void NewDriverFalt(char value){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           NewDriverFW_RW_EN
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -410,7 +410,7 @@ void NewDriverFW_RW_EN(bool value){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           NewDriverRegenInput
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -420,7 +420,7 @@ void NewDriverRegenInput(bool value){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           NewDriverDebugEn
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here
@@ -430,7 +430,7 @@ void NewDriverDebugEn(bool value){
 }
 
 /*******************************************************************
- * @brief           EEpromInit
+ * @brief           NewDriverSave
  * @brief           Setup EEprom
  * @return          none
  * @note            Sets up the I2C here

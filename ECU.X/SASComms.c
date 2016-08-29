@@ -11,7 +11,7 @@ bool receiveCommSAS();
 bool requestSASData();
 bool readyToSendSAS = true;
 bool SAS_COMMS_ERROR = false;
-static int SASErrorCounter = 0;
+int SASErrorCounter = 0;
 int ThrottlePrecent;
 
 #define THROTTLE_SANITY_CHECK 1
@@ -95,8 +95,16 @@ bool receiveCommSAS() {
             readyToSendSAS = true;
             SetTime(SASTIMER);
             return true;
-        } else return false;
-    } else return false;
+        }
+        else{
+            SASErrorCounter++;
+            return false;
+        }
+    } 
+    else{
+        SASErrorCounter++;
+        return false;
+    }
 }
 
 void SetBrakeValue(int val){
@@ -109,6 +117,10 @@ void SetThrottleValue(int val){
 
 char GetSASFalts(){
     return SAS_FAULT_CONDITION;
+}
+
+int GetSASError(){
+    return SASErrorCounter;
 }
 
 unsigned int GetSASValue(char request){
