@@ -8,13 +8,14 @@
 void updateComms() {
   
     if (receiveData()) {
-        //INDICATOR_Toggle();
-        //if (receiveArray[RESPONSE_ADDRESS] == ECU_ADDRESS) {
-        respondECU();
-        //}
-        handleIndicators(receiveArray[LED_DDS]);
-        TBbarGraphs(receiveArray[THROTTLE_DDS], receiveArray[BRAKE_DDS]);
-        receiveArray[RESPONSE_ADDRESS] = 0;
+        INDICATOR_Toggle();
+        if (receiveArray[RESPONSE_ADDRESS] == ECU_ADDRESS) {
+            respondECU();
+            handleIndicators(receiveArray[LED_DDS]);
+            TBbarGraphs(receiveArray[THROTTLE_DDS], receiveArray[BRAKE_DDS]);
+            receiveArray[RESPONSE_ADDRESS] = 0;
+        }
+
     }
 }
 

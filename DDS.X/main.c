@@ -65,33 +65,23 @@ void main(void) {
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
     //int ADCNT = 1;
-    //LEDbegin(0x70);
-    //LEDbegin(0x71);
-    Setupdisplay();
-    Splash();
+//    LEDbegin(0x70);
+//    LEDbegin(0x71);
+//    Setupdisplay();
+//    Splash();
     //Display();
     INDICATOR_SetHigh();
     LATCbits.LATC5 = 0;
     while (1) {
-        //updateComms();
+        updateComms();
 
-        // ADCNT = ADC_GetConversion(Volume);
-        // Add your application code
-        //printf("ADC Volume = %d",ADCNT);
-            //LEDsetValue((throttle)*(24.0 / 100.0), LED_RED);
-            //LEDwriteDisplay(0x70);
-            //LEDsetValue((brake)*(24.0 / 100.0), LED_RED);
-            //LEDwriteDisplay(0x71);
-            //Delay(1000);
-            //INDICATOR_Toggle();
-        if (GetTime() > 1) {
-            //LEDsetValue((throttle)*(24.0 / 100.0), LED_RED);
-            //LEDwriteDisplay(0x70);
-            //LEDsetValue((brake)*(24.0 / 100.0), LED_RED);
-            //LEDwriteDisplay(0x71);
-            INDICATOR_Toggle();
-            //INDICATOR_Toggle();
-            ClearTime();
+        if (GetTime() > 2) {
+//            LEDsetValue((throttle)*(24.0 / 100.0), LED_RED);
+//            LEDwriteDisplay(0x70);
+//            LEDsetValue((brake)*(24.0 / 100.0), LED_RED);
+//            LEDwriteDisplay(0x71);
+//            //INDICATOR_Toggle();
+//            ClearTime();
         }
 //                for (uint8_t b=0; b<24; b++) {
 //                   LEDsetBar(b, LED_YELLOW);
@@ -122,7 +112,7 @@ void main(void) {
          */
               if(GetButtonState(4) == 0)
               {
-                  INDICATOR_Toggle();
+                  //INDICATOR_Toggle();
               }
     }
 }

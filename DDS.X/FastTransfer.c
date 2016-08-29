@@ -86,6 +86,7 @@ bool receiveData() {
     if (rx_len == 0) {
         //this size check may be redundant due to the size check below, but for now I'll leave it the way it is.
         if (serial_available() > 4) {
+            INDICATOR_Toggle();
             //this will block until a 0x06 is found or buffer size becomes less then 3.
             while (serial_read() != 0x06) {
                 //This will trash any preamble junk in the serial buffer
