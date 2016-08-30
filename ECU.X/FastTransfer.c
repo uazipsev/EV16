@@ -182,7 +182,7 @@ bool receiveData() {
                     //the data packet plus one for the CRC
                     //int u;
                     //for (u = 0; u <= (rx_len + 1); u++) {
-                    serial_read();
+                    //serial_read();
                     //}
                     rx_len = 0; // reset length
                     return false;
@@ -198,15 +198,16 @@ bool receiveData() {
 
         //this check is preformed to see if the first data address is a 255, if it is then this packet is an AKNAK
         if (rx_array_inx == 0) {
-            while (!(serial_available() >= 1));
-            if (255 == serial_peek()) {
-                CRCcheck();
-                rx_len = 0;
-                rx_array_inx = 0;
-                wipeRxBuffer();
-                //free(rx_buffer);
-                return receiveData();
-            }
+            //Not needed because no ACK NAK is going on
+//            while (!(serial_available() >= 1));
+//            if (255 == serial_peek()) {
+//                CRCcheck();
+//                rx_len = 0;
+//                rx_array_inx = 0;
+//                wipeRxBuffer();
+//                //free(rx_buffer);
+//                return receiveData();
+//            }
         }
 
 

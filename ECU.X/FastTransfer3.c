@@ -177,7 +177,7 @@ bool receiveData3() {
                     //the data packet plus one for the CRC
                     //int u;
                     //for (u = 0; u <= (rx_len3 + 1); u++) {
-                        serial_read3();
+                        //serial_read3();
                     //}
                     rx_len3 = 0; // reset length
                     return false;
@@ -193,15 +193,15 @@ bool receiveData3() {
 
         //this check is preformed to see if the first data address is a 255, if it is then this packet is an AKNAK
         if (rx_array_inx3 == 0) {
-            while (!(serial_available3() >= 1));
-            if (255 == serial_peek3()) {
-                CRCcheck3();
-                rx_len3 = 0;
-                rx_array_inx3 = 0;
-                 wipeRxBuffer3();
-                //free(rx_buffer3);
-                return receiveData3();
-            }
+//            while (!(serial_available3() >= 1));
+//            if (255 == serial_peek3()) {
+//                CRCcheck3();
+//                rx_len3 = 0;
+//                rx_array_inx3 = 0;
+//                 wipeRxBuffer3();
+//                //free(rx_buffer3);
+//                return receiveData3();
+//            }
         }
 
 
