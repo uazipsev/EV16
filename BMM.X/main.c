@@ -18,7 +18,7 @@
 int main(int argc, char** argv) {
     Setup();
     //printf("Start");
-    //Initalize_LT6804b();
+   Start_BMS(1);
    while (1) { 
         updateTimers();
       // Initalize_LT6804b(); FOR TESTING DElETE WHEN FINISHED
@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
 //            ADCTime = 0;
 //        }
        ledDebug();
-       //Run_Mode();
+       Run_Mode();
        updateComms();
     }
 

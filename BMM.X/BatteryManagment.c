@@ -40,7 +40,7 @@ void Start_BMS(int mode) {
     ADS1015Begin();
     if (mode ==1){
         Run_Mode();
-            initTimerThree(mode);
+            //initTimerThree(mode);
     }
     else if (mode==2){
         Charge_Mode();
