@@ -16,18 +16,12 @@
 #define BAUD_RATE (((CLOCK_RATE/BAUD_SET)/16)-1)
 
 void UART1_init(void);
-//void UART1_buff_init(struct UART1_ring_buff* _this);
-//void UART1_buff_put(struct UART1_ring_buff* _this, const unsigned char c);
-//unsigned char UART1_buff_get(struct UART1_ring_buff* _this);
-//void UART1_buff_flush(struct UART1_ring_buff* _this, const int clearBuffer);
-//int UART1_buff_size(struct UART1_ring_buff* _this);
-//unsigned int UART1_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
-//unsigned char UART1_buff_peek(struct UART1_ring_buff* _this);
 
-//unsigned char Receive_peek1(void);
-//int Receive_available1(void);
-//unsigned char Receive_get1(void);
-//void Send_put1(unsigned char _data);
+
+unsigned char Receive_peek2(void);
+int Receive_available2(void);
+unsigned char Receive_get2(void);
+void Send_put2(unsigned char _data);
 
 #endif	/* UART_HANDLER_H */
 

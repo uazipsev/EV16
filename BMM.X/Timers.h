@@ -16,6 +16,7 @@
 #define SLVTM 2
 #define TLKTM 3
 #define ADCTM 4
+#define DEBUGTIME 5
 
     void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void);
     void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void);

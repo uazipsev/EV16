@@ -1,20 +1,39 @@
-
+/*******************************************************************
+ * @brief           Timers.c
+ * @brief           Handels Times   
+ * @return          N/A
+ * @note            This file contains code to handel time for system
+ *******************************************************************/
 
 #include "Timers.h"
 #include "BatteryManagment.h"
 #include "Function.h" //TODO get rid of
 int timer_3_Function=0;
 int *Sample_Number=0; //Need to figure what the fuck was this for.
-unsigned long int slaveTime,time,ADCTime;
-unsigned long int LEDtime = 0, talkTime = 0, time =0;
+unsigned long int slaveTime = 0,ADCTime = 0,LEDtime = 0,talkTime = 0;
+unsigned long int DebugTime,lastDebugTime;
+volatile unsigned long int time =0;
 static unsigned long int lastLEDTime=0, lastTalkTime=0, lastSlaveTime=0,lastADCTime=0;// TODO could be issue with timer was intilized in update timers with not decleration. 
 int FaultValueHistory=0;
    unsigned long count=0;
+   
+/*******************************************************************
+ * @brief           _T1Interrupt
+ * @brief           Handels T1 Interrupt
+ * @return          N/A
+ * @note            Used for time keeping
+ *******************************************************************/
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     time++;
     IFS0bits.T1IF = 0; // clear interrupt flag
 }
 
+/*******************************************************************
+ * @brief           _T2Interrupt
+ * @brief           Handels T2 Interrupt
+ * @return          N/A
+ * @note            Used for BMS coms and CC
+ *******************************************************************/
 void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void) {
    
         Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2,Sample_Number);               
@@ -28,6 +47,12 @@ void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void) {
     IFS0bits.T2IF = 0; // clear timer interrupt flag
 }
 
+/*******************************************************************
+ * @brief           _T3Interrupt
+ * @brief           Handels T3 Interrupt
+ * @return          N/A
+ * @note            Used for LED?
+ *******************************************************************/
 void __attribute__((interrupt, no_auto_psv)) _T3Interrupt(void) {
     if (timer_3_Function==1){
      
@@ -45,6 +70,12 @@ void __attribute__((interrupt, no_auto_psv)) _T3Interrupt(void) {
     IFS0bits.T2IF = 0; // clear timer interrupt flag
 }
 
+/*******************************************************************
+ * @brief           initTimerOne
+ * @brief           Handels T1 setup
+ * @return          N/A
+ * @note            N/A
+ *******************************************************************/
 void initTimerOne(void) {
     T1CONbits.TON = 0; // turn off timer
     T1CONbits.TCS = 0; //internal instruction clock (36,000,000 Hertz)
@@ -56,6 +87,12 @@ void initTimerOne(void) {
     T1CONbits.TON = 1; // turn on timer
 }
 
+/*******************************************************************
+ * @brief           initTimerTwo
+ * @brief           Handels T1 setup
+ * @return          N/A
+ * @note            N/A
+ *******************************************************************/
 void initTimerTwo(void) {
     // timer 2
     T2CONbits.T32 = 0;
@@ -70,6 +107,12 @@ void initTimerTwo(void) {
     T2CONbits.TON = 1; //enable timer 2
 }
 
+/*******************************************************************
+ * @brief           initTimerThree
+ * @brief           Handels T1 setup
+ * @return          N/A
+ * @note            N/A
+ *******************************************************************/
 void initTimerThree(int mode) {
     // timer 3 Fault Timer
     T3CONbits.TON = 0; //disable timer 3
@@ -88,7 +131,12 @@ void initTimerThree(int mode) {
     T3CONbits.TON = 1; //enable timer 3
 }
 
-
+/*******************************************************************
+ * @brief           updateTimers
+ * @brief           Handels time counting 
+ * @return          N/A
+ * @note            The fcn is Async of timer 1 and augments counters
+ *******************************************************************/
 void updateTimers() {
     //if (lastLEDTime != time) {
         LEDtime += (time - lastLEDTime);
@@ -104,42 +152,76 @@ void updateTimers() {
     //}
         ADCTime += (time - lastADCTime);
         lastADCTime = time;
+        
+        DebugTime += (time - lastDebugTime);
+        lastDebugTime = time;
 }
 
+/*******************************************************************
+ * @brief           time_get
+ * @brief           Handels time getter 
+ * @return          (int) time
+ * @note            The fcn returns requested time
+ *******************************************************************/
 int time_get(char WhatTime){
-    if(WhatTime == 1){
+    if(WhatTime == LEDTM){
         return LEDtime;
     }
-    else if(WhatTime == 2){
+    else if(WhatTime == SLVTM){
         return slaveTime;
     }
-    else if(WhatTime == 3){
+    else if(WhatTime == TLKTM){
         return talkTime;
     }
-    else if(WhatTime == 4){
+    else if(WhatTime == ADCTM){
         return ADCTime;
+    }
+    else if(WhatTime == DEBUGTIME){
+        return DebugTime;
     }
     return -1;
 }
 
+/*******************************************************************
+ * @brief           time_set
+ * @brief           Handels time setter 
+ * @return          N/A
+ * @note            The fcn modifies time counters 
+ *******************************************************************/
 void time_Set(char WhatTime, int value){
-    if(WhatTime == 1){
+    if(WhatTime == LEDTM){
         LEDtime = value;
     }
-    else if(WhatTime == 2){
+    else if(WhatTime == SLVTM){
         slaveTime = value;
     }
-    else if(WhatTime == 3){
+    else if(WhatTime == TLKTM){
         talkTime = value;
     }
-    else if(WhatTime == 4){
+    else if(WhatTime == ADCTM){
         ADCTime = value;
+    }
+    else if(WhatTime == DEBUGTIME){
+        DebugTime = value;
     }
 }
 
+/*******************************************************************
+ * @brief           TalkTimeSet
+ * @brief           
+ * @return          N/A
+ * @note            
+ *******************************************************************/
 void TalkTimeSet(int value){
     talkTime = value;
 }
+
+/*******************************************************************
+ * @brief           CheckFault
+ * @brief           
+ * @return          N/A
+ * @note            
+ *******************************************************************/
 void CheckFault(void) {
     if (FaultValue != 0) {   
     Saftey_Relay_Set = 1;
