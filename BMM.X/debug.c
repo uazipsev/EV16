@@ -8,6 +8,7 @@
 #include "Timers.h"
 #include <stdio.h>
 #include <string.h>
+#include "UART1.h"
 
 enum debugStates debugState;
 void handleDebugRequests();
@@ -26,25 +27,8 @@ int Data = 0;
 char DataHold[10];
 char TimeOutMenu = 0;
 char next = 0;
+char module = 0;
 
-///*******************************************************************
-// * @brief           write
-// * @brief           WTF
-// * @return          returns length (how many chars) of data
-// * @note            I have no idea what the fuck this is for...may be removed (printf maybe?)
-// *******************************************************************/
-//int write(int handle, void *buffer, unsigned int len) {
-//    int m;
-//    switch (handle) {
-//        case 0: // handle 0 corresponds to stdout
-//        case 1: // handle 1 corresponds to stdin
-//        case 2: // handle 2 corresponds to stderr
-//        default:
-//            for (m = 0; m < len; m++){}
-//                //Send_put2(*(char*) buffer++);
-//    }
-//    return (len);
-//}
 
 /*******************************************************************
  * @brief           handleDebugRequests
@@ -57,111 +41,64 @@ void handleDebugRequests() {
     static int lastDebugState = 0;
 
     if (time_get(DEBUGTIME) > 1000) {
+        //INDICATOR = !INDICATOR;
         switch (debugState) {
             case NO_DEBUG:
-                //This is the first time through the loop
-                if (lastDebugState != debugState) {
-                    lastDebugState = debugState;
-
-                }
+                //Don't print ANYTHING!!!!!
                 break;
             case TEMPSBAM1:
-                //This is the first time through the loop
-                if (lastDebugState != debugState) {
-                    lastDebugState = debugState;
-                }
-                printf("\n-----Throttle Brake Raw Debug----\n");
+                printf("\n-----Temp Bank A Mod 1----\n");
                 break;
             case TEMPSBAM2:
-                //This is the first time through the loop
-                if (lastDebugState != debugState) {
-                    lastDebugState = debugState;
-                }
-                printf("\n---- Brake Raw Debug----\n");
+                printf("\n-----Temp Bank A Mod 2----\n");
                 break;
-            case TEMPSBAM3:
-                //This is the first time through the loop
-                if (lastDebugState != debugState) {
-                    lastDebugState = debugState;
-                }     
-                printf("\n Battery info:\n");
+            case TEMPSBAM3:  
+                printf("\n-----Temp Bank A Mod 3----\n");
                 break;
             case TEMPSBBM1:
-                //This is the first time through the loop
-                if (lastDebugState != debugState) {
-                    lastDebugState = debugState;
-                }
-                printf("\n----Slave Bat Temp Info---- \n");
+                printf("\n-----Temp Bank B Mod 1----\n");
                 break;
             case TEMPSBBM2:
-                //This is the first time through the loop
-                if (lastDebugState != debugState) {
-                    lastDebugState = debugState;
-                }
-                printf("\n----BMM Power Signal Debug----\n");
+                printf("\n-----Temp Bank B Mod 2----\n");
                 break;
             case TEMPSBBM3:
-                //This is the first time through the loop
-                if (lastDebugState != debugState) {
-                    lastDebugState = debugState;
-                }
-                printf("\n----Fault Reporting/Recovery Mode----\n");
+                printf("\n-----Temp Bank B Mod 3----\n");
                 break;
             case VOLTSBAM1:
-                //This is the first time through the loop
-                if (lastDebugState != debugState) {
-                    lastDebugState = debugState;
-                }
+                printf("\n-----Volt Bank A Mod 1----\n");
                 break;
             case VOLTSBAM2:
-                if (lastDebugState != debugState) {
-                    lastDebugState = debugState;
-                }
-                printf("State On ECU State Machine\n");
+                printf("\n-----Volt Bank A Mod 2----\n");
                 break;
             case VOLTSBAM3:
-                if (lastDebugState != debugState) {
-                    lastDebugState = debugState;
-                }
-                printf("State On ECU State Machine\n");
+                printf("\n-----Volt Bank A Mod 3----\n");
                 break;
             case VOLTSBBM1:
-                if (lastDebugState != debugState) {
-                    lastDebugState = debugState;
-                }
-                printf("The reset value is \n");
+                printf("\n-----Volt Bank B Mod 1----\n");
                 break;
             case VOLTSBBM2:
-                if (lastDebugState != debugState) {
-                    lastDebugState = debugState;
-                }
-                printf("Comms:\n");
+                printf("\n-----Volt Bank B Mod 2----\n");
                 break;
             case VOLTSBBM3:
-                if (lastDebugState != debugState) {
-                    lastDebugState = debugState;
-                }
-                int i;
-                for(i = 0;i<8;i++){
-                    printf("Button ");
-                }
+                printf("\n-----Volt Bank B Mod 3----\n");
                 break;
             case CURRENT_PV:
-                if (lastDebugState != debugState) {
-                    lastDebugState = debugState;
-                }
-                printf("Align Error B1 \n");
+                ClearScreen();
+                printf("ADC 1 - Address = \n");
+                printf("CS 1 C+ =  \n");
+                printf("CS 1 C- =  \n");
+                printf("Voltage 1 =  \n");
+                printf("Voltage 2 =  \n");
+                printf("ADC 2 - Address = \n");
+                printf("CS 1 C+ =  \n");
+                printf("CS 1 C- =  \n");
+                printf("CS 1 C+ =  \n");
+                printf("CS 1 C- =  \n");
                 break;
             case FAULT:
-                if (lastDebugState != debugState) {
-                    lastDebugState = debugState;
-                }
                 printf("Align Error B1\n");
                 break;
             case ERRORRATE:
-                if (lastDebugState != debugState) {
-                    lastDebugState = debugState;
-                }
                 printf("Align Error B1 \n");
                 break;
                 
@@ -180,24 +117,23 @@ void handleDebugRequests() {
     }
 
     if (Receive_available2()) {
-        if(!FunctionDataGrab){
-            DataIn = Receive_get2();
-            if(VerboseEn){
-                printf("%c",DataIn);
+        DataIn = Receive_get2();
+        if(VerboseEn){
+            printf("%c",DataIn);
+        }
+        if(DataIn == 'b'){      
+            debugState = NO_DEBUG;
+            if((SubMenuActive == true) && (SubMenu > 0)){
+                SubMenu = 0;
             }
-            if(DataIn == 'b'){      
-                debugState = NO_DEBUG;
-                if((SubMenuActive == true) && (SubMenu > 0)){
-                    SubMenu = 0;
-                    //SubMenuActive = false;
-                }
-                else if((SubMenuActive == true) && (SubMenu == 0)){
-                    SubMenuActive = false;
-                    Menu = 0;
-                }
-
+            else if((SubMenuActive == true) && (SubMenu == 0)){
+                SubMenuActive = false;
+                Menu = 0;
             }
-            else if(SubMenuActive == false){
+            Menudisplay = 1;
+        }
+        else if(!FunctionDataGrab){
+            if(SubMenuActive == false){
                 Menu = DataIn - 48;
             }
             else if(SubMenuActive == true){
@@ -206,19 +142,16 @@ void handleDebugRequests() {
             Menudisplay = 1;
         }
         else if(FunctionDataGrab){
-            //Throttle Precent
+            //Get the Module we want data from
             if(FunctionDataGrab == 1){
                 //Get data of the pipe
-                DataHold[m] = Receive_get2();
-                m++;
-                //We are looking for x chars...
-                if(m>1){
-                    //We are done grabbing data off the pipeline
-                    FunctionDataGrab = false;
-                    m = 0;
-                }
+                module = DataIn - 48;
+                SubMenu = 1;
+
+                //We are done grabbing data off the pipeline
+                FunctionDataGrab = false;
             }
-            //Config data for Driver Ramp
+            Menudisplay = 1;
         }
     }
 }
@@ -233,24 +166,26 @@ void MenuPrint(char Menuloc, char Subloc){
     switch (Menuloc){
         case 0: 
           printf("|-----Main Menu------| \n");
-          printf("1) Throttle Menu\n");
-          printf("2) Brake Menu\n");
-          printf("3) Settings Menu\n");
-          printf("4) Battery Info\n");
-          printf("5) ComBus Info\n");
-          printf("6) Driver Config\n");
+          printf("1) Address on Buss A & B\n");
+          printf("2) Current and Pack Voltage\n");
+          printf("3) Temp\n");
+          printf("4) Voltage\n");
+          printf("5) Errors\n");
           break;
        case 1:
+          AddressMenu(Subloc);
           break;
        case 2:
+          CurrentAndVoltageMenu(Subloc);
           break;   
        case 3:
+          TempModuleMenu(Subloc);
           break;
        case 4:
+          VoltageModuleMenu(Subloc);
           break;
        case 5:
-          break;
-       case 6:
+          ErrorMenu(Subloc);
           break;
        default:
           printf("******NO Match*****\n");
@@ -261,26 +196,124 @@ void MenuPrint(char Menuloc, char Subloc){
 }
 
 /*******************************************************************
- * @brief           ThrottleMenu
- * @brief           Sub Menu throttle
+ * @brief           AddressMenu
+ * @brief           Sub Menu address response
  * @return          N/A
- * @note            The fcn prints and control throttle 
+ * @note            The fcn prints address responding on Buss A&B
  *******************************************************************/
-void ThrottleMenu(char menuitem){
+void AddressMenu(char menuitem){
+    char e = 0;
     SubMenuActive = true;
-    printf("|---Throttle Menu----|\n");
-    printf("1) Throttle Display\n");
-    printf("2) Throttle Trip Set\n");
-    printf("3) Throttle Mismatch\n");
-    if(menuitem == 1){
-        //debugState = THROTTLE;
+    printf("|---Address on Buss A & B----|\n");
+    printf("Bank A: \n");
+    for(;e<9;e++){
+        printf("Address %d = NO\n",e);
     }
-    else if(menuitem == 2){
+    printf("Bank B:\n");
+    for(e = 0;e<9;e++){
+        printf("Address %d = NO\n",e);
+    }
+    SubMenu = 0;
+}
+
+/*******************************************************************
+ * @brief           CurrentAndVoltageMenu
+ * @brief           Sub Menu for I2C ADC 
+ * @return          N/A
+ * @note            The fcn prints ADC values from iso I2C
+ *******************************************************************/
+void CurrentAndVoltageMenu(char menuitem){
+    SubMenuActive = true;
+    printf("|---C and V Print----|\n");
+    debugState = CURRENT_PV;
+}
+
+/*******************************************************************
+ * @brief           VoltageModuleMenu
+ * @brief           Sub Menu for voltage print
+ * @return          N/A
+ * @note            The fcn prints voltage values from modules 
+ *******************************************************************/
+void VoltageModuleMenu(char menuitem){
+    SubMenuActive = true;
+    if(menuitem == 0){
+        printf("|---V Module Print----|\n");
+        printf("|--What Module (1-6)--|\n");
         FunctionDataGrab = 1;
     }
-    else if(menuitem == 3){
-        FunctionDataGrab = 2;
+    else{
+        printf("Module %d is active!",module);
+        switch(module){
+            case 1:
+                debugState = VOLTSBAM1;
+                break;
+            case 2:
+                debugState = VOLTSBAM2;
+                break;
+            case 3:
+                debugState = VOLTSBAM3;
+                break;
+            case 4:
+                debugState = VOLTSBBM1;
+                break;
+            case 5:
+                debugState = VOLTSBBM2;
+                break;
+            case 6:
+                debugState = VOLTSBBM3;
+                break;
+        }
     }
+}
+
+/*******************************************************************
+ * @brief           TempModuleMenu
+ * @brief           Sub Menu for Temp print
+ * @return          N/A
+ * @note            The fcn prints temps values from modules 
+ *******************************************************************/
+void TempModuleMenu(char menuitem){
+    SubMenuActive = true;
+    if(menuitem == 0){
+        printf("|---T Module Print----|\n");
+        printf("|--What Module (1-6)--|\n");
+        FunctionDataGrab = 1;
+    }
+    else{
+        printf("Module %d is active!",module);
+        switch(module){
+            case 1:
+                debugState = TEMPSBAM1;
+                break;
+            case 2:
+                debugState = TEMPSBAM2;
+                break;
+            case 3:
+                debugState = TEMPSBAM3;
+                break;
+            case 4:
+                debugState = TEMPSBBM1;
+                break;
+            case 5:
+                debugState = TEMPSBBM2;
+                break;
+            case 6:
+                debugState = TEMPSBBM3;
+                break;
+        }
+    }
+}
+
+/*******************************************************************
+ * @brief           TempModuleMenu
+ * @brief           Sub Menu for Temp print
+ * @return          N/A
+ * @note            The fcn prints temps values from modules 
+ *******************************************************************/
+void ErrorMenu(char menuitem){
+    SubMenuActive = true;
+    printf("|---Fucking Errors----|\n");
+    printf("|--WTF happened.....--|\n");
 }
 
 /*******************************************************************

@@ -31,18 +31,12 @@ enum debugStates {
 };
 
 void handleDebugRequests();
-extern int getstate();
-extern int getstatefault();
-void ThrottleMenu(char menuitem);
-void BrakeMenu(char menuitem);
-void SettingMenu(char menuitem);
-void BatteryMenu(char menuitem);
-void ComMenu(char menuitem);
-void DriverMenu(char menuitem);
-void SelectDriver();
+void AddressMenu(char menuitem);
+void CurrentAndVoltageMenu(char menuitem);
+void VoltageModuleMenu(char menuitem);
+void TempModuleMenu(char menuitem);
+void ErrorMenu(char menuitem);
 void ClearScreen();
-void MenuBrakeLightValue(char cont);
-
 void MenuPrint(char Menuloc, char Subloc);
 void MenuClearFlag();
 

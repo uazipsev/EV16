@@ -1,6 +1,7 @@
 #include <xc.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 #include "UART.h"
 #include "PinDef.h"
 #define ON         0

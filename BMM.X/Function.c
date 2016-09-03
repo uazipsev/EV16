@@ -26,7 +26,7 @@ void Setup(void) {
     TRISBbits.TRISB9=0;
     TRISBbits.TRISB8=0;
     TRISBbits.TRISB7=0;
-//    
+    
 //    LATBbits.LATB9=0;
 //    LATBbits.LATB8=0;
 //    delay_ms(1000);
@@ -44,19 +44,14 @@ void Setup(void) {
     PPSout(_SDO1, _RP21);
     PPSout(_SCK1, _RP19);
     PPSin(_SDI1, _RP20);
-    
     PPSLock;
 
-    
-    
     initTimerOne();
     CommStart();
-
-    //begin1(receiveArray1, sizeof (receiveArray1), BMM_MASTER_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);
-     UART1_init();
-     //Start_BMS();
-     //SPI2_Initialize();
-   // i2c_init();
+    UART1_init();
+    //Start_BMS();
+    //SPI2_Initialize();
+    //i2c_init();
     //PWM_Init();
 }
 
@@ -84,14 +79,11 @@ void PinSetMode(void) {
     TRISBbits.TRISB2 = OUTPUT;
     TRISBbits.TRISB3 = OUTPUT;
     TRISAbits.TRISA9= OUTPUT;
-     TRISBbits.TRISB4 = OUTPUT;
-    LATCbits.LATC6=1;
-    LATCbits.LATC7=1;
-    
-//    S0_TRIS=OUTPUT;     //Select Comm Line Mux S0
-//    S1_TRIS=OUTPUT;     //Select Comm Line Mux S1
-//    S0 =0;
-//    S1 =0;
+    TRISBbits.TRISB4 = OUTPUT;
+    TRISCbits.TRISC7 = OUTPUT;
+    TRISCbits.TRISC6 = INPUT;
+    //LATCbits.LATC6=1;
+    //LATCbits.LATC7=1;
     
     BMS_TURN_ON = 1;
     
@@ -100,9 +92,10 @@ void PinSetMode(void) {
  void ledDebug() {
      //int x=0;
         if (time_get(LEDTM) > 500) {
-            //INDICATOR = !INDICATOR;
+            INDICATOR = !INDICATOR;
             //printf("ADC: %d , %d , %d", CurrentGet(0,1),CurrentGet(0,2),CurrentGet(0,3));
-           // printf(SetUnderOverVoltage(5,8));
+            //printf(SetUnderOverVoltage(5,8));
+            //printf("5) Errors\n");
 //            if (x == 0) {
 //            Saftey_Relay_Reset = 0;
 //        } else if (x == 1) {

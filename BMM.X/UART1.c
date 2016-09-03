@@ -2,6 +2,7 @@
 #include <xc.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 #include "UART1.h"
 #include "PinDef.h"
 #include <libpic30.h> 
@@ -41,11 +42,13 @@ void UART1_init(void) {
     U2STAbits.URXISEL = 0b00; // Interrupt after one RX character is received
     IFS1bits.U2RXIF = 0; // Clear RX interrupt flag
     IFS1bits.U2TXIF = 0; // Clear TX interrupt flag
-    IEC1bits.U2RXIE = 0; // Enable RX interrupt
-    IEC1bits.U2TXIE = 0; // Enable TX interrupt
+    IEC1bits.U2RXIE = 1; // Enable RX interrupt
+    IEC1bits.U2TXIE = 1; // Enable TX interrupt
     U2MODEbits.UARTEN = 1; // Enable UART
     U2STAbits.UTXEN = 1; // Enable UART TX
-
+    
+    UART_buff_init2(&input_buffer1);
+    UART_buff_init2(&output_buffer1);
     __C30_UART=2;
 }
 

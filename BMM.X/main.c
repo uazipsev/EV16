@@ -14,13 +14,14 @@
 #include <stdlib.h>
 #include <xc.h>
 #include "ADDRESSING.h"
+#include "debug.h"
 
 int main(int argc, char** argv) {
     Setup();
     //printf("Start");
    Start_BMS(1);
    while (1) { 
-        updateTimers();
+       updateTimers();
       // Initalize_LT6804b(); FOR TESTING DElETE WHEN FINISHED
 //        if (time_get(ADCTM) > 50) {
 //            static int counter = 0;
@@ -32,7 +33,8 @@ int main(int argc, char** argv) {
 //        }
        ledDebug();
        Run_Mode();
-       updateComms();
+       handleDebugRequests();
+      // updateComms();
     }
 
     return (EXIT_SUCCESS);

@@ -4,4 +4,5 @@ Function.h  \
 PinDef.h  \
  Communications.h  \
 ADDRESSING.h  \
-Timers.h 
+Timers.h  \
+debug.h 
