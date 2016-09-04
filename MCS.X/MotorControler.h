@@ -16,19 +16,26 @@ typedef enum Directionality {
     stop = 3
 } dirr;
 
+enum MotorStates {
+    MCTURNON = 1,
+    MCSTARTUP = 2,
+    MCWAIT = 3,
+    MCSET = 4,
+    MCRUN = 5,
+    MCSTOP = 6,
+};
+
 #define forward     1
 #define backward    2
 #define stop        3
 
-void SetMotor(int speed, int direction);
-void SetMotorDefaults();
-void MotorEnable();
-void MotorDisable();
-void SetRegen(int amount);
-void Regen(bool enable);
-bool motorControllerValuesCheck(int t, int b);
-void directionMismatchCheck(int direction);
-
+void MotorMode(int value);
+int GetMotorMode();
+void SetDirection(int direction);
+void SetSpeed(int value);
+void SetRegen(int value);
+void SetCarMode(bool value);
+void RegenEn(bool enable);
 void MotorUpdate();
 
 

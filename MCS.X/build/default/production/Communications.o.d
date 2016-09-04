@@ -4,4 +4,5 @@ Communications.c  \
 PinDef.h  \
 ADDRESSING.h  \
 Timers.h  \
-MotorControler.h 
+MotorControler.h  \
+ FastTransfer.h 

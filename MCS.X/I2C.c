@@ -29,7 +29,7 @@ bool writeInProgress = false;
 
 //I2C init code - startup I2C
 
-void i2c_init(void) {
+void I2c_Init(void) {
     I2C1BRG = 0x0258; //baud
     I2C1CON = 0x1200;
     I2C1RCV = 0x0000;

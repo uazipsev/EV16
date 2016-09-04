@@ -1,7 +1,8 @@
 #include "Timers.h"
 #include <xc.h>
 volatile unsigned int talkTime, LEDtime,safetyTime,bootTime;
-void timerOne(void) {
+
+void TimerOneInit(void) {
     T1CONbits.TON = 0; // turn off timer
     T1CONbits.TCS = 0; //internal instruction clock (36,000,000 Hertz)
     T1CONbits.TCKPS = 0b10; //11/10 /01  /00   //0b10 - 64 divider 0-1:1
@@ -9,35 +10,6 @@ void timerOne(void) {
     IFS0bits.T1IF = 0; // clear interrupt flag
     IEC0bits.T1IE = 1; // enable timer 1 interrupt
     T1CONbits.TON = 1; // turn on timer
-}
-//
-
-void timerTwo(void) {
-    // timer 2
-    T2CONbits.T32 = 0;
-    T2CONbits.TON = 0; //disable timer 2
-    T2CONbits.TCS = 0; //internal instruction clock (36,000,000 Hertz)
-    T2CONbits.TGATE = 0; //disable gated timer mode
-    T2CONbits.TCKPS = 0b11; // 1:256 prescalar    60MHz/256= 234.375KHz (4.266us)
-    //TMR2 = 0x00; //clear timer register
-    PR2 = 30000; //- set to 279 ms per overflow (4.266 us * 65535)= 279 ms
-    IFS0bits.T2IF = 0; // clear timer2 interrupt flag
-    IEC0bits.T2IE = 1; // enable timer2 interrupt
-    T2CONbits.TON = 1; //enable timer 2
-}
-void timerFour(void) {
-    // Timer 4
-     TMR4 = 0x00; //clear timer register WAS Commented Out
-    T4CONbits.T32 = 0;  // Makes timer 3 and 4 two independent 16 bit timers
-    T4CONbits.TON = 0; //disable timer 4
-    T4CONbits.TCKPS = 0b11; // 1:256 prescalar    60MHz/256= 234.375KHz (4.266us)
-    T4CONbits.TCS = 0; //internal instruction clock (36,000,000 Hertz)
-    T4CONbits.TGATE = 0; //disable gated timer mode
-   
-    PR4 = 30000; //- set to 279 ms per overflow (4.266 us * 65535)= 279 ms TO BE Determined 
-    IFS1bits.T4IF = 0; // clear timer4 interrupt flag
-    IEC1bits.T4IE = 1; // enable timer4 interrupt
-    T4CONbits.TON = 1; //enable timer 4
 }
 
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
@@ -50,25 +22,28 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     IFS0bits.T1IF = 0; // clear interrupt flag
 }
 
-void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void) {
-    IFS0bits.T2IF = 0; // clear timer interrupt flag
+int GetTime(char number){
+    if(number == LEDTIME){
+        return LEDtime;
+    }
+    else if(number == SAFETYTIME){
+        return safetyTime;
+    }
+    else if(number == BOOTTIME){
+        return bootTime;
+    }
 }
 
-
-void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void) {
-    
-}
-
-int getLEDTime(){
-    return LEDtime;
-}
-
-void ClearLEDTime(){
-    LEDtime = 0;
-}
-
-void setLEDTime(int value){
-    LEDtime = value;
+void ClearTime(char number){
+    if(number == LEDTIME){
+       LEDtime = 0;
+    }
+    else if(number == SAFETYTIME){
+       safetyTime = 0;
+    }
+    else if(number == BOOTTIME){
+       bootTime = 0;
+    }
 }
 
 

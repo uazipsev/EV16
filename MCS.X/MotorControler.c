@@ -20,24 +20,72 @@
 //#include "UART2.h" Not working HELP
 
 int MotorState, spd, brk = 0;
+bool CarActiveMode =0;
 char dir = 0;
+char MotorModeActive = 0;
+
+void MotorStateControl(){
+    if(MotorModeActive == 0){
+        MotorModeActive++;
+        MotorMode(MotorModeActive);
+    }
+    else if(MotorModeActive == MCTURNON){
+        MotorModeActive++;
+        MotorMode(MotorModeActive);
+    }
+    else if(MotorModeActive == MCSTARTUP){
+        MotorModeActive++;
+        MotorMode(MotorModeActive);
+    }
+    else if((MotorModeActive == MCWAIT) && CarActiveMode){
+        MotorModeActive++;
+        MotorMode(MotorModeActive);
+    }
+    else if(MotorModeActive == MCSET){
+        MotorModeActive++;
+        MotorMode(MotorModeActive);
+    }
+    else if(MotorModeActive == MCRUN){
+        if(!CarActiveMode){
+            spd = 0;
+            brk = 0;
+            MotorMode(MotorModeActive);
+            MotorUpdate();
+            MotorMode(MCSTOP);
+        }
+    }
+    else if(MotorModeActive == MCSTOP){
+        MotorMode(MotorModeActive);
+        if(CarActiveMode){
+            MotorMode(MotorModeActive);
+        }
+    }
+}
+
 
 void MotorUpdate(){
+    MotorStateControl();
     switch(MotorState){
-        case turnon:
+        case MCTURNON:
             DACRELAY = 0;
             SetDAC1(0);
             SetDAC2(0);   
             BRAKE = 1;
+            REVERSE  = 0;
+            FORWARD = 0;
             DC12ENABLE;
             break;
-        case startup:
+        case MCSTARTUP:
             IGNEN = 1;
+            REVERSE  = 0;
+            FORWARD = 0;
             break;
-        case wait:
+        case MCWAIT:
             DACRELAY = 0;
+            REVERSE  = 0;
+            FORWARD = 0;
             break;
-        case set:
+        case MCSET:
             if(dir == forward){
                 REVERSE = 0;
                 FORWARD = 1;
@@ -48,11 +96,11 @@ void MotorUpdate(){
             }
             DACRELAY = 1;
             break;
-        case run:
+        case MCRUN:
             SetDAC1(spd*40.9);
             SetDAC2(brk*40.9);
             break;
-        case stoping:
+        case MCSTOP:
             BRAKE = 0;
             DACRELAY = 0;
             DC12DISABLE;
@@ -80,6 +128,10 @@ void SetSpeed(int value){
 
 void SetRegen(int value){
     brk = value;
+}
+
+void SetCarMode(bool value){
+    CarActiveMode = value;
 }
 // toggles regen
 

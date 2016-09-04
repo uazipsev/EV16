@@ -11,7 +11,6 @@
 #include "Timers.h"
 
 void Setup(void) {
-    //MotorDisable();
     // setup internal clock for 66MHz/33MIPS
     // 12/2=6*22=132/2=66
     CLKDIVbits.PLLPRE = 0; // PLLPRE (N2) 0=/2
@@ -37,8 +36,8 @@ void Setup(void) {
     UART_init();
     begin(receiveArray, sizeof (receiveArray), MCS_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
 
-    i2c_init();
-    timerOne();
+    I2c_Init();
+    TimerOneInit();
     //SetMotorDefaults();
 }
 
@@ -50,9 +49,9 @@ void Delay(int wait) {
 }
 
 void ledDebug() {
-    if (getLEDTime() > 1000) {
-        ClearLEDTime();
-            INDICATOR ^= 1;
+    if (GetTime(LEDTIME) > 1000) {
+        ClearTime(LEDTIME);
+        INDICATOR ^= 1;
     }
 }
     

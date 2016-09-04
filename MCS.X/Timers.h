@@ -8,13 +8,14 @@
 #ifndef TIMERS_H
 #define	TIMERS_H
 
-    void timerTwo(void);
-    void timerOne(void);
-    void timerFour(void) ;
-    extern volatile unsigned int talkTime, LEDtime,safetyTime,bootTime;
-    int getLEDTime(void);
-    void ClearLEDTime();
-    void setLEDTime(int value);
+void TimerOneInit(void);
+int GetTime(char number);
+void ClearTime(char number);
+
+#define LEDTIME 1
+#define SAFETYTIME 2
+#define TALKTIME 3
+#define BOOTTIME 4
 
 #endif	/* TIMERS_H */
 
