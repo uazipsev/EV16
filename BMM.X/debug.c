@@ -169,7 +169,7 @@ void MenuPrint(char Menuloc, char Subloc){
           printf("1) Address on Buss A & B\n");
           printf("2) Current and Pack Voltage\n");
           printf("3) Temp\n");
-          printf("4) Voltage\n");
+          printf("4) Voltage - Bypass\n");
           printf("5) Errors\n");
           break;
        case 1:
