@@ -586,6 +586,23 @@ void handleDebugRequests() {
                     next = 0;
                 }
             }
+            //Config data for Brake light
+            else if(FunctionDataGrab == 6){
+                //Get data of the pipe
+                DataHold[i] = Receive_get2();
+                i++;
+                //We are looking for 3 chars...
+                if(i>2){
+                    //Get data array to int
+                    sscanf(DataHold, "%d", &Data);
+                    //We are done grabbing data off the pipeline
+                    FunctionDataGrab = false;
+                    SubMenu = 0;
+                    TimeOutSet(3000);
+                    i = 0;
+                    MenuBrakeLightValue(1);
+                }
+            }
             //Config data for Driver Max Throttle 
             else if(FunctionDataGrab == 7){
                 //Get data of the pipe
@@ -998,7 +1015,7 @@ void MenuBrakeLightValue(char cont){
         FunctionDataGrab = 6;
     }
     if(cont == 1){
-        SaveBrakeTrigger(Data);
+        SaveBrakeLightTrigger(Data);
         printf(" Brake Light Set to %d",Data);
         TimeOutSet(3000);
     }

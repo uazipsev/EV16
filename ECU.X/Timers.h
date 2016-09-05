@@ -13,7 +13,7 @@ int GetTime(char data);
 void SetTime(char data);
 void TimeOutSet(int num);
     
-#define COMM_TIMER_MAX_TIME 75
+#define COMM_TIMER_MAX_TIME 100
 
 #define SASTIMER 1
 #define DDSTIMER 2

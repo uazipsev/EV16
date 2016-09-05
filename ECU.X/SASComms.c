@@ -75,12 +75,12 @@ void storeSASInputs() {
 //        if (brake > 100) brake = 100;
 //    } else brake = 0;
     //    //Brake vs. throttle safety
-        if ((((throttle1 + throttle2) / 2) > TripThrottle) && (brake1 > TripBrake)) {
-            SAS_FAULT_CONDITION = THROTTLE_BRAKE_CHECK;  //  TODO: Fix me
-            throttle1=0;
-            throttle2=0;
-            brake1=0;
-        }
+//        if ((((throttle1 + throttle2) / 2) > TripThrottle) && (brake1 > TripBrake)) {
+//            SAS_FAULT_CONDITION = THROTTLE_BRAKE_CHECK;  //  TODO: Fix me
+//            throttle1=0;
+//            throttle2=0;
+//            brake1=0;
+//        }
 }
 
 bool receiveCommSAS() {

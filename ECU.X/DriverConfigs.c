@@ -48,12 +48,12 @@ char DriverCountNum;
  * @note            uses getters to set up the cars settings 
  *******************************************************************/
 void SetUpDataSets(){
+    EEpromInit();
     
 //    ReadCarDriver();
-//    ReadThrottlePrecent();
-//    ReadThrottleTrigger();
-//    ReadBrakeTrigger();
-//      SetBrakeLightValue(ReadBrakeLightTrigger());
+    ReadThrottlePrecent();
+    ReadThrottleTrigger();
+    SetBrakeLightValue(ReadBrakeLightTrigger());
 //     char z = 0;
 //    for(z=0;z<50;z++){
 //        writeRegister(ADDRESS, z, z);
@@ -65,7 +65,7 @@ void SetUpDataSets(){
 //        Delay(5);
 //    }
     //This sets up the I2C to EEPROM com's to save car data. 
-    EEpromInit();
+
     //Delay(100);
     //SaveCarDriverCount(0);
 //    char RCJ[3] = {'R','C','J'};

@@ -189,6 +189,7 @@ int ReadBrakeTrigger(){
  *******************************************************************/
 void SaveBrakeTrigger(int value){
     writeRegister(ADDRESS, 5, value);
+    
 }
 
 /*******************************************************************
@@ -209,6 +210,7 @@ int ReadBrakeLightTrigger(){
  *******************************************************************/
 void SaveBrakeLightTrigger(int value){
     writeRegister(ADDRESS, 6, value);
+    SetBrakeLightValue(value);
 }
 
 /*******************************************************************

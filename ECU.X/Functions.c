@@ -74,6 +74,7 @@ void Setup(void) {
     
     //This controls the timing system to control communication rates  
     initTimerOne();
+    
 }
 
 /*******************************************************************
