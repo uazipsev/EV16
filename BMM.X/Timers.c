@@ -26,6 +26,7 @@ int FaultValueHistory=0;
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     time++;
     IFS0bits.T1IF = 0; // clear interrupt flag
+    
 }
 
 /*******************************************************************
@@ -35,14 +36,16 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
  * @note            Used for BMS coms and CC
  *******************************************************************/
 void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void) {
-   
-        Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2,Sample_Number);               
+   INDICATOR = !INDICATOR;
+        //Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2,Sample_Number);               
                        
-   FaultValue=Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2,Sample_Number);
-   if (FaultValue==0){
+   //FaultValue=Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2,Sample_Number);
+  // if (FaultValue==0){
     FaultValue=Read_Total_GPIO(Aux_codes_Bank1,Aux_codes_Bank2);
-   }
-    CurrentCoulombCount(time);
+    
+    readc();
+   //}
+   // CurrentCoulombCount(time);
     
     IFS0bits.T2IF = 0; // clear timer interrupt flag
 }
@@ -223,7 +226,7 @@ void TalkTimeSet(int value){
  * @note            
  *******************************************************************/
 void CheckFault(void) {
-    if (FaultValue != 0) {   
+    if (FaultValue != 0) {   ;
     Saftey_Relay_Set = 1;
     //TODO Need Delay
     Saftey_Relay_Set=0;
@@ -234,3 +237,10 @@ void CheckFault(void) {
     ;}
 }
 
+void readc(){
+    double hey=0;
+    
+hey= getbigc();
+hey=2321.323;
+printf( "C Value time %d", hey);
+}

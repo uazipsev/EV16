@@ -6,10 +6,12 @@
 #include "spi2.h"
 #include "UART1.h"
 #include "PinDef.h"
-
+int hi=0;
+float yo=0;
+int samp=0;
 void Setup(void) {
     PinSetMode();
-    INDICATOR = 1;
+   // INDICATOR = 1;
     FaultValue=0;
     // setup internal clock for 72MHz/36MIPS
     // 12 /3 = 4  *32 = 128 / 2=64
@@ -49,6 +51,7 @@ void Setup(void) {
     initTimerOne();
     CommStart();
     UART1_init();
+    initTimerTwo();
     //Start_BMS();
     //SPI2_Initialize();
     //i2c_init();
@@ -90,9 +93,22 @@ void PinSetMode(void) {
 }
 
  void ledDebug() {
-     //int x=0;
+
         if (time_get(LEDTM) > 500) {
-            INDICATOR = !INDICATOR;
+            //INDICATOR = !INDICATOR;
+            
+            hi++;
+            printf( "hi Value %i", hi);
+            if (samp==0){
+                yo=hi;
+                samp=1;
+            }
+            else{
+             yo=((.8*yo )+ (.2*hi));
+            }
+            
+             printf( "yo Value %f", yo);
+            
             //printf("ADC: %d , %d , %d", CurrentGet(0,1),CurrentGet(0,2),CurrentGet(0,3));
             //printf(SetUnderOverVoltage(5,8));
             //printf("5) Errors\n");

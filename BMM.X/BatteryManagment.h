@@ -24,6 +24,7 @@ int UpdateLT6804(int bank); //Updates Lt6804 configuration sends a fault if a er
 extern int Read_Total_Voltage(int cell_codesBank1[][12], int cell_codesBank2[][12],int *Number_Of_Samples);
 void Updated_Cell_Array(int cell_codesBank1[][12],int cell_codesBank2[][12], int FirstSample);
 extern int Read_Total_GPIO(int Aux_codes_Bank1[][6], int Aux_codes_Bank2[][6]);
+double getbigc();
   extern int FaultValue;// TODO IS THIs THE RIGHT WAY FOR A GLOBAL VARIABLE?
   extern int cell_codes_Bank1[NUMBEROFIC][12];
  extern int cell_codes_Bank2[NUMBEROFIC][12];

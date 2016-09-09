@@ -37,6 +37,7 @@ int FaultValue=0;
 void Start_BMS(int mode) {
     //TODO need to have a mode to make sure all slaves are up in running.
     LTC6804_initialize();
+    Initalize_LT6804b();
     ADS1015Begin();
     if (mode ==1){
         Run_Mode();
@@ -58,48 +59,15 @@ void Charge_Mode() {
 }
 
 void Run_Mode() {
-    Initalize_LT6804b();
     
-//    int i;
-//    for ( i = 0; i<NUMBEROFIC; i++)
-//  {
-//    LTC6804_DATA_ConfigBank1[i][0] = 0xFE;
-//    LTC6804_DATA_ConfigBank1[i][1] = 0x00 ;
-//    LTC6804_DATA_ConfigBank1[i][2] = 0x00 ;
-//    LTC6804_DATA_ConfigBank1[i][3] = 0x00 ;
-//    LTC6804_DATA_ConfigBank1[i][4] = 0x00 ;
-//    LTC6804_DATA_ConfigBank1[i][5] = 0x00 ;
-//  }
-    //set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
-  //  wakeup_sleep();
-      //LTC6804_wrcfg(NUMBEROFIC,LTC6804_DATA_ConfigBank1);
-      while (1)
-      {
-       // wakeup_idle();
-//Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2,1);
-        // LTC6804_rdcfg(NUMBEROFIC, LTC6804_DATA_ConfigBank1Read);
-//           Read_GPIO(1, Aux_codes_Bank1);
-//            Read_GPIO(2, Aux_codes_Bank1);
-//             Read_GPIO(3, Aux_codes_Bank1);
-//              Read_GPIO(4, Aux_codes_Bank1);
-             // Read_Total_GPIO( Aux_codes_Bank1,Aux_codes_Bank2);
-              //LTC6804_rdcv(0,NUMBEROFIC,LTC6804_DATA_ConfigBank1Read);
-//        LTC6804_adcv();
-//        Delay(10);
-//        wakeup_idle();
-//        LTC6804_rdcv(0, NUMBEROFIC,cell_codes_Bank1);
-          
-          
+    
+       wakeup_idle();
+   Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2,1);
+
           Read_Total_GPIO(Aux_codes_Bank1,Aux_codes_Bank2);
-//    wakeup_sleep();
-//    LTC6804_adax();
-//    Delay(3);
-//    wakeup_idle();
-//    LTC6804_rdaux(0,NUMBEROFIC,Aux_codes_Bank1);
-                       Read_Battery(0,cell_codes_Bank1);
-        printf("temp %d ", TempCBank1[1][0]);
-        Delay(500);
-      }
+          
+        
+      
       
    
 //    FaultValue=Startuptests(Stat_codes_Bank1);
@@ -481,21 +449,25 @@ int Read_Status_INC = 0;
     do {
         Error_Value = Read_Battery(0, cell_codes_Bank1);
         if (Error_Value != 0) {
+           // printf("Error!!! 1 %i ", Read_Status_INC);
             Read_Status_INC = Read_Status_INC + 1;
         }
     } while (Error_Value != 0 && Read_Status_INC <= 10);
         if (Read_Status_INC > 10) {
+            //printf("Fault!!! 1 %i ");
         FaultNum = ReadVoltRegFault;
     }
     Read_Status_INC = 0;
     do {
         Error_Value = Read_Battery(0, cell_codesBank2);
         if (Error_Value != 0) {
+             //printf("Error!!! 2 %i ", Read_Status_INC);
             Read_Status_INC = Read_Status_INC + 1;
         }
 
     } while (Error_Value != 0 && Read_Status_INC <= 10);
     if (Read_Status_INC > 10) {
+       // printf("Fault!!! 2 %i ");
         FaultNum = ReadVoltRegFault;
     }
      if (FaultNum == 0) {
@@ -806,6 +778,8 @@ int Read_GPIO(int BatteryPlacement, int aux_codes[NUMBEROFIC][6]) {
 
 
 void CalculateTemp(int bank, int auxcodes[NUMBEROFIC][6]) {
+    double TempC=0;
+    double hi=0;
     int ic = 0; //The IC we are currently reading
     int sensenum = 0; //The senesor we are currently reading. 
     while (ic < NUMBEROFIC) {
@@ -814,23 +788,40 @@ void CalculateTemp(int bank, int auxcodes[NUMBEROFIC][6]) {
             float Resist_Of_GPIO = 0;
             Volt_Of_GPIO = auxcodes[ic][sensenum]; //v2 vin v1 rgpio thermo r2  r1 10k
             Volt_Of_GPIO = Volt_Of_GPIO * 0.0001;   //Bring it back to units of volts
+           // printf("IC value %i ",ic );
+           // Delay(2);
+           // printf("Sensenum value %i ",sensenum );
+           // Delay(2);
             Resist_Of_GPIO = (Volt_Of_GPIO * 10000); //TOTAL EQUATION R2=(VO*R1)/(Vin-Vo)   CHECK DEBUG ADDING ARTifact
             Resist_Of_GPIO = Resist_Of_GPIO / (Vin - Volt_Of_GPIO); //Through Voltage Divider  TOTAL EQUATION R2=(VO*R1)/(Vin-Vo)
-
-            TempK = 4;
-            TempK = (1 / 298.15)*5000 + B_Constant * (log(Resist_Of_GPIO / 10000))*5000; //log is ln
-            TempK = TempK / 5000;
+            TempK=(1 / 297.15) +((1/B_Constant) * (log(Resist_Of_GPIO / 10000))) ;
             TempK = (1 / TempK);
+            TempC= TempK - 273.15;
             if (bank == 1) {
                 TempCBank1[ic][sensenum] = TempK - 273.15;
             } else if (bank == 2) {
                 TempCBank2[ic][sensenum] = TempK - 273.15;
             }
+           // printf("Temp C b1 %f ", TempCBank1[ic][sensenum]  );
+            //Delay(2);
+            //printf("Temp C b2 %f ", TempCBank2[ic][sensenum]  );
+            //Delay(2);
+          //  printf("Temp C  %f ",TempC );
+           // Delay(4);
             sensenum = sensenum + 1;
         }
         sensenum = 0;
+        Delay(10);
         ic = ic + 1;
     }
+    /*
+    printf("temp %d ", TempCBank1[1][0]);
+        printf("temp %d ", TempCBank1[1][1]);
+        printf("temp %d ", TempCBank1[1][2]);
+        printf("temp %d ", TempCBank1[1][3]);
+        printf("temp %d ", TempCBank1[1][4]);
+        printf("temp %d ", TempCBank1[1][5]);
+     * */
 }
 
 int Test_Temp_Sensors(int Aux_codes_Bank1[][6], int Aux_codes_Bank2[][6]) {
@@ -862,7 +853,10 @@ int Test_Temp_Sensors(int Aux_codes_Bank1[][6], int Aux_codes_Bank2[][6]) {
     }
     return Fault;
 }
+ double getbigc(){
 
+   return 10.123;
+}
 int SetBypass(int bank, int ic, int cell, bool value) {
     int fault_value = 0;
     if (value) {

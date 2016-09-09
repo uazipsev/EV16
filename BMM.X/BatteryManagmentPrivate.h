@@ -32,7 +32,7 @@ char CFGR3 = 0;
 char CFGR4 = 0;
 char CFGR5 = 0;
 
-  long double TempK=0;
+   double TempK=0;
   double TempCBank1[NUMBEROFIC][6];
   double TempCBank2[NUMBEROFIC][6];
   double TempBank1[NUMBEROFIC][6];
@@ -40,7 +40,7 @@ char CFGR5 = 0;
    double Vin=3.2;
 int VoltageDividerResistance =10000;
 #define A_Constant 8.42961857*pow(10,-4)
-#define B_Constant .000291205591
+#define B_Constant 3380
 #define C_Constant 1.578649669*pow(10,-7)
 int Over_Temp_Value=0; // TODO create number for this.
 int Over_Voltage_Value = 0x9C4; // Compare Voltage = Over_Voltage_Value*16*100uV  
