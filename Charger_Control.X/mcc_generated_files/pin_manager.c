@@ -76,6 +76,22 @@ void PIN_MANAGER_Initialize(void)
     // enable interrupt-on-change globally
     // interrupts-on-change are globally disabled
     INTCONbits.RBIE = 0;
+    
+    ANSELC = 0;
+    ANSELA = 0;
+    TRISCbits.TRISC0=0;
+    TRISCbits.TRISC1=0;
+    TRISCbits.TRISC2=0;
+    TRISAbits.TRISA6=0;
+    TRISAbits.TRISA7=0;
+    TRISBbits.TRISB3=0;
+    TRISBbits.TRISB4=0;
+    TRISBbits.TRISB5=0;
+    TRISDbits.TRISD4 = 0;
+    
+    LATBbits.LATB3=0;
+    LATBbits.LATB5=0;
+    LATBbits.LATB4=0;
 }
 
 
