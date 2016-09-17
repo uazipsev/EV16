@@ -9,7 +9,7 @@
 #include <stdbool.h>
 #include "I2C.h"
 #include "EEprom.h"
-#include "Function.h"
+#include "Functions.h"
 #include "DriverConfigs.h"
 
 

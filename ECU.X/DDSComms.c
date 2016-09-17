@@ -3,6 +3,7 @@
 #include "FastTransfer1.h"
 #include "SASComms.h"
 #include "Communications.h"
+#include "ThrottleBrakeControl.h"
 
 bool requestDDSData();
 bool receiveCommDDS();

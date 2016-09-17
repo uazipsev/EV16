@@ -55,5 +55,8 @@
 #define RX2_Tris TRISCbits.TRISC9
 #define TX2_Tris TRISDbits.TRISD6
 
+#define THROTTLE_SANITY_CHECK 1
+#define THROTTLE_BRAKE_CHECK 2
+
 #endif	/* PINDEF_H */
 

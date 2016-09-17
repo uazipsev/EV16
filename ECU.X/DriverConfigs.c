@@ -10,6 +10,7 @@
 #include "DriverConfigs.h"
 #include <string.h>
 #include <stdlib.h>
+#include "Functions.h"
 
 char DriverNamesList[40];
 
@@ -49,31 +50,9 @@ char DriverCountNum;
  *******************************************************************/
 void SetUpDataSets(){
     EEpromInit();
-    
-//    ReadCarDriver();
-    ReadThrottlePrecent();
+    SetThrotteMax(ReadThrottlePrecent());
     ReadThrottleTrigger();
     SetBrakeLightValue(ReadBrakeLightTrigger());
-//     char z = 0;
-//    for(z=0;z<50;z++){
-//        writeRegister(ADDRESS, z, z);
-//        Delay(2);
-//    }
-//    Delay(10);
-//    for(z=0;z<50;z++){
-//        readRegister(ADDRESS, z);
-//        Delay(5);
-//    }
-    //This sets up the I2C to EEPROM com's to save car data. 
-
-    //Delay(100);
-    //SaveCarDriverCount(0);
-//    char RCJ[3] = {'R','C','J'};
-//    SaveDriverConfig(RCJ,100,0,100,0,0, 1, 0, 1);
-//    char BKB[3] = {'B','K','B'};
-//    SaveDriverConfig(BKB,100,0,100,0,0, 1, 0, 1);
-//    char TYH[3] = {'T','Y','H'};
-//    SaveDriverConfig(TYH,100,0,100,0,0, 1, 0, 1);
     insert('0');
     DriverCountNum = ReadCarDriverCount();
     int i = 0;

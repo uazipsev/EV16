@@ -19,16 +19,12 @@
 #include "FastTransfer1.h"
 #include "FastTransfer3.h"
 #include "SASComms.h"
+#include "ThrottleBrakeControl.h"
 #include <errno.h>
 
 #define LOW_VOLTAGE_FLAG 1
 #define HIGH_TEMPERATURE_FLAG 2
 #define COMMUNICATIONS_FAULT 3
-
-
-//SAS
-#define THROTTLE_SANITY_CHECK 1
-#define THROTTLE_BRAKE_CHECK  2
 
 double augment[10] = {0.01,-0.04,0.02,0.04,-0.05,0};
 int k = 0;

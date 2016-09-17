@@ -6,6 +6,5 @@ PinDef.h  \
 EEprom.h  \
 Timers.h  \
 DriverConfigs.h  \
-SASComms.h  \
-ADDRESSING.h  \
+ThrottleBrakeControl.h  \
  Communications.h 
