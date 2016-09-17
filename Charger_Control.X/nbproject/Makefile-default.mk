@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=mcc_generated_files/eusart2.c mcc_generated_files/pin_manager.c mcc_generated_files/interrupt_manager.c mcc_generated_files/mcc.c mcc_generated_files/spi1.c mcc_generated_files/tmr0.c main.c Communications.c FastTransfer.c UART.c Functions.c NokiaLCD.c
+SOURCEFILES_QUOTED_IF_SPACED=mcc_generated_files/eusart2.c mcc_generated_files/pin_manager.c mcc_generated_files/interrupt_manager.c mcc_generated_files/mcc.c mcc_generated_files/spi1.c mcc_generated_files/tmr0.c main.c Communications.c FastTransfer.c UART.c Functions.c NokiaLCD.c ChargerComs.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/mcc_generated_files/eusart2.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/mcc_generated_files/spi1.p1 ${OBJECTDIR}/mcc_generated_files/tmr0.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/Communications.p1 ${OBJECTDIR}/FastTransfer.p1 ${OBJECTDIR}/UART.p1 ${OBJECTDIR}/Functions.p1 ${OBJECTDIR}/NokiaLCD.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/mcc_generated_files/eusart2.p1.d ${OBJECTDIR}/mcc_generated_files/pin_manager.p1.d ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1.d ${OBJECTDIR}/mcc_generated_files/mcc.p1.d ${OBJECTDIR}/mcc_generated_files/spi1.p1.d ${OBJECTDIR}/mcc_generated_files/tmr0.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/Communications.p1.d ${OBJECTDIR}/FastTransfer.p1.d ${OBJECTDIR}/UART.p1.d ${OBJECTDIR}/Functions.p1.d ${OBJECTDIR}/NokiaLCD.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/mcc_generated_files/eusart2.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/mcc_generated_files/spi1.p1 ${OBJECTDIR}/mcc_generated_files/tmr0.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/Communications.p1 ${OBJECTDIR}/FastTransfer.p1 ${OBJECTDIR}/UART.p1 ${OBJECTDIR}/Functions.p1 ${OBJECTDIR}/NokiaLCD.p1 ${OBJECTDIR}/ChargerComs.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/mcc_generated_files/eusart2.p1.d ${OBJECTDIR}/mcc_generated_files/pin_manager.p1.d ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1.d ${OBJECTDIR}/mcc_generated_files/mcc.p1.d ${OBJECTDIR}/mcc_generated_files/spi1.p1.d ${OBJECTDIR}/mcc_generated_files/tmr0.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/Communications.p1.d ${OBJECTDIR}/FastTransfer.p1.d ${OBJECTDIR}/UART.p1.d ${OBJECTDIR}/Functions.p1.d ${OBJECTDIR}/NokiaLCD.p1.d ${OBJECTDIR}/ChargerComs.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/mcc_generated_files/eusart2.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/mcc_generated_files/spi1.p1 ${OBJECTDIR}/mcc_generated_files/tmr0.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/Communications.p1 ${OBJECTDIR}/FastTransfer.p1 ${OBJECTDIR}/UART.p1 ${OBJECTDIR}/Functions.p1 ${OBJECTDIR}/NokiaLCD.p1
+OBJECTFILES=${OBJECTDIR}/mcc_generated_files/eusart2.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/mcc_generated_files/spi1.p1 ${OBJECTDIR}/mcc_generated_files/tmr0.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/Communications.p1 ${OBJECTDIR}/FastTransfer.p1 ${OBJECTDIR}/UART.p1 ${OBJECTDIR}/Functions.p1 ${OBJECTDIR}/NokiaLCD.p1 ${OBJECTDIR}/ChargerComs.p1
 
 # Source Files
-SOURCEFILES=mcc_generated_files/eusart2.c mcc_generated_files/pin_manager.c mcc_generated_files/interrupt_manager.c mcc_generated_files/mcc.c mcc_generated_files/spi1.c mcc_generated_files/tmr0.c main.c Communications.c FastTransfer.c UART.c Functions.c NokiaLCD.c
+SOURCEFILES=mcc_generated_files/eusart2.c mcc_generated_files/pin_manager.c mcc_generated_files/interrupt_manager.c mcc_generated_files/mcc.c mcc_generated_files/spi1.c mcc_generated_files/tmr0.c main.c Communications.c FastTransfer.c UART.c Functions.c NokiaLCD.c ChargerComs.c
 
 
 CFLAGS=
@@ -177,6 +177,14 @@ ${OBJECTDIR}/NokiaLCD.p1: NokiaLCD.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/NokiaLCD.d ${OBJECTDIR}/NokiaLCD.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/NokiaLCD.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+${OBJECTDIR}/ChargerComs.p1: ChargerComs.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/ChargerComs.p1.d 
+	@${RM} ${OBJECTDIR}/ChargerComs.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/ChargerComs.p1  ChargerComs.c 
+	@-${MV} ${OBJECTDIR}/ChargerComs.d ${OBJECTDIR}/ChargerComs.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/ChargerComs.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 else
 ${OBJECTDIR}/mcc_generated_files/eusart2.p1: mcc_generated_files/eusart2.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/mcc_generated_files" 
@@ -273,6 +281,14 @@ ${OBJECTDIR}/NokiaLCD.p1: NokiaLCD.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/NokiaLCD.p1  NokiaLCD.c 
 	@-${MV} ${OBJECTDIR}/NokiaLCD.d ${OBJECTDIR}/NokiaLCD.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/NokiaLCD.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/ChargerComs.p1: ChargerComs.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/ChargerComs.p1.d 
+	@${RM} ${OBJECTDIR}/ChargerComs.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/ChargerComs.p1  ChargerComs.c 
+	@-${MV} ${OBJECTDIR}/ChargerComs.d ${OBJECTDIR}/ChargerComs.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/ChargerComs.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 

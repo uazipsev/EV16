@@ -1,31 +1,22 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[p mainexit ]
-"26 mcc_generated_files/mcc.h
-[v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
-"17456 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
-[s S1093 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1093 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
-"17466
-[s S1094 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1094 . . INT0F T0IF . INT0E T0IE PEIE GIE ]
-"17476
-[s S1095 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1095 . . GIEL GIEH ]
-"17455
-[u S1092 `S1093 1 `S1094 1 `S1095 1 ]
-[n S1092 . . . . ]
-"17482
-[v _INTCONbits `VS1092 ~T0 @X0 0 e@4082 ]
-"18833
-[v _LATC1 `Vb ~T0 @X0 0 e@31833 ]
-"18065
-[v _ANSA3 `Vb ~T0 @X0 0 e@31171 ]
-"21 Communications.h
-[v _SetBMM `(uc ~T0 @X0 0 ef ]
-"72 main.c
-[v _updateTimers `(i ~T0 @X0 0 ef ]
-"16 functions.h
-[v _ledDebug `(v ~T0 @X0 0 ef ]
+"102 UART.h
+[s S1126 `uc -> 200 `i `i 1 `i 1 `i 1 ]
+[n S1126 UART_ring_buff buf head tail count ]
+"15 Functions.h
+[v _SetMux `(v ~T0 @X0 0 ef1`uc ]
+"194 C:\Program Files (x86)\Microchip\xc8\v1.37\include\stdio.h
+[v _sprintf `(i ~T0 @X0 0 e1v`*uc`*Cuc ]
+"35 C:\Program Files (x86)\Microchip\xc8\v1.37\include\string.h
+[v _strcpy `(*uc ~T0 @X0 0 ef2`*uc`*Cuc ]
+"195 C:\Program Files (x86)\Microchip\xc8\v1.37\include\stdio.h
+[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"124 UART.h
+[v _Receive_available `(i ~T0 @X0 0 ef ]
+"125
+[v _Receive_get `(uc ~T0 @X0 0 ef ]
+"55 C:\Program Files (x86)\Microchip\xc8\v1.37\include\stdlib.h
+[v _atoi `(i ~T0 @X0 0 ef1`*Cuc ]
+[; ;ChargerComs.h: 11: void SetCharger(char mode, int Current, int Voltage);
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -7352,8 +7343,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 157: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 159: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 161: extern __nonreentrant void _delay3(unsigned char);
-[; ;pin_manager.h: 319: void PIN_MANAGER_Initialize (void);
-[; ;pin_manager.h: 331: void PIN_MANAGER_IOC(void);
+[; ;stdbool.h: 12: typedef unsigned char bool;
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -7382,9 +7372,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 205: typedef uint32_t uintmax_t;
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
-[; ;stdbool.h: 12: typedef unsigned char bool;
-[; ;interrupt_manager.h: 110: void INTERRUPT_Initialize(void);
-[; ;interrupt_manager.h: 122: void interrupt INTERRUPT_InterruptManager(void);
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
@@ -7415,982 +7402,457 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
 [; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 195: extern int printf(const char *, ...);
-[; ;eusart2.h: 78: extern volatile uint8_t eusart2TxBufferRemaining;
-[; ;eusart2.h: 79: extern volatile uint8_t eusart2RxCount;
-[; ;eusart2.h: 107: void EUSART2_Initialize(void);
-[; ;eusart2.h: 156: uint8_t EUSART2_Read(void);
-[; ;eusart2.h: 181: void EUSART2_Write(uint8_t txData);
-[; ;eusart2.h: 202: void EUSART2_Transmit_ISR(void);
-[; ;eusart2.h: 223: void EUSART2_Receive_ISR(void);
-[; ;stddef.h: 6: typedef int ptrdiff_t;
-[; ;spi1.h: 117: void SPI1_Initialize(void);
-[; ;spi1.h: 152: uint8_t SPI1_Exchange8bit(uint8_t data);
-[; ;spi1.h: 192: uint8_t SPI1_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut);
-[; ;spi1.h: 215: bool SPI1_IsBufferFull(void);
-[; ;spi1.h: 240: bool SPI1_HasWriteCollisionOccured(void);
-[; ;spi1.h: 264: void SPI1_ClearWriteCollisionStatus(void);
-[; ;mcc.h: 26: void SYSTEM_Initialize(void);
-[; ;mcc.h: 39: void OSCILLATOR_Initialize(void);
-[; ;functions.h: 13: void Delay(int wait);
-[; ;functions.h: 14: void Precharge(bool OnOff);
-[; ;functions.h: 15: void SetMux(char channel);
-[; ;functions.h: 16: void ledDebug();
-[; ;functions.h: 17: bool GetPowerState();
-[; ;functions.h: 18: void Horn(int time);
-[; ;Communications.h: 15: void CommsStart();
-[; ;Communications.h: 16: void updateComms();
-[; ;Communications.h: 17: extern void sendData(unsigned char whereToSend);
-[; ;Communications.h: 18: extern bool receiveData();
-[; ;Communications.h: 19: extern void ToSend(const unsigned char where, const unsigned int what);
-[; ;Communications.h: 20: void respondChargerAsECU();
-[; ;Communications.h: 21: bool SetBMM();
-[; ;NokiaLCD.h: 11: void gotoXy(unsigned char ,unsigned char );
-[; ;NokiaLCD.h: 12: void NokiaStart(void);
-[; ;NokiaLCD.h: 13: void LcdCharacter(char character);
-[; ;NokiaLCD.h: 14: void clearLcd(void);
-[; ;NokiaLCD.h: 15: void blackLcd(void);
-[; ;NokiaLCD.h: 16: void NokiaStr( char *str);
-[; ;NokiaLCD.h: 17: void LCDwrite(bool mode, char data);
-[; ;NokiaLCD.h: 18: void Splash();
-[v F7877 `Cuc ~T0 @X0 -> 5 `i t ]
-"20 NokiaLCD.h
-[v _FONTLOOKUP `F7877 ~T0 @X0 -> 0 `x e ]
-[i _FONTLOOKUP
-:U ..
-:U ..
-"21
--> -> 0 `i `uc
--> -> 0 `i `uc
--> -> 0 `i `uc
--> -> 0 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"22
--> -> 0 `i `uc
--> -> 0 `i `uc
--> -> 95 `i `uc
--> -> 0 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"23
--> -> 0 `i `uc
--> -> 7 `i `uc
--> -> 0 `i `uc
--> -> 7 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"24
--> -> 20 `i `uc
--> -> 127 `i `uc
--> -> 20 `i `uc
--> -> 127 `i `uc
--> -> 20 `i `uc
-..
-:U ..
-"25
--> -> 36 `i `uc
--> -> 42 `i `uc
--> -> 127 `i `uc
--> -> 42 `i `uc
--> -> 18 `i `uc
-..
-:U ..
-"26
--> -> 35 `i `uc
--> -> 19 `i `uc
--> -> 8 `i `uc
--> -> 100 `i `uc
--> -> 98 `i `uc
-..
-:U ..
-"27
--> -> 54 `i `uc
--> -> 73 `i `uc
--> -> 85 `i `uc
--> -> 34 `i `uc
--> -> 80 `i `uc
-..
-:U ..
-"28
--> -> 0 `i `uc
--> -> 5 `i `uc
--> -> 3 `i `uc
--> -> 0 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"29
--> -> 0 `i `uc
--> -> 28 `i `uc
--> -> 34 `i `uc
--> -> 65 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"30
--> -> 0 `i `uc
--> -> 65 `i `uc
--> -> 34 `i `uc
--> -> 28 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"31
--> -> 20 `i `uc
--> -> 8 `i `uc
--> -> 62 `i `uc
--> -> 8 `i `uc
--> -> 20 `i `uc
-..
-:U ..
-"32
--> -> 8 `i `uc
--> -> 8 `i `uc
--> -> 62 `i `uc
--> -> 8 `i `uc
--> -> 8 `i `uc
-..
-:U ..
-"33
--> -> 0 `i `uc
--> -> 80 `i `uc
--> -> 48 `i `uc
--> -> 0 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"34
--> -> 8 `i `uc
--> -> 8 `i `uc
--> -> 8 `i `uc
--> -> 8 `i `uc
--> -> 8 `i `uc
-..
-:U ..
-"35
--> -> 0 `i `uc
--> -> 96 `i `uc
--> -> 96 `i `uc
--> -> 0 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"36
--> -> 32 `i `uc
--> -> 16 `i `uc
--> -> 8 `i `uc
--> -> 4 `i `uc
--> -> 2 `i `uc
-..
-:U ..
-"37
--> -> 62 `i `uc
--> -> 81 `i `uc
--> -> 73 `i `uc
--> -> 69 `i `uc
--> -> 62 `i `uc
-..
-:U ..
-"38
--> -> 0 `i `uc
--> -> 66 `i `uc
--> -> 127 `i `uc
--> -> 64 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"39
--> -> 66 `i `uc
--> -> 97 `i `uc
--> -> 81 `i `uc
--> -> 73 `i `uc
--> -> 70 `i `uc
-..
-:U ..
-"40
--> -> 33 `i `uc
--> -> 65 `i `uc
--> -> 69 `i `uc
--> -> 75 `i `uc
--> -> 49 `i `uc
-..
-:U ..
-"41
--> -> 24 `i `uc
--> -> 20 `i `uc
--> -> 18 `i `uc
--> -> 127 `i `uc
--> -> 16 `i `uc
-..
-:U ..
-"42
--> -> 39 `i `uc
--> -> 69 `i `uc
--> -> 69 `i `uc
--> -> 69 `i `uc
--> -> 57 `i `uc
-..
-:U ..
-"43
--> -> 60 `i `uc
--> -> 74 `i `uc
--> -> 73 `i `uc
--> -> 73 `i `uc
--> -> 48 `i `uc
-..
-:U ..
-"44
--> -> 1 `i `uc
--> -> 113 `i `uc
--> -> 9 `i `uc
--> -> 5 `i `uc
--> -> 3 `i `uc
-..
-:U ..
-"45
--> -> 54 `i `uc
--> -> 73 `i `uc
--> -> 73 `i `uc
--> -> 73 `i `uc
--> -> 54 `i `uc
-..
-:U ..
-"46
--> -> 6 `i `uc
--> -> 73 `i `uc
--> -> 73 `i `uc
--> -> 41 `i `uc
--> -> 30 `i `uc
-..
-:U ..
-"47
--> -> 0 `i `uc
--> -> 54 `i `uc
--> -> 54 `i `uc
--> -> 0 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"48
--> -> 0 `i `uc
--> -> 86 `i `uc
--> -> 54 `i `uc
--> -> 0 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"49
--> -> 8 `i `uc
--> -> 20 `i `uc
--> -> 34 `i `uc
--> -> 65 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"50
--> -> 20 `i `uc
--> -> 20 `i `uc
--> -> 20 `i `uc
--> -> 20 `i `uc
--> -> 20 `i `uc
-..
-:U ..
-"51
--> -> 0 `i `uc
--> -> 65 `i `uc
--> -> 34 `i `uc
--> -> 20 `i `uc
--> -> 8 `i `uc
-..
-:U ..
-"52
--> -> 2 `i `uc
--> -> 1 `i `uc
--> -> 81 `i `uc
--> -> 9 `i `uc
--> -> 6 `i `uc
-..
-:U ..
-"53
--> -> 50 `i `uc
--> -> 73 `i `uc
--> -> 121 `i `uc
--> -> 65 `i `uc
--> -> 62 `i `uc
-..
-:U ..
-"54
--> -> 126 `i `uc
--> -> 17 `i `uc
--> -> 17 `i `uc
--> -> 17 `i `uc
--> -> 126 `i `uc
-..
-:U ..
-"55
--> -> 127 `i `uc
--> -> 73 `i `uc
--> -> 73 `i `uc
--> -> 73 `i `uc
--> -> 54 `i `uc
-..
-:U ..
-"56
--> -> 62 `i `uc
--> -> 65 `i `uc
--> -> 65 `i `uc
--> -> 65 `i `uc
--> -> 34 `i `uc
-..
-:U ..
-"57
--> -> 127 `i `uc
--> -> 65 `i `uc
--> -> 65 `i `uc
--> -> 34 `i `uc
--> -> 28 `i `uc
-..
-:U ..
-"58
--> -> 127 `i `uc
--> -> 73 `i `uc
--> -> 73 `i `uc
--> -> 73 `i `uc
--> -> 65 `i `uc
-..
-:U ..
-"59
--> -> 127 `i `uc
--> -> 9 `i `uc
--> -> 9 `i `uc
--> -> 9 `i `uc
--> -> 1 `i `uc
-..
-:U ..
-"60
--> -> 62 `i `uc
--> -> 65 `i `uc
--> -> 73 `i `uc
--> -> 73 `i `uc
--> -> 122 `i `uc
-..
-:U ..
-"61
--> -> 127 `i `uc
--> -> 8 `i `uc
--> -> 8 `i `uc
--> -> 8 `i `uc
--> -> 127 `i `uc
-..
-:U ..
-"62
--> -> 0 `i `uc
--> -> 65 `i `uc
--> -> 127 `i `uc
--> -> 65 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"63
--> -> 32 `i `uc
--> -> 64 `i `uc
--> -> 65 `i `uc
--> -> 63 `i `uc
--> -> 1 `i `uc
-..
-:U ..
-"64
--> -> 127 `i `uc
--> -> 8 `i `uc
--> -> 20 `i `uc
--> -> 34 `i `uc
--> -> 65 `i `uc
-..
-:U ..
-"65
--> -> 127 `i `uc
--> -> 64 `i `uc
--> -> 64 `i `uc
--> -> 64 `i `uc
--> -> 64 `i `uc
-..
-:U ..
-"66
--> -> 127 `i `uc
--> -> 2 `i `uc
--> -> 12 `i `uc
--> -> 2 `i `uc
--> -> 127 `i `uc
-..
-:U ..
-"67
--> -> 127 `i `uc
--> -> 4 `i `uc
--> -> 8 `i `uc
--> -> 16 `i `uc
--> -> 127 `i `uc
-..
-:U ..
-"68
--> -> 62 `i `uc
--> -> 65 `i `uc
--> -> 65 `i `uc
--> -> 65 `i `uc
--> -> 62 `i `uc
-..
-:U ..
-"69
--> -> 127 `i `uc
--> -> 9 `i `uc
--> -> 9 `i `uc
--> -> 9 `i `uc
--> -> 6 `i `uc
-..
-:U ..
-"70
--> -> 62 `i `uc
--> -> 65 `i `uc
--> -> 81 `i `uc
--> -> 33 `i `uc
--> -> 94 `i `uc
-..
-:U ..
-"71
--> -> 127 `i `uc
--> -> 9 `i `uc
--> -> 25 `i `uc
--> -> 41 `i `uc
--> -> 70 `i `uc
-..
-:U ..
-"72
--> -> 70 `i `uc
--> -> 73 `i `uc
--> -> 73 `i `uc
--> -> 73 `i `uc
--> -> 49 `i `uc
-..
-:U ..
-"73
--> -> 1 `i `uc
--> -> 1 `i `uc
--> -> 127 `i `uc
--> -> 1 `i `uc
--> -> 1 `i `uc
-..
-:U ..
-"74
--> -> 63 `i `uc
--> -> 64 `i `uc
--> -> 64 `i `uc
--> -> 64 `i `uc
--> -> 63 `i `uc
-..
-:U ..
-"75
--> -> 31 `i `uc
--> -> 32 `i `uc
--> -> 64 `i `uc
--> -> 32 `i `uc
--> -> 31 `i `uc
-..
-:U ..
-"76
--> -> 63 `i `uc
--> -> 64 `i `uc
--> -> 56 `i `uc
--> -> 64 `i `uc
--> -> 63 `i `uc
-..
-:U ..
-"77
--> -> 99 `i `uc
--> -> 20 `i `uc
--> -> 8 `i `uc
--> -> 20 `i `uc
--> -> 99 `i `uc
-..
-:U ..
-"78
--> -> 7 `i `uc
--> -> 8 `i `uc
--> -> 112 `i `uc
--> -> 8 `i `uc
--> -> 7 `i `uc
-..
-:U ..
-"79
--> -> 97 `i `uc
--> -> 81 `i `uc
--> -> 73 `i `uc
--> -> 69 `i `uc
--> -> 67 `i `uc
-..
-:U ..
-"80
--> -> 0 `i `uc
--> -> 127 `i `uc
--> -> 65 `i `uc
--> -> 65 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"81
--> -> 2 `i `uc
--> -> 4 `i `uc
--> -> 8 `i `uc
--> -> 16 `i `uc
--> -> 32 `i `uc
-..
-:U ..
-"82
--> -> 0 `i `uc
--> -> 65 `i `uc
--> -> 65 `i `uc
--> -> 127 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"83
--> -> 4 `i `uc
--> -> 2 `i `uc
--> -> 1 `i `uc
--> -> 2 `i `uc
--> -> 4 `i `uc
-..
-:U ..
-"84
--> -> 64 `i `uc
--> -> 64 `i `uc
--> -> 64 `i `uc
--> -> 64 `i `uc
--> -> 64 `i `uc
-..
-:U ..
-"85
--> -> 0 `i `uc
--> -> 1 `i `uc
--> -> 2 `i `uc
--> -> 4 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"86
--> -> 32 `i `uc
--> -> 84 `i `uc
--> -> 84 `i `uc
--> -> 84 `i `uc
--> -> 120 `i `uc
-..
-:U ..
-"87
--> -> 127 `i `uc
--> -> 72 `i `uc
--> -> 68 `i `uc
--> -> 68 `i `uc
--> -> 56 `i `uc
-..
-:U ..
-"88
--> -> 56 `i `uc
--> -> 68 `i `uc
--> -> 68 `i `uc
--> -> 68 `i `uc
--> -> 32 `i `uc
-..
-:U ..
-"89
--> -> 56 `i `uc
--> -> 68 `i `uc
--> -> 68 `i `uc
--> -> 72 `i `uc
--> -> 127 `i `uc
-..
-:U ..
-"90
--> -> 56 `i `uc
--> -> 84 `i `uc
--> -> 84 `i `uc
--> -> 84 `i `uc
--> -> 24 `i `uc
-..
-:U ..
-"91
--> -> 8 `i `uc
--> -> 126 `i `uc
--> -> 9 `i `uc
--> -> 1 `i `uc
--> -> 2 `i `uc
-..
-:U ..
-"92
--> -> 12 `i `uc
--> -> 82 `i `uc
--> -> 82 `i `uc
--> -> 82 `i `uc
--> -> 62 `i `uc
-..
-:U ..
-"93
--> -> 127 `i `uc
--> -> 8 `i `uc
--> -> 4 `i `uc
--> -> 4 `i `uc
--> -> 120 `i `uc
-..
-:U ..
-"94
--> -> 0 `i `uc
--> -> 68 `i `uc
--> -> 125 `i `uc
--> -> 64 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"95
--> -> 32 `i `uc
--> -> 64 `i `uc
--> -> 68 `i `uc
--> -> 61 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"96
--> -> 127 `i `uc
--> -> 16 `i `uc
--> -> 40 `i `uc
--> -> 68 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"97
--> -> 0 `i `uc
--> -> 65 `i `uc
--> -> 127 `i `uc
--> -> 64 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"98
--> -> 124 `i `uc
--> -> 4 `i `uc
--> -> 24 `i `uc
--> -> 4 `i `uc
--> -> 120 `i `uc
-..
-:U ..
-"99
--> -> 124 `i `uc
--> -> 8 `i `uc
--> -> 4 `i `uc
--> -> 4 `i `uc
--> -> 120 `i `uc
-..
-:U ..
-"100
--> -> 56 `i `uc
--> -> 68 `i `uc
--> -> 68 `i `uc
--> -> 68 `i `uc
--> -> 56 `i `uc
-..
-:U ..
-"101
--> -> 124 `i `uc
--> -> 20 `i `uc
--> -> 20 `i `uc
--> -> 20 `i `uc
--> -> 8 `i `uc
-..
-:U ..
-"102
--> -> 8 `i `uc
--> -> 20 `i `uc
--> -> 20 `i `uc
--> -> 24 `i `uc
--> -> 124 `i `uc
-..
-:U ..
-"103
--> -> 124 `i `uc
--> -> 8 `i `uc
--> -> 4 `i `uc
--> -> 4 `i `uc
--> -> 8 `i `uc
-..
-:U ..
-"104
--> -> 72 `i `uc
--> -> 84 `i `uc
--> -> 84 `i `uc
--> -> 84 `i `uc
--> -> 32 `i `uc
-..
-:U ..
-"105
--> -> 4 `i `uc
--> -> 63 `i `uc
--> -> 68 `i `uc
--> -> 64 `i `uc
--> -> 32 `i `uc
-..
-:U ..
-"106
--> -> 60 `i `uc
--> -> 64 `i `uc
--> -> 64 `i `uc
--> -> 32 `i `uc
--> -> 124 `i `uc
-..
-:U ..
-"107
--> -> 28 `i `uc
--> -> 32 `i `uc
--> -> 64 `i `uc
--> -> 32 `i `uc
--> -> 28 `i `uc
-..
-:U ..
-"108
--> -> 60 `i `uc
--> -> 64 `i `uc
--> -> 48 `i `uc
--> -> 64 `i `uc
--> -> 60 `i `uc
-..
-:U ..
-"109
--> -> 68 `i `uc
--> -> 40 `i `uc
--> -> 16 `i `uc
--> -> 40 `i `uc
--> -> 68 `i `uc
-..
-:U ..
+[; ;stdlib.h: 7: typedef unsigned short wchar_t;
+[; ;stdlib.h: 15: typedef struct {
+[; ;stdlib.h: 16: int rem;
+[; ;stdlib.h: 17: int quot;
+[; ;stdlib.h: 18: } div_t;
+[; ;stdlib.h: 19: typedef struct {
+[; ;stdlib.h: 20: unsigned rem;
+[; ;stdlib.h: 21: unsigned quot;
+[; ;stdlib.h: 22: } udiv_t;
+[; ;stdlib.h: 23: typedef struct {
+[; ;stdlib.h: 24: long quot;
+[; ;stdlib.h: 25: long rem;
+[; ;stdlib.h: 26: } ldiv_t;
+[; ;stdlib.h: 27: typedef struct {
+[; ;stdlib.h: 28: unsigned long quot;
+[; ;stdlib.h: 29: unsigned long rem;
+[; ;stdlib.h: 30: } uldiv_t;
+[; ;stdlib.h: 53: extern double atof(const char *);
+[; ;stdlib.h: 54: extern double strtod(const char *, const char **);
+[; ;stdlib.h: 55: extern int atoi(const char *);
+[; ;stdlib.h: 56: extern unsigned xtoi(const char *);
+[; ;stdlib.h: 57: extern long atol(const char *);
+[; ;stdlib.h: 58: extern long strtol(const char *, char **, int);
+[; ;stdlib.h: 60: extern int rand(void);
+[; ;stdlib.h: 61: extern void srand(unsigned int);
+[; ;stdlib.h: 62: extern void * calloc(size_t, size_t);
+[; ;stdlib.h: 63: extern div_t div(int numer, int denom);
+[; ;stdlib.h: 64: extern udiv_t udiv(unsigned numer, unsigned denom);
+[; ;stdlib.h: 65: extern ldiv_t ldiv(long numer, long denom);
+[; ;stdlib.h: 66: extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
+[; ;stdlib.h: 67: extern unsigned long _lrotl(unsigned long value, unsigned int shift);
+[; ;stdlib.h: 68: extern unsigned long _lrotr(unsigned long value, unsigned int shift);
+[; ;stdlib.h: 69: extern unsigned int _rotl(unsigned int value, unsigned int shift);
+[; ;stdlib.h: 70: extern unsigned int _rotr(unsigned int value, unsigned int shift);
+[; ;stdlib.h: 75: extern void * malloc(size_t);
+[; ;stdlib.h: 76: extern void free(void *);
+[; ;stdlib.h: 77: extern void * realloc(void *, size_t);
+[; ;stdlib.h: 86: extern int atexit(void (*)(void));
+[; ;stdlib.h: 87: extern char * getenv(const char *);
+[; ;stdlib.h: 88: extern char ** environ;
+[; ;stdlib.h: 89: extern int system(char *);
+[; ;stdlib.h: 90: extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
+[; ;stdlib.h: 91: extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
+[; ;stdlib.h: 92: extern int abs(int);
+[; ;stdlib.h: 93: extern long labs(long);
+[; ;stdlib.h: 95: extern char * itoa(char * buf, int val, int base);
+[; ;stdlib.h: 96: extern char * utoa(char * buf, unsigned val, int base);
+[; ;stdlib.h: 101: extern char * ltoa(char * buf, long val, int base);
+[; ;stdlib.h: 102: extern char * ultoa(char * buf, unsigned long val, int base);
+[; ;stdlib.h: 104: extern char * ftoa(float f, int * status);
+[; ;UART.h: 23: uint8_t EUSART1_Read(void);
+[; ;UART.h: 48: void EUSART1_Write(uint8_t txData);
+[; ;UART.h: 69: void EUSART1_Transmit_ISR(void);
+[; ;UART.h: 90: void EUSART1_Receive_ISR(void);
+[; ;UART.h: 92: char getch(void);
+[; ;UART.h: 93: void putch(char txData);
+[; ;UART.h: 99: extern volatile unsigned int talkTime;
+[; ;UART.h: 100: void *memset(void *s, int c, size_t n);
+[; ;UART.h: 102: struct UART_ring_buff {
+[; ;UART.h: 103: unsigned char buf[200];
+[; ;UART.h: 104: int head;
+[; ;UART.h: 105: int tail;
+[; ;UART.h: 106: int count;
+[; ;UART.h: 107: };
+"109 UART.h
+[v _input_buffer `S1126 ~T0 @X0 1 e ]
+[; ;UART.h: 109: struct UART_ring_buff input_buffer;
 "110
--> -> 12 `i `uc
--> -> 80 `i `uc
--> -> 80 `i `uc
--> -> 80 `i `uc
--> -> 60 `i `uc
-..
-:U ..
-"111
--> -> 68 `i `uc
--> -> 100 `i `uc
--> -> 84 `i `uc
--> -> 76 `i `uc
--> -> 68 `i `uc
-..
-:U ..
+[v _output_buffer `S1126 ~T0 @X0 1 e ]
+[; ;UART.h: 110: struct UART_ring_buff output_buffer;
 "112
--> -> 0 `i `uc
--> -> 8 `i `uc
--> -> 54 `i `uc
--> -> 65 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"113
--> -> 0 `i `uc
--> -> 0 `i `uc
--> -> 127 `i `uc
--> -> 0 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"114
--> -> 0 `i `uc
--> -> 65 `i `uc
--> -> 54 `i `uc
--> -> 8 `i `uc
--> -> 0 `i `uc
-..
-:U ..
-"115
--> -> 16 `i `uc
--> -> 8 `i `uc
--> -> 8 `i `uc
--> -> 16 `i `uc
--> -> 8 `i `uc
-..
-:U ..
-"116
--> -> 120 `i `uc
--> -> 70 `i `uc
--> -> 65 `i `uc
--> -> 70 `i `uc
--> -> 120 `i `uc
-..
-..
+[v _Transmit_stall `uc ~T0 @X0 1 e ]
+[i _Transmit_stall
+-> -> 1 `i `uc
 ]
-[; ;NokiaLCD.h: 20: const char FONTLOOKUP [][5]= {
-[; ;NokiaLCD.h: 21: {0x00, 0x00, 0x00, 0x00, 0x00}
-[; ;NokiaLCD.h: 22: ,{0x00, 0x00, 0x5f, 0x00, 0x00}
-[; ;NokiaLCD.h: 23: ,{0x00, 0x07, 0x00, 0x07, 0x00}
-[; ;NokiaLCD.h: 24: ,{0x14, 0x7f, 0x14, 0x7f, 0x14}
-[; ;NokiaLCD.h: 25: ,{0x24, 0x2a, 0x7f, 0x2a, 0x12}
-[; ;NokiaLCD.h: 26: ,{0x23, 0x13, 0x08, 0x64, 0x62}
-[; ;NokiaLCD.h: 27: ,{0x36, 0x49, 0x55, 0x22, 0x50}
-[; ;NokiaLCD.h: 28: ,{0x00, 0x05, 0x03, 0x00, 0x00}
-[; ;NokiaLCD.h: 29: ,{0x00, 0x1c, 0x22, 0x41, 0x00}
-[; ;NokiaLCD.h: 30: ,{0x00, 0x41, 0x22, 0x1c, 0x00}
-[; ;NokiaLCD.h: 31: ,{0x14, 0x08, 0x3e, 0x08, 0x14}
-[; ;NokiaLCD.h: 32: ,{0x08, 0x08, 0x3e, 0x08, 0x08}
-[; ;NokiaLCD.h: 33: ,{0x00, 0x50, 0x30, 0x00, 0x00}
-[; ;NokiaLCD.h: 34: ,{0x08, 0x08, 0x08, 0x08, 0x08}
-[; ;NokiaLCD.h: 35: ,{0x00, 0x60, 0x60, 0x00, 0x00}
-[; ;NokiaLCD.h: 36: ,{0x20, 0x10, 0x08, 0x04, 0x02}
-[; ;NokiaLCD.h: 37: ,{0x3e, 0x51, 0x49, 0x45, 0x3e}
-[; ;NokiaLCD.h: 38: ,{0x00, 0x42, 0x7f, 0x40, 0x00}
-[; ;NokiaLCD.h: 39: ,{0x42, 0x61, 0x51, 0x49, 0x46}
-[; ;NokiaLCD.h: 40: ,{0x21, 0x41, 0x45, 0x4b, 0x31}
-[; ;NokiaLCD.h: 41: ,{0x18, 0x14, 0x12, 0x7f, 0x10}
-[; ;NokiaLCD.h: 42: ,{0x27, 0x45, 0x45, 0x45, 0x39}
-[; ;NokiaLCD.h: 43: ,{0x3c, 0x4a, 0x49, 0x49, 0x30}
-[; ;NokiaLCD.h: 44: ,{0x01, 0x71, 0x09, 0x05, 0x03}
-[; ;NokiaLCD.h: 45: ,{0x36, 0x49, 0x49, 0x49, 0x36}
-[; ;NokiaLCD.h: 46: ,{0x06, 0x49, 0x49, 0x29, 0x1e}
-[; ;NokiaLCD.h: 47: ,{0x00, 0x36, 0x36, 0x00, 0x00}
-[; ;NokiaLCD.h: 48: ,{0x00, 0x56, 0x36, 0x00, 0x00}
-[; ;NokiaLCD.h: 49: ,{0x08, 0x14, 0x22, 0x41, 0x00}
-[; ;NokiaLCD.h: 50: ,{0x14, 0x14, 0x14, 0x14, 0x14}
-[; ;NokiaLCD.h: 51: ,{0x00, 0x41, 0x22, 0x14, 0x08}
-[; ;NokiaLCD.h: 52: ,{0x02, 0x01, 0x51, 0x09, 0x06}
-[; ;NokiaLCD.h: 53: ,{0x32, 0x49, 0x79, 0x41, 0x3e}
-[; ;NokiaLCD.h: 54: ,{0x7e, 0x11, 0x11, 0x11, 0x7e}
-[; ;NokiaLCD.h: 55: ,{0x7f, 0x49, 0x49, 0x49, 0x36}
-[; ;NokiaLCD.h: 56: ,{0x3e, 0x41, 0x41, 0x41, 0x22}
-[; ;NokiaLCD.h: 57: ,{0x7f, 0x41, 0x41, 0x22, 0x1c}
-[; ;NokiaLCD.h: 58: ,{0x7f, 0x49, 0x49, 0x49, 0x41}
-[; ;NokiaLCD.h: 59: ,{0x7f, 0x09, 0x09, 0x09, 0x01}
-[; ;NokiaLCD.h: 60: ,{0x3e, 0x41, 0x49, 0x49, 0x7a}
-[; ;NokiaLCD.h: 61: ,{0x7f, 0x08, 0x08, 0x08, 0x7f}
-[; ;NokiaLCD.h: 62: ,{0x00, 0x41, 0x7f, 0x41, 0x00}
-[; ;NokiaLCD.h: 63: ,{0x20, 0x40, 0x41, 0x3f, 0x01}
-[; ;NokiaLCD.h: 64: ,{0x7f, 0x08, 0x14, 0x22, 0x41}
-[; ;NokiaLCD.h: 65: ,{0x7f, 0x40, 0x40, 0x40, 0x40}
-[; ;NokiaLCD.h: 66: ,{0x7f, 0x02, 0x0c, 0x02, 0x7f}
-[; ;NokiaLCD.h: 67: ,{0x7f, 0x04, 0x08, 0x10, 0x7f}
-[; ;NokiaLCD.h: 68: ,{0x3e, 0x41, 0x41, 0x41, 0x3e}
-[; ;NokiaLCD.h: 69: ,{0x7f, 0x09, 0x09, 0x09, 0x06}
-[; ;NokiaLCD.h: 70: ,{0x3e, 0x41, 0x51, 0x21, 0x5e}
-[; ;NokiaLCD.h: 71: ,{0x7f, 0x09, 0x19, 0x29, 0x46}
-[; ;NokiaLCD.h: 72: ,{0x46, 0x49, 0x49, 0x49, 0x31}
-[; ;NokiaLCD.h: 73: ,{0x01, 0x01, 0x7f, 0x01, 0x01}
-[; ;NokiaLCD.h: 74: ,{0x3f, 0x40, 0x40, 0x40, 0x3f}
-[; ;NokiaLCD.h: 75: ,{0x1f, 0x20, 0x40, 0x20, 0x1f}
-[; ;NokiaLCD.h: 76: ,{0x3f, 0x40, 0x38, 0x40, 0x3f}
-[; ;NokiaLCD.h: 77: ,{0x63, 0x14, 0x08, 0x14, 0x63}
-[; ;NokiaLCD.h: 78: ,{0x07, 0x08, 0x70, 0x08, 0x07}
-[; ;NokiaLCD.h: 79: ,{0x61, 0x51, 0x49, 0x45, 0x43}
-[; ;NokiaLCD.h: 80: ,{0x00, 0x7f, 0x41, 0x41, 0x00}
-[; ;NokiaLCD.h: 81: ,{0x02, 0x04, 0x08, 0x10, 0x20}
-[; ;NokiaLCD.h: 82: ,{0x00, 0x41, 0x41, 0x7f, 0x00}
-[; ;NokiaLCD.h: 83: ,{0x04, 0x02, 0x01, 0x02, 0x04}
-[; ;NokiaLCD.h: 84: ,{0x40, 0x40, 0x40, 0x40, 0x40}
-[; ;NokiaLCD.h: 85: ,{0x00, 0x01, 0x02, 0x04, 0x00}
-[; ;NokiaLCD.h: 86: ,{0x20, 0x54, 0x54, 0x54, 0x78}
-[; ;NokiaLCD.h: 87: ,{0x7f, 0x48, 0x44, 0x44, 0x38}
-[; ;NokiaLCD.h: 88: ,{0x38, 0x44, 0x44, 0x44, 0x20}
-[; ;NokiaLCD.h: 89: ,{0x38, 0x44, 0x44, 0x48, 0x7f}
-[; ;NokiaLCD.h: 90: ,{0x38, 0x54, 0x54, 0x54, 0x18}
-[; ;NokiaLCD.h: 91: ,{0x08, 0x7e, 0x09, 0x01, 0x02}
-[; ;NokiaLCD.h: 92: ,{0x0c, 0x52, 0x52, 0x52, 0x3e}
-[; ;NokiaLCD.h: 93: ,{0x7f, 0x08, 0x04, 0x04, 0x78}
-[; ;NokiaLCD.h: 94: ,{0x00, 0x44, 0x7d, 0x40, 0x00}
-[; ;NokiaLCD.h: 95: ,{0x20, 0x40, 0x44, 0x3d, 0x00}
-[; ;NokiaLCD.h: 96: ,{0x7f, 0x10, 0x28, 0x44, 0x00}
-[; ;NokiaLCD.h: 97: ,{0x00, 0x41, 0x7f, 0x40, 0x00}
-[; ;NokiaLCD.h: 98: ,{0x7c, 0x04, 0x18, 0x04, 0x78}
-[; ;NokiaLCD.h: 99: ,{0x7c, 0x08, 0x04, 0x04, 0x78}
-[; ;NokiaLCD.h: 100: ,{0x38, 0x44, 0x44, 0x44, 0x38}
-[; ;NokiaLCD.h: 101: ,{0x7c, 0x14, 0x14, 0x14, 0x08}
-[; ;NokiaLCD.h: 102: ,{0x08, 0x14, 0x14, 0x18, 0x7c}
-[; ;NokiaLCD.h: 103: ,{0x7c, 0x08, 0x04, 0x04, 0x08}
-[; ;NokiaLCD.h: 104: ,{0x48, 0x54, 0x54, 0x54, 0x20}
-[; ;NokiaLCD.h: 105: ,{0x04, 0x3f, 0x44, 0x40, 0x20}
-[; ;NokiaLCD.h: 106: ,{0x3c, 0x40, 0x40, 0x20, 0x7c}
-[; ;NokiaLCD.h: 107: ,{0x1c, 0x20, 0x40, 0x20, 0x1c}
-[; ;NokiaLCD.h: 108: ,{0x3c, 0x40, 0x30, 0x40, 0x3c}
-[; ;NokiaLCD.h: 109: ,{0x44, 0x28, 0x10, 0x28, 0x44}
-[; ;NokiaLCD.h: 110: ,{0x0c, 0x50, 0x50, 0x50, 0x3c}
-[; ;NokiaLCD.h: 111: ,{0x44, 0x64, 0x54, 0x4c, 0x44}
-[; ;NokiaLCD.h: 112: ,{0x00, 0x08, 0x36, 0x41, 0x00}
-[; ;NokiaLCD.h: 113: ,{0x00, 0x00, 0x7f, 0x00, 0x00}
-[; ;NokiaLCD.h: 114: ,{0x00, 0x41, 0x36, 0x08, 0x00}
-[; ;NokiaLCD.h: 115: ,{0x10, 0x08, 0x08, 0x10, 0x08}
-[; ;NokiaLCD.h: 116: ,{0x78, 0x46, 0x41, 0x46, 0x78}
-[; ;NokiaLCD.h: 117: };
-"12 main.c
-[v _Start `i ~T0 @X0 1 e ]
-[i _Start
+[; ;UART.h: 112: bool Transmit_stall = 1;
+[; ;UART.h: 113: void EUSART1_Initialize(void);
+[; ;UART.h: 114: void UART_buff_init(struct UART_ring_buff* _this);
+[; ;UART.h: 115: void UART_buff_put(struct UART_ring_buff* _this, const unsigned char c);
+[; ;UART.h: 116: unsigned char UART_buff_get(struct UART_ring_buff* _this);
+[; ;UART.h: 117: void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
+[; ;UART.h: 118: int UART_buff_size(struct UART_ring_buff* _this);
+[; ;UART.h: 119: unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
+[; ;UART.h: 120: unsigned char UART_buff_peek(struct UART_ring_buff* _this);
+[; ;UART.h: 123: unsigned char Receive_peek(void);
+[; ;UART.h: 124: int Receive_available(void);
+[; ;UART.h: 125: unsigned char Receive_get(void);
+[; ;UART.h: 126: void Send_put(unsigned char _data);
+[; ;Functions.h: 13: void Delay(int wait);
+[; ;Functions.h: 14: void Precharge(bool OnOff);
+[; ;Functions.h: 15: void SetMux(char channel);
+[; ;Functions.h: 16: void ledDebug();
+[; ;Functions.h: 17: bool GetPowerState();
+[; ;Functions.h: 18: void Horn(int time);
+[; ;string.h: 14: extern void * memcpy(void *, const void *, size_t);
+[; ;string.h: 15: extern void * memmove(void *, const void *, size_t);
+[; ;string.h: 16: extern void * memset(void *, int, size_t);
+[; ;string.h: 34: extern char * strcat(char *, const char *);
+[; ;string.h: 35: extern char * strcpy(char *, const char *);
+[; ;string.h: 36: extern char * strncat(char *, const char *, size_t);
+[; ;string.h: 37: extern char * strncpy(char *, const char *, size_t);
+[; ;string.h: 38: extern char * strdup(const char *);
+[; ;string.h: 39: extern char * strtok(char *, const char *);
+[; ;string.h: 42: extern int memcmp(const void *, const void *, size_t);
+[; ;string.h: 43: extern int strcmp(const char *, const char *);
+[; ;string.h: 44: extern int stricmp(const char *, const char *);
+[; ;string.h: 45: extern int strncmp(const char *, const char *, size_t);
+[; ;string.h: 46: extern int strnicmp(const char *, const char *, size_t);
+[; ;string.h: 47: extern void * memchr(const void *, int, size_t);
+[; ;string.h: 48: extern size_t strcspn(const char *, const char *);
+[; ;string.h: 49: extern char * strpbrk(const char *, const char *);
+[; ;string.h: 50: extern size_t strspn(const char *, const char *);
+[; ;string.h: 51: extern char * strstr(const char *, const char *);
+[; ;string.h: 52: extern char * stristr(const char *, const char *);
+[; ;string.h: 53: extern char * strerror(int);
+[; ;string.h: 54: extern size_t strlen(const char *);
+[; ;string.h: 55: extern char * strchr(const char *, int);
+[; ;string.h: 56: extern char * strichr(const char *, int);
+[; ;string.h: 57: extern char * strrchr(const char *, int);
+[; ;string.h: 58: extern char * strrichr(const char *, int);
+"13 ChargerComs.c
+[v _ChargerData `uc ~T0 @X0 -> 40 `i e ]
+[; ;ChargerComs.c: 13: char ChargerData[40];
+"15
+[v _Duty `i ~T0 @X0 1 e ]
+[i _Duty
 -> 0 `i
 ]
-[; ;main.c: 12: int Start = 0;
-"13
-[v _i `uc ~T0 @X0 1 e ]
-[; ;main.c: 13: char i;
-"14
-[v _ddata `uc ~T0 @X0 -> 11 `i e ]
-[; ;main.c: 14: char ddata[11];
+[; ;ChargerComs.c: 15: int Duty = 0;
 "16
-[v _main `(v ~T0 @X0 1 ef ]
-{
-[; ;main.c: 16: void main(void) {
-[e :U _main ]
-[f ]
-[; ;main.c: 18: SYSTEM_Initialize();
+[v _Current `i ~T0 @X0 1 e ]
+[i _Current
+-> 0 `i
+]
+[; ;ChargerComs.c: 16: int Current = 0;
+"17
+[v _VoltOut `i ~T0 @X0 1 e ]
+[i _VoltOut
+-> 0 `i
+]
+[; ;ChargerComs.c: 17: int VoltOut = 0;
 "18
-[e ( _SYSTEM_Initialize ..  ]
-[; ;main.c: 37: (INTCONbits.GIE = 1);
+[v _HeatsinkTemp `i ~T0 @X0 1 e ]
+[i _HeatsinkTemp
+-> 0 `i
+]
+[; ;ChargerComs.c: 18: int HeatsinkTemp = 0;
+"19
+[v _Charge `i ~T0 @X0 1 e ]
+[i _Charge
+-> 0 `i
+]
+[; ;ChargerComs.c: 19: int Charge = 0;
+"30
+[v _SetCharger `(v ~T0 @X0 1 ef3`uc`i`i ]
+{
+[; ;ChargerComs.c: 30: void SetCharger(char mode, int Current, int Voltage){
+[e :U _SetCharger ]
+[v _mode `uc ~T0 @X0 1 r1 ]
+[v _Current `i ~T0 @X0 1 r2 ]
+[v _Voltage `i ~T0 @X0 1 r3 ]
+[f ]
+"31
+[v _str `uc ~T0 @X0 -> 10 `i a ]
+[; ;ChargerComs.c: 31: char str[10];
+[; ;ChargerComs.c: 32: if(mode == 1){
+"32
+[e $ ! == -> _mode `i -> 1 `i 1128  ]
+{
+[; ;ChargerComs.c: 34: SetMux(1);
+"34
+[e ( _SetMux (1 -> -> 1 `i `uc ]
+[; ;ChargerComs.c: 37: sprintf(str, "M,");
 "37
-[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-[; ;main.c: 40: (INTCONbits.PEIE = 1);
+[e ( _sprintf (1 , &U _str :s 1C ]
+[; ;ChargerComs.c: 38: strcpy(ChargerData, str);
+"38
+[e ( _strcpy (2 , &U _ChargerData -> &U _str `*Cuc ]
+[; ;ChargerComs.c: 39: printf("%s",ChargerData);
+"39
+[e ( _printf , (. :s 2C -> &U _ChargerData `*Cuc ]
+[; ;ChargerComs.c: 40: sprintf(str, "%03d,", 001);
 "40
-[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
-[; ;main.c: 55: do { LATC1 = 1; } while(0);
-"55
-[e :U 1125 ]
-{
-[e = _LATC1 -> -> 1 `i `b ]
+[e ( _sprintf (1 , (. , &U _str :s 3C -> 1 `i ]
+[; ;ChargerComs.c: 41: strcpy(ChargerData, str);
+"41
+[e ( _strcpy (2 , &U _ChargerData -> &U _str `*Cuc ]
+[; ;ChargerComs.c: 42: printf("%s",ChargerData);
+"42
+[e ( _printf , (. :s 4C -> &U _ChargerData `*Cuc ]
+[; ;ChargerComs.c: 43: sprintf(str, "%03d,", 000);
+"43
+[e ( _sprintf (1 , (. , &U _str :s 5C -> 0 `i ]
+[; ;ChargerComs.c: 44: strcpy(ChargerData, str);
+"44
+[e ( _strcpy (2 , &U _ChargerData -> &U _str `*Cuc ]
+[; ;ChargerComs.c: 45: printf("%s",ChargerData);
+"45
+[e ( _printf , (. :s 6C -> &U _ChargerData `*Cuc ]
+[; ;ChargerComs.c: 47: sprintf(str, "%03d,E\n", (001 + 000)%1000);
+"47
+[e ( _sprintf (1 , (. , &U _str :s 7C % + -> 1 `i -> 0 `i -> 1000 `i ]
+[; ;ChargerComs.c: 48: strcpy(ChargerData, str);
+"48
+[e ( _strcpy (2 , &U _ChargerData -> &U _str `*Cuc ]
+[; ;ChargerComs.c: 50: printf("%s",ChargerData);
+"50
+[e ( _printf , (. :s 8C -> &U _ChargerData `*Cuc ]
+"51
 }
-[e :U 1124 ]
-[; ;main.c: 60: do { ANSA3 = 0; } while(0);
-"60
 [e :U 1128 ]
+[; ;ChargerComs.c: 51: }
+[; ;ChargerComs.c: 52: if(mode == 2){
+"52
+[e $ ! == -> _mode `i -> 2 `i 1129  ]
 {
-[e = _ANSA3 -> -> 0 `i `b ]
-}
-[e :U 1127 ]
-[; ;main.c: 69: while(SetBMM());
+[; ;ChargerComs.c: 54: SetMux(1);
+"54
+[e ( _SetMux (1 -> -> 1 `i `uc ]
+[; ;ChargerComs.c: 56: sprintf(str, "M,");
+"56
+[e ( _sprintf (1 , &U _str :s 9C ]
+[; ;ChargerComs.c: 57: strcpy(ChargerData, str);
+"57
+[e ( _strcpy (2 , &U _ChargerData -> &U _str `*Cuc ]
+[; ;ChargerComs.c: 58: printf("%s",ChargerData);
+"58
+[e ( _printf , (. :s 10C -> &U _ChargerData `*Cuc ]
+[; ;ChargerComs.c: 59: sprintf(str, "%03d,", Current);
+"59
+[e ( _sprintf (1 , (. , &U _str :s 11C _Current ]
+[; ;ChargerComs.c: 60: strcpy(ChargerData, str);
+"60
+[e ( _strcpy (2 , &U _ChargerData -> &U _str `*Cuc ]
+[; ;ChargerComs.c: 61: printf("%s",ChargerData);
+"61
+[e ( _printf , (. :s 12C -> &U _ChargerData `*Cuc ]
+[; ;ChargerComs.c: 62: sprintf(str, "%03d,", Voltage);
+"62
+[e ( _sprintf (1 , (. , &U _str :s 13C _Voltage ]
+[; ;ChargerComs.c: 63: strcpy(ChargerData, str);
+"63
+[e ( _strcpy (2 , &U _ChargerData -> &U _str `*Cuc ]
+[; ;ChargerComs.c: 64: printf("%s",ChargerData);
+"64
+[e ( _printf , (. :s 14C -> &U _ChargerData `*Cuc ]
+[; ;ChargerComs.c: 66: sprintf(str, "%03d,E\n", (Current + Voltage)%1000);
+"66
+[e ( _sprintf (1 , (. , &U _str :s 15C % + _Current _Voltage -> 1000 `i ]
+[; ;ChargerComs.c: 67: strcpy(ChargerData, str);
+"67
+[e ( _strcpy (2 , &U _ChargerData -> &U _str `*Cuc ]
+[; ;ChargerComs.c: 69: printf("%s",ChargerData);
 "69
-[e $U 1129  ]
-[e :U 1130 ]
+[e ( _printf , (. :s 16C -> &U _ChargerData `*Cuc ]
+"70
+}
 [e :U 1129 ]
-[e $ != -> ( _SetBMM ..  `i -> -> -> 0 `i `uc `i 1130  ]
-[e :U 1131 ]
-[; ;main.c: 71: while(1){
+[; ;ChargerComs.c: 70: }
+[; ;ChargerComs.c: 71: }
 "71
-[e :U 1133 ]
+[e :UE 1127 ]
+}
+"82
+[v _ReadCharger `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 72: updateTimers();
-"72
-[e ( _updateTimers ..  ]
-[; ;main.c: 73: ledDebug();
-"73
-[e ( _ledDebug ..  ]
-"74
-}
+[; ;ChargerComs.c: 82: void ReadCharger(){
+[e :U _ReadCharger ]
+[f ]
+"83
+[v _str `uc ~T0 @X0 -> 4 `i a ]
+"84
+[v _VarCount `uc ~T0 @X0 1 a ]
+[; ;ChargerComs.c: 83: char str[4];
+[; ;ChargerComs.c: 84: char VarCount = 0;
+[e = _VarCount -> -> 0 `i `uc ]
+[; ;ChargerComs.c: 86: SetMux(1);
+"86
+[e ( _SetMux (1 -> -> 1 `i `uc ]
+[; ;ChargerComs.c: 87: if(Receive_available() > 45){
+"87
+[e $ ! > ( _Receive_available ..  -> 45 `i 1131  ]
+{
+[; ;ChargerComs.c: 88: while(Receive_available() && (Receive_get() != 'M'));
+"88
+[e $U 1132  ]
+[e :U 1133 ]
 [e :U 1132 ]
-"71
-[e $U 1133  ]
+[e $ && != ( _Receive_available ..  -> 0 `i != -> ( _Receive_get ..  `ui -> 77 `ui 1133  ]
 [e :U 1134 ]
-[; ;main.c: 74: }
-[; ;main.c: 75: }
-"75
-[e :UE 1122 ]
+[; ;ChargerComs.c: 89: if((Receive_get() == ',') && (VarCount == 0)){
+"89
+[e $ ! && == -> ( _Receive_get ..  `ui -> 44 `ui == -> _VarCount `i -> 0 `i 1135  ]
+{
+[; ;ChargerComs.c: 90: Receive_get();
+"90
+[e ( _Receive_get ..  ]
+[; ;ChargerComs.c: 91: str[0] = Receive_get();
+"91
+[e = *U + &U _str * -> -> -> 0 `i `ui `ux -> -> # *U &U _str `ui `ux ( _Receive_get ..  ]
+[; ;ChargerComs.c: 92: str[1] = Receive_get();
+"92
+[e = *U + &U _str * -> -> -> 1 `i `ui `ux -> -> # *U &U _str `ui `ux ( _Receive_get ..  ]
+[; ;ChargerComs.c: 93: str[2] = Receive_get();
+"93
+[e = *U + &U _str * -> -> -> 2 `i `ui `ux -> -> # *U &U _str `ui `ux ( _Receive_get ..  ]
+[; ;ChargerComs.c: 94: VarCount++;
+"94
+[e ++ _VarCount -> -> 1 `i `uc ]
+[; ;ChargerComs.c: 95: Duty = atoi(str);
+"95
+[e = _Duty ( _atoi (1 -> &U _str `*Cuc ]
+"96
 }
+[e :U 1135 ]
+[; ;ChargerComs.c: 96: }
+[; ;ChargerComs.c: 97: if((Receive_get() == ',') && (VarCount == 1)){
+"97
+[e $ ! && == -> ( _Receive_get ..  `ui -> 44 `ui == -> _VarCount `i -> 1 `i 1136  ]
+{
+[; ;ChargerComs.c: 98: Receive_get();
+"98
+[e ( _Receive_get ..  ]
+[; ;ChargerComs.c: 99: str[0] = Receive_get();
+"99
+[e = *U + &U _str * -> -> -> 0 `i `ui `ux -> -> # *U &U _str `ui `ux ( _Receive_get ..  ]
+[; ;ChargerComs.c: 100: str[1] = Receive_get();
+"100
+[e = *U + &U _str * -> -> -> 1 `i `ui `ux -> -> # *U &U _str `ui `ux ( _Receive_get ..  ]
+[; ;ChargerComs.c: 101: str[2] = Receive_get();
+"101
+[e = *U + &U _str * -> -> -> 2 `i `ui `ux -> -> # *U &U _str `ui `ux ( _Receive_get ..  ]
+[; ;ChargerComs.c: 102: VarCount++;
+"102
+[e ++ _VarCount -> -> 1 `i `uc ]
+[; ;ChargerComs.c: 103: Current = atoi(str);
+"103
+[e = _Current ( _atoi (1 -> &U _str `*Cuc ]
+"104
+}
+[e :U 1136 ]
+[; ;ChargerComs.c: 104: }
+[; ;ChargerComs.c: 105: if((Receive_get() == ',') && (VarCount == 2)){
+"105
+[e $ ! && == -> ( _Receive_get ..  `ui -> 44 `ui == -> _VarCount `i -> 2 `i 1137  ]
+{
+[; ;ChargerComs.c: 106: Receive_get();
+"106
+[e ( _Receive_get ..  ]
+[; ;ChargerComs.c: 107: str[0] = Receive_get();
+"107
+[e = *U + &U _str * -> -> -> 0 `i `ui `ux -> -> # *U &U _str `ui `ux ( _Receive_get ..  ]
+[; ;ChargerComs.c: 108: str[1] = Receive_get();
+"108
+[e = *U + &U _str * -> -> -> 1 `i `ui `ux -> -> # *U &U _str `ui `ux ( _Receive_get ..  ]
+[; ;ChargerComs.c: 109: str[2] = Receive_get();
+"109
+[e = *U + &U _str * -> -> -> 2 `i `ui `ux -> -> # *U &U _str `ui `ux ( _Receive_get ..  ]
+[; ;ChargerComs.c: 110: VarCount++;
+"110
+[e ++ _VarCount -> -> 1 `i `uc ]
+[; ;ChargerComs.c: 111: VoltOut = atoi(str);
+"111
+[e = _VoltOut ( _atoi (1 -> &U _str `*Cuc ]
+"112
+}
+[e :U 1137 ]
+[; ;ChargerComs.c: 112: }
+[; ;ChargerComs.c: 113: if((Receive_get() == ',') && (VarCount == 3)){
+"113
+[e $ ! && == -> ( _Receive_get ..  `ui -> 44 `ui == -> _VarCount `i -> 3 `i 1138  ]
+{
+[; ;ChargerComs.c: 114: Receive_get();
+"114
+[e ( _Receive_get ..  ]
+[; ;ChargerComs.c: 115: str[0] = Receive_get();
+"115
+[e = *U + &U _str * -> -> -> 0 `i `ui `ux -> -> # *U &U _str `ui `ux ( _Receive_get ..  ]
+[; ;ChargerComs.c: 116: str[1] = Receive_get();
+"116
+[e = *U + &U _str * -> -> -> 1 `i `ui `ux -> -> # *U &U _str `ui `ux ( _Receive_get ..  ]
+[; ;ChargerComs.c: 117: str[2] = Receive_get();
+"117
+[e = *U + &U _str * -> -> -> 2 `i `ui `ux -> -> # *U &U _str `ui `ux ( _Receive_get ..  ]
+[; ;ChargerComs.c: 118: VarCount++;
+"118
+[e ++ _VarCount -> -> 1 `i `uc ]
+[; ;ChargerComs.c: 119: HeatsinkTemp = atoi(str);
+"119
+[e = _HeatsinkTemp ( _atoi (1 -> &U _str `*Cuc ]
+"120
+}
+[e :U 1138 ]
+[; ;ChargerComs.c: 120: }
+[; ;ChargerComs.c: 121: if((Receive_get() == ',') && (VarCount == 4)){
+"121
+[e $ ! && == -> ( _Receive_get ..  `ui -> 44 `ui == -> _VarCount `i -> 4 `i 1139  ]
+{
+[; ;ChargerComs.c: 122: Receive_get();
+"122
+[e ( _Receive_get ..  ]
+[; ;ChargerComs.c: 123: str[0] = Receive_get();
+"123
+[e = *U + &U _str * -> -> -> 0 `i `ui `ux -> -> # *U &U _str `ui `ux ( _Receive_get ..  ]
+[; ;ChargerComs.c: 124: str[1] = Receive_get();
+"124
+[e = *U + &U _str * -> -> -> 1 `i `ui `ux -> -> # *U &U _str `ui `ux ( _Receive_get ..  ]
+[; ;ChargerComs.c: 125: str[2] = Receive_get();
+"125
+[e = *U + &U _str * -> -> -> 2 `i `ui `ux -> -> # *U &U _str `ui `ux ( _Receive_get ..  ]
+[; ;ChargerComs.c: 126: VarCount++;
+"126
+[e ++ _VarCount -> -> 1 `i `uc ]
+[; ;ChargerComs.c: 127: Charge = atoi(str);
+"127
+[e = _Charge ( _atoi (1 -> &U _str `*Cuc ]
+"128
+}
+[e :U 1139 ]
+[; ;ChargerComs.c: 128: }
+[; ;ChargerComs.c: 129: if(VarCount == 0){
+"129
+[e $ ! == -> _VarCount `i -> 0 `i 1140  ]
+{
+"131
+}
+[e :U 1140 ]
+"132
+}
+[e :U 1131 ]
+[; ;ChargerComs.c: 131: }
+[; ;ChargerComs.c: 132: }
+[; ;ChargerComs.c: 133: }
+"133
+[e :UE 1130 ]
+}
+[p f _sprintf 8421508 ]
+[p f _printf 8650752 ]
+[a 2C 37 115 0 ]
+[a 4C 37 115 0 ]
+[a 6C 37 115 0 ]
+[a 8C 37 115 0 ]
+[a 10C 37 115 0 ]
+[a 12C 37 115 0 ]
+[a 14C 37 115 0 ]
+[a 16C 37 115 0 ]
+[a 3C 37 48 51 100 44 0 ]
+[a 5C 37 48 51 100 44 0 ]
+[a 11C 37 48 51 100 44 0 ]
+[a 13C 37 48 51 100 44 0 ]
+[a 1C 77 44 0 ]
+[a 9C 77 44 0 ]
+[a 7C 37 48 51 100 44 69 10 0 ]
+[a 15C 37 48 51 100 44 69 10 0 ]

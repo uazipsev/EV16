@@ -1,16 +1,8 @@
 
-# 1 "Functions.c"
+# 1 "ChargerComs.c"
 
-# 12 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\stdbool.h"
-typedef unsigned char bool;
-
-# 13 "Functions.h"
-void Delay(int wait);
-void Precharge(bool OnOff);
-void SetMux(char channel);
-void ledDebug();
-bool GetPowerState();
-void Horn(int time);
+# 11 "ChargerComs.h"
+void SetCharger(char mode, int Current, int Voltage);
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -9210,11 +9202,8 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 319 "mcc_generated_files/pin_manager.h"
-void PIN_MANAGER_Initialize (void);
-
-# 331
-void PIN_MANAGER_IOC(void);
+# 12 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\stdbool.h"
+typedef unsigned char bool;
 
 # 13 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\stdint.h"
 typedef signed char int8_t;
@@ -9306,12 +9295,6 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 110 "mcc_generated_files/interrupt_manager.h"
-void INTERRUPT_Initialize(void);
-
-# 122
-void interrupt INTERRUPT_InterruptManager(void);
-
 # 4 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\__size_t.h"
 typedef unsigned size_t;
 
@@ -9375,169 +9358,263 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 78 "mcc_generated_files/eusart2.h"
-extern volatile uint8_t eusart2TxBufferRemaining;
-extern volatile uint8_t eusart2RxCount;
+# 7 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\stdlib.h"
+typedef unsigned short wchar_t;
 
-# 107
-void EUSART2_Initialize(void);
+# 15
+typedef struct {
+int rem;
+int quot;
+} div_t;
+typedef struct {
+unsigned rem;
+unsigned quot;
+} udiv_t;
+typedef struct {
+long quot;
+long rem;
+} ldiv_t;
+typedef struct {
+unsigned long quot;
+unsigned long rem;
+} uldiv_t;
 
-# 156
-uint8_t EUSART2_Read(void);
+# 53
+extern double atof(const char *);
+extern double strtod(const char *, const char **);
+extern int atoi(const char *);
+extern unsigned xtoi(const char *);
+extern long atol(const char *);
+extern long strtol(const char *, char **, int);
 
-# 181
-void EUSART2_Write(uint8_t txData);
+extern int rand(void);
+extern void srand(unsigned int);
+extern void * calloc(size_t, size_t);
+extern div_t div(int numer, int denom);
+extern udiv_t udiv(unsigned numer, unsigned denom);
+extern ldiv_t ldiv(long numer, long denom);
+extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
+extern unsigned long _lrotl(unsigned long value, unsigned int shift);
+extern unsigned long _lrotr(unsigned long value, unsigned int shift);
+extern unsigned int _rotl(unsigned int value, unsigned int shift);
+extern unsigned int _rotr(unsigned int value, unsigned int shift);
 
-# 202
-void EUSART2_Transmit_ISR(void);
 
-# 223
-void EUSART2_Receive_ISR(void);
 
-# 6 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\stddef.h"
-typedef int ptrdiff_t;
 
-# 117 "mcc_generated_files/spi1.h"
-void SPI1_Initialize(void);
+extern void * malloc(size_t);
+extern void free(void *);
+extern void * realloc(void *, size_t);
 
-# 152
-uint8_t SPI1_Exchange8bit(uint8_t data);
+# 86
+extern int atexit(void (*)(void));
+extern char * getenv(const char *);
+extern char ** environ;
+extern int system(char *);
+extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
+extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
+extern int abs(int);
+extern long labs(long);
 
-# 192
-uint8_t SPI1_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut);
+extern char * itoa(char * buf, int val, int base);
+extern char * utoa(char * buf, unsigned val, int base);
 
-# 215
-bool SPI1_IsBufferFull(void);
 
-# 240
-bool SPI1_HasWriteCollisionOccured(void);
 
-# 264
-void SPI1_ClearWriteCollisionStatus(void);
 
-# 26 "mcc_generated_files/mcc.h"
-void SYSTEM_Initialize(void);
+extern char * ltoa(char * buf, long val, int base);
+extern char * ultoa(char * buf, unsigned long val, int base);
 
-# 39
-void OSCILLATOR_Initialize(void);
+extern char * ftoa(float f, int * status);
 
-# 65 "mcc_generated_files/tmr0.h"
-int time_get(char WhatTime);
-void updateTimers();
-void time_Set(char WhatTime, int value);
+# 23 "UART.h"
+uint8_t EUSART1_Read(void);
 
-# 112
-void TMR0_Initialize(void);
+# 48
+void EUSART1_Write(uint8_t txData);
 
-# 141
-void TMR0_StartTimer(void);
+# 69
+void EUSART1_Transmit_ISR(void);
 
-# 173
-void TMR0_StopTimer(void);
+# 90
+void EUSART1_Receive_ISR(void);
 
-# 209
-uint16_t TMR0_Read16bitTimer(void);
+char getch(void);
+void putch(char txData);
 
-# 248
-void TMR0_Write16bitTimer(uint16_t timerVal);
+# 99
+extern volatile unsigned int talkTime;
+void *memset(void *s, int c, size_t n);
 
-# 284
-void TMR0_Reload16bit(void);
+struct UART_ring_buff {
+unsigned char buf[200];
+int head;
+int tail;
+int count;
+};
 
-# 302
-void TMR0_ISR(void);
+struct UART_ring_buff input_buffer;
+struct UART_ring_buff output_buffer;
 
-# 320
-void TMR0_CallBack(void);
+bool Transmit_stall = 1;
+void EUSART1_Initialize(void);
+void UART_buff_init(struct UART_ring_buff* _this);
+void UART_buff_put(struct UART_ring_buff* _this, const unsigned char c);
+unsigned char UART_buff_get(struct UART_ring_buff* _this);
+void UART_buff_flush(struct UART_ring_buff* _this, const int clearBuffer);
+int UART_buff_size(struct UART_ring_buff* _this);
+unsigned int UART_buff_modulo_inc(const unsigned int value, const unsigned int modulus);
+unsigned char UART_buff_peek(struct UART_ring_buff* _this);
 
-# 15 "Communications.h"
-void CommsStart();
-void updateComms();
-extern void sendData(unsigned char whereToSend);
-extern bool receiveData();
-extern void ToSend(const unsigned char where, const unsigned int what);
-void respondChargerAsECU();
-bool SetBMM();
 
-# 14 "Functions.c"
-bool PowerOn = 0;
+unsigned char Receive_peek(void);
+int Receive_available(void);
+unsigned char Receive_get(void);
+void Send_put(unsigned char _data);
 
-void Delay(int wait) {
-int i = 0;
-for (; wait > i; i++) {
-_delay((unsigned long)((1)*(16000000/4000.0)));
-}
-}
+# 13 "Functions.h"
+void Delay(int wait);
+void Precharge(bool OnOff);
+void SetMux(char channel);
+void ledDebug();
+bool GetPowerState();
+void Horn(int time);
+
+# 14 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\string.h"
+extern void * memcpy(void *, const void *, size_t);
+extern void * memmove(void *, const void *, size_t);
+extern void * memset(void *, int, size_t);
+
+# 34
+extern char * strcat(char *, const char *);
+extern char * strcpy(char *, const char *);
+extern char * strncat(char *, const char *, size_t);
+extern char * strncpy(char *, const char *, size_t);
+extern char * strdup(const char *);
+extern char * strtok(char *, const char *);
+
+
+extern int memcmp(const void *, const void *, size_t);
+extern int strcmp(const char *, const char *);
+extern int stricmp(const char *, const char *);
+extern int strncmp(const char *, const char *, size_t);
+extern int strnicmp(const char *, const char *, size_t);
+extern void * memchr(const void *, int, size_t);
+extern size_t strcspn(const char *, const char *);
+extern char * strpbrk(const char *, const char *);
+extern size_t strspn(const char *, const char *);
+extern char * strstr(const char *, const char *);
+extern char * stristr(const char *, const char *);
+extern char * strerror(int);
+extern size_t strlen(const char *);
+extern char * strchr(const char *, int);
+extern char * strichr(const char *, int);
+extern char * strrchr(const char *, int);
+extern char * strrichr(const char *, int);
+
+# 13 "ChargerComs.c"
+char ChargerData[40];
+
+int Duty = 0;
+int Current = 0;
+int VoltOut = 0;
+int HeatsinkTemp = 0;
+int Charge = 0;
 
 # 30
-void Precharge(bool OnOff){
-if(OnOff){
+void SetCharger(char mode, int Current, int Voltage){
+char str[10];
+if(mode == 1){
 
-do { LATB3 = 1; } while(0);
-for(int i = 0;i<5;i++){
-Delay(1000);
-}
-do { LATB4 = 1; } while(0);
-do { LATC0 = 1; } while(0);
-do { LATB5 = 1; } while(0);
-PowerOn = 0;
-}
+SetMux(1);
 
-else{
-do { LATB4 = 0; } while(0);
-do { LATB3 = 0; } while(0);
-do { LATC0 = 0; } while(0);
-for(int i = 0;i<5;i++){
-Delay(1000);
-}
 
-do { LATB5 = 0; } while(0);
-PowerOn = 1;
-}
-}
+sprintf(str, "M,");
+strcpy(ChargerData, str);
+printf("%s",ChargerData);
+sprintf(str, "%03d,", 001);
+strcpy(ChargerData, str);
+printf("%s",ChargerData);
+sprintf(str, "%03d,", 000);
+strcpy(ChargerData, str);
+printf("%s",ChargerData);
 
-# 65
-void SetMux(char channel){
-switch (channel){
-case 1:
-do { LATB0 = 0; } while(0);
-do { LATB1 = 0; } while(0);
-break;
-case 2:
-do { LATB0 = 1; } while(0);
-do { LATB1 = 0; } while(0);
-break;
-case 3:
-do { LATB0 = 0; } while(0);
-do { LATB1 = 1; } while(0);
-break;
-case 4:
-do { LATB0 = 1; } while(0);
-do { LATB1 = 1; } while(0);
-break;
-default:
+sprintf(str, "%03d,E\n", (001 + 000)%1000);
+strcpy(ChargerData, str);
 
-break;
+printf("%s",ChargerData);
+}
+if(mode == 2){
+
+SetMux(1);
+
+sprintf(str, "M,");
+strcpy(ChargerData, str);
+printf("%s",ChargerData);
+sprintf(str, "%03d,", Current);
+strcpy(ChargerData, str);
+printf("%s",ChargerData);
+sprintf(str, "%03d,", Voltage);
+strcpy(ChargerData, str);
+printf("%s",ChargerData);
+
+sprintf(str, "%03d,E\n", (Current + Voltage)%1000);
+strcpy(ChargerData, str);
+
+printf("%s",ChargerData);
 }
 }
 
-# 96
-void ledDebug() {
-if (time_get(1) > 4) {
+# 82
+void ReadCharger(){
+char str[4];
+char VarCount = 0;
 
-updateComms();
-time_Set(1, 0);
-respondChargerAsECU();
+SetMux(1);
+if(Receive_available() > 45){
+while(Receive_available() && (Receive_get() != 'M'));
+if((Receive_get() == ',') && (VarCount == 0)){
+Receive_get();
+str[0] = Receive_get();
+str[1] = Receive_get();
+str[2] = Receive_get();
+VarCount++;
+Duty = atoi(str);
+}
+if((Receive_get() == ',') && (VarCount == 1)){
+Receive_get();
+str[0] = Receive_get();
+str[1] = Receive_get();
+str[2] = Receive_get();
+VarCount++;
+Current = atoi(str);
+}
+if((Receive_get() == ',') && (VarCount == 2)){
+Receive_get();
+str[0] = Receive_get();
+str[1] = Receive_get();
+str[2] = Receive_get();
+VarCount++;
+VoltOut = atoi(str);
+}
+if((Receive_get() == ',') && (VarCount == 3)){
+Receive_get();
+str[0] = Receive_get();
+str[1] = Receive_get();
+str[2] = Receive_get();
+VarCount++;
+HeatsinkTemp = atoi(str);
+}
+if((Receive_get() == ',') && (VarCount == 4)){
+Receive_get();
+str[0] = Receive_get();
+str[1] = Receive_get();
+str[2] = Receive_get();
+VarCount++;
+Charge = atoi(str);
+}
+if(VarCount == 0){
+
 }
 }
-
-bool GetPowerState(){
-return PowerOn;
-}
-
-# 116
-void Horn(int time){
-do { LATA7 = 1; } while(0);
-Delay(time);
-do { LATA7 = 0; } while(0);
 }

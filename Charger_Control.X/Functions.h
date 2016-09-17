@@ -12,7 +12,6 @@
 
 void Delay(int wait);
 void Precharge(bool OnOff);
-void SetCharger(char mode, int Current, int Voltage);
 void SetMux(char channel);
 void ledDebug();
 bool GetPowerState();

@@ -5,7 +5,7 @@ Linker command line:
 --edf=C:\Program Files (x86)\Microchip\xc8\v1.37\dat\en_msgs.txt -cs \
   -h+dist/default/production\Charger_Control.X.production.sym \
   --cmf=dist/default/production\Charger_Control.X.production.cmf -z \
-  -Q18F45K22 -oC:\Users\Rick\AppData\Local\Temp\s7ss.2 \
+  -Q18F45K22 -oC:\Users\Rick\AppData\Local\Temp\sbe8.2 \
   -Mdist/default/production/Charger_Control.X.production.map -E1 -ver=XC8 \
   -ASTACK=04CEh-05ffh -pstack=STACK -ACODE=00h-07FFFh -ACONST=00h-07FFFh \
   -ASMALLCONST=0600h-06FFhx122 -AMEDIUMCONST=0600h-07FFFh -ACOMRAM=01h-05Fh \
@@ -22,7 +22,7 @@ Linker command line:
   -pfarbss=FARRAM,fardata=FARRAM,nvFARRAM=FARRAM \
   -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
   -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE -prparam=COMRAM \
-  C:\Users\Rick\AppData\Local\Temp\s7ss.obj \
+  C:\Users\Rick\AppData\Local\Temp\sbe8.obj \
   dist/default/production\Charger_Control.X.production.obj 
 
 Object code version is 3.11
@@ -35,7 +35,7 @@ Call graph: (short form)
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\Rick\AppData\Local\Temp\s7ss.obj
+C:\Users\Rick\AppData\Local\Temp\sbe8.obj
                 end_init                             B8       B8        4        4       0
                 reset_vec                             0        0        4        0       0
                 idloc                            200000   200000        8   200000       0
@@ -96,16 +96,16 @@ dist/default/production\Charger_Control.X.production.obj
                 text1                              136E     136E       64        4       0
                 text0                              17D8     17D8       22        4       0
                 cstackCOMRAM                          1        1       25        1       1
-                cstackBANK0                          C8       C8       1B       60       1
+                cstackBANK0                          D2       D2       1B       60       1
                 bssBANK4                            400      400       CE      400       1
                 bssBANK3                            300      300       CE      300       1
                 bssBANK2                            200      200       C8      200       1
                 bssBANK1                            100      100      100      100       1
-                bssBANK0                             60       60       68       60       1
+                bssBANK0                             60       60       72       60       1
                 dataCOMRAM                           44       44        1        1       1
                 bssCOMRAM                            26       26       14        1       1
                 cinit                              1292     1292       70        4       0
-                nvBANK0                              E3       E3        8       60       1
+                nvBANK0                              ED       ED        8       60       1
                 nvCOMRAM                             3A       3A        A        1       1
                 idataCOMRAM                        1948     1948        1        4       0
 
@@ -191,9 +191,9 @@ TOTAL           Name                               Link     Load   Length     Sp
         CLASS   RAM            
 
         CLASS   BANK0          
-                cstackBANK0                          C8       C8       1B         1
-                bssBANK0                             60       60       68         1
-                nvBANK0                              E3       E3        8         1
+                cstackBANK0                          D2       D2       1B         1
+                bssBANK0                             60       60       72         1
+                nvBANK0                              ED       ED        8         1
 
         CLASS   BANK1          
                 bssBANK1                            100      100      100         1
@@ -228,7 +228,7 @@ SEGMENTS        Name                           Load    Length   Top    Selector 
                 reset_vec                      000000  000004  000004         0       0  CODE    
                 cstackCOMRAM                   000001  000045  000046         1       1  COMRAM  
                 intcode                        000008  001941  001949         4       0  CODE    
-                bssBANK0                       000060  00008B  0000EB        60       1  BANK0   
+                bssBANK0                       000060  000095  0000F5        60       1  BANK0   
                 bssBANK1                       000100  000100  000200       100       1  BANK1   
                 bssBANK2                       000200  0000C8  0002C8       200       1  BANK2   
                 bssBANK3                       000300  0000CE  0003CE       300       1  BANK3   
@@ -241,13 +241,13 @@ SEGMENTS        Name                           Load    Length   Top    Selector 
 UNUSED ADDRESS RANGES
 
         Name                Unused          Largest block    Delta
-        BANK0            0000EB-0000FF               15
+        BANK0            0000F5-0000FF                B
         BANK2            0002C8-0002FF               38
         BANK3            0003CE-0003FF               32
         BANK4            0004CE-0004FF               32
         BANK5            000500-0005FF              100
         BIGRAM           000046-00005F               1A
-                         0000EB-0000FF               15
+                         0000F5-0000FF                B
                          0002C8-0002FF               38
                          0003CE-0003FF               32
                          0004CE-0005FF              132
@@ -258,7 +258,7 @@ UNUSED ADDRESS RANGES
                          001949-007DE5             649D
         EEDATA           F00000-F000FF              100
         MEDIUMCONST      001949-007DE5             649D
-        RAM              0000EB-0000FF               15
+        RAM              0000F5-0000FF                B
                          0002C8-0002FF               38
                          0003CE-0003FF               32
                          0004CE-0005FF               32
@@ -282,24 +282,24 @@ CRC8@extract                             cstackCOMRAM 00001F
 CRC8@len                                 cstackCOMRAM 00001D
 CRC8@sum                                 cstackCOMRAM 00001E
 CRC8@tempI                               cstackCOMRAM 000020
-CRCcheck@SentCRC                         cstackBANK0  0000CA
-CRCcheck@arrayHolder                     cstackBANK0  0000CC
-CRCcheck@calculatedCRC                   cstackBANK0  0000CB
-CRCcheck@rt                              cstackBANK0  0000CF
+CRCcheck@SentCRC                         cstackBANK0  0000D4
+CRCcheck@arrayHolder                     cstackBANK0  0000D6
+CRCcheck@calculatedCRC                   cstackBANK0  0000D5
+CRCcheck@rt                              cstackBANK0  0000D9
 Delay@i                                  cstackCOMRAM 00001E
 Delay@wait                               cstackCOMRAM 00001B
 EUSART2_Receive_ISR@data                 cstackCOMRAM 00000C
-FastTransfer_buffer_flush@_this          cstackBANK0  0000C8
-FastTransfer_buffer_flush@clearBuffer    cstackBANK0  0000CA
+FastTransfer_buffer_flush@_this          cstackBANK0  0000D2
+FastTransfer_buffer_flush@clearBuffer    cstackBANK0  0000D4
 FastTransfer_buffer_modulo_inc@modulus   cstackCOMRAM 00001D
 FastTransfer_buffer_modulo_inc@my_value  cstackCOMRAM 00001F
 FastTransfer_buffer_modulo_inc@value     cstackCOMRAM 00001B
 FastTransfer_buffer_put@_this            cstackCOMRAM 000021
 FastTransfer_buffer_put@towhat           cstackCOMRAM 000024
 FastTransfer_buffer_put@towhere          cstackCOMRAM 000023
-Send_put@_data                           cstackBANK0  0000C8
-ToSend@what                              cstackBANK0  0000CA
-ToSend@where                             cstackBANK0  0000CC
+Send_put@_data                           cstackBANK0  0000D2
+ToSend@what                              cstackBANK0  0000D4
+ToSend@where                             cstackBANK0  0000D6
 UART_buff_get@_this                      cstackCOMRAM 000021
 UART_buff_get@c                          cstackCOMRAM 000025
 UART_buff_init@_this                     cstackCOMRAM 000023
@@ -310,7 +310,7 @@ UART_buff_peek@_this                     cstackCOMRAM 00001B
 UART_buff_put@_this                      cstackCOMRAM 000021
 UART_buff_put@c                          cstackCOMRAM 000023
 UART_buff_size@_this                     cstackCOMRAM 00001B
-_AKNAKsend                               nvBANK0      0000E9
+_AKNAKsend                               nvBANK0      0000F3
 _ANSA3                                   (abs)        0079C3
 _ANSB0                                   (abs)        0079C8
 _ANSB1                                   (abs)        0079C9
@@ -323,9 +323,12 @@ _BAUD1CON                                (abs)        000FB8
 _BAUD2CON                                (abs)        000F70
 _CRC8                                    text24       00148A
 _CRCcheck                                text16       0008EA
-_ChargerData                             bssBANK0     00008F
+_Charge                                  bssBANK0     000087
+_ChargerData                             bssBANK0     000099
 _CommsStart                              text36       001432
+_Current                                 bssBANK0     000089
 _Delay                                   text28       00158C
+_Duty                                    bssBANK0     00008B
 _EUSART1_Initialize                      text39       001518
 _EUSART1_Receive_ISR                     text51       00170A
 _EUSART1_Transmit_ISR                    text50       001684
@@ -336,6 +339,7 @@ _FONTLOOKUP                              mediumconst  007DE7
 _FastTransfer_buffer_flush               text10       001302
 _FastTransfer_buffer_modulo_inc          text27       001760
 _FastTransfer_buffer_put                 text26       000776
+_HeatsinkTemp                            bssBANK0     00008D
 _INTCON2bits                             (abs)        000FF1
 _INTCONbits                              (abs)        000FF2
 _INTERRUPT_Initialize                    text34       001938
@@ -428,6 +432,7 @@ _UART_buff_modulo_inc                    text21       001736
 _UART_buff_peek                          text15       0017B4
 _UART_buff_put                           text13       000B96
 _UART_buff_size                          text23       0018D0
+_VoltOut                                 bssBANK0     00008F
 _WPUB                                    (abs)        000F61
 __CFG_BOREN$SBORDIS                      (abs)        000000
 __CFG_BORV$190                           (abs)        000000
@@ -788,13 +793,13 @@ __pbssBANK3                              bssBANK3     000300
 __pbssBANK4                              bssBANK4     000400
 __pbssCOMRAM                             bssCOMRAM    000026
 __pcinit                                 cinit        001292
-__pcstackBANK0                           cstackBANK0  0000C8
+__pcstackBANK0                           cstackBANK0  0000D2
 __pcstackCOMRAM                          cstackCOMRAM 000001
 __pdataCOMRAM                            dataCOMRAM   000044
 __pidataCOMRAM                           idataCOMRAM  001948
 __pintcode                               intcode      000008
 __pmediumconst                           mediumconst  007DE6
-__pnvBANK0                               nvBANK0      0000E3
+__pnvBANK0                               nvBANK0      0000ED
 __pnvCOMRAM                              nvCOMRAM     00003A
 __ptext0                                 text0        0017D8
 __ptext1                                 text1        00136E
@@ -902,16 +907,16 @@ __size_ofi2_UART_buff_modulo_inc         (abs)        000000
 __size_ofi2_UART_buff_put                (abs)        000000
 __size_ofi2_UART_buff_size               (abs)        000000
 __smallconst                             smallconst   000000
-_addressErrorCounter                     bssBANK0     000087
-_alignErrorCounter                       bssBANK0     000089
+_addressErrorCounter                     bssBANK0     000091
+_alignErrorCounter                       bssBANK0     000093
 _begin                                   text37       0013D2
 _calc_CS                                 bssCOMRAM    00002F
 _crcBufS_get                             text18       000DCA
 _crcBufS_put                             text9        000EBC
 _crcBufS_status_put                      text17       000F94
-_crcErrorCounter                         bssBANK0     00008B
-_crc_buffer                              bssBANK0     0000B7
-_dataAdressErrorCounter                  bssBANK0     00008D
+_crcErrorCounter                         bssBANK0     000095
+_crc_buffer                              bssBANK0     0000C1
+_dataAdressErrorCounter                  bssBANK0     000097
 _ddata                                   bssBANK0     000060
 _dpowers                                 mediumconst  007FC7
 _eusart1RxBuffer                         bssBANK0     00006B
@@ -928,13 +933,13 @@ _input_buffer                            bssBANK3     000300
 _lastLEDTime                             bssBANK0     00007F
 _ledDebug                                text2        001656
 _main                                    text0        0017D8
-_maxDataAddress                          nvBANK0      0000EA
+_maxDataAddress                          nvBANK0      0000F4
 _memset                                  text41       0016DE
 _moduleAddress                           nvCOMRAM     000043
 _output_buffer                           bssBANK4     000400
 _putch                                   (abs)        000000
 _receiveArray                            bssBANK1     0001CE
-_receiveArrayAddress                     nvBANK0      0000E3
+_receiveArrayAddress                     nvBANK0      0000ED
 _receiveData                             text11       0000BC
 _respondChargerAsECU                     text6        001554
 _returnAddress                           bssCOMRAM    000036
@@ -944,9 +949,9 @@ _rx_array_inx                            bssCOMRAM    000038
 _rx_buffer                               bssBANK2     000200
 _rx_len                                  bssCOMRAM    000039
 _sendData                                text8        000A48
-_sendStructAddress                       nvBANK0      0000E5
+_sendStructAddress                       nvBANK0      0000EF
 _serial_available                        nvCOMRAM     00003A
-_serial_peek                             nvBANK0      0000E7
+_serial_peek                             nvBANK0      0000F1
 _serial_read                             nvCOMRAM     00003C
 _serial_write                            nvCOMRAM     00003E
 _talkTime                                bssBANK0     000083
@@ -956,19 +961,19 @@ _time_get                                text4        0018FC
 _timer0ReloadVal16bit                    nvCOMRAM     000040
 _updateComms                             text3        0018A4
 _updateTimers                            text1        00136E
-begin@error                              cstackBANK0  0000CC
-begin@givenAddress                       cstackBANK0  0000CB
-begin@maxSize                            cstackBANK0  0000CA
-begin@ptr                                cstackBANK0  0000C8
-begin@stuffavailable                     cstackBANK0  0000D1
-begin@stuffpeek                          cstackBANK0  0000D3
-begin@stufftoreceive                     cstackBANK0  0000CF
-begin@stufftosend                        cstackBANK0  0000CD
+begin@error                              cstackBANK0  0000D6
+begin@givenAddress                       cstackBANK0  0000D5
+begin@maxSize                            cstackBANK0  0000D4
+begin@ptr                                cstackBANK0  0000D2
+begin@stuffavailable                     cstackBANK0  0000DB
+begin@stuffpeek                          cstackBANK0  0000DD
+begin@stufftoreceive                     cstackBANK0  0000D9
+begin@stufftosend                        cstackBANK0  0000D7
 btemp                                    temp         000045
 crcBufS_get@_this                        cstackCOMRAM 00001B
 crcBufS_get@space                        cstackCOMRAM 00001E
 crcBufS_get@time                         cstackCOMRAM 00001D
-crcBufS_get@wantedTime                   cstackBANK0  0000C8
+crcBufS_get@wantedTime                   cstackBANK0  0000D2
 crcBufS_put@_this                        cstackCOMRAM 00001B
 crcBufS_put@address                      cstackCOMRAM 00001D
 crcBufS_put@oldCRC                       cstackCOMRAM 00001E
@@ -999,15 +1004,15 @@ memset@c                                 cstackCOMRAM 00001D
 memset@n                                 cstackCOMRAM 00001F
 memset@p                                 cstackCOMRAM 000021
 memset@p1                                cstackCOMRAM 00001B
-receiveData@crcHolder                    cstackBANK0  0000DD
-receiveData@crcHolder_1757               cstackBANK0  0000DE
-receiveData@holder                       cstackBANK0  0000D7
-receiveData@holder_1756                  cstackBANK0  0000DA
-receiveData@r                            cstackBANK0  0000E1
-receiveData@u                            cstackBANK0  0000DF
-sendData@CS                              cstackBANK0  0000CE
-sendData@i                               cstackBANK0  0000CF
-sendData@whereToSend                     cstackBANK0  0000CD
+receiveData@crcHolder                    cstackBANK0  0000E7
+receiveData@crcHolder_1757               cstackBANK0  0000E8
+receiveData@holder                       cstackBANK0  0000E1
+receiveData@holder_1756                  cstackBANK0  0000E4
+receiveData@r                            cstackBANK0  0000EB
+receiveData@u                            cstackBANK0  0000E9
+sendData@CS                              cstackBANK0  0000D8
+sendData@i                               cstackBANK0  0000D9
+sendData@whereToSend                     cstackBANK0  0000D7
 stackhi                                  (abs)        0005FF
 stacklo                                  (abs)        0004CE
 start                                    init         0000B8
@@ -1083,7 +1088,7 @@ Total ram usage:        8 bytes
 
  *************** function _ledDebug *****************
  Defined at:
-		line 147 in file "Functions.c"
+		line 96 in file "Functions.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1674,6 +1679,7 @@ Total ram usage:        0 bytes
 		_UART_buff_get
  This function is called by:
 		_CommsStart
+		_ReadCharger
 		_CRCcheck
 		_receiveData
  This function uses a non-reentrant model
@@ -1770,6 +1776,7 @@ Total ram usage:        2 bytes
 		_UART_buff_size
  This function is called by:
 		_CommsStart
+		_ReadCharger
 		_CRCcheck
 		_receiveData
  This function uses a non-reentrant model
@@ -1943,7 +1950,7 @@ Total ram usage:        6 bytes
 
  *************** function _Delay *****************
  Defined at:
-		line 17 in file "Functions.c"
+		line 16 in file "Functions.c"
  Parameters:    Size  Location     Type
   wait            2   26[COMRAM] int 
  Auto vars:     Size  Location     Type

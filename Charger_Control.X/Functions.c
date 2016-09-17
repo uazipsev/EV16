@@ -4,13 +4,12 @@
 #include <stdio.h>
 #include "mcc_generated_files/tmr0.h"
 #include <stdbool.h>
-#include <string.h>
-#include <stdlib.h>
+
 #include "Communications.h"
 //Function used to make a varable delay
 //We use this because the provided fcn dosn't accept large bounds
 
-char ChargerData[40];
+
 
 bool PowerOn = 0;
 
@@ -54,57 +53,7 @@ void Precharge(bool OnOff){
     }
 }
 
-/*******************************************************************
- * @brief           Charger Control
- * @brief           Updates the charger to control
- * @return          N/A
- * @note            Uses the USART to send out data to configure charger
- *******************************************************************/
 
-//19200bps, 8N1 comunication for the charger
-
-void SetCharger(char mode, int Current, int Voltage){
-    char str[10];
-    if(mode == 1){
-        //Set MUX in Charger Direction
-        SetMux(1);
-        //set charger to off
-        //'M,001,000,001,E'
-        sprintf(str, "M,");
-        strcpy(ChargerData, str);
-        printf("%s",ChargerData);
-        sprintf(str, "%03d,", 001);
-        strcpy(ChargerData, str);
-        printf("%s",ChargerData);
-        sprintf(str, "%03d,", 000);
-        strcpy(ChargerData, str);
-        printf("%s",ChargerData);
-        //calculate "CRC"
-        sprintf(str, "%03d,E\n", (001 + 000)%1000);
-        strcpy(ChargerData, str);
-        //Send data to device
-        printf("%s",ChargerData);
-    }
-    if(mode == 2){
-        //Set MUX in Charger Direction
-        SetMux(1);
-        //Load values
-        sprintf(str, "M,");
-        strcpy(ChargerData, str);
-        printf("%s",ChargerData);
-        sprintf(str, "%03d,", Current);
-        strcpy(ChargerData, str);
-        printf("%s",ChargerData);
-        sprintf(str, "%03d,", Voltage);
-        strcpy(ChargerData, str);
-        printf("%s",ChargerData);
-        //calculate "CRC"
-        sprintf(str, "%03d,E\n", (Current + Voltage)%1000);
-        strcpy(ChargerData, str);
-        //Send data to device
-        printf("%s",ChargerData);
-    }
-}
 
 /*******************************************************************
  * @brief           MUX Control
