@@ -89,6 +89,7 @@ void ReadCurrent(char gather) {
         CurrentADC[3] = ADC_GetConversion(U8Multisense);
         CurrentADC[5] = ADC_GetConversion(U10Multisense);
     }
+    
 }
 
 
