@@ -6,7 +6,7 @@
 #include <xc.h>
 #include "ThrottleBrakeControl.h"
 
-unsigned int t1Raw, t2Raw, bRaw;
+unsigned int t1Raw, t2Raw, b1Raw, b2Raw;
 bool receiveCommSAS();
 bool requestSASData();
 bool readyToSendSAS = true;
@@ -50,7 +50,8 @@ bool receiveCommSAS() {
            // INDICATOR ^= 1;
             t1Raw = ReceiveArray1Get(THROTTLE1_SAS);
             t2Raw = ReceiveArray1Get(THROTTLE2_SAS);
-            bRaw = ReceiveArray1Get(BRAKE_SAS);
+            b1Raw = ReceiveArray1Get(BRAKE1_SAS);
+            b2Raw = ReceiveArray1Get(BRAKE2_SAS);
             CheckThrotleConsistency();
             readyToSendSAS = true;
             SetTime(SASTIMER);
@@ -79,10 +80,10 @@ unsigned int GetSASRaw(char request){
         return t2Raw;
     }
     else if(request == GETSASB1RAW){
-        return bRaw;
+        return b1Raw;
     }
     else if(request == GETSASB2RAW){
-        return 0;
+        return b2Raw;
     }
     else return 0;
 }

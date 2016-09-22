@@ -28,8 +28,8 @@ extern "C" {
 #define RESPONSE_ADDRESS        0
 #define THROTTLE1_SAS           1
 #define THROTTLE2_SAS           2
-#define BRAKE_SAS               3
-#define WHEELSPEED1_SAS         4
+#define BRAKE1_SAS              3
+#define BRAKE2_SAS              4
 #define WHEELSPEED2_SAS         5
 #define WHEELSPEED3_SAS         6
 #define WHEELSPEED4_SAS         7

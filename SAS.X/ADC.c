@@ -12,19 +12,8 @@ volatile unsigned int ADCbuffer[6];
 volatile bool ADCDataReady = false;
 extern volatile unsigned int ADCbuffer[6];
 unsigned int throttle1val, throttle2val, brake1val, brake2val;
+unsigned int Prevthrottle1val, Prevthrottle2val, Prevbrake1val, Prevbrake2val;
 float data = 0;
-
-#define FILTERCOUNTS 5
-
-int ThrottleArray1[FILTERCOUNTS+1];
-int ThrottleArray2[FILTERCOUNTS+1];
-int BrakeArray1[FILTERCOUNTS+1];
-int BrakeArray2[FILTERCOUNTS+1];
-
-float Throttle1Total = 0;
-float Throttle2Total = 0;
-float BrakeArray1Total = 0;
-float BrakeArray2Total = 0;
 
 value RequestValue;
 
@@ -90,44 +79,14 @@ void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt(void) {
 }
 
 void FilterADC(){
-//    int k = 0;
-//    Throttle1Total = 0;
-//    Throttle2Total = 0;
-//    BrakeArray1Total = 0;
-//    BrakeArray2Total = 0;
-//    for (k = FILTERCOUNTS; k > 0; k--) 
-//    {   
-//        ThrottleArray1[k]=ThrottleArray1[k-1];
-//        ThrottleArray2[k]=ThrottleArray2[k-1];
-//        BrakeArray1[k]=BrakeArray1[k-1];
-//        BrakeArray2[k]=BrakeArray2[k-1];
-//        Throttle1Total += ThrottleArray1[k];
-//        Throttle2Total += ThrottleArray2[k];
-//        BrakeArray1Total += BrakeArray1[k];
-//        BrakeArray2Total += BrakeArray2[k];
-//    }
-//    ThrottleArray1[0] = ADCbuffer[0];
-//    ThrottleArray2[0] = ADCbuffer[1];
-//    BrakeArray1[0] = ADCbuffer[2]; 
-//    BrakeArray2[0] = ADCbuffer[3];
-//    Throttle1Total += ThrottleArray1[0];
-//    Throttle2Total += ThrottleArray2[0];
-//    BrakeArray1Total += BrakeArray1[0];
-//    BrakeArray2Total += BrakeArray2[0];
-//    throttle1val = Throttle1Total / FILTERCOUNTS;
-//    throttle2val = Throttle2Total / FILTERCOUNTS;
-//    brake1val = BrakeArray1Total / FILTERCOUNTS;
-//    brake2val = BrakeArray2Total / FILTERCOUNTS;
-//    throttle1val = throttle1val * 0.02;
-//    throttle2val = throttle2val * 0.02;
-//    brake1val = brake1val * 0.02;
-//    brake2val = brake2val * 0.02;
-    throttle1val = ADCbuffer[0] * 0.02;
-    throttle2val = ADCbuffer[1] * 0.02;
-    brake1val = ADCbuffer[2] * 0.02;
-    brake2val = ADCbuffer[3] * 0.02;
-    
-    //printf("T1: %f T2: %f",throttle1val,throttle2val);
+    throttle1val=(ADCbuffer[0]+(throttle1val*15))/16;
+    throttle1val = throttle1val * 0.02;
+    throttle2val=(ADCbuffer[1]+(throttle2val*15))/16;
+    throttle2val = throttle2val * 0.02;
+    brake1val=(ADCbuffer[2]+(brake1val*15))/16;
+    brake1val = brake1val * 0.02;
+    brake2val=(ADCbuffer[3]+(brake2val*15))/16;
+    brake2val = brake2val * 0.02;
 }
 
 float GetADC(value RequestValue){

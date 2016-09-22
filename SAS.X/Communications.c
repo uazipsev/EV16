@@ -27,15 +27,15 @@ void updateComms() {
 }
 
 void prepAndSendData() {
-    static int sender;
     ToSend(RESPONSE_ADDRESS, SAS_ADDRESS);
     ToSend(THROTTLE1_SAS, GetADC(Throttle1)); //GetADC(Throttle1)
     ToSend(THROTTLE2_SAS, GetADC(Throttle2));
-    ToSend(BRAKE_SAS, GetADC(Brake1));
-    ToSend(WHEELSPEED1_SAS, sender++);
-    ToSend(WHEELSPEED2_SAS, sender++);
-    ToSend(WHEELSPEED3_SAS, sender++);
-    ToSend(WHEELSPEED4_SAS, sender++);
+    ToSend(BRAKE1_SAS, GetADC(Brake1));
+    ToSend(BRAKE2_SAS, GetADC(Brake2));
+    //ToSend(WHEELSPEED1_SAS, sender++);
+    //ToSend(WHEELSPEED2_SAS, sender++);
+    //ToSend(WHEELSPEED3_SAS, sender++);
+    //ToSend(WHEELSPEED4_SAS, sender++);
     //    ToSend(8, sender++);
     //    ToSend(9, sender++);
     //    ToSend(10, sender++);
