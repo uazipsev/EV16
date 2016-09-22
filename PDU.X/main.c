@@ -44,13 +44,8 @@ void main(void) {
     LATCbits.LATC5 = 0;
     int i = 0;
     bool UP = 0;
+    ComputeStorageData();
     while (1) {
-        //Delay(50);
-        //LED2_SetLow();
-        //Delay(50);
-        //LED2_SetLow();
-        //printf("ADC Volume = %d");
-        // Add your application code
         updateComms();
         if(CoolingCheck() && UP == 0){
             UP = 1;

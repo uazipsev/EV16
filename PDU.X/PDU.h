@@ -30,6 +30,7 @@ typedef enum {
 
 extern void PDUStartup(void);
 void EnableSlavePower(device slave, int onof);
+void FuseSystem();
 void ComputeStorageData(void);
 void ReadCurrent(char gather);
 void Update(void);
