@@ -18,12 +18,10 @@ int main(void) {
         ledDebug();
         //Comms handling
         updateComms();
-        if ((ADCDataReady) && (ADCTime > 0)) {
+        if(ADCDataReady) {
             FilterADC();
             ADCDataReady = false;
             IEC0bits.AD1IE = 1;
-            //AD1CON1bits.ADON = 1;
-            ADCTime = 0;
         }
     }
 }

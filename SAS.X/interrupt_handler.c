@@ -3,12 +3,11 @@
 #include "interrupt_handler.h"
 #include "PinDef.h"
 
-extern volatile unsigned int ADCTime;
+volatile unsigned int ADCTime;
 
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {   
     LEDtime++;
     talkTime++;
-    ADCTime++;
     IFS0bits.T1IF = 0; // clear interrupt flag
 }
 
