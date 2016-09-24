@@ -149,10 +149,10 @@ void ledDebug(){
  * @note            This fcn uses data from the SAS to read in the brake pressure sensor
  *******************************************************************/
 void updateBrakeLight() {
-    if(GetSASValue(GETSASB1) > BrakeLightThreshold) {
+    if(GetThrottleBrakeValue(GETSASB1) > BrakeLightThreshold) {
         BRAKELT = 1;
     }
-    else if(GetSASValue(GETSASB1)<(BrakeLightThreshold-3)){  //Prevent Oscillation Number
+    else if(GetThrottleBrakeValue(GETSASB1)<(BrakeLightThreshold-3)){  //Prevent Oscillation Number
        BRAKELT = 0;
     }
 }

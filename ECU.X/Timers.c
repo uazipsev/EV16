@@ -15,7 +15,7 @@ unsigned int TimeOut = 0;
 unsigned int LastTime = 0;
 bool TimeOutActive = 0;
 
-unsigned int SAS, DDS, MCS, PDU, BMM, BootTimer,DebugTimer,SSTimer;
+unsigned int SAS, DDS, MCS, PDU, BMM, BootTimer, DebugTimer, SSTimer, DeltaTimer;
 unsigned int time;
 unsigned int talkTime;
 unsigned int talkTime1;
@@ -40,6 +40,7 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     talkTime3++;
     BootTimer++;
     DebugTimer++;
+    DeltaTimer++;
     SSTimer++;
     if (SAS < COMM_TIMER_MAX_TIME)
         SAS++;
@@ -69,31 +70,34 @@ int GetTime(char data){
     if(data == SASTIMER){
         return SAS;
     }
-    if(data == DDSTIMER){
+    else if(data == DDSTIMER){
         return DDS;
     }
-    if(data == MCSTIMER){
+    else if(data == MCSTIMER){
         return MCS;
     }
-    if(data == PDUTIMER){
+    else if(data == PDUTIMER){
         return PDU;
     }
-    if(data == BMMTIMER){
+    else if(data == BMMTIMER){
         return BMM;
     }
-    if(data == DEBUGTIME){
+    else if(data == DEBUGTIME){
         return DebugTimer;
     }
-    if(data == SSTIMER){
+    else if(data == DELTATIMER){
+        return DeltaTimer;
+    }
+    else if(data == SSTIMER){
         return SSTimer;
     }
-    if(data == TIME){
+    else if(data == TIME){
         return time;
     }
-    if(data == TALKTIME){
+    else if(data == TALKTIME){
         return talkTime;
     }
-    if(data == TALKTIME1){
+    else if(data == TALKTIME1){
         return talkTime1;
     }
     else return 255;

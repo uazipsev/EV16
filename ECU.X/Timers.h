@@ -26,6 +26,7 @@ void TimeOutSet(int num);
 
 #define TALKTIME 9
 #define TALKTIME1 10
+#define DELTATIMER 11
 
 #endif	/* TIMERS_H */
 

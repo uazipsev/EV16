@@ -3,4 +3,6 @@ ThrottleBrakeControl.c  \
  ThrottleBrakeControl.h  \
 SASComms.h  \
 ADDRESSING.h  \
-PinDef.h 
+PinDef.h  \
+Timers.h  \
+ DriverConfigs.h 

@@ -2,9 +2,15 @@
 #include "ThrottleBrakeControl.h"
 #include "SASComms.h"
 #include "PinDef.h"
+#include "Timers.h"
+#include "DriverConfigs.h"
+
+#define DELTAUPDATE 100
 
 unsigned int throttle1, throttle2, brake1,brake2;
 unsigned int ThrottlePrecent, TripThrottle, TripBrake, ThrottleMax = 0;
+
+unsigned int DeltaLastTime = 0;
 
 extern int SAS_FAULT_CONDITION;
 bool CheckThrotleConsistency() {
@@ -24,14 +30,23 @@ bool CheckThrotleConsistency() {
         //throttle2=0;
         //brake1=0;
     }
-    if((throttle1>ThrottleMax) || (throttle2 > ThrottleMax)){
+    if((throttle1 > GetDriverMaxThrottle()) || (throttle2 > GetDriverMaxThrottle())){
         throttle1 = ThrottleMax;
         throttle2 = ThrottleMax;
     }
     return true;
 }
 
-unsigned int GetSASValue(char request){
+void DeltaThrottle(){
+    if((GetTime(DELTATIMER) - DeltaLastTime) > DELTAUPDATE){
+        if(0){
+            
+        }
+    }
+    
+}
+
+unsigned int GetThrottleBrakeValue(char request){
     if(request == GETSAST1){
         return throttle1;
     }

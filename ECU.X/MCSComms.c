@@ -31,8 +31,8 @@ bool requestMCSData() {
         
         ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
         ToSend(OUTPUT_ACTIVE, carActive);
-        ToSend(THROTTLE_OUTPUT, GetSASValue(GETSAST1));//TODO may need to add 40.95 if mcs gets rid of theres
-        ToSend(BRAKE_OUTPUT, GetSASValue(GETSASB1)); //TODO may need to add 40.95 if mcs gets rid of theres
+        ToSend(THROTTLE_OUTPUT, GetThrottleBrakeValue(GETSAST1));//TODO may need to add 40.95 if mcs gets rid of theres
+        ToSend(BRAKE_OUTPUT, GetThrottleBrakeValue(GETSASB1)); //TODO may need to add 40.95 if mcs gets rid of theres
         sendData(MCS_ADDRESS);
         SetTime(MCSTIMER);
     }

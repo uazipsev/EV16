@@ -9,9 +9,10 @@
 #define GETSASB2 4
 #define GETSASBP 5
 
-unsigned int GetSASValue(char request);
+unsigned int GetThrottleBrakeValue(char request);
 char GetSASFalts();
 void SetThrotteMax(int val);
+void DeltaThrottle();
 
 #endif	/* XC_HEADER_TEMPLATE_H */
 
