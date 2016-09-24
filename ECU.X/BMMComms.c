@@ -74,9 +74,9 @@ bool requestBMMData(char state) {
         sendData(BMM_ADDRESS);
         RS485_Direction2(TALK);
         return true;
-    //}
-    //else{
-    //    return false;
+    }
+    else{
+        return false;
     }
 }
 

@@ -15,6 +15,7 @@
 #include "debug.h"
 #include "PinDef.h"
 #include "ThrottleBrakeControl.h"
+#include "Communications.h"
 
 int main(int argc, char** argv) {
     ReadReset();

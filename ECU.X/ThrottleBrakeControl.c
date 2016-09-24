@@ -39,7 +39,9 @@ bool CheckThrotleConsistency() {
 
 void DeltaThrottle(){
     if((GetTime(DELTATIMER) - DeltaLastTime) > DELTAUPDATE){
-        if(0){
+        int ramp = GetDriverRamp();
+        if(ramp){
+            
             
         }
     }

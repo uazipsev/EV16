@@ -73,7 +73,7 @@ void SetUpDataSets(){
 void SetDriver(char num){
     CurentDriver = num;
     ReadDriverConfig(CurentDriver);
-    SaveCarDriver(num);
+    SaveCarDriver(CurentDriver);
 }
 
 /*******************************************************************
