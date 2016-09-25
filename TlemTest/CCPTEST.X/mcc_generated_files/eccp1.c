@@ -58,7 +58,7 @@
 void ECCP1_Initialize(void)
 {
     // Set the ECCP1 to the options selected in the User Interface
-    ECCPTMRS0 = 0x00;
+    CCP1M3 = 0;
     // CCP1M Every rising edge; DC1B 0; P1M single; 
     CCP1CON = 0x05;    
 
@@ -92,7 +92,7 @@ void ECCP1_CaptureISR(void)
 
 void ECCP1_CallBack(uint16_t capturedValue)
 {
-    printf("The elapsed time since the last pulse is %f ", capturedValue);
+    printf("The elapsed time since the last pulse is %i ", capturedValue);
     // Add your code here
 }
 /**

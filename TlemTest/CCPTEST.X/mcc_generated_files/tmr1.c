@@ -62,7 +62,8 @@ volatile uint16_t timer1ReloadVal;
 void TMR1_Initialize(void)
 {
     //Set the Timer to the options selected in the GUI
-
+    T3CONbits.T3CCP1 = 0;
+    T3CONbits.T3CCP2 = 0;
     //T1CKPS 1:8; T1OSCEN disabled; TMR1CS FOSC/4; nT1SYNC synchronize; TMR1ON off; RD16 enabled; 
     T1CON = 0xB0;
 
