@@ -55,6 +55,8 @@
 */
 volatile uint16_t timer1ReloadVal;
 
+volatile uint16_t TimerOverflow  = 0;
+
 /**
   Section: TMR1 APIs
 */
@@ -142,6 +144,22 @@ bool TMR1_HasOverflowOccured(void)
 {
     // check if  overflow has occurred by checking the TMRIF bit
     return(PIR1bits.TMR1IF);
+}
+
+void TMR1_ISR(void)
+{
+    TimerOverflow++;
+    TMR1_Reload();
+    // Clearing IF flag.
+    PIR1bits.TMR1IF = 0;
+}
+
+uint16_t GetTimerOverFlow(){
+    return TimerOverflow;
+}
+
+void SetTimerOverFlow(int data){
+    TimerOverflow = data;
 }
 /**
  End of File

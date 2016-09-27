@@ -81,6 +81,10 @@ void interrupt INTERRUPT_InterruptManager (void)
     {
         ECCP1_CaptureISR();
     }
+    if(INTCONbits.PEIE == 1 && PIE1bits.TMR1IE == 1 && PIR1bits.TMR1IF == 1)
+    {
+        TMR1_ISR();
+    }
     else
     {
         //Unhandled Interrupt

@@ -50,6 +50,11 @@
 #include <xc.h>
 #include "eccp1.h"
 #include <stdio.h>
+#include "tmr1.h"
+
+#define RPMCONVERT 37500000
+
+volatile unsigned int PastTMR, PreTMR = 0;
 
 /**
   Section: Capture Module APIs
@@ -90,9 +95,15 @@ void ECCP1_CaptureISR(void)
     ECCP1_CallBack(module.ccpr1_16Bit);
 }
 
-void ECCP1_CallBack(uint16_t capturedValue)
+void ECCP1_CallBack(unsigned int capturedValue)
 {
-    printf("The elapsed time since the last pulse is %i ", capturedValue);
+    //printf("%u\n", capturedValue);
+    PreTMR = capturedValue - ((GetTimerOverFlow() * 65536) + PastTMR);
+    unsigned int RPM =  (RPMCONVERT / PreTMR)/8; 
+    printf("%u \n", RPM);
+    PastTMR = capturedValue;
+    SetTimerOverFlow(0);
+    
     // Add your code here
 }
 /**

@@ -279,11 +279,9 @@ void TMR1_Reload(void);
 */
 bool TMR1_HasOverflowOccured(void);
 
-#ifdef __cplusplus  // Provide C++ Compatibility
-
-    }
-
-#endif
+void TMR1_ISR(void);
+uint16_t GetTimerOverFlow();
+void SetTimerOverFlow(int data);
 
 #endif // _TMR1_H
 /**
