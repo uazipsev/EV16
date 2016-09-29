@@ -9607,7 +9607,9 @@ TRISAbits.TRISA4 = 1;
 TRISAbits.TRISA6 = 1;
 TRISAbits.TRISA3 = 0;
 
-# 116
+TRISAbits.TRISA3 = 0;
+
+# 118
 ANSELA = 0;
 ANSELC = 0;
 ANSELD = 0;
@@ -9620,13 +9622,15 @@ OSCCON2 = 0x04;
 OSCTUNE = 0x00;
 
 
-
+ComStart();
 INTERRUPT_Initialize();
 TMR0_Initialize();
 }
 
 void INTERRUPT_Initialize (void)
 {
+INTCONbits.PEIE = 1;
+INTCONbits.GIE = 1;
 
 RCONbits.IPEN = 0;
 
@@ -9637,7 +9641,11 @@ IPR1bits.RC1IP = 0;
 
 IPR1bits.TX1IP = 0;
 
-INTCON2bits.TMR0IP = 0;
+
+INTCONbits.TMR0IF = 0;
+
+
+INTCONbits.TMR0IE = 1;
 
 IPR1bits.ADIP = 0;
 

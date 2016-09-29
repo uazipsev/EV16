@@ -109,6 +109,8 @@ void Start(){
     RTG_INPUT_TRIS = INPUT;
     IMD_INPUT_TRIS = INPUT;
     INDICATOR_TRIS = OUTPUT;
+    
+    TRISAbits.TRISA3 = 0;
     /*
      Set ADC pins as digital
      */
@@ -125,13 +127,15 @@ void Start(){
     OSCTUNE = 0x00;
     // Set the secondary oscillator
 
-    //ComStart();
+    ComStart();
     INTERRUPT_Initialize();
     TMR0_Initialize();
 }
 
 void  INTERRUPT_Initialize (void)
 {
+    INTCONbits.PEIE = 1;
+    INTCONbits.GIE = 1;
     // Disable Interrupt Priority Vectors (16CXXX Compatibility Mode)
     RCONbits.IPEN = 0;
 
@@ -142,7 +146,11 @@ void  INTERRUPT_Initialize (void)
     // TXI
     IPR1bits.TX1IP = 0;
     // TMRI
-    INTCON2bits.TMR0IP = 0;
+    // Clear Interrupt flag before enabling the interrupt
+    INTCONbits.TMR0IF = 0;
+
+    // Enabling TMR0 interrupt.
+    INTCONbits.TMR0IE = 1;
     // ADI
     IPR1bits.ADIP = 0;
     // SSPI

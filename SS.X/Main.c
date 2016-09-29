@@ -23,14 +23,11 @@
 void main(void) {
     Start(); //Set up pic for application use
     while (1) {
-        //updateComms(); //Read UART ring buffer and look if packet is here for us!
-        if(GetTime() > 1000){  //read ticker and if it greater than one second
-            //Delay(1000);
-            //INDICATOR ^= 1;    //blink LED
-            //Delay(1000);
-            INDICATOR ^= 1;    //blink LED
-            SetTime();         // Clear timer 
-        //    ReadFaults();      //Read ports and load data into bytes
+        updateComms(); //Read UART ring buffer and look if packet is here for us!
+        if(GetTime() > 5){  //read ticker and if it greater than one second
+           INDICATOR ^= 1;    //blink LED
+           ReadFaults();      //Read ports and load data into bytes
+           SetTime();         // Clear timer
         }
     }
 }

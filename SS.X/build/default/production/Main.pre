@@ -9334,14 +9334,11 @@ void Delay(int wait);
 void main(void) {
 Start();
 while (1) {
-
-if(GetTime() > 1000){
-
-
-
+updateComms();
+if(GetTime() > 5){
 LATAbits.LATA3 ^= 1;
+ReadFaults();
 SetTime();
-
 }
 }
 }

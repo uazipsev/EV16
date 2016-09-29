@@ -143,11 +143,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _OSCCON2 `Vuc ~T0 @X0 0 e@4050 ]
 "9252
 [v _OSCTUNE `Vuc ~T0 @X0 0 e@3995 ]
+"130 Function.c
+[v _ComStart `(i ~T0 @X0 0 ef ]
 "12 Function.h
 [v _INTERRUPT_Initialize `(v ~T0 @X0 0 ef ]
 "106 tmr0.h
 [v _TMR0_Initialize `(v ~T0 @X0 0 ef ]
-"16387 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+"17456 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+[s S1093 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1093 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
+"17466
+[s S1094 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1094 . . INT0F T0IF . INT0E T0IE PEIE GIE ]
+"17476
+[s S1095 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1095 . . GIEL GIEH ]
+"17455
+[u S1092 `S1093 1 `S1094 1 `S1095 1 ]
+[n S1092 . . . . ]
+"17482
+[v _INTCONbits `VS1092 ~T0 @X0 0 e@4082 ]
+"16387
 [s S1017 :1 `uc 1 ]
 [n S1017 . NOT_BOR ]
 "16390
@@ -184,20 +200,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S550 . . . ]
 "9774
 [v _IPR1bits `VS550 ~T0 @X0 0 e@3999 ]
-"17387
-[s S1089 :7 `uc 1 :1 `uc 1 ]
-[n S1089 . . NOT_RBPU ]
-"17391
-[s S1090 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1090 . RBIP . TMR0IP . INTEDG2 INTEDG1 INTEDG0 nRBPU ]
-"17401
-[s S1091 :7 `uc 1 :1 `uc 1 ]
-[n S1091 . . RBPU ]
-"17386
-[u S1088 `S1089 1 `S1090 1 `S1091 1 ]
-[n S1088 . . . . ]
-"17406
-[v _INTCON2bits `VS1088 ~T0 @X0 0 e@4081 ]
 "10004
 [s S562 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S562 . CCP2IP TMR3IP HLVDIP BCL1IP EEIP C2IP C1IP OSCFIP ]
@@ -238,20 +240,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _EUSART1_Receive_ISR `(v ~T0 @X0 0 ef ]
 "69
 [v _EUSART1_Transmit_ISR `(v ~T0 @X0 0 ef ]
-"17456 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
-[s S1093 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1093 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
-"17466
-[s S1094 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1094 . . INT0F T0IF . INT0E T0IE PEIE GIE ]
-"17476
-[s S1095 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1095 . . GIEL GIEH ]
-"17455
-[u S1092 `S1093 1 `S1094 1 `S1095 1 ]
-[n S1092 . . . . ]
-"17482
-[v _INTCONbits `VS1092 ~T0 @X0 0 e@4082 ]
 "296 tmr0.h
 [v _TMR0_ISR `(v ~T0 @X0 0 ef ]
 [v F7755 `(v ~T0 @X0 1 tf1`ul ]
@@ -7957,167 +7945,182 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Function.c: 111: TRISAbits.TRISA3 = 0;
 "111
 [e = . . _TRISAbits 0 3 -> -> 0 `i `uc ]
-[; ;Function.c: 116: ANSELA = 0;
-"116
-[e = _ANSELA -> -> 0 `i `uc ]
-[; ;Function.c: 117: ANSELC = 0;
-"117
-[e = _ANSELC -> -> 0 `i `uc ]
-[; ;Function.c: 118: ANSELD = 0;
+[; ;Function.c: 113: TRISAbits.TRISA3 = 0;
+"113
+[e = . . _TRISAbits 0 3 -> -> 0 `i `uc ]
+[; ;Function.c: 118: ANSELA = 0;
 "118
+[e = _ANSELA -> -> 0 `i `uc ]
+[; ;Function.c: 119: ANSELC = 0;
+"119
+[e = _ANSELC -> -> 0 `i `uc ]
+[; ;Function.c: 120: ANSELD = 0;
+"120
 [e = _ANSELD -> -> 0 `i `uc ]
-[; ;Function.c: 121: OSCCON = 0x72;
-"121
-[e = _OSCCON -> -> 114 `i `uc ]
-[; ;Function.c: 123: OSCCON2 = 0x04;
+[; ;Function.c: 123: OSCCON = 0x72;
 "123
-[e = _OSCCON2 -> -> 4 `i `uc ]
-[; ;Function.c: 125: OSCTUNE = 0x00;
+[e = _OSCCON -> -> 114 `i `uc ]
+[; ;Function.c: 125: OSCCON2 = 0x04;
 "125
+[e = _OSCCON2 -> -> 4 `i `uc ]
+[; ;Function.c: 127: OSCTUNE = 0x00;
+"127
 [e = _OSCTUNE -> -> 0 `i `uc ]
-[; ;Function.c: 129: INTERRUPT_Initialize();
-"129
-[e ( _INTERRUPT_Initialize ..  ]
-[; ;Function.c: 130: TMR0_Initialize();
+[; ;Function.c: 130: ComStart();
 "130
-[e ( _TMR0_Initialize ..  ]
-[; ;Function.c: 131: }
+[e ( _ComStart ..  ]
+[; ;Function.c: 131: INTERRUPT_Initialize();
 "131
+[e ( _INTERRUPT_Initialize ..  ]
+[; ;Function.c: 132: TMR0_Initialize();
+"132
+[e ( _TMR0_Initialize ..  ]
+[; ;Function.c: 133: }
+"133
 [e :UE 1131 ]
 }
-"133
+"135
 [v _INTERRUPT_Initialize `(v ~T0 @X0 1 ef ]
-"134
+"136
 {
-[; ;Function.c: 133: void INTERRUPT_Initialize (void)
-[; ;Function.c: 134: {
+[; ;Function.c: 135: void INTERRUPT_Initialize (void)
+[; ;Function.c: 136: {
 [e :U _INTERRUPT_Initialize ]
 [f ]
-[; ;Function.c: 136: RCONbits.IPEN = 0;
-"136
+[; ;Function.c: 137: INTCONbits.PEIE = 1;
+"137
+[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
+[; ;Function.c: 138: INTCONbits.GIE = 1;
+"138
+[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
+[; ;Function.c: 140: RCONbits.IPEN = 0;
+"140
 [e = . . _RCONbits 5 7 -> -> 0 `i `uc ]
-[; ;Function.c: 141: IPR1bits.RC1IP = 0;
-"141
-[e = . . _IPR1bits 0 5 -> -> 0 `i `uc ]
-[; ;Function.c: 143: IPR1bits.TX1IP = 0;
-"143
-[e = . . _IPR1bits 0 4 -> -> 0 `i `uc ]
-[; ;Function.c: 145: INTCON2bits.TMR0IP = 0;
+[; ;Function.c: 145: IPR1bits.RC1IP = 0;
 "145
-[e = . . _INTCON2bits 1 2 -> -> 0 `i `uc ]
-[; ;Function.c: 147: IPR1bits.ADIP = 0;
+[e = . . _IPR1bits 0 5 -> -> 0 `i `uc ]
+[; ;Function.c: 147: IPR1bits.TX1IP = 0;
 "147
+[e = . . _IPR1bits 0 4 -> -> 0 `i `uc ]
+[; ;Function.c: 150: INTCONbits.TMR0IF = 0;
+"150
+[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+[; ;Function.c: 153: INTCONbits.TMR0IE = 1;
+"153
+[e = . . _INTCONbits 0 5 -> -> 1 `i `uc ]
+[; ;Function.c: 155: IPR1bits.ADIP = 0;
+"155
 [e = . . _IPR1bits 0 6 -> -> 0 `i `uc ]
-[; ;Function.c: 149: IPR1bits.SSP1IP = 0;
-"149
+[; ;Function.c: 157: IPR1bits.SSP1IP = 0;
+"157
 [e = . . _IPR1bits 0 3 -> -> 0 `i `uc ]
-[; ;Function.c: 151: IPR2bits.BCL1IP = 0;
-"151
+[; ;Function.c: 159: IPR2bits.BCL1IP = 0;
+"159
 [e = . . _IPR2bits 0 3 -> -> 0 `i `uc ]
-[; ;Function.c: 152: IPR1bits.TMR2IP=0;
-"152
+[; ;Function.c: 160: IPR1bits.TMR2IP=0;
+"160
 [e = . . _IPR1bits 0 1 -> -> 0 `i `uc ]
-[; ;Function.c: 154: }
-"154
+[; ;Function.c: 162: }
+"162
 [e :UE 1132 ]
 }
-[v F7999 `(v ~T0 @X0 1 tf ]
-"156
-[v _INTERRUPT_InterruptManager `IF7999 ~T0 @X0 1 e ]
-"157
+[v F8000 `(v ~T0 @X0 1 tf ]
+"164
+[v _INTERRUPT_InterruptManager `IF8000 ~T0 @X0 1 e ]
+"165
 {
-[; ;Function.c: 156: void interrupt INTERRUPT_InterruptManager (void)
-[; ;Function.c: 157: {
+[; ;Function.c: 164: void interrupt INTERRUPT_InterruptManager (void)
+[; ;Function.c: 165: {
 [e :U _INTERRUPT_InterruptManager ]
 [f ]
-[; ;Function.c: 159: if(PIE1bits.RC1IE == 1 && PIR1bits.RC1IF == 1)
-"159
-[e $ ! && == -> . . _PIE1bits 0 5 `i -> 1 `i == -> . . _PIR1bits 0 5 `i -> 1 `i 1134  ]
-[; ;Function.c: 160: {
-"160
-{
-[; ;Function.c: 161: EUSART1_Receive_ISR();
-"161
-[e ( _EUSART1_Receive_ISR ..  ]
-"162
-}
-[; ;Function.c: 162: }
-[e $U 1135  ]
-"163
-[e :U 1134 ]
-[; ;Function.c: 163: else if(PIE1bits.TX1IE == 1 && PIR1bits.TX1IF == 1)
-[e $ ! && == -> . . _PIE1bits 0 4 `i -> 1 `i == -> . . _PIR1bits 0 4 `i -> 1 `i 1136  ]
-[; ;Function.c: 164: {
-"164
-{
-[; ;Function.c: 165: EUSART1_Transmit_ISR();
-"165
-[e ( _EUSART1_Transmit_ISR ..  ]
-"166
-}
-[; ;Function.c: 166: }
-[e $U 1137  ]
+[; ;Function.c: 167: if(PIE1bits.RC1IE == 1 && PIR1bits.RC1IF == 1)
 "167
-[e :U 1136 ]
-[; ;Function.c: 167: else if(INTCONbits.TMR0IE == 1 && INTCONbits.TMR0IF == 1)
-[e $ ! && == -> . . _INTCONbits 0 5 `i -> 1 `i == -> . . _INTCONbits 0 2 `i -> 1 `i 1138  ]
+[e $ ! && == -> . . _PIE1bits 0 5 `i -> 1 `i == -> . . _PIR1bits 0 5 `i -> 1 `i 1134  ]
 [; ;Function.c: 168: {
 "168
 {
-[; ;Function.c: 169: TMR0_ISR();
+[; ;Function.c: 169: EUSART1_Receive_ISR();
 "169
-[e ( _TMR0_ISR ..  ]
+[e ( _EUSART1_Receive_ISR ..  ]
 "170
 }
 [; ;Function.c: 170: }
-[e $U 1139  ]
+[e $U 1135  ]
 "171
-[e :U 1138 ]
-[; ;Function.c: 171: else
+[e :U 1134 ]
+[; ;Function.c: 171: else if(PIE1bits.TX1IE == 1 && PIR1bits.TX1IF == 1)
+[e $ ! && == -> . . _PIE1bits 0 4 `i -> 1 `i == -> . . _PIR1bits 0 4 `i -> 1 `i 1136  ]
 [; ;Function.c: 172: {
 "172
 {
+[; ;Function.c: 173: EUSART1_Transmit_ISR();
+"173
+[e ( _EUSART1_Transmit_ISR ..  ]
 "174
+}
+[; ;Function.c: 174: }
+[e $U 1137  ]
+"175
+[e :U 1136 ]
+[; ;Function.c: 175: else if(INTCONbits.TMR0IE == 1 && INTCONbits.TMR0IF == 1)
+[e $ ! && == -> . . _INTCONbits 0 5 `i -> 1 `i == -> . . _INTCONbits 0 2 `i -> 1 `i 1138  ]
+[; ;Function.c: 176: {
+"176
+{
+[; ;Function.c: 177: TMR0_ISR();
+"177
+[e ( _TMR0_ISR ..  ]
+"178
+}
+[; ;Function.c: 178: }
+[e $U 1139  ]
+"179
+[e :U 1138 ]
+[; ;Function.c: 179: else
+[; ;Function.c: 180: {
+"180
+{
+"182
 }
 [e :U 1139 ]
 [e :U 1137 ]
 [e :U 1135 ]
-[; ;Function.c: 174: }
-[; ;Function.c: 175: }
-"175
+[; ;Function.c: 182: }
+[; ;Function.c: 183: }
+"183
 [e :UE 1133 ]
 }
-"177
+"185
 [v _Delay `(v ~T0 @X0 1 ef1`i ]
 {
-[; ;Function.c: 177: void Delay(int wait) {
+[; ;Function.c: 185: void Delay(int wait) {
 [e :U _Delay ]
 [v _wait `i ~T0 @X0 1 r1 ]
 [f ]
-"178
+"186
 [v _x `i ~T0 @X0 1 a ]
-[; ;Function.c: 178: int x;
-[; ;Function.c: 179: for (x = 0; x < wait; x++) {
-"179
+[; ;Function.c: 186: int x;
+[; ;Function.c: 187: for (x = 0; x < wait; x++) {
+"187
 {
 [e = _x -> 0 `i ]
 [e $U 1144  ]
 [e :U 1141 ]
 {
-[; ;Function.c: 180: _delay((unsigned long)((1)*(16000000/4000.0)));
-"180
+[; ;Function.c: 188: _delay((unsigned long)((1)*(16000000/4000.0)));
+"188
 [e ( __delay (1 -> * -> -> 1 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"181
+"189
 }
-"179
+"187
 [e ++ _x -> 1 `i ]
 [e :U 1144 ]
 [e $ < _x _wait 1141  ]
 [e :U 1142 ]
-"181
+"189
 }
-[; ;Function.c: 181: }
-[; ;Function.c: 182: }
-"182
+[; ;Function.c: 189: }
+[; ;Function.c: 190: }
+"190
 [e :UE 1140 ]
 }
