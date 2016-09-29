@@ -76,10 +76,14 @@ void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt(void) {
 }
 
 void FilterADC(){
-    throttle1val=(ADCbuffer[0]+(throttle1val*2))/3;
-    throttle2val=(ADCbuffer[1]+(throttle2val*2))/3;
-    brake1val=(ADCbuffer[2]+(brake1val*2))/3;
-    brake2val=(ADCbuffer[3]+(brake2val*2))/3;
+    //throttle1val=(ADCbuffer[0]+(throttle1val*2))/3;
+    //throttle2val=(ADCbuffer[1]+(throttle2val*2))/3;
+    //brake1val=(ADCbuffer[2]+(brake1val*2))/3;
+    //brake2val=(ADCbuffer[3]+(brake2val*2))/3;
+    throttle1val=ADCbuffer[0];
+    throttle2val=ADCbuffer[1];//+(throttle2val*2))/3;
+    brake1val=ADCbuffer[2];//+(brake1val*2))/3;
+    brake2val=ADCbuffer[3];//+(brake2val*2))/3;
 }
 
 float GetADC(value RequestValue){
