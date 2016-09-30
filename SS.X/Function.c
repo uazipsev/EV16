@@ -111,6 +111,7 @@ void Start(){
     INDICATOR_TRIS = OUTPUT;
     
     TRISAbits.TRISA3 = 0;
+    TRISDbits.TRISD4 = 0;
     /*
      Set ADC pins as digital
      */

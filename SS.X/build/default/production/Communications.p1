@@ -7601,25 +7601,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Communications.c: 24: LATDbits.LATD4 = 1;
 "24
 [e = . . _LATDbits 0 4 -> -> 1 `i `uc ]
-[; ;Communications.c: 25: ToSend(1,GetFaults(1));
+[; ;Communications.c: 25: ToSend(0,8);
 "25
-[e ( _ToSend (2 , -> -> 1 `i `uc -> ( _GetFaults (1 -> -> 1 `i `uc `ui ]
-[; ;Communications.c: 26: ToSend(2,GetFaults(0));
+[e ( _ToSend (2 , -> -> 0 `i `uc -> -> 8 `i `ui ]
+[; ;Communications.c: 26: ToSend(1,GetFaults(1));
 "26
-[e ( _ToSend (2 , -> -> 2 `i `uc -> ( _GetFaults (1 -> -> 0 `i `uc `ui ]
-[; ;Communications.c: 27: Delay(9);
+[e ( _ToSend (2 , -> -> 1 `i `uc -> ( _GetFaults (1 -> -> 1 `i `uc `ui ]
+[; ;Communications.c: 27: ToSend(2,GetFaults(0));
 "27
-[e ( _Delay (1 -> 9 `i ]
-[; ;Communications.c: 28: sendData(1);
+[e ( _ToSend (2 , -> -> 2 `i `uc -> ( _GetFaults (1 -> -> 0 `i `uc `ui ]
+[; ;Communications.c: 28: Delay(9);
 "28
-[e ( _sendData (1 -> -> 1 `i `uc ]
-[; ;Communications.c: 29: Delay(3);
+[e ( _Delay (1 -> 9 `i ]
+[; ;Communications.c: 29: sendData(1);
 "29
-[e ( _Delay (1 -> 3 `i ]
-[; ;Communications.c: 30: LATDbits.LATD4 = 0;
+[e ( _sendData (1 -> -> 1 `i `uc ]
+[; ;Communications.c: 30: Delay(3);
 "30
-[e = . . _LATDbits 0 4 -> -> 0 `i `uc ]
-[; ;Communications.c: 31: }
+[e ( _Delay (1 -> 3 `i ]
+[; ;Communications.c: 31: LATDbits.LATD4 = 0;
 "31
+[e = . . _LATDbits 0 4 -> -> 0 `i `uc ]
+[; ;Communications.c: 32: }
+"32
 [e :UE 1130 ]
 }
