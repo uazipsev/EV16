@@ -8,7 +8,10 @@
 #ifndef SSCOMMS_H
 #define	SSCOMMS_H
 
+#include <stdbool.h>
 
+bool requestSSData();
+bool receiveCommSS();
 
 #endif	/* SSCOMMS_H */
 

@@ -112,6 +112,7 @@ void updateECUState() {
             //Wait for complete or for timeout
             if (bootSequenceCompleted()){
                 RTD(1500);
+                carActive = true;
                 currentState++;
             }
             else checkForBootupTimeout();
@@ -186,8 +187,8 @@ void updateECUState() {
                 changeLEDState(DDS_ACTIVE_LED, 0);
                 powerSet.DDS = true;
                 powerSet.SAS = true;
-                powerSet.BMM = true;
-                powerSet.MCS = true;
+                powerSet.BMM = false;
+                powerSet.MCS = false;
                 carActive = false;
                 SS_RELAY = 0;
             }

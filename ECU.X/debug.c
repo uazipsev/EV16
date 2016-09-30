@@ -120,8 +120,8 @@ void handleDebugRequests() {
                 printf("Throttle1:      %d\n", GetSASRaw(GETSAST1RAW));
                 printf("Throttle2:      %d\n", GetSASRaw(GETSAST2RAW));
                 printf("\n-----Throttle Brake Signal Debug----\n");
-                printf("Throttle1:      %d\n",  GetThrottleBrakeValue(GETSAST1));
-                printf("Throttle2:      %d\n",  GetThrottleBrakeValue(GETSAST2));
+                printf("Throttle1:      %d\n",  GetSASValue(GETSAST1));
+                printf("Throttle2:      %d\n",  GetSASValue(GETSAST2));
                 break;
             case BRAKE:
                 //This is the first time through the loop
@@ -130,10 +130,10 @@ void handleDebugRequests() {
                 }
                 printf("\n---- Brake Raw Debug----\n");
                 printf("Brake1:          %d\n\n", GetSASRaw(GETSASB1RAW));
-                printf("Brake2:          %d\n\n", GetSASRaw(GETSASB1RAW));
+                printf("Brake2:          %d\n\n", GetSASRaw(GETSASB2RAW));
                 printf("\n-----Throttle Brake Signal Debug----\n");
-                printf("Brake1:          %d\n",  GetThrottleBrakeValue(GETSASB1));
-                printf("Brake2:          %d\n",  GetThrottleBrakeValue(GETSASB1));
+                printf("Brake1:          %d\n",  GetSASValue(GETSASB1));
+                printf("Brake2:          %d\n",  GetSASValue(GETSASB2));
                 break;
             case BATTERY_DEBUG_VOLTS:
                 //This is the first time through the loop

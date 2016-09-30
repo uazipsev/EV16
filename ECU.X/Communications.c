@@ -26,6 +26,7 @@
 #include "DDSComms.h"
 #include "PDUComms.h"
 #include "BMMComms.h"
+#include "SScomms.h"
 #include "Timers.h"
 #include "UART.h"
 #include "UART1.h"
@@ -41,7 +42,7 @@
 char x = 0;
 
 enum bus1CommState {
-    SAS_UPDATE = 0, DDS_UPDATE = 1, CHECK_STATE1 = 2, ERROR_STATE1 = 3, NUM_STATES1 = 4
+    SAS_UPDATE = 0, DDS_UPDATE = 1, SS_UPDATE = 2, CHECK_STATE1 = 3, ERROR_STATE1 = 4, NUM_STATES1 = 5
 };
 enum bus1CommState commsBus1State = SAS_UPDATE;
     
@@ -56,11 +57,13 @@ struct commsStates {
     bool SAS;
     bool BMM;
     bool PDU;
+    bool SS;
     int DDS_SEND;
     int MCS_SEND;
     int SAS_SEND;
     int BMM_SEND;
     int PDU_SEND;
+    int SS_SEND;
 };
 struct commsStates comms;
 
@@ -94,12 +97,17 @@ void bus1Update() {
                     resetCommTimers();
                     
                 }
-            } else {
+
+            }
+             else {
                 //FLAG ERROR ON SAS COMMS -- Move on
                 comms.SAS = false;
                 commsBus1State++;
                 resetCommTimers();
             }
+//            else{
+//                commsBus1State++;
+//            }
             break;
         case DDS_UPDATE:
             if (requestDDSData()) {
@@ -108,9 +116,24 @@ void bus1Update() {
                     commsBus1State++;
                     resetCommTimers();
                 }
-            } else {
-                //FLAG ERROR ON DDS COMMS -- Move on
-                comms.DDS = false;
+            }
+            else {
+                    //FLAG ERROR ON DDS COMMS -- Move on
+                    commsBus1State++;
+                    resetCommTimers();
+            }
+            break;
+        case SS_UPDATE:
+            if (requestSSData()) {
+                if (receiveCommSS()) {
+                    comms.SS = true;
+                    commsBus1State++;
+                    resetCommTimers();
+                }
+            }
+             else {
+            //FLAG ERROR ON DDS COMMS -- Move on
+                //comms.SS = false;
                 commsBus1State++;
                 resetCommTimers();
             }
@@ -142,6 +165,7 @@ void checkCommDirection() {
 void resetCommTimers() {
     SetTime(SASTIMER);
     SetTime(DDSTIMER);
+    SetTime(SSTIMER);
     //PDUTimer = 0;
 }
 

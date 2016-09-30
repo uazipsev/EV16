@@ -13,8 +13,8 @@ extern "C" {
 #endif
 
 
-#define CLOSE_COMM_TIME 7
-#define BOARD_RESEND_MIN 25
+#define CLOSE_COMM_TIME 5
+#define BOARD_RESEND_MIN 35
 #define BOARD_TIMEOUT 50
     //Addresses
 #define ECU_ADDRESS 1
@@ -23,6 +23,7 @@ extern "C" {
 #define MCS_ADDRESS 4
 #define PDU_ADDRESS 5
 #define BMM_ADDRESS 6
+#define SS_ADDRESS 8
 
     //ECU Data
 #define RESPONSE_ADDRESS        0

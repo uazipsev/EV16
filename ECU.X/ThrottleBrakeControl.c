@@ -17,6 +17,7 @@ bool CheckThrotleConsistency() {
     throttle1 = GetSASRaw(GETSAST1RAW);
     throttle2 = GetSASRaw(GETSAST1RAW);
     brake1 = GetSASRaw(GETSASB1RAW);
+    brake2 = GetSASRaw(GETSASB2RAW);
 
     //throttle consistency check
     if((((throttle1*(ThrottlePrecent/100)) > throttle2) && ((throttle1 *((ThrottlePrecent/100)-1)) < throttle2))) {

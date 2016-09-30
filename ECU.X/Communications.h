@@ -13,6 +13,7 @@
 #define SASSTATE 3
 #define DDSSTATE 4
 #define BMMSTATE 5
+#define SSSTATE 6
 
 void ComStart();
 

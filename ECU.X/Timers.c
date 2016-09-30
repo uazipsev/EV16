@@ -107,31 +107,31 @@ void SetTime(char data){
     if(data == SASTIMER){
         SAS = 0;
     }
-    if(data == DDSTIMER){
+    else if(data == DDSTIMER){
         DDS = 0;
     }
-    if(data == MCSTIMER){
+    else if(data == MCSTIMER){
         MCS = 0;
     }
-    if(data == PDUTIMER){
+    else if(data == PDUTIMER){
         PDU = 0;
     }
-    if(data == BMMTIMER){
+    else if(data == BMMTIMER){
         BMM = 0;
     }
-    if(data == DEBUGTIME){
+    else if(data == DEBUGTIME){
         DebugTimer = 0;
     }
-    if(data == SSTIMER){
+    else if(data == SSTIMER){
         SSTimer = 0;
     }
-    if(data == TIME){
+    else if(data == TIME){
         time = 0;
     }
-    if(data == TALKTIME){
+    else if(data == TALKTIME){
         talkTime = 0;
     }
-    if(data == TALKTIME1){
+    else if(data == TALKTIME1){
         talkTime1 = 0;
     }
 }
