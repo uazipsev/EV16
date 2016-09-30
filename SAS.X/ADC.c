@@ -95,7 +95,7 @@ float GetADC(value RequestValue){
             return throttle2val * 0.02;
             break;
         case Brake1 :
-            return brake2val * 0.02;
+            return brake1val * 0.02;
             break;
         case Brake2 :
             return brake2val * 0.02;
