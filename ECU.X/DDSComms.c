@@ -33,6 +33,7 @@ bool requestDDSData() {
         ToSend1(THROTTLE_DDS, GetThrottleBrakeValue(GETSAST1));
         ToSend1(BRAKE_DDS, GetThrottleBrakeValue(GETSASB1));
         ToSend1(LED_DDS, indicators);
+        ToSend1(LED_DDS, indicators);
         RS485_Direction1(TALK);
         sendData1(DDS_ADDRESS);
         SetTime(DDSTIMER);

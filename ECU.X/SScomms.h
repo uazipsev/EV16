@@ -25,6 +25,7 @@
 bool requestSSData();
 bool receiveCommSS();
 int GetFaultChar(char val);
+bool GetFaultBool(char val);
 
 #endif	/* SSCOMMS_H */
 

@@ -3,6 +3,7 @@
 #include "ADDRESSING.h"
 #include "Timers.h"
 #include "FastTransfer1.h"
+#include "Communications.h"
 
 bool readyToSendSS = 0;
 int SSErrorCounter = 0;
@@ -36,10 +37,10 @@ bool requestSSData() {
 
 bool receiveCommSS() {
     if (receiveData1()) {
-        if (receiveArray1[RESPONSE_ADDRESS] == SS_ADDRESS) {
-            FaultsHigh = receiveArray1[BUTTONS_DDS];
-            FaultsLow = receiveArray1[BUTTONS_DDS];
-            readyToSendDDS = true;
+        if (ReceiveArray1Get(RESPONSE_ADDRESS) == SS_ADDRESS) {
+            FaultsHigh = ReceiveArray1Get(1);
+            FaultsLow = ReceiveArray1Get(2);
+            readyToSendSS = true;
             SetTime(SSTIMER);
             return true;
         } else return false;
@@ -58,37 +59,37 @@ int GetFaultChar(char val){
 bool GetFaultBool(char val){
     switch(val){
         case ECU_FAULT:
-            return ((FaultsHigh >> ECU_FAULT-1)  & 0x01);
+            return ((FaultsHigh >> (ECU_FAULT-1))  & 0x01);
             break;
         case BOTS_FAULT:
-            return ((FaultsHigh >> BOTS_FAULT-1)  & 0x01);
+            return ((FaultsHigh >> (BOTS_FAULT-1))  & 0x01);
             break;
         case AMD_FAULT:
-            return ((FaultsHigh >> AMD_FAULT-1)  & 0x01);
+            return ((FaultsHigh >> (AMD_FAULT-1))  & 0x01);
             break;
         case STOP_L_FAULT:
-            return ((FaultsHigh >> STOP_L_FAULT-1)  & 0x01);
+            return ((FaultsHigh >> (STOP_L_FAULT-1))  & 0x01);
             break;
         case STOP_R_FAULT:
-            return ((FaultsHigh >> STOP_R_FAULT-1)  & 0x01);
+            return ((FaultsHigh >> (STOP_R_FAULT-1))  & 0x01);
             break;
         case STOP_C_FAULT:
-            return ((FaultsHigh >> STOP_C_FAULT-1)  & 0x01);
+            return ((FaultsHigh >> (STOP_C_FAULT-1))  & 0x01);
             break;
         case IMD_FAULT:
-            return ((FaultsHigh >> IMD_FAULT-1)  & 0x01);
+            return ((FaultsHigh >> (IMD_FAULT-1))  & 0x01);
             break;
         case BPD_FAULT:
-            return ((FaultsHigh >> BPD_FAULT-1)  & 0x01);
+            return ((FaultsHigh >> (BPD_FAULT-1))  & 0x01);
             break;
         case TSMS_FAULT:
-            return ((FaultsLow >> TSMS_FAULT-1)  & 0x01);
+            return ((FaultsLow >> (TSMS_FAULT-1))  & 0x01);
             break;
         case IS_FAULT:
-            return ((FaultsLow >> IS_FAULT-1)  & 0x01);
+            return ((FaultsLow >> (IS_FAULT-1))  & 0x01);
             break;
         case AUX_FAULT:
-            return ((FaultsLow >> AUX_FAULT-1)  & 0x01);
+            return ((FaultsLow >> (AUX_FAULT-1))  & 0x01);
             break;
     }
 }

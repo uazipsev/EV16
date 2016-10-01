@@ -42,8 +42,8 @@ extern "C" {
 #define SAS_FAULT               13
 #define BMM_FAULT               14
 #define CURRENT_BMM1            15
-#define CURRENT_BMM2             16
-#define CURRENT_BMM3             17
+#define CURRENT_BMM2            16
+#define CURRENT_BMM3            17
 #define CURRENT_BMM4            18
     
 
@@ -64,6 +64,8 @@ extern "C" {
 #define LED_DDS                 2
 #define THROTTLE_DDS            3
 #define BRAKE_DDS               4
+#define FALT_H                  5
+#define FALT_L                  6
 
     //BMM Receive
 #define BMM_COMM_STATE          1
