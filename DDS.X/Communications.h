@@ -15,7 +15,7 @@
     unsigned int buttonsCollector();
     void respondECU();
     void handleIndicators(int receivedIndicators);
-    void DataBarGraphs(int BGA, int BGB);
+    void DataBarGraphs(unsigned int BGA, unsigned int BGB);
     unsigned int GetDataBarGraphA();
     unsigned int GetDataBarGraphB();
 

@@ -7,6 +7,9 @@
 
 #define DELTAUPDATE 100
 
+#define TRATIO 0.0423
+#define BRATIO 0.0525
+
 unsigned int throttle1, throttle2, brake1,brake2;
 unsigned int ThrottlePrecent, TripThrottle, TripBrake, ThrottleMax = 0;
 
@@ -14,10 +17,10 @@ unsigned int DeltaLastTime = 0;
 
 extern int SAS_FAULT_CONDITION;
 bool CheckThrotleConsistency() {
-    throttle1 = GetSASRaw(GETSAST1RAW);
-    throttle2 = GetSASRaw(GETSAST1RAW);
-    brake1 = GetSASRaw(GETSASB1RAW);
-    brake2 = GetSASRaw(GETSASB2RAW);
+    throttle1 = GetSASRaw(GETSAST1RAW)*TRATIO;
+    throttle2 = GetSASRaw(GETSAST1RAW)*TRATIO;
+    brake1 = GetSASRaw(GETSASB1RAW)*BRATIO;
+    brake2 = GetSASRaw(GETSASB2RAW)*BRATIO;
 
     //throttle consistency check
     if((((throttle1*(ThrottlePrecent/100)) > throttle2) && ((throttle1 *((ThrottlePrecent/100)-1)) < throttle2))) {
@@ -32,8 +35,8 @@ bool CheckThrotleConsistency() {
         //brake1=0;
     }
     if((throttle1 > GetDriverMaxThrottle()) || (throttle2 > GetDriverMaxThrottle())){
-        throttle1 = ThrottleMax;
-        throttle2 = ThrottleMax;
+        //throttle1 = ThrottleMax;
+        //throttle2 = ThrottleMax;
     }
     return true;
 }

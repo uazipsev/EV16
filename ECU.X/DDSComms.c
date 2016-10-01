@@ -30,8 +30,8 @@ bool requestDDSData() {
             DDSErrorCounter = 0;
         }
         ToSend1(RESPONSE_ADDRESS, ECU_ADDRESS);
-        ToSend1(THROTTLE_DDS, GetThrottleBrakeValue(GETSAST1));
-        ToSend1(BRAKE_DDS, GetThrottleBrakeValue(GETSASB1));
+        ToSend1(THROTTLE_DDS, 50);//GetThrottleBrakeValue(GETSAST1));
+        ToSend1(BRAKE_DDS, 70);//GetThrottleBrakeValue(GETSASB1));
         ToSend1(LED_DDS, indicators);
         ToSend1(LED_DDS, indicators);
         RS485_Direction1(TALK);

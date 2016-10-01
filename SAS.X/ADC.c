@@ -9,9 +9,8 @@ void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt(void);
 volatile bool ADCSamp = true;
 volatile unsigned int ADCbuffer[6];
 volatile bool ADCDataReady = false;
-extern volatile unsigned int ADCbuffer[6];
 unsigned int throttle1val, throttle2val, brake1val, brake2val;
-unsigned int Prevthrottle1val, Prevthrottle2val, Prevbrake1val, Prevbrake2val;
+//int Prevthrottle1val, Prevthrottle2val, Prevbrake1val, Prevbrake2val;
 float data = 0;
 
 value RequestValue;
@@ -58,7 +57,7 @@ void initADC(void) {
 }
 
 int ADC = 0;
-int ADCPorts[4] = {4, 5, 0, 1};
+char ADCPorts[4] = {4, 5, 0, 1};
 
 void __attribute__((interrupt, no_auto_psv)) _ADC1Interrupt(void) {
     if (!ADCDataReady) {
@@ -80,25 +79,25 @@ void FilterADC(){
     //throttle2val=(ADCbuffer[1]+(throttle2val*2))/3;
     //brake1val=(ADCbuffer[2]+(brake1val*2))/3;
     //brake2val=(ADCbuffer[3]+(brake2val*2))/3;
-    throttle1val=ADCbuffer[0];
-    throttle2val=ADCbuffer[1];//+(throttle2val*2))/3;
-    brake1val=ADCbuffer[2];//+(brake1val*2))/3;
-    brake2val=ADCbuffer[3];//+(brake2val*2))/3;
+    throttle1val=(ADCbuffer[0]+(throttle1val*3))/4;
+    throttle2val=(ADCbuffer[1]+(throttle2val*3))/4;
+    brake1val=(ADCbuffer[2]+(brake1val*3))/4;
+    brake2val=(ADCbuffer[3]+(brake2val*3))/4;
 }
 
-float GetADC(value RequestValue){
+unsigned int GetADC(value RequestValue){
     switch (RequestValue){
         case Throttle1:
-            return  throttle1val * 0.02;
+            return  throttle1val;// * 0.02;
             break;
         case Throttle2 :
-            return throttle2val * 0.02;
+            return throttle2val;// * 0.02;
             break;
         case Brake1 :
-            return brake1val * 0.02;
+            return brake1val;// * 0.02;
             break;
         case Brake2 :
-            return brake2val * 0.02;
+            return brake2val;// * 0.02;
             break;
     }
     return -1;

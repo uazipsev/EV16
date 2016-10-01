@@ -32,6 +32,8 @@
 #include "OLED_Display.h"
 #include "LED_BarGraph.h"
 
+#define RATIO 0.24
+
 void main(void) {
     // Initialize the device
     SYSTEM_Initialize();
@@ -74,9 +76,9 @@ void main(void) {
         updateComms();
 
         if (GetTime() > 2) {
-            LEDsetValue((GetDataBarGraphA())*(24 / 100), LED_RED);
+            LEDsetValue(50*RATIO, LED_RED);
             LEDwriteDisplay(0x70);
-            LEDsetValue((GetDataBarGraphB())*(24 / 100), LED_RED);
+            LEDsetValue(40*RATIO, LED_RED);
             LEDwriteDisplay(0x71);
             INDICATOR_Toggle();
             ClearTime();

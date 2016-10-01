@@ -45,7 +45,7 @@ void handleIndicators(int receivedIndicators) {
 
 }
 
-void DataBarGraphs(int BGA, int BGB) {
+void DataBarGraphs(unsigned BGA, unsigned int BGB) {
     DataBarGraphA = BGA;
     DataBarGraphB = BGB;
 }

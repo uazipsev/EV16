@@ -74,7 +74,7 @@ void StartFastTransfer1(){
     begin1(receiveArray1, sizeof (receiveArray1), ECU_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);
 }
 
-char ReceiveArray1Get(int location){
+unsigned int ReceiveArray1Get(char location){
     return receiveArray1[location];
 }
 
