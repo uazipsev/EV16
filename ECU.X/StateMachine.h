@@ -13,10 +13,6 @@ extern "C" {
 #endif
 
 void updateECUState();
-//extern int buttonArray[8];
-//extern int seekButtonChange();
-//extern void changeLEDState(int LED, bool state);
-//extern volatile unsigned int BootTimer;
 
 struct powerStates {
     bool DDS;
