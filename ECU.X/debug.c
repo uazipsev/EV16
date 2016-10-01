@@ -225,11 +225,12 @@ void handleDebugRequests() {
                 StateFault_Value=getstatefault();
                 printf("State Machine Fault = %d\n", StateFault_Value);
                 break;
-            case NUM_DEBUG_STATES:
+            case SS_INFO:
                 //This is the first time through the loop
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
                 }
+                
                 break;
             case FIND_STATE:
                 if (lastDebugState != debugState) {

@@ -17,7 +17,7 @@ void ReadFaults(){
     ByteHigh = ByteHigh | ((BPD_FAULT&0x01) << 7);
     ByteLow = ByteLow | ((TSMS_FAULT&0x01) << 0);
     ByteLow = ByteLow | ((IS_FAULT&0x01) << 1);
-    ByteLow = ByteLow | ((AUX_FAULT&0x01) << 1);
+    ByteLow = ByteLow | ((AUX_FAULT&0x01) << 2);
 }
 
 char GetFaults(char num){

@@ -20,7 +20,7 @@ enum debugStates {
     BATTERY_DEBUG_TEMPS = 4,
     BATTERY_DEBUG_POWER = 5,
     FAULT_RECOVERY = 6,
-    NUM_DEBUG_STATES = 7,
+    SS_INFO = 7,
             FIND_STATE =8,
             FAULT =9,
             Reset=10,
