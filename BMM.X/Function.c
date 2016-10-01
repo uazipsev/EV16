@@ -1,4 +1,3 @@
-
 #include "Function.h"
 #include "timers.h"
 #include "Communications.h"
@@ -51,7 +50,7 @@ void Setup(void) {
     initTimerOne();
     CommStart();
     UART1_init();
-    initTimerTwo();
+   initTimerTwo();
     //Start_BMS();
     //SPI2_Initialize();
     //i2c_init();
@@ -95,8 +94,8 @@ void PinSetMode(void) {
  void ledDebug() {
 
         if (time_get(LEDTM) > 500) {
-            //INDICATOR = !INDICATOR;
-            
+            INDICATOR = !INDICATOR;
+         /*  
             hi++;
             printf( "hi Value %i", hi);
             if (samp==0){
@@ -108,6 +107,7 @@ void PinSetMode(void) {
             }
             
              printf( "yo Value %f", yo);
+            */ 
             
             //printf("ADC: %d , %d , %d", CurrentGet(0,1),CurrentGet(0,2),CurrentGet(0,3));
             //printf(SetUnderOverVoltage(5,8));

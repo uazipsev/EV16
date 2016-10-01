@@ -65,7 +65,7 @@ Copyright 2013 Linear Technology Corp. (LTC)
 #include "LT6804.h"
 #include "PinDef.h"
 #include "Function.h"
-
+#include <stdio.h>
 
 /*
    ADC control Variables for LTC6804
@@ -547,7 +547,7 @@ int LTC6804_rdaux(int reg,
   int8_t pec_error = 0;
   int received_pec;
   int data_pec;
-  data = (int *) malloc((NUM_RX_BYT*total_ic)*sizeof(int));
+  data = (int *) malloc((NUM_RX_BYT*total_ic)*sizeof(int)); //TODO get rid of this apparently 
   //1.a
   if (reg == 0)
   {
@@ -564,14 +564,21 @@ int LTC6804_rdaux(int reg,
           
           aux_codes[current_ic][current_gpio +((gpio_reg-1)*GPIO_IN_REG)] = data[data_counter] + (data[data_counter+1]<<8);
           data_counter=data_counter+2;
+ 
 		  
         }
 		//a.iii
         received_pec = (data[data_counter]<<8)+ data[data_counter+1];
+        //printf("Recive pec %i \n", received_pec);
         data_pec = pec15_calc(BYT_IN_REG, &data[current_ic*NUM_RX_BYT*(gpio_reg-1)]);
+        //printf("data pec %i \n", data_pec);
         if(received_pec != data_pec)
         {
+            printf("ERror \n"); 
           pec_error = -1;
+        }
+        else{
+         printf("ok \n");
         }
        
         data_counter=data_counter+2;
@@ -595,7 +602,9 @@ int LTC6804_rdaux(int reg,
 		}
 		//b.iii
 		received_pec = (data[data_counter]<<8) + data[data_counter+1];
+        
         data_pec = pec15_calc(6, &data[current_ic*8*(reg-1)]);
+        
         if(received_pec != data_pec)
         {
           pec_error = -1;

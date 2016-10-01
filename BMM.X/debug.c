@@ -9,10 +9,12 @@
 #include <stdio.h>
 #include <string.h>
 #include "UART1.h"
+#include "BatteryManagment.h"
 
 enum debugStates debugState;
 void handleDebugRequests();
-
+int old_debug=0;
+bool stop_state= false;
 bool VerboseEn = 1;
 char m = 0;
 bool Menudisplay = 0;
@@ -41,47 +43,230 @@ void handleDebugRequests() {
     static int lastDebugState = 0;
 
     if (time_get(DEBUGTIME) > 1000) {
+        int counter = 0;
+        int ic = 0;
+        double temp;
+        double voltage;
         //INDICATOR = !INDICATOR;
         switch (debugState) {
             case NO_DEBUG:
                 //Don't print ANYTHING!!!!!
+             
                 break;
+                
             case TEMPSBAM1:
                 printf("\n-----Temp Bank A Mod 1----\n");
+                ic = 0;
+                counter = 0;
+                while (ic < 3) {
+                    while (counter < 5) {
+                        temp = gettemp(ic, counter, bank_1);
+                         //printf("Temp for IC:%i and Sensor #:%i =%f\n", ic, counter, temp);
+                        temp=Aux_codes_Bank1[ic][counter]; //TODO for debuging consle get rid of
+                        //printf("Temp for IC:%i and Sensor #:%i =%f\n", ic, counter, temp);
+                        counter++;
+                    }
+                    printf("\n");
+                    counter = 0;
+                    ic++;
+                }
+                
+                Display_Max_and_Min(Temprature_Array, bank_1);
                 break;
+                
             case TEMPSBAM2:
                 printf("\n-----Temp Bank A Mod 2----\n");
+                ic = 3;
+                counter = 0;
+                while (ic < 6) {
+                    while (counter < 5) {
+                        temp = gettemp(ic, counter, bank_1);
+                        printf("Temp for IC:%i and Sensor #:%i =%f\n", ic, counter, temp);
+                        counter++;
+                    }
+                    printf("\n");
+                    counter = 0;
+                    ic++;
+                }
+                Display_Max_and_Min(Temprature_Array, bank_1);
                 break;
-            case TEMPSBAM3:  
+                
+            case TEMPSBAM3:
                 printf("\n-----Temp Bank A Mod 3----\n");
+                ic = 6;
+                counter = 0;
+                while (ic < 9) {
+                    while (counter < 5) {
+                        temp = gettemp(ic, counter, bank_1);
+                        printf("Temp for IC:%i and Sensor #:%i =%f\n", ic, counter, temp);
+                        counter++;
+                    }
+                    printf("\n");
+                    counter = 0;
+                    ic++;
+                }
+                Display_Max_and_Min(Temprature_Array, bank_1);
                 break;
+                
             case TEMPSBBM1:
                 printf("\n-----Temp Bank B Mod 1----\n");
+                ic = 0;
+                counter = 0;
+                while (ic < 3) {
+                    while (counter < 5) {
+                        temp = gettemp(ic, counter, bank_2);
+                        printf("Temp for IC:%i and Sensor #:%i =%f\n", ic, counter, temp);
+                        counter++;
+                    }
+                    printf("\n");
+                    counter = 0;
+                    ic++;
+                }
+                Display_Max_and_Min(Temprature_Array, bank_2);
                 break;
+                
             case TEMPSBBM2:
                 printf("\n-----Temp Bank B Mod 2----\n");
+                ic = 3;
+                counter = 0;
+                while (ic < 6) {
+                    while (counter < 5) {
+                        temp = gettemp(ic, counter, bank_2);
+                        printf("Temp for IC:%i and Sensor #:%i =%f\n", ic, counter, temp);
+                        counter++;
+                    }
+                    printf("\n");
+                    counter = 0;
+                    ic++;
+                }
+                Display_Max_and_Min(Temprature_Array, bank_2);
                 break;
+
             case TEMPSBBM3:
                 printf("\n-----Temp Bank B Mod 3----\n");
+                ic = 6;
+                counter = 0;
+                while (ic < 9) {
+                    while (counter < 5) {
+                        temp = gettemp(ic, counter, bank_2);
+                        printf("Temp for IC:%i and Sensor #:%i =%f\n", ic, counter, temp);
+                        counter++;
+                    }
+                    printf("\n");
+                    counter = 0;
+                    ic++;
+                }
+                Display_Max_and_Min(Temprature_Array, bank_2);
                 break;
+
             case VOLTSBAM1:
                 printf("\n-----Volt Bank A Mod 1----\n");
+                printf("Total Mod Voltage for Module %i is: %f\n", 1, Get_Pack_Voltages(module_0, bank_1));
+                ic = 0;
+                counter = 0;
+                while (ic < 3) {
+                    while (counter < 11) {
+                        voltage = Get_Pack_Voltages(ic, counter, bank_1);
+                        printf("Battery Voltage for IC:%i and Sensor #:%i =%f\n", ic, counter, voltage);
+                        counter++;
+                    }
+                    printf("\n");
+                    counter = 0;
+                    ic++;
+                }
+                Display_Max_and_Min(Battery_Array, bank_1);
                 break;
+                
             case VOLTSBAM2:
                 printf("\n-----Volt Bank A Mod 2----\n");
+                printf("Total Mod Voltage for Module %i is: %f\n", 2, Get_Pack_Voltages(module_1, bank_1));
+                ic = 3;
+                counter = 0;
+                while (ic < 6) {
+                    while (counter < 11) {
+                        voltage = Get_Pack_Voltages(ic, counter, bank_1);
+                        printf("Battery Voltage for IC:%i and Sensor #:%i =%f\n", ic, counter, voltage);
+                        counter++;
+                    }
+                    printf("\n");
+                    counter = 0;
+                    ic++;
+                }
+                Display_Max_and_Min(Battery_Array, bank_1);
                 break;
+                
             case VOLTSBAM3:
                 printf("\n-----Volt Bank A Mod 3----\n");
+                printf("Total Mod Voltage for Module %i is: %f\n", 3, Get_Pack_Voltages(module_2, bank_1));
+                ic = 6;
+                counter = 0;
+                while (ic < 9) {
+                    while (counter < 11) {
+                        voltage = Get_Pack_Voltages(ic, counter, bank_1);
+                        printf("Battery Voltage for IC:%i and Sensor #:%i =%f\n", ic, counter, voltage);
+                        counter++;
+                    }
+                    printf("\n");
+                    counter = 0;
+                    ic++;
+                }
+                Display_Max_and_Min(Battery_Array, bank_1);
                 break;
+                
             case VOLTSBBM1:
                 printf("\n-----Volt Bank B Mod 1----\n");
+                printf("Total Mod Voltage for Module %i is: %f\n", 1, Get_Pack_Voltages(module_0, bank_2));
+                ic = 0;
+                counter = 0;
+                while (ic < 3) {
+                    while (counter < 11) {
+                        voltage = Get_Pack_Voltages(ic, counter, bank_2);
+                        printf("Battery Voltage for IC:%i and Sensor #:%i =%f\n", ic, counter, voltage);
+                        counter++;
+                    }
+                    printf("\n");
+                    counter = 0;
+                    ic++;
+                }
+                Display_Max_and_Min(Battery_Array, bank_2);
                 break;
+
             case VOLTSBBM2:
                 printf("\n-----Volt Bank B Mod 2----\n");
+                printf("Total Mod Voltage for Module %i is: %f\n", 2, Get_Pack_Voltages(module_1, bank_2));
+                ic = 3;
+                counter = 0;
+                while (ic < 6) {
+                    while (counter < 11) {
+                        voltage = Get_Pack_Voltages(ic, counter, bank_2);
+                        printf("Battery Voltage for IC:%i and Sensor #:%i =%f\n", ic, counter, voltage);
+                        counter++;
+                    }
+                    printf("\n");
+                    counter = 0;
+                    ic++;
+                }
+                Display_Max_and_Min(Battery_Array, bank_2);
                 break;
+
             case VOLTSBBM3:
                 printf("\n-----Volt Bank B Mod 3----\n");
+                printf("Total Mod Voltage for Module %i is: %f\n", 3, Get_Pack_Voltages(module_2, bank_2));
+                ic = 6;
+                counter = 0;
+                while (ic < 9) {
+                    while (counter < 11) {
+                        voltage = Get_Pack_Voltages(ic, counter, bank_2);
+                        printf("Battery Voltage for IC:%i and Sensor #:%i =%f\n", ic, counter, voltage);
+                        counter++;
+                    }
+                    printf("\n");
+                    counter = 0;
+                    ic++;
+                }
+                Display_Max_and_Min(Battery_Array, bank_2);
                 break;
+                
             case CURRENT_PV:
                 ClearScreen();
                 printf("ADC 1 - Address = \n");
@@ -131,6 +316,18 @@ void handleDebugRequests() {
                 Menu = 0;
             }
             Menudisplay = 1;
+            stop_state=false;
+        }
+        else if(DataIn == 's'&& !stop_state){  
+            old_debug= debugState;
+           debugState = NO_DEBUG;
+            //DataIn=0;
+            stop_state=true;
+        }
+        else if(DataIn == 's'&&stop_state){  
+           debugState = old_debug;
+            //DataIn=0;
+            stop_state=false;
         }
         else if(!FunctionDataGrab){
             if(SubMenuActive == false){
@@ -336,4 +533,74 @@ void ClearScreen()
 {
   printf("\033[2J");
   printf("\033[H");
+}
+
+void Display_Max_and_Min(int select, int bank) {
+    double Data = 0;
+    double IC_Loc = 0;
+    double Sens_Loc = 0;
+
+    if (select == Battery_Array) {
+        if (bank == bank_1) {
+            Data = Get_Extreme_Voltage(min_select, 0, bank_1);
+            IC_Loc = Get_Extreme_Voltage(min_select, 1, bank_1);
+            Sens_Loc = Get_Extreme_Voltage(min_select, 2, bank_1);
+
+            printf("\nThe Minimum Voltage in this bank is: %f at IC %f and sensor %f\n", Data, IC_Loc, Sens_Loc);
+
+            Data = Get_Extreme_Voltage(max_select, 0, bank_1);
+            IC_Loc = Get_Extreme_Voltage(max_select, 1, bank_1);
+            Sens_Loc = Get_Extreme_Voltage(max_select, 2, bank_1);
+
+            printf("The Maximum Voltage in this bank is: %f at IC %f and sensor %f\n\n", Data, IC_Loc, Sens_Loc);
+        }
+
+        else if (bank == bank_2) {
+            Data = Get_Extreme_Voltage(min_select, 0, bank_2);
+            IC_Loc = Get_Extreme_Voltage(min_select, 1, bank_2);
+            Sens_Loc = Get_Extreme_Voltage(min_select, 2, bank_2);
+
+            printf("\nThe Minimum Voltage in this bank is: %f at IC %f and sensor %f\n", Data, IC_Loc, Sens_Loc);
+
+            Data = Get_Extreme_Voltage(max_select, 0, bank_2);
+            IC_Loc = Get_Extreme_Voltage(max_select, 1, bank_2);
+            Sens_Loc = Get_Extreme_Voltage(max_select, 2, bank_2);
+
+            printf("The Maximum Voltage in this bank is: %f at IC %f and sensor %f\n\n", Data, IC_Loc, Sens_Loc);
+        }
+    }
+    else if (select == Temprature_Array) {
+
+        if (bank == bank_1) {
+
+
+            Data = Get_Extreme_Temprature(min_select, 0, bank_1);
+            IC_Loc = Get_Extreme_Temprature(min_select, 1, bank_1);
+            Sens_Loc = Get_Extreme_Temprature(min_select, 2, bank_1);
+
+            printf("\nThe Minimum Temperature in this bank is: %f at IC %f and sensor %f\n", Data, IC_Loc, Sens_Loc);
+
+            Data = Get_Extreme_Temprature(max_select, 0, bank_1);
+            IC_Loc = Get_Extreme_Temprature(max_select, 1, bank_1);
+            Sens_Loc = Get_Extreme_Temprature(max_select, 2, bank_1);
+
+            printf("The Maximum Temperature in this bank is: %f at IC %f and sensor %f\n\n", Data, IC_Loc, Sens_Loc);
+        }
+
+        else if (bank == bank_2) {
+            Data = Get_Extreme_Temprature(min_select, 0, bank_2);
+            IC_Loc = Get_Extreme_Temprature(min_select, 1, bank_2);
+            Sens_Loc = Get_Extreme_Temprature(min_select, 2, bank_2);
+
+            printf("\nThe Minimum Temperature in this bank is: %f at IC %f and sensor %f\n", Data, IC_Loc, Sens_Loc);
+
+            Data = Get_Extreme_Temprature(max_select, 0, bank_2);
+            IC_Loc = Get_Extreme_Temprature(max_select, 1, bank_2);
+            Sens_Loc = Get_Extreme_Temprature(max_select, 2, bank_2);
+
+            printf("The Maximum Temperature in this bank is: %f at IC %f and sensor %f\n\n", Data, IC_Loc, Sens_Loc);
+        }
+
+    }
+
 }

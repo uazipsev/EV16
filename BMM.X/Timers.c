@@ -10,6 +10,7 @@
 #include "Function.h" //TODO get rid of
 int timer_3_Function=0;
 int *Sample_Number=0; //Need to figure what the fuck was this for.
+int Sample_Numbers=0;
 unsigned long int slaveTime = 0,ADCTime = 0,LEDtime = 0,talkTime = 0;
 unsigned long int DebugTime,lastDebugTime;
 volatile unsigned long int time =0;
@@ -44,6 +45,13 @@ void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void) {
     FaultValue=Read_Total_GPIO(Aux_codes_Bank1,Aux_codes_Bank2);
     
     readc();
+     if (Sample_Numbers<=10)
+     {
+            Sample_Numbers++;
+     }
+     else if (Sample_Numbers>10){
+     Starting_Samples=false;}
+ 
    //}
    // CurrentCoulombCount(time);
     
@@ -236,11 +244,14 @@ void CheckFault(void) {
     while(1){
     ;}
 }
+int Get_Sample_Num()
+{
+return Sample_Numbers;
+}
 
 void readc(){
-    double hey=0;
+    //double hey=0;
     
-hey= getbigc();
-hey=2321.323;
-printf( "C Value time %d", hey);
+//hey= getbigc();
+//printf( "C Value time %f", hey);
 }
