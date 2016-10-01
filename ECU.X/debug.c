@@ -21,6 +21,7 @@
 #include "SASComms.h"
 #include "ThrottleBrakeControl.h"
 #include <errno.h>
+#include "SScomms.h"
 
 #define LOW_VOLTAGE_FLAG 1
 #define HIGH_TEMPERATURE_FLAG 2
@@ -230,7 +231,17 @@ void handleDebugRequests() {
                 if (lastDebugState != debugState) {
                     lastDebugState = debugState;
                 }
-                
+                char n = 0;
+                printf("The faults = ");
+                for(n = 0;n<11;n++){
+                    if(GetFaultBool(n)){
+                        printf("x ");
+                    }
+                    else{
+                        printf("O ");
+                    }
+                }
+                printf("\n");
                 break;
             case FIND_STATE:
                 if (lastDebugState != debugState) {
@@ -850,6 +861,7 @@ void SettingMenu(char menuitem){
     printf("4) Brake Light Threshold\n");
     printf("5) Car State\n");
     printf("6) Car Fault\n");
+    printf("7) Car Fault\n");
     if(menuitem == 1){
         VerboseEn ^= VerboseEn;
         SubMenu = 0;
@@ -877,6 +889,11 @@ void SettingMenu(char menuitem){
     else if(menuitem == 6){
         ClearScreen();
         debugState = FAULT_RECOVERY;
+        SubMenu = 0;      
+    }
+    else if(menuitem == 7){
+        ClearScreen();
+        debugState = SS_INFO;
         SubMenu = 0;      
     }
 }
