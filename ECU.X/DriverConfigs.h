@@ -42,6 +42,7 @@ void NewDriverFW_RW_EN(bool value);
 void NewDriverRegenInput(bool value);
 void NewDriverDebugEn(bool value);
 void NewDriverSave();
+bool GetDriverEnabled();
 
 #endif	/* DRIVERCONFIGS_H */
 

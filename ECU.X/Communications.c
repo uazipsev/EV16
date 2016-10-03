@@ -37,7 +37,7 @@
 #include "FastTransfer1.h"
 #include "FastTransfer3.h"
 #include "Functions.h"
-
+#include "DriverConfigs.h"
 
 char x = 0;
 
@@ -78,9 +78,10 @@ void ComStart(){
 }
     
 void updateComms() {
-
     bus1Update();
-    bus2Update();
+    if(GetDriverEnabled()){  //prevents MCS and BMM from coming up....Stopping system boot 
+        bus2Update();
+    }
     checkCommDirection();
     checkCommDirection1();
     //Delay(100);

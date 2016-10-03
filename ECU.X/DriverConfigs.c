@@ -30,7 +30,9 @@ struct DriverData
 struct DriverData DriverConfig;
 struct DriverData NewDriver;
 
+bool RunCarEnable = 0;
 
+int PIN = 0;
 
 struct Names {
        char data;
@@ -49,16 +51,24 @@ char DriverCountNum;
  * @note            uses getters to set up the cars settings 
  *******************************************************************/
 void SetUpDataSets(){
-    EEpromInit();
-    SetThrotteMax(ReadThrottlePrecent());
+    EEpromInit();  //Set up I2C and eeprom
+    SavePinCode(3117);
+    SetThrotteMax(ReadThrottlePrecent()); //Grab throttle from eeprom and save it into struct.
     ReadThrottleTrigger();
     SetBrakeLightValue(ReadBrakeLightTrigger());
-    insert('0');
+    insert('0');  //Set start in 
     DriverCountNum = ReadCarDriverCount();
+    
+    if(ReadCarLock()){
+        RunCarEnable = 1;
+    }
+    PIN = ReadPinCode();
+    
     int i = 0;
     for(i = 0;i<DriverCountNum;i++){
         ReadDriverNames(i+1);
     }
+    
     //SaveCarDriver(1);
     SetDriver(ReadCarDriver());
     
@@ -416,4 +426,14 @@ void NewDriverDebugEn(bool value){
  *******************************************************************/
 void NewDriverSave(){
     SaveDriverConfig(NewDriver.NAME, NewDriver.MaxThrottle, NewDriver.MaxRegen, NewDriver.LowBatCutoff, NewDriver.Ramp, NewDriver.Falt, NewDriver.FW_RW_EN, NewDriver.RegenInput, NewDriver.DebugEn);
+}
+
+/*******************************************************************
+ * @brief           GetDriverEnabled
+ * @brief           gets Driver enable
+ * @return          returns bool 
+ * @note            
+ *******************************************************************/
+bool GetDriverEnabled(){
+    return RunCarEnable;
 }

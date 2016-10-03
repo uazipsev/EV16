@@ -214,6 +214,50 @@ void SaveBrakeLightTrigger(int value){
 }
 
 /*******************************************************************
+ * @brief           ReadPinCode
+ * @brief           Reading data location for code
+ * @return          return int of pin
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
+int ReadPinCode(){
+    char High, Low = 0;
+    High = readRegister(ADDRESS, 7);
+    Low = readRegister(ADDRESS, 8);
+    return (Low | (High << 8));
+}
+
+/*******************************************************************
+ * @brief           SavePinCode
+ * @brief           Saving data location for pin code
+ * @return          none
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
+void SavePinCode(int value){
+    writeRegister(ADDRESS, 8, (value & 0xFF));
+    writeRegister(ADDRESS, 7, ((value >> 8) & 0xFF));
+}
+
+/*******************************************************************
+ * @brief           ReadCarLock
+ * @brief           Reading data location to see car lock condition
+ * @return          return int of pin
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
+bool ReadCarLock(){
+    return readRegister(ADDRESS, 9);
+}
+
+/*******************************************************************
+ * @brief           SaveCarLock
+ * @brief           Saving data location to lock / unlock car
+ * @return          none
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
+void SetCarLock(bool value){
+    writeRegister(ADDRESS, 9, value);
+}
+
+/*******************************************************************
  * @brief           ReadDriverConfig
  * @brief           Reading driver config and save it in struct for getters 
  * @return          N/A
