@@ -66,13 +66,13 @@ void PWM4_Initialize(void)
     // Set the PWM to the options selected in the MPLAB(c) Code Configurator
 
     // CCP4M PWM; DC4B 1; 
-    CCP4CON = 0x1C;
+    CCP2CON = 0x1C;
     
     // CCPR4L 62; 
-    CCPR4L = 0x3E;
+    CCPR2L = 0x3E;
     
     // CCPR4H 0; 
-    CCPR4H = 0x00;
+    CCPR2H = 0x00;
     
     // Selecting Timer 2
     CCPTMRS1bits.C4TSEL = 0x0;
@@ -81,10 +81,10 @@ void PWM4_Initialize(void)
 void PWM4_LoadDutyValue(uint16_t dutyValue)
 {
    // Writing to 8 MSBs of pwm duty cycle in CCPRL register
-    CCPR4L = ((dutyValue & 0x03FC)>>2);
+    CCPR2L = ((dutyValue & 0x03FC)>>2);
     
    // Writing to 2 LSBs of pwm duty cycle in CCPCON register
-    CCP4CON = (CCP4CON & 0xCF) | ((dutyValue & 0x0003)<<4);
+    CCP2CON = (CCP2CON & 0xCF) | ((dutyValue & 0x0003)<<4);
 }
 
 /**

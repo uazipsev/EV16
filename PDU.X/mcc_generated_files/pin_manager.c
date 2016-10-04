@@ -71,7 +71,8 @@ void PIN_MANAGER_Initialize(void)
     ANSELE = 0x07;
     TRISCbits.RC6 = 1;
     TRISCbits.RC7 = 1;
-    TRISCbits.RC5 = 0;
+    TRISCbits.RC5 = 1;
+    TRISCbits.RC1 = 0;
     LATCbits.LATC5 = 1;
     LATCbits.LATC6 = 1;
     LATCbits.LATC7 = 1;

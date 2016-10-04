@@ -39,21 +39,47 @@ void main(void) {
 
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
+    DATAEE_WriteByte(0, 0x03);
+    DATAEE_WriteByte(1, 0xE8);
+    DATAEE_WriteByte(2, 0x03);
+    DATAEE_WriteByte(3, 0xE8);
+    DATAEE_WriteByte(4, 0x03);
+    DATAEE_WriteByte(5, 0xE8);
+    DATAEE_WriteByte(6, 0x03);
+    DATAEE_WriteByte(7, 0xE8);
+    DATAEE_WriteByte(8, 0x03);
+    DATAEE_WriteByte(9, 0xE8);
+    DATAEE_WriteByte(10, 0x03);
+    DATAEE_WriteByte(11, 0xE8);
+            
     PotSetpoint(0);
     PWM4_LoadDutyValue(0);
     LATCbits.LATC5 = 0;
     int i = 0;
     bool UP = 0;
     ComputeStorageData();
+    
+    EnableSlavePower(DDS,1);
+    EnableSlavePower(SAS,1);
+    Update();
+    
     while (1) {
-        updateComms();
-        if(CoolingCheck() && UP == 0){
-            UP = 1;
-            CoolingStart();
-        }
-        if(!CoolingCheck() && UP == 1){
-            UP = 0;
-            CoolingStop();
+        //updateComms();
+//        if(CoolingCheck() && UP == 0){
+//            UP = 1;
+//            CoolingStart();
+//        }
+//        if(!CoolingCheck() && UP == 1){
+//            UP = 0;
+//            CoolingStop();
+//        }
+
+        Delay(10);
+        i++;
+        PWM4_LoadDutyValue(i);
+        if(i>500){
+            i = 0;
+            FuseSystem();
         }
     }
 }

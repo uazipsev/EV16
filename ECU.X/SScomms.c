@@ -83,13 +83,13 @@ bool GetFaultBool(char val){
             return ((FaultsHigh >> (BPD_FAULT-1))  & 0x01);
             break;
         case TSMS_FAULT:
-            return ((FaultsLow >> (TSMS_FAULT-1))  & 0x01);
+            return ((FaultsLow >> (TSMS_FAULT-9))  & 0x01);
             break;
         case IS_FAULT:
-            return ((FaultsLow >> (IS_FAULT-1))  & 0x01);
+            return ((FaultsLow >> (IS_FAULT-9))  & 0x01);
             break;
         case AUX_FAULT:
-            return ((FaultsLow >> (AUX_FAULT-1))  & 0x01);
+            return ((FaultsLow >> (AUX_FAULT-9))  & 0x01);
             break;
     }
 }

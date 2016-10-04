@@ -9506,17 +9506,19 @@ void Send_put(unsigned char _data);
 char ByteHigh, ByteLow = 0;
 
 void ReadFaults(){
-ByteHigh = ByteHigh | ((LATCbits.LATC5&0x01) << 0);
-ByteHigh = ByteHigh | ((LATCbits.LATC4&0x01) << 1);
-ByteHigh = ByteHigh | ((LATDbits.LATD3&0x01) << 2);
-ByteHigh = ByteHigh | ((LATDbits.LATD2&0x01) << 3);
-ByteHigh = ByteHigh | ((LATDbits.LATD1&0x01) << 4);
-ByteHigh = ByteHigh | ((LATDbits.LATD0&0x01) << 5);
-ByteHigh = ByteHigh | ((LATCbits.LATC3&0x01) << 6);
-ByteHigh = ByteHigh | ((LATCbits.LATC2&0x01) << 7);
-ByteLow = ByteLow | ((LATCbits.LATC1&0x01) << 0);
-ByteLow = ByteLow | ((LATAbits.LATA7&0x01) << 1);
-ByteLow = ByteLow | ((LATCbits.LATC0&0x01) << 1);
+ByteHigh = ByteHigh | (PORTCbits.RC5 << 0);
+ByteHigh = ByteHigh | (PORTCbits.RC4 << 1);
+ByteHigh = ByteHigh | (PORTDbits.RD3 << 2);
+ByteHigh = ByteHigh | (PORTDbits.RD2 << 3);
+ByteHigh = ByteHigh | (PORTDbits.RD1 << 4);
+ByteHigh = ByteHigh | (PORTDbits.RD0 << 5);
+ByteHigh = ByteHigh | (PORTCbits.RC3 << 6);
+ByteHigh = ByteHigh | (PORTCbits.RC2 << 7);
+ByteLow = ByteLow | (PORTCbits.RC1 << 0);
+ByteLow = ByteLow | (PORTAbits.RA7 << 1);
+ByteLow = ByteLow | (PORTCbits.RC0 << 2);
+
+# 32
 }
 
 char GetFaults(char num){
@@ -9590,7 +9592,7 @@ void Start(){
 
 #pragma config EBTRB = OFF
 
-# 97
+# 108
 TRISCbits.TRISC5 = 1;
 TRISCbits.TRISC4 = 1;
 TRISDbits.TRISD3 = 1;
@@ -9609,8 +9611,9 @@ TRISAbits.TRISA3 = 0;
 
 TRISAbits.TRISA3 = 0;
 TRISDbits.TRISD4 = 0;
+TRISDbits.TRISD2 = 1;
 
-# 119
+# 131
 ANSELA = 0;
 ANSELC = 0;
 ANSELD = 0;

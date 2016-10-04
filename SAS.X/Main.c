@@ -29,7 +29,7 @@ int main(void) {
 void ledDebug() {
     if (LEDtime > 1000) {
         LED ^= 1;
-        printf("T1: %u T2: %u \n", GetADC(Throttle1), GetADC(Throttle2));
+        //printf("T1: %u T2: %u \n", GetADC(Throttle1), GetADC(Throttle2));
         //printf("B1: %0.2f B2: %0.2f \n", GetADC(Brake1), GetADC(Brake2));
         LEDtime = 0;
     }

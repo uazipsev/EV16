@@ -7,17 +7,28 @@
 char ByteHigh, ByteLow = 0;
 
 void ReadFaults(){
-    ByteHigh = ByteHigh | ((ECU_FAULT&0x01) << 0);
-    ByteHigh = ByteHigh | ((BOTS_FAULT&0x01) << 1);
-    ByteHigh = ByteHigh | ((AMD_FAULT&0x01) << 2);
-    ByteHigh = ByteHigh | ((STOP_L_FAULT&0x01) << 3);
-    ByteHigh = ByteHigh | ((STOP_R_FAULT&0x01) << 4);
-    ByteHigh = ByteHigh | ((STOP_C_FAULT&0x01) << 5);
-    ByteHigh = ByteHigh | ((IMD_FAULT&0x01) << 6);
-    ByteHigh = ByteHigh | ((BPD_FAULT&0x01) << 7);
-    ByteLow = ByteLow | ((TSMS_FAULT&0x01) << 0);
-    ByteLow = ByteLow | ((IS_FAULT&0x01) << 1);
-    ByteLow = ByteLow | ((AUX_FAULT&0x01) << 2);
+    ByteHigh = ByteHigh | (ECU_FAULT << 0);
+    ByteHigh = ByteHigh | (BOTS_FAULT << 1);
+    ByteHigh = ByteHigh | (AMD_FAULT << 2);
+    ByteHigh = ByteHigh | (STOP_L_FAULT << 3);
+    ByteHigh = ByteHigh | (STOP_R_FAULT << 4);
+    ByteHigh = ByteHigh | (STOP_C_FAULT << 5);
+    ByteHigh = ByteHigh | (IMD_FAULT << 6);
+    ByteHigh = ByteHigh | (BPD_FAULT << 7);
+    ByteLow = ByteLow | (TSMS_FAULT << 0);
+    ByteLow = ByteLow | (IS_FAULT << 1);
+    ByteLow = ByteLow | (AUX_FAULT << 2);
+//    ByteHigh = ByteHigh | (0 << 0);
+//    ByteHigh = ByteHigh | (0 << 1);
+//    ByteHigh = ByteHigh | (1 << 2);
+//    ByteHigh = ByteHigh | (0 << 3);
+//    ByteHigh = ByteHigh | (1 << 4);
+//    ByteHigh = ByteHigh | (0 << 5);
+//    ByteHigh = ByteHigh | (1 << 6);
+//    ByteHigh = ByteHigh | (1 << 7);
+//    ByteLow = ByteLow | (1 << 0);
+//    ByteLow = ByteLow | (0 << 1);
+//    ByteLow = ByteLow | (1 << 2);
 }
 
 char GetFaults(char num){
@@ -112,6 +123,7 @@ void Start(){
     
     TRISAbits.TRISA3 = 0;
     TRISDbits.TRISD4 = 0;
+    TRISDbits.TRISD2 = 1;
     /*
      Set ADC pins as digital
      */

@@ -8,6 +8,7 @@
  */
 #include "PDU.h"
 #include "Shift595.h"
+#include <stdio.h>
 #include "mcc_generated_files/pin_manager.h" 
 #include "mcc_generated_files/adc.h"
 #include "mcc_generated_files/memory.h"
@@ -111,10 +112,13 @@ void ComputeStorageData(void) {
 //This is our software "fuse" code to shut off outputs when under stress
 
 void FuseSystem() {
+    printf("Reading Stuff \n");
     for (int i = 0; i < 6; i++) {
         Current[i] = CurrentADC[i]*146; //all numbers at this point are mult by 10000
+        printf("%i ",Current[i]);
         //So to get real numbers divide by 10000
     }
+    printf("\n");
     for (int i = 0; i < 6; i++) {
         if (Current[i] > Currentcomp[i]) {
             //over current condition
