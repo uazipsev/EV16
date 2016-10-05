@@ -69,6 +69,8 @@ void ADC_Initialize(void)
     // ADFM left; ADCS FOSC/32; ACQT 4; 
     ADCON2 = 0x12;
     
+    ADCON2bits.ADFM = 1;
+    
     // ADRESL 0x0; 
     ADRESL = 0x00;
     
@@ -76,7 +78,7 @@ void ADC_Initialize(void)
     ADRESH = 0x00;
     
     // Enabling ADC interrupt.
-    PIE1bits.ADIE = 1;
+    //PIE1bits.ADIE = 1;
 }
 
 void ADC_StartConversion(adc_channel_t channel)

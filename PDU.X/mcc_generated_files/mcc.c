@@ -116,15 +116,16 @@ void SYSTEM_Initialize(void) {
     INTERRUPT_Initialize();
     EUSART1_Initialize();
     begin(receiveArray, sizeof (receiveArray), PDU_ADDRESS, false, Send_put, Receive_get, Receive_available, Receive_peek);
-PWM4_Initialize();
-    TMR2_Initialize();
+    PWM4_Initialize();
+    TMR1_Initialize();
+    //TMR2_Initialize();
     DIGI_INC_LAT = 1;
     ADC_Initialize();
 }
 
 void OSCILLATOR_Initialize(void) {
     // SCS FOSC; IDLEN disabled; IRCF 8MHz_HFINTOSC/2; 
-    OSCCON = 0x60;
+    OSCCON = 0x72;
     // PRISD enabled; MFIOSEL disabled; SOSCGO disabled; 
     OSCCON2 = 0x04;
     // INTSRC disabled; PLLEN disabled; TUN 0x00; 

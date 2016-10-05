@@ -7386,13 +7386,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Communications.h: 15: extern void ToSend(const unsigned char where, const unsigned int what);
 [; ;Functions.h: 11: extern void Delay(long int wait);
 "15 PDU.h
-[v _Currentcomp `i ~T0 @X0 -> 6 `i e ]
+[v _Currentcomp `ui ~T0 @X0 -> 6 `i e ]
 [i _Currentcomp
 :U ..
--> 0 `i
+-> -> 0 `i `ui
 ..
 ]
-[; ;PDU.h: 15: int Currentcomp[6] = 0;
+[; ;PDU.h: 15: unsigned int Currentcomp[6] = 0;
 "16
 [v _data `uc ~T0 @X0 -> 12 `i e ]
 [i _data
@@ -7402,21 +7402,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [; ;PDU.h: 16: char data[12] = 0;
 "17
-[v _CurrentADC `i ~T0 @X0 -> 6 `i e ]
+[v _CurrentADC `ui ~T0 @X0 -> 6 `i e ]
 [i _CurrentADC
 :U ..
--> 0 `i
+-> -> 0 `i `ui
 ..
 ]
-[; ;PDU.h: 17: int CurrentADC[6] = 0;
+[; ;PDU.h: 17: unsigned int CurrentADC[6] = 0;
 "18
-[v _Current `i ~T0 @X0 -> 6 `i e ]
+[v _Current `ui ~T0 @X0 -> 6 `i e ]
 [i _Current
 :U ..
--> 0 `i
+-> -> 0 `i `ui
 ..
 ]
-[; ;PDU.h: 18: int Current[6] = 0;
+[; ;PDU.h: 18: unsigned int Current[6] = 0;
 [; ;PDU.h: 20: typedef enum {
 [; ;PDU.h: 21: DDS = 1,
 [; ;PDU.h: 22: MCS = 2,

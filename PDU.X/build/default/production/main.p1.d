@@ -4,6 +4,7 @@
 mcc_generated_files/mcc.h  \
 mcc_generated_files/../UART.h  \
 CoolingControl.h  \
+Shift595.h  \
 Functions.h  \
 DigiPot.h  \
 mcc_generated_files/../tmr2.h  \

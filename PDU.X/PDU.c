@@ -59,36 +59,101 @@ void EnableSlavePower(device slave, int onof) {
 //sets up to read the current from the different mosfet drivers
 
 void ReadCurrent(char gather) {
-    if (gather) {
+    if (gather == 1) {
         //read the first three
         SetPin595(1, 4, ON);
         SetPin595(1, 3, OFF);
         SetPin595(1, 2, OFF);
+        SetPin595(2, 4, OFF);
+        SetPin595(2, 3, OFF);
+        SetPin595(2, 2, OFF);
+        SetPin595(3, 4, OFF);
+        SetPin595(3, 3, OFF);
+        SetPin595(3, 2, OFF);
+        Update();
+        //CurrentADC[0] = ADC_GetConversion(U5Multisense);
+        //CurrentADC[2] = ADC_GetConversion(U8Multisense);
+        CurrentADC[5] = ADC_GetConversion(U10Multisense);
+    } 
+    else if(gather == 2){
+        //read the second three
+        SetPin595(1, 4, OFF);
+        SetPin595(1, 3, OFF);
+        SetPin595(1, 2, OFF);
         SetPin595(2, 4, ON);
+        SetPin595(2, 3, OFF);
+        SetPin595(2, 2, OFF);
+        SetPin595(3, 4, OFF);
+        SetPin595(3, 3, OFF);
+        SetPin595(3, 2, OFF);
+        Update();
+        //CurrentADC[1] = ADC_GetConversion(U5Multisense);
+        CurrentADC[3] = ADC_GetConversion(U8Multisense);
+        //CurrentADC[5] = ADC_GetConversion(U10Multisense);
+    }
+    else if(gather == 3){
+            //read the second three
+        SetPin595(1, 4, OFF);
+        SetPin595(1, 3, OFF);
+        SetPin595(1, 2, OFF);
+        SetPin595(2, 4, OFF);
         SetPin595(2, 3, OFF);
         SetPin595(2, 2, OFF);
         SetPin595(3, 4, ON);
         SetPin595(3, 3, OFF);
         SetPin595(3, 2, OFF);
         Update();
-        CurrentADC[0] = ADC_GetConversion(U5Multisense);
-        CurrentADC[2] = ADC_GetConversion(U8Multisense);
-        CurrentADC[4] = ADC_GetConversion(U10Multisense);
-    } else {
-        //read the second three
-        SetPin595(1, 4, ON);
-        SetPin595(1, 3, OFF);
-        SetPin595(1, 2, ON);
-        SetPin595(2, 4, ON);
-        SetPin595(2, 3, OFF);
-        SetPin595(2, 2, ON);
-        SetPin595(3, 4, ON);
-        SetPin595(3, 3, OFF);
-        SetPin595(3, 2, ON);
-        Update();
         CurrentADC[1] = ADC_GetConversion(U5Multisense);
-        CurrentADC[3] = ADC_GetConversion(U8Multisense);
-        CurrentADC[5] = ADC_GetConversion(U10Multisense);
+        //CurrentADC[3] = ADC_GetConversion(U8Multisense);
+        //CurrentADC[5] = ADC_GetConversion(U10Multisense);
+    }
+    else if(gather == 4){
+            //read the second three
+        SetPin595(1, 4, ON);
+        SetPin595(1, 3, ON);
+        SetPin595(1, 2, OFF);
+        SetPin595(2, 4, OFF);
+        SetPin595(2, 3, OFF);
+        SetPin595(2, 2, OFF);
+        SetPin595(3, 4, OFF);
+        SetPin595(3, 3, OFF);
+        SetPin595(3, 2, OFF);
+        Update();
+        //CurrentADC[1] = ADC_GetConversion(U5Multisense);
+        //CurrentADC[3] = ADC_GetConversion(U8Multisense);
+        CurrentADC[4] = ADC_GetConversion(U10Multisense);
+    }
+    else if(gather == 5){
+            //read the second three
+        SetPin595(1, 4, OFF);
+        SetPin595(1, 3, OFF);
+        SetPin595(1, 2, OFF);
+        SetPin595(2, 4, ON);
+        SetPin595(2, 3, ON);
+        SetPin595(2, 2, OFF);
+        SetPin595(3, 4, OFF);
+        SetPin595(3, 3, OFF);
+        SetPin595(3, 2, OFF);
+        Update();
+        //CurrentADC[1] = ADC_GetConversion(U5Multisense);
+        CurrentADC[4] = ADC_GetConversion(U8Multisense);
+        //CurrentADC[5] = ADC_GetConversion(U10Multisense);
+    }
+    else if(gather == 6){
+            //read the second three
+        SetPin595(1, 4, OFF);
+        SetPin595(1, 3, OFF);
+        SetPin595(1, 2, OFF);
+        SetPin595(2, 4, OFF);
+        SetPin595(2, 3, OFF);
+        SetPin595(2, 2, OFF);
+        SetPin595(3, 4, ON);
+        SetPin595(3, 3, ON);
+        SetPin595(3, 2, OFF);
+        Update();
+        CurrentADC[0] = ADC_GetConversion(U5Multisense);
+        //CurrentADC[3] = ADC_GetConversion(U8Multisense);
+        //CurrentADC[5] = ADC_GetConversion(U10Multisense);
     }
     
 }
@@ -114,8 +179,8 @@ void ComputeStorageData(void) {
 void FuseSystem() {
     printf("Reading Stuff \n");
     for (int i = 0; i < 6; i++) {
-        Current[i] = CurrentADC[i]*146; //all numbers at this point are mult by 10000
-        printf("%i ",Current[i]);
+        Current[i] = CurrentADC[i]*48; //all numbers at this point are mult by 10000
+        printf("%u ",Current[i]);
         //So to get real numbers divide by 10000
     }
     printf("\n");
@@ -125,22 +190,22 @@ void FuseSystem() {
             LED1_SetHigh();
             switch(i){
                 case 0:
-                    EnableSlavePower(SAS, 0);
+                    EnableSlavePower(AUX, 0);
                     break;
                 case 1:
-                    EnableSlavePower(BMM, 0);
+                    EnableSlavePower(TSS, 0);
                     break;
                 case 2:
-                    EnableSlavePower(MCS, 0);
+                    EnableSlavePower(SAS, 0);
                     break;
                 case 3:
                     EnableSlavePower(DDS, 0);
                     break;
                 case 4:
-                    EnableSlavePower(TSS, 0);
+                    EnableSlavePower(BMM, 0);
                     break;
                 case 5:
-                    EnableSlavePower(AUX, 0);
+                    EnableSlavePower(MCS, 0);
                     break;
             }
         }

@@ -92,6 +92,13 @@ void PIN_MANAGER_Initialize(void)
     CLK_SetDigitalMode();
     DIGI_INC_SetDigitalMode();
     
+    ANSELCbits.ANSC4 = 1;
+    ANSELDbits.ANSD3 = 1;
+    ANSELDbits.ANSD2 = 1;
+    TRISCbits.RC4 = 1;
+    TRISDbits.RD3 = 1;
+    TRISDbits.RD2 = 1;
+    
     
         
 }

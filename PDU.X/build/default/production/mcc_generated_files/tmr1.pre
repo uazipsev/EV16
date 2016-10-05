@@ -9320,10 +9320,10 @@ uint8_t TMR1_CheckGateValueStatus(void);
 void TMR1_ISR(void);
 
 # 15 "mcc_generated_files/../PDU.h"
-int Currentcomp[6] = 0;
+unsigned int Currentcomp[6] = 0;
 char data[12] = 0;
-int CurrentADC[6] = 0;
-int Current[6] = 0;
+unsigned int CurrentADC[6] = 0;
+unsigned int Current[6] = 0;
 
 typedef enum {
 DDS = 1,
@@ -9344,29 +9344,36 @@ void ReadCurrent(char gather);
 void Update(void);
 bool CoolingCheck();
 
-# 58 "mcc_generated_files/tmr1.c"
+# 311 "mcc_generated_files/pin_manager.h"
+void PIN_MANAGER_Initialize (void);
+
+# 323
+void PIN_MANAGER_IOC(void);
+
+# 59 "mcc_generated_files/tmr1.c"
 volatile uint16_t timer1ReloadVal;
 int readwhat = 0;
 
-# 65
+# 66
 void TMR1_Initialize(void)
 {
 
 
 
 T1CON = 0x00;
+T1CONbits.T1CKPS = 0x03;
 
 
 T1GCON = 0x00;
 
 
-TMR1H = 0xB1;
+TMR1H = 0x00;
 
 
-TMR1L = 0xE0;
+TMR1L = 0x00;
 
 
-timer1ReloadVal=TMR1;
+timer1ReloadVal=0;
 
 
 PIR1bits.TMR1IF = 0;
@@ -9452,14 +9459,10 @@ PIR1bits.TMR1IF = 0;
 
 TMR1H = (timer1ReloadVal >> 8);
 TMR1L = (uint8_t) timer1ReloadVal;
-
-if(readwhat == 1)
+readwhat++;
+if(readwhat > 7)
 {
 readwhat = 0;
-}
-else
-{
-readwhat = 1;
 }
 ReadCurrent(readwhat);
 }

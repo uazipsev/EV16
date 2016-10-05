@@ -51,6 +51,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include <xc.h>
 #include "tmr1.h"
 #include "../PDU.h"
+#include "pin_manager.h"
 
 /**
   Section: Global Variable Definitions
@@ -68,18 +69,19 @@ void TMR1_Initialize(void)
 
     //T1OSCEN disabled; T1RD16 disabled; T1CKPS 1:1; TMR1CS FOSC/4; T1SYNC synchronize; TMR1ON disabled; 
     T1CON = 0x00;
+    T1CONbits.T1CKPS = 0x03;
 
     //T1GVAL disabled; T1GSPM disabled; T1GSS T1G; T1GTM disabled; T1GPOL low; TMR1GE disabled; T1GGO done; 
     T1GCON = 0x00;
 
     //TMR1H 177; 
-    TMR1H = 0xB1;
+    TMR1H = 0x00;
 
     //TMR1L 224; 
-    TMR1L = 0xE0;
+    TMR1L = 0x00;
 
     // Load the TMR value to reload variable
-    timer1ReloadVal=TMR1;
+    timer1ReloadVal=0;
 
     // Clearing IF flag before enabling the interrupt.
     PIR1bits.TMR1IF = 0;
@@ -165,14 +167,10 @@ void TMR1_ISR(void)
     // Write to the Timer1 register
     TMR1H = (timer1ReloadVal >> 8);
     TMR1L = (uint8_t) timer1ReloadVal;
-
-    if(readwhat == 1)
+    readwhat++;
+    if(readwhat > 7)
     {
         readwhat = 0;
-    }
-    else
-    {
-        readwhat = 1;
     }
     ReadCurrent(readwhat);
 }

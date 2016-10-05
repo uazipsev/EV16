@@ -9647,14 +9647,15 @@ INTERRUPT_Initialize();
 EUSART1_Initialize();
 begin(receiveArray, sizeof (receiveArray), 5, 0, Send_put, Receive_get, Receive_available, Receive_peek);
 PWM4_Initialize();
-TMR2_Initialize();
+TMR1_Initialize();
+
 LATB4 = 1;
 ADC_Initialize();
 }
 
 void OSCILLATOR_Initialize(void) {
 
-OSCCON = 0x60;
+OSCCON = 0x72;
 
 OSCCON2 = 0x04;
 

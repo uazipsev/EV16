@@ -9581,10 +9581,10 @@ extern volatile int receiveArray[20];
 extern void Delay(long int wait);
 
 # 15 "PDU.h"
-int Currentcomp[6] = 0;
+unsigned int Currentcomp[6] = 0;
 char data[12] = 0;
-int CurrentADC[6] = 0;
-int Current[6] = 0;
+unsigned int CurrentADC[6] = 0;
+unsigned int Current[6] = 0;
 
 typedef enum {
 DDS = 1,
@@ -9620,19 +9620,27 @@ void CoolingStop(void);
 void PotSetpoint(int new_point);
 void PotClear(void);
 
-# 10 "main.c"
+# 14 "Shift595.h"
+int registers[3 * 8];
+
+extern void StartUp595(void);
+extern void SetPin595(int Reg, int pin, int value);
+extern void Clear595(void);
+extern void writeRegisters(void);
+
+# 11 "main.c"
 void main(void) {
 
 SYSTEM_Initialize();
 PDUStartup();
 
-# 32
+# 33
 (INTCONbits.GIE = 1);
 
 
 (INTCONbits.PEIE = 1);
 
-# 42
+# 43
 DATAEE_WriteByte(0, 0x03);
 DATAEE_WriteByte(1, 0xE8);
 DATAEE_WriteByte(2, 0x03);
@@ -9655,17 +9663,25 @@ ComputeStorageData();
 
 EnableSlavePower(DDS,1);
 EnableSlavePower(SAS,1);
+EnableSlavePower(BMM,1);
+EnableSlavePower(TSS,1);
+EnableSlavePower(MCS,1);
+EnableSlavePower(AUX, 1);
+SetPin595(2, 4, ON);
+SetPin595(2, 3, OFF);
+SetPin595(2, 2, OFF);
 Update();
 
 while (1) {
 
-# 77
-Delay(10);
+# 85
+Delay(1000);
+FuseSystem();
 i++;
 PWM4_LoadDutyValue(i);
 if(i>500){
 i = 0;
-FuseSystem();
+
 }
 }
 }

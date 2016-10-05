@@ -12,10 +12,10 @@
 
 #define NUMOFBYTES 12  //8-1
 
-int Currentcomp[6] = 0;
+unsigned int Currentcomp[6] = 0;
 char data[NUMOFBYTES] = 0;
-int CurrentADC[6] = 0;
-int Current[6] = 0;
+unsigned int CurrentADC[6] = 0;
+unsigned int Current[6] = 0;
 
 typedef enum {
     DDS = 1,

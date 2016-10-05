@@ -4,6 +4,7 @@
 #include "Communications.h"
 #include "CoolingControl.h"
 #include "DigiPot.h"
+#include "Shift595.h"
 /*
                          Main application
  */
@@ -61,6 +62,13 @@ void main(void) {
     
     EnableSlavePower(DDS,1);
     EnableSlavePower(SAS,1);
+    EnableSlavePower(BMM,1);
+    EnableSlavePower(TSS,1);
+    EnableSlavePower(MCS,1);
+    EnableSlavePower(AUX, 1);
+    SetPin595(2, 4, ON);
+    SetPin595(2, 3, OFF);
+    SetPin595(2, 2, OFF);
     Update();
     
     while (1) {
@@ -74,12 +82,13 @@ void main(void) {
 //            CoolingStop();
 //        }
 
-        Delay(10);
+        Delay(1000);
+        FuseSystem();
         i++;
         PWM4_LoadDutyValue(i);
         if(i>500){
             i = 0;
-            FuseSystem();
+
         }
     }
 }
