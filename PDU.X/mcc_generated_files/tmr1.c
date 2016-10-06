@@ -57,7 +57,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
   Section: Global Variable Definitions
 */
 volatile uint16_t timer1ReloadVal;
-int readwhat = 0;
+int readwhat = 1;
 
 /**
   Section: TMR1 APIs
@@ -170,7 +170,8 @@ void TMR1_ISR(void)
     readwhat++;
     if(readwhat > 7)
     {
-        readwhat = 0;
+        readwhat = 1;
+        FuseSystem();
     }
     ReadCurrent(readwhat);
 }

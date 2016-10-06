@@ -23,7 +23,7 @@ void updateComms() {
         static int previousPowerState;
         if (previousPowerState != receiveArray[POWER_RAILS]) {
             previousPowerState = receiveArray[POWER_RAILS];
-            processPowerRequest(previousPowerState);
+            //processPowerRequest(previousPowerState);
         }
         respondECU();
     }
@@ -48,9 +48,8 @@ void processPowerRequest(int powerSet) {
 void respondECU() {
     LATCbits.LATC5 = 1;
     ToSend(RESPONSE_ADDRESS, PDU_ADDRESS);
-    ToSend(POWER_STATE, PDU_ADDRESS);
+    //ToSend(1,0);
     Delay(5);
-
     sendData(ECU_ADDRESS);
     Delay(3);
     LATCbits.LATC5 = 0;

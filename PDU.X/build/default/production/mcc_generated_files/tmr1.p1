@@ -65,7 +65,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1002 . . . . . ]
 "16161
 [v _T1GCONbits `VS1002 ~T0 @X0 0 e@4044 ]
-"35 mcc_generated_files/../PDU.h
+"33 mcc_generated_files/../PDU.h
+[v _FuseSystem `(v ~T0 @X0 0 ef ]
+"35
 [v _ReadCurrent `(v ~T0 @X0 0 ef1`uc ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
@@ -7488,9 +7490,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "60
 [v _readwhat `i ~T0 @X0 1 e ]
 [i _readwhat
--> 0 `i
+-> 1 `i
 ]
-[; ;tmr1.c: 60: int readwhat = 0;
+[; ;tmr1.c: 60: int readwhat = 1;
 "66
 [v _TMR1_Initialize `(v ~T0 @X0 1 ef ]
 "67
@@ -7722,17 +7724,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr1.c: 172: {
 "172
 {
-[; ;tmr1.c: 173: readwhat = 0;
+[; ;tmr1.c: 173: readwhat = 1;
 "173
-[e = _readwhat -> 0 `i ]
+[e = _readwhat -> 1 `i ]
+[; ;tmr1.c: 174: FuseSystem();
 "174
+[e ( _FuseSystem ..  ]
+"175
 }
 [e :U 1132 ]
-[; ;tmr1.c: 174: }
-[; ;tmr1.c: 175: ReadCurrent(readwhat);
-"175
-[e ( _ReadCurrent (1 -> _readwhat `uc ]
-[; ;tmr1.c: 176: }
+[; ;tmr1.c: 175: }
+[; ;tmr1.c: 176: ReadCurrent(readwhat);
 "176
+[e ( _ReadCurrent (1 -> _readwhat `uc ]
+[; ;tmr1.c: 177: }
+"177
 [e :UE 1131 ]
 }

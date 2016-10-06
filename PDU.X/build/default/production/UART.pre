@@ -9469,7 +9469,13 @@ int Receive_available(void);
 unsigned char Receive_get(void);
 void Send_put(unsigned char _data);
 
-# 21 "UART.c"
+# 311 "mcc_generated_files/pin_manager.h"
+void PIN_MANAGER_Initialize (void);
+
+# 323
+void PIN_MANAGER_IOC(void);
+
+# 23 "UART.c"
 void EUSART1_Initialize(void) {
 
 PIE1bits.RC1IE = 0;
@@ -9507,7 +9513,7 @@ PIE1bits.RC1IE = 1;
 
 void UART_buff_init(struct UART_ring_buff* _this) {
 
-# 65
+# 67
 memset(_this, 0, sizeof (*_this));
 }
 
@@ -9583,6 +9589,7 @@ PIE1bits.TX1IE = 1;
 }
 
 void EUSART1_Receive_ISR(void) {
+do { LATA3 = ~LATA3; } while(0);
 if (1 == RC1STAbits.OERR) {
 
 
@@ -9594,7 +9601,6 @@ UART_buff_put(&input_buffer, data);
 }
 
 void EUSART1_Transmit_ISR(void) {
-
 if (UART_buff_size(&output_buffer) > 0) {
 TXREG1 = UART_buff_get(&output_buffer);
 } else {

@@ -9352,7 +9352,7 @@ void PIN_MANAGER_IOC(void);
 
 # 59 "mcc_generated_files/tmr1.c"
 volatile uint16_t timer1ReloadVal;
-int readwhat = 0;
+int readwhat = 1;
 
 # 66
 void TMR1_Initialize(void)
@@ -9462,7 +9462,8 @@ TMR1L = (uint8_t) timer1ReloadVal;
 readwhat++;
 if(readwhat > 7)
 {
-readwhat = 0;
+readwhat = 1;
+FuseSystem();
 }
 ReadCurrent(readwhat);
 }

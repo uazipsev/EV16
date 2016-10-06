@@ -3,9 +3,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _receiveData `(uc ~T0 @X0 0 ef ]
 "11
 [v _receiveArray `Vi ~T0 @X0 -> 0 `x e ]
-"18 Communications.c
-[v _processPowerRequest `(v ~T0 @X0 0 ef1`i ]
-"19
+"19 Communications.c
 [v _respondECU `(v ~T0 @X0 0 ef ]
 "35
 [c E7723 1 2 3 4 5 6 1 0 .. ]
@@ -7456,9 +7454,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Communications.c: 25: previousPowerState = receiveArray[1];
 "25
 [e = F7749 *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux ]
-[; ;Communications.c: 26: processPowerRequest(previousPowerState);
-"26
-[e ( _processPowerRequest (1 F7749 ]
 "27
 }
 [e :U 1123 ]
@@ -7550,22 +7545,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Communications.c: 50: ToSend(0, 5);
 "50
 [e ( _ToSend (2 , -> -> 0 `i `uc -> -> 5 `i `ui ]
-[; ;Communications.c: 51: ToSend(9, 5);
-"51
-[e ( _ToSend (2 , -> -> 9 `i `uc -> -> 5 `i `ui ]
 [; ;Communications.c: 52: Delay(5);
 "52
 [e ( _Delay (1 -> -> 5 `i `l ]
-[; ;Communications.c: 54: sendData(1);
-"54
+[; ;Communications.c: 53: sendData(1);
+"53
 [e ( _sendData (1 -> -> 1 `i `uc ]
-[; ;Communications.c: 55: Delay(3);
-"55
+[; ;Communications.c: 54: Delay(3);
+"54
 [e ( _Delay (1 -> -> 3 `i `l ]
-[; ;Communications.c: 56: LATCbits.LATC5 = 0;
-"56
+[; ;Communications.c: 55: LATCbits.LATC5 = 0;
+"55
 [e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
-[; ;Communications.c: 57: }
-"57
+[; ;Communications.c: 56: }
+"56
 [e :UE 1135 ]
 }

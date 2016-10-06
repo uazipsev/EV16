@@ -19,7 +19,6 @@ void PDUStartup(void) {
     //We are assuming the car just started up.
     //Lets shut down all outputs untill told otherwise
     StartUp595();
-    //now enable SAS and DDS
     EnableSlavePower(SAS, OFF);
     EnableSlavePower(DDS, OFF);
     EnableSlavePower(MCS, OFF);
@@ -71,9 +70,8 @@ void ReadCurrent(char gather) {
         SetPin595(3, 3, OFF);
         SetPin595(3, 2, OFF);
         Update();
-        //CurrentADC[0] = ADC_GetConversion(U5Multisense);
-        //CurrentADC[2] = ADC_GetConversion(U8Multisense);
         CurrentADC[5] = ADC_GetConversion(U10Multisense);
+        //printf("U8 %d U5 %d U10 %d\n",ADC_GetConversion(U8Multisense),ADC_GetConversion(U10Multisense),ADC_GetConversion(U5Multisense));
     } 
     else if(gather == 2){
         //read the second three
@@ -81,15 +79,14 @@ void ReadCurrent(char gather) {
         SetPin595(1, 3, OFF);
         SetPin595(1, 2, OFF);
         SetPin595(2, 4, ON);
-        SetPin595(2, 3, OFF);
+        SetPin595(2, 3, ON);
         SetPin595(2, 2, OFF);
         SetPin595(3, 4, OFF);
         SetPin595(3, 3, OFF);
         SetPin595(3, 2, OFF);
         Update();
-        //CurrentADC[1] = ADC_GetConversion(U5Multisense);
-        CurrentADC[3] = ADC_GetConversion(U8Multisense);
-        //CurrentADC[5] = ADC_GetConversion(U10Multisense);
+        CurrentADC[2] = ADC_GetConversion(U8Multisense);
+        //printf("U8 %d U5 %d U10 %d\n",ADC_GetConversion(U8Multisense),ADC_GetConversion(U10Multisense),ADC_GetConversion(U5Multisense));
     }
     else if(gather == 3){
             //read the second three
@@ -104,8 +101,7 @@ void ReadCurrent(char gather) {
         SetPin595(3, 2, OFF);
         Update();
         CurrentADC[1] = ADC_GetConversion(U5Multisense);
-        //CurrentADC[3] = ADC_GetConversion(U8Multisense);
-        //CurrentADC[5] = ADC_GetConversion(U10Multisense);
+        //printf("U8 %d U5 %d U10 %d\n",ADC_GetConversion(U8Multisense),ADC_GetConversion(U10Multisense),ADC_GetConversion(U5Multisense));
     }
     else if(gather == 4){
             //read the second three
@@ -119,9 +115,8 @@ void ReadCurrent(char gather) {
         SetPin595(3, 3, OFF);
         SetPin595(3, 2, OFF);
         Update();
-        //CurrentADC[1] = ADC_GetConversion(U5Multisense);
-        //CurrentADC[3] = ADC_GetConversion(U8Multisense);
         CurrentADC[4] = ADC_GetConversion(U10Multisense);
+        //printf("U8 %d U5 %d U10 %d\n",ADC_GetConversion(U8Multisense),ADC_GetConversion(U10Multisense),ADC_GetConversion(U5Multisense));
     }
     else if(gather == 5){
             //read the second three
@@ -129,15 +124,14 @@ void ReadCurrent(char gather) {
         SetPin595(1, 3, OFF);
         SetPin595(1, 2, OFF);
         SetPin595(2, 4, ON);
-        SetPin595(2, 3, ON);
+        SetPin595(2, 3, OFF);
         SetPin595(2, 2, OFF);
         SetPin595(3, 4, OFF);
         SetPin595(3, 3, OFF);
         SetPin595(3, 2, OFF);
         Update();
-        //CurrentADC[1] = ADC_GetConversion(U5Multisense);
-        CurrentADC[4] = ADC_GetConversion(U8Multisense);
-        //CurrentADC[5] = ADC_GetConversion(U10Multisense);
+        CurrentADC[3] = ADC_GetConversion(U8Multisense);
+        //printf("U8 %d U5 %d U10 %d\n",ADC_GetConversion(U8Multisense),ADC_GetConversion(U10Multisense),ADC_GetConversion(U5Multisense));
     }
     else if(gather == 6){
             //read the second three
@@ -152,8 +146,7 @@ void ReadCurrent(char gather) {
         SetPin595(3, 2, OFF);
         Update();
         CurrentADC[0] = ADC_GetConversion(U5Multisense);
-        //CurrentADC[3] = ADC_GetConversion(U8Multisense);
-        //CurrentADC[5] = ADC_GetConversion(U10Multisense);
+        //printf("U8 %d U5 %d U10 %d\n",ADC_GetConversion(U8Multisense),ADC_GetConversion(U10Multisense),ADC_GetConversion(U5Multisense));
     }
     
 }
@@ -177,13 +170,13 @@ void ComputeStorageData(void) {
 //This is our software "fuse" code to shut off outputs when under stress
 
 void FuseSystem() {
-    printf("Reading Stuff \n");
+    //printf("Reading Stuff \n");
     for (int i = 0; i < 6; i++) {
         Current[i] = CurrentADC[i]*48; //all numbers at this point are mult by 10000
-        printf("%u ",Current[i]);
+        //printf("%u ",CurrentADC[i]);
         //So to get real numbers divide by 10000
     }
-    printf("\n");
+    //printf("\n");
     for (int i = 0; i < 6; i++) {
         if (Current[i] > Currentcomp[i]) {
             //over current condition

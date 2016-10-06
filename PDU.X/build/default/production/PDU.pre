@@ -9454,7 +9454,6 @@ void PDUStartup(void) {
 
 
 StartUp595();
-
 EnableSlavePower(SAS, OFF);
 EnableSlavePower(DDS, OFF);
 EnableSlavePower(MCS, OFF);
@@ -9506,9 +9505,8 @@ SetPin595(3, 4, OFF);
 SetPin595(3, 3, OFF);
 SetPin595(3, 2, OFF);
 Update();
-
-
 CurrentADC[5] = ADC_GetConversion(U10Multisense);
+
 }
 else if(gather == 2){
 
@@ -9516,14 +9514,13 @@ SetPin595(1, 4, OFF);
 SetPin595(1, 3, OFF);
 SetPin595(1, 2, OFF);
 SetPin595(2, 4, ON);
-SetPin595(2, 3, OFF);
+SetPin595(2, 3, ON);
 SetPin595(2, 2, OFF);
 SetPin595(3, 4, OFF);
 SetPin595(3, 3, OFF);
 SetPin595(3, 2, OFF);
 Update();
-
-CurrentADC[3] = ADC_GetConversion(U8Multisense);
+CurrentADC[2] = ADC_GetConversion(U8Multisense);
 
 }
 else if(gather == 3){
@@ -9540,7 +9537,6 @@ SetPin595(3, 2, OFF);
 Update();
 CurrentADC[1] = ADC_GetConversion(U5Multisense);
 
-
 }
 else if(gather == 4){
 
@@ -9554,9 +9550,8 @@ SetPin595(3, 4, OFF);
 SetPin595(3, 3, OFF);
 SetPin595(3, 2, OFF);
 Update();
-
-
 CurrentADC[4] = ADC_GetConversion(U10Multisense);
+
 }
 else if(gather == 5){
 
@@ -9564,14 +9559,13 @@ SetPin595(1, 4, OFF);
 SetPin595(1, 3, OFF);
 SetPin595(1, 2, OFF);
 SetPin595(2, 4, ON);
-SetPin595(2, 3, ON);
+SetPin595(2, 3, OFF);
 SetPin595(2, 2, OFF);
 SetPin595(3, 4, OFF);
 SetPin595(3, 3, OFF);
 SetPin595(3, 2, OFF);
 Update();
-
-CurrentADC[4] = ADC_GetConversion(U8Multisense);
+CurrentADC[3] = ADC_GetConversion(U8Multisense);
 
 }
 else if(gather == 6){
@@ -9587,7 +9581,6 @@ SetPin595(3, 3, ON);
 SetPin595(3, 2, OFF);
 Update();
 CurrentADC[0] = ADC_GetConversion(U5Multisense);
-
 
 }
 
@@ -9612,13 +9605,13 @@ Currentcomp[5] = ((data[10] << 8) | data[11]);
 
 
 void FuseSystem() {
-printf("Reading Stuff \n");
+
 for (int i = 0; i < 6; i++) {
 Current[i] = CurrentADC[i]*48;
-printf("%u ",Current[i]);
+
 
 }
-printf("\n");
+
 for (int i = 0; i < 6; i++) {
 if (Current[i] > Currentcomp[i]) {
 

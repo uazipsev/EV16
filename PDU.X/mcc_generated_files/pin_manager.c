@@ -88,6 +88,8 @@ void PIN_MANAGER_Initialize(void)
     
     TRISDbits.RD1 = 0; //Set FAN PWM as a output
     
+    TRISCbits.TRISC4 = 0;
+    
     DIGI_UP_DN_SetDigitalMode();
     CLK_SetDigitalMode();
     DIGI_INC_SetDigitalMode();
@@ -98,6 +100,9 @@ void PIN_MANAGER_Initialize(void)
     TRISCbits.RC4 = 1;
     TRISDbits.RD3 = 1;
     TRISDbits.RD2 = 1;
+    
+    TRISCbits.TRISC6 = 0;
+    TRISCbits.TRISC7 = 1;
     
     
         

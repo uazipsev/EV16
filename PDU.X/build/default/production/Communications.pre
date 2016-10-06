@@ -9246,7 +9246,7 @@ if (receiveData()) {
 static int previousPowerState;
 if (previousPowerState != receiveArray[1]) {
 previousPowerState = receiveArray[1];
-processPowerRequest(previousPowerState);
+
 }
 respondECU();
 }
@@ -9271,9 +9271,8 @@ Update();
 void respondECU() {
 LATCbits.LATC5 = 1;
 ToSend(0, 5);
-ToSend(9, 5);
-Delay(5);
 
+Delay(5);
 sendData(1);
 Delay(3);
 LATCbits.LATC5 = 0;

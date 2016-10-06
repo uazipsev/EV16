@@ -15,6 +15,8 @@
  */
 
 #include "UART.h"
+#include "mcc_generated_files/pin_manager.h"
+#include <xc.h>
 #define ON         0
 #define OFF        1
 
@@ -137,6 +139,7 @@ void Send_put(unsigned char _data) {
 }
 
 void EUSART1_Receive_ISR(void) {
+    LED1_Toggle();
     if (1 == RC1STAbits.OERR) {
         // EUSART1 error - restart
 
@@ -148,7 +151,6 @@ void EUSART1_Receive_ISR(void) {
 }
 
 void EUSART1_Transmit_ISR(void) {
-    //LED ^= 1;
     if (UART_buff_size(&output_buffer) > 0) {
         TXREG1 = UART_buff_get(&output_buffer);
     } else {
