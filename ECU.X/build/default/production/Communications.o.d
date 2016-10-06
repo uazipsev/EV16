@@ -18,4 +18,5 @@ UART3.h  \
 FastTransfer.h  \
 FastTransfer1.h  \
 FastTransfer3.h  \
-Functions.h 
+Functions.h  \
+ DriverConfigs.h 

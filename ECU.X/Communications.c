@@ -79,9 +79,9 @@ void ComStart(){
     
 void updateComms() {
     bus1Update();
-    if(GetDriverEnabled()){  //prevents MCS and BMM from coming up....Stopping system boot 
+    //if(GetDriverEnabled()){  //prevents MCS and BMM from coming up....Stopping system boot 
         bus2Update();
-    }
+    //}
     checkCommDirection();
     checkCommDirection1();
     //Delay(100);
@@ -98,7 +98,9 @@ void bus1Update() {
                     resetCommTimers();
                     
                 }
-
+                else{
+                    commsBus1State++;
+                }
             }
              else {
                 //FLAG ERROR ON SAS COMMS -- Move on
@@ -106,9 +108,6 @@ void bus1Update() {
                 commsBus1State++;
                 resetCommTimers();
             }
-//            else{
-//                commsBus1State++;
-//            }
             break;
         case DDS_UPDATE:
             if (requestDDSData()) {
@@ -116,6 +115,9 @@ void bus1Update() {
                     comms.DDS = true;
                     commsBus1State++;
                     resetCommTimers();
+                }
+                else{
+                    commsBus1State++;
                 }
             }
             else {
@@ -131,9 +133,11 @@ void bus1Update() {
                     commsBus1State++;
                     resetCommTimers();
                 }
+                else{
+                    commsBus1State++;
+                }
             }
-             else {
-            //FLAG ERROR ON DDS COMMS -- Move on
+            else {
                 //comms.SS = false;
                 commsBus1State++;
                 resetCommTimers();
