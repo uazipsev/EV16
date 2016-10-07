@@ -9361,7 +9361,7 @@ void TMR1_Initialize(void)
 
 
 T1CON = 0x00;
-T1CONbits.T1CKPS = 0x03;
+
 
 
 T1GCON = 0x00;
@@ -9460,11 +9460,13 @@ PIR1bits.TMR1IF = 0;
 TMR1H = (timer1ReloadVal >> 8);
 TMR1L = (uint8_t) timer1ReloadVal;
 readwhat++;
-if(readwhat > 7)
+if(readwhat > 100)
 {
 readwhat = 1;
-FuseSystem();
+
+do { LATA4 = ~LATA4; } while(0);
+do { LATA3 = ~LATA3; } while(0);
 }
-ReadCurrent(readwhat);
+
 }
 

@@ -49,7 +49,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 void PIN_MANAGER_Initialize(void)
 {
-    LATA = 0x00;
+   LATA = 0x00;
     TRISA = 0xF7;
     ANSELA = 0x27;
 
@@ -71,8 +71,7 @@ void PIN_MANAGER_Initialize(void)
     ANSELE = 0x07;
     TRISCbits.RC6 = 1;
     TRISCbits.RC7 = 1;
-    TRISCbits.RC5 = 1;
-    TRISCbits.RC1 = 0;
+    TRISCbits.RC5 = 0;
     LATCbits.LATC5 = 1;
     LATCbits.LATC6 = 1;
     LATCbits.LATC7 = 1;
@@ -88,24 +87,9 @@ void PIN_MANAGER_Initialize(void)
     
     TRISDbits.RD1 = 0; //Set FAN PWM as a output
     
-    TRISCbits.TRISC4 = 0;
-    
     DIGI_UP_DN_SetDigitalMode();
     CLK_SetDigitalMode();
-    DIGI_INC_SetDigitalMode();
-    
-    ANSELCbits.ANSC4 = 1;
-    ANSELDbits.ANSD3 = 1;
-    ANSELDbits.ANSD2 = 1;
-    TRISCbits.RC4 = 1;
-    TRISDbits.RD3 = 1;
-    TRISDbits.RD2 = 1;
-    
-    TRISCbits.TRISC6 = 0;
-    TRISCbits.TRISC7 = 1;
-    
-    
-        
+    DIGI_INC_SetDigitalMode();   
 }
 /**
  End of File

@@ -69,7 +69,7 @@ void TMR1_Initialize(void)
 
     //T1OSCEN disabled; T1RD16 disabled; T1CKPS 1:1; TMR1CS FOSC/4; T1SYNC synchronize; TMR1ON disabled; 
     T1CON = 0x00;
-    T1CONbits.T1CKPS = 0x03;
+    //T1CONbits.T1CKPS = 0x03;
 
     //T1GVAL disabled; T1GSPM disabled; T1GSS T1G; T1GTM disabled; T1GPOL low; TMR1GE disabled; T1GGO done; 
     T1GCON = 0x00;
@@ -171,9 +171,11 @@ void TMR1_ISR(void)
     if(readwhat > 7)
     {
         readwhat = 1;
-        FuseSystem();
+        //FuseSystem();
+        LED2_Toggle();
+        LED1_Toggle();
     }
-    ReadCurrent(readwhat);
+   // ReadCurrent(readwhat);
 }
 
 

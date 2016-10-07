@@ -33,9 +33,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _memset `(*v ~T0 @X0 0 ef3`*v`i`ui ]
 "119
 [v _UART_buff_modulo_inc `(ui ~T0 @X0 0 ef2`Cui`Cui ]
-"18805 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
-[v _LATA3 `Vb ~T0 @X0 0 e@31819 ]
-"10848
+"10848 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
 [s S609 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S609 . RX9D OERR FERR ADDEN CREN SREN RX9 SPEN ]
 "10858
@@ -7856,34 +7854,30 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;UART.c: 141: void EUSART1_Receive_ISR(void) {
 [e :U _EUSART1_Receive_ISR ]
 [f ]
-[; ;UART.c: 142: do { LATA3 = ~LATA3; } while(0);
+[; ;UART.c: 142: if (1 == RC1STAbits.OERR) {
 "142
-[e :U 1149 ]
+[e $ ! == -> 1 `i -> . . _RC1STAbits 0 1 `i 1147  ]
 {
-[e = _LATA3 -> ~ -> _LATA3 `ui `b ]
-}
-[e :U 1148 ]
-[; ;UART.c: 143: if (1 == RC1STAbits.OERR) {
-"143
-[e $ ! == -> 1 `i -> . . _RC1STAbits 0 1 `i 1150  ]
-{
-[; ;UART.c: 146: RC1STAbits.CREN = 0;
-"146
+[; ;UART.c: 145: RC1STAbits.CREN = 0;
+"145
 [e = . . _RC1STAbits 0 4 -> -> 0 `i `uc ]
-[; ;UART.c: 147: RC1STAbits.CREN = 1;
-"147
+[; ;UART.c: 146: RC1STAbits.CREN = 1;
+"146
 [e = . . _RC1STAbits 0 4 -> -> 1 `i `uc ]
-"148
+"147
 }
-[e :U 1150 ]
-"149
+[e :U 1147 ]
+"148
 [v _data `uc ~T0 @X0 1 a ]
-[; ;UART.c: 148: }
-[; ;UART.c: 149: unsigned char data = RCREG1;
+[; ;UART.c: 147: }
+[; ;UART.c: 148: unsigned char data = RCREG1;
 [e = _data _RCREG1 ]
-[; ;UART.c: 150: UART_buff_put(&input_buffer, data);
-"150
+[; ;UART.c: 149: UART_buff_put(&input_buffer, data);
+"149
 [e ( _UART_buff_put (2 , &U _input_buffer _data ]
+[; ;UART.c: 150: PIE1bits.RC1IE == 0;
+"150
+[e == -> . . _PIE1bits 0 5 `i -> 0 `i ]
 [; ;UART.c: 151: }
 "151
 [e :UE 1146 ]
@@ -7896,7 +7890,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;UART.c: 154: if (UART_buff_size(&output_buffer) > 0) {
 "154
-[e $ ! > ( _UART_buff_size (1 &U _output_buffer -> 0 `i 1152  ]
+[e $ ! > ( _UART_buff_size (1 &U _output_buffer -> 0 `i 1149  ]
 {
 [; ;UART.c: 155: TXREG1 = UART_buff_get(&output_buffer);
 "155
@@ -7904,8 +7898,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 "156
 }
 [; ;UART.c: 156: } else {
-[e $U 1153  ]
-[e :U 1152 ]
+[e $U 1150  ]
+[e :U 1149 ]
 {
 [; ;UART.c: 157: Transmit_stall = 1;
 "157
@@ -7915,11 +7909,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _PIE1bits 0 4 -> -> 0 `i `uc ]
 "159
 }
-[e :U 1153 ]
+[e :U 1150 ]
 [; ;UART.c: 159: }
 [; ;UART.c: 160: }
 "160
-[e :UE 1151 ]
+[e :UE 1148 ]
 }
 "162
 [v _getch `(uc ~T0 @X0 1 ef ]
@@ -7930,10 +7924,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;UART.c: 163: return Receive_get();
 "163
 [e ) ( _Receive_get ..  ]
-[e $UE 1154  ]
+[e $UE 1151  ]
 [; ;UART.c: 164: }
 "164
-[e :UE 1154 ]
+[e :UE 1151 ]
 }
 "166
 [v _putch `(v ~T0 @X0 1 ef1`uc ]
@@ -7947,5 +7941,5 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Send_put (1 _txData ]
 [; ;UART.c: 168: }
 "168
-[e :UE 1155 ]
+[e :UE 1152 ]
 }

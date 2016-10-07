@@ -139,7 +139,6 @@ void Send_put(unsigned char _data) {
 }
 
 void EUSART1_Receive_ISR(void) {
-    LED1_Toggle();
     if (1 == RC1STAbits.OERR) {
         // EUSART1 error - restart
 
@@ -148,6 +147,7 @@ void EUSART1_Receive_ISR(void) {
     }
     unsigned char data = RCREG1;
     UART_buff_put(&input_buffer, data);
+    PIE1bits.RC1IE == 0;
 }
 
 void EUSART1_Transmit_ISR(void) {

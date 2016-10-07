@@ -20,8 +20,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _crcBufS_put `(v ~T0 @X0 0 ef4`*S1127`uc`uc`uc ]
 "75
 [v _FastTransfer_buffer_flush `(v ~T0 @X0 0 ef2`*S1125`Ci ]
-"80
-[v _CRCcheck `(v ~T0 @X0 0 ef ]
 "73
 [v _FastTransfer_buffer_put `(v ~T0 @X0 0 ef3`*S1125`Cuc`Cui ]
 "76
@@ -7807,67 +7805,31 @@ Version 3.2 HI-TECH Software Intermediate Code
 "119
 [e $ ! != -> _rx_len `i -> 0 `i 1156  ]
 {
-[; ;FastTransfer.c: 122: if (rx_array_inx == 0) {
-"122
-[e $ ! == -> _rx_array_inx `i -> 0 `i 1157  ]
-{
-[; ;FastTransfer.c: 123: while (!(serial_available() >= 1));
-"123
-[e $U 1158  ]
-[e :U 1159 ]
-[e :U 1158 ]
-[e $ ! >= ( *U _serial_available ..  -> 1 `i 1159  ]
-[e :U 1160 ]
-[; ;FastTransfer.c: 124: if (255 == serial_peek()) {
-"124
-[e $ ! == -> 255 `i -> ( *U _serial_peek ..  `i 1161  ]
-{
-[; ;FastTransfer.c: 125: CRCcheck();
-"125
-[e ( _CRCcheck ..  ]
-[; ;FastTransfer.c: 126: rx_len = 0;
-"126
-[e = _rx_len -> -> 0 `i `uc ]
-[; ;FastTransfer.c: 127: rx_array_inx = 0;
-"127
-[e = _rx_array_inx -> -> 0 `i `uc ]
-[; ;FastTransfer.c: 128: return 0;
-"128
-[e ) -> -> 0 `i `uc ]
-[e $UE 1143  ]
-"129
-}
-[e :U 1161 ]
-"130
-}
-[e :U 1157 ]
-[; ;FastTransfer.c: 129: }
-[; ;FastTransfer.c: 130: }
 [; ;FastTransfer.c: 133: while (serial_available() && rx_array_inx <= rx_len) {
 "133
-[e $U 1162  ]
-[e :U 1163 ]
+[e $U 1157  ]
+[e :U 1158 ]
 {
 [; ;FastTransfer.c: 134: rx_buffer[rx_array_inx++] = serial_read();
 "134
 [e = *U + &U _rx_buffer * -> ++ _rx_array_inx -> -> 1 `i `uc `ux -> -> # *U &U _rx_buffer `ui `ux ( *U _serial_read ..  ]
 "135
 }
-[e :U 1162 ]
+[e :U 1157 ]
 "133
-[e $ && != ( *U _serial_available ..  -> 0 `i <= -> _rx_array_inx `i -> _rx_len `i 1163  ]
-[e :U 1164 ]
+[e $ && != ( *U _serial_available ..  -> 0 `i <= -> _rx_array_inx `i -> _rx_len `i 1158  ]
+[e :U 1159 ]
 [; ;FastTransfer.c: 135: }
 [; ;FastTransfer.c: 137: if (rx_len == (rx_array_inx - 1)) {
 "137
-[e $ ! == -> _rx_len `i - -> _rx_array_inx `i -> 1 `i 1165  ]
+[e $ ! == -> _rx_len `i - -> _rx_array_inx `i -> 1 `i 1160  ]
 {
 [; ;FastTransfer.c: 140: calc_CS = CRC8(rx_buffer, rx_len);
 "140
 [e = _calc_CS ( _CRC8 (2 , -> &U _rx_buffer `*Cuc _rx_len ]
 [; ;FastTransfer.c: 144: if (calc_CS == rx_buffer[rx_array_inx - 1]) {
 "144
-[e $ ! == -> _calc_CS `i -> *U + &U _rx_buffer * -> -> - -> _rx_array_inx `i -> 1 `i `ui `ux -> -> # *U &U _rx_buffer `ui `ux `i 1166  ]
+[e $ ! == -> _calc_CS `i -> *U + &U _rx_buffer * -> -> - -> _rx_array_inx `i -> 1 `i `ui `ux -> -> # *U &U _rx_buffer `ui `ux `i 1161  ]
 {
 "147
 [v _r `i ~T0 @X0 1 a ]
@@ -7876,12 +7838,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 "148
 {
 [e = _r -> 0 `i ]
-[e $U 1170  ]
-[e :U 1167 ]
+[e $U 1165  ]
+[e :U 1162 ]
 {
 [; ;FastTransfer.c: 149: if (rx_buffer[r] < maxDataAddress) {
 "149
-[e $ ! < -> *U + &U _rx_buffer * -> -> _r `ui `ux -> -> # *U &U _rx_buffer `ui `ux `i -> _maxDataAddress `i 1171  ]
+[e $ ! < -> *U + &U _rx_buffer * -> -> _r `ui `ux -> -> # *U &U _rx_buffer `ui `ux `i -> _maxDataAddress `i 1166  ]
 {
 [; ;FastTransfer.c: 150: group.parts[0] = rx_buffer[r + 1];
 "150
@@ -7895,29 +7857,29 @@ Version 3.2 HI-TECH Software Intermediate Code
 "153
 }
 [; ;FastTransfer.c: 153: } else {
-[e $U 1172  ]
-[e :U 1171 ]
+[e $U 1167  ]
+[e :U 1166 ]
 {
 [; ;FastTransfer.c: 154: dataAdressErrorCounter++;
 "154
 [e ++ _dataAdressErrorCounter -> -> 1 `i `ui ]
 "155
 }
-[e :U 1172 ]
+[e :U 1167 ]
 "156
 }
 "148
 [e = _r + _r -> 3 `i ]
-[e :U 1170 ]
-[e $ < _r -> _rx_len `i 1167  ]
-[e :U 1168 ]
+[e :U 1165 ]
+[e $ < _r -> _rx_len `i 1162  ]
+[e :U 1163 ]
 "156
 }
 [; ;FastTransfer.c: 155: }
 [; ;FastTransfer.c: 156: }
 [; ;FastTransfer.c: 159: if (AKNAKsend) {
 "159
-[e $ ! != -> _AKNAKsend `i -> -> -> 0 `i `uc `i 1173  ]
+[e $ ! != -> _AKNAKsend `i -> -> -> 0 `i `uc `i 1168  ]
 {
 "160
 [v _holder `uc ~T0 @X0 -> 3 `i a ]
@@ -7964,7 +7926,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( *U _serial_write (1 _crcHolder ]
 "174
 }
-[e :U 1173 ]
+[e :U 1168 ]
 [; ;FastTransfer.c: 174: }
 [; ;FastTransfer.c: 178: rx_len = 0;
 "178
@@ -7979,15 +7941,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 "181
 }
 [; ;FastTransfer.c: 181: } else {
-[e $U 1174  ]
-[e :U 1166 ]
+[e $U 1169  ]
+[e :U 1161 ]
 {
 [; ;FastTransfer.c: 182: crcErrorCounter++;
 "182
 [e ++ _crcErrorCounter -> -> 1 `i `ui ]
 [; ;FastTransfer.c: 184: if (AKNAKsend) {
 "184
-[e $ ! != -> _AKNAKsend `i -> -> -> 0 `i `uc `i 1175  ]
+[e $ ! != -> _AKNAKsend `i -> -> -> 0 `i `uc `i 1170  ]
 {
 "185
 [v _holder `uc ~T0 @X0 -> 3 `i a ]
@@ -8034,7 +7996,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( *U _serial_write (1 _crcHolder ]
 "199
 }
-[e :U 1175 ]
+[e :U 1170 ]
 [; ;FastTransfer.c: 199: }
 [; ;FastTransfer.c: 202: rx_len = 0;
 "202
@@ -8048,10 +8010,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $UE 1143  ]
 "205
 }
-[e :U 1174 ]
+[e :U 1169 ]
 "206
 }
-[e :U 1165 ]
+[e :U 1160 ]
 "207
 }
 [e :U 1156 ]
@@ -8079,7 +8041,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _FastTransfer_buffer_put (3 , , &U _ring_buffer _where _what ]
 [; ;FastTransfer.c: 218: }
 "218
-[e :UE 1176 ]
+[e :UE 1171 ]
 }
 "223
 [v _FastTransfer_buffer_put `(v ~T0 @X0 1 ef3`*S1125`Cuc`Cui ]
@@ -8095,7 +8057,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . _group 1 _towhat ]
 [; ;FastTransfer.c: 227: if (_this->count < (200 - 3)) {
 "227
-[e $ ! < . *U __this 3 - -> 200 `i -> 3 `i 1178  ]
+[e $ ! < . *U __this 3 - -> 200 `i -> 3 `i 1173  ]
 {
 [; ;FastTransfer.c: 228: _this->buf[_this->head] = towhere;
 "228
@@ -8126,11 +8088,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e =+ . *U __this 3 -> 1 `i ]
 "238
 }
-[e :U 1178 ]
+[e :U 1173 ]
 [; ;FastTransfer.c: 238: }
 [; ;FastTransfer.c: 240: }
 "240
-[e :UE 1177 ]
+[e :UE 1172 ]
 }
 "245
 [v _FastTransfer_buffer_get `(uc ~T0 @X0 1 ef1`*S1125 ]
@@ -8144,7 +8106,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;FastTransfer.c: 246: unsigned char c;
 [; ;FastTransfer.c: 247: if (_this->count > 0) {
 "247
-[e $ ! > . *U __this 3 -> 0 `i 1180  ]
+[e $ ! > . *U __this 3 -> 0 `i 1175  ]
 {
 [; ;FastTransfer.c: 248: c = _this->buf[_this->tail];
 "248
@@ -8158,23 +8120,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 "251
 }
 [; ;FastTransfer.c: 251: } else {
-[e $U 1181  ]
-[e :U 1180 ]
+[e $U 1176  ]
+[e :U 1175 ]
 {
 [; ;FastTransfer.c: 252: c = 0;
 "252
 [e = _c -> -> 0 `i `uc ]
 "253
 }
-[e :U 1181 ]
+[e :U 1176 ]
 [; ;FastTransfer.c: 253: }
 [; ;FastTransfer.c: 254: return (c);
 "254
 [e ) _c ]
-[e $UE 1179  ]
+[e $UE 1174  ]
 [; ;FastTransfer.c: 255: }
 "255
-[e :UE 1179 ]
+[e :UE 1174 ]
 }
 [; ;FastTransfer.c: 257: void *memset(void *s, int c, size_t n);
 "261
@@ -8196,18 +8158,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . *U __this 2 -> 0 `i ]
 [; ;FastTransfer.c: 265: if (clearBuffer) {
 "265
-[e $ ! != _clearBuffer -> 0 `i 1183  ]
+[e $ ! != _clearBuffer -> 0 `i 1178  ]
 {
 [; ;FastTransfer.c: 266: memset(_this->buf, 0, sizeof (_this->buf));
 "266
 [e ( _memset (3 , , -> &U . *U __this 0 `*v -> 0 `i * -> # *U &U . *U __this 0 `ui -> -> 200 `i `ui ]
 "267
 }
-[e :U 1183 ]
+[e :U 1178 ]
 [; ;FastTransfer.c: 267: }
 [; ;FastTransfer.c: 268: }
 "268
-[e :UE 1182 ]
+[e :UE 1177 ]
 }
 "273
 [v _FastTransfer_buffer_modulo_inc `(ui ~T0 @X0 1 ef2`Cui`Cui ]
@@ -8223,22 +8185,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _my_value + _value -> -> 1 `i `ui ]
 [; ;FastTransfer.c: 275: if (my_value >= modulus) {
 "275
-[e $ ! >= _my_value _modulus 1185  ]
+[e $ ! >= _my_value _modulus 1180  ]
 {
 [; ;FastTransfer.c: 276: my_value = 0;
 "276
 [e = _my_value -> -> 0 `i `ui ]
 "277
 }
-[e :U 1185 ]
+[e :U 1180 ]
 [; ;FastTransfer.c: 277: }
 [; ;FastTransfer.c: 278: return (my_value);
 "278
 [e ) _my_value ]
-[e $UE 1184  ]
+[e $UE 1179  ]
 [; ;FastTransfer.c: 279: }
 "279
-[e :UE 1184 ]
+[e :UE 1179 ]
 }
 "284
 [v _AKNAK `(uc ~T0 @X0 1 ef1`uc ]
@@ -8254,27 +8216,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 "286
 {
 [e = _r -> 0 `i ]
-[e $ < _r -> 5 `i 1187  ]
-[e $U 1188  ]
-[e :U 1187 ]
+[e $ < _r -> 5 `i 1182  ]
+[e $U 1183  ]
+[e :U 1182 ]
 {
 [; ;FastTransfer.c: 287: if (module == crcBufS_get(&crc_buffer, r, 0)) {
 "287
-[e $ ! == -> _module `i -> ( _crcBufS_get (3 , , &U _crc_buffer -> _r `uc -> -> 0 `i `uc `i 1190  ]
+[e $ ! == -> _module `i -> ( _crcBufS_get (3 , , &U _crc_buffer -> _r `uc -> -> 0 `i `uc `i 1185  ]
 {
 [; ;FastTransfer.c: 288: return crcBufS_get(&crc_buffer, r, 2);
 "288
 [e ) ( _crcBufS_get (3 , , &U _crc_buffer -> _r `uc -> -> 2 `i `uc ]
-[e $UE 1186  ]
+[e $UE 1181  ]
 "289
 }
-[e :U 1190 ]
+[e :U 1185 ]
 "290
 }
 "286
 [e ++ _r -> 1 `i ]
-[e $ < _r -> 5 `i 1187  ]
-[e :U 1188 ]
+[e $ < _r -> 5 `i 1182  ]
+[e :U 1183 ]
 "290
 }
 [; ;FastTransfer.c: 289: }
@@ -8282,10 +8244,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;FastTransfer.c: 291: return 4;
 "291
 [e ) -> -> 4 `i `uc ]
-[e $UE 1186  ]
+[e $UE 1181  ]
 [; ;FastTransfer.c: 292: }
 "292
-[e :UE 1186 ]
+[e :UE 1181 ]
 }
 "297
 [v _alignError `(ui ~T0 @X0 1 ef ]
@@ -8296,10 +8258,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;FastTransfer.c: 298: return alignErrorCounter;
 "298
 [e ) _alignErrorCounter ]
-[e $UE 1191  ]
+[e $UE 1186  ]
 [; ;FastTransfer.c: 299: }
 "299
-[e :UE 1191 ]
+[e :UE 1186 ]
 }
 "304
 [v _CRCError `(ui ~T0 @X0 1 ef ]
@@ -8310,10 +8272,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;FastTransfer.c: 305: return crcErrorCounter;
 "305
 [e ) _crcErrorCounter ]
-[e $UE 1192  ]
+[e $UE 1187  ]
 [; ;FastTransfer.c: 306: }
 "306
-[e :UE 1192 ]
+[e :UE 1187 ]
 }
 "311
 [v _addressError `(ui ~T0 @X0 1 ef ]
@@ -8324,10 +8286,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;FastTransfer.c: 312: return addressErrorCounter;
 "312
 [e ) _addressErrorCounter ]
-[e $UE 1193  ]
+[e $UE 1188  ]
 [; ;FastTransfer.c: 313: }
 "313
-[e :UE 1193 ]
+[e :UE 1188 ]
 }
 "315
 [v _dataAddressError `(ui ~T0 @X0 1 ef ]
@@ -8338,10 +8300,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;FastTransfer.c: 316: return dataAdressErrorCounter;
 "316
 [e ) _dataAdressErrorCounter ]
-[e $UE 1194  ]
+[e $UE 1189  ]
 [; ;FastTransfer.c: 317: }
 "317
-[e :UE 1194 ]
+[e :UE 1189 ]
 }
 "321
 [v _crcBufS_put `(v ~T0 @X0 1 ef4`*S1127`uc`uc`uc ]
@@ -8373,18 +8335,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ++ . *U __this 1 -> 1 `i ]
 [; ;FastTransfer.c: 328: if (_this->head >= (5 * 3)) {
 "328
-[e $ ! >= . *U __this 1 * -> 5 `i -> 3 `i 1196  ]
+[e $ ! >= . *U __this 1 * -> 5 `i -> 3 `i 1191  ]
 {
 [; ;FastTransfer.c: 329: _this->head = 0;
 "329
 [e = . *U __this 1 -> 0 `i ]
 "330
 }
-[e :U 1196 ]
+[e :U 1191 ]
 [; ;FastTransfer.c: 330: }
 [; ;FastTransfer.c: 331: }
 "331
-[e :UE 1195 ]
+[e :UE 1190 ]
 }
 "336
 [v _crcBufS_status_put `(v ~T0 @X0 1 ef3`*S1127`uc`uc ]
@@ -8397,14 +8359,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;FastTransfer.c: 337: if (time >= 5) {
 "337
-[e $ ! >= -> _time `i -> 5 `i 1198  ]
+[e $ ! >= -> _time `i -> 5 `i 1193  ]
 {
 [; ;FastTransfer.c: 338: time = 5 - 1;
 "338
 [e = _time -> - -> 5 `i -> 1 `i `uc ]
 "339
 }
-[e :U 1198 ]
+[e :U 1193 ]
 [; ;FastTransfer.c: 339: }
 [; ;FastTransfer.c: 340: time = time + 1;
 "340
@@ -8415,7 +8377,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _wantedTime * -> _time `i -> 3 `i ]
 [; ;FastTransfer.c: 342: if (wantedTime > _this->head) {
 "342
-[e $ ! > _wantedTime . *U __this 1 1199  ]
+[e $ ! > _wantedTime . *U __this 1 1194  ]
 {
 [; ;FastTransfer.c: 343: wantedTime = ((5 * 3)) - (wantedTime - _this->head);
 "343
@@ -8426,19 +8388,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 "345
 }
 [; ;FastTransfer.c: 345: } else {
-[e $U 1200  ]
-[e :U 1199 ]
+[e $U 1195  ]
+[e :U 1194 ]
 {
 [; ;FastTransfer.c: 346: _this->buf[(_this->head - wantedTime) + 2] = status;
 "346
 [e = *U + &U . *U __this 0 * -> -> + - . *U __this 1 _wantedTime -> 2 `i `ui `ux -> -> # *U &U . *U __this 0 `ui `ux _status ]
 "347
 }
-[e :U 1200 ]
+[e :U 1195 ]
 [; ;FastTransfer.c: 347: }
 [; ;FastTransfer.c: 348: }
 "348
-[e :UE 1197 ]
+[e :UE 1192 ]
 }
 "353
 [v _crcBufS_get `(uc ~T0 @X0 1 ef3`*S1127`uc`uc ]
@@ -8451,25 +8413,25 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;FastTransfer.c: 354: if (time >= 5) {
 "354
-[e $ ! >= -> _time `i -> 5 `i 1202  ]
+[e $ ! >= -> _time `i -> 5 `i 1197  ]
 {
 [; ;FastTransfer.c: 355: time = 5 - 1;
 "355
 [e = _time -> - -> 5 `i -> 1 `i `uc ]
 "356
 }
-[e :U 1202 ]
+[e :U 1197 ]
 [; ;FastTransfer.c: 356: }
 [; ;FastTransfer.c: 357: if (space >= 3) {
 "357
-[e $ ! >= -> _space `i -> 3 `i 1203  ]
+[e $ ! >= -> _space `i -> 3 `i 1198  ]
 {
 [; ;FastTransfer.c: 358: space = 3 - 1;
 "358
 [e = _space -> - -> 3 `i -> 1 `i `uc ]
 "359
 }
-[e :U 1203 ]
+[e :U 1198 ]
 [; ;FastTransfer.c: 359: }
 [; ;FastTransfer.c: 360: time = time + 1;
 "360
@@ -8480,7 +8442,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _wantedTime * -> _time `i -> 3 `i ]
 [; ;FastTransfer.c: 362: if (wantedTime > _this->head) {
 "362
-[e $ ! > _wantedTime . *U __this 1 1204  ]
+[e $ ! > _wantedTime . *U __this 1 1199  ]
 {
 [; ;FastTransfer.c: 363: wantedTime = ((5 * 3)) - (wantedTime - _this->head);
 "363
@@ -8488,24 +8450,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;FastTransfer.c: 364: return (_this->buf[(wantedTime + space)]);
 "364
 [e ) *U + &U . *U __this 0 * -> -> + _wantedTime -> _space `i `ui `ux -> -> # *U &U . *U __this 0 `ui `ux ]
-[e $UE 1201  ]
+[e $UE 1196  ]
 "365
 }
 [; ;FastTransfer.c: 365: } else {
-[e $U 1205  ]
-[e :U 1204 ]
+[e $U 1200  ]
+[e :U 1199 ]
 {
 [; ;FastTransfer.c: 366: return (_this->buf[(_this->head - wantedTime) + space]);
 "366
 [e ) *U + &U . *U __this 0 * -> -> + - . *U __this 1 _wantedTime -> _space `i `ui `ux -> -> # *U &U . *U __this 0 `ui `ux ]
-[e $UE 1201  ]
+[e $UE 1196  ]
 "367
 }
-[e :U 1205 ]
+[e :U 1200 ]
 [; ;FastTransfer.c: 367: }
 [; ;FastTransfer.c: 368: }
 "368
-[e :UE 1201 ]
+[e :UE 1196 ]
 }
 "373
 [v _CRCcheck `(v ~T0 @X0 1 ef ]
@@ -8515,11 +8477,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;FastTransfer.c: 375: while (!(serial_available() > 3));
 "375
-[e $U 1207  ]
-[e :U 1208 ]
-[e :U 1207 ]
-[e $ ! > ( *U _serial_available ..  -> 3 `i 1208  ]
-[e :U 1209 ]
+[e $U 1202  ]
+[e :U 1203 ]
+[e :U 1202 ]
+[e $ ! > ( *U _serial_available ..  -> 3 `i 1203  ]
+[e :U 1204 ]
 "377
 [v _arrayHolder `uc ~T0 @X0 -> 3 `i a ]
 [; ;FastTransfer.c: 377: unsigned char arrayHolder[3];
@@ -8542,7 +8504,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _calculatedCRC ( _CRC8 (2 , -> &U _arrayHolder `*Cuc -> -> 3 `i `uc ]
 [; ;FastTransfer.c: 385: if (SentCRC == calculatedCRC) {
 "385
-[e $ ! == -> _SentCRC `i -> _calculatedCRC `i 1210  ]
+[e $ ! == -> _SentCRC `i -> _calculatedCRC `i 1205  ]
 {
 "387
 [v _rt `i ~T0 @X0 1 a ]
@@ -8551,57 +8513,57 @@ Version 3.2 HI-TECH Software Intermediate Code
 "388
 {
 [e = _rt -> 0 `i ]
-[e $ < _rt -> 5 `i 1211  ]
-[e $U 1212  ]
-[e :U 1211 ]
+[e $ < _rt -> 5 `i 1206  ]
+[e $U 1207  ]
+[e :U 1206 ]
 {
 [; ;FastTransfer.c: 389: if (returnAddress == crcBufS_get(&crc_buffer, rt, 0)) {
 "389
-[e $ ! == -> _returnAddress `i -> ( _crcBufS_get (3 , , &U _crc_buffer -> _rt `uc -> -> 0 `i `uc `i 1214  ]
+[e $ ! == -> _returnAddress `i -> ( _crcBufS_get (3 , , &U _crc_buffer -> _rt `uc -> -> 0 `i `uc `i 1209  ]
 {
 [; ;FastTransfer.c: 390: if (arrayHolder[2] == crcBufS_get(&crc_buffer, rt, 1)) {
 "390
-[e $ ! == -> *U + &U _arrayHolder * -> -> -> 2 `i `ui `ux -> -> # *U &U _arrayHolder `ui `ux `i -> ( _crcBufS_get (3 , , &U _crc_buffer -> _rt `uc -> -> 1 `i `uc `i 1215  ]
+[e $ ! == -> *U + &U _arrayHolder * -> -> -> 2 `i `ui `ux -> -> # *U &U _arrayHolder `ui `ux `i -> ( _crcBufS_get (3 , , &U _crc_buffer -> _rt `uc -> -> 1 `i `uc `i 1210  ]
 {
 [; ;FastTransfer.c: 391: if (arrayHolder[1] == 1) {
 "391
-[e $ ! == -> *U + &U _arrayHolder * -> -> -> 1 `i `ui `ux -> -> # *U &U _arrayHolder `ui `ux `i -> 1 `i 1216  ]
+[e $ ! == -> *U + &U _arrayHolder * -> -> -> 1 `i `ui `ux -> -> # *U &U _arrayHolder `ui `ux `i -> 1 `i 1211  ]
 {
 [; ;FastTransfer.c: 392: crcBufS_status_put(&crc_buffer, rt, 1);
 "392
 [e ( _crcBufS_status_put (3 , , &U _crc_buffer -> _rt `uc -> -> 1 `i `uc ]
 [; ;FastTransfer.c: 393: break;
 "393
-[e $U 1212  ]
+[e $U 1207  ]
 "394
 }
 [; ;FastTransfer.c: 394: } else if (arrayHolder[1] == 2) {
-[e $U 1217  ]
-[e :U 1216 ]
-[e $ ! == -> *U + &U _arrayHolder * -> -> -> 1 `i `ui `ux -> -> # *U &U _arrayHolder `ui `ux `i -> 2 `i 1218  ]
+[e $U 1212  ]
+[e :U 1211 ]
+[e $ ! == -> *U + &U _arrayHolder * -> -> -> 1 `i `ui `ux -> -> # *U &U _arrayHolder `ui `ux `i -> 2 `i 1213  ]
 {
 [; ;FastTransfer.c: 395: crcBufS_status_put(&crc_buffer, rt, 2);
 "395
 [e ( _crcBufS_status_put (3 , , &U _crc_buffer -> _rt `uc -> -> 2 `i `uc ]
 [; ;FastTransfer.c: 396: break;
 "396
-[e $U 1212  ]
+[e $U 1207  ]
 "397
 }
-[e :U 1218 ]
+[e :U 1213 ]
 "398
-[e :U 1217 ]
+[e :U 1212 ]
 }
-[e :U 1215 ]
+[e :U 1210 ]
 "399
 }
-[e :U 1214 ]
+[e :U 1209 ]
 "400
 }
 "388
 [e ++ _rt -> 1 `i ]
-[e $ < _rt -> 5 `i 1211  ]
-[e :U 1212 ]
+[e $ < _rt -> 5 `i 1206  ]
+[e :U 1207 ]
 "400
 }
 "401
@@ -8611,17 +8573,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;FastTransfer.c: 399: }
 [; ;FastTransfer.c: 400: }
 [; ;FastTransfer.c: 401: } else {
-[e $U 1219  ]
-[e :U 1210 ]
+[e $U 1214  ]
+[e :U 1205 ]
 {
 [; ;FastTransfer.c: 402: crcErrorCounter++;
 "402
 [e ++ _crcErrorCounter -> -> 1 `i `ui ]
 "403
 }
-[e :U 1219 ]
+[e :U 1214 ]
 [; ;FastTransfer.c: 403: }
 [; ;FastTransfer.c: 404: }
 "404
-[e :UE 1206 ]
+[e :UE 1201 ]
 }

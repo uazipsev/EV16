@@ -119,14 +119,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _ANSD7 `Vb ~T0 @X0 0 e@31199 ]
 "18077
 [v _ANSB4 `Vb ~T0 @X0 0 e@31180 ]
-"198
-[s S8 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S8 . ANSD0 ANSD1 ANSD2 ANSD3 ANSD4 ANSD5 ANSD6 ANSD7 ]
-"197
-[u S7 `S8 1 ]
-[n S7 . . ]
-"209
-[v _ANSELDbits `VS7 ~T0 @X0 0 e@3899 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -7517,106 +7509,76 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pin_manager.c: 73: TRISCbits.RC7 = 1;
 "73
 [e = . . _TRISCbits 1 7 -> -> 1 `i `uc ]
-[; ;pin_manager.c: 74: TRISCbits.RC5 = 1;
+[; ;pin_manager.c: 74: TRISCbits.RC5 = 0;
 "74
-[e = . . _TRISCbits 1 5 -> -> 1 `i `uc ]
-[; ;pin_manager.c: 75: TRISCbits.RC1 = 0;
+[e = . . _TRISCbits 1 5 -> -> 0 `i `uc ]
+[; ;pin_manager.c: 75: LATCbits.LATC5 = 1;
 "75
-[e = . . _TRISCbits 1 1 -> -> 0 `i `uc ]
-[; ;pin_manager.c: 76: LATCbits.LATC5 = 1;
-"76
 [e = . . _LATCbits 0 5 -> -> 1 `i `uc ]
-[; ;pin_manager.c: 77: LATCbits.LATC6 = 1;
-"77
+[; ;pin_manager.c: 76: LATCbits.LATC6 = 1;
+"76
 [e = . . _LATCbits 0 6 -> -> 1 `i `uc ]
-[; ;pin_manager.c: 78: LATCbits.LATC7 = 1;
-"78
+[; ;pin_manager.c: 77: LATCbits.LATC7 = 1;
+"77
 [e = . . _LATCbits 0 7 -> -> 1 `i `uc ]
-[; ;pin_manager.c: 79: ANSELCbits.ANSC5 =0;
-"79
+[; ;pin_manager.c: 78: ANSELCbits.ANSC5 =0;
+"78
 [e = . . _ANSELCbits 0 4 -> -> 0 `i `uc ]
-[; ;pin_manager.c: 80: ANSELCbits.ANSC6 =0;
-"80
+[; ;pin_manager.c: 79: ANSELCbits.ANSC6 =0;
+"79
 [e = . . _ANSELCbits 0 5 -> -> 0 `i `uc ]
-[; ;pin_manager.c: 81: ANSELCbits.ANSC7 =0;
-"81
+[; ;pin_manager.c: 80: ANSELCbits.ANSC7 =0;
+"80
 [e = . . _ANSELCbits 0 6 -> -> 0 `i `uc ]
-[; ;pin_manager.c: 83: INTCON2bits.nRBPU = 0x01;
-"83
+[; ;pin_manager.c: 82: INTCON2bits.nRBPU = 0x01;
+"82
 [e = . . _INTCON2bits 1 7 -> -> 1 `i `uc ]
-[; ;pin_manager.c: 85: do { TRISB4 = 0; } while(0);
-"85
+[; ;pin_manager.c: 84: do { TRISB4 = 0; } while(0);
+"84
 [e :U 1124 ]
 {
 [e = _TRISB4 -> -> 0 `i `b ]
 }
 [e :U 1123 ]
-[; ;pin_manager.c: 86: do { TRISB3 = 0; } while(0);
-"86
+[; ;pin_manager.c: 85: do { TRISB3 = 0; } while(0);
+"85
 [e :U 1127 ]
 {
 [e = _TRISB3 -> -> 0 `i `b ]
 }
 [e :U 1126 ]
-[; ;pin_manager.c: 87: do { TRISB5 = 0; } while(0);
-"87
+[; ;pin_manager.c: 86: do { TRISB5 = 0; } while(0);
+"86
 [e :U 1130 ]
 {
 [e = _TRISB5 -> -> 0 `i `b ]
 }
 [e :U 1129 ]
-[; ;pin_manager.c: 89: TRISDbits.RD1 = 0;
-"89
+[; ;pin_manager.c: 88: TRISDbits.RD1 = 0;
+"88
 [e = . . _TRISDbits 1 1 -> -> 0 `i `uc ]
-[; ;pin_manager.c: 91: TRISCbits.TRISC4 = 0;
-"91
-[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
-[; ;pin_manager.c: 93: do { ANSB3 = 0; } while(0);
-"93
+[; ;pin_manager.c: 90: do { ANSB3 = 0; } while(0);
+"90
 [e :U 1133 ]
 {
 [e = _ANSB3 -> -> 0 `i `b ]
 }
 [e :U 1132 ]
-[; ;pin_manager.c: 94: do { ANSD7 = 0; } while(0);
-"94
+[; ;pin_manager.c: 91: do { ANSD7 = 0; } while(0);
+"91
 [e :U 1136 ]
 {
 [e = _ANSD7 -> -> 0 `i `b ]
 }
 [e :U 1135 ]
-[; ;pin_manager.c: 95: do { ANSB4 = 0; } while(0);
-"95
+[; ;pin_manager.c: 92: do { ANSB4 = 0; } while(0);
+"92
 [e :U 1139 ]
 {
 [e = _ANSB4 -> -> 0 `i `b ]
 }
 [e :U 1138 ]
-[; ;pin_manager.c: 97: ANSELCbits.ANSC4 = 1;
-"97
-[e = . . _ANSELCbits 0 3 -> -> 1 `i `uc ]
-[; ;pin_manager.c: 98: ANSELDbits.ANSD3 = 1;
-"98
-[e = . . _ANSELDbits 0 3 -> -> 1 `i `uc ]
-[; ;pin_manager.c: 99: ANSELDbits.ANSD2 = 1;
-"99
-[e = . . _ANSELDbits 0 2 -> -> 1 `i `uc ]
-[; ;pin_manager.c: 100: TRISCbits.RC4 = 1;
-"100
-[e = . . _TRISCbits 1 4 -> -> 1 `i `uc ]
-[; ;pin_manager.c: 101: TRISDbits.RD3 = 1;
-"101
-[e = . . _TRISDbits 1 3 -> -> 1 `i `uc ]
-[; ;pin_manager.c: 102: TRISDbits.RD2 = 1;
-"102
-[e = . . _TRISDbits 1 2 -> -> 1 `i `uc ]
-[; ;pin_manager.c: 104: TRISCbits.TRISC6 = 0;
-"104
-[e = . . _TRISCbits 0 6 -> -> 0 `i `uc ]
-[; ;pin_manager.c: 105: TRISCbits.TRISC7 = 1;
-"105
-[e = . . _TRISCbits 0 7 -> -> 1 `i `uc ]
-[; ;pin_manager.c: 109: }
-"109
+[; ;pin_manager.c: 93: }
+"93
 [e :UE 1121 ]
 }

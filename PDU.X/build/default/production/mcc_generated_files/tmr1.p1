@@ -1,23 +1,6 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "16225 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
 [v _T1CON `Vuc ~T0 @X0 0 e@4045 ]
-"16231
-[s S1008 :2 `uc 1 :1 `uc 1 ]
-[n S1008 . . NOT_T1SYNC ]
-"16235
-[s S1009 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 :2 `uc 1 ]
-[n S1009 . TMR1ON T1RD16 nT1SYNC T1SOSCEN T1CKPS TMR1CS ]
-"16243
-[s S1010 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1010 . . RD16 T1SYNC T1OSCEN T1CKPS0 T1CKPS1 TMR1CS0 TMR1CS1 ]
-"16253
-[s S1011 :3 `uc 1 :1 `uc 1 ]
-[n S1011 . . SOSCEN ]
-"16230
-[u S1007 `S1008 1 `S1009 1 `S1010 1 `S1011 1 ]
-[n S1007 . . . . . ]
-"16258
-[v _T1CONbits `VS1007 ~T0 @X0 0 e@4045 ]
 "16131
 [v _T1GCON `Vuc ~T0 @X0 0 e@4044 ]
 "16362
@@ -48,7 +31,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PIE1bits `VS544 ~T0 @X0 0 e@3997 ]
 "125 mcc_generated_files/tmr1.h
 [v _TMR1_StartTimer `(v ~T0 @X0 0 ef ]
-"16137 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+"16231 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+[s S1008 :2 `uc 1 :1 `uc 1 ]
+[n S1008 . . NOT_T1SYNC ]
+"16235
+[s S1009 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 :2 `uc 1 ]
+[n S1009 . TMR1ON T1RD16 nT1SYNC T1SOSCEN T1CKPS TMR1CS ]
+"16243
+[s S1010 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1010 . . RD16 T1SYNC T1OSCEN T1CKPS0 T1CKPS1 TMR1CS0 TMR1CS1 ]
+"16253
+[s S1011 :3 `uc 1 :1 `uc 1 ]
+[n S1011 . . SOSCEN ]
+"16230
+[u S1007 `S1008 1 `S1009 1 `S1010 1 `S1011 1 ]
+[n S1007 . . . . . ]
+"16258
+[v _T1CONbits `VS1007 ~T0 @X0 0 e@4045 ]
+"16137
 [s S1003 :3 `uc 1 :1 `uc 1 ]
 [n S1003 . . T1GGO_NOT_DONE ]
 "16141
@@ -65,10 +65,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1002 . . . . . ]
 "16161
 [v _T1GCONbits `VS1002 ~T0 @X0 0 e@4044 ]
-"33 mcc_generated_files/../PDU.h
-[v _FuseSystem `(v ~T0 @X0 0 ef ]
-"35
-[v _ReadCurrent `(v ~T0 @X0 0 ef1`uc ]
+"18807
+[v _LATA4 `Vb ~T0 @X0 0 e@31820 ]
+"18805
+[v _LATA3 `Vb ~T0 @X0 0 e@31819 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -7504,9 +7504,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr1.c: 71: T1CON = 0x00;
 "71
 [e = _T1CON -> -> 0 `i `uc ]
-[; ;tmr1.c: 72: T1CONbits.T1CKPS = 0x03;
-"72
-[e = . . _T1CONbits 1 4 -> -> 3 `i `uc ]
 [; ;tmr1.c: 75: T1GCON = 0x00;
 "75
 [e = _T1GCON -> -> 0 `i `uc ]
@@ -7718,26 +7715,34 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr1.c: 170: readwhat++;
 "170
 [e ++ _readwhat -> 1 `i ]
-[; ;tmr1.c: 171: if(readwhat > 7)
+[; ;tmr1.c: 171: if(readwhat > 100)
 "171
-[e $ ! > _readwhat -> 7 `i 1132  ]
+[e $ ! > _readwhat -> 100 `i 1132  ]
 [; ;tmr1.c: 172: {
 "172
 {
 [; ;tmr1.c: 173: readwhat = 1;
 "173
 [e = _readwhat -> 1 `i ]
-[; ;tmr1.c: 174: FuseSystem();
-"174
-[e ( _FuseSystem ..  ]
+[; ;tmr1.c: 175: do { LATA4 = ~LATA4; } while(0);
 "175
+[e :U 1135 ]
+{
+[e = _LATA4 -> ~ -> _LATA4 `ui `b ]
+}
+[e :U 1134 ]
+[; ;tmr1.c: 176: do { LATA3 = ~LATA3; } while(0);
+"176
+[e :U 1138 ]
+{
+[e = _LATA3 -> ~ -> _LATA3 `ui `b ]
+}
+[e :U 1137 ]
+"177
 }
 [e :U 1132 ]
-[; ;tmr1.c: 175: }
-[; ;tmr1.c: 176: ReadCurrent(readwhat);
-"176
-[e ( _ReadCurrent (1 -> _readwhat `uc ]
 [; ;tmr1.c: 177: }
-"177
+[; ;tmr1.c: 179: }
+"179
 [e :UE 1131 ]
 }

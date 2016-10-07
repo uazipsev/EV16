@@ -9589,7 +9589,6 @@ PIE1bits.TX1IE = 1;
 }
 
 void EUSART1_Receive_ISR(void) {
-do { LATA3 = ~LATA3; } while(0);
 if (1 == RC1STAbits.OERR) {
 
 
@@ -9598,6 +9597,7 @@ RC1STAbits.CREN = 1;
 }
 unsigned char data = RCREG1;
 UART_buff_put(&input_buffer, data);
+PIE1bits.RC1IE == 0;
 }
 
 void EUSART1_Transmit_ISR(void) {

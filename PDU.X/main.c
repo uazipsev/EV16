@@ -11,7 +11,7 @@
 void main(void) {
     // Initialize the device
     SYSTEM_Initialize();
-    //PDUStartup();
+    PDUStartup();
     //
     // If using interrupts in PIC18 High/Low Priority Mode you need to enable the Global High and Low Interrupts
     // If using interrupts in PIC Mid-Range Compatibility Mode you need to enable the Global and Peripheral Interrupts
@@ -53,30 +53,32 @@ void main(void) {
 //    DATAEE_WriteByte(10, 0x03);
 //    DATAEE_WriteByte(11, 0xE8);
             
-//    PotSetpoint(0);
-//    PWM4_LoadDutyValue(0);
+    PotSetpoint(0);
+    PWM4_LoadDutyValue(0);
     LATCbits.LATC5 = 0;
-//    int i = 0;
-//    bool UP = 0;
-    //ComputeStorageData();
+    LED1_SetHigh();
+    LED2_SetHigh();
+    int i = 0;
+    bool UP = 0;
+    ComputeStorageData();
     
     int j = 1;
     while (1) {
         updateComms();
-//        if(CoolingCheck() && UP == 0){
-//            UP = 1;
-//            CoolingStart();
-//        }
-//        if(!CoolingCheck() && UP == 1){
-//            UP = 0;
-//            CoolingStop();
-//        }
-//        i++;
-//        PWM4_LoadDutyValue(i);
-//        if(i>500){
-//            i = 0;
-//
-//        }
+        if(CoolingCheck() && UP == 0){
+            UP = 1;
+            CoolingStart();
+        }
+        if(!CoolingCheck() && UP == 1){
+            UP = 0;
+            CoolingStop();
+        }
+        i++;
+        PWM4_LoadDutyValue(i);
+        if(i>500){
+            i = 0;
+
+        }
     }
 }
 /**
