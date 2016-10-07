@@ -174,16 +174,17 @@ bool receiveData() {
     //we get here if we already found the header bytes, the address matched what we know, and now we are byte aligned.
     if (rx_len != 0) {
 
+        /**THIS WILL FUCK SHIT UP - LEAVE IT OUT**/
         //this check is preformed to see if the first data address is a 255, if it is then this packet is an AKNAK
-        if (rx_array_inx == 0) {
-            while (!(serial_available() >= 1));
-            if (255 == serial_peek()) {
-                CRCcheck();
-                rx_len = 0;
-                rx_array_inx = 0;
-                return false;
-            }
-        }
+//        if (rx_array_inx == 0) {
+//            while (!(serial_available() >= 1));
+//            if (255 == serial_peek()) {
+//                CRCcheck();
+//                rx_len = 0;
+//                rx_array_inx = 0;
+//                return false;
+//            }
+//        }
 
 
         while (serial_available() && rx_array_inx <= rx_len) {

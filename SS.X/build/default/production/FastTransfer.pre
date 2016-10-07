@@ -9444,18 +9444,7 @@ return 0;
 
 if (rx_len != 0) {
 
-
-if (rx_array_inx == 0) {
-while (!(serial_available() >= 1));
-if (255 == serial_peek()) {
-CRCcheck();
-rx_len = 0;
-rx_array_inx = 0;
-return 0;
-}
-}
-
-
+# 190
 while (serial_available() && rx_array_inx <= rx_len) {
 rx_buffer[rx_array_inx++] = serial_read();
 }

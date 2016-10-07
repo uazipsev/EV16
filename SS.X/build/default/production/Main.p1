@@ -2,6 +2,38 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p mainexit ]
 "11 Function.h
 [v _Start `(v ~T0 @X0 0 ef ]
+"8070 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+[s S487 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S487 . LATD0 LATD1 LATD2 LATD3 LATD4 LATD5 LATD6 LATD7 ]
+"8080
+[s S488 :1 `uc 1 ]
+[n S488 . LD0 ]
+"8083
+[s S489 :1 `uc 1 :1 `uc 1 ]
+[n S489 . . LD1 ]
+"8087
+[s S490 :2 `uc 1 :1 `uc 1 ]
+[n S490 . . LD2 ]
+"8091
+[s S491 :3 `uc 1 :1 `uc 1 ]
+[n S491 . . LD3 ]
+"8095
+[s S492 :4 `uc 1 :1 `uc 1 ]
+[n S492 . . LD4 ]
+"8099
+[s S493 :5 `uc 1 :1 `uc 1 ]
+[n S493 . . LD5 ]
+"8103
+[s S494 :6 `uc 1 :1 `uc 1 ]
+[n S494 . . LD6 ]
+"8107
+[s S495 :7 `uc 1 :1 `uc 1 ]
+[n S495 . . LD7 ]
+"8069
+[u S486 `S487 1 `S488 1 `S489 1 `S490 1 `S491 1 `S492 1 `S493 1 `S494 1 `S495 1 ]
+[n S486 . . . . . . . . . . ]
+"8112
+[v _LATDbits `VS486 ~T0 @X0 0 e@3980 ]
 "12 Communications.h
 [v _updateComms `(v ~T0 @X0 0 ef ]
 "315 tmr0.h
@@ -7424,38 +7456,41 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Main.c: 24: Start();
 "24
 [e ( _Start ..  ]
-[; ;Main.c: 25: while (1) {
+[; ;Main.c: 25: LATDbits.LATD4 = 0;
 "25
+[e = . . _LATDbits 0 4 -> -> 0 `i `uc ]
+[; ;Main.c: 26: while (1) {
+"26
 [e :U 1123 ]
 {
-[; ;Main.c: 26: updateComms();
-"26
-[e ( _updateComms ..  ]
-[; ;Main.c: 27: if(GetTime() > 5){
+[; ;Main.c: 27: updateComms();
 "27
+[e ( _updateComms ..  ]
+[; ;Main.c: 28: if(GetTime() > 5){
+"28
 [e $ ! > ( _GetTime ..  -> -> 5 `i `l 1125  ]
 {
-[; ;Main.c: 28: LATAbits.LATA3 ^= 1;
-"28
-[e =^ . . _LATAbits 0 3 -> -> 1 `i `uc ]
-[; ;Main.c: 29: ReadFaults();
+[; ;Main.c: 29: LATAbits.LATA3 ^= 1;
 "29
-[e ( _ReadFaults ..  ]
-[; ;Main.c: 30: SetTime();
+[e =^ . . _LATAbits 0 3 -> -> 1 `i `uc ]
+[; ;Main.c: 30: ReadFaults();
 "30
-[e ( _SetTime ..  ]
+[e ( _ReadFaults ..  ]
+[; ;Main.c: 31: SetTime();
 "31
-}
-[e :U 1125 ]
+[e ( _SetTime ..  ]
 "32
 }
+[e :U 1125 ]
+"33
+}
 [e :U 1122 ]
-"25
+"26
 [e $U 1123  ]
 [e :U 1124 ]
-[; ;Main.c: 31: }
 [; ;Main.c: 32: }
 [; ;Main.c: 33: }
-"33
+[; ;Main.c: 34: }
+"34
 [e :UE 1121 ]
 }

@@ -4,14 +4,14 @@
  *
  * @brief        SS - This device reads in safety device statuses 
  * @file         main.c
- * @author       Richard Johnson - Mark K
+ * @author       Richard Johnson
  * @moduleID
  * @ingroup
  *
  *********************************************************************************************************
  * @note  The Firmware shall:
- *               -Read in button inputs (Safty switches)
- *               -Read RS485 BUS for data and reply with expectied data (rely with safty states)
+ *               -Read in button inputs (Safety switches)
+ *               -Read RS485 BUS for data and reply with expected data (relay with safety states)
  *********************************************************************************************************/
 #include "Communications.h"
 #include "tmr0.h"
@@ -22,6 +22,7 @@
 
 void main(void) {
     Start(); //Set up pic for application use
+    RS485_TSS_Direction = LISTEN;  ///RS485 set to listen
     while (1) {
         updateComms(); //Read UART ring buffer and look if packet is here for us!
         if(GetTime() > 5){  //read ticker and if it greater than one second

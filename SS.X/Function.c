@@ -103,7 +103,7 @@ void Start(){
     #pragma config EBTRB = OFF    // Boot Block Table Read Protection bit->Boot Block (000000-0007FFh) not protected from table reads executed in other blocks
 
     /*
-     Set pins as inputs
+     Set pins as inputs - This is the safety inputs
      */
     ECU_FAULT_TRIS = INPUT;
     BOTS_FAULT_TRIS = INPUT;
@@ -116,18 +116,16 @@ void Start(){
     TSMS_FAULT_TRIS = INPUT;
     IS_FAULT_TRIS = INPUT;
     AUX_FAULT_TRIS = INPUT;
-    
     RTG_INPUT_TRIS = INPUT;
     IMD_INPUT_TRIS = INPUT;
-    INDICATOR_TRIS = OUTPUT;
     
-    TRISAbits.TRISA3 = 0;
-    TRISDbits.TRISD4 = 0;
-    TRISDbits.TRISD2 = 1;
+    //LED for activity
+    INDICATOR_TRIS = OUTPUT;
+    RS485_TSS_Direction_Tris = OUTPUT;
+    
     /*
      Set ADC pins as digital
      */
-    
     ANSELA = 0;
     ANSELC = 0;
     ANSELD = 0;
@@ -140,9 +138,9 @@ void Start(){
     OSCTUNE = 0x00;
     // Set the secondary oscillator
 
-    ComStart();
-    INTERRUPT_Initialize();
-    TMR0_Initialize();
+    ComStart();  //Set up usart and FastTransfer
+    INTERRUPT_Initialize(); //Set up ISR for timer and USART TX / RX
+    TMR0_Initialize(); //Set up TMR0 to use as a tmr counter
 }
 
 void  INTERRUPT_Initialize (void)
