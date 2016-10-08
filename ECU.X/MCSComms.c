@@ -4,6 +4,7 @@
 #include "ThrottleBrakeControl.h"
 #include "FastTransfer.h"
 #include "Communications.h"
+#include "ADDRESSING.h"
 
 
 bool requestMCSData();
@@ -14,20 +15,12 @@ extern int carActive;
 static int MCSErrorCounter = 0;
 
 bool requestMCSData() {
-    if (((GetTime(MCSTIMER) > BOARD_RESEND_MIN+100) && (readyToSendMCS)) || (GetTime(MCSTIMER) > BOARD_TIMEOUT)) {
+    if((GetTime(MCSTIMER) > BOARD_RESEND_MIN) && (readyToSendMCS == true)) {
         static int MCSErrorCounter = 0;
         //INDICATOR ^= 1;
         RS485_Direction2(TALK);
-        if (!readyToSendMCS) {
-            MCSErrorCounter++;
-            if (MCSErrorCounter > 1) {
-                MCSErrorCounter = 0;
-                return false;
-            }
-        } else {
-            readyToSendMCS = false;
-            MCSErrorCounter = 0;
-        }
+        readyToSendMCS = false;
+        MCSErrorCounter = 0;
         
         ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
         ToSend(OUTPUT_ACTIVE, carActive);
@@ -35,8 +28,14 @@ bool requestMCSData() {
         ToSend(BRAKE_OUTPUT, GetThrottleBrakeValue(GETSASB1)); //TODO may need to add 40.95 if mcs gets rid of theres
         sendData(MCS_ADDRESS);
         SetTime(MCSTIMER);
+        return true;
     }
-    return true;
+    else if(readyToSendMCS == false){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 bool receiveCommMCS() {
@@ -45,11 +44,21 @@ bool receiveCommMCS() {
             readyToSendMCS = true;
             SetTime(MCSTIMER);
             return true;
-        } else return false;
-    } else return false;
-    return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        return false;
+    }
+    return false;
 }
 
 char GetMCSFault(){
     return MCSErrorCounter;
+}
+
+void ClearMCSTalk(){
+    readyToSendMCS = true;
 }

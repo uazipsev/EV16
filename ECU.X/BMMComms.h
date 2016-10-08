@@ -18,6 +18,7 @@
     int GetTemp(unsigned char num);
     int GetVolt(unsigned char num);
     int GetCurrent(unsigned char num);
+    void ClearBMMTalk();
     
 #endif	/* BMMCOMMS_H */
 

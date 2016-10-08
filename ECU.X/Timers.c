@@ -15,12 +15,12 @@ unsigned int TimeOut = 0;
 unsigned int LastTime = 0;
 bool TimeOutActive = 0;
 
-unsigned int SAS, DDS, MCS, PDU, BMM, BootTimer, DebugTimer, SSTimer, DeltaTimer;
-unsigned int time;
-unsigned int talkTime;
-unsigned int talkTime1;
-unsigned int talkTime2;
-unsigned int talkTime3;
+volatile unsigned int SAS, DDS, MCS, PDU, BMM, BootTimer, DebugTimer, SSTimer, DeltaTimer;
+volatile unsigned int time;
+volatile unsigned int talkTime;
+volatile unsigned int talkTime1;
+volatile unsigned int talkTime2;
+volatile unsigned int talkTime3;
 
 void initTimerOne() {
     T1CONbits.TON = 0; // turn off timer
@@ -42,16 +42,11 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     DebugTimer++;
     DeltaTimer++;
     SSTimer++;
-    if (SAS < COMM_TIMER_MAX_TIME)
-        SAS++;
-    if (DDS < COMM_TIMER_MAX_TIME)
-        DDS++;
-    if (MCS < COMM_TIMER_MAX_TIME)
-        MCS++;
-    if (PDU < COMM_TIMER_MAX_TIME)
-        PDU++;
-    if (BMM< COMM_TIMER_MAX_TIME)
-        BMM++;
+    SAS++;
+    DDS++;
+    MCS++;
+    PDU++;
+    BMM++;
     if(((time - LastTime) >= TimeOut) && (TimeOutActive == 1)){
         TimeOutActive = 0;
         MenuClearFlag();
@@ -66,7 +61,7 @@ void TimeOutSet(int num){
     //INDICATOR ^= 1;
 }
 
-int GetTime(char data){
+unsigned int GetTime(char data){
     if(data == SASTIMER){
         return SAS;
     }

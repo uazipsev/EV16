@@ -18,7 +18,7 @@ unsigned int DeltaLastTime = 0;
 extern int SAS_FAULT_CONDITION;
 bool CheckThrotleConsistency() {
     throttle1 = GetSASRaw(GETSAST1RAW)*TRATIO;
-    throttle2 = GetSASRaw(GETSAST1RAW)*TRATIO;
+    throttle2 = GetSASRaw(GETSAST2RAW)*TRATIO;
     brake1 = GetSASRaw(GETSASB1RAW)*BRATIO;
     brake2 = GetSASRaw(GETSASB2RAW)*BRATIO;
 

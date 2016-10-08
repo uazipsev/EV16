@@ -9,7 +9,7 @@
 #define	TIMERS_H
 
 void initTimerOne();
-int GetTime(char data);
+unsigned int GetTime(char data);
 void SetTime(char data);
 void TimeOutSet(int num);
     

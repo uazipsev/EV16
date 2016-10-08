@@ -38,8 +38,8 @@ bool requestSSData() {
 bool receiveCommSS() {
     if (receiveData1()) {
         if (ReceiveArray1Get(RESPONSE_ADDRESS) == SS_ADDRESS) {
-            FaultsHigh = ReceiveArray1Get(1);
-            FaultsLow = ReceiveArray1Get(2);
+            FaultsHigh = (unsigned char)ReceiveArray1Get(1);
+            FaultsLow = (unsigned char)ReceiveArray1Get(2);
             readyToSendSS = true;
             SetTime(SSTIMER);
             return true;

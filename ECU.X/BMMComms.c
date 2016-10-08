@@ -40,19 +40,11 @@ bool readyToSendBMM = true;
 bool BMM_COMMS_ERROR = false;
 
 bool requestBMMData(char state) {
-    if (((GetTime(BMMTIMER) > BOARD_RESEND_MIN) && (readyToSendBMM)) || (GetTime(BMMTIMER) > BOARD_TIMEOUT)) {
-//        static int BMMErrorCounter = 0;
-//        if (!readyToSendBMM) {
-//            BMMErrorCounter++;
-//            if (BMMErrorCounter > 1) {
-//                BMMErrorCounter = 0;
-//                return false;
-//            }
-//        } else {
-//            BMMErrorCounter = 0;
-           // readyToSendBMM = false;
-//        }
+
+    if((GetTime(BMMTIMER) > BMM_BOARD_RESEND_MIN) && (readyToSendBMM == true)) {
         //INDICATOR = !INDICATOR;
+            INDICATOR ^= 1;
+        readyToSendBMM = false;
         SetTime(BMMTIMER);
         RS485_Direction2(TALK);
 
@@ -73,6 +65,9 @@ bool requestBMMData(char state) {
         //ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
         sendData(BMM_ADDRESS);
         RS485_Direction2(TALK);
+        return true;
+    }
+    else if(readyToSendBMM == false){
         return true;
     }
     else{
@@ -122,6 +117,11 @@ bool receiveCommBMM(char state) {
         return false;
     }
 }
+
+void ClearBMMTalk(){
+    readyToSendBMM = true;
+}
+
 
 int GetVolt(unsigned char num){
     if(num == 6){

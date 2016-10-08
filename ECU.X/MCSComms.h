@@ -14,6 +14,7 @@
 bool requestMCSData();
 bool receiveCommMCS();
 char GetMCSFault();
+void ClearMCSTalk();
 
 #endif	/* MCSCOMMS_H */
 

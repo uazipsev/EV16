@@ -42,13 +42,14 @@ void UART2_init(void) {
     U3MODEbits.PDSEL = 0; // No parity, 8-data bits
     U3MODEbits.ABAUD = 0; // Auto-baud disabled
     U3BRG = UART2_BAUD_RATE; // Baud Rate setting for 57600
-    U3STAbits.URXISEL = 0b01; // Interrupt after all TX character transmitted
+    U3STAbits.UTXISEL0 = 1; // Interrupt after all TX character transmitted
+    U3STAbits.UTXISEL1 = 0; // Interrupt after all TX character transmitted
     U3STAbits.URXISEL = 0b00; // Interrupt after one RX character is received
 
     IFS5bits.U3RXIF = 0; // Clear RX interrupt flag
     IFS5bits.U3TXIF = 0; // Clear TX interrupt flag
     IEC5bits.U3RXIE = 1; // Enable RX interrupt
-    IEC5bits.U3TXIE = 1; // Enable TX interrupt
+
     UART2_buff_init(&input_buffer2);
     UART2_buff_init(&output_buffer2);
     U3MODEbits.UARTEN = 1; // Enable UART
@@ -135,6 +136,7 @@ void Send_put2(unsigned char _data) {
     if (Transmit_stall2 == true) {
         Transmit_stall2 = false;
         U3TXREG = UART2_buff_get(&output_buffer2);
+        IEC5bits.U3TXIE = 1; // Enable TX interrupt
     }
 }
 
@@ -154,6 +156,7 @@ void __attribute__((interrupt, no_auto_psv)) _U3TXInterrupt(void) {
     } else {
         Transmit_stall2 = true;
         UART2_buff_flush(&output_buffer2,1);
+        IEC5bits.U3TXIE = 0; // Enable TX interrupt
     }
     IFS5bits.U3TXIF = 0; // Clear TX interrupt flag
 }

@@ -12,18 +12,7 @@ bool PDU_COMMS_ERROR = false;
 extern struct powerStates powerSet;
 
 bool requestPDUData() {
-    if (((GetTime(PDUTIMER) > BOARD_RESEND_MIN) && (readyToSendPDU)) || (GetTime(PDUTIMER) > BOARD_TIMEOUT)) { // if (((PDUTimer > BOARD_RESEND_MIN) && (readyToSendPDU)) || (PDUTimer > BOARD_TIMEOUT)) {
-        static int PDUErrorCounter = 0;
-        if (!readyToSendPDU) {
-            PDUErrorCounter++;
-            if (PDUErrorCounter > 1) {
-                PDUErrorCounter = 0;
-                return false;
-            }
-        } else {
-            PDUErrorCounter = 0;
-            readyToSendPDU = false;
-        }
+    if((GetTime(PDUTIMER) > PDU_BOARD_RESEND_MIN) && (readyToSendPDU == true)){
         SetTime(PDUTIMER);
         RS485_Direction2(TALK);
         ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
@@ -31,7 +20,12 @@ bool requestPDUData() {
             ToSend(POWER_RAILS, constructPowerSet());
         sendData(PDU_ADDRESS);
     }
-    return true;
+    else if(readyToSendPDU == false){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 bool receiveCommPDU() {
@@ -41,8 +35,14 @@ bool receiveCommPDU() {
             SetTime(PDUTIMER);
             //INDICATOR ^= 1;
             return true;
-        } else return false;
-    } else return false;
+        }
+        else{
+            return false;
+        }
+    } 
+    else{
+        return false;
+    }
 }
 
 bool powerChange() {
@@ -86,4 +86,8 @@ int constructPowerSet() {
     } else
         powerSettings = powerSettings & 0xFFF7;
     return powerSettings;
+}
+
+void ClearPDUTalk(){
+    readyToSendPDU = true;
 }

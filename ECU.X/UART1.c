@@ -41,12 +41,13 @@ void UART1_init(void) {
     U2MODEbits.PDSEL = 0; // No parity, 8-data bits
     U2MODEbits.ABAUD = 0; // Auto-baud disabled
     U2BRG = BAUD_RATE; // Baud Rate setting for 57600
-    U2STAbits.URXISEL = 0b01; // Interrupt after all TX character transmitted
+    U2STAbits.UTXISEL0 = 1; // Interrupt after all TX character transmitted
+    U2STAbits.UTXISEL1 = 0; // Interrupt after all TX character transmitted
     U2STAbits.URXISEL = 0b00; // Interrupt after one RX character is received
     IFS1bits.U2RXIF = 0; // Clear RX interrupt flag
     IFS1bits.U2TXIF = 0; // Clear TX interrupt flag
     IEC1bits.U2RXIE = 1; // Enable RX interrupt
-    IEC1bits.U2TXIE = 1; // Enable TX interrupt
+
 
     UART1_buff_init(&input_buffer1);
     UART1_buff_init(&output_buffer1);
@@ -133,6 +134,7 @@ void Send_put1(unsigned char _data) {
     if (Transmit_stall1 == true) {
         Transmit_stall1 = false;
         U2TXREG = UART1_buff_get(&output_buffer1);
+        IEC1bits.U2TXIE = 1; // Enable TX interrupt
     }
 }
 
@@ -152,6 +154,8 @@ void __attribute__((interrupt, no_auto_psv)) _U2TXInterrupt(void) {
     } else {
         Transmit_stall1 = true;
         talkTime1 = 0;
+        IEC1bits.U2TXIE = 0; // Enable TX interrupt
+        UART1_buff_flush(&output_buffer1,1);
     }
     IFS1bits.U2TXIF = 0; // Clear TX interrupt flag
 }
