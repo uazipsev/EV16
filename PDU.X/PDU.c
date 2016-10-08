@@ -24,6 +24,7 @@ void PDUStartup(void) {
     EnableSlavePower(MCS, OFF);
     EnableSlavePower(BMM, OFF);
     EnableSlavePower(TSS, OFF);
+    EnableSlavePower(AUX, OFF);
     Update();
     //Lets pull Prev values out of memory for control
     ComputeStorageData();
@@ -173,7 +174,7 @@ void FuseSystem() {
     //printf("Reading Stuff \n");
     for (int i = 0; i < 6; i++) {
         Current[i] = CurrentADC[i]*48; //all numbers at this point are mult by 10000
-        //printf("%u ",CurrentADC[i]);
+        //printf("%u ",Current[i]);
         //So to get real numbers divide by 10000
     }
     //printf("\n");
@@ -189,10 +190,10 @@ void FuseSystem() {
                     EnableSlavePower(TSS, 0);
                     break;
                 case 2:
-                    EnableSlavePower(SAS, 0);
+                    EnableSlavePower(DDS, 0);
                     break;
                 case 3:
-                    EnableSlavePower(DDS, 0);
+                    EnableSlavePower(SAS, 0);
                     break;
                 case 4:
                     EnableSlavePower(BMM, 0);

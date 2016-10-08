@@ -9460,13 +9460,11 @@ PIR1bits.TMR1IF = 0;
 TMR1H = (timer1ReloadVal >> 8);
 TMR1L = (uint8_t) timer1ReloadVal;
 readwhat++;
-if(readwhat > 100)
+if(readwhat > 7)
 {
 readwhat = 1;
-
-do { LATA4 = ~LATA4; } while(0);
-do { LATA3 = ~LATA3; } while(0);
+FuseSystem();
 }
-
+ReadCurrent(readwhat);
 }
 

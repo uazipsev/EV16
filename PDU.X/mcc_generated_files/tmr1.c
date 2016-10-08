@@ -171,11 +171,9 @@ void TMR1_ISR(void)
     if(readwhat > 7)
     {
         readwhat = 1;
-        //FuseSystem();
-        LED2_Toggle();
-        LED1_Toggle();
+        FuseSystem();
     }
-   // ReadCurrent(readwhat);
+    ReadCurrent(readwhat);
 }
 
 

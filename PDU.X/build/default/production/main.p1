@@ -21,6 +21,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1092 . . . . ]
 "17482
 [v _INTCONbits `VS1092 ~T0 @X0 0 e@4082 ]
+"205 mcc_generated_files/memory.h
+[v _DATAEE_WriteByte `(v ~T0 @X0 0 ef2`uc`uc ]
 "11 DigiPot.h
 [v _PotSetpoint `(v ~T0 @X0 0 ef1`i ]
 "124 mcc_generated_files/../pwm4.h
@@ -57,10 +59,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S476 . . . . . . . . . . ]
 "7980
 [v _LATCbits `VS476 ~T0 @X0 0 e@3979 ]
-"18805
-[v _LATA3 `Vb ~T0 @X0 0 e@31819 ]
-"18807
-[v _LATA4 `Vb ~T0 @X0 0 e@31820 ]
 "34 PDU.h
 [v _ComputeStorageData `(v ~T0 @X0 0 ef ]
 "12 Communications.h
@@ -7672,6 +7670,42 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 36: (INTCONbits.PEIE = 1);
 "36
 [e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
+[; ;main.c: 43: DATAEE_WriteByte(0, 0x03);
+"43
+[e ( _DATAEE_WriteByte (2 , -> -> 0 `i `uc -> -> 3 `i `uc ]
+[; ;main.c: 44: DATAEE_WriteByte(1, 0xE8);
+"44
+[e ( _DATAEE_WriteByte (2 , -> -> 1 `i `uc -> -> 232 `i `uc ]
+[; ;main.c: 45: DATAEE_WriteByte(2, 0x03);
+"45
+[e ( _DATAEE_WriteByte (2 , -> -> 2 `i `uc -> -> 3 `i `uc ]
+[; ;main.c: 46: DATAEE_WriteByte(3, 0xE8);
+"46
+[e ( _DATAEE_WriteByte (2 , -> -> 3 `i `uc -> -> 232 `i `uc ]
+[; ;main.c: 47: DATAEE_WriteByte(4, 0x03);
+"47
+[e ( _DATAEE_WriteByte (2 , -> -> 4 `i `uc -> -> 3 `i `uc ]
+[; ;main.c: 48: DATAEE_WriteByte(5, 0xE8);
+"48
+[e ( _DATAEE_WriteByte (2 , -> -> 5 `i `uc -> -> 232 `i `uc ]
+[; ;main.c: 49: DATAEE_WriteByte(6, 0x03);
+"49
+[e ( _DATAEE_WriteByte (2 , -> -> 6 `i `uc -> -> 3 `i `uc ]
+[; ;main.c: 50: DATAEE_WriteByte(7, 0xE8);
+"50
+[e ( _DATAEE_WriteByte (2 , -> -> 7 `i `uc -> -> 232 `i `uc ]
+[; ;main.c: 51: DATAEE_WriteByte(8, 0x03);
+"51
+[e ( _DATAEE_WriteByte (2 , -> -> 8 `i `uc -> -> 3 `i `uc ]
+[; ;main.c: 52: DATAEE_WriteByte(9, 0xE8);
+"52
+[e ( _DATAEE_WriteByte (2 , -> -> 9 `i `uc -> -> 232 `i `uc ]
+[; ;main.c: 53: DATAEE_WriteByte(10, 0x03);
+"53
+[e ( _DATAEE_WriteByte (2 , -> -> 10 `i `uc -> -> 3 `i `uc ]
+[; ;main.c: 54: DATAEE_WriteByte(11, 0xE8);
+"54
+[e ( _DATAEE_WriteByte (2 , -> -> 11 `i `uc -> -> 232 `i `uc ]
 [; ;main.c: 56: PotSetpoint(0);
 "56
 [e ( _PotSetpoint (1 -> 0 `i ]
@@ -7681,95 +7715,81 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 58: LATCbits.LATC5 = 0;
 "58
 [e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
-[; ;main.c: 59: do { LATA3 = 1; } while(0);
 "59
-[e :U 1130 ]
-{
-[e = _LATA3 -> -> 1 `i `b ]
-}
-[e :U 1129 ]
-[; ;main.c: 60: do { LATA4 = 1; } while(0);
+[v _i `i ~T0 @X0 1 a ]
+[; ;main.c: 59: int i = 0;
+[e = _i -> 0 `i ]
 "60
-[e :U 1133 ]
+[v _UP `uc ~T0 @X0 1 a ]
+[; ;main.c: 60: bool UP = 0;
+[e = _UP -> -> 0 `i `uc ]
+[; ;main.c: 61: ComputeStorageData();
+"61
+[e ( _ComputeStorageData ..  ]
+"63
+[v _j `i ~T0 @X0 1 a ]
+[; ;main.c: 63: int j = 1;
+[e = _j -> 1 `i ]
+[; ;main.c: 64: while (1) {
+"64
+[e :U 1129 ]
 {
-[e = _LATA4 -> -> 1 `i `b ]
+[; ;main.c: 65: updateComms();
+"65
+[e ( _updateComms ..  ]
+[; ;main.c: 66: if(CoolingCheck() && UP == 0){
+"66
+[e $ ! && != -> ( _CoolingCheck ..  `i -> -> -> 0 `i `uc `i == -> _UP `i -> 0 `i 1131  ]
+{
+[; ;main.c: 67: UP = 1;
+"67
+[e = _UP -> -> 1 `i `uc ]
+[; ;main.c: 68: CoolingStart();
+"68
+[e ( _CoolingStart ..  ]
+"69
+}
+[e :U 1131 ]
+[; ;main.c: 69: }
+[; ;main.c: 70: if(!CoolingCheck() && UP == 1){
+"70
+[e $ ! && ! != -> ( _CoolingCheck ..  `i -> -> -> 0 `i `uc `i == -> _UP `i -> 1 `i 1132  ]
+{
+[; ;main.c: 71: UP = 0;
+"71
+[e = _UP -> -> 0 `i `uc ]
+[; ;main.c: 72: CoolingStop();
+"72
+[e ( _CoolingStop ..  ]
+"73
 }
 [e :U 1132 ]
-"61
-[v _i `i ~T0 @X0 1 a ]
-[; ;main.c: 61: int i = 0;
-[e = _i -> 0 `i ]
-"62
-[v _UP `uc ~T0 @X0 1 a ]
-[; ;main.c: 62: bool UP = 0;
-[e = _UP -> -> 0 `i `uc ]
-[; ;main.c: 63: ComputeStorageData();
-"63
-[e ( _ComputeStorageData ..  ]
-"65
-[v _j `i ~T0 @X0 1 a ]
-[; ;main.c: 65: int j = 1;
-[e = _j -> 1 `i ]
-[; ;main.c: 66: while (1) {
-"66
-[e :U 1135 ]
-{
-[; ;main.c: 67: updateComms();
-"67
-[e ( _updateComms ..  ]
-[; ;main.c: 68: if(CoolingCheck() && UP == 0){
-"68
-[e $ ! && != -> ( _CoolingCheck ..  `i -> -> -> 0 `i `uc `i == -> _UP `i -> 0 `i 1137  ]
-{
-[; ;main.c: 69: UP = 1;
-"69
-[e = _UP -> -> 1 `i `uc ]
-[; ;main.c: 70: CoolingStart();
-"70
-[e ( _CoolingStart ..  ]
-"71
-}
-[e :U 1137 ]
-[; ;main.c: 71: }
-[; ;main.c: 72: if(!CoolingCheck() && UP == 1){
-"72
-[e $ ! && ! != -> ( _CoolingCheck ..  `i -> -> -> 0 `i `uc `i == -> _UP `i -> 1 `i 1138  ]
-{
-[; ;main.c: 73: UP = 0;
-"73
-[e = _UP -> -> 0 `i `uc ]
-[; ;main.c: 74: CoolingStop();
+[; ;main.c: 73: }
+[; ;main.c: 74: i++;
 "74
-[e ( _CoolingStop ..  ]
-"75
-}
-[e :U 1138 ]
-[; ;main.c: 75: }
-[; ;main.c: 76: i++;
-"76
 [e ++ _i -> 1 `i ]
-[; ;main.c: 77: PWM4_LoadDutyValue(i);
-"77
+[; ;main.c: 75: PWM4_LoadDutyValue(i);
+"75
 [e ( _PWM4_LoadDutyValue (1 -> _i `ui ]
-[; ;main.c: 78: if(i>500){
-"78
-[e $ ! > _i -> 500 `i 1139  ]
+[; ;main.c: 76: if(i>500){
+"76
+[e $ ! > _i -> 500 `i 1133  ]
 {
-[; ;main.c: 79: i = 0;
-"79
+[; ;main.c: 77: i = 0;
+"77
 [e = _i -> 0 `i ]
-"81
+"79
 }
-[e :U 1139 ]
-"82
+[e :U 1133 ]
+"80
 }
-[e :U 1134 ]
-"66
-[e $U 1135  ]
-[e :U 1136 ]
+[e :U 1128 ]
+"64
+[e $U 1129  ]
+[e :U 1130 ]
+[; ;main.c: 79: }
+[; ;main.c: 80: }
 [; ;main.c: 81: }
-[; ;main.c: 82: }
-[; ;main.c: 83: }
-"83
+"81
 [e :UE 1127 ]
 }
