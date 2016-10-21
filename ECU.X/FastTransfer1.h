@@ -29,6 +29,6 @@ unsigned int alignError1(void);
 unsigned int CRCError1(void);
 unsigned int addressError1(void);
 unsigned int dataAddressError1(void);
-unsigned int ReceiveArray1Get(char location);
+unsigned int ReceiveArray1Get(unsigned char location);
 #endif	/* FASTTRANSFER1_H */
 

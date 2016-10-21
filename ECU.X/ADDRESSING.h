@@ -13,11 +13,13 @@ extern "C" {
 #endif
 
 
-#define CLOSE_COMM_TIME 5
-#define BOARD_RESEND_MIN 35
+#define CLOSE_COMM_TIME 4
+#define BOARD_RESEND_MIN 50
 #define BMM_BOARD_RESEND_MIN 250
 #define PDU_BOARD_RESEND_MIN 250
-#define BOARD_TIMEOUT 5
+#define SS_BOARD_RESEND_MIN 250
+#define DDS_BOARD_RESEND_MIN 250
+#define BOARD_TIMEOUT 1000
     //Addresses
 #define ECU_ADDRESS 1
 #define SAS_ADDRESS 2

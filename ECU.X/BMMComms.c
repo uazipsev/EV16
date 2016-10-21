@@ -43,7 +43,7 @@ bool requestBMMData(char state) {
 
     if((GetTime(BMMTIMER) > BMM_BOARD_RESEND_MIN) && (readyToSendBMM == true)) {
         //INDICATOR = !INDICATOR;
-            INDICATOR ^= 1;
+            //INDICATOR ^= 1;
         readyToSendBMM = false;
         SetTime(BMMTIMER);
         RS485_Direction2(TALK);

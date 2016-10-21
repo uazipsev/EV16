@@ -16,8 +16,7 @@ bool requestPDUData() {
         SetTime(PDUTIMER);
         RS485_Direction2(TALK);
         ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
-        if (powerChange())
-            ToSend(POWER_RAILS, constructPowerSet());
+        ToSend(POWER_RAILS, constructPowerSet());
         sendData(PDU_ADDRESS);
     }
     else if(readyToSendPDU == false){

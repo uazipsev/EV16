@@ -45,7 +45,7 @@ unsigned int BoardTimeOutCounterBus1 = 0;
 unsigned int BoardTimeOutCounterBus2 = 0;
 
 enum bus1CommState {
-    SAS_UPDATE = 0, DDS_UPDATE = 1, SS_UPDATE = 2, CHECK_STATE1 = 3, ERROR_STATE1 = 4, NUM_STATES1 = 5
+    SAS_UPDATE = 0, DDS_UPDATE = 1, SS_UPDATE = 2//,CHECK_STATE1 = 3, ERROR_STATE1 = 4, NUM_STATES1 = 5
 };
 enum bus1CommState commsBus1State = SAS_UPDATE;
     
@@ -83,112 +83,135 @@ void ComStart(){
 void updateComms() {
     bus1Update();
     //if(GetDriverEnabled()){  //prevents MCS and BMM from coming up....Stopping system boot 
-        bus2Update();
+        //bus2Update();
     //}
     checkCommDirection();
-    checkCommDirection1();
-    Delay(5);
+    //checkCommDirection1();
+    //Delay(5);
 }
+
+bool SASTx = false;
+bool DDSTx = false;
+bool SSTx = false;
 
 void bus1Update() {
     switch (commsBus1State) {
         case SAS_UPDATE:
-            if (requestSASData()) {
-                //INDICATOR ^= 1;
+            if(SASTx){
                 if (receiveCommSAS()) {
                     comms.SAS = true;
-                    commsBus1State++;
-                    resetCommTimers();
-                    
+                    commsBus1State = DDS_UPDATE;
+                    BoardTimeOutCounterBus1 = 0;
+                    SetTime(SASTIMER);     
+                    SASTx = false;
+                    break;                    
                 }
                 else{
-                    BoardTimeOutCounterBus1++;
+                    BoardTimeOutCounterBus1++;           
                     if(BoardTimeOutCounterBus1 > BOARD_TIMEOUT){
-                        commsBus1State++;
+                        commsBus1State = DDS_UPDATE;
                         BoardTimeOutCounterBus1 = 0;
-
+                        comms.SAS = false;
+                        ClearSASTalk();
+                        SASTx = false;
+                        SetTime(SASTIMER);
+                        break;
                     }
+                    break;
                 }
             }
-             else {
-                //FLAG ERROR ON SAS COMMS -- Move on
-                comms.SAS = false;
-                commsBus1State++;
-                resetCommTimers();
+            if (requestSASData()) {
+                BoardTimeOutCounterBus1 = 0;
+                SASTx = true;
+                break;
             }
-            break;
+            else{
+                commsBus1State = DDS_UPDATE;
+                break;
+            }
         case DDS_UPDATE:
-            if (requestDDSData()) {
+            if(DDSTx){
                 if (receiveCommDDS()) {
                     comms.DDS = true;
-                    commsBus1State++;
-                    resetCommTimers();
+                    commsBus1State = SS_UPDATE;
+                    BoardTimeOutCounterBus1 = 0;
+                    SetTime(DDSTIMER);
+                    DDSTx = false;
+                    break;
                 }
                 else{
                     BoardTimeOutCounterBus1++;
                     if(BoardTimeOutCounterBus1 > BOARD_TIMEOUT){
-                        commsBus1State++;
+                        commsBus1State = SS_UPDATE;
                         BoardTimeOutCounterBus1 = 0;
-
+                        comms.DDS = false;
+                        ClearDDSTalk();
+                        DDSTx = false;
+                        SetTime(DDSTIMER);
+                        break;
                     }
+                    break;
                 }
             }
-            else {
-                    //FLAG ERROR ON DDS COMMS -- Move on
-                    commsBus1State++;
-                    resetCommTimers();
+            if (requestDDSData()) {
+                BoardTimeOutCounterBus1 = 0;
+                DDSTx = true;
+                break;
             }
-            break;
+            else {
+                //FLAG ERROR ON DDS COMMS -- Move on
+                commsBus1State = SS_UPDATE;
+                break;
+            }
         case SS_UPDATE:
-            if (requestSSData()) {
+            if(SSTx){
                 if (receiveCommSS()) {
                     comms.SS = true;
-                    commsBus1State++;
-                    resetCommTimers();
+                    commsBus1State = SAS_UPDATE;
+                    BoardTimeOutCounterBus1 = 0;
+                    SetTime(SSTIMER);
+                    SSTx = false;
+                    break;
                 }
                 else{
                     BoardTimeOutCounterBus1++;
                     if(BoardTimeOutCounterBus1 > BOARD_TIMEOUT){
-                        commsBus1State++;
+                        commsBus1State = SAS_UPDATE;
                         BoardTimeOutCounterBus1 = 0;
-
+                        comms.SS = false;
+                        ClearSSTalk();
+                        SSTx = false;
+                        SetTime(SSTIMER);
+                        break;
                     }
+                    break;
                 }
             }
-            else {
-                //comms.SS = false;
-                commsBus1State++;
-                resetCommTimers();
+            if (requestSSData()) {
+                BoardTimeOutCounterBus1 = 0;
+                SSTx = true;
+                break;
             }
-            break;
-        case CHECK_STATE1:
-//            //Before continuing the comms, send to error state if something is wrong
-//            if (DDS_COMMS_ERROR || SAS_COMMS_ERROR || PDU_COMMS_ERROR) {
-//                commsBus1State = ERROR_STATE1;
-//            } else
-                //otherwise continue the normal comms update
+            else {
+                //FLAG ERROR ON DDS COMMS -- Move on
                 commsBus1State = SAS_UPDATE;
-            break;
-        case ERROR_STATE1:
-            //sendErrorCode();
-            commsBus1State = SAS_UPDATE;
-            break;
-        case NUM_STATES1:
-            break;
+                break;
+            }
     }
 }
 
 void checkCommDirection() {
     //you have finished send and time has elapsed.. start listen
-    if (TXStallGet() && (GetTime(TALKTIME) > CLOSE_COMM_TIME)) {
+    if ( TXStallGet1() && (GetTime(TALKTIME) > CLOSE_COMM_TIME)) { //
         RS485_Direction1(LISTEN);
+        SetTime(TALKTIME);
     }
 }
 
 void resetCommTimers() {
-    SetTime(SASTIMER);
-    SetTime(DDSTIMER);
-    SetTime(SSTIMER);
+//    SetTime(SASTIMER);
+//    SetTime(DDSTIMER);
+//    SetTime(SSTIMER);
     //PDUTimer = 0;
 }
 
@@ -200,92 +223,95 @@ void RS485_Direction1(int T_L) {
 void bus2Update() {
     switch (commsBus2State) {
         case MCS_UPDATE:
-            if (requestMCSData()) {
-                if (receiveCommMCS()) {
-                    comms.MCS = true;
+//            if (requestMCSData()) {
+//                if (receiveCommMCS()) {
+//                    comms.MCS = true;
                     commsBus2State++;
-                    SetTime(MCSTIMER);
-                }
-                else{            
-                    BoardTimeOutCounterBus2++;
-                    if(BoardTimeOutCounterBus2 > BOARD_TIMEOUT){
-                        commsBus2State++;
-                        BoardTimeOutCounterBus2 = 0;
-                        comms.MCS = false;
-                        ClearMCSTalk();
-                        SetTime(MCSTIMER);
-                        break;
-                    }
-                    else{
-                        break;
-                    }
-                }
-            } 
-            else{
-                //FLAG ERROR ON MCS COMMS -- Move on
-                commsBus2State++;
-                break;
-            }
+//                    SetTime(MCSTIMER);
+//                    break;
+//                }
+//                else{            
+//                    BoardTimeOutCounterBus2++;
+//                    if(BoardTimeOutCounterBus2 > BOARD_TIMEOUT){
+//                        commsBus2State++;
+//                        BoardTimeOutCounterBus2 = 0;
+//                        comms.MCS = false;
+//                        ClearMCSTalk();
+//                        SetTime(MCSTIMER);
+//                        break;
+//                    }
+//                    else{
+//                        break;
+//                    }
+//                }
+//            } 
+//            else{
+//                //FLAG ERROR ON MCS COMMS -- Move on
+//                commsBus2State++;
+//                break;
+//            }
         case BMM_UPDATE:
-            if(requestBMMData(x)){
-                if(receiveCommBMM(x)){
-                    //INDICATOR ^= 1;
-                    comms.BMM = true;
+//            if(requestBMMData(x)){
+//                if(receiveCommBMM(x)){
+//                    //INDICATOR ^= 1;
+//                    comms.BMM = true;
                     commsBus2State++;
-                    SetTime(BMMTIMER);
-                    x++;
-                    if(x>3){
-                        x = 0;
-                    }
-                }
-                else{
-                    BoardTimeOutCounterBus2++;
-                    if(BoardTimeOutCounterBus2 > BOARD_TIMEOUT){
-                        //INDICATOR ^= 1;
-                        commsBus2State++;
-                        BoardTimeOutCounterBus2 = 0;
-                        comms.BMM = false;
-                        ClearBMMTalk();
-                        SetTime(BMMTIMER);
-                        break;
-                    }
-                    else{
-                        break;
-                    }
-                }
-            } 
-            else {
-                //FLAG ERROR ON MCS COMMS -- Move on
-                commsBus2State++;
-                break;
-            }
+//                    SetTime(BMMTIMER);
+//                    x++;
+//                    if(x>3){
+//                        x = 0;
+//                    }
+//                    break;
+//                }
+//                else{
+//                    BoardTimeOutCounterBus2++;
+//                    if(BoardTimeOutCounterBus2 > BOARD_TIMEOUT){
+//                        //INDICATOR ^= 1;
+//                        commsBus2State++;
+//                        BoardTimeOutCounterBus2 = 0;
+//                        comms.BMM = false;
+//                        ClearBMMTalk();
+//                        SetTime(BMMTIMER);
+//                        break;
+//                    }
+//                    else{
+//                        break;
+//                    }
+//                }
+//            } 
+//            else {
+//                //FLAG ERROR ON MCS COMMS -- Move on
+//                commsBus2State++;
+//                break;
+//            }
         case PDU_UPDATE:       
-            if (requestPDUData()) {
-                if (receiveCommPDU()) {
-                    comms.PDU = true;
+//            if (requestPDUData()) {
+//                if (receiveCommPDU()) {
+//                    comms.PDU = true;
                     commsBus2State++;
-                    SetTime(PDUTIMER);
-                }
-                else{            
-                    BoardTimeOutCounterBus2++;
-                    if(BoardTimeOutCounterBus2 > BOARD_TIMEOUT){
-                        commsBus2State++;
-                        BoardTimeOutCounterBus2 = 0;
-                        comms.PDU = false;
-                        ClearPDUTalk();
-                        SetTime(PDUTIMER);
-                        break;
-                    }
-                    else{
-                        break;
-                    }
-                }
-            }
-            else{
-                //FLAG ERROR ON MCS COMMS -- Move on
-                commsBus2State++;
-                break;
-            }
+//                    SetTime(PDUTIMER);
+//                    break;
+//                }
+//                else{            
+//                    BoardTimeOutCounterBus2++;
+//                    if(BoardTimeOutCounterBus2 > BOARD_TIMEOUT){
+//                        commsBus2State++;
+//                        BoardTimeOutCounterBus2 = 0;
+//                        comms.PDU = false;
+//                        ClearPDUTalk();
+//                        SetTime(PDUTIMER);
+//                        break;
+//                    }
+//                    else{
+//                        break;
+//                    }
+//                }
+//            }
+//            else{
+//                //FLAG ERROR ON MCS COMMS -- Move on
+//                commsBus2State++;
+//                break;
+//            }
         case CHECK_STATE2:
 //            if (MCS_COMMS_ERROR || BMM_COMMS_ERROR) {
 //                commsBus2State = ERROR_STATE2;
@@ -304,7 +330,7 @@ void bus2Update() {
 
 void checkCommDirection1() {
     //you have finished send and time has elapsed.. start listen
-    if (TXStallGet1() && (GetTime(TALKTIME1) > 4)) { //5CLOSE_COMM_TIME
+    if ( TXStallGet() && (GetTime(TALKTIME1) > 4)) { //5CLOSE_COMM_TIME TXStallGet1() &&
         RS485_Direction2(LISTEN);
     }
 }

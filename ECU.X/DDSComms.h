@@ -21,5 +21,7 @@ int GetDDSerrorCounter();
 bool receiveCommDDS();
 bool requestDDSData();
 
+void ClearDDSTalk();
+
 #endif	/* DDSCOMMS_H */
 

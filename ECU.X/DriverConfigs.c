@@ -11,6 +11,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "Functions.h"
+#include "ThrottleBrakeControl.h"
 
 char DriverNamesList[40];
 

@@ -11,6 +11,7 @@
 #include "FastTransfer1.h"
 #include "UART1.h"
 #include "ADDRESSING.h"
+#include "PinDef.h"
 
 volatile int receiveArray1[20];
 
@@ -74,7 +75,7 @@ void StartFastTransfer1(){
     begin1(receiveArray1, sizeof (receiveArray1), ECU_ADDRESS, false, Send_put1, Receive_get1, Receive_available1, Receive_peek1);
 }
 
-unsigned int ReceiveArray1Get(char location){
+unsigned int ReceiveArray1Get(unsigned char location){
     return receiveArray1[location];
 }
 
@@ -130,7 +131,7 @@ void sendData1(unsigned char whereToSend) {
 
     //calculate the crc
     unsigned char CS = CRC81(sendStructAddress1, ring_buffer1.count);
-
+    
     serial_write1(0x06); //start address
     serial_write1(0x85); //start address
     serial_write1(whereToSend);
@@ -151,7 +152,7 @@ void sendData1(unsigned char whereToSend) {
    // crcBufS_put1(&crc_buffer1, whereToSend, CS, 0);
 
     // clears the buffer after a sending
-    FastTransfer_buffer_flush1(&ring_buffer1, 0);
+    FastTransfer_buffer_flush1(&ring_buffer1, 1);
 
 }
 
@@ -171,6 +172,7 @@ bool receiveData1() {
                     return false;
             }
             if (serial_read1() == 0x85) {
+
                 rx_address1 = serial_read1(); // pulls the address
                 returnAddress1 = serial_read1(); // pulls where the message came from
                 rx_len1 = serial_read1(); // pulls the length
@@ -221,7 +223,7 @@ bool receiveData1() {
 
 
             if (calc_CS1 == rx_buffer1[rx_array_inx1 - 1]) {//CS good
-
+                INDICATOR ^= 1;
                 // reassembles the data and places it into the receive array according to data address.
                 int r;
                 for (r = 0; r < rx_len1; r = r + 3) {
@@ -346,7 +348,7 @@ void FastTransfer_buffer_flush1(struct ringBufS1* _this, const int clearBuffer) 
     _this->head = 0;
     _this->tail = 0;
     if (clearBuffer) {
-        //memset(_this->buf, 0, sizeof (_this->buf)); //TODO: this may be causing issues
+        memset(_this->buf, 0, sizeof (_this->buf)); //TODO: this may be causing issues
     }
 }
 

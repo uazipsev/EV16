@@ -44,6 +44,7 @@ void MenuBrakeLightValue(char cont);
 
 void MenuPrint(char Menuloc, char Subloc);
 void MenuClearFlag();
+void DebugMenu(char menuitem);
 
 #endif	/* DEBUG_H */
 

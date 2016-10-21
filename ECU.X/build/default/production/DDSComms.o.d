@@ -6,4 +6,5 @@ ADDRESSING.h  \
 FastTransfer1.h  \
 SASComms.h  \
 Communications.h  \
- ThrottleBrakeControl.h 
+ ThrottleBrakeControl.h  \
+PinDef.h 

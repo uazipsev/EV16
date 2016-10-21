@@ -14,24 +14,21 @@ int FaultsHigh = 0;
 int FaultsLow = 0;
 
 bool requestSSData() {
-    if (((GetTime(SSTIMER) > BOARD_RESEND_MIN) && (readyToSendSS)) || (GetTime(SSTIMER) > BOARD_TIMEOUT)) {
-        //static int SSErrorCounter = 0;
-        if (!readyToSendSS) {
-            SSErrorCounter++;
-            if (SSErrorCounter > 1) {
-                SSErrorCounter = 0;
-                return false;
-            }
-        } else {
-            readyToSendSS = false;
-            SSErrorCounter = 0;
-        }
+    if ((GetTime(SSTIMER) > SS_BOARD_RESEND_MIN) && (readyToSendSS)) {
+        readyToSendSS = false;
         ToSend1(RESPONSE_ADDRESS, ECU_ADDRESS);
         RS485_Direction1(TALK);
         sendData1(SS_ADDRESS);
         SetTime(SSTIMER);
+        return true;
     }
-    return true;
+    else if(readyToSendSS == false){
+        return true;
+    }
+    else{
+        return false;
+    }
+
 
 }
 
@@ -94,4 +91,7 @@ bool GetFaultBool(char val){
     }
 }
 
+void ClearSSTalk(){
+    readyToSendSS = true;
+}
 

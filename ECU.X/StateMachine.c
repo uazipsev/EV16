@@ -264,19 +264,19 @@ bool checkForBootupTimeout() {
     } else if (BootTimer > 500 && BootTimer <= 505) {
         changeLEDState(DDS_ACTIVE_LED, 0);
     } else if (BootTimer > 750 && BootTimer <= 755) {
-        changeLEDState(DDS_ACTIVE_LED, 1);
+        changeLEDState(DDS_ACTIVE_LED, 0);
     } else if (BootTimer > 1000 && BootTimer <= 1005) {
         changeLEDState(DDS_ACTIVE_LED, 0);
     } else if (BootTimer > 1250 && BootTimer <= 1255) {
         changeLEDState(DDS_ACTIVE_LED, 1);
     } else if (BootTimer > 1500 && BootTimer <= 1505) {
-        changeLEDState(DDS_ACTIVE_LED, 0);
+        changeLEDState(DDS_ACTIVE_LED, 1);
     } else if (BootTimer > 1750 && BootTimer <= 1755) {
         changeLEDState(DDS_ACTIVE_LED, 1);
     } else if (BootTimer > 2000 && BootTimer <= 2005) {
         changeLEDState(DDS_ACTIVE_LED, 0);
     } else if (BootTimer > 2250 && BootTimer <= 2255) {
-        changeLEDState(DDS_ACTIVE_LED, 1);
+        changeLEDState(DDS_ACTIVE_LED, 0);
     } else if (BootTimer > 2500 && BootTimer <= 2505) {
         changeLEDState(DDS_ACTIVE_LED, 0);
     } else if (BootTimer > 2750 && BootTimer <= 2755) {

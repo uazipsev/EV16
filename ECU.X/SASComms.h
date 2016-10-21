@@ -26,6 +26,7 @@ void SetThrottleValue(int val);
 bool receiveCommSAS();
 bool requestSASData();
 unsigned int GetSASRaw(char request);
+void ClearSASTalk();
 
 #endif	/* SASCOMMS_H */
 

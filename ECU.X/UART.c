@@ -134,6 +134,7 @@ void Send_put(unsigned char _data) {
     if (Transmit_stall == true) {
         Transmit_stall = false;
         U1TXREG = UART_buff_get(&output_buffer);
+        IFS0bits.U1TXIF = 0; // Clear TX interrupt flag
         IEC0bits.U1TXIE = 1; // Enable TX interrupt
     }
 }
@@ -152,11 +153,9 @@ void __attribute__((interrupt, no_auto_psv)) _U1TXInterrupt(void) {
     if (UART_buff_size(&output_buffer) > 0) {
         U1TXREG = UART_buff_get(&output_buffer);
     } else {
-
-        talkTime = 0;
         Transmit_stall = true;
         IEC0bits.U1TXIE = 1; // Enable TX interrupt
-        UART_buff_flush(&output_buffer,1);
+        UART_buff_flush(&output_buffer,0);
     }
     IFS0bits.U1TXIF = 0; // Clear TX interrupt flag
 }

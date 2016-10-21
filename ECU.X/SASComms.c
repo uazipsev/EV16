@@ -20,32 +20,24 @@ int SASErrorCounter = 0;
 bool requestSASData() {
     //If either timeout or response with delay already occurred
     
-    if (((GetTime(SASTIMER) > BOARD_RESEND_MIN) && (readyToSendSAS)) || (GetTime(SASTIMER) > BOARD_TIMEOUT)) {
-        
-//        SASErrorCounter = 0;
-//        if (!readyToSendSAS) {
-//            SASErrorCounter++;
-//            if (SASErrorCounter > 1) {
-//                SASErrorCounter = 0;
-//                return false;
-//            }
-//        } else {
-//            readyToSendSAS = false;
-//            SASErrorCounter = 0;
-//        }
-        SetTime(SASTIMER);
+    if ((GetTime(SASTIMER) > BOARD_RESEND_MIN) && (readyToSendSAS == true)) {
+        readyToSendSAS = false;
         RS485_Direction1(TALK);
         ToSend1(RESPONSE_ADDRESS, ECU_ADDRESS);
         sendData1(SAS_ADDRESS);
-        
+        SetTime(SASTIMER);
+        return true;
     }
-
-    return true;
+    else if(readyToSendSAS == false){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 bool receiveCommSAS() {
     if (receiveData1()) {
-        //INDICATOR ^= 1;
         if (ReceiveArray1Get(RESPONSE_ADDRESS) == SAS_ADDRESS) {
            // INDICATOR ^= 1;
             t1Raw = ReceiveArray1Get(THROTTLE1_SAS);
@@ -58,18 +50,22 @@ bool receiveCommSAS() {
             return true;
         }
         else{
-            SASErrorCounter++;
+            //SASErrorCounter++;
             return false;
         }
     } 
     else{
-        SASErrorCounter++;
+        //SASErrorCounter++;
         return false;
     }
 }
 
 int GetSASError(){
     return SASErrorCounter;
+}
+
+void ClearSASTalk(){
+    readyToSendSAS = true;
 }
 
 unsigned int GetSASRaw(char request){

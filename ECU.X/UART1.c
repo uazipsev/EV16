@@ -135,6 +135,7 @@ void Send_put1(unsigned char _data) {
         Transmit_stall1 = false;
         U2TXREG = UART1_buff_get(&output_buffer1);
         IEC1bits.U2TXIE = 1; // Enable TX interrupt
+        //RS485_2_Direction = 1;
     }
 }
 
@@ -156,6 +157,7 @@ void __attribute__((interrupt, no_auto_psv)) _U2TXInterrupt(void) {
         talkTime1 = 0;
         IEC1bits.U2TXIE = 0; // Enable TX interrupt
         UART1_buff_flush(&output_buffer1,1);
+        //RS485_2_Direction = 0;
     }
     IFS1bits.U2TXIF = 0; // Clear TX interrupt flag
 }

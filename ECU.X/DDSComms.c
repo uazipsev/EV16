@@ -4,6 +4,8 @@
 #include "SASComms.h"
 #include "Communications.h"
 #include "ThrottleBrakeControl.h"
+#include "PinDef.h"
+#include <xc.h>
 
 bool requestDDSData();
 bool receiveCommDDS();
@@ -17,34 +19,29 @@ int DDSErrorCounter = 0;
 int buttonArray[8];
 
 bool requestDDSData() {
-    if (((GetTime(DDSTIMER) > BOARD_RESEND_MIN) && (readyToSendDDS)) || (GetTime(DDSTIMER) > BOARD_TIMEOUT)) {
-        DDSErrorCounter = 0;
-        if (!readyToSendDDS) {
-            DDSErrorCounter++;
-            if (DDSErrorCounter > 1) {
-                DDSErrorCounter = 0;
-                return false;
-            }
-        } else {
-            readyToSendDDS = false;
-            DDSErrorCounter = 0;
-        }
+    if ((GetTime(DDSTIMER) > DDS_BOARD_RESEND_MIN) && (readyToSendDDS == true)) {
+        readyToSendDDS = false;
         ToSend1(RESPONSE_ADDRESS, ECU_ADDRESS);
-        ToSend1(THROTTLE_DDS, 10);//GetThrottleBrakeValue(GETSAST1));
-        ToSend1(BRAKE_DDS, 10);//GetThrottleBrakeValue(GETSASB1));
+        ToSend1(THROTTLE_DDS, GetThrottleBrakeValue(GETSAST1));
+        ToSend1(BRAKE_DDS, GetThrottleBrakeValue(GETSASB1));
         ToSend1(LED_DDS, indicators);
-        ToSend1(LED_DDS, indicators);
+        //ToSend1(LED_DDS, indicators);
         RS485_Direction1(TALK);
         sendData1(DDS_ADDRESS);
         SetTime(DDSTIMER);
+        return true;
     }
-    return true;
-
+    else if(readyToSendDDS == false){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 bool receiveCommDDS() {
-    if (receiveData1()) {
-        if (ReceiveArray1Get(RESPONSE_ADDRESS) == DDS_ADDRESS) {
+    if (receiveData1()) {                  
+        if (ReceiveArray1Get(RESPONSE_ADDRESS) == DDS_ADDRESS){
             buttons = ReceiveArray1Get(BUTTONS_DDS);
             readyToSendDDS = true;
             SetTime(DDSTIMER);
@@ -79,4 +76,9 @@ void changeLEDState(int LED, int state) {
 
 int GetDDSerrorCounter(){
     return DDSErrorCounter;
+}
+
+
+void ClearDDSTalk(){
+    readyToSendDDS = true;
 }

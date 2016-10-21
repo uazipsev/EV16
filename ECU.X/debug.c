@@ -776,6 +776,7 @@ void MenuPrint(char Menuloc, char Subloc){
           printf("4) Battery Info\n");
           printf("5) ComBus Info\n");
           printf("6) Driver Config\n");
+          printf("7) Debug\n");
           break;
        case 1:
           ThrottleMenu(Subloc);
@@ -794,6 +795,9 @@ void MenuPrint(char Menuloc, char Subloc){
           break;
        case 6:
           DriverMenu(Subloc);
+          break;
+       case 7:
+          DebugMenu(Subloc);
           break;
        default:
           printf("******NO Match*****\n");
@@ -861,7 +865,7 @@ void SettingMenu(char menuitem){
     printf("4) Brake Light Threshold\n");
     printf("5) Car State\n");
     printf("6) Car Fault\n");
-    printf("7) Car Fault\n");
+    printf("7) SS Car Fault\n");
     if(menuitem == 1){
         VerboseEn ^= VerboseEn;
         SubMenu = 0;
@@ -1012,6 +1016,21 @@ void DriverMenu(char menuitem){
         printf("|RegenInput & FW/RV-|\n");
         printf("What faults are allowed?\n");
         FunctionDataGrab = 11;
+    }
+}
+
+/*******************************************************************
+ * @brief           DebugMenu
+ * @brief           Sub Menu Driver
+ * @return          N/A
+ * @note            The fcn prints and control Driver stuff 
+ *******************************************************************/
+void DebugMenu(char menuitem){
+    SubMenuActive = true;
+    printf("|---Debug Menu---|\n");
+    printf("1) DDS Switch \n");
+    if(menuitem == 1){
+        debugState = buttons;
     }
 }
 
