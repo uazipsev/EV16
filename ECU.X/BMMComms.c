@@ -34,15 +34,14 @@ int SubPackV[6];
 int SubPackT[6];
 int faultingBattery;
 bool batteryFault = false;
-bool requestBMMData(char state);
-bool receiveCommBMM(char state);
 bool readyToSendBMM = true;
 bool BMM_COMMS_ERROR = false;
 
-bool requestBMMData(char state) {
+char state = 0;
+
+bool requestBMMData() {
 
     if((GetTime(BMMTIMER) > BMM_BOARD_RESEND_MIN) && (readyToSendBMM == true)) {
-        //INDICATOR = !INDICATOR;
             //INDICATOR ^= 1;
         readyToSendBMM = false;
         SetTime(BMMTIMER);
@@ -75,7 +74,7 @@ bool requestBMMData(char state) {
     }
 }
 
-bool receiveCommBMM(char state) {
+bool receiveCommBMM() {
     int j;
     if (receiveData()) {
 //        if (receiveArray[BMM_FAULT]) {
@@ -111,6 +110,10 @@ bool receiveCommBMM(char state) {
         }
         readyToSendBMM = true;
         SetTime(BMMTIMER);
+        state++;
+        if(state == 4){
+            state = 0;
+        }
         return true;
     } 
     else{

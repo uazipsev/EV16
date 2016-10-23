@@ -18,6 +18,7 @@ bool requestPDUData() {
         ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
         ToSend(POWER_RAILS, constructPowerSet());
         sendData(PDU_ADDRESS);
+        return true;
     }
     else if(readyToSendPDU == false){
         return true;
