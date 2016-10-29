@@ -76,9 +76,9 @@ void main(void) {
         updateComms();
 
         if (GetTime() > 2) {
-            LEDsetValue(50*RATIO, LED_RED);
+            LEDsetValue(GetDataBarGraphA()*RATIO, LED_RED);
             LEDwriteDisplay(0x70);
-            LEDsetValue(40*RATIO, LED_RED);
+            LEDsetValue(GetDataBarGraphB()*RATIO, LED_RED);
             LEDwriteDisplay(0x71);
             INDICATOR_Toggle();
             ClearTime();

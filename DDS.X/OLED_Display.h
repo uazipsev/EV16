@@ -9,7 +9,7 @@
 #define	OLED_DISPLAY_H
 
 #define OLED 0x3C
-#define SLAVE_I2C_GENERIC_RETRY_MAX     100
+#define SLAVE_I2C_GENERIC_RETRY_MAX     2
 
 void oledClear();
 void oledPrint( const char *s );

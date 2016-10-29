@@ -2,7 +2,7 @@
 #include "LED_BarGraph.h"
 #include "mcc_generated_files/i2c1.h"
 
-#define SLAVE_I2C_GENERIC_RETRY_MAX     100
+#define SLAVE_I2C_GENERIC_RETRY_MAX     4
 
 #ifndef _BV
 #define _BV(bit) (1<<(bit))

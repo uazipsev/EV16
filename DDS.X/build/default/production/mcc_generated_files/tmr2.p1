@@ -1,8 +1,8 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F8706 `(v ~T0 @X0 0 tf ]
+[v F7765 `(v ~T0 @X0 0 tf ]
 "102 mcc_generated_files/..\UART.h
-[s S1163 `uc -> 200 `i `i 1 `i 1 `i 1 ]
-[n S1163 UART_ring_buff buf head tail count ]
+[s S1126 `uc -> 200 `i `i 1 `i 1 `i 1 ]
+[n S1126 UART_ring_buff buf head tail count ]
 "13528 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
 [v _T2CON `Vuc ~T0 @X0 0 e@4026 ]
 "13598
@@ -7382,714 +7382,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18f45k22.h: 20163: extern volatile __bit nTO @ (((unsigned) &RCON)*8) + 3;
 [; ;pic18f45k22.h: 20165: extern volatile __bit nW2 @ (((unsigned) &SSP2STAT)*8) + 2;
 [; ;pic18f45k22.h: 20167: extern volatile __bit nWRITE2 @ (((unsigned) &SSP2STAT)*8) + 2;
-[; ;adc.h: 2008: union ADCResult
-[; ;adc.h: 2009: {
-[; ;adc.h: 2010: int lr;
-[; ;adc.h: 2011: char br[2];
-[; ;adc.h: 2012: };
-[; ;adc.h: 2014: char BusyADC (void);
-[; ;adc.h: 2016: void ConvertADC (void);
-[; ;adc.h: 2018: void CloseADC(void);
-[; ;adc.h: 2026: int ReadADC(void);
-[; ;adc.h: 2040: void OpenADC ( unsigned char ,
-[; ;adc.h: 2041: unsigned char ,
-[; ;adc.h: 2042: unsigned char );
-[; ;adc.h: 2084: void SetChanADC(unsigned char );
-[; ;adc.h: 2100: void SelChanConvADC( unsigned char );
-[; ;ancomp.h: 90: void Close_ancomp1( void );
-[; ;ancomp.h: 91: void Open_ancomp1(unsigned char config);
-[; ;ancomp.h: 92: void Close_ancomp2( void );
-[; ;ancomp.h: 93: void Open_ancomp2(unsigned char config);
-[; ;spi.h: 236: void OpenSPI1( unsigned char sync_mode,
-[; ;spi.h: 237: unsigned char bus_mode,
-[; ;spi.h: 238: unsigned char smp_phase );
-[; ;spi.h: 240: signed char WriteSPI1( unsigned char data_out );
-[; ;spi.h: 242: void getsSPI1( unsigned char *rdptr, unsigned char length );
-[; ;spi.h: 244: void putsSPI1( unsigned char *wrptr );
-[; ;spi.h: 246: unsigned char ReadSPI1( void );
-[; ;spi.h: 441: void OpenSPI2( unsigned char sync_mode,
-[; ;spi.h: 442: unsigned char bus_mode,
-[; ;spi.h: 443: unsigned char smp_phase );
-[; ;spi.h: 445: signed char WriteSPI2( unsigned char data_out );
-[; ;spi.h: 447: void getsSPI2( unsigned char *rdptr, unsigned char length );
-[; ;spi.h: 449: void putsSPI2( unsigned char *wrptr );
-[; ;spi.h: 451: unsigned char ReadSPI2( void );
-[; ;can2510.h: 414: void CAN2510Initialize(  unsigned int configuration,
-[; ;can2510.h: 415: unsigned char brp,
-[; ;can2510.h: 416: unsigned char interruptFlags,
-[; ;can2510.h: 417: unsigned char SPI_syncMode,
-[; ;can2510.h: 418: unsigned char SPI_busMode,
-[; ;can2510.h: 419: unsigned char SPI_smpPhase );
-[; ;can2510.h: 421: signed char CAN2510Init(  unsigned long BufferConfig,
-[; ;can2510.h: 422: unsigned long BitTimeConfig,
-[; ;can2510.h: 423: unsigned char interruptEnables,
-[; ;can2510.h: 424: unsigned char SPI_syncMode,
-[; ;can2510.h: 425: unsigned char SPI_busMode,
-[; ;can2510.h: 426: unsigned char SPI_smpPhase );
-[; ;can2510.h: 428: void CAN2510Enable( void );
-[; ;can2510.h: 430: void CAN2510Disable( void );
-[; ;can2510.h: 432: void CAN2510Reset( void );
-[; ;can2510.h: 434: void CAN2510SetMode(  unsigned char mode );
-[; ;can2510.h: 436: unsigned char CAN2510ReadMode( void );
-[; ;can2510.h: 438: unsigned char CAN2510ReadStatus( void );
-[; ;can2510.h: 440: unsigned char CAN2510ErrorState( void );
-[; ;can2510.h: 442: unsigned char CAN2510InterruptStatus( void );
-[; ;can2510.h: 444: void CAN2510InterruptEnable( unsigned char interruptFlags );
-[; ;can2510.h: 446: unsigned char CAN2510ByteRead(  unsigned char addr );
-[; ;can2510.h: 448: void CAN2510ByteWrite(  unsigned char addr,  unsigned char value );
-[; ;can2510.h: 450: void CAN2510SequentialRead(  unsigned char *DataArray,
-[; ;can2510.h: 451: unsigned char CAN2510addr,
-[; ;can2510.h: 452: unsigned char numbytes );
-[; ;can2510.h: 454: void CAN2510SequentialWrite(  unsigned char *DataArray,
-[; ;can2510.h: 455: unsigned char CAN2510addr,
-[; ;can2510.h: 456: unsigned char numbytes );
-[; ;can2510.h: 458: void CAN2510BitModify(  unsigned char address,
-[; ;can2510.h: 459: unsigned char mask,
-[; ;can2510.h: 460: unsigned char data );
-[; ;can2510.h: 462: void CAN2510SetSingleMaskStd(  unsigned char maskNum,  unsigned int mask );
-[; ;can2510.h: 464: void CAN2510SetSingleMaskXtd(  unsigned char maskNum,  unsigned long mask );
-[; ;can2510.h: 466: void CAN2510SetSingleFilterStd(  unsigned char filterNum,  unsigned int filter );
-[; ;can2510.h: 468: void CAN2510SetSingleFilterXtd(  unsigned char filterNum,  unsigned long filter );
-[; ;can2510.h: 470: signed char CAN2510SetMsgFilterStd(  unsigned char bufferNum,
-[; ;can2510.h: 471: unsigned int mask,
-[; ;can2510.h: 472: unsigned int *filters );
-[; ;can2510.h: 474: signed char CAN2510SetMsgFilterXtd(  unsigned char bufferNum,
-[; ;can2510.h: 475: unsigned long mask,
-[; ;can2510.h: 476: unsigned long *filters );
-[; ;can2510.h: 478: signed char CAN2510WriteStd(  unsigned int msgId,
-[; ;can2510.h: 479: unsigned char msgPriority,
-[; ;can2510.h: 480: unsigned char numBytes,
-[; ;can2510.h: 481: unsigned char *data );
-[; ;can2510.h: 483: signed char CAN2510WriteXtd(  unsigned long msgId,
-[; ;can2510.h: 484: unsigned char msgPriority,
-[; ;can2510.h: 485: unsigned char numBytes,
-[; ;can2510.h: 486: unsigned char *data );
-[; ;can2510.h: 488: void CAN2510LoadBufferStd(  unsigned char bufferNum,
-[; ;can2510.h: 489: unsigned int msgId,
-[; ;can2510.h: 490: unsigned char numBytes,
-[; ;can2510.h: 491: unsigned char *data );
-[; ;can2510.h: 493: void CAN2510LoadBufferXtd(  unsigned char bufferNum,
-[; ;can2510.h: 494: unsigned long msgId,
-[; ;can2510.h: 495: unsigned char numBytes,
-[; ;can2510.h: 496: unsigned char *data );
-[; ;can2510.h: 498: void CAN2510LoadRTRStd(  unsigned char bufferNum,
-[; ;can2510.h: 499: unsigned int msgId,
-[; ;can2510.h: 500: unsigned char numBytes );
-[; ;can2510.h: 502: void CAN2510LoadRTRXtd(  unsigned char bufferNum,
-[; ;can2510.h: 503: unsigned long msgId,
-[; ;can2510.h: 504: unsigned char numBytes );
-[; ;can2510.h: 506: void CAN2510SetBufferPriority(  unsigned char bufferNum,
-[; ;can2510.h: 507: unsigned char bufferPriority );
-[; ;can2510.h: 509: void CAN2510SendBuffer(  unsigned char bufferNumber );
-[; ;can2510.h: 511: signed char CAN2510WriteBuffer(  unsigned char bufferNum );
-[; ;can2510.h: 513: unsigned char CAN2510DataReady(  unsigned char bufferNum );
-[; ;can2510.h: 515: unsigned char CAN2510DataRead(  unsigned char bufferNum,
-[; ;can2510.h: 516: unsigned long *msgId,
-[; ;can2510.h: 517: unsigned char *numBytes,
-[; ;can2510.h: 518: unsigned char *data );
-[; ;capture.h: 64: union capstatus
-[; ;capture.h: 65: {
-[; ;capture.h: 73: struct
-[; ;capture.h: 74: {
-[; ;capture.h: 91: unsigned Cap4OVF:1;
-[; ;capture.h: 92: unsigned Cap5OVF:1;
-[; ;capture.h: 107: unsigned ECap1OVF:1;
-[; ;capture.h: 111: unsigned ECap2OVF:1;
-[; ;capture.h: 112: unsigned ECap3OVF:1;
-[; ;capture.h: 115: };
-[; ;capture.h: 117: unsigned :8;
-[; ;capture.h: 119: };
-[; ;capture.h: 121: extern union capstatus CapStatus;
-[; ;capture.h: 123: union CapResult
-[; ;capture.h: 124: {
-[; ;capture.h: 125: unsigned int lc;
-[; ;capture.h: 126: char bc[2];
-[; ;capture.h: 127: };
-[; ;capture.h: 507: void OpenCapture4 ( unsigned char config);
-[; ;capture.h: 508: unsigned int ReadCapture4 (void);
-[; ;capture.h: 509: void CloseCapture4 (void);
-[; ;capture.h: 511: void OpenCapture5 ( unsigned char config);
-[; ;capture.h: 512: unsigned int ReadCapture5 (void);
-[; ;capture.h: 513: void CloseCapture5 (void);
-[; ;capture.h: 568: void OpenECapture1 ( unsigned char config);
-[; ;capture.h: 569: unsigned int ReadECapture1 (void);
-[; ;capture.h: 570: void CloseECapture1 (void);
-[; ;capture.h: 573: void OpenECapture2 ( unsigned char config);
-[; ;capture.h: 574: unsigned int ReadECapture2 (void);
-[; ;capture.h: 575: void CloseECapture2 (void);
-[; ;capture.h: 577: void OpenECapture3 ( unsigned char config);
-[; ;capture.h: 578: unsigned int ReadECapture3 (void);
-[; ;capture.h: 579: void CloseECapture3 (void);
-[; ;compare.h: 403: void OpenCompare4(unsigned char config,unsigned int period);
-[; ;compare.h: 404: void CloseCompare4(void);
-[; ;compare.h: 406: void OpenCompare5(unsigned char config,unsigned int period);
-[; ;compare.h: 407: void CloseCompare5(void);
-[; ;compare.h: 433: void OpenECompare1(unsigned char config,unsigned int period);
-[; ;compare.h: 434: void CloseECompare1(void);
-[; ;compare.h: 439: void OpenECompare2(unsigned char config,unsigned int period);
-[; ;compare.h: 440: void CloseECompare2(void);
-[; ;compare.h: 442: void OpenECompare3(unsigned char config,unsigned int period);
-[; ;compare.h: 443: void CloseECompare3(void);
-[; ;ctmu.h: 374: void OpenCTMU(unsigned char config1,unsigned char config2,unsigned char config3);
-[; ;ctmu.h: 379: void CurrentControlCTMU(unsigned char config);
-[; ;ctmu.h: 380: void CloseCTMU(void);
-[; ;EEP.h: 36: void Busy_eep ( void );
-[; ;EEP.h: 37: unsigned char Read_b_eep( unsigned int badd );
-[; ;EEP.h: 38: void Write_b_eep( unsigned int badd, unsigned char bdat );
-[; ;__size_t.h: 4: typedef unsigned size_t;
-[; ;stddef.h: 6: typedef int ptrdiff_t;
-[; ;GenericTypeDefs.h: 65: typedef enum _BOOL { FALSE = 0, TRUE } BOOL;
-[; ;GenericTypeDefs.h: 68: typedef enum _BIT { CLEAR = 0, SET } BIT;
-[; ;GenericTypeDefs.h: 75: typedef signed int INT;
-[; ;GenericTypeDefs.h: 76: typedef signed char INT8;
-[; ;GenericTypeDefs.h: 77: typedef signed short int INT16;
-[; ;GenericTypeDefs.h: 78: typedef signed long int INT32;
-[; ;GenericTypeDefs.h: 86: typedef unsigned int UINT;
-[; ;GenericTypeDefs.h: 87: typedef unsigned char UINT8;
-[; ;GenericTypeDefs.h: 88: typedef unsigned short int UINT16;
-[; ;GenericTypeDefs.h: 89: typedef unsigned long int UINT32;
-[; ;GenericTypeDefs.h: 95: typedef unsigned short long UINT24;
-[; ;GenericTypeDefs.h: 103: typedef union
-[; ;GenericTypeDefs.h: 104: {
-[; ;GenericTypeDefs.h: 105: UINT8 Val;
-[; ;GenericTypeDefs.h: 106: struct
-[; ;GenericTypeDefs.h: 107: {
-[; ;GenericTypeDefs.h: 108: UINT8 b0:1;
-[; ;GenericTypeDefs.h: 109: UINT8 b1:1;
-[; ;GenericTypeDefs.h: 110: UINT8 b2:1;
-[; ;GenericTypeDefs.h: 111: UINT8 b3:1;
-[; ;GenericTypeDefs.h: 112: UINT8 b4:1;
-[; ;GenericTypeDefs.h: 113: UINT8 b5:1;
-[; ;GenericTypeDefs.h: 114: UINT8 b6:1;
-[; ;GenericTypeDefs.h: 115: UINT8 b7:1;
-[; ;GenericTypeDefs.h: 116: } bits;
-[; ;GenericTypeDefs.h: 117: } UINT8_VAL, UINT8_BITS;
-[; ;GenericTypeDefs.h: 119: typedef union
-[; ;GenericTypeDefs.h: 120: {
-[; ;GenericTypeDefs.h: 121: UINT16 Val;
-[; ;GenericTypeDefs.h: 122: UINT8 v[2] ;
-[; ;GenericTypeDefs.h: 123: struct 
-[; ;GenericTypeDefs.h: 124: {
-[; ;GenericTypeDefs.h: 125: UINT8 LB;
-[; ;GenericTypeDefs.h: 126: UINT8 HB;
-[; ;GenericTypeDefs.h: 127: } byte;
-[; ;GenericTypeDefs.h: 128: struct 
-[; ;GenericTypeDefs.h: 129: {
-[; ;GenericTypeDefs.h: 130: UINT8 b0:1;
-[; ;GenericTypeDefs.h: 131: UINT8 b1:1;
-[; ;GenericTypeDefs.h: 132: UINT8 b2:1;
-[; ;GenericTypeDefs.h: 133: UINT8 b3:1;
-[; ;GenericTypeDefs.h: 134: UINT8 b4:1;
-[; ;GenericTypeDefs.h: 135: UINT8 b5:1;
-[; ;GenericTypeDefs.h: 136: UINT8 b6:1;
-[; ;GenericTypeDefs.h: 137: UINT8 b7:1;
-[; ;GenericTypeDefs.h: 138: UINT8 b8:1;
-[; ;GenericTypeDefs.h: 139: UINT8 b9:1;
-[; ;GenericTypeDefs.h: 140: UINT8 b10:1;
-[; ;GenericTypeDefs.h: 141: UINT8 b11:1;
-[; ;GenericTypeDefs.h: 142: UINT8 b12:1;
-[; ;GenericTypeDefs.h: 143: UINT8 b13:1;
-[; ;GenericTypeDefs.h: 144: UINT8 b14:1;
-[; ;GenericTypeDefs.h: 145: UINT8 b15:1;
-[; ;GenericTypeDefs.h: 146: } bits;
-[; ;GenericTypeDefs.h: 147: } UINT16_VAL, UINT16_BITS;
-[; ;GenericTypeDefs.h: 151: typedef union
-[; ;GenericTypeDefs.h: 152: {
-[; ;GenericTypeDefs.h: 153: UINT24 Val;
-[; ;GenericTypeDefs.h: 154: UINT8 v[3] ;
-[; ;GenericTypeDefs.h: 155: struct 
-[; ;GenericTypeDefs.h: 156: {
-[; ;GenericTypeDefs.h: 157: UINT8 LB;
-[; ;GenericTypeDefs.h: 158: UINT8 HB;
-[; ;GenericTypeDefs.h: 159: UINT8 UB;
-[; ;GenericTypeDefs.h: 160: } byte;
-[; ;GenericTypeDefs.h: 161: struct 
-[; ;GenericTypeDefs.h: 162: {
-[; ;GenericTypeDefs.h: 163: UINT8 b0:1;
-[; ;GenericTypeDefs.h: 164: UINT8 b1:1;
-[; ;GenericTypeDefs.h: 165: UINT8 b2:1;
-[; ;GenericTypeDefs.h: 166: UINT8 b3:1;
-[; ;GenericTypeDefs.h: 167: UINT8 b4:1;
-[; ;GenericTypeDefs.h: 168: UINT8 b5:1;
-[; ;GenericTypeDefs.h: 169: UINT8 b6:1;
-[; ;GenericTypeDefs.h: 170: UINT8 b7:1;
-[; ;GenericTypeDefs.h: 171: UINT8 b8:1;
-[; ;GenericTypeDefs.h: 172: UINT8 b9:1;
-[; ;GenericTypeDefs.h: 173: UINT8 b10:1;
-[; ;GenericTypeDefs.h: 174: UINT8 b11:1;
-[; ;GenericTypeDefs.h: 175: UINT8 b12:1;
-[; ;GenericTypeDefs.h: 176: UINT8 b13:1;
-[; ;GenericTypeDefs.h: 177: UINT8 b14:1;
-[; ;GenericTypeDefs.h: 178: UINT8 b15:1;
-[; ;GenericTypeDefs.h: 179: UINT8 b16:1;
-[; ;GenericTypeDefs.h: 180: UINT8 b17:1;
-[; ;GenericTypeDefs.h: 181: UINT8 b18:1;
-[; ;GenericTypeDefs.h: 182: UINT8 b19:1;
-[; ;GenericTypeDefs.h: 183: UINT8 b20:1;
-[; ;GenericTypeDefs.h: 184: UINT8 b21:1;
-[; ;GenericTypeDefs.h: 185: UINT8 b22:1;
-[; ;GenericTypeDefs.h: 186: UINT8 b23:1;
-[; ;GenericTypeDefs.h: 187: } bits;
-[; ;GenericTypeDefs.h: 188: } UINT24_VAL, UINT24_BITS;
-[; ;GenericTypeDefs.h: 191: typedef union
-[; ;GenericTypeDefs.h: 192: {
-[; ;GenericTypeDefs.h: 193: UINT32 Val;
-[; ;GenericTypeDefs.h: 194: UINT16 w[2] ;
-[; ;GenericTypeDefs.h: 195: UINT8 v[4] ;
-[; ;GenericTypeDefs.h: 196: struct 
-[; ;GenericTypeDefs.h: 197: {
-[; ;GenericTypeDefs.h: 198: UINT16 LW;
-[; ;GenericTypeDefs.h: 199: UINT16 HW;
-[; ;GenericTypeDefs.h: 200: } word;
-[; ;GenericTypeDefs.h: 201: struct 
-[; ;GenericTypeDefs.h: 202: {
-[; ;GenericTypeDefs.h: 203: UINT8 LB;
-[; ;GenericTypeDefs.h: 204: UINT8 HB;
-[; ;GenericTypeDefs.h: 205: UINT8 UB;
-[; ;GenericTypeDefs.h: 206: UINT8 MB;
-[; ;GenericTypeDefs.h: 207: } byte;
-[; ;GenericTypeDefs.h: 208: struct 
-[; ;GenericTypeDefs.h: 209: {
-[; ;GenericTypeDefs.h: 210: UINT16_VAL low;
-[; ;GenericTypeDefs.h: 211: UINT16_VAL high;
-[; ;GenericTypeDefs.h: 212: }wordUnion;
-[; ;GenericTypeDefs.h: 213: struct 
-[; ;GenericTypeDefs.h: 214: {
-[; ;GenericTypeDefs.h: 215: UINT8 b0:1;
-[; ;GenericTypeDefs.h: 216: UINT8 b1:1;
-[; ;GenericTypeDefs.h: 217: UINT8 b2:1;
-[; ;GenericTypeDefs.h: 218: UINT8 b3:1;
-[; ;GenericTypeDefs.h: 219: UINT8 b4:1;
-[; ;GenericTypeDefs.h: 220: UINT8 b5:1;
-[; ;GenericTypeDefs.h: 221: UINT8 b6:1;
-[; ;GenericTypeDefs.h: 222: UINT8 b7:1;
-[; ;GenericTypeDefs.h: 223: UINT8 b8:1;
-[; ;GenericTypeDefs.h: 224: UINT8 b9:1;
-[; ;GenericTypeDefs.h: 225: UINT8 b10:1;
-[; ;GenericTypeDefs.h: 226: UINT8 b11:1;
-[; ;GenericTypeDefs.h: 227: UINT8 b12:1;
-[; ;GenericTypeDefs.h: 228: UINT8 b13:1;
-[; ;GenericTypeDefs.h: 229: UINT8 b14:1;
-[; ;GenericTypeDefs.h: 230: UINT8 b15:1;
-[; ;GenericTypeDefs.h: 231: UINT8 b16:1;
-[; ;GenericTypeDefs.h: 232: UINT8 b17:1;
-[; ;GenericTypeDefs.h: 233: UINT8 b18:1;
-[; ;GenericTypeDefs.h: 234: UINT8 b19:1;
-[; ;GenericTypeDefs.h: 235: UINT8 b20:1;
-[; ;GenericTypeDefs.h: 236: UINT8 b21:1;
-[; ;GenericTypeDefs.h: 237: UINT8 b22:1;
-[; ;GenericTypeDefs.h: 238: UINT8 b23:1;
-[; ;GenericTypeDefs.h: 239: UINT8 b24:1;
-[; ;GenericTypeDefs.h: 240: UINT8 b25:1;
-[; ;GenericTypeDefs.h: 241: UINT8 b26:1;
-[; ;GenericTypeDefs.h: 242: UINT8 b27:1;
-[; ;GenericTypeDefs.h: 243: UINT8 b28:1;
-[; ;GenericTypeDefs.h: 244: UINT8 b29:1;
-[; ;GenericTypeDefs.h: 245: UINT8 b30:1;
-[; ;GenericTypeDefs.h: 246: UINT8 b31:1;
-[; ;GenericTypeDefs.h: 247: } bits;
-[; ;GenericTypeDefs.h: 248: } UINT32_VAL;
-[; ;GenericTypeDefs.h: 343: typedef void VOID;
-[; ;GenericTypeDefs.h: 345: typedef char CHAR8;
-[; ;GenericTypeDefs.h: 346: typedef unsigned char UCHAR8;
-[; ;GenericTypeDefs.h: 348: typedef unsigned char BYTE;
-[; ;GenericTypeDefs.h: 349: typedef unsigned short int WORD;
-[; ;GenericTypeDefs.h: 350: typedef unsigned long DWORD;
-[; ;GenericTypeDefs.h: 353: typedef unsigned long long QWORD;
-[; ;GenericTypeDefs.h: 354: typedef signed char CHAR;
-[; ;GenericTypeDefs.h: 355: typedef signed short int SHORT;
-[; ;GenericTypeDefs.h: 356: typedef signed long LONG;
-[; ;GenericTypeDefs.h: 359: typedef signed long long LONGLONG;
-[; ;GenericTypeDefs.h: 360: typedef union
-[; ;GenericTypeDefs.h: 361: {
-[; ;GenericTypeDefs.h: 362: BYTE Val;
-[; ;GenericTypeDefs.h: 363: struct 
-[; ;GenericTypeDefs.h: 364: {
-[; ;GenericTypeDefs.h: 365: BYTE b0:1;
-[; ;GenericTypeDefs.h: 366: BYTE b1:1;
-[; ;GenericTypeDefs.h: 367: BYTE b2:1;
-[; ;GenericTypeDefs.h: 368: BYTE b3:1;
-[; ;GenericTypeDefs.h: 369: BYTE b4:1;
-[; ;GenericTypeDefs.h: 370: BYTE b5:1;
-[; ;GenericTypeDefs.h: 371: BYTE b6:1;
-[; ;GenericTypeDefs.h: 372: BYTE b7:1;
-[; ;GenericTypeDefs.h: 373: } bits;
-[; ;GenericTypeDefs.h: 374: } BYTE_VAL, BYTE_BITS;
-[; ;GenericTypeDefs.h: 376: typedef union
-[; ;GenericTypeDefs.h: 377: {
-[; ;GenericTypeDefs.h: 378: WORD Val;
-[; ;GenericTypeDefs.h: 379: BYTE v[2] ;
-[; ;GenericTypeDefs.h: 380: struct 
-[; ;GenericTypeDefs.h: 381: {
-[; ;GenericTypeDefs.h: 382: BYTE LB;
-[; ;GenericTypeDefs.h: 383: BYTE HB;
-[; ;GenericTypeDefs.h: 384: } byte;
-[; ;GenericTypeDefs.h: 385: struct 
-[; ;GenericTypeDefs.h: 386: {
-[; ;GenericTypeDefs.h: 387: BYTE b0:1;
-[; ;GenericTypeDefs.h: 388: BYTE b1:1;
-[; ;GenericTypeDefs.h: 389: BYTE b2:1;
-[; ;GenericTypeDefs.h: 390: BYTE b3:1;
-[; ;GenericTypeDefs.h: 391: BYTE b4:1;
-[; ;GenericTypeDefs.h: 392: BYTE b5:1;
-[; ;GenericTypeDefs.h: 393: BYTE b6:1;
-[; ;GenericTypeDefs.h: 394: BYTE b7:1;
-[; ;GenericTypeDefs.h: 395: BYTE b8:1;
-[; ;GenericTypeDefs.h: 396: BYTE b9:1;
-[; ;GenericTypeDefs.h: 397: BYTE b10:1;
-[; ;GenericTypeDefs.h: 398: BYTE b11:1;
-[; ;GenericTypeDefs.h: 399: BYTE b12:1;
-[; ;GenericTypeDefs.h: 400: BYTE b13:1;
-[; ;GenericTypeDefs.h: 401: BYTE b14:1;
-[; ;GenericTypeDefs.h: 402: BYTE b15:1;
-[; ;GenericTypeDefs.h: 403: } bits;
-[; ;GenericTypeDefs.h: 404: } WORD_VAL, WORD_BITS;
-[; ;GenericTypeDefs.h: 406: typedef union
-[; ;GenericTypeDefs.h: 407: {
-[; ;GenericTypeDefs.h: 408: DWORD Val;
-[; ;GenericTypeDefs.h: 409: WORD w[2] ;
-[; ;GenericTypeDefs.h: 410: BYTE v[4] ;
-[; ;GenericTypeDefs.h: 411: struct 
-[; ;GenericTypeDefs.h: 412: {
-[; ;GenericTypeDefs.h: 413: WORD LW;
-[; ;GenericTypeDefs.h: 414: WORD HW;
-[; ;GenericTypeDefs.h: 415: } word;
-[; ;GenericTypeDefs.h: 416: struct 
-[; ;GenericTypeDefs.h: 417: {
-[; ;GenericTypeDefs.h: 418: BYTE LB;
-[; ;GenericTypeDefs.h: 419: BYTE HB;
-[; ;GenericTypeDefs.h: 420: BYTE UB;
-[; ;GenericTypeDefs.h: 421: BYTE MB;
-[; ;GenericTypeDefs.h: 422: } byte;
-[; ;GenericTypeDefs.h: 423: struct 
-[; ;GenericTypeDefs.h: 424: {
-[; ;GenericTypeDefs.h: 425: WORD_VAL low;
-[; ;GenericTypeDefs.h: 426: WORD_VAL high;
-[; ;GenericTypeDefs.h: 427: }wordUnion;
-[; ;GenericTypeDefs.h: 428: struct 
-[; ;GenericTypeDefs.h: 429: {
-[; ;GenericTypeDefs.h: 430: BYTE b0:1;
-[; ;GenericTypeDefs.h: 431: BYTE b1:1;
-[; ;GenericTypeDefs.h: 432: BYTE b2:1;
-[; ;GenericTypeDefs.h: 433: BYTE b3:1;
-[; ;GenericTypeDefs.h: 434: BYTE b4:1;
-[; ;GenericTypeDefs.h: 435: BYTE b5:1;
-[; ;GenericTypeDefs.h: 436: BYTE b6:1;
-[; ;GenericTypeDefs.h: 437: BYTE b7:1;
-[; ;GenericTypeDefs.h: 438: BYTE b8:1;
-[; ;GenericTypeDefs.h: 439: BYTE b9:1;
-[; ;GenericTypeDefs.h: 440: BYTE b10:1;
-[; ;GenericTypeDefs.h: 441: BYTE b11:1;
-[; ;GenericTypeDefs.h: 442: BYTE b12:1;
-[; ;GenericTypeDefs.h: 443: BYTE b13:1;
-[; ;GenericTypeDefs.h: 444: BYTE b14:1;
-[; ;GenericTypeDefs.h: 445: BYTE b15:1;
-[; ;GenericTypeDefs.h: 446: BYTE b16:1;
-[; ;GenericTypeDefs.h: 447: BYTE b17:1;
-[; ;GenericTypeDefs.h: 448: BYTE b18:1;
-[; ;GenericTypeDefs.h: 449: BYTE b19:1;
-[; ;GenericTypeDefs.h: 450: BYTE b20:1;
-[; ;GenericTypeDefs.h: 451: BYTE b21:1;
-[; ;GenericTypeDefs.h: 452: BYTE b22:1;
-[; ;GenericTypeDefs.h: 453: BYTE b23:1;
-[; ;GenericTypeDefs.h: 454: BYTE b24:1;
-[; ;GenericTypeDefs.h: 455: BYTE b25:1;
-[; ;GenericTypeDefs.h: 456: BYTE b26:1;
-[; ;GenericTypeDefs.h: 457: BYTE b27:1;
-[; ;GenericTypeDefs.h: 458: BYTE b28:1;
-[; ;GenericTypeDefs.h: 459: BYTE b29:1;
-[; ;GenericTypeDefs.h: 460: BYTE b30:1;
-[; ;GenericTypeDefs.h: 461: BYTE b31:1;
-[; ;GenericTypeDefs.h: 462: } bits;
-[; ;GenericTypeDefs.h: 463: } DWORD_VAL;
-[; ;GenericTypeDefs.h: 466: typedef union
-[; ;GenericTypeDefs.h: 467: {
-[; ;GenericTypeDefs.h: 468: QWORD Val;
-[; ;GenericTypeDefs.h: 469: DWORD d[2] ;
-[; ;GenericTypeDefs.h: 470: WORD w[4] ;
-[; ;GenericTypeDefs.h: 471: BYTE v[8] ;
-[; ;GenericTypeDefs.h: 472: struct 
-[; ;GenericTypeDefs.h: 473: {
-[; ;GenericTypeDefs.h: 474: DWORD LD;
-[; ;GenericTypeDefs.h: 475: DWORD HD;
-[; ;GenericTypeDefs.h: 476: } dword;
-[; ;GenericTypeDefs.h: 477: struct 
-[; ;GenericTypeDefs.h: 478: {
-[; ;GenericTypeDefs.h: 479: WORD LW;
-[; ;GenericTypeDefs.h: 480: WORD HW;
-[; ;GenericTypeDefs.h: 481: WORD UW;
-[; ;GenericTypeDefs.h: 482: WORD MW;
-[; ;GenericTypeDefs.h: 483: } word;
-[; ;GenericTypeDefs.h: 484: struct 
-[; ;GenericTypeDefs.h: 485: {
-[; ;GenericTypeDefs.h: 486: BYTE b0:1;
-[; ;GenericTypeDefs.h: 487: BYTE b1:1;
-[; ;GenericTypeDefs.h: 488: BYTE b2:1;
-[; ;GenericTypeDefs.h: 489: BYTE b3:1;
-[; ;GenericTypeDefs.h: 490: BYTE b4:1;
-[; ;GenericTypeDefs.h: 491: BYTE b5:1;
-[; ;GenericTypeDefs.h: 492: BYTE b6:1;
-[; ;GenericTypeDefs.h: 493: BYTE b7:1;
-[; ;GenericTypeDefs.h: 494: BYTE b8:1;
-[; ;GenericTypeDefs.h: 495: BYTE b9:1;
-[; ;GenericTypeDefs.h: 496: BYTE b10:1;
-[; ;GenericTypeDefs.h: 497: BYTE b11:1;
-[; ;GenericTypeDefs.h: 498: BYTE b12:1;
-[; ;GenericTypeDefs.h: 499: BYTE b13:1;
-[; ;GenericTypeDefs.h: 500: BYTE b14:1;
-[; ;GenericTypeDefs.h: 501: BYTE b15:1;
-[; ;GenericTypeDefs.h: 502: BYTE b16:1;
-[; ;GenericTypeDefs.h: 503: BYTE b17:1;
-[; ;GenericTypeDefs.h: 504: BYTE b18:1;
-[; ;GenericTypeDefs.h: 505: BYTE b19:1;
-[; ;GenericTypeDefs.h: 506: BYTE b20:1;
-[; ;GenericTypeDefs.h: 507: BYTE b21:1;
-[; ;GenericTypeDefs.h: 508: BYTE b22:1;
-[; ;GenericTypeDefs.h: 509: BYTE b23:1;
-[; ;GenericTypeDefs.h: 510: BYTE b24:1;
-[; ;GenericTypeDefs.h: 511: BYTE b25:1;
-[; ;GenericTypeDefs.h: 512: BYTE b26:1;
-[; ;GenericTypeDefs.h: 513: BYTE b27:1;
-[; ;GenericTypeDefs.h: 514: BYTE b28:1;
-[; ;GenericTypeDefs.h: 515: BYTE b29:1;
-[; ;GenericTypeDefs.h: 516: BYTE b30:1;
-[; ;GenericTypeDefs.h: 517: BYTE b31:1;
-[; ;GenericTypeDefs.h: 518: BYTE b32:1;
-[; ;GenericTypeDefs.h: 519: BYTE b33:1;
-[; ;GenericTypeDefs.h: 520: BYTE b34:1;
-[; ;GenericTypeDefs.h: 521: BYTE b35:1;
-[; ;GenericTypeDefs.h: 522: BYTE b36:1;
-[; ;GenericTypeDefs.h: 523: BYTE b37:1;
-[; ;GenericTypeDefs.h: 524: BYTE b38:1;
-[; ;GenericTypeDefs.h: 525: BYTE b39:1;
-[; ;GenericTypeDefs.h: 526: BYTE b40:1;
-[; ;GenericTypeDefs.h: 527: BYTE b41:1;
-[; ;GenericTypeDefs.h: 528: BYTE b42:1;
-[; ;GenericTypeDefs.h: 529: BYTE b43:1;
-[; ;GenericTypeDefs.h: 530: BYTE b44:1;
-[; ;GenericTypeDefs.h: 531: BYTE b45:1;
-[; ;GenericTypeDefs.h: 532: BYTE b46:1;
-[; ;GenericTypeDefs.h: 533: BYTE b47:1;
-[; ;GenericTypeDefs.h: 534: BYTE b48:1;
-[; ;GenericTypeDefs.h: 535: BYTE b49:1;
-[; ;GenericTypeDefs.h: 536: BYTE b50:1;
-[; ;GenericTypeDefs.h: 537: BYTE b51:1;
-[; ;GenericTypeDefs.h: 538: BYTE b52:1;
-[; ;GenericTypeDefs.h: 539: BYTE b53:1;
-[; ;GenericTypeDefs.h: 540: BYTE b54:1;
-[; ;GenericTypeDefs.h: 541: BYTE b55:1;
-[; ;GenericTypeDefs.h: 542: BYTE b56:1;
-[; ;GenericTypeDefs.h: 543: BYTE b57:1;
-[; ;GenericTypeDefs.h: 544: BYTE b58:1;
-[; ;GenericTypeDefs.h: 545: BYTE b59:1;
-[; ;GenericTypeDefs.h: 546: BYTE b60:1;
-[; ;GenericTypeDefs.h: 547: BYTE b61:1;
-[; ;GenericTypeDefs.h: 548: BYTE b62:1;
-[; ;GenericTypeDefs.h: 549: BYTE b63:1;
-[; ;GenericTypeDefs.h: 550: } bits;
-[; ;GenericTypeDefs.h: 551: } QWORD_VAL;
-[; ;flash.h: 113: extern void ReadFlash(unsigned long startaddr, unsigned int num_bytes, unsigned char *flash_array);
-[; ;flash.h: 120: extern void EraseFlash(unsigned long startaddr, unsigned long endaddr);
-[; ;flash.h: 122: extern void WriteBlockFlash(unsigned long startaddr, unsigned char num_blocks, unsigned char *flash_array);
-[; ;flash.h: 124: extern void WriteBytesFlash(unsigned long startaddr, unsigned int num_bytes, unsigned char *flash_array);
-[; ;i2c.h: 244: void OpenI2C1( unsigned char sync_mode, unsigned char slew );
-[; ;i2c.h: 264: unsigned char ReadI2C1( void );
-[; ;i2c.h: 279: signed char WriteI2C1( unsigned char data_out );
-[; ;i2c.h: 294: signed char getsI2C1( unsigned char *rdptr, unsigned char length );
-[; ;i2c.h: 297: signed char putsI2C1( unsigned char *wrptr );
-[; ;i2c.h: 305: signed char EEAckPolling1( unsigned char control );
-[; ;i2c.h: 308: signed char EEByteWrite1( unsigned char control,
-[; ;i2c.h: 309: unsigned char address,
-[; ;i2c.h: 310: unsigned char data );
-[; ;i2c.h: 313: signed int EECurrentAddRead1( unsigned char control );
-[; ;i2c.h: 316: signed char EEPageWrite1( unsigned char control,
-[; ;i2c.h: 317: unsigned char address,
-[; ;i2c.h: 318: unsigned char *wrptr );
-[; ;i2c.h: 321: signed int EERandomRead1( unsigned char control, unsigned char address );
-[; ;i2c.h: 324: signed char EESequentialRead1( unsigned char control,
-[; ;i2c.h: 325: unsigned char address,
-[; ;i2c.h: 326: unsigned char *rdptr,
-[; ;i2c.h: 327: unsigned char length );
-[; ;i2c.h: 600: void OpenI2C2( unsigned char sync_mode, unsigned char slew );
-[; ;i2c.h: 617: unsigned char ReadI2C2( void );
-[; ;i2c.h: 630: signed char WriteI2C2( unsigned char data_out );
-[; ;i2c.h: 643: signed char getsI2C2( unsigned char *rdptr, unsigned char length );
-[; ;i2c.h: 645: signed char putsI2C2( unsigned char *wrptr );
-[; ;i2c.h: 651: signed char EEAckPolling2( unsigned char control );
-[; ;i2c.h: 653: signed char EEByteWrite2( unsigned char control,
-[; ;i2c.h: 654: unsigned char address,
-[; ;i2c.h: 655: unsigned char data );
-[; ;i2c.h: 657: signed int EECurrentAddRead2( unsigned char control );
-[; ;i2c.h: 659: signed char EEPageWrite2( unsigned char control,
-[; ;i2c.h: 660: unsigned char address,
-[; ;i2c.h: 661: unsigned char *wrptr );
-[; ;i2c.h: 663: signed int EERandomRead2( unsigned char control, unsigned char address );
-[; ;i2c.h: 665: signed char EESequentialRead2( unsigned char control,
-[; ;i2c.h: 666: unsigned char address,
-[; ;i2c.h: 667: unsigned char *rdptr,
-[; ;i2c.h: 668: unsigned char length );
-[; ;mwire.h: 200: void OpenMwire1( unsigned char sync_mode );
-[; ;mwire.h: 203: unsigned char ReadMwire1( unsigned char high_byte,
-[; ;mwire.h: 204: unsigned char low_byte );
-[; ;mwire.h: 219: signed char WriteMwire1( unsigned char data_out );
-[; ;mwire.h: 234: void getsMwire1( unsigned char *rdptr, unsigned char length );
-[; ;portb.h: 126: void OpenPORTB( unsigned char config);
-[; ;portb.h: 176: void OpenRB0INT( unsigned char config);
-[; ;portb.h: 194: void OpenRB1INT( unsigned char config);
-[; ;portb.h: 211: void OpenRB2INT( unsigned char config);
-[; ;pwm.h: 85: union PWMDC
-[; ;pwm.h: 86: {
-[; ;pwm.h: 87: unsigned int lpwm;
-[; ;pwm.h: 88: char bpwm[2];
-[; ;pwm.h: 89: };
-[; ;pwm.h: 467: void OpenPWM1 ( char period);
-[; ;pwm.h: 468: void SetDCPWM1 ( unsigned int duty_cycle);
-[; ;pwm.h: 477: void ClosePWM1 (void);
-[; ;pwm.h: 538: void OpenPWM4 ( unsigned char period, unsigned char timer_source );
-[; ;pwm.h: 539: void SetDCPWM4 ( unsigned int duty_cycle);
-[; ;pwm.h: 540: void ClosePWM4 (void);
-[; ;pwm.h: 542: void OpenPWM5 ( unsigned char period, unsigned char timer_source );
-[; ;pwm.h: 543: void SetDCPWM5 ( unsigned int duty_cycle);
-[; ;pwm.h: 544: void ClosePWM5 (void);
-[; ;pwm.h: 586: void OpenEPWM1( unsigned char period, unsigned char timer_source );
-[; ;pwm.h: 587: void SetDCEPWM1 ( unsigned int duty_cycle);
-[; ;pwm.h: 588: void SetOutputEPWM1 ( unsigned char output_config,
-[; ;pwm.h: 589: unsigned char pwm_mode);
-[; ;pwm.h: 590: void CloseEPWM1 (void);
-[; ;pwm.h: 594: void OpenEPWM2( unsigned char period, unsigned char timer_source );
-[; ;pwm.h: 595: void SetDCEPWM2 ( unsigned int duty_cycle);
-[; ;pwm.h: 596: void SetOutputEPWM2 ( unsigned char output_config,
-[; ;pwm.h: 597: unsigned char pwm_mode);
-[; ;pwm.h: 598: void CloseEPWM2 (void);
-[; ;pwm.h: 601: void OpenEPWM3( unsigned char period, unsigned char timer_source );
-[; ;pwm.h: 602: void SetDCEPWM3 ( unsigned int duty_cycle);
-[; ;pwm.h: 603: void SetOutputEPWM3 ( unsigned char output_config,
-[; ;pwm.h: 604: unsigned char pwm_mode);
-[; ;pwm.h: 605: void CloseEPWM3 (void);
-[; ;reset.h: 16: char isMCLR(void);
-[; ;reset.h: 17: void StatusReset(void);
-[; ;reset.h: 18: char isPOR(void);
-[; ;reset.h: 19: char isWU(void);
-[; ;reset.h: 22: char isBOR(void);
-[; ;reset.h: 26: char isWDTTO(void);
-[; ;reset.h: 27: char isWDTWU(void);
-[; ;reset.h: 31: char isLVD(void);
-[; ;rtcc.h: 687: void Open_RTCC(void);
-[; ;rtcc.h: 688: void Close_RTCC(void);
-[; ;rtcc.h: 689: unsigned char update_RTCC(void);
-[; ;sw_i2c.h: 97: void SWStopI2C ( void );
-[; ;sw_i2c.h: 98: void SWStartI2C ( void );
-[; ;sw_i2c.h: 99: void SWRestartI2C ( void );
-[; ;sw_i2c.h: 100: void SWStopI2C ( void );
-[; ;sw_i2c.h: 102: signed char SWAckI2C( void );
-[; ;sw_i2c.h: 103: signed char Clock_test( void );
-[; ;sw_i2c.h: 104: signed int SWReadI2C( void );
-[; ;sw_i2c.h: 105: signed char SWWriteI2C(  unsigned char data_out );
-[; ;sw_i2c.h: 106: signed char SWGetsI2C(  unsigned char *rdptr,  unsigned char length );
-[; ;sw_i2c.h: 107: signed char SWPutsI2C(  unsigned char *wrptr );
-[; ;sw_spi.h: 84: void OpenSWSPI(void);
-[; ;sw_spi.h: 87: char WriteSWSPI( char output);
-[; ;sw_spi.h: 90: void SetCSSWSPI(void);
-[; ;sw_spi.h: 93: void ClearCSSWSPI(void);
-[; ;sw_uart.h: 47: void OpenUART(void);
-[; ;sw_uart.h: 49: unsigned char ReadUART(void);
-[; ;sw_uart.h: 51: void WriteUART( unsigned char);
-[; ;sw_uart.h: 53: void getsUART( char *, unsigned char);
-[; ;sw_uart.h: 55: void putsUART( char *);
-[; ;sw_uart.h: 79: extern void DelayRXBitUART (void);
-[; ;sw_uart.h: 80: extern void DelayRXHalfBitUART(void);
-[; ;sw_uart.h: 81: extern void DelayTXBitUART (void);
-[; ;timers.h: 36: union Timers
-[; ;timers.h: 37: {
-[; ;timers.h: 38: unsigned int lt;
-[; ;timers.h: 39: char bt[2];
-[; ;timers.h: 40: };
-[; ;timers.h: 118: void OpenTimer0 ( unsigned char config);
-[; ;timers.h: 119: void CloseTimer0 (void);
-[; ;timers.h: 120: unsigned int ReadTimer0 (void);
-[; ;timers.h: 121: void WriteTimer0 ( unsigned int timer0);
-[; ;timers.h: 185: void OpenTimer1 ( unsigned char config, unsigned char config1);
-[; ;timers.h: 186: void CloseTimer1 (void);
-[; ;timers.h: 187: unsigned int ReadTimer1 (void);
-[; ;timers.h: 188: void WriteTimer1 ( unsigned int timer1);
-[; ;timers.h: 325: void OpenTimer2 ( unsigned char config);
-[; ;timers.h: 326: void CloseTimer2 (void);
-[; ;timers.h: 452: void OpenTimer3 ( unsigned char config, unsigned char config1);
-[; ;timers.h: 453: void CloseTimer3 (void);
-[; ;timers.h: 454: unsigned int ReadTimer3 (void);
-[; ;timers.h: 455: void WriteTimer3 ( unsigned int timer3);
-[; ;timers.h: 541: void OpenTimer4 ( unsigned char config);
-[; ;timers.h: 542: void CloseTimer4 (void);
-[; ;timers.h: 657: void OpenTimer5 ( unsigned char config, unsigned char config1);
-[; ;timers.h: 658: void CloseTimer5 (void);
-[; ;timers.h: 659: unsigned int ReadTimer5 (void);
-[; ;timers.h: 660: void WriteTimer5 ( unsigned int Timer5);
-[; ;timers.h: 746: void OpenTimer6 ( unsigned char config);
-[; ;timers.h: 747: void CloseTimer6 (void);
-[; ;usart.h: 200: union USART1
-[; ;usart.h: 201: {
-[; ;usart.h: 202: unsigned char val;
-[; ;usart.h: 203: struct
-[; ;usart.h: 204: {
-[; ;usart.h: 205: unsigned RX_NINE:1;
-[; ;usart.h: 206: unsigned TX_NINE:1;
-[; ;usart.h: 207: unsigned FRAME_ERROR:1;
-[; ;usart.h: 208: unsigned OVERRUN_ERROR:1;
-[; ;usart.h: 209: unsigned fill:4;
-[; ;usart.h: 210: };
-[; ;usart.h: 211: };
-[; ;usart.h: 212: extern union USART1 USART1_Status;
-[; ;usart.h: 214: void Open1USART ( unsigned char config, unsigned int spbrg);
-[; ;usart.h: 244: char Read1USART (void);
-[; ;usart.h: 245: void Write1USART ( char data);
-[; ;usart.h: 246: void gets1USART ( char *buffer, unsigned char len);
-[; ;usart.h: 247: void puts1USART ( char *data);
-[; ;usart.h: 248: void putrs1USART ( const  char *data);
-[; ;usart.h: 305: union USART2
-[; ;usart.h: 306: {
-[; ;usart.h: 307: unsigned char val;
-[; ;usart.h: 308: struct
-[; ;usart.h: 309: {
-[; ;usart.h: 310: unsigned RX_NINE:1;
-[; ;usart.h: 311: unsigned TX_NINE:1;
-[; ;usart.h: 312: unsigned FRAME_ERROR:1;
-[; ;usart.h: 313: unsigned OVERRUN_ERROR:1;
-[; ;usart.h: 314: unsigned fill:4;
-[; ;usart.h: 315: };
-[; ;usart.h: 316: };
-[; ;usart.h: 317: extern union USART2 USART2_Status;
-[; ;usart.h: 318: void Open2USART ( unsigned char config, unsigned int spbrg);
-[; ;usart.h: 333: char Read2USART (void);
-[; ;usart.h: 334: void Write2USART ( char data);
-[; ;usart.h: 335: void gets2USART ( char *buffer, unsigned char len);
-[; ;usart.h: 336: void puts2USART ( char *data);
-[; ;usart.h: 337: void putrs2USART ( const  char *data);
-[; ;usart.h: 660: void baud1USART ( unsigned char baudconfig);
-[; ;usart.h: 665: void baud2USART ( unsigned char baudconfig);
-[; ;xlcd.h: 87: void OpenXLCD( unsigned char);
-[; ;xlcd.h: 92: void SetCGRamAddr( unsigned char);
-[; ;xlcd.h: 97: void SetDDRamAddr( unsigned char);
-[; ;xlcd.h: 102: unsigned char BusyXLCD(void);
-[; ;xlcd.h: 107: unsigned char ReadAddrXLCD(void);
-[; ;xlcd.h: 112: char ReadDataXLCD(void);
-[; ;xlcd.h: 117: void WriteCmdXLCD( unsigned char);
-[; ;xlcd.h: 122: void WriteDataXLCD( char);
-[; ;xlcd.h: 132: void putsXLCD( char *);
-[; ;xlcd.h: 137: void putrsXLCD(const char *);
-[; ;xlcd.h: 140: extern void DelayFor18TCY(void);
-[; ;xlcd.h: 141: extern void DelayPORXLCD(void);
-[; ;xlcd.h: 142: extern void DelayXLCD(void);
-[; ;delays.h: 13: void Delay1TCYx(unsigned char);
-[; ;delays.h: 19: void Delay10TCYx(unsigned char);
-[; ;delays.h: 25: void Delay100TCYx(unsigned char);
-[; ;delays.h: 31: void Delay1KTCYx(unsigned char);
-[; ;delays.h: 37: void Delay10KTCYx(unsigned char);
 [; ;pic18.h: 18: __attribute__((__unsupported__("The " "flash_write" " routine is no longer supported. Please use the MPLAB X MCC."))) void flash_write(const unsigned char *, unsigned int, __far unsigned char *);
 [; ;pic18.h: 19: __attribute__((__unsupported__("The " "EraseFlash" " routine is no longer supported. Please use the MPLAB X MCC."))) void EraseFlash(unsigned long startaddr, unsigned long endaddr);
 [; ;pic18.h: 43: extern void __nop(void);
-[; ;pic18.h: 126: __attribute__((__unsupported__("The " "Read_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) unsigned char Read_b_eep(unsigned int badd);
-[; ;pic18.h: 127: __attribute__((__unsupported__("The " "Busy_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Busy_eep(void);
-[; ;pic18.h: 128: __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
 [; ;pic18.h: 157: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 159: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 161: extern __nonreentrant void _delay3(unsigned char);
@@ -8137,7 +7432,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.h: 349: int Get_Blink_State(int) ;
 [; ;tmr2.h: 350: void TMR2_SetInterruptHandler(void *InterruptHandler);
 "368 mcc_generated_files/tmr2.h
-[v _TMR2_InterruptHandler `*F8706 ~T0 @X0 1 e ]
+[v _TMR2_InterruptHandler `*F7765 ~T0 @X0 1 e ]
 [; ;tmr2.h: 368: void (*TMR2_InterruptHandler)(void);
 [; ;tmr2.h: 386: void TMR2_DefaultInterruptHandler(void);
 [; ;pin_manager.h: 386: void PIN_MANAGER_Initialize (void);
@@ -8167,6 +7462,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr0.h: 296: void TMR0_ISR(void);
 [; ;tmr0.h: 314: int GetTime();
 [; ;tmr0.h: 315: void ClearTime();
+[; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
 [; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
@@ -8261,10 +7557,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;..\UART.h: 106: int count;
 [; ;..\UART.h: 107: };
 "109 mcc_generated_files/..\UART.h
-[v _input_buffer `S1163 ~T0 @X0 1 e ]
+[v _input_buffer `S1126 ~T0 @X0 1 e ]
 [; ;..\UART.h: 109: struct UART_ring_buff input_buffer;
 "110
-[v _output_buffer `S1163 ~T0 @X0 1 e ]
+[v _output_buffer `S1126 ~T0 @X0 1 e ]
 [; ;..\UART.h: 110: struct UART_ring_buff output_buffer;
 "112
 [v _Transmit_stall `uc ~T0 @X0 1 e ]
@@ -8284,6 +7580,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;..\UART.h: 124: int Receive_available(void);
 [; ;..\UART.h: 125: unsigned char Receive_get(void);
 [; ;..\UART.h: 126: void Send_put(unsigned char _data);
+[; ;stddef.h: 6: typedef int ptrdiff_t;
 [; ;i2c1.h: 40: typedef enum
 [; ;i2c1.h: 41: {
 [; ;i2c1.h: 42: I2C1_MESSAGE_COMPLETE,
@@ -8390,7 +7687,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _TMR2_StartTimer ..  ]
 [; ;tmr2.c: 86: }
 "86
-[e :UE 1165 ]
+[e :UE 1128 ]
 }
 "88
 [v _TMR2_StartTimer `(v ~T0 @X0 1 ef ]
@@ -8405,7 +7702,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _T2CONbits 0 1 -> -> 1 `i `uc ]
 [; ;tmr2.c: 92: }
 "92
-[e :UE 1166 ]
+[e :UE 1129 ]
 }
 "94
 [v _TMR2_StopTimer `(v ~T0 @X0 1 ef ]
@@ -8420,7 +7717,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _T2CONbits 0 1 -> -> 0 `i `uc ]
 [; ;tmr2.c: 98: }
 "98
-[e :UE 1167 ]
+[e :UE 1130 ]
 }
 "100
 [v _TMR2_ReadTimer `(uc ~T0 @X0 1 ef ]
@@ -8439,10 +7736,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.c: 106: return readVal;
 "106
 [e ) _readVal ]
-[e $UE 1168  ]
+[e $UE 1131  ]
 [; ;tmr2.c: 107: }
 "107
-[e :UE 1168 ]
+[e :UE 1131 ]
 }
 "109
 [v _TMR2_WriteTimer `(v ~T0 @X0 1 ef1`uc ]
@@ -8460,7 +7757,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _TMR2 _timerVal ]
 [; ;tmr2.c: 113: }
 "113
-[e :UE 1169 ]
+[e :UE 1132 ]
 }
 "115
 [v _TMR2_LoadPeriodRegister `(v ~T0 @X0 1 ef1`uc ]
@@ -8478,7 +7775,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _PR2 _periodVal ]
 [; ;tmr2.c: 118: }
 "118
-[e :UE 1170 ]
+[e :UE 1133 ]
 }
 "120
 [v _TMR2_ISR `(v ~T0 @X0 1 ef ]
@@ -8496,7 +7793,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _TMR2_CallBack ..  ]
 [; ;tmr2.c: 129: }
 "129
-[e :UE 1171 ]
+[e :UE 1134 ]
 }
 "131
 [v _TMR2_CallBack `(v ~T0 @X0 1 ef ]
@@ -8510,257 +7807,257 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _i -> 0 `i ]
 [; ;tmr2.c: 134: while (i <= 5) {
 "134
-[e $U 1173  ]
-[e :U 1174 ]
+[e $U 1136  ]
+[e :U 1137 ]
 {
 [; ;tmr2.c: 136: if (LEDNUM_ENAB[i] == 1) {
 "136
-[e $ ! == *U + &U _LEDNUM_ENAB * -> -> _i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 1 `i 1176  ]
+[e $ ! == *U + &U _LEDNUM_ENAB * -> -> _i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 1 `i 1139  ]
 {
 [; ;tmr2.c: 137: switch (LEDState[i]) {
 "137
-[e $U 1178  ]
+[e $U 1141  ]
 {
 [; ;tmr2.c: 138: case 0:
 "138
-[e :U 1179 ]
+[e :U 1142 ]
 [; ;tmr2.c: 139: switch (i) {
 "139
-[e $U 1181  ]
+[e $U 1144  ]
 {
 [; ;tmr2.c: 140: case 0:
 "140
-[e :U 1182 ]
+[e :U 1145 ]
 [; ;tmr2.c: 141: do { LATC1 = ~LATC1; } while(0);
 "141
-[e :U 1185 ]
+[e :U 1148 ]
 {
 [e = _LATC1 -> ~ -> _LATC1 `ui `b ]
 }
-[e :U 1184 ]
+[e :U 1147 ]
 [; ;tmr2.c: 142: break;
 "142
-[e $U 1180  ]
+[e $U 1143  ]
 [; ;tmr2.c: 143: case 1:
 "143
-[e :U 1186 ]
+[e :U 1149 ]
 [; ;tmr2.c: 144: do { LATA6 = ~LATA6; } while(0);
 "144
-[e :U 1189 ]
+[e :U 1152 ]
 {
 [e = _LATA6 -> ~ -> _LATA6 `ui `b ]
 }
-[e :U 1188 ]
+[e :U 1151 ]
 [; ;tmr2.c: 145: break;
 "145
-[e $U 1180  ]
+[e $U 1143  ]
 [; ;tmr2.c: 146: case 2:
 "146
-[e :U 1190 ]
+[e :U 1153 ]
 [; ;tmr2.c: 147: do { LATA7 = ~LATA7; } while(0);
 "147
-[e :U 1193 ]
+[e :U 1156 ]
 {
 [e = _LATA7 -> ~ -> _LATA7 `ui `b ]
 }
-[e :U 1192 ]
+[e :U 1155 ]
 [; ;tmr2.c: 148: break;
 "148
-[e $U 1180  ]
+[e $U 1143  ]
 [; ;tmr2.c: 149: case 3:
 "149
-[e :U 1194 ]
+[e :U 1157 ]
 [; ;tmr2.c: 150: do { LATE2 = ~LATE2; } while(0);
 "150
-[e :U 1197 ]
+[e :U 1160 ]
 {
 [e = _LATE2 -> ~ -> _LATE2 `ui `b ]
 }
-[e :U 1196 ]
+[e :U 1159 ]
 [; ;tmr2.c: 151: break;
 "151
-[e $U 1180  ]
+[e $U 1143  ]
 [; ;tmr2.c: 152: case 4:
 "152
-[e :U 1198 ]
+[e :U 1161 ]
 [; ;tmr2.c: 153: do { LATE1 = ~LATE1; } while(0);
 "153
-[e :U 1201 ]
+[e :U 1164 ]
 {
 [e = _LATE1 -> ~ -> _LATE1 `ui `b ]
 }
-[e :U 1200 ]
+[e :U 1163 ]
 [; ;tmr2.c: 154: break;
 "154
-[e $U 1180  ]
+[e $U 1143  ]
 [; ;tmr2.c: 155: case 5:
 "155
-[e :U 1202 ]
+[e :U 1165 ]
 [; ;tmr2.c: 156: do { LATE0 = ~LATE0; } while(0);
 "156
-[e :U 1205 ]
+[e :U 1168 ]
 {
 [e = _LATE0 -> ~ -> _LATE0 `ui `b ]
 }
-[e :U 1204 ]
+[e :U 1167 ]
 [; ;tmr2.c: 157: break;
 "157
-[e $U 1180  ]
+[e $U 1143  ]
 "158
 }
 [; ;tmr2.c: 158: }
-[e $U 1180  ]
+[e $U 1143  ]
 "139
-[e :U 1181 ]
-[e [\ _i , $ -> 0 `i 1182
- , $ -> 1 `i 1186
- , $ -> 2 `i 1190
- , $ -> 3 `i 1194
- , $ -> 4 `i 1198
- , $ -> 5 `i 1202
- 1180 ]
+[e :U 1144 ]
+[e [\ _i , $ -> 0 `i 1145
+ , $ -> 1 `i 1149
+ , $ -> 2 `i 1153
+ , $ -> 3 `i 1157
+ , $ -> 4 `i 1161
+ , $ -> 5 `i 1165
+ 1143 ]
 "158
-[e :U 1180 ]
+[e :U 1143 ]
 [; ;tmr2.c: 159: LEDState[i] = 1;
 "159
 [e = *U + &U _LEDState * -> -> _i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 1 `i ]
 [; ;tmr2.c: 160: break;
 "160
-[e $U 1177  ]
+[e $U 1140  ]
 [; ;tmr2.c: 161: case 1:
 "161
-[e :U 1206 ]
+[e :U 1169 ]
 [; ;tmr2.c: 162: switch (i) {
 "162
-[e $U 1208  ]
+[e $U 1171  ]
 {
 [; ;tmr2.c: 163: case 0:
 "163
-[e :U 1209 ]
+[e :U 1172 ]
 [; ;tmr2.c: 164: do { LATC1 = ~LATC1; } while(0);
 "164
-[e :U 1212 ]
+[e :U 1175 ]
 {
 [e = _LATC1 -> ~ -> _LATC1 `ui `b ]
 }
-[e :U 1211 ]
+[e :U 1174 ]
 [; ;tmr2.c: 165: break;
 "165
-[e $U 1207  ]
+[e $U 1170  ]
 [; ;tmr2.c: 166: case 1:
 "166
-[e :U 1213 ]
+[e :U 1176 ]
 [; ;tmr2.c: 167: do { LATA6 = ~LATA6; } while(0);
 "167
-[e :U 1216 ]
+[e :U 1179 ]
 {
 [e = _LATA6 -> ~ -> _LATA6 `ui `b ]
 }
-[e :U 1215 ]
+[e :U 1178 ]
 [; ;tmr2.c: 168: break;
 "168
-[e $U 1207  ]
+[e $U 1170  ]
 [; ;tmr2.c: 169: case 2:
 "169
-[e :U 1217 ]
+[e :U 1180 ]
 [; ;tmr2.c: 170: do { LATA7 = ~LATA7; } while(0);
 "170
-[e :U 1220 ]
+[e :U 1183 ]
 {
 [e = _LATA7 -> ~ -> _LATA7 `ui `b ]
 }
-[e :U 1219 ]
+[e :U 1182 ]
 [; ;tmr2.c: 171: break;
 "171
-[e $U 1207  ]
+[e $U 1170  ]
 [; ;tmr2.c: 172: case 3:
 "172
-[e :U 1221 ]
+[e :U 1184 ]
 [; ;tmr2.c: 173: do { LATE2 = ~LATE2; } while(0);
 "173
-[e :U 1224 ]
+[e :U 1187 ]
 {
 [e = _LATE2 -> ~ -> _LATE2 `ui `b ]
 }
-[e :U 1223 ]
+[e :U 1186 ]
 [; ;tmr2.c: 174: break;
 "174
-[e $U 1207  ]
+[e $U 1170  ]
 [; ;tmr2.c: 175: case 4:
 "175
-[e :U 1225 ]
+[e :U 1188 ]
 [; ;tmr2.c: 176: do { LATE1 = ~LATE1; } while(0);
 "176
-[e :U 1228 ]
+[e :U 1191 ]
 {
 [e = _LATE1 -> ~ -> _LATE1 `ui `b ]
 }
-[e :U 1227 ]
+[e :U 1190 ]
 [; ;tmr2.c: 177: break;
 "177
-[e $U 1207  ]
+[e $U 1170  ]
 [; ;tmr2.c: 178: case 5:
 "178
-[e :U 1229 ]
+[e :U 1192 ]
 [; ;tmr2.c: 179: do { LATE0 = ~LATE0; } while(0);
 "179
-[e :U 1232 ]
+[e :U 1195 ]
 {
 [e = _LATE0 -> ~ -> _LATE0 `ui `b ]
 }
-[e :U 1231 ]
+[e :U 1194 ]
 [; ;tmr2.c: 180: break;
 "180
-[e $U 1207  ]
+[e $U 1170  ]
 "181
 }
 [; ;tmr2.c: 181: }
-[e $U 1207  ]
+[e $U 1170  ]
 "162
-[e :U 1208 ]
-[e [\ _i , $ -> 0 `i 1209
- , $ -> 1 `i 1213
- , $ -> 2 `i 1217
- , $ -> 3 `i 1221
- , $ -> 4 `i 1225
- , $ -> 5 `i 1229
- 1207 ]
+[e :U 1171 ]
+[e [\ _i , $ -> 0 `i 1172
+ , $ -> 1 `i 1176
+ , $ -> 2 `i 1180
+ , $ -> 3 `i 1184
+ , $ -> 4 `i 1188
+ , $ -> 5 `i 1192
+ 1170 ]
 "181
-[e :U 1207 ]
+[e :U 1170 ]
 [; ;tmr2.c: 182: LEDState[i] = 0;
 "182
 [e = *U + &U _LEDState * -> -> _i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
 [; ;tmr2.c: 183: break;
 "183
-[e $U 1177  ]
+[e $U 1140  ]
 "184
 }
 [; ;tmr2.c: 184: }
-[e $U 1177  ]
+[e $U 1140  ]
 "137
-[e :U 1178 ]
-[e [\ *U + &U _LEDState * -> -> _i `ui `ux -> -> # *U &U _LEDState `ui `ux , $ -> 0 `i 1179
- , $ -> 1 `i 1206
- 1177 ]
+[e :U 1141 ]
+[e [\ *U + &U _LEDState * -> -> _i `ui `ux -> -> # *U &U _LEDState `ui `ux , $ -> 0 `i 1142
+ , $ -> 1 `i 1169
+ 1140 ]
 "184
-[e :U 1177 ]
+[e :U 1140 ]
 "185
 }
-[e :U 1176 ]
+[e :U 1139 ]
 [; ;tmr2.c: 185: }
 [; ;tmr2.c: 186: i = i + 1;
 "186
 [e = _i + _i -> 1 `i ]
 "187
 }
-[e :U 1173 ]
+[e :U 1136 ]
 "134
-[e $ <= _i -> 5 `i 1174  ]
-[e :U 1175 ]
+[e $ <= _i -> 5 `i 1137  ]
+[e :U 1138 ]
 [; ;tmr2.c: 187: }
 [; ;tmr2.c: 191: if(TMR2_InterruptHandler)
 "191
-[e $ ! != _TMR2_InterruptHandler -> -> 0 `i `*F8706 1233  ]
+[e $ ! != _TMR2_InterruptHandler -> -> 0 `i `*F7765 1196  ]
 [; ;tmr2.c: 192: {
 "192
 {
@@ -8769,11 +8066,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( *U _TMR2_InterruptHandler ..  ]
 "194
 }
-[e :U 1233 ]
+[e :U 1196 ]
 [; ;tmr2.c: 194: }
 [; ;tmr2.c: 198: }
 "198
-[e :UE 1172 ]
+[e :UE 1135 ]
 }
 "202
 [v _setLED `(v ~T0 @X0 1 ef1`i ]
@@ -8784,11 +8081,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;tmr2.c: 203: switch (led){
 "203
-[e $U 1236  ]
+[e $U 1199  ]
 {
 [; ;tmr2.c: 204: case 0:
 "204
-[e :U 1237 ]
+[e :U 1200 ]
 [; ;tmr2.c: 205: LEDNUM_ENAB[0]=1;
 "205
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 0 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 1 `i ]
@@ -8797,10 +8094,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = *U + &U _LEDState * -> -> -> 0 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
 [; ;tmr2.c: 207: break;
 "207
-[e $U 1235  ]
+[e $U 1198  ]
 [; ;tmr2.c: 208: case 1:
 "208
-[e :U 1238 ]
+[e :U 1201 ]
 [; ;tmr2.c: 209: LEDNUM_ENAB[1]=1;
 "209
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 1 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 1 `i ]
@@ -8809,10 +8106,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = *U + &U _LEDState * -> -> -> 1 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
 [; ;tmr2.c: 211: break;
 "211
-[e $U 1235  ]
+[e $U 1198  ]
 [; ;tmr2.c: 212: case 2:
 "212
-[e :U 1239 ]
+[e :U 1202 ]
 [; ;tmr2.c: 213: LEDNUM_ENAB[2]=1;
 "213
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 2 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 1 `i ]
@@ -8821,10 +8118,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = *U + &U _LEDState * -> -> -> 2 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
 [; ;tmr2.c: 215: break;
 "215
-[e $U 1235  ]
+[e $U 1198  ]
 [; ;tmr2.c: 216: case 3:
 "216
-[e :U 1240 ]
+[e :U 1203 ]
 [; ;tmr2.c: 217: LEDNUM_ENAB[3]=1;
 "217
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 3 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 1 `i ]
@@ -8833,10 +8130,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = *U + &U _LEDState * -> -> -> 3 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
 [; ;tmr2.c: 219: break;
 "219
-[e $U 1235  ]
+[e $U 1198  ]
 [; ;tmr2.c: 220: case 4:
 "220
-[e :U 1241 ]
+[e :U 1204 ]
 [; ;tmr2.c: 221: LEDNUM_ENAB[4]=1;
 "221
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 4 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 1 `i ]
@@ -8845,10 +8142,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = *U + &U _LEDState * -> -> -> 4 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
 [; ;tmr2.c: 223: break;
 "223
-[e $U 1235  ]
+[e $U 1198  ]
 [; ;tmr2.c: 224: case 5:
 "224
-[e :U 1242 ]
+[e :U 1205 ]
 [; ;tmr2.c: 225: LEDNUM_ENAB[5]=1;
 "225
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 5 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 1 `i ]
@@ -8857,25 +8154,25 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = *U + &U _LEDState * -> -> -> 5 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
 [; ;tmr2.c: 227: break;
 "227
-[e $U 1235  ]
+[e $U 1198  ]
 "228
 }
 [; ;tmr2.c: 228: }
-[e $U 1235  ]
+[e $U 1198  ]
 "203
-[e :U 1236 ]
-[e [\ _led , $ -> 0 `i 1237
- , $ -> 1 `i 1238
- , $ -> 2 `i 1239
- , $ -> 3 `i 1240
- , $ -> 4 `i 1241
- , $ -> 5 `i 1242
- 1235 ]
+[e :U 1199 ]
+[e [\ _led , $ -> 0 `i 1200
+ , $ -> 1 `i 1201
+ , $ -> 2 `i 1202
+ , $ -> 3 `i 1203
+ , $ -> 4 `i 1204
+ , $ -> 5 `i 1205
+ 1198 ]
 "228
-[e :U 1235 ]
+[e :U 1198 ]
 [; ;tmr2.c: 229: }
 "229
-[e :UE 1234 ]
+[e :UE 1197 ]
 }
 "230
 [v _Off_Led `(v ~T0 @X0 1 ef1`i ]
@@ -8886,11 +8183,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;tmr2.c: 231: switch (led){
 "231
-[e $U 1245  ]
+[e $U 1208  ]
 {
 [; ;tmr2.c: 232: case 0:
 "232
-[e :U 1246 ]
+[e :U 1209 ]
 [; ;tmr2.c: 233: LEDNUM_ENAB[0]=0;
 "233
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 0 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 0 `i ]
@@ -8899,17 +8196,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = *U + &U _LEDState * -> -> -> 0 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
 [; ;tmr2.c: 235: do { LATC1 = 0; } while(0);
 "235
-[e :U 1249 ]
+[e :U 1212 ]
 {
 [e = _LATC1 -> -> 0 `i `b ]
 }
-[e :U 1248 ]
+[e :U 1211 ]
 [; ;tmr2.c: 236: break;
 "236
-[e $U 1244  ]
+[e $U 1207  ]
 [; ;tmr2.c: 237: case 1:
 "237
-[e :U 1250 ]
+[e :U 1213 ]
 [; ;tmr2.c: 238: LEDNUM_ENAB[1]=0;
 "238
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 1 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 0 `i ]
@@ -8918,17 +8215,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = *U + &U _LEDState * -> -> -> 1 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
 [; ;tmr2.c: 240: do { LATA6 = 0; } while(0);
 "240
-[e :U 1253 ]
+[e :U 1216 ]
 {
 [e = _LATA6 -> -> 0 `i `b ]
 }
-[e :U 1252 ]
+[e :U 1215 ]
 [; ;tmr2.c: 241: break;
 "241
-[e $U 1244  ]
+[e $U 1207  ]
 [; ;tmr2.c: 242: case 2:
 "242
-[e :U 1254 ]
+[e :U 1217 ]
 [; ;tmr2.c: 243: LEDNUM_ENAB[2]=0;
 "243
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 2 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 0 `i ]
@@ -8937,17 +8234,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = *U + &U _LEDState * -> -> -> 2 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
 [; ;tmr2.c: 245: do { LATA7 = 0; } while(0);
 "245
-[e :U 1257 ]
+[e :U 1220 ]
 {
 [e = _LATA7 -> -> 0 `i `b ]
 }
-[e :U 1256 ]
+[e :U 1219 ]
 [; ;tmr2.c: 246: break;
 "246
-[e $U 1244  ]
+[e $U 1207  ]
 [; ;tmr2.c: 247: case 3:
 "247
-[e :U 1258 ]
+[e :U 1221 ]
 [; ;tmr2.c: 248: LEDNUM_ENAB[3]=0;
 "248
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 3 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 0 `i ]
@@ -8956,17 +8253,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = *U + &U _LEDState * -> -> -> 3 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
 [; ;tmr2.c: 250: do { LATE2 = 0; } while(0);
 "250
-[e :U 1261 ]
+[e :U 1224 ]
 {
 [e = _LATE2 -> -> 0 `i `b ]
 }
-[e :U 1260 ]
+[e :U 1223 ]
 [; ;tmr2.c: 251: break;
 "251
-[e $U 1244  ]
+[e $U 1207  ]
 [; ;tmr2.c: 252: case 4:
 "252
-[e :U 1262 ]
+[e :U 1225 ]
 [; ;tmr2.c: 253: LEDNUM_ENAB[4]=0;
 "253
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 4 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 0 `i ]
@@ -8975,17 +8272,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = *U + &U _LEDState * -> -> -> 4 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
 [; ;tmr2.c: 255: do { LATE1 = 0; } while(0);
 "255
-[e :U 1265 ]
+[e :U 1228 ]
 {
 [e = _LATE1 -> -> 0 `i `b ]
 }
-[e :U 1264 ]
+[e :U 1227 ]
 [; ;tmr2.c: 256: break;
 "256
-[e $U 1244  ]
+[e $U 1207  ]
 [; ;tmr2.c: 257: case 5:
 "257
-[e :U 1266 ]
+[e :U 1229 ]
 [; ;tmr2.c: 258: LEDNUM_ENAB[5]=0;
 "258
 [e = *U + &U _LEDNUM_ENAB * -> -> -> 5 `i `ui `ux -> -> # *U &U _LEDNUM_ENAB `ui `ux -> 0 `i ]
@@ -8994,32 +8291,32 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = *U + &U _LEDState * -> -> -> 5 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
 [; ;tmr2.c: 260: do { LATE0 = 0; } while(0) ;
 "260
-[e :U 1269 ]
+[e :U 1232 ]
 {
 [e = _LATE0 -> -> 0 `i `b ]
 }
-[e :U 1268 ]
+[e :U 1231 ]
 [; ;tmr2.c: 261: break;
 "261
-[e $U 1244  ]
+[e $U 1207  ]
 "262
 }
 [; ;tmr2.c: 262: }
-[e $U 1244  ]
+[e $U 1207  ]
 "231
-[e :U 1245 ]
-[e [\ _led , $ -> 0 `i 1246
- , $ -> 1 `i 1250
- , $ -> 2 `i 1254
- , $ -> 3 `i 1258
- , $ -> 4 `i 1262
- , $ -> 5 `i 1266
- 1244 ]
+[e :U 1208 ]
+[e [\ _led , $ -> 0 `i 1209
+ , $ -> 1 `i 1213
+ , $ -> 2 `i 1217
+ , $ -> 3 `i 1221
+ , $ -> 4 `i 1225
+ , $ -> 5 `i 1229
+ 1207 ]
 "262
-[e :U 1244 ]
+[e :U 1207 ]
 [; ;tmr2.c: 264: }
 "264
-[e :UE 1243 ]
+[e :UE 1206 ]
 }
 "265
 [v _Get_Blink_State `(i ~T0 @X0 1 ef1`i ]
@@ -9030,77 +8327,77 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;tmr2.c: 266: switch (LED)
 "266
-[e $U 1272  ]
+[e $U 1235  ]
 [; ;tmr2.c: 267: {
 "267
 {
 [; ;tmr2.c: 268: case 0:
 "268
-[e :U 1273 ]
+[e :U 1236 ]
 [; ;tmr2.c: 269: return LEDState[0]=0;
 "269
 [e ) = *U + &U _LEDState * -> -> -> 0 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
-[e $UE 1270  ]
+[e $UE 1233  ]
 [; ;tmr2.c: 270: case 1:
 "270
-[e :U 1274 ]
+[e :U 1237 ]
 [; ;tmr2.c: 271: return LEDState[1]=0;
 "271
 [e ) = *U + &U _LEDState * -> -> -> 1 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
-[e $UE 1270  ]
+[e $UE 1233  ]
 [; ;tmr2.c: 272: case 2:
 "272
-[e :U 1275 ]
+[e :U 1238 ]
 [; ;tmr2.c: 273: return LEDState[2]=0;
 "273
 [e ) = *U + &U _LEDState * -> -> -> 2 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
-[e $UE 1270  ]
+[e $UE 1233  ]
 [; ;tmr2.c: 274: case 3:
 "274
-[e :U 1276 ]
+[e :U 1239 ]
 [; ;tmr2.c: 275: return LEDState[3]=0;
 "275
 [e ) = *U + &U _LEDState * -> -> -> 3 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
-[e $UE 1270  ]
+[e $UE 1233  ]
 [; ;tmr2.c: 276: case 4:
 "276
-[e :U 1277 ]
+[e :U 1240 ]
 [; ;tmr2.c: 277: return LEDState[4]=0;
 "277
 [e ) = *U + &U _LEDState * -> -> -> 4 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
-[e $UE 1270  ]
+[e $UE 1233  ]
 [; ;tmr2.c: 278: case 5:
 "278
-[e :U 1278 ]
+[e :U 1241 ]
 [; ;tmr2.c: 279: return LEDState[5]=0;
 "279
 [e ) = *U + &U _LEDState * -> -> -> 5 `i `ui `ux -> -> # *U &U _LEDState `ui `ux -> 0 `i ]
-[e $UE 1270  ]
+[e $UE 1233  ]
 [; ;tmr2.c: 280: default:
 "280
-[e :U 1279 ]
+[e :U 1242 ]
 [; ;tmr2.c: 281: return 0;
 "281
 [e ) -> 0 `i ]
-[e $UE 1270  ]
+[e $UE 1233  ]
 "282
 }
 [; ;tmr2.c: 282: }
-[e $U 1271  ]
+[e $U 1234  ]
 "266
-[e :U 1272 ]
-[e [\ _LED , $ -> 0 `i 1273
- , $ -> 1 `i 1274
- , $ -> 2 `i 1275
- , $ -> 3 `i 1276
- , $ -> 4 `i 1277
- , $ -> 5 `i 1278
- 1279 ]
+[e :U 1235 ]
+[e [\ _LED , $ -> 0 `i 1236
+ , $ -> 1 `i 1237
+ , $ -> 2 `i 1238
+ , $ -> 3 `i 1239
+ , $ -> 4 `i 1240
+ , $ -> 5 `i 1241
+ 1242 ]
 "282
-[e :U 1271 ]
+[e :U 1234 ]
 [; ;tmr2.c: 283: }
 "283
-[e :UE 1270 ]
+[e :UE 1233 ]
 }
 "285
 [v _Change_Blink_Rate `(v ~T0 @X0 1 ef1`i ]
@@ -9114,7 +8411,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _PR2 -> _time `uc ]
 [; ;tmr2.c: 287: }
 "287
-[e :UE 1280 ]
+[e :UE 1243 ]
 }
 "291
 [v _TMR2_SetInterruptHandler `(v ~T0 @X0 1 ef1`*v ]
@@ -9125,10 +8422,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;tmr2.c: 292: TMR2_InterruptHandler = InterruptHandler;
 "292
-[e = _TMR2_InterruptHandler -> _InterruptHandler `*F8706 ]
+[e = _TMR2_InterruptHandler -> _InterruptHandler `*F7765 ]
 [; ;tmr2.c: 293: }
 "293
-[e :UE 1281 ]
+[e :UE 1244 ]
 }
 "295
 [v _TMR2_DefaultInterruptHandler `(v ~T0 @X0 1 ef ]
@@ -9138,5 +8435,5 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;tmr2.c: 298: }
 "298
-[e :UE 1282 ]
+[e :UE 1245 ]
 }
