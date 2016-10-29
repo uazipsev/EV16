@@ -31,13 +31,14 @@ void UART4_init(void) {
     U4MODEbits.STSEL = 0; // 1-stop bit
     U4MODEbits.PDSEL = 0; // No parity, 8-data bits
     U4MODEbits.ABAUD = 0; // Auto-baud disabled
-    U4BRG = BAUD_RATE; // Baud Rate setting for 9600
-    U4STAbits.URXISEL = 0b01; // Interrupt after all TX character transmitted
+    U4BRG = BAUD_RATE; // Baud Rate setting for 57600
+    U4STAbits.UTXISEL0 = 1; // Interrupt after all TX character transmitted
+    U4STAbits.UTXISEL1 = 0; // Interrupt after all TX character transmitted
     U4STAbits.URXISEL = 0b00; // Interrupt after one RX character is received
     IFS5bits.U4RXIF = 0; // Clear RX interrupt flag
     IFS5bits.U4TXIF = 0; // Clear TX interrupt flag
     IEC5bits.U4RXIE = 1; // Enable RX interrupt
-    IEC5bits.U4TXIE = 1; // Enable TX interrupt
+
 
     UART4_buff_init(&input_buffer4);
     UART4_buff_init(&output_buffer4);
@@ -46,7 +47,7 @@ void UART4_init(void) {
 }
 
 void UART4_Clear(){
-    UART4_buff_flush(&input_buffer4,1);
+    UART4_buff_flush(&input_buffer4,0);
 }
 
 void UART4_buff_init(struct UART4_ring_buff* _this) {
@@ -128,6 +129,7 @@ void Send_put4(unsigned char _data) {
     if (Transmit_stall4 == true) {
         Transmit_stall4 = false;
         U4TXREG = UART4_buff_get(&output_buffer4);
+        IEC5bits.U4TXIE = 1; // Enable TX interrupt
     }
 }
 
@@ -141,11 +143,11 @@ void __attribute__((interrupt, no_auto_psv)) _U4RXInterrupt(void) {
 }
 
 void __attribute__((interrupt, no_auto_psv)) _U4TXInterrupt(void) {
-    //LED ^= 1;
     if (UART4_buff_size(&output_buffer4) > 0) {
         U4TXREG = UART4_buff_get(&output_buffer4);
+        
     } else {
-
+        IEC5bits.U4TXIE = 0; // Enable TX interrupt
         //talkTime = 0;
         Transmit_stall4 = true;
     }

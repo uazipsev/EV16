@@ -8,8 +8,30 @@
 #ifndef CAM_M8_H
 #define	CAM_M8_H
 
+struct GPS_Data {
+    char Hours; // 7 bit address
+    char Minutes; // pin used for sda coresponds to gpio
+    char Seconds; // clock
+    float Latitude; // proportional to bus speed
+    float Longitude;
+	int Altitude;
+	char Satellites;			// For serial port GPS
+    int Speed;
+    int Direction;
+	
+};
+
 void CamM8Init();
-void CamM8Read();
+int CamM8Read();
+void setGPS_GNSS();
+float FixPosition(float Position);
+void ProcessLine(struct GPS_Data *GPS, char *Buffer, int Count);
+void CamM8CRC(char *Message, int len);
+int CamM8CRCCheck(char *Message, int Count);
+void SendUBX(char *MSG, int len);
+void PrintGPSData();
+void SetCarMode();
+void SetPowerMode();
 
 //Start info
 

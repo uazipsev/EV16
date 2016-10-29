@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
     //Delay(1000);
     while (1) {
         ledDebug();
-        updateComms();
+        //updateComms();
     }
     return (EXIT_SUCCESS);
 }

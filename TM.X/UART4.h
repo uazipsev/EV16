@@ -9,7 +9,7 @@
 #define	UART4_H
 
 #define BAUD_SET 9600
-#define UART_BUFFER_SIZE 500
+#define UART_BUFFER_SIZE 1000
 #define CLOCK_RATE   36000000
 #define BAUD_RATE (((CLOCK_RATE/BAUD_SET)/16)-1)
 

@@ -29,7 +29,7 @@ int read= 0;
  *******************************************************************/
 void Setup(void) {
 
-    __C30_UART=4;
+    __C30_UART=2;
     PinSetMode();
     // setup internal clock for 72MHz/36MIPS
     // 12/2=6*24=132/2=72
@@ -66,7 +66,7 @@ void Setup(void) {
     
     UART2_init();
     
-    TSSCommsStart();
+    //TSSCommsStart();
     CamM8Init();
 
     //This controls the timing system to control communication rates  
@@ -104,16 +104,19 @@ void PinSetMode(void) {
 //    ANSELCbits.ANSC0 = 0;
 //    ANSELAbits.ANSA4 = 1;
     ANSELCbits.ANSC1 = 0;
+    ANSELCbits.ANSC0 = 0;
 //    //RX0_Tris=OUTPUT;
 //    //TX0_Tris=OUTPUT;
 //    //RX1_Tris=OUTPUT;
 //    //TX1_Tris=OUTPUT;
 //    //RX_Tris=OUTPUT;
 //    //TX_Tris=OUTPUT;
-   // RX4_Tris=OUTPUT;
-   // TX4_Tris=OUTPUT;
+    //RX4_Tris=INPUT;
+    //TX4_Tris=OUTPUT;
+    //LATCbits.LATC0 = 1;
 }
 
+long LastTime = 0;
 /*******************************************************************
  * @brief           ledDebug
  * @brief           Allows us to see device activity
@@ -121,10 +124,15 @@ void PinSetMode(void) {
  * @note            uses timer to control the function tick rate
  *******************************************************************/
 void ledDebug(){
+    if((GetTime(TIME) - LastTime) > 2){
+        LastTime = GetTime(TIME);
+        CamM8Read();
+    }
     if (GetTime(TIME) > 250) {
         INDICATOR ^= 1;
+        LastTime = 0;
+        //PrintGPSData();
         SetTime(TIME);
-        CamM8Read();
     }
 }
 
