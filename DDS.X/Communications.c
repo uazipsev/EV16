@@ -13,11 +13,11 @@ void updateComms() {
   
     if (receiveData()) {
         //INDICATOR_Toggle();
-        if (receiveArray[RESPONSE_ADDRESS] == ECU_ADDRESS) {
+        if (ReceiveArrayGet(RESPONSE_ADDRESS) == ECU_ADDRESS) {
             respondECU();
-            handleIndicators(receiveArray[LED_DDS]);
-            DataBarGraphs(receiveArray[THROTTLE_DDS], receiveArray[BRAKE_DDS]);
-            receiveArray[RESPONSE_ADDRESS] = 0;
+            handleIndicators(ReceiveArrayGet(LED_DDS));
+            DataBarGraphs(ReceiveArrayGet(THROTTLE_DDS), ReceiveArrayGet(BRAKE_DDS));
+            //ReceiveArrayGet(RESPONSE_ADDRESS) = 0;
         }
 
     }

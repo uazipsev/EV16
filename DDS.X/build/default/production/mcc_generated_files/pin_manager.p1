@@ -115,6 +115,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1 . . ]
 "64
 [v _ANSELAbits `VS1 ~T0 @X0 0 e@3896 ]
+"19939
+[v _TRISA6 `Vb ~T0 @X0 0 e@31894 ]
+"19961
+[v _TRISC1 `Vb ~T0 @X0 0 e@31905 ]
+"18811
+[v _LATA6 `Vb ~T0 @X0 0 e@31822 ]
+"18833
+[v _LATC1 `Vb ~T0 @X0 0 e@31833 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -7532,7 +7540,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pin_manager.c: 91: ANSELCbits.ANSC7 = 0;
 "91
 [e = . . _ANSELCbits 0 6 -> -> 0 `i `uc ]
-[; ;pin_manager.c: 92: }
-"92
+[; ;pin_manager.c: 93: do { TRISA6 = 0; } while(0);
+"93
+[e :U 1124 ]
+{
+[e = _TRISA6 -> -> 0 `i `b ]
+}
+[e :U 1123 ]
+[; ;pin_manager.c: 94: do { TRISC1 = 0; } while(0);
+"94
+[e :U 1127 ]
+{
+[e = _TRISC1 -> -> 0 `i `b ]
+}
+[e :U 1126 ]
+[; ;pin_manager.c: 95: LATA6 = 0;
+"95
+[e = _LATA6 -> -> 0 `i `b ]
+[; ;pin_manager.c: 96: LATC1 = 0;
+"96
+[e = _LATC1 -> -> 0 `i `b ]
+[; ;pin_manager.c: 97: }
+"97
 [e :UE 1121 ]
 }

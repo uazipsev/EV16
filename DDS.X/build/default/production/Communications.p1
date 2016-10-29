@@ -1,19 +1,8 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F7744 `(v ~T0 @X0 0 tf1`uc ]
-[v F7747 `(uc ~T0 @X0 0 tf ]
-[v F7750 `(i ~T0 @X0 0 tf ]
-[v F7753 `(uc ~T0 @X0 0 tf ]
-"52 FastTransfer.h
-[s S1121 `uc -> 200 `i `i 1 `i 1 `i 1 ]
-[n S1121 ringBufS buf head tail count ]
-"60
-[u S1122 `uc -> 2 `i `ui 1 ]
-[n S1122 stuff parts integer ]
-"66
-[s S1123 `uc * -> 5 `i -> 3 `i `i 1 ]
-[n S1123 crcBufS buf head ]
-"16
+"18 FastTransfer.h
 [v _receiveData `(uc ~T0 @X0 0 ef ]
+"25
+[v _ReceiveArrayGet `(ui ~T0 @X0 0 ef1`i ]
 "16 Communications.h
 [v _respondECU `(v ~T0 @X0 0 ef ]
 "17
@@ -52,13 +41,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S476 . . . . . . . . . . ]
 "7980
 [v _LATCbits `VS476 ~T0 @X0 0 e@3979 ]
-"17 FastTransfer.h
+"19 FastTransfer.h
 [v _ToSend `(v ~T0 @X0 0 ef2`Cuc`Cui ]
 "15 Communications.h
 [v _buttonsCollector `(ui ~T0 @X0 0 ef ]
 "11 Function.h
 [v _Delay `(v ~T0 @X0 0 ef1`i ]
-"15 FastTransfer.h
+"17 FastTransfer.h
 [v _sendData `(v ~T0 @X0 0 ef1`uc ]
 "11 IO.h
 [v _SetLEDOut `(v ~T0 @X0 0 ef2`i`i ]
@@ -7391,107 +7380,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 157: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 159: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 161: extern __nonreentrant void _delay3(unsigned char);
-[; ;FastTransfer.h: 14: void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
-[; ;FastTransfer.h: 15: void sendData(unsigned char whereToSend);
-[; ;FastTransfer.h: 16: bool receiveData();
-[; ;FastTransfer.h: 17: void ToSend(const unsigned char where, const unsigned int what);
-[; ;FastTransfer.h: 18: unsigned char AKNAK(unsigned char module);
-[; ;FastTransfer.h: 19: unsigned int alignError(void);
-[; ;FastTransfer.h: 20: unsigned int CRCError(void);
-[; ;FastTransfer.h: 21: unsigned int addressError(void);
-[; ;FastTransfer.h: 22: unsigned int dataAddressError(void);
-"24 FastTransfer.h
-[v _receiveArray `Vi ~T0 @X0 -> 20 `i e ]
-[; ;FastTransfer.h: 24: volatile int receiveArray[20];
-"26
-[v _serial_write `*F7744 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 26: void (*serial_write)(unsigned char);
-"27
-[v _serial_read `*F7747 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 27: unsigned char (*serial_read)(void);
-"28
-[v _serial_available `*F7750 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 28: int (*serial_available)(void);
-"29
-[v _serial_peek `*F7753 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 29: unsigned char (*serial_peek)(void);
-"30
-[v _rx_buffer `uc ~T0 @X0 -> 200 `i e ]
-[; ;FastTransfer.h: 30: unsigned char rx_buffer[200];
-"31
-[v _rx_array_inx `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 31: unsigned char rx_array_inx;
-"32
-[v _rx_len `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 32: unsigned char rx_len;
-"33
-[v _calc_CS `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 33: unsigned char calc_CS;
-"34
-[v _moduleAddress `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 34: unsigned char moduleAddress;
-"35
-[v _returnAddress `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 35: unsigned char returnAddress;
-"36
-[v _maxDataAddress `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 36: unsigned char maxDataAddress;
-"37
-[v _receiveArrayAddress `*Vi ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 37: volatile int * receiveArrayAddress;
-"38
-[v _sendStructAddress `*uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 38: unsigned char * sendStructAddress;
-"39
-[v _AKNAKsend `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 39: bool AKNAKsend;
-"40
-[v _alignErrorCounter `ui ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 40: unsigned int alignErrorCounter;
-"41
-[v _crcErrorCounter `ui ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 41: unsigned int crcErrorCounter;
-"42
-[v _addressErrorCounter `ui ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 42: unsigned int addressErrorCounter;
-"43
-[v _dataAdressErrorCounter `ui ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 43: unsigned int dataAdressErrorCounter;
-"44
-[v _rx_address `uc ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 44: unsigned char rx_address;
-[; ;FastTransfer.h: 52: struct ringBufS {
-[; ;FastTransfer.h: 53: unsigned char buf[200];
-[; ;FastTransfer.h: 54: int head;
-[; ;FastTransfer.h: 55: int tail;
-[; ;FastTransfer.h: 56: int count;
-[; ;FastTransfer.h: 57: };
-"58
-[v _ring_buffer `S1121 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 58: struct ringBufS ring_buffer;
-[; ;FastTransfer.h: 60: union stuff {
-[; ;FastTransfer.h: 61: unsigned char parts[2];
-[; ;FastTransfer.h: 62: unsigned int integer;
-[; ;FastTransfer.h: 63: };
-"64
-[v _group `S1122 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 64: union stuff group;
-[; ;FastTransfer.h: 66: struct crcBufS {
-[; ;FastTransfer.h: 67: unsigned char buf[(5 * 3)];
-[; ;FastTransfer.h: 68: int head;
-[; ;FastTransfer.h: 69: };
-"70
-[v _crc_buffer `S1123 ~T0 @X0 1 e ]
-[; ;FastTransfer.h: 70: struct crcBufS crc_buffer;
-[; ;FastTransfer.h: 72: unsigned char CRC8(const unsigned char * data, unsigned char len);
-[; ;FastTransfer.h: 73: void FastTransfer_buffer_put(struct ringBufS *_this, const unsigned char towhere, const unsigned int towhat);
-[; ;FastTransfer.h: 74: unsigned char FastTransfer_buffer_get(struct ringBufS* _this);
-[; ;FastTransfer.h: 75: void FastTransfer_buffer_flush(struct ringBufS* _this, const int clearBuffer);
-[; ;FastTransfer.h: 76: unsigned int FastTransfer_buffer_modulo_inc(const unsigned int value, const unsigned int modulus);
-[; ;FastTransfer.h: 77: void crcBufS_put(struct crcBufS* _this, unsigned char address, unsigned char oldCRC, unsigned char status);
-[; ;FastTransfer.h: 78: void crcBufS_status_put(struct crcBufS* _this, unsigned char time, unsigned char status);
-[; ;FastTransfer.h: 79: unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned char space);
-[; ;FastTransfer.h: 80: void CRCcheck(void);
+[; ;FastTransfer.h: 16: void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
+[; ;FastTransfer.h: 17: void sendData(unsigned char whereToSend);
+[; ;FastTransfer.h: 18: bool receiveData();
+[; ;FastTransfer.h: 19: void ToSend(const unsigned char where, const unsigned int what);
+[; ;FastTransfer.h: 20: unsigned char AKNAK(unsigned char module);
+[; ;FastTransfer.h: 21: unsigned int alignError(void);
+[; ;FastTransfer.h: 22: unsigned int CRCError(void);
+[; ;FastTransfer.h: 23: unsigned int addressError(void);
+[; ;FastTransfer.h: 24: unsigned int dataAddressError(void);
+[; ;FastTransfer.h: 25: unsigned int ReceiveArrayGet(int location);
+[; ;FastTransfer.h: 26: void wipeRxBuffer(void);
 [; ;Communications.h: 14: void updateComms();
 [; ;Communications.h: 15: unsigned int buttonsCollector();
 [; ;Communications.h: 16: void respondECU();
@@ -7518,35 +7417,32 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;Communications.c: 14: if (receiveData()) {
 "14
-[e $ ! != -> ( _receiveData ..  `i -> -> -> 0 `i `uc `i 1125  ]
+[e $ ! != -> ( _receiveData ..  `i -> -> -> 0 `i `uc `i 1122  ]
 {
-[; ;Communications.c: 16: if (receiveArray[0] == 1) {
+[; ;Communications.c: 16: if (ReceiveArrayGet(0) == 1) {
 "16
-[e $ ! == *U + &U _receiveArray * -> -> -> 0 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux -> 1 `i 1126  ]
+[e $ ! == ( _ReceiveArrayGet (1 -> 0 `i -> -> 1 `i `ui 1123  ]
 {
 [; ;Communications.c: 17: respondECU();
 "17
 [e ( _respondECU ..  ]
-[; ;Communications.c: 18: handleIndicators(receiveArray[2]);
+[; ;Communications.c: 18: handleIndicators(ReceiveArrayGet(2));
 "18
-[e ( _handleIndicators (1 *U + &U _receiveArray * -> -> -> 2 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux ]
-[; ;Communications.c: 19: DataBarGraphs(receiveArray[3], receiveArray[4]);
+[e ( _handleIndicators (1 -> ( _ReceiveArrayGet (1 -> 2 `i `i ]
+[; ;Communications.c: 19: DataBarGraphs(ReceiveArrayGet(3), ReceiveArrayGet(4));
 "19
-[e ( _DataBarGraphs (2 , -> *U + &U _receiveArray * -> -> -> 3 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux `ui -> *U + &U _receiveArray * -> -> -> 4 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux `ui ]
-[; ;Communications.c: 20: receiveArray[0] = 0;
-"20
-[e = *U + &U _receiveArray * -> -> -> 0 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux -> 0 `i ]
+[e ( _DataBarGraphs (2 , ( _ReceiveArrayGet (1 -> 3 `i ( _ReceiveArrayGet (1 -> 4 `i ]
 "21
 }
-[e :U 1126 ]
+[e :U 1123 ]
 "23
 }
-[e :U 1125 ]
+[e :U 1122 ]
 [; ;Communications.c: 21: }
 [; ;Communications.c: 23: }
 [; ;Communications.c: 24: }
 "24
-[e :UE 1124 ]
+[e :UE 1121 ]
 }
 "26
 [v _respondECU `(v ~T0 @X0 1 ef ]
@@ -7577,7 +7473,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
 [; ;Communications.c: 34: }
 "34
-[e :UE 1127 ]
+[e :UE 1124 ]
 }
 "36
 [v _handleIndicators `(v ~T0 @X0 1 ef1`i ]
@@ -7587,14 +7483,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _receivedIndicators `i ~T0 @X0 1 r1 ]
 [f ]
 "37
-[v F7841 `i ~T0 @X0 1 s oldIndicators ]
-[i F7841
+[v F7773 `i ~T0 @X0 1 s oldIndicators ]
+[i F7773
 -> 0 `i
 ]
 [; ;Communications.c: 37: static int oldIndicators = 0;
 [; ;Communications.c: 38: if (receivedIndicators != oldIndicators) {
 "38
-[e $ ! != _receivedIndicators F7841 1129  ]
+[e $ ! != _receivedIndicators F7773 1126  ]
 {
 "39
 [v _i `i ~T0 @X0 1 a ]
@@ -7604,9 +7500,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "40
 {
 [e = _i -> 0 `i ]
-[e $ < _i -> 6 `i 1130  ]
-[e $U 1131  ]
-[e :U 1130 ]
+[e $ < _i -> 6 `i 1127  ]
+[e $U 1128  ]
+[e :U 1127 ]
 {
 [; ;Communications.c: 41: SetLEDOut(i, ((receivedIndicators >> i)&0x01));
 "41
@@ -7615,21 +7511,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 "40
 [e ++ _i -> 1 `i ]
-[e $ < _i -> 6 `i 1130  ]
-[e :U 1131 ]
+[e $ < _i -> 6 `i 1127  ]
+[e :U 1128 ]
 "42
 }
 [; ;Communications.c: 42: }
 [; ;Communications.c: 43: oldIndicators = receivedIndicators;
 "43
-[e = F7841 _receivedIndicators ]
+[e = F7773 _receivedIndicators ]
 "44
 }
-[e :U 1129 ]
+[e :U 1126 ]
 [; ;Communications.c: 44: }
 [; ;Communications.c: 46: }
 "46
-[e :UE 1128 ]
+[e :UE 1125 ]
 }
 "48
 [v _DataBarGraphs `(v ~T0 @X0 1 ef2`ui`ui ]
@@ -7647,7 +7543,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _DataBarGraphB _BGB ]
 [; ;Communications.c: 51: }
 "51
-[e :UE 1133 ]
+[e :UE 1130 ]
 }
 "53
 [v _GetDataBarGraphA `(ui ~T0 @X0 1 ef ]
@@ -7658,10 +7554,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Communications.c: 54: return DataBarGraphA;
 "54
 [e ) _DataBarGraphA ]
-[e $UE 1134  ]
+[e $UE 1131  ]
 [; ;Communications.c: 55: }
 "55
-[e :UE 1134 ]
+[e :UE 1131 ]
 }
 "57
 [v _GetDataBarGraphB `(ui ~T0 @X0 1 ef ]
@@ -7672,10 +7568,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Communications.c: 58: return DataBarGraphA;
 "58
 [e ) _DataBarGraphA ]
-[e $UE 1135  ]
+[e $UE 1132  ]
 [; ;Communications.c: 59: }
 "59
-[e :UE 1135 ]
+[e :UE 1132 ]
 }
 "61
 [v _buttonsCollector `(ui ~T0 @X0 1 ef ]
@@ -7695,9 +7591,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "64
 {
 [e = _i -> 0 `i ]
-[e $ < _i -> 8 `i 1137  ]
-[e $U 1138  ]
-[e :U 1137 ]
+[e $ < _i -> 8 `i 1134  ]
+[e $U 1135  ]
+[e :U 1134 ]
 {
 [; ;Communications.c: 65: sendVal = sendVal | ((GetButtonState(i)&0x01) << i);
 "65
@@ -7706,16 +7602,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 "64
 [e ++ _i -> 1 `i ]
-[e $ < _i -> 8 `i 1137  ]
-[e :U 1138 ]
+[e $ < _i -> 8 `i 1134  ]
+[e :U 1135 ]
 "66
 }
 [; ;Communications.c: 66: }
 [; ;Communications.c: 67: return sendVal;
 "67
 [e ) _sendVal ]
-[e $UE 1136  ]
+[e $UE 1133  ]
 [; ;Communications.c: 68: }
 "68
-[e :UE 1136 ]
+[e :UE 1133 ]
 }

@@ -9274,7 +9274,7 @@ extern char * ultoa(char * buf, unsigned long val, int base);
 
 extern char * ftoa(float f, int * status);
 
-# 14 "FastTransfer.h"
+# 16 "FastTransfer.h"
 void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void));
 void sendData(unsigned char whereToSend);
 bool receiveData();
@@ -9284,7 +9284,16 @@ unsigned int alignError(void);
 unsigned int CRCError(void);
 unsigned int addressError(void);
 unsigned int dataAddressError(void);
+unsigned int ReceiveArrayGet(int location);
+void wipeRxBuffer(void);
 
+# 386 "mcc_generated_files/pin_manager.h"
+void PIN_MANAGER_Initialize (void);
+
+# 398
+void PIN_MANAGER_IOC(void);
+
+# 15 "FastTransfer.c"
 volatile int receiveArray[20];
 
 void (*serial_write)(unsigned char);
@@ -9307,7 +9316,7 @@ unsigned int addressErrorCounter;
 unsigned int dataAdressErrorCounter;
 unsigned char rx_address;
 
-# 52
+# 43
 struct ringBufS {
 unsigned char buf[200];
 int head;
@@ -9338,13 +9347,23 @@ void crcBufS_status_put(struct crcBufS* _this, unsigned char time, unsigned char
 unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned char space);
 void CRCcheck(void);
 
-# 386 "mcc_generated_files/pin_manager.h"
-void PIN_MANAGER_Initialize (void);
+unsigned int ReceiveArrayGet(int location){
+return receiveArray[location];
+}
 
-# 398
-void PIN_MANAGER_IOC(void);
+void wipeRxBuffer(void)
+{
+int i=0;
+for(i=0;i<200;i++)
+{
+rx_buffer[i]=0;
 
-# 19 "FastTransfer.c"
+}
+
+}
+
+
+
 void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void)) {
 receiveArrayAddress = ptr;
 moduleAddress = givenAddress;
@@ -9451,7 +9470,7 @@ return 0;
 
 if (rx_len != 0) {
 
-# 138
+# 209
 while (serial_available() && rx_array_inx <= rx_len) {
 rx_buffer[rx_array_inx++] = serial_read();
 }
@@ -9477,52 +9496,18 @@ dataAdressErrorCounter++;
 }
 }
 
-
-if (AKNAKsend) {
-unsigned char holder[3];
-holder[0] = 255;
-holder[1] = 1;
-holder[2] = rx_buffer[rx_array_inx - 1];
-unsigned char crcHolder = CRC8(holder, 3);
-serial_write(0x06);
-serial_write(0x85);
-serial_write(returnAddress);
-serial_write(moduleAddress);
-serial_write(3);
-serial_write(255);
-serial_write(1);
-serial_write(rx_buffer[rx_array_inx - 1]);
-serial_write(crcHolder);
-}
-
-
-
+# 253
 rx_len = 0;
 rx_array_inx = 0;
+wipeRxBuffer();
 return 1;
 } else {
 crcErrorCounter++;
 
-if (AKNAKsend) {
-unsigned char holder[3];
-holder[0] = 255;
-holder[1] = 2;
-holder[2] = rx_buffer[rx_array_inx - 1];
-unsigned char crcHolder = CRC8(holder, 3);
-serial_write(0x06);
-serial_write(0x85);
-serial_write(returnAddress);
-serial_write(moduleAddress);
-serial_write(3);
-serial_write(255);
-serial_write(2);
-serial_write(rx_buffer[rx_array_inx - 1]);
-serial_write(crcHolder);
-}
-
-
+# 278
 rx_len = 0;
 rx_array_inx = 0;
+wipeRxBuffer();
 return 0;
 }
 }

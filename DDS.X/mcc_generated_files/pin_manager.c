@@ -89,6 +89,11 @@ void PIN_MANAGER_Initialize(void)
     TRISCbits.RC7 = 1;
     ANSELCbits.ANSC6 = 0;
     ANSELCbits.ANSC7 = 0;
+    
+    LED1_SetDigitalOutput();
+    LED0_SetDigitalOutput();
+    LED1_LAT = OUTPUT;
+    LED0_LAT = OUTPUT;
 }
 /**
  End of File
