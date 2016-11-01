@@ -8,12 +8,13 @@
 #ifndef FASTTRANSFERPRIVATE_H
 #define	FASTTRANSFERPRIVATE_H
 
+#include "FastTransfer.h"
 
 void (*serial_write)(unsigned char);
 unsigned char (*serial_read)(void);
 int (*serial_available)(void);
 unsigned char (*serial_peek)(void);
-unsigned char * rx_buffer; //address for temporary storage and parsing buffer
+unsigned char rx_buffer[RX_BUFFER_SIZE]; //address for temporary storage and parsing buffer
 unsigned char rx_array_inx; //index for RX parsing buffer
 unsigned char rx_len; //RX packet length according to the packet
 unsigned char calc_CS; //calculated Checksum

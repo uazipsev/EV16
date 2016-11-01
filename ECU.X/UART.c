@@ -40,7 +40,7 @@ void UART_init(void) {
     U1MODEbits.STSEL = 0; // 1-stop bit
     U1MODEbits.PDSEL = 0; // No parity, 8-data bits
     U1MODEbits.ABAUD = 0; // Auto-baud disabled
-    U1BRG = BAUD_RATE; // Baud Rate setting for 57600
+    U1BRG = BAUD_RATE; // Baud Rate setting for 38400
     U1STAbits.UTXISEL0 = 1; // Interrupt after all TX character transmitted
     U1STAbits.UTXISEL1 = 0; // Interrupt after all TX character transmitted
     U1STAbits.URXISEL = 0b00; // Interrupt after one RX character is received

@@ -22,9 +22,9 @@ void updateComms() {
 
 void respondECU() {
     RS485_TSS_Direction = TALK;  //RS485 set to talk
-    ToSend(0,SS_ADDRESS);      //Send falt high byte
-    ToSend(1,(unsigned int)GetFaults(1));      //Send falt high byte
-    ToSend(2,(unsigned int)GetFaults(0));      //Send falt low byte
+    ToSend(0,SS_ADDRESS);      //Send fault high byte
+    ToSend(1,GetFaults(1));      //Send fault high byte
+    ToSend(2,GetFaults(0));      //Send fault low byte
     Delay(5);
     sendData(ECU_ADDRESS);       //Send data to ECU
     Delay(3);

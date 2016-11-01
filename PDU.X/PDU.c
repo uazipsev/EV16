@@ -15,14 +15,16 @@
 
 bool MCSOn = 0;
 
+bool PDUFalult[8];
+
 void PDUStartup(void) {
     //We are assuming the car just started up.
     //Lets shut down all outputs untill told otherwise
     StartUp595();
-    EnableSlavePower(SAS, OFF);
-    EnableSlavePower(DDS, OFF);
+    EnableSlavePower(SAS, ON);
+    EnableSlavePower(DDS, ON);
     EnableSlavePower(MCS, OFF);
-    EnableSlavePower(BMM, OFF);
+    EnableSlavePower(BMM, ON);
     EnableSlavePower(TSS, OFF);
     EnableSlavePower(AUX, OFF);
     Update();
@@ -179,31 +181,45 @@ void FuseSystem() {
     }
     //printf("\n");
     for (int i = 0; i < 6; i++) {
-        if (Current[i] > Currentcomp[i]) {
-            //over current condition
-            LED1_SetHigh();
-            switch(i){
-                case 0:
-                    EnableSlavePower(AUX, 0);
-                    break;
-                case 1:
-                    EnableSlavePower(TSS, 0);
-                    break;
-                case 2:
-                    EnableSlavePower(DDS, 0);
-                    break;
-                case 3:
-                    EnableSlavePower(SAS, 0);
-                    break;
-                case 4:
-                    EnableSlavePower(BMM, 0);
-                    break;
-                case 5:
-                    EnableSlavePower(MCS, 0);
-                    break;
-            }
-        }
+//        if (Current[i] > Currentcomp[i]) {
+//            //over current condition
+//            LED1_SetHigh();
+//            switch(i){
+//                case 0:
+//                    EnableSlavePower(AUX, 0);
+//                    SavePDUFault(0,1);
+//                    break;
+//                case 1:
+//                    EnableSlavePower(TSS, 0);
+//                    SavePDUFault(1,1);
+//                    break;
+//                case 2:
+//                    EnableSlavePower(DDS, 0);
+//                    SavePDUFault(2,1);
+//                    break;
+//                case 3:
+//                    EnableSlavePower(SAS, 0);
+//                    SavePDUFault(3,1);
+//                    break;
+//                case 4:
+//                    EnableSlavePower(BMM, 0);
+//                    SavePDUFault(4,1);
+//                    break;
+//                case 5:
+//                    EnableSlavePower(MCS, 0);
+//                    SavePDUFault(5,1);
+//                    break;
+//            }
+//        }
     }
+}
+
+void SavePDUFault(char loc, bool data){
+    PDUFalult[loc] = data;
+}
+
+bool GetPDUFault(char loc){
+    return PDUFalult[loc];
 }
 
 void Update(void) {

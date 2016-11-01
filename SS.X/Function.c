@@ -7,17 +7,23 @@
 char ByteHigh, ByteLow = 0;
 
 void ReadFaults(){
-    ByteHigh = ByteHigh | (ECU_FAULT << 0);
-    ByteHigh = ByteHigh | (BOTS_FAULT << 1);
-    ByteHigh = ByteHigh | (AMD_FAULT << 2);
-    ByteHigh = ByteHigh | (STOP_L_FAULT << 3);
-    ByteHigh = ByteHigh | (STOP_R_FAULT << 4);
-    ByteHigh = ByteHigh | (STOP_C_FAULT << 5);
-    ByteHigh = ByteHigh | (IMD_FAULT << 6);
-    ByteHigh = ByteHigh | (BPD_FAULT << 7);
-    ByteLow = ByteLow | (TSMS_FAULT << 0);
-    ByteLow = ByteLow | (IS_FAULT << 1);
-    ByteLow = ByteLow | (AUX_FAULT << 2);
+    if(BPD_FAULT == 1){
+        ByteHigh = 0xFF;
+    }
+    else{
+        ByteHigh = 0;
+    }
+    //ByteHigh = ByteHigh | ((BPD_FAULT & 0x01) << 0);
+//    ByteHigh = ByteHigh | ((BOTS_FAULT) << 1);
+//    ByteHigh = ByteHigh | ((AMD_FAULT) << 2);
+//    ByteHigh = ByteHigh | ((STOP_L_FAULT) << 3);
+//    ByteHigh = ByteHigh | ((STOP_R_FAULT) << 4);
+//    ByteHigh = ByteHigh | ((STOP_C_FAULT) << 5);
+//    ByteHigh = ByteHigh | ((IMD_FAULT) << 6);
+//    ByteHigh = ByteHigh | ((BPD_FAULT) << 7);
+   // ByteLow = ByteLow | ((BPD_FAULT & 0x01) << 0);
+//    ByteLow = ByteLow | ((IS_FAULT) << 1);
+//    ByteLow = ByteLow | ((AUX_FAULT) << 2);
 //    ByteHigh = ByteHigh | (0 << 0);
 //    ByteHigh = ByteHigh | (0 << 1);
 //    ByteHigh = ByteHigh | (1 << 2);
@@ -30,6 +36,7 @@ void ReadFaults(){
 //    ByteLow = ByteLow | (0 << 1);
 //    ByteLow = ByteLow | (1 << 2);
 }
+
 
 char GetFaults(char num){
     if(num == 1){
@@ -127,8 +134,11 @@ void Start(){
      Set ADC pins as digital
      */
     ANSELA = 0;
+    ANSELB = 0;
     ANSELC = 0;
     ANSELD = 0;
+    ANSELE = 0;
+
     
     // SCS INTOSC; IDLEN disabled; IRCF 16MHz_HFINTOSC/4; 
     OSCCON = 0x72;

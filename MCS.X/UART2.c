@@ -25,7 +25,7 @@ void UART_init2(void) {
     UART_buff_init2(&input_buffer2);
     UART_buff_init2(&output_buffer2);
     IEC1bits.U2RXIE = 1; // Enable RX interrupt
-    IEC1bits.U2TXIE = 1; // Enable TX interrupt
+    //IEC1bits.U2TXIE = 1; // Enable TX interrupt
 }
 
 void UART_buff_init2(struct UART_ring_buff2* _this) {
@@ -116,14 +116,16 @@ void __attribute__((interrupt, no_auto_psv)) _U2RXInterrupt(void) {
     unsigned char data = U2RXREG;
     UART_buff_put2(&input_buffer2, data);
     IFS1bits.U2RXIF = 0; // Clear RX interrupt flag
+    IEC1bits.U2TXIE = 1; // Enable TX interrupt
 }
 
 void __attribute__((interrupt, no_auto_psv)) _U2TXInterrupt(void) {
-    //LED ^= 1;
+    IFS1bits.U2TXIF = 0; // Clear TX interrupt flag
     if (UART_buff_size2(&output_buffer2) > 0) {
         U2TXREG = UART_buff_get2(&output_buffer2);
     } else {
         Transmit_stall2 = true;
+        IEC1bits.U2TXIE = 0; // Enable TX interrupt
     }
-    IFS1bits.U2TXIF = 0; // Clear TX interrupt flag
+    
 }

@@ -28,6 +28,9 @@ void ComputeStorageData(void);
 void ReadCurrent(char gather);
 void Update(void);
 bool CoolingCheck();
+void SavePDUFault(char loc, bool data);
+bool GetPDUFault(char loc);
+unsigned int FaultsCollector();
 
 # 14 "Shift595.h"
 int registers[3 * 8];
@@ -9450,14 +9453,16 @@ uint8_t DATAEE_ReadByte(uint8_t bAdd);
 # 16 "PDU.c"
 bool MCSOn = 0;
 
+bool PDUFalult[8];
+
 void PDUStartup(void) {
 
 
 StartUp595();
-EnableSlavePower(SAS, OFF);
-EnableSlavePower(DDS, OFF);
+EnableSlavePower(SAS, ON);
+EnableSlavePower(DDS, ON);
 EnableSlavePower(MCS, OFF);
-EnableSlavePower(BMM, OFF);
+EnableSlavePower(BMM, ON);
 EnableSlavePower(TSS, OFF);
 EnableSlavePower(AUX, OFF);
 Update();
@@ -9614,31 +9619,17 @@ Current[i] = CurrentADC[i]*48;
 }
 
 for (int i = 0; i < 6; i++) {
-if (Current[i] > Currentcomp[i]) {
 
-do { LATA3 = 1; } while(0);
-switch(i){
-case 0:
-EnableSlavePower(AUX, 0);
-break;
-case 1:
-EnableSlavePower(TSS, 0);
-break;
-case 2:
-EnableSlavePower(DDS, 0);
-break;
-case 3:
-EnableSlavePower(SAS, 0);
-break;
-case 4:
-EnableSlavePower(BMM, 0);
-break;
-case 5:
-EnableSlavePower(MCS, 0);
-break;
+# 214
 }
 }
+
+void SavePDUFault(char loc, bool data){
+PDUFalult[loc] = data;
 }
+
+bool GetPDUFault(char loc){
+return PDUFalult[loc];
 }
 
 void Update(void) {

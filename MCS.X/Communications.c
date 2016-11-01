@@ -14,19 +14,19 @@ void updateComms() {
     checkCommDirection();
     
     //If a new packet has arrived
-    if (receiveData()){
+    if (receiveData() && !pendingSend) {
        
-        SetCarMode(receiveArray[OUTPUT_ACTIVE]);
-        SetSpeed(receiveArray[THROTTLE_OUTPUT]);
-        SetRegen(receiveArray[BRAKE_OUTPUT]);
+        //SetCarMode(receiveArray[OUTPUT_ACTIVE]);
+        //SetSpeed(receiveArray[THROTTLE_OUTPUT]);
+        //SetRegen(receiveArray[BRAKE_OUTPUT]);
 
         ClearTime(TALKTIME);
-        ClearTime(SAFETYTIME);
+        //ClearTime(SAFETYTIME);
         pendingSend = true;
     }
     
     //Control the RS485 Direction pin based on time and sending
-    if (pendingSend && portClosed && GetTime(TALKTIME) > 5) {
+    else if (pendingSend && portClosed && (GetTime(TALKTIME) > 120)) {
         ClearTime(TALKTIME);
         portClosed = false;
         RS485_1_Port = TALK;
@@ -34,14 +34,38 @@ void updateComms() {
 
 
     //Respond to the ECU when the portHas been open for a short time
-    if (pendingSend && GetTime(TALKTIME) > 1 && !portClosed) {
+    else if (pendingSend && GetTime(TALKTIME) > 5 && !portClosed) {
         ClearTime(TALKTIME);
         respondECU();
         pendingSend = false;
     }
     //Provide safety timer
-    commSafety();
+    //commSafety();
 }
+
+/*
+ 
+     checkCommDirection();
+    //LED ^= 1;
+    if (receiveData() && !pendingSend) {
+        //LED ^= 1;
+        talkTime = 0;
+        pendingSend = true;
+        portClosed=true;
+    }
+    else if(pendingSend && portClosed && talkTime > 5){
+        talkTime=0;
+        portClosed=false;
+        RS485_1_Port = TALK;
+    }
+    else if (pendingSend && talkTime > 5 && !portClosed) {
+        talkTime = 0;
+        prepAndSendData();
+        pendingSend = false;
+    }  
+ 
+ 
+ */
 
 //If the safety timer overruns 200 then shut off outputs and set DACs to 0
 void commSafety() {
@@ -64,8 +88,17 @@ void respondECU() {
 
 void checkCommDirection() {
     //you have finished send and time has elapsed.. start listen
-    if (Transmit_stall && (GetTime(TALKTIME) > 5) && (RS485_1_Port == TALK)) {
+    if (Transmit_stall && (GetTime(TALKTIME) > 10) && (RS485_1_Port == TALK) && !pendingSend && !portClosed) {
         RS485_1_Port = LISTEN;
         portClosed = true;
     }
 }
+
+/*
+ 
+     if (Transmit_stall && (talkTime > 10) && (RS485_1_Port == TALK) && !pendingSend && !portClosed) {
+        RS485_1_Port = LISTEN;
+        portClosed=true;
+    }
+ 
+ */

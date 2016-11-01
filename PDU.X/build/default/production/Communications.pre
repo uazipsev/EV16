@@ -9236,6 +9236,9 @@ void ComputeStorageData(void);
 void ReadCurrent(char gather);
 void Update(void);
 bool CoolingCheck();
+void SavePDUFault(char loc, bool data);
+bool GetPDUFault(char loc);
+unsigned int FaultsCollector();
 
 # 18 "Communications.c"
 void processPowerRequest(int powerSet);
@@ -9268,10 +9271,19 @@ else EnableSlavePower(TSS,OFF);
 Update();
 }
 
+unsigned int FaultsCollector() {
+unsigned int sendVal = 0;
+int i = 0;
+for (i = 0; i < 5; i++) {
+sendVal = sendVal | ((GetPDUFault(i)&0x01) << i);
+}
+return sendVal;
+}
+
 void respondECU() {
 LATCbits.LATC5 = 1;
 ToSend(0, 5);
-ToSend(1,0);
+ToSend(1,FaultsCollector());
 Delay(5);
 sendData(1);
 Delay(3);

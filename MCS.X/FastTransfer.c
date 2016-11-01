@@ -12,7 +12,7 @@ void (*serial_write)(unsigned char);
 unsigned char (*serial_read)(void);
 int (*serial_available)(void);
 unsigned char (*serial_peek)(void);
-unsigned char * rx_buffer; //address for temporary storage and parsing buffer
+unsigned char rx_buffer[RX_BUFFER_SIZE]; //address for temporary storage and parsing buffer
 unsigned char rx_array_inx; //index for RX parsing buffer
 unsigned char rx_len; //RX packet length according to the packet
 unsigned char calc_CS; //calculated Checksum
@@ -32,6 +32,21 @@ unsigned char rx_address; //RX address received
 #define CRC_COUNT 5 // how many AKNAKs are stored
 #define CRC_DEPTH 3  // how many pieces of data are stored with each CRC send event
 #define CRC_BUFFER_SIZE (CRC_COUNT * CRC_DEPTH) //crc buffer size 5 deep and 3 bytes an entry
+
+unsigned int ReceiveArrayGet(int location){
+    return receiveArray[location];
+}
+
+void wipeRxBuffer(void)
+{
+	int i=0;
+	for(i=0;i<RX_BUFFER_SIZE;i++)
+	{
+		rx_buffer[i]=0;
+		
+	}
+	
+}
 
 struct ringBufS { // this is where the send data is stored before sending
     unsigned char buf[BUFFER_SIZE];
@@ -63,10 +78,6 @@ void crcBufS_status_put(struct crcBufS* _this, unsigned char time, unsigned char
 unsigned char crcBufS_get(struct crcBufS* _this, unsigned char time, unsigned char space);
 void CRCcheck(void);
 
-int GetReceiveArray(int point){
-    return receiveArray[point];
-}
-
 //Captures address of receive array, the max data address, the address of the module, true/false if AKNAKs are wanted and the Serial address
 
 void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress, bool error, void (*stufftosend)(unsigned char), unsigned char (*stufftoreceive)(void), int (*stuffavailable)(void), unsigned char (*stuffpeek)(void)) {
@@ -80,7 +91,7 @@ void begin(volatile int * ptr, unsigned char maxSize, unsigned char givenAddress
     sendStructAddress = (unsigned char*) & ring_buffer;
     AKNAKsend = error;
     alignErrorCounter = 0;
-
+    wipeRxBuffer();
 }
 
 //CRC Calculator
@@ -160,7 +171,7 @@ bool receiveData() {
                     return false;
                 }
                 // if the address matches the a dynamic buffer is created to store the received data
-                rx_buffer = (unsigned char*) malloc(rx_len + 1);
+                //rx_buffer = (unsigned char*) malloc(rx_len + 1);
             }
         }
     }
@@ -228,7 +239,7 @@ bool receiveData() {
 
                 rx_len = 0;
                 rx_array_inx = 0;
-                free(rx_buffer);
+                wipeRxBuffer();
                 return true;
             } else {
                 crcErrorCounter++; //increments the counter every time a crc fails
@@ -253,7 +264,7 @@ bool receiveData() {
                 //failed checksum, need to clear this out
                 rx_len = 0;
                 rx_array_inx = 0;
-                free(rx_buffer);
+                wipeRxBuffer();
                 return false;
             }
         }

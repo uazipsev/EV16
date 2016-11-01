@@ -9,7 +9,7 @@
 #define	TIMERS_H
 
 void TimerOneInit(void);
-int GetTime(char number);
+unsigned int GetTime(char number);
 void ClearTime(char number);
 
 #define LEDTIME 1

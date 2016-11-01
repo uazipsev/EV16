@@ -18,7 +18,7 @@ extern "C" {
 #define BMM_BOARD_RESEND_MIN 250
 #define PDU_BOARD_RESEND_MIN 250
 #define SS_BOARD_RESEND_MIN 250
-#define DDS_BOARD_RESEND_MIN 250
+#define DDS_BOARD_RESEND_MIN 150
 #define BOARD_TIMEOUT 1000
     //Addresses
 #define ECU_ADDRESS 1

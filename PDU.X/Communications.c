@@ -45,10 +45,19 @@ void processPowerRequest(int powerSet) {
     Update();
 }
 
+unsigned int FaultsCollector() {
+    unsigned int sendVal = 0;
+    int i = 0;
+    for (i = 0; i < 5; i++) {
+        sendVal = sendVal | ((GetPDUFault(i)&0x01) << i);
+    }
+    return sendVal;
+}
+
 void respondECU() {
     LATCbits.LATC5 = 1;
     ToSend(RESPONSE_ADDRESS, PDU_ADDRESS);
-    ToSend(1,0);
+    ToSend(1,FaultsCollector());
     Delay(5);
     sendData(ECU_ADDRESS);
     Delay(3);

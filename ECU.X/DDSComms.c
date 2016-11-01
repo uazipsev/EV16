@@ -67,8 +67,8 @@ void changeLEDState(int LED, int state) {
     if (state)
         indicators = indicators | (state << LED);
     
-    else if (state == 2)
-        indicators = indicators;//| (state << LED);
+//    else if (state == 2)
+//        indicators = indicators;//| (state << LED);
     
     else
         indicators = indicators & (0xFF^(!state << LED));

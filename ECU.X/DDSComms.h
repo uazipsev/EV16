@@ -11,9 +11,9 @@
 #include "ADDRESSING.h"
 #include <stdbool.h>
 
-//#define START_BUTTON 0
-#define START_LED  0
-#define DASH_LED2  1
+////#define START_BUTTON 0
+//#define START_LED  1
+//#define DASH_LED2  0
 
 int seekButtonChange();
 void changeLEDState(int LED, int state);

@@ -50,7 +50,7 @@ void Setup(void) {
     initTimerOne();
     CommStart();
     UART1_init();
-   initTimerTwo();
+   //initTimerTwo();
     //Start_BMS();
     //SPI2_Initialize();
     //i2c_init();

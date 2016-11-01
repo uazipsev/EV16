@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
     while (1) {
         updateComms();
         ledDebug();
-        //MotorUpdate();
+        MotorUpdate();
         //MCStest();
         //Delay(1000);
         

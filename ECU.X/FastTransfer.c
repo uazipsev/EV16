@@ -197,8 +197,8 @@ bool receiveData() {
     if (rx_len != 0) {
 
         //this check is preformed to see if the first data address is a 255, if it is then this packet is an AKNAK
-        if (rx_array_inx == 0) {
-            //Not needed because no ACK NAK is going on
+//        if (rx_array_inx == 0) {
+//            //Not needed because no ACK NAK is going on
 //            while (!(serial_available() >= 1));
 //            if (255 == serial_peek()) {
 //                CRCcheck();
@@ -208,7 +208,7 @@ bool receiveData() {
 //                //free(rx_buffer);
 //                return receiveData();
 //            }
-        }
+//        }
 
 
         while (serial_available() && rx_array_inx <= rx_len) {
@@ -264,22 +264,22 @@ bool receiveData() {
             } else {
                 crcErrorCounter++; //increments the counter every time a crc fails
 
-                if (AKNAKsend) { // if enabled sends NAK
-                    unsigned char holder[3];
-                    holder[0] = 255;
-                    holder[1] = 2;
-                    holder[2] = rx_buffer[rx_array_inx - 1];
-                    unsigned char crcHolder = CRC8(holder, 3);
-                    serial_write(0x06);
-                    serial_write(0x85);
-                    serial_write(returnAddress);
-                    serial_write(moduleAddress);
-                    serial_write(3);
-                    serial_write(255);
-                    serial_write(2);
-                    serial_write(rx_buffer[rx_array_inx - 1]);
-                    serial_write(crcHolder);
-                }
+//                if (AKNAKsend) { // if enabled sends NAK
+//                    unsigned char holder[3];
+//                    holder[0] = 255;
+//                    holder[1] = 2;
+//                    holder[2] = rx_buffer[rx_array_inx - 1];
+//                    unsigned char crcHolder = CRC8(holder, 3);
+//                    serial_write(0x06);
+//                    serial_write(0x85);
+//                    serial_write(returnAddress);
+//                    serial_write(moduleAddress);
+//                    serial_write(3);
+//                    serial_write(255);
+//                    serial_write(2);
+//                    serial_write(rx_buffer[rx_array_inx - 1]);
+//                    serial_write(crcHolder);
+//                }
 
                 //failed checksum, need to clear this out
                 rx_len = 0;

@@ -72,7 +72,7 @@ void Charge_Mode() {
 void Run_Mode() {
     
     
-       wakeup_idle();
+      // wakeup_idle();
    //Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2);
 
     //Read_Total_GPIO(Aux_codes_Bank1,Aux_codes_Bank2);

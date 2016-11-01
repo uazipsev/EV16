@@ -17,6 +17,8 @@
 #include "ThrottleBrakeControl.h"
 #include "Communications.h"
 
+#include "SlaveAddressing.h"
+
 
 int BrakeLightThreshold = 0;
 
@@ -125,6 +127,8 @@ void PinSetMode(void) {
 
 }
 
+bool m = 0;
+
 /*******************************************************************
  * @brief           ledDebug
  * @brief           Allows us to see device activity
@@ -133,12 +137,11 @@ void PinSetMode(void) {
  *******************************************************************/
 void ledDebug(){
     if (GetTime(TIME) > 500) {
-            //INDICATOR ^= 1;
+            INDICATOR ^= 1;
             // HORN_EN ^=1;
             // BRAKELT ^= 1;
             //SS_RELAY ^= 1;
-            SetTime(TIME);
-            
+            SetTime(TIME);            
         }
     }
 

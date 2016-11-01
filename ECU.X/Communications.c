@@ -334,7 +334,7 @@ void bus2Update() {
 
 void checkCommDirection1() {
     //you have finished send and time has elapsed.. start listen
-    if ( TXStallGet() && (GetTime(TALKTIME1) > 4)) { //5CLOSE_COMM_TIME TXStallGet1() &&
+    if ( TXStallGet() && (GetTime(TALKTIME1) > 2)) { //5CLOSE_COMM_TIME TXStallGet1() &&
         RS485_Direction2(LISTEN);
     }
 }

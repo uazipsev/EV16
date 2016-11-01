@@ -23,7 +23,7 @@ AUX 6
 ON 1
 OFF 0
 ]
-"22 C:\EV16.git\trunk\PDU.X\PDU.c
+"24 C:\EV16.git\trunk\PDU.X\PDU.c
 [e E6 . `uc
 DDS 1
 MCS 2
@@ -34,8 +34,8 @@ AUX 6
 ON 1
 OFF 0
 ]
-"74
-[e E7842 . `uc
+"76
+[e E7848 . `uc
 channel_CTMU 29
 channel_DAC 30
 channel_FVRBuf2 31
@@ -74,6 +74,8 @@ U10Multisense 23
 "33
 [v _processPowerRequest processPowerRequest `(v  1 e 1 0 ]
 "48
+[v _FaultsCollector FaultsCollector `(ui  1 e 2 0 ]
+"57
 [v _respondECU respondECU `(v  1 e 1 0 ]
 "19 C:\EV16.git\trunk\PDU.X\CoolingControl.c
 [v _CoolingStart CoolingStart `(v  1 e 1 0 ]
@@ -150,21 +152,22 @@ U10Multisense 23
 [v _TMR2_Initialize TMR2_Initialize `(v  1 e 1 0 ]
 "29
 [v _TMR2_StartTimer TMR2_StartTimer `(v  1 e 1 0 ]
-"18 C:\EV16.git\trunk\PDU.X\PDU.c
+"20 C:\EV16.git\trunk\PDU.X\PDU.c
 [v _PDUStartup PDUStartup `(v  1 e 1 0 ]
-"35
+"37
 [v _EnableSlavePower EnableSlavePower `(v  1 e 1 0 ]
-[v i2_EnableSlavePower EnableSlavePower `(v  1 e 1 0 ]
-"61
+"63
 [v _ReadCurrent ReadCurrent `(v  1 e 1 0 ]
-"158
+"160
 [v _ComputeStorageData ComputeStorageData `(v  1 e 1 0 ]
-"173
+"175
 [v _FuseSystem FuseSystem `(v  1 e 1 0 ]
-"209
+"221
+[v _GetPDUFault GetPDUFault `(uc  1 e 1 0 ]
+"225
 [v _Update Update `(v  1 e 1 0 ]
 [v i2_Update Update `(v  1 e 1 0 ]
-"213
+"229
 [v _CoolingCheck CoolingCheck `(uc  1 e 1 0 ]
 "10 C:\EV16.git\trunk\PDU.X\Shift595.c
 [v _StartUp595 StartUp595 `(v  1 e 1 0 ]
@@ -416,7 +419,7 @@ U10Multisense 23
 [v _EEADR EEADR `VEuc  1 e 1 @4009 ]
 "10545
 [v _RC1STA RC1STA `VEuc  1 e 1 @4011 ]
-[s S1594 . 1 `uc 1 RX9D 1 0 :1:0 
+[s S1608 . 1 `uc 1 RX9D 1 0 :1:0 
 `uc 1 OERR 1 0 :1:1 
 `uc 1 FERR 1 0 :1:2 
 `uc 1 ADDEN 1 0 :1:3 
@@ -426,10 +429,10 @@ U10Multisense 23
 `uc 1 SPEN 1 0 :1:7 
 ]
 "10888
-[s S1603 . 1 `uc 1 . 1 0 :3:0 
+[s S1617 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 ADEN 1 0 :1:3 
 ]
-[s S1606 . 1 `uc 1 RX9D1 1 0 :1:0 
+[s S1620 . 1 `uc 1 RX9D1 1 0 :1:0 
 `uc 1 OERR1 1 0 :1:1 
 `uc 1 FERR1 1 0 :1:2 
 `uc 1 ADDEN1 1 0 :1:3 
@@ -438,19 +441,19 @@ U10Multisense 23
 `uc 1 RX91 1 0 :1:6 
 `uc 1 SPEN1 1 0 :1:7 
 ]
-[s S1615 . 1 `uc 1 . 1 0 :6:0 
+[s S1629 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC8_9 1 0 :1:6 
 ]
-[s S1618 . 1 `uc 1 . 1 0 :6:0 
+[s S1632 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC9 1 0 :1:6 
 ]
-[s S1621 . 1 `uc 1 RCD8 1 0 :1:0 
+[s S1635 . 1 `uc 1 RCD8 1 0 :1:0 
 ]
-[s S1623 . 1 `uc 1 . 1 0 :5:0 
+[s S1637 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 SRENA 1 0 :1:5 
 ]
-[u S1626 . 1 `S1594 1 . 1 0 `S1603 1 . 1 0 `S1606 1 . 1 0 `S1615 1 . 1 0 `S1618 1 . 1 0 `S1621 1 . 1 0 `S1623 1 . 1 0 ]
-[v _RC1STAbits RC1STAbits `VES1626  1 e 1 @4011 ]
+[u S1640 . 1 `S1608 1 . 1 0 `S1617 1 . 1 0 `S1620 1 . 1 0 `S1629 1 . 1 0 `S1632 1 . 1 0 `S1635 1 . 1 0 `S1637 1 . 1 0 ]
+[v _RC1STAbits RC1STAbits `VES1640  1 e 1 @4011 ]
 "11006
 [v _TX1STA TX1STA `VEuc  1 e 1 @4012 ]
 "11377
@@ -690,8 +693,6 @@ U10Multisense 23
 [v _ANSB4 ANSB4 `VEb  1 e 0 @31180 ]
 "18107
 [v _ANSD7 ANSD7 `VEb  1 e 0 @31199 ]
-"18805
-[v _LATA3 LATA3 `VEb  1 e 0 @31819 ]
 "18815
 [v _LATB0 LATB0 `VEb  1 e 0 @31824 ]
 "18821
@@ -756,15 +757,15 @@ U10Multisense 23
 [v _dataAdressErrorCounter dataAdressErrorCounter `ui  1 e 2 0 ]
 "44
 [v _rx_address rx_address `uc  1 e 1 0 ]
-[s S1257 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[s S1266 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
 "58
-[v _ring_buffer ring_buffer `S1257  1 e 206 0 ]
-[u S1262 stuff 2 `[2]uc 1 parts 2 0 `ui 1 integer 2 0 ]
+[v _ring_buffer ring_buffer `S1266  1 e 206 0 ]
+[u S1271 stuff 2 `[2]uc 1 parts 2 0 `ui 1 integer 2 0 ]
 "64
-[v _group group `S1262  1 e 2 0 ]
-[s S1265 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
+[v _group group `S1271  1 e 2 0 ]
+[s S1274 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
 "70
-[v _crc_buffer crc_buffer `S1265  1 e 17 0 ]
+[v _crc_buffer crc_buffer `S1274  1 e 17 0 ]
 [s S183 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
 "109 C:\EV16.git\trunk\PDU.X\UART.h
 [v _input_buffer input_buffer `S183  1 e 206 0 ]
@@ -778,6 +779,8 @@ U10Multisense 23
 [v _readwhat readwhat `i  1 e 2 0 ]
 "16 C:\EV16.git\trunk\PDU.X\PDU.c
 [v _MCSOn MCSOn `uc  1 e 1 0 ]
+"18
+[v _PDUFalult PDUFalult `[8]uc  1 e 8 0 ]
 "15 C:\EV16.git\trunk\PDU.X\PDU.h
 [v _Currentcomp Currentcomp `[6]ui  1 e 12 0 ]
 "16
@@ -792,11 +795,11 @@ U10Multisense 23
 [v _main main `(v  1 e 1 0 ]
 {
 "59
-[v main@i i `i  1 a 2 32 ]
+[v main@i i `i  1 a 2 24 ]
 "63
-[v main@j j `i  1 a 2 30 ]
+[v main@j j `i  1 a 2 22 ]
 "60
-[v main@UP UP `uc  1 a 1 34 ]
+[v main@UP UP `uc  1 a 1 26 ]
 "81
 } 0
 "21 C:\EV16.git\trunk\PDU.X\Communications.c
@@ -806,40 +809,40 @@ U10Multisense 23
 [v updateComms@previousPowerState previousPowerState `i  1 s 2 previousPowerState ]
 "30
 } 0
-"48
+"57
 [v _respondECU respondECU `(v  1 e 1 0 ]
 {
-"56
+"65
 } 0
 "53 C:\EV16.git\trunk\PDU.X\FastTransfer.c
 [v _sendData sendData `(v  1 e 1 0 ]
 {
 [v sendData@whereToSend whereToSend `uc  1 a 1 wreg ]
 "66
-[v sendData@i i `i  1 a 2 15 ]
+[v sendData@i i `i  1 a 2 7 ]
 "53
-[v sendData@CS CS `uc  1 a 1 14 ]
+[v sendData@CS CS `uc  1 a 1 6 ]
 [v sendData@whereToSend whereToSend `uc  1 a 1 wreg ]
 "56
-[v sendData@whereToSend whereToSend `uc  1 a 1 13 ]
+[v sendData@whereToSend whereToSend `uc  1 a 1 5 ]
 "80
 } 0
 "322
 [v _crcBufS_put crcBufS_put `(v  1 e 1 0 ]
 {
-[s S1265 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
-[v crcBufS_put@_this _this `*.39S1265  1 p 2 0 ]
-[v crcBufS_put@address address `uc  1 p 1 2 ]
-[v crcBufS_put@oldCRC oldCRC `uc  1 p 1 3 ]
-[v crcBufS_put@status status `uc  1 p 1 4 ]
+[s S1274 crcBufS 17 `[15]uc 1 buf 15 0 `i 1 head 2 15 ]
+[v crcBufS_put@_this _this `*.39S1274  1 p 2 28 ]
+[v crcBufS_put@address address `uc  1 p 1 30 ]
+[v crcBufS_put@oldCRC oldCRC `uc  1 p 1 31 ]
+[v crcBufS_put@status status `uc  1 p 1 32 ]
 "332
 } 0
 "262
 [v _FastTransfer_buffer_flush FastTransfer_buffer_flush `(v  1 e 1 0 ]
 {
-[s S1257 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
-[v FastTransfer_buffer_flush@_this _this `*.39S1257  1 p 2 8 ]
-[v FastTransfer_buffer_flush@clearBuffer clearBuffer `Ci  1 p 2 10 ]
+[s S1266 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[v FastTransfer_buffer_flush@_this _this `*.39S1266  1 p 2 0 ]
+[v FastTransfer_buffer_flush@clearBuffer clearBuffer `Ci  1 p 2 2 ]
 "269
 } 0
 "217
@@ -847,44 +850,61 @@ U10Multisense 23
 {
 [v ToSend@where where `uc  1 a 1 wreg ]
 [v ToSend@where where `uc  1 a 1 wreg ]
-[v ToSend@what what `ui  1 p 2 13 ]
-[v ToSend@where where `uc  1 a 1 15 ]
+[v ToSend@what what `ui  1 p 2 5 ]
+[v ToSend@where where `uc  1 a 1 7 ]
 "219
 } 0
 "224
 [v _FastTransfer_buffer_put FastTransfer_buffer_put `(v  1 e 1 0 ]
 {
-[s S1257 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
-[v FastTransfer_buffer_put@_this _this `*.39S1257  1 p 2 6 ]
-[v FastTransfer_buffer_put@towhere towhere `uc  1 p 1 8 ]
-[v FastTransfer_buffer_put@towhat towhat `ui  1 p 2 9 ]
+[s S1266 ringBufS 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
+[v FastTransfer_buffer_put@_this _this `*.39S1266  1 p 2 0 ]
+[v FastTransfer_buffer_put@towhere towhere `uc  1 p 1 2 ]
+[v FastTransfer_buffer_put@towhat towhat `ui  1 p 2 3 ]
 "241
 } 0
 "274
 [v _FastTransfer_buffer_modulo_inc FastTransfer_buffer_modulo_inc `(ui  1 e 2 0 ]
 {
 "275
-[v FastTransfer_buffer_modulo_inc@my_value my_value `ui  1 a 2 4 ]
+[v FastTransfer_buffer_modulo_inc@my_value my_value `ui  1 a 2 32 ]
 "274
-[v FastTransfer_buffer_modulo_inc@value value `Cui  1 p 2 0 ]
-[v FastTransfer_buffer_modulo_inc@modulus modulus `Cui  1 p 2 2 ]
+[v FastTransfer_buffer_modulo_inc@value value `Cui  1 p 2 28 ]
+[v FastTransfer_buffer_modulo_inc@modulus modulus `Cui  1 p 2 30 ]
 "280
 } 0
-"82
+"48 C:\EV16.git\trunk\PDU.X\Communications.c
+[v _FaultsCollector FaultsCollector `(ui  1 e 2 0 ]
+{
+"50
+[v FaultsCollector@i i `i  1 a 2 2 ]
+"49
+[v FaultsCollector@sendVal sendVal `ui  1 a 2 0 ]
+"55
+} 0
+"221 C:\EV16.git\trunk\PDU.X\PDU.c
+[v _GetPDUFault GetPDUFault `(uc  1 e 1 0 ]
+{
+[v GetPDUFault@loc loc `uc  1 a 1 wreg ]
+[v GetPDUFault@loc loc `uc  1 a 1 wreg ]
+[v GetPDUFault@loc loc `uc  1 a 1 28 ]
+"223
+} 0
+"82 C:\EV16.git\trunk\PDU.X\FastTransfer.c
 [v _receiveData receiveData `(uc  1 e 1 0 ]
 {
 "186
-[v receiveData@holder_1388 holder `[3]uc  1 a 3 21 ]
+[v receiveData@holder_1397 holder `[3]uc  1 a 3 13 ]
 "190
-[v receiveData@crcHolder_1389 crcHolder `uc  1 a 1 25 ]
+[v receiveData@crcHolder_1398 crcHolder `uc  1 a 1 17 ]
 "161
-[v receiveData@holder holder `[3]uc  1 a 3 18 ]
+[v receiveData@holder holder `[3]uc  1 a 3 10 ]
 "165
-[v receiveData@crcHolder crcHolder `uc  1 a 1 24 ]
+[v receiveData@crcHolder crcHolder `uc  1 a 1 16 ]
 "106
-[v receiveData@u u `i  1 a 2 26 ]
+[v receiveData@u u `i  1 a 2 18 ]
 "148
-[v receiveData@r r `i  1 a 2 28 ]
+[v receiveData@r r `i  1 a 2 20 ]
 "212
 } 0
 "132 C:\EV16.git\trunk\PDU.X\UART.c
@@ -892,15 +912,15 @@ U10Multisense 23
 {
 [v Send_put@_data _data `uc  1 a 1 wreg ]
 [v Send_put@_data _data `uc  1 a 1 wreg ]
-[v Send_put@_data _data `uc  1 a 1 11 ]
+[v Send_put@_data _data `uc  1 a 1 3 ]
 "139
 } 0
 "70
 [v _UART_buff_put UART_buff_put `(v  1 e 1 0 ]
 {
 [s S183 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
-[v UART_buff_put@_this _this `*.39S183  1 p 2 6 ]
-[v UART_buff_put@c c `Cuc  1 p 1 8 ]
+[v UART_buff_put@_this _this `*.39S183  1 p 2 0 ]
+[v UART_buff_put@c c `Cuc  1 p 1 2 ]
 "81
 } 0
 "128
@@ -912,20 +932,20 @@ U10Multisense 23
 [v _UART_buff_get UART_buff_get `(uc  1 e 1 0 ]
 {
 "84
-[v UART_buff_get@c c `uc  1 a 1 10 ]
+[v UART_buff_get@c c `uc  1 a 1 2 ]
 [s S183 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
 "83
-[v UART_buff_get@_this _this `*.39S183  1 p 2 6 ]
+[v UART_buff_get@_this _this `*.39S183  1 p 2 34 ]
 "93
 } 0
 "108
 [v _UART_buff_modulo_inc UART_buff_modulo_inc `(ui  1 e 2 0 ]
 {
 "109
-[v UART_buff_modulo_inc@my_value my_value `ui  1 a 2 4 ]
+[v UART_buff_modulo_inc@my_value my_value `ui  1 a 2 32 ]
 "108
-[v UART_buff_modulo_inc@value value `Cui  1 p 2 0 ]
-[v UART_buff_modulo_inc@modulus modulus `Cui  1 p 2 2 ]
+[v UART_buff_modulo_inc@value value `Cui  1 p 2 28 ]
+[v UART_buff_modulo_inc@modulus modulus `Cui  1 p 2 30 ]
 "114
 } 0
 "124
@@ -937,29 +957,29 @@ U10Multisense 23
 [v _UART_buff_size UART_buff_size `(i  1 e 2 0 ]
 {
 [s S183 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
-[v UART_buff_size@_this _this `*.39S183  1 p 2 0 ]
+[v UART_buff_size@_this _this `*.39S183  1 p 2 28 ]
 "106
 } 0
 "34 C:\EV16.git\trunk\PDU.X\FastTransfer.c
 [v _CRC8 CRC8 `(uc  1 e 1 0 ]
 {
 "40
-[v CRC8@sum sum `uc  1 a 1 3 ]
+[v CRC8@sum sum `uc  1 a 1 31 ]
 "38
-[v CRC8@tempI tempI `uc  1 a 1 5 ]
+[v CRC8@tempI tempI `uc  1 a 1 33 ]
 "37
-[v CRC8@extract extract `uc  1 a 1 4 ]
+[v CRC8@extract extract `uc  1 a 1 32 ]
 "35
-[v CRC8@crc crc `uc  1 a 1 6 ]
+[v CRC8@crc crc `uc  1 a 1 34 ]
 "34
-[v CRC8@data data `*.39Cuc  1 p 2 0 ]
-[v CRC8@len len `uc  1 p 1 2 ]
+[v CRC8@data data `*.39Cuc  1 p 2 28 ]
+[v CRC8@len len `uc  1 p 1 30 ]
 "49
 } 0
 "33 C:\EV16.git\trunk\PDU.X\Communications.c
 [v _processPowerRequest processPowerRequest `(v  1 e 1 0 ]
 {
-[v processPowerRequest@powerSet powerSet `i  1 p 2 13 ]
+[v processPowerRequest@powerSet powerSet `i  1 p 2 8 ]
 "46
 } 0
 "113 C:\EV16.git\trunk\PDU.X\mcc_generated_files/mcc.c
@@ -970,27 +990,27 @@ U10Multisense 23
 "18 C:\EV16.git\trunk\PDU.X\FastTransfer.c
 [v _begin begin `(v  1 e 1 0 ]
 {
-[v begin@ptr ptr `*.39VEi  1 p 2 8 ]
-[v begin@maxSize maxSize `uc  1 p 1 10 ]
-[v begin@givenAddress givenAddress `uc  1 p 1 11 ]
-[v begin@error error `uc  1 p 1 12 ]
-[v begin@stufftosend stufftosend `*.37(v  1 p 2 13 ]
-[v begin@stufftoreceive stufftoreceive `*.37(uc  1 p 2 15 ]
-[v begin@stuffavailable stuffavailable `*.37(i  1 p 2 17 ]
-[v begin@stuffpeek stuffpeek `*.37(uc  1 p 2 19 ]
+[v begin@ptr ptr `*.39VEi  1 p 2 0 ]
+[v begin@maxSize maxSize `uc  1 p 1 2 ]
+[v begin@givenAddress givenAddress `uc  1 p 1 3 ]
+[v begin@error error `uc  1 p 1 4 ]
+[v begin@stufftosend stufftosend `*.37(v  1 p 2 5 ]
+[v begin@stufftoreceive stufftoreceive `*.37(uc  1 p 2 7 ]
+[v begin@stuffavailable stuffavailable `*.37(i  1 p 2 9 ]
+[v begin@stuffpeek stuffpeek `*.37(uc  1 p 2 11 ]
 "30
 } 0
 "8 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\awdiv.c
 [v ___awdiv __awdiv `(i  1 e 2 0 ]
 {
 "11
-[v ___awdiv@quotient quotient `i  1 a 2 6 ]
+[v ___awdiv@quotient quotient `i  1 a 2 34 ]
 "12
-[v ___awdiv@sign sign `uc  1 a 1 5 ]
-[v ___awdiv@counter counter `uc  1 a 1 4 ]
+[v ___awdiv@sign sign `uc  1 a 1 33 ]
+[v ___awdiv@counter counter `uc  1 a 1 32 ]
 "8
-[v ___awdiv@dividend dividend `i  1 p 2 0 ]
-[v ___awdiv@divisor divisor `i  1 p 2 2 ]
+[v ___awdiv@dividend dividend `i  1 p 2 28 ]
+[v ___awdiv@divisor divisor `i  1 p 2 30 ]
 "42
 } 0
 "9 C:\EV16.git\trunk\PDU.X\mcc_generated_files/tmr2.c
@@ -1042,18 +1062,18 @@ U10Multisense 23
 [v _UART_buff_init UART_buff_init `(v  1 e 1 0 ]
 {
 [s S183 UART_ring_buff 206 `[200]uc 1 buf 200 0 `i 1 head 2 200 `i 1 tail 2 202 `i 1 count 2 204 ]
-[v UART_buff_init@_this _this `*.39S183  1 p 2 8 ]
+[v UART_buff_init@_this _this `*.39S183  1 p 2 0 ]
 "68
 } 0
 "8 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\memset.c
 [v _memset memset `(*.39v  1 e 2 0 ]
 {
 "15
-[v memset@p p `*.39uc  1 a 2 6 ]
+[v memset@p p `*.39uc  1 a 2 34 ]
 "8
-[v memset@p1 p1 `*.39v  1 p 2 0 ]
-[v memset@c c `i  1 p 2 2 ]
-[v memset@n n `ui  1 p 2 4 ]
+[v memset@p1 p1 `*.39v  1 p 2 28 ]
+[v memset@c c `i  1 p 2 30 ]
+[v memset@n n `ui  1 p 2 32 ]
 "22
 } 0
 "59 C:\EV16.git\trunk\PDU.X\mcc_generated_files/adc.c
@@ -1061,15 +1081,15 @@ U10Multisense 23
 {
 "82
 } 0
-"18 C:\EV16.git\trunk\PDU.X\PDU.c
+"20 C:\EV16.git\trunk\PDU.X\PDU.c
 [v _PDUStartup PDUStartup `(v  1 e 1 0 ]
 {
-"31
+"33
 } 0
-"209
+"225
 [v _Update Update `(v  1 e 1 0 ]
 {
-"211
+"227
 } 0
 "10 C:\EV16.git\trunk\PDU.X\Shift595.c
 [v _StartUp595 StartUp595 `(v  1 e 1 0 ]
@@ -1080,41 +1100,41 @@ U10Multisense 23
 [v _Clear595 Clear595 `(v  1 e 1 0 ]
 {
 "40
-[v Clear595@i i `i  1 a 2 13 ]
+[v Clear595@i i `i  1 a 2 33 ]
 "45
 } 0
 "50
 [v _writeRegisters writeRegisters `(v  1 e 1 0 ]
 {
 "52
-[v writeRegisters@i i `i  1 a 2 11 ]
+[v writeRegisters@i i `i  1 a 2 6 ]
 "51
-[v writeRegisters@val val `i  1 a 2 9 ]
+[v writeRegisters@val val `i  1 a 2 4 ]
 "71
 } 0
-"35 C:\EV16.git\trunk\PDU.X\PDU.c
+"37 C:\EV16.git\trunk\PDU.X\PDU.c
 [v _EnableSlavePower EnableSlavePower `(v  1 e 1 0 ]
 {
 [v EnableSlavePower@slave slave `E6  1 a 1 wreg ]
 [v EnableSlavePower@slave slave `E6  1 a 1 wreg ]
-[v EnableSlavePower@onof onof `i  1 p 2 10 ]
-[v EnableSlavePower@slave slave `E6  1 a 1 12 ]
-"57
+[v EnableSlavePower@onof onof `i  1 p 2 34 ]
+[v EnableSlavePower@slave slave `E6  1 a 1 4 ]
+"59
 } 0
 "32 C:\EV16.git\trunk\PDU.X\Shift595.c
 [v _SetPin595 SetPin595 `(v  1 e 1 0 ]
 {
-[v SetPin595@Reg Reg `i  1 p 2 0 ]
-[v SetPin595@pin pin `i  1 p 2 2 ]
-[v SetPin595@value value `i  1 p 2 4 ]
+[v SetPin595@Reg Reg `i  1 p 2 28 ]
+[v SetPin595@pin pin `i  1 p 2 30 ]
+[v SetPin595@value value `i  1 p 2 32 ]
 "34
 } 0
-"158 C:\EV16.git\trunk\PDU.X\PDU.c
+"160 C:\EV16.git\trunk\PDU.X\PDU.c
 [v _ComputeStorageData ComputeStorageData `(v  1 e 1 0 ]
 {
-"159
-[v ComputeStorageData@i i `i  1 a 2 3 ]
-"169
+"161
+[v ComputeStorageData@i i `i  1 a 2 31 ]
+"171
 } 0
 "143 C:\EV16.git\trunk\PDU.X\mcc_generated_files/memory.c
 [v _DATAEE_ReadByte DATAEE_ReadByte `(uc  1 e 1 0 ]
@@ -1122,7 +1142,7 @@ U10Multisense 23
 [v DATAEE_ReadByte@bAdd bAdd `uc  1 a 1 wreg ]
 [v DATAEE_ReadByte@bAdd bAdd `uc  1 a 1 wreg ]
 "145
-[v DATAEE_ReadByte@bAdd bAdd `uc  1 a 1 0 ]
+[v DATAEE_ReadByte@bAdd bAdd `uc  1 a 1 28 ]
 "153
 } 0
 "121
@@ -1130,12 +1150,12 @@ U10Multisense 23
 {
 [v DATAEE_WriteByte@bAdd bAdd `uc  1 a 1 wreg ]
 "123
-[v DATAEE_WriteByte@GIEBitValue GIEBitValue `uc  1 a 1 2 ]
+[v DATAEE_WriteByte@GIEBitValue GIEBitValue `uc  1 a 1 30 ]
 "121
 [v DATAEE_WriteByte@bAdd bAdd `uc  1 a 1 wreg ]
-[v DATAEE_WriteByte@bData bData `uc  1 p 1 0 ]
+[v DATAEE_WriteByte@bData bData `uc  1 p 1 28 ]
 "123
-[v DATAEE_WriteByte@bAdd bAdd `uc  1 a 1 1 ]
+[v DATAEE_WriteByte@bAdd bAdd `uc  1 a 1 29 ]
 "141
 } 0
 "30 C:\EV16.git\trunk\PDU.X\CoolingControl.c
@@ -1152,41 +1172,41 @@ U10Multisense 23
 [v _PotSetpoint PotSetpoint `(v  1 e 1 0 ]
 {
 "31
-[v PotSetpoint@new_pos new_pos `i  1 a 2 17 ]
+[v PotSetpoint@new_pos new_pos `i  1 a 2 10 ]
 "50
-[v PotSetpoint@x x `i  1 a 2 15 ]
+[v PotSetpoint@x x `i  1 a 2 8 ]
 "22
-[v PotSetpoint@set_point set_point `i  1 a 2 13 ]
+[v PotSetpoint@set_point set_point `i  1 a 2 6 ]
 "21
-[v PotSetpoint@new_point new_point `i  1 p 2 9 ]
+[v PotSetpoint@new_point new_point `i  1 p 2 33 ]
 "62
 } 0
 "66
 [v _PotClear PotClear `(v  1 e 1 0 ]
 {
 "73
-[v PotClear@x x `i  1 a 2 9 ]
+[v PotClear@x x `i  1 a 2 33 ]
 "86
 } 0
 "9 C:\EV16.git\trunk\PDU.X\Functions.c
 [v _Delay Delay `(v  1 e 1 0 ]
 {
 "10
-[v Delay@i i `l  1 a 4 5 ]
+[v Delay@i i `l  1 a 4 0 ]
 "9
-[v Delay@wait wait `l  1 p 4 0 ]
+[v Delay@wait wait `l  1 p 4 28 ]
 "14
 } 0
 "81 C:\EV16.git\trunk\PDU.X\mcc_generated_files/pwm4.c
 [v _PWM4_LoadDutyValue PWM4_LoadDutyValue `(v  1 e 1 0 ]
 {
-[v PWM4_LoadDutyValue@dutyValue dutyValue `ui  1 p 2 0 ]
+[v PWM4_LoadDutyValue@dutyValue dutyValue `ui  1 p 2 28 ]
 "88
 } 0
-"213 C:\EV16.git\trunk\PDU.X\PDU.c
+"229 C:\EV16.git\trunk\PDU.X\PDU.c
 [v _CoolingCheck CoolingCheck `(uc  1 e 1 0 ]
 {
-"215
+"231
 } 0
 "67 C:\EV16.git\trunk\PDU.X\mcc_generated_files/interrupt_manager.c
 [v _INTERRUPT_InterruptManager INTERRUPT_InterruptManager `II(v  1 e 1 0 ]
@@ -1198,18 +1218,18 @@ U10Multisense 23
 {
 "177
 } 0
-"61 C:\EV16.git\trunk\PDU.X\PDU.c
+"63 C:\EV16.git\trunk\PDU.X\PDU.c
 [v _ReadCurrent ReadCurrent `(v  1 e 1 0 ]
 {
 [v ReadCurrent@gather gather `uc  1 a 1 wreg ]
 [v ReadCurrent@gather gather `uc  1 a 1 wreg ]
 [v ReadCurrent@gather gather `uc  1 a 1 13 ]
-"153
+"155
 } 0
-"209
+"225
 [v i2_Update Update `(v  1 e 1 0 ]
 {
-"211
+"227
 } 0
 "50 C:\EV16.git\trunk\PDU.X\Shift595.c
 [v i2_writeRegisters writeRegisters `(v  1 e 1 0 ]
@@ -1225,6 +1245,14 @@ U10Multisense 23
 [v i2Delay@wait wait `l  1 p 4 0 ]
 "14
 } 0
+"32 C:\EV16.git\trunk\PDU.X\Shift595.c
+[v i2_SetPin595 SetPin595 `(v  1 e 1 0 ]
+{
+[v i2SetPin595@Reg Reg `i  1 p 2 0 ]
+[v i2SetPin595@pin pin `i  1 p 2 2 ]
+[v i2SetPin595@value value `i  1 p 2 4 ]
+"34
+} 0
 "109 C:\EV16.git\trunk\PDU.X\mcc_generated_files/adc.c
 [v _ADC_GetConversion ADC_GetConversion `(ui  1 e 2 0 ]
 {
@@ -1234,31 +1262,14 @@ U10Multisense 23
 [v ADC_GetConversion@channel channel `E7738  1 a 1 4 ]
 "128
 } 0
-"173 C:\EV16.git\trunk\PDU.X\PDU.c
+"175 C:\EV16.git\trunk\PDU.X\PDU.c
 [v _FuseSystem FuseSystem `(v  1 e 1 0 ]
 {
-"181
-[v FuseSystem@i_1528 i `i  1 a 2 19 ]
-"175
-[v FuseSystem@i i `i  1 a 2 17 ]
-"207
-} 0
-"35
-[v i2_EnableSlavePower EnableSlavePower `(v  1 e 1 0 ]
-{
-[v i2EnableSlavePower@slave slave `E6  1 a 1 wreg ]
-[v i2EnableSlavePower@slave slave `E6  1 a 1 wreg ]
-[v i2EnableSlavePower@onof onof `i  1 p 2 10 ]
-[v i2EnableSlavePower@slave slave `E6  1 a 1 12 ]
-"57
-} 0
-"32 C:\EV16.git\trunk\PDU.X\Shift595.c
-[v i2_SetPin595 SetPin595 `(v  1 e 1 0 ]
-{
-[v i2SetPin595@Reg Reg `i  1 p 2 0 ]
-[v i2SetPin595@pin pin `i  1 p 2 2 ]
-[v i2SetPin595@value value `i  1 p 2 4 ]
-"34
+"183
+[v FuseSystem@i_1537 i `i  1 a 2 6 ]
+"177
+[v FuseSystem@i i `i  1 a 2 8 ]
+"215
 } 0
 "15 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\Umul16.c
 [v ___wmul __wmul `(ui  1 e 2 0 ]

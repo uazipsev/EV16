@@ -22,7 +22,7 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     IFS0bits.T1IF = 0; // clear interrupt flag
 }
 
-int GetTime(char number){
+unsigned int GetTime(char number){
     if(number == LEDTIME){
         return LEDtime;
     }

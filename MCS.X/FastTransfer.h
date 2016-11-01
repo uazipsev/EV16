@@ -8,6 +8,8 @@
 #ifndef FASTTRANSFER_H
 #define	FASTTRANSFER_H
 
+#define RX_BUFFER_SIZE 250
+
 //the capital D is so there is no interference with the lower case d of EasyTransfer
 #define Details(name) (int*)&name,sizeof(name)
 
@@ -23,6 +25,8 @@ unsigned int alignError(void);
 unsigned int CRCError(void);
 unsigned int addressError(void);
 unsigned int dataAddressError(void);
+unsigned int ReceiveArrayGet(int location);
+void wipeRxBuffer(void);
 
 
 

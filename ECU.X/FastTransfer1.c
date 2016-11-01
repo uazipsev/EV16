@@ -223,7 +223,7 @@ bool receiveData1() {
 
 
             if (calc_CS1 == rx_buffer1[rx_array_inx1 - 1]) {//CS good
-                INDICATOR ^= 1;
+                //INDICATOR ^= 1;
                 // reassembles the data and places it into the receive array according to data address.
                 int r;
                 for (r = 0; r < rx_len1; r = r + 3) {

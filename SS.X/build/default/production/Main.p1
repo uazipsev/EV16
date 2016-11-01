@@ -36,9 +36,36 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LATDbits `VS486 ~T0 @X0 0 e@3980 ]
 "12 Communications.h
 [v _updateComms `(v ~T0 @X0 0 ef ]
-"315 tmr0.h
-[v _GetTime `(l ~T0 @X0 0 ef ]
-"7674 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+"6931 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
+[s S425 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S425 . RC0 RC1 RC2 RC3 RC4 RC5 RC6 RC7 ]
+"6941
+[s S426 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S426 . T1OSO T1OSI T5CKI SCK SDI SDO TX RX ]
+"6951
+[s S427 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S427 . P2B P2A P1A SCL SDA . CK DT ]
+"6961
+[s S428 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S428 . T1CKI CCP2 CCP1 SCK1 SDI1 SDO1 TX1 RX1 ]
+"6971
+[s S429 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S429 . T3CKI . CTPLS SCL1 SDA1 . CK1 DT1 ]
+"6981
+[s S430 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S430 . T3G . AN14 AN15 AN16 AN17 AN18 AN19 ]
+"6991
+[s S431 :2 `uc 1 :1 `uc 1 ]
+[n S431 . . PA1 ]
+"6995
+[s S432 :1 `uc 1 :1 `uc 1 ]
+[n S432 . . PA2 ]
+"6930
+[u S424 `S425 1 `S426 1 `S427 1 `S428 1 `S429 1 `S430 1 `S431 1 `S432 1 ]
+[n S424 . . . . . . . . . ]
+"7000
+[v _PORTCbits `VS424 ~T0 @X0 0 e@3970 ]
+"7674
 [s S457 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S457 . LATA0 LATA1 LATA2 LATA3 LATA4 LATA5 LATA6 LATA7 ]
 "7684
@@ -7466,13 +7493,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Main.c: 27: updateComms();
 "27
 [e ( _updateComms ..  ]
-[; ;Main.c: 28: if(GetTime() > 5){
+[; ;Main.c: 28: if(PORTCbits.RC2 == 1){
 "28
-[e $ ! > ( _GetTime ..  -> -> 5 `i `l 1125  ]
+[e $ ! == -> . . _PORTCbits 0 2 `i -> 1 `i 1125  ]
 {
-[; ;Main.c: 29: LATAbits.LATA3 ^= 1;
+[; ;Main.c: 29: LATAbits.LATA3 = 1;
 "29
-[e =^ . . _LATAbits 0 3 -> -> 1 `i `uc ]
+[e = . . _LATAbits 0 3 -> -> 1 `i `uc ]
 [; ;Main.c: 30: ReadFaults();
 "30
 [e ( _ReadFaults ..  ]
@@ -7481,16 +7508,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _SetTime ..  ]
 "32
 }
-[e :U 1125 ]
+[; ;Main.c: 32: }
+[e $U 1126  ]
 "33
+[e :U 1125 ]
+[; ;Main.c: 33: else{
+{
+[; ;Main.c: 34: LATAbits.LATA3 = 0;
+"34
+[e = . . _LATAbits 0 3 -> -> 0 `i `uc ]
+"35
+}
+[e :U 1126 ]
+"36
 }
 [e :U 1122 ]
 "26
 [e $U 1123  ]
 [e :U 1124 ]
-[; ;Main.c: 32: }
-[; ;Main.c: 33: }
-[; ;Main.c: 34: }
-"34
+[; ;Main.c: 35: }
+[; ;Main.c: 36: }
+[; ;Main.c: 37: }
+"37
 [e :UE 1121 ]
 }

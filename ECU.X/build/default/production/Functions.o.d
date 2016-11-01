@@ -7,4 +7,5 @@ EEprom.h  \
 Timers.h  \
 DriverConfigs.h  \
 ThrottleBrakeControl.h  \
- Communications.h 
+ Communications.h  \
+SlaveAddressing.h 

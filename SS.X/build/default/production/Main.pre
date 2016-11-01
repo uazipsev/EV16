@@ -9336,10 +9336,13 @@ Start();
 LATDbits.LATD4 = 0;
 while (1) {
 updateComms();
-if(GetTime() > 5){
-LATAbits.LATA3 ^= 1;
+if(PORTCbits.RC2 == 1){
+LATAbits.LATA3 = 1;
 ReadFaults();
 SetTime();
+}
+else{
+LATAbits.LATA3 = 0;
 }
 }
 }

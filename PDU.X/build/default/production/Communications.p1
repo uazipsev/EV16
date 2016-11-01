@@ -14,6 +14,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _EnableSlavePower `(v ~T0 @X0 0 ef2`E7723`i ]
 "36
 [v _Update `(v ~T0 @X0 0 ef ]
+"39
+[v _GetPDUFault `(uc ~T0 @X0 0 ef1`uc ]
 "7938 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f45k22.h
 [s S477 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S477 . LATC0 LATC1 LATC2 LATC3 LATC4 LATC5 LATC6 LATC7 ]
@@ -7434,6 +7436,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;PDU.h: 35: void ReadCurrent(char gather);
 [; ;PDU.h: 36: void Update(void);
 [; ;PDU.h: 37: bool CoolingCheck();
+[; ;PDU.h: 38: void SavePDUFault(char loc, bool data);
+[; ;PDU.h: 39: bool GetPDUFault(char loc);
+[; ;PDU.h: 40: unsigned int FaultsCollector();
 [; ;Communications.c: 18: void processPowerRequest(int powerSet);
 [; ;Communications.c: 19: void respondECU();
 "21 Communications.c
@@ -7447,18 +7452,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ ! != -> ( _receiveData ..  `i -> -> -> 0 `i `uc `i 1122  ]
 {
 "23
-[v F7749 `i ~T0 @X0 1 s previousPowerState ]
+[v F7755 `i ~T0 @X0 1 s previousPowerState ]
 [; ;Communications.c: 23: static int previousPowerState;
 [; ;Communications.c: 24: if (previousPowerState != receiveArray[1]) {
 "24
-[e $ ! != F7749 *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux 1123  ]
+[e $ ! != F7755 *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux 1123  ]
 {
 [; ;Communications.c: 25: previousPowerState = receiveArray[1];
 "25
-[e = F7749 *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux ]
+[e = F7755 *U + &U _receiveArray * -> -> -> 1 `i `ui `ux -> -> # *U &U _receiveArray `ui `ux ]
 [; ;Communications.c: 26: processPowerRequest(previousPowerState);
 "26
-[e ( _processPowerRequest (1 F7749 ]
+[e ( _processPowerRequest (1 F7755 ]
 "27
 }
 [e :U 1123 ]
@@ -7539,33 +7544,75 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 1124 ]
 }
 "48
+[v _FaultsCollector `(ui ~T0 @X0 1 ef ]
+{
+[; ;Communications.c: 48: unsigned int FaultsCollector() {
+[e :U _FaultsCollector ]
+[f ]
+"49
+[v _sendVal `ui ~T0 @X0 1 a ]
+[; ;Communications.c: 49: unsigned int sendVal = 0;
+[e = _sendVal -> -> 0 `i `ui ]
+"50
+[v _i `i ~T0 @X0 1 a ]
+[; ;Communications.c: 50: int i = 0;
+[e = _i -> 0 `i ]
+[; ;Communications.c: 51: for (i = 0; i < 5; i++) {
+"51
+{
+[e = _i -> 0 `i ]
+[e $ < _i -> 5 `i 1136  ]
+[e $U 1137  ]
+[e :U 1136 ]
+{
+[; ;Communications.c: 52: sendVal = sendVal | ((GetPDUFault(i)&0x01) << i);
+"52
+[e = _sendVal | _sendVal -> << & -> ( _GetPDUFault (1 -> _i `uc `i -> 1 `i _i `ui ]
+"53
+}
+"51
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 5 `i 1136  ]
+[e :U 1137 ]
+"53
+}
+[; ;Communications.c: 53: }
+[; ;Communications.c: 54: return sendVal;
+"54
+[e ) _sendVal ]
+[e $UE 1135  ]
+[; ;Communications.c: 55: }
+"55
+[e :UE 1135 ]
+}
+"57
 [v _respondECU `(v ~T0 @X0 1 ef ]
 {
-[; ;Communications.c: 48: void respondECU() {
+[; ;Communications.c: 57: void respondECU() {
 [e :U _respondECU ]
 [f ]
-[; ;Communications.c: 49: LATCbits.LATC5 = 1;
-"49
+[; ;Communications.c: 58: LATCbits.LATC5 = 1;
+"58
 [e = . . _LATCbits 0 5 -> -> 1 `i `uc ]
-[; ;Communications.c: 50: ToSend(0, 5);
-"50
+[; ;Communications.c: 59: ToSend(0, 5);
+"59
 [e ( _ToSend (2 , -> -> 0 `i `uc -> -> 5 `i `ui ]
-[; ;Communications.c: 51: ToSend(1,0);
-"51
-[e ( _ToSend (2 , -> -> 1 `i `uc -> -> 0 `i `ui ]
-[; ;Communications.c: 52: Delay(5);
-"52
+[; ;Communications.c: 60: ToSend(1,FaultsCollector());
+"60
+[e ( _ToSend (2 , -> -> 1 `i `uc ( _FaultsCollector ..  ]
+[; ;Communications.c: 61: Delay(5);
+"61
 [e ( _Delay (1 -> -> 5 `i `l ]
-[; ;Communications.c: 53: sendData(1);
-"53
+[; ;Communications.c: 62: sendData(1);
+"62
 [e ( _sendData (1 -> -> 1 `i `uc ]
-[; ;Communications.c: 54: Delay(3);
-"54
+[; ;Communications.c: 63: Delay(3);
+"63
 [e ( _Delay (1 -> -> 3 `i `l ]
-[; ;Communications.c: 55: LATCbits.LATC5 = 0;
-"55
+[; ;Communications.c: 64: LATCbits.LATC5 = 0;
+"64
 [e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
-[; ;Communications.c: 56: }
-"56
-[e :UE 1135 ]
+[; ;Communications.c: 65: }
+"65
+[e :UE 1139 ]
 }

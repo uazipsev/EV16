@@ -25,10 +25,13 @@ void main(void) {
     RS485_TSS_Direction = LISTEN;  ///RS485 set to listen
     while (1) {
         updateComms(); //Read UART ring buffer and look if packet is here for us!
-        if(GetTime() > 5){  //read ticker and if it greater than one second
-           INDICATOR ^= 1;    //blink LED
+        if(BPD_FAULT == 1){  //read ticker and if it greater than one second
+           INDICATOR = 1;    //blink LED
            ReadFaults();      //Read ports and load data into bytes
            SetTime();         // Clear timer
+        }
+        else{
+           INDICATOR = 0;
         }
     }
 }

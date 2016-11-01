@@ -9509,8 +9509,8 @@ respondECU();
 void respondECU() {
 LATDbits.LATD4 = 1;
 ToSend(0,8);
-ToSend(1,(unsigned int)GetFaults(1));
-ToSend(2,(unsigned int)GetFaults(0));
+ToSend(1,GetFaults(1));
+ToSend(2,GetFaults(0));
 Delay(5);
 sendData(1);
 Delay(3);
