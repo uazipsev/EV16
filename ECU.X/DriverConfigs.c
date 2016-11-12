@@ -45,6 +45,13 @@ struct node* head = NULL;
 char CurentDriver;
 char DriverCountNum;
 
+char StartSwitch = 0;
+char testSwitch = 0;
+
+char BMMLight = 0;
+char IMDLight = 0;
+char ACTLight = 0;
+
 /*******************************************************************
  * @brief           SetUpDataSets
  * @brief           Runs a bunch of getters to set up dynamics for car
@@ -52,19 +59,21 @@ char DriverCountNum;
  * @note            uses getters to set up the cars settings 
  *******************************************************************/
 void SetUpDataSets(){
+    //printf("EEPROM\n");
     EEpromInit();  //Set up I2C and eeprom
-    SavePinCode(3117);
+    //SavePinCode(3117);
+    //SetCarLock(1);
     SetThrotteMax(ReadThrottlePrecent()); //Grab throttle from eeprom and save it into struct.
     ReadThrottleTrigger();
     SetBrakeLightValue(ReadBrakeLightTrigger());
     insert('0');  //Set start in 
     DriverCountNum = ReadCarDriverCount();
-    
+    //printf("Driver number saved = %d\n",DriverCountNum);
     if(ReadCarLock()){
         RunCarEnable = 1;
     }
     PIN = ReadPinCode();
-    
+    //printf("Pin = %d\n",PIN);
     int i = 0;
     for(i = 0;i<DriverCountNum;i++){
         ReadDriverNames(i+1);
@@ -72,7 +81,13 @@ void SetUpDataSets(){
     
     //SaveCarDriver(1);
     SetDriver(ReadCarDriver());
-    
+//    //Switch input save
+//    SaveCarStartSwitch(3);
+//    SaveCarTestSwitch(4);
+//    //Light switch save
+//    SaveCarBMMLight(3);
+//    SaveCarIMDLight(2);
+//    SaveCarACTLight(1);
 }
 
 /*******************************************************************
@@ -435,6 +450,99 @@ void NewDriverSave(){
  * @return          returns bool 
  * @note            
  *******************************************************************/
-bool GetDriverEnabled(){
+bool GetCarLock(){
     return RunCarEnable;
+}
+
+/*******************************************************************
+ * @brief           SetDriverEnabled
+ * @brief           Sets Driver enable
+ * @return          returns N/A 
+ * @note            
+ *******************************************************************/
+void SetCarLock(bool val){
+    RunCarEnable = val;
+    SaveCarLock(val);
+}
+
+/*******************************************************************
+ * @brief           GetPIN
+ * @brief           gets PIN from variable eeprom 
+ * @return          returns int of the pin
+ * @note            
+ *******************************************************************/
+int GetPIN(){
+    return PIN;
+}
+
+/*******************************************************************
+ * @brief           GetSwitch
+ * @brief           gets switch number from saved data
+ * @return          returns NA 
+ * @note            
+ *******************************************************************/
+char GetSwitch(char val){
+    if(val == START_SWITCH){
+        return ReadCarStartSwitch();
+    }
+    if(val == TEST_SWITCH){
+        return ReadCarTestSwitch();
+    }
+    else{
+        return -1;
+    }
+}
+
+/*******************************************************************
+ * @brief           SaveSwitch
+ * @brief           gets switch number from saved data
+ * @return          returns NA 
+ * @note            
+ *******************************************************************/
+void SaveSwitch(char val,char data){
+    if(val == START_SWITCH){
+        SaveCarStartSwitch(data);
+    }
+    else if(val == TEST_SWITCH){
+        SaveCarTestSwitch(data);
+    }
+}
+
+/*******************************************************************
+ * @brief           GetLight
+ * @brief           gets light location 
+ * @return          returns NA 
+ * @note            
+ *******************************************************************/
+char GetLight(char val){
+    if(val == ACT_LIGHT){
+        return ReadCarACTLight();
+    }
+    else if(val == BMM_LIGHT){
+        return ReadCarBMMLight();
+    }
+    else if(val == IMD_LIGHT){
+        return ReadCarIMDLight();
+    }
+    else{
+        return -1;
+    }
+}
+
+/*******************************************************************
+ * @brief           SaveLight
+ * @brief           sets lights to output locations
+ * @return          returns NA 
+ * @note            
+ *******************************************************************/
+void SaveLight(char val,char data){
+    if(val == ACT_LIGHT){
+        SaveCarACTLight(data);
+    }
+    else if(val == BMM_LIGHT){
+        SaveCarBMMLight(data);
+    }
+    else if(val == IMD_LIGHT){
+        SaveCarIMDLight(data);
+    }
 }

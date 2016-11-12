@@ -98,7 +98,7 @@ char readRegister(char i2cAddress, int reg)
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 char ReadCarDriver(){
-    return readRegister(ADDRESS, 1);
+    return readRegister(ADDRESS, DRIVER_ACTIVE_EEPROM_LOCATION);
 }
 
 /*******************************************************************
@@ -108,7 +108,7 @@ char ReadCarDriver(){
  * @note            assembles bytes together to make a valid data packet
  *******************************************************************/
 void SaveCarDriver(char value){
-    writeRegister(ADDRESS, 1,value);
+    writeRegister(ADDRESS, DRIVER_ACTIVE_EEPROM_LOCATION,value);
 }
 
 /*******************************************************************
@@ -118,7 +118,7 @@ void SaveCarDriver(char value){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 char ReadCarDriverCount(){
-    return readRegister(ADDRESS, 2);
+    return readRegister(ADDRESS, DRIVER_SAVED_EEPROM_LOCATION);
 }
 
 /*******************************************************************
@@ -128,7 +128,7 @@ char ReadCarDriverCount(){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 void SaveCarDriverCount(char value){
-    writeRegister(ADDRESS, 2,value);
+    writeRegister(ADDRESS, DRIVER_SAVED_EEPROM_LOCATION,value);
 }
 
 /*******************************************************************
@@ -138,7 +138,7 @@ void SaveCarDriverCount(char value){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 int ReadThrottlePrecent(){
-    return readRegister(ADDRESS, 3);
+    return readRegister(ADDRESS, THROTTLE_ERROR_EEPROM_LOCATION);
 }
 
 /*******************************************************************
@@ -148,7 +148,7 @@ int ReadThrottlePrecent(){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 void SaveThrottlePrecent(int value){
-    writeRegister(ADDRESS, 3, value);
+    writeRegister(ADDRESS, THROTTLE_ERROR_EEPROM_LOCATION, value);
 }
 
 /*******************************************************************
@@ -158,7 +158,7 @@ void SaveThrottlePrecent(int value){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 int ReadThrottleTrigger(){
-    return readRegister(ADDRESS, 4);
+    return readRegister(ADDRESS, THROTTLE_MAX_EEPROM_LOCATION);
 }
 
 /*******************************************************************
@@ -168,7 +168,7 @@ int ReadThrottleTrigger(){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 void SaveThrottleTrigger(int value){
-    writeRegister(ADDRESS, 4, value);
+    writeRegister(ADDRESS, THROTTLE_MAX_EEPROM_LOCATION, value);
 }
 
 /*******************************************************************
@@ -178,7 +178,7 @@ void SaveThrottleTrigger(int value){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 int ReadBrakeTrigger(){
-    return readRegister(ADDRESS, 5);
+    return readRegister(ADDRESS, BRAKE_MAX_EEPROM_LOCATION);
 }
 
 /*******************************************************************
@@ -188,7 +188,7 @@ int ReadBrakeTrigger(){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 void SaveBrakeTrigger(int value){
-    writeRegister(ADDRESS, 5, value);
+    writeRegister(ADDRESS, BRAKE_MAX_EEPROM_LOCATION, value);
     
 }
 
@@ -199,7 +199,7 @@ void SaveBrakeTrigger(int value){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 int ReadBrakeLightTrigger(){
-    return readRegister(ADDRESS, 6);
+    return readRegister(ADDRESS, BRAKE_LIGHT_THRESHOLDS_EEPROM_LOCATION);
 }
 
 /*******************************************************************
@@ -209,7 +209,7 @@ int ReadBrakeLightTrigger(){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 void SaveBrakeLightTrigger(int value){
-    writeRegister(ADDRESS, 6, value);
+    writeRegister(ADDRESS, BRAKE_LIGHT_THRESHOLDS_EEPROM_LOCATION, value);
     SetBrakeLightValue(value);
 }
 
@@ -221,8 +221,8 @@ void SaveBrakeLightTrigger(int value){
  *******************************************************************/
 int ReadPinCode(){
     char High, Low = 0;
-    High = readRegister(ADDRESS, 7);
-    Low = readRegister(ADDRESS, 8);
+    High = readRegister(ADDRESS, PIN_HIGH_EEPROM_LOCATION);
+    Low = readRegister(ADDRESS, PIN_LOW_EEPROM_LOCATION);
     return (Low | (High << 8));
 }
 
@@ -233,8 +233,8 @@ int ReadPinCode(){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 void SavePinCode(int value){
-    writeRegister(ADDRESS, 8, (value & 0xFF));
-    writeRegister(ADDRESS, 7, ((value >> 8) & 0xFF));
+    writeRegister(ADDRESS, PIN_HIGH_EEPROM_LOCATION, (value & 0xFF));
+    writeRegister(ADDRESS, PIN_LOW_EEPROM_LOCATION, ((value >> 8) & 0xFF));
 }
 
 /*******************************************************************
@@ -244,7 +244,7 @@ void SavePinCode(int value){
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
 bool ReadCarLock(){
-    return readRegister(ADDRESS, 9);
+    return readRegister(ADDRESS, CAR_LOCK_EEPROM_LOCATION);
 }
 
 /*******************************************************************
@@ -253,8 +253,108 @@ bool ReadCarLock(){
  * @return          none
  * @note            assembles bytes together to make a valid data packet 
  *******************************************************************/
-void SetCarLock(bool value){
-    writeRegister(ADDRESS, 9, value);
+void SaveCarLock(bool value){
+    writeRegister(ADDRESS, CAR_LOCK_EEPROM_LOCATION, value);
+}
+
+/*******************************************************************
+ * @brief           ReadCarStartSwitch
+ * @brief           reading data location for start button
+ * @return          char with switch input location
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
+char ReadCarStartSwitch(){
+    return readRegister(ADDRESS, CAR_SW_START_EEPROM_LOCATION);
+}
+
+/*******************************************************************
+ * @brief           SaveCarStartSwitch
+ * @brief           Saving data location for start button
+ * @return          none
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
+void SaveCarStartSwitch(char value){
+    writeRegister(ADDRESS, CAR_SW_START_EEPROM_LOCATION, value);
+}
+
+/*******************************************************************
+ * @brief           ReadCarTestSwitch
+ * @brief           reading data location for TEST button
+ * @return          char with switch input location
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
+char ReadCarTestSwitch(){
+    return readRegister(ADDRESS, CAR_SW_TEST_EEPROM_LOCATION);
+}
+
+/*******************************************************************
+ * @brief           SaveCarStartSwitch
+ * @brief           Saving data location for start button
+ * @return          none
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
+void SaveCarTestSwitch(char value){
+    writeRegister(ADDRESS, CAR_SW_TEST_EEPROM_LOCATION, value);
+}
+
+/*******************************************************************
+ * @brief           ReadCarBMMLight
+ * @brief           reading data location for BMM light
+ * @return          char with BMM light location
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
+char ReadCarBMMLight(){
+    return readRegister(ADDRESS, CAR_LT_BMM_EEPROM_LOCATION);
+}
+
+/*******************************************************************
+ * @brief           SaveCarBMMLight
+ * @brief           Saving data location for BMM light
+ * @return          none
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
+void SaveCarBMMLight(char value){
+    writeRegister(ADDRESS, CAR_LT_BMM_EEPROM_LOCATION, value);
+}
+
+/*******************************************************************
+ * @brief           ReadCarIMDLight
+ * @brief           reading data location for IMD light
+ * @return          char with BMM light location
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
+char ReadCarIMDLight(){
+    return readRegister(ADDRESS, CAR_LT_IMD_EEPROM_LOCATION);
+}
+
+/*******************************************************************
+ * @brief           SaveCarIMDLight
+ * @brief           Saving data location for IMD light
+ * @return          none
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
+void SaveCarIMDLight(char value){
+    writeRegister(ADDRESS, CAR_LT_IMD_EEPROM_LOCATION, value);
+}
+
+/*******************************************************************
+ * @brief           ReadCarACTLight
+ * @brief           reading data location for IMD light
+ * @return          char with BMM light location
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
+char ReadCarACTLight(){
+    return readRegister(ADDRESS, CAR_LT_ACT_EEPROM_LOCATION);
+}
+
+/*******************************************************************
+ * @brief           SaveCarACTLight
+ * @brief           Saving data location for IMD light
+ * @return          none
+ * @note            assembles bytes together to make a valid data packet 
+ *******************************************************************/
+void SaveCarACTLight(char value){
+    writeRegister(ADDRESS, CAR_LT_ACT_EEPROM_LOCATION, value);
 }
 
 /*******************************************************************

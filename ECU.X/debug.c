@@ -62,6 +62,8 @@ int Data = 0;
 char DataHold[10];
 char TimeOutMenu = 0;
 char next = 0;
+char error = 0;
+bool GrabPin = 0;
 
 /*******************************************************************
  * @brief           write
@@ -317,29 +319,61 @@ void handleDebugRequests() {
 
     if (Receive_available2()) {
         if(!FunctionDataGrab){
-            DataIn = Receive_get2();
-            if(VerboseEn){
-                printf("%c",DataIn);
+            if(GetCarLock()){
+                DataIn = Receive_get2();
+                if(DataIn == 'u'){
+                    printf("Please enter pin:");
+                    i = 0;
+                    GrabPin = 1;
+                }
+                else if(GrabPin){
+                    DataHold[i] = DataIn;
+                    printf("%c",DataHold[i]);
+                    i++;
+                    //We are looking for x chars...
+                    if(i>3){
+                        //We are done grabbing data off the pipeline
+                        GrabPin = 0;
+                        i = 0;
+                        sscanf(DataHold, "%d", &Data);
+                        if(GetPIN() == Data){
+                            SetCarLock(0);
+                            printf("\n*******CAR UNLOCKED********\n");
+                        }
+                        else{
+                            printf("\n******WRONG PIN*******\n");
+                        }
+                    }
+                }
+                else{
+                    MenuPrint(0, 0); 
+                }
             }
-            if(DataIn == 'b'){      
-                debugState = NO_DEBUG;
-                if((SubMenuActive == true) && (SubMenu > 0)){
-                    SubMenu = 0;
-                    //SubMenuActive = false;
+            else{
+                DataIn = Receive_get2();
+                if(VerboseEn){
+                    printf("%c",DataIn);
                 }
-                else if((SubMenuActive == true) && (SubMenu == 0)){
-                    SubMenuActive = false;
-                    Menu = 0;
-                }
+                if(DataIn == 'b'){      
+                    debugState = NO_DEBUG;
+                    if((SubMenuActive == true) && (SubMenu > 0)){
+                        SubMenu = 0;
+                        //SubMenuActive = false;
+                    }
+                    else if((SubMenuActive == true) && (SubMenu == 0)){
+                        SubMenuActive = false;
+                        Menu = 0;
+                    }
 
+                }
+                else if(SubMenuActive == false){
+                    Menu = DataIn - 48;
+                }
+                else if(SubMenuActive == true){
+                    SubMenu = DataIn - 48; 
+                }
+                Menudisplay = 1;
             }
-            else if(SubMenuActive == false){
-                Menu = DataIn - 48;
-            }
-            else if(SubMenuActive == true){
-                SubMenu = DataIn - 48; 
-            }
-            Menudisplay = 1;
         }
         if(FunctionDataGrab){
             //Driver Setting
@@ -417,7 +451,6 @@ void handleDebugRequests() {
                 }
                 //Get Max throttle
                 else if(next == 1){ 
-                    printf("i = %d",i);
                     DataHold[i] = Receive_get2();
 
                     i++;
@@ -760,15 +793,24 @@ void handleDebugRequests() {
  *******************************************************************/
 void MenuPrint(char Menuloc, char Subloc){
     switch (Menuloc){
-        case 0: 
-          printf("|-----Main Menu------| \n");
-          printf("1) Throttle Menu\n");
-          printf("2) Brake Menu\n");
-          printf("3) Settings Menu\n");
-          printf("4) Battery Info\n");
-          printf("5) ComBus Info\n");
-          printf("6) Driver Config\n");
-          printf("7) Debug\n");
+        case 0:
+            if(GetCarLock()){
+                printf("Car Menu Locked\n");
+                printf("Press U to unlock\n");
+            }
+            else{
+                printf("|-----Main Menu------| \n");
+                printf("1) Throttle Menu\n");
+                printf("2) Brake Menu\n");
+                printf("3) Settings Menu\n");
+                printf("4) Battery Info\n");
+                printf("5) ComBus Info\n");
+                printf("6) Driver Config\n");
+                printf("7) Debug\n");
+                if(error){
+                  //print errors for us to be alerted! 
+                }
+            }
           break;
        case 1:
           ThrottleMenu(Subloc);
@@ -855,9 +897,11 @@ void SettingMenu(char menuitem){
     printf("2) Reset Value\n");
     printf("3) About\n");
     printf("4) Brake Light Threshold\n");
-    printf("5) Car State\n");
-    printf("6) Car Fault\n");
-    printf("7) SS Car Fault\n");
+    printf("5) Set Start Switch\n");
+    printf("6) Set BMM Light\n");
+    printf("7) Set IMD Light\n");
+    printf("8) Set ACT Light\n");
+    printf("9) LOCK CAR\n");
     if(menuitem == 1){
         VerboseEn ^= VerboseEn;
         SubMenu = 0;
@@ -879,18 +923,30 @@ void SettingMenu(char menuitem){
     }
     else if(menuitem == 5){
         ClearScreen();
-        debugState = FIND_STATE;
+        printf("The start switch = %d\n", GetSwitch(START_SWITCH));
         SubMenu = 0;      
     }
     else if(menuitem == 6){
         ClearScreen();
-        debugState = FAULT_RECOVERY;
+        printf("The BMM light = %d\n", GetLight(BMM_LIGHT));
         SubMenu = 0;      
     }
     else if(menuitem == 7){
         ClearScreen();
-        debugState = SS_INFO;
+        printf("The IMD light = %d\n", GetLight(IMD_LIGHT));
         SubMenu = 0;      
+    }
+    else if(menuitem == 8){
+        ClearScreen();
+        printf("The ACT light = %d\n", GetLight(ACT_LIGHT));
+        SubMenu = 0;      
+    }
+    else if(menuitem == 9){
+        ClearScreen();
+        printf("*****Car Locked*****\n");
+        SubMenu = 0;
+        Menu = 0; 
+        SetCarLock(1);
     }
 }
 
@@ -1021,8 +1077,26 @@ void DebugMenu(char menuitem){
     SubMenuActive = true;
     printf("|---Debug Menu---|\n");
     printf("1) DDS Switch \n");
+    printf("2) Car Fault\n");
+    printf("3) SS Car Fault\n");
+    printf("4) Car State\n");
     if(menuitem == 1){
         debugState = buttons;
+    }
+    else if(menuitem == 2){
+        ClearScreen();
+        debugState = FAULT_RECOVERY;
+        SubMenu = 0;      
+    }
+    else if(menuitem == 3){
+        ClearScreen();
+        debugState = SS_INFO;
+        SubMenu = 0;      
+    }
+    else if(menuitem == 4){
+        ClearScreen();
+        debugState = FIND_STATE;
+        SubMenu = 0;      
     }
 }
 

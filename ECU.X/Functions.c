@@ -68,14 +68,19 @@ void Setup(void) {
     //PPSout(_OC1, _RP37);
     PPSLock;
     
-    //This sets up all non constants from external EEPROM 
-    SetUpDataSets();
+
 
     //Start comm's
     ComStart();
     
+    //This sets up all non constants from external EEPROM 
+    SetUpDataSets();
+    
     //This controls the timing system to control communication rates  
     initTimerOne();
+    
+    //Clear Debug Console
+    ClearScreen();
     
 }
 
