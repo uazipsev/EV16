@@ -20,7 +20,7 @@ void changeLEDState(int LED, int state);
 int GetDDSerrorCounter();
 bool receiveCommDDS();
 bool requestDDSData();
-
+void SetUpDDSIO();
 void ClearDDSTalk();
 
 #endif	/* DDSCOMMS_H */

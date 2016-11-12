@@ -94,7 +94,7 @@ void updateECUState() {
         case startup:
             //Means this is your first time in this state
             if (previousState != currentState) {
-                carActive = true;
+                carActive = false;
                 previousState = currentState;
                 //Power up the MCS
                 changeLEDState(DDS_ACTIVE_LED, 1);
@@ -125,6 +125,7 @@ void updateECUState() {
                 previousState = currentState;
                 carActive = true;
             }
+            carActive = true;
             int fCheck = faultChecker();
             if (fCheck == HARD_FAULT) {
                 currentState = fault;

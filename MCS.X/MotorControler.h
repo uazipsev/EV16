@@ -32,9 +32,9 @@ enum MotorStates {
 void MotorMode(int value);
 int GetMotorMode();
 void SetDirection(char direction);
-void SetSpeed(int value);
-void SetRegen(int value);
-void SetCarMode(bool value);
+void SetSpeed(unsigned int value);
+void SetRegen(unsigned int value);
+void SetCarMode(unsigned int value);
 void RegenEn(bool enable);
 void MotorUpdate();
 

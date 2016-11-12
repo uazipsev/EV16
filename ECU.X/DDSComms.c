@@ -78,7 +78,11 @@ int GetDDSerrorCounter(){
     return DDSErrorCounter;
 }
 
-
 void ClearDDSTalk(){
     readyToSendDDS = true;
+}
+
+void SetUpDDSIO(){
+    //GetLight(char val);
+    //GetSwitch(char val);
 }

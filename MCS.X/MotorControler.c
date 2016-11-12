@@ -19,7 +19,7 @@
 #include <xc.h>
 //#include "UART2.h" Not working HELP
 
-int MotorState, spd, brk = 0;
+unsigned int MotorState, spd, brk = 0;
 bool CarActiveMode =0;
 char dir = forward;
 char MotorModeActive = 0;
@@ -97,8 +97,8 @@ void MotorUpdate(){
             DACRELAY = 1;
             break;
         case MCRUN:
-            SetDAC1(spd*40.9);
-            //SetDAC2(brk*40.9);
+            SetDAC1(spd);
+            SetDAC2(brk);
             break;
         case MCSTOP:
             BRAKE = 0;
@@ -122,15 +122,15 @@ void SetDirection(char direction){
     dir = direction;
 }
 
-void SetSpeed(int value){
+void SetSpeed(unsigned int value){
     spd = value;
 }
 
-void SetRegen(int value){
+void SetRegen(unsigned int value){
     brk = value;
 }
 
-void SetCarMode(bool value){
+void SetCarMode(unsigned int value){
     CarActiveMode = value;
 }
 // toggles regen

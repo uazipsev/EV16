@@ -75,7 +75,8 @@ void Setup(void) {
     
     //This sets up all non constants from external EEPROM 
     SetUpDataSets();
-    
+    //Set up IO from DDS
+    SetUpDDSIO();
     //This controls the timing system to control communication rates  
     initTimerOne();
     

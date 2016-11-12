@@ -341,7 +341,7 @@ void handleDebugRequests() {
                             printf("\n*******CAR UNLOCKED********\n");
                         }
                         else{
-                            printf("\n******WRONG PIN*******\n");
+                            printf("\n*********WRONG PIN*********\n");
                         }
                     }
                 }
