@@ -21,7 +21,7 @@
 
 int MotorState, spd, brk = 0;
 bool CarActiveMode =0;
-char dir = 0;
+char dir = forward;
 char MotorModeActive = 0;
 
 void MotorStateControl(){
@@ -98,7 +98,7 @@ void MotorUpdate(){
             break;
         case MCRUN:
             SetDAC1(spd*40.9);
-            SetDAC2(brk*40.9);
+            //SetDAC2(brk*40.9);
             break;
         case MCSTOP:
             BRAKE = 0;
@@ -118,7 +118,7 @@ int GetMotorMode(){
    return MotorState;
 }
 
-void SetDirection(int direction){
+void SetDirection(char direction){
     dir = direction;
 }
 

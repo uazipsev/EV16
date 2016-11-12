@@ -42,6 +42,7 @@ extern "C" {
 #define THROTTLE_OUTPUT         1
 #define BRAKE_OUTPUT            2
 #define OUTPUT_ACTIVE           3
+#define DIR_ACTIVE              4
 
     //PDU Receive
 #define POWER_RAILS             1

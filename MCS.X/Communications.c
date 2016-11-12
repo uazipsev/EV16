@@ -7,7 +7,7 @@
 int throttleOut = 0, brakeOut = 0;
 bool pendingSend = false;
 bool portClosed = true;
-static bool started=false;
+//static bool started =false;
 
 void commSafety();
 void updateComms() {
@@ -16,9 +16,10 @@ void updateComms() {
     //If a new packet has arrived
     if (receiveData() && !pendingSend) {
        
-        //SetCarMode(receiveArray[OUTPUT_ACTIVE]);
-        //SetSpeed(receiveArray[THROTTLE_OUTPUT]);
-        //SetRegen(receiveArray[BRAKE_OUTPUT]);
+        SetCarMode(ReceiveArrayGet(OUTPUT_ACTIVE));
+        SetSpeed(ReceiveArrayGet(THROTTLE_OUTPUT));
+        SetRegen(ReceiveArrayGet(BRAKE_OUTPUT));
+        //SetDirection(ReceiveArrayGet(DIR_ACTIVE));
 
         ClearTime(TALKTIME);
         //ClearTime(SAFETYTIME);

@@ -15,7 +15,7 @@ unsigned int TimeOut = 0;
 unsigned int LastTime = 0;
 bool TimeOutActive = 0;
 
-volatile unsigned int SAS, DDS, MCS, PDU, BMM, BootTimer, DebugTimer, SSTimer, DeltaTimer;
+volatile unsigned int SASTimerTime, DDSTimerTime, MCSTimerTime, PDUTimerTime, BMMTimerTime, BootTimerTime, DebugTimerTime, SSTimerTime, DeltaTimerTime = 0;
 volatile unsigned int time;
 volatile unsigned int talkTime;
 volatile unsigned int talkTime1;
@@ -38,15 +38,15 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     talkTime1++;
     talkTime2++;
     talkTime3++;
-    BootTimer++;
-    DebugTimer++;
-    DeltaTimer++;
-    SSTimer++;
-    SAS++;
-    DDS++;
-    MCS++;
-    PDU++;
-    BMM++;
+    BootTimerTime++;
+    DebugTimerTime++;
+    DeltaTimerTime++;
+    SSTimerTime++;
+    SASTimerTime++;
+    DDSTimerTime++;
+    MCSTimerTime++;
+    PDUTimerTime++;
+    BMMTimerTime++;
     if(((time - LastTime) >= TimeOut) && (TimeOutActive == 1)){
         TimeOutActive = 0;
         MenuClearFlag();
@@ -63,28 +63,28 @@ void TimeOutSet(int num){
 
 unsigned int GetTime(char data){
     if(data == SASTIMER){
-        return SAS;
+        return SASTimerTime;
     }
     else if(data == DDSTIMER){
-        return DDS;
+        return DDSTimerTime;
     }
     else if(data == MCSTIMER){
-        return MCS;
+        return MCSTimerTime;
     }
     else if(data == PDUTIMER){
-        return PDU;
+        return PDUTimerTime;
     }
     else if(data == BMMTIMER){
-        return BMM;
+        return BMMTimerTime;
     }
     else if(data == DEBUGTIME){
-        return DebugTimer;
+        return DebugTimerTime;
     }
     else if(data == DELTATIMER){
-        return DeltaTimer;
+        return DeltaTimerTime;
     }
     else if(data == SSTIMER){
-        return SSTimer;
+        return SSTimerTime;
     }
     else if(data == TIME){
         return time;
@@ -100,25 +100,25 @@ unsigned int GetTime(char data){
 
 void SetTime(char data){
     if(data == SASTIMER){
-        SAS = 0;
+        SASTimerTime = 0;
     }
     else if(data == DDSTIMER){
-        DDS = 0;
+        DDSTimerTime = 0;
     }
     else if(data == MCSTIMER){
-        MCS = 0;
+        MCSTimerTime = 0;
     }
     else if(data == PDUTIMER){
-        PDU = 0;
+        PDUTimerTime = 0;
     }
     else if(data == BMMTIMER){
-        BMM = 0;
+        BMMTimerTime = 0;
     }
     else if(data == DEBUGTIME){
-        DebugTimer = 0;
+        DebugTimerTime = 0;
     }
     else if(data == SSTIMER){
-        SSTimer = 0;
+        SSTimerTime = 0;
     }
     else if(data == TIME){
         time = 0;

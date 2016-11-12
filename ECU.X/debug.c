@@ -20,6 +20,7 @@
 #include "FastTransfer3.h"
 #include "SASComms.h"
 #include "ThrottleBrakeControl.h"
+#include "Communications.h"
 #include <errno.h>
 #include "SScomms.h"
 
@@ -37,19 +38,6 @@ enum BMM {
     BATTERY_POWER = 3
 };
 
-struct commsStates {
-    bool DDS;
-    bool MCS;
-    bool SAS;
-    bool BMM;
-    bool PDU;
-    int DDS_SEND;
-    int MCS_SEND;
-    int SAS_SEND;
-    enum BMM BMM_SEND;
-    int PDU_SEND;
-};
-extern struct commsStates comms;
                int State_Value =0;
                int StateFault_Value=0;
 enum debugStates debugState;
@@ -268,17 +256,20 @@ void handleDebugRequests() {
                     lastDebugState = debugState;
                 }
                 printf("Comms:\n");
-                if(!comms.BMM){
+                if(!ComCheck(BMMSTATE)){
                     printf("No BMM comms\n");
                 }
-                if(!comms.DDS){
+                if(!ComCheck(DDSSTATE)){
                     printf("No DDS comms\n");
                 }
-                if(!comms.SAS){
+                if(!ComCheck(SASSTATE)){
                     printf("No SAS comms\n");
                 }
-                if(!comms.MCS){
+                if(!ComCheck(MCSSTATE)){
                     printf("No MCS comms\n");
+                }
+                if(!ComCheck(SSSTATE)){
+                    printf("No SS comms\n");
                 }
                 break;
             case buttons:
@@ -289,6 +280,7 @@ void handleDebugRequests() {
                 for(i = 0;i<8;i++){
                     printf("Button %d : %d", i,buttonArray[i]);
                 }
+                printf("\n");
                 break;
             case error_rate:
                 if (lastDebugState != debugState) {
@@ -1075,3 +1067,4 @@ void ClearScreen()
   printf("\033[2J");
   printf("\033[H");
 }
+

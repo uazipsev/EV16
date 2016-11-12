@@ -16,4 +16,5 @@ FastTransfer1.h  \
  FastTransfer3.h  \
 SASComms.h  \
 ThrottleBrakeControl.h  \
-SScomms.h 
+Communications.h  \
+ SScomms.h 

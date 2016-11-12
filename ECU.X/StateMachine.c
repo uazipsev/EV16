@@ -73,7 +73,7 @@ void updateECUState() {
                 //Turn on the BMM to watch precharge
                 powerSet.BMM = true;
                 //reset timeout timer
-                BootTimer = 0;
+                BootTimerTime = 0;
             }
                         //if start button changes to depressed here, exit boot sequence
             if (seekButtonChange()) {
@@ -100,7 +100,7 @@ void updateECUState() {
                 changeLEDState(DDS_ACTIVE_LED, 1);
                 powerSet.MCS = true;
                 //reset timeout timer
-                BootTimer = 0;
+                BootTimerTime = 0;
             }
             //if start button changes to depressed here, exit boot sequence
             if (seekButtonChange()) {
@@ -153,7 +153,7 @@ void updateECUState() {
                 carActive = false;
                 SS_RELAY = 0;
             }
-            if (BootTimer > 300) {
+            if (BootTimerTime > 300) {
                 currentState = stopped;
             }
 
@@ -247,42 +247,42 @@ int faultChecker() {
 }
 
 bool StartSequenceCompleted() {
-    if ((BootTimer > 3000)) return true; //&& PORTAbits.RA4 
+    if ((BootTimerTime > 3000)) return true; //&& PORTAbits.RA4 
     else return false;
 }
 
 bool bootSequenceCompleted() {
-    if ((BootTimer > 1500) && ComCheck(MCSSTATE)) return true; 
+    if ((BootTimerTime > 1500) && ComCheck(MCSSTATE)) return true; 
     else return false;
 }
 
 bool checkForBootupTimeout() {
-    if (BootTimer > 0 && BootTimer <= 5) {
+    if (BootTimerTime > 0 && BootTimerTime <= 5) {
         changeLEDState(DDS_ACTIVE_LED, 0);
-    } else if (BootTimer > 250 && BootTimer <= 255) {
+    } else if (BootTimerTime > 250 && BootTimerTime <= 255) {
         changeLEDState(DDS_ACTIVE_LED, 1);
-    } else if (BootTimer > 500 && BootTimer <= 505) {
+    } else if (BootTimerTime > 500 && BootTimerTime <= 505) {
         changeLEDState(DDS_ACTIVE_LED, 0);
-    } else if (BootTimer > 750 && BootTimer <= 755) {
+    } else if (BootTimerTime > 750 && BootTimerTime <= 755) {
         changeLEDState(DDS_ACTIVE_LED, 1);
-    } else if (BootTimer > 1000 && BootTimer <= 1005) {
+    } else if (BootTimerTime > 1000 && BootTimerTime <= 1005) {
         changeLEDState(DDS_ACTIVE_LED, 0);
-    } else if (BootTimer > 1250 && BootTimer <= 1255) {
+    } else if (BootTimerTime > 1250 && BootTimerTime <= 1255) {
         changeLEDState(DDS_ACTIVE_LED, 1);
-    } else if (BootTimer > 1500 && BootTimer <= 1505) {
+    } else if (BootTimerTime > 1500 && BootTimerTime <= 1505) {
         changeLEDState(DDS_ACTIVE_LED, 0);
-    } else if (BootTimer > 1750 && BootTimer <= 1755) {
+    } else if (BootTimerTime > 1750 && BootTimerTime <= 1755) {
         changeLEDState(DDS_ACTIVE_LED, 1);
-    } else if (BootTimer > 2000 && BootTimer <= 2005) {
+    } else if (BootTimerTime > 2000 && BootTimerTime <= 2005) {
         changeLEDState(DDS_ACTIVE_LED, 0);
-    } else if (BootTimer > 2250 && BootTimer <= 2255) {
+    } else if (BootTimerTime > 2250 && BootTimerTime <= 2255) {
         changeLEDState(DDS_ACTIVE_LED, 1);
-    } else if (BootTimer > 2500 && BootTimer <= 2505) {
+    } else if (BootTimerTime > 2500 && BootTimerTime <= 2505) {
         changeLEDState(DDS_ACTIVE_LED, 0);
-    } else if (BootTimer > 2750 && BootTimer <= 2755) {
+    } else if (BootTimerTime > 2750 && BootTimerTime <= 2755) {
         changeLEDState(DDS_ACTIVE_LED, 1);
     }
-    if (BootTimer > 3500) {
+    if (BootTimerTime > 3500) {
         currentState--;
         return true;
     }

@@ -31,7 +31,7 @@ enum MotorStates {
 
 void MotorMode(int value);
 int GetMotorMode();
-void SetDirection(int direction);
+void SetDirection(char direction);
 void SetSpeed(int value);
 void SetRegen(int value);
 void SetCarMode(bool value);

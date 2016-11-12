@@ -5,7 +5,7 @@ Linker command line:
 --edf=C:\Program Files (x86)\Microchip\xc8\v1.37\dat\en_msgs.txt -cs \
   -h+dist/default/production\DDS.X.production.sym \
   --cmf=dist/default/production\DDS.X.production.cmf -z -Q18F45K22 \
-  -oC:\Users\Rick\AppData\Local\Temp\s8nk.2 \
+  -oC:\Users\richc\AppData\Local\Temp\s954.2 \
   -Mdist/default/production/DDS.X.production.map -E1 -ver=XC8 \
   -ASTACK=0151h-01ffh -pstack=STACK -ACODE=00h-07FFFh -ACONST=00h-07FFFh \
   -ASMALLCONST=0600h-06FFhx122 -AMEDIUMCONST=0600h-07FFFh -ACOMRAM=01h-05Fh \
@@ -22,7 +22,7 @@ Linker command line:
   -pfarbss=FARRAM,fardata=FARRAM,nvFARRAM=FARRAM \
   -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
   -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE -prparam=COMRAM \
-  C:\Users\Rick\AppData\Local\Temp\s8nk.obj \
+  C:\Users\richc\AppData\Local\Temp\s954.obj \
   dist/default/production\DDS.X.production.obj 
 
 Object code version is 3.11
@@ -35,7 +35,7 @@ Call graph: (short form)
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\Rick\AppData\Local\Temp\s8nk.obj
+C:\Users\richc\AppData\Local\Temp\s954.obj
                 end_init                             D0       D0        4        4       0
                 reset_vec                             0        0        4        0       0
                 idloc                            200000   200000        8   200000       0
@@ -2563,7 +2563,7 @@ Total ram usage:        4 bytes
   bytes           9    0[BANK1 ] unsigned char [9]
   base            2    9[BANK1 ] PTR const unsigned char 
 		 -> OledFont(768), 
-  status          1   12[BANK1 ] enum E7919
+  status          1   12[BANK1 ] enum E8858
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
@@ -2696,7 +2696,7 @@ Total ram usage:        0 bytes
   com             1    wreg     unsigned char 
  Auto vars:     Size  Location     Type
   com             1   36[COMRAM] unsigned char 
-  status          1   37[COMRAM] enum E7919
+  status          1   37[COMRAM] enum E8858
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
@@ -3210,7 +3210,7 @@ Total ram usage:        0 bytes
   i2c_addr        1   20[BANK1 ] unsigned char 
   writeBuffer    20    0[BANK1 ] unsigned char [20]
   timeOut         2   21[BANK1 ] unsigned int 
-  status          1   23[BANK1 ] enum E7758
+  status          1   23[BANK1 ] enum E8697
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
@@ -3342,7 +3342,7 @@ Total ram usage:        8 bytes
   i2c_addr        1   10[BANK1 ] unsigned char 
   writeBuffer     3    5[BANK1 ] unsigned char [3]
   timeOut         2    8[BANK1 ] unsigned int 
-  status          1   11[BANK1 ] enum E7758
+  status          1   11[BANK1 ] enum E8697
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
@@ -3377,7 +3377,7 @@ Total ram usage:        7 bytes
  Auto vars:     Size  Location     Type
   writeBuffer     2    0[BANK1 ] unsigned char [2]
   timeOut         2    2[BANK1 ] unsigned int 
-  status          1    4[BANK1 ] enum E7758
+  status          1    4[BANK1 ] enum E8697
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
@@ -3410,7 +3410,7 @@ Total ram usage:        8 bytes
  Auto vars:     Size  Location     Type
   writeBuffer     2    0[BANK1 ] unsigned char [2]
   timeOut         2    2[BANK1 ] unsigned int 
-  status          1    4[BANK1 ] enum E7758
+  status          1    4[BANK1 ] enum E8697
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
@@ -3443,7 +3443,7 @@ Total ram usage:        8 bytes
 		 -> LEDbegin@writeBuffer(3), LEDblinkRate@writeBuffer(2), LEDBsetBrightness@writeBuffer(2), 
   length          2    2[BANK0 ] int 
   address         2    4[BANK0 ] unsigned int 
-  pflag           2    6[BANK0 ] PTR enum E7739
+  pflag           2    6[BANK0 ] PTR enum E8678
 		 -> Display@status(1), oledPutChar@status(1), OLED_command@status(1), LEDwriteDisplay@status(1), 
 		 -> LEDbegin@status(1), LEDblinkRate@status(1), LEDBsetBrightness@status(1), 
  Auto vars:     Size  Location     Type
@@ -3521,7 +3521,7 @@ Total ram usage:       10 bytes
   count           2   26[COMRAM] int 
   ptrb_list       2   28[COMRAM] PTR struct .
 		 -> I2C1_MasterRead@trBlock(5), I2C1_MasterWrite@trBlock(5), 
-  pflag           2   30[COMRAM] PTR enum E7739
+  pflag           2   30[COMRAM] PTR enum E8678
 		 -> Display@status(1), oledPutChar@status(1), OLED_command@status(1), LEDwriteDisplay@status(1), 
 		 -> LEDbegin@status(1), LEDblinkRate@status(1), LEDBsetBrightness@status(1), 
  Auto vars:     Size  Location     Type
@@ -3891,9 +3891,9 @@ Total ram usage:        2 bytes
  Defined at:
 		line 534 in file "mcc_generated_files/i2c1.c"
  Parameters:    Size  Location     Type
-  completion_c    1    wreg     enum E7739
+  completion_c    1    wreg     enum E8678
  Auto vars:     Size  Location     Type
-  completion_c    1    2[COMRAM] enum E7739
+  completion_c    1    2[COMRAM] enum E8678
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:

@@ -21,7 +21,7 @@ void updateStoppedState();
 extern int buttonArray[8];
 extern int seekButtonChange();
 extern void changeLEDState(int LED, bool state);
-extern volatile unsigned int BootTimer;
+extern volatile unsigned int BootTimerTime;
 void Display();
 
 #ifdef	__cplusplus
