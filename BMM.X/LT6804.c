@@ -574,11 +574,11 @@ int LTC6804_rdaux(int reg,
         //printf("data pec %i \n", data_pec);
         if(received_pec != data_pec)
         {
-            printf("ERror \n"); 
+            //printf("ERror \n"); 
           pec_error = -1;
         }
         else{
-         printf("ok \n");
+        // printf("ok \n");
         }
        
         data_counter=data_counter+2;

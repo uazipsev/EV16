@@ -53,7 +53,7 @@ void Setup(void) {
    //initTimerTwo();
     //Start_BMS();
     //SPI2_Initialize();
-    //i2c_init();
+    InitI2C();
     //PWM_Init();
 }
 
@@ -69,11 +69,11 @@ void PinSetMode(void) {
     TRISBbits.TRISB1 = OUTPUT; //Set LED as output
     TRISBbits.TRISB5 = OUTPUT; //BMS Slave Turn on
     TRISBbits.TRISB6 = OUTPUT; //Fan control OUT
-
     TRISAbits.TRISA4 = OUTPUT;
     TRISAbits.TRISA7 = OUTPUT;
     TRISAbits.TRISA8 = OUTPUT;
     TRISBbits.TRISB7 = OUTPUT; // RS485 Direction Pin OUTPUT
+    LATBbits.LATB6 = 1; 
     LATBbits.LATB7 = 0;
     //SS CLEAR AND SET
     TRISAbits.TRISA1=OUTPUT;
@@ -95,6 +95,8 @@ void PinSetMode(void) {
 
         if (time_get(LEDTM) > 500) {
             INDICATOR = !INDICATOR;
+            LATBbits.LATB6 =!LATBbits.LATB6 ;
+            ReadCurrentVolt();
          /*  
             hi++;
             printf( "hi Value %i", hi);

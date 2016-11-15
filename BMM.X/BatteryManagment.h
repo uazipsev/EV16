@@ -20,8 +20,8 @@
 #define module_2 2
 #define min_select 0
 #define max_select 1
-
-void Start_BMS(int mode);
+extern float CVolt[6];
+void Start_BMS(int mode); // Starts the BMS mode value is indicated by what to go into. 1=Run Mode for the car 2=Charge mode for the charger
 void ChargerEN();
 bool ChargerVal();
 void ReadCurrentVolt();
@@ -34,6 +34,7 @@ extern int Read_Total_Voltage(int cell_codesBank1[][12], int cell_codesBank2[][1
 void Update_Average_Array(bool Type_Of_Array,int Array_Index,double Array_Bank1[][Array_Index],double Array_Bank2[][Array_Index]);
 extern int Read_Total_GPIO(int Aux_codes_Bank1[][6], int Aux_codes_Bank2[][6]);
 double getbigc();
+double Get_Extreme_Voltage(int type, int parm, int bank);
   extern int FaultValue;// TODO IS THIs THE RIGHT WAY FOR A GLOBAL VARIABLE?
   
   //Arrays for Cell Voltages
@@ -51,7 +52,10 @@ double getbigc();
   extern double Converted_Temprature_Bank2[NUMBEROFIC][6];
   extern double Average_Temprature_Codes_Bank1[NUMBEROFIC][6];
   extern double Average_Temprature_Codes_Bank2[NUMBEROFIC][6];
- 
+ extern double Min_Temp[2][3];
+   extern double Max_Temp[2][3];
+ extern  double Min_Cell_Voltage[2][3];
+ extern  double Max_Cell_Voltage[2][3];
  
  double gettemp(int ic, int num,int bank);
 #endif	/* READ_BATTERY_LEVEL_H */

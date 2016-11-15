@@ -17,12 +17,16 @@
 #include "debug.h"
 
 int main(int argc, char** argv) {
+    int mode=1;  //mode=1=Run car  mode=2=Charge Car
     Setup();
     //printf("Start");
-   //Start_BMS(1);
+   mode=Comm_Start();
+   Start_BMS(mode);
    while (1) { 
+       
+       
+       
        updateTimers();
-      // Initalize_LT6804b(); FOR TESTING DElETE WHEN FINISHED
 //        if (time_get(ADCTM) > 50) {
 //            static int counter = 0;
 //            if (counter < 4){
@@ -32,8 +36,15 @@ int main(int argc, char** argv) {
 //            ADCTime = 0;
 //        }
        ledDebug();
-       //Run_Mode();
-       //handleDebugRequests();
+        if (mode == 1) {
+            Run_Mode();
+        } else if (mode == 2) {
+            Charge_Mode();
+        }
+       
+       
+       
+       handleDebugRequests();
        updateComms();
     }
 

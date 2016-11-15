@@ -105,7 +105,10 @@ void updateComms() {
     }
     checkCommDirection();
 }
+void Send_To_Charger(int Charge, int voltage, int amps){
 
+
+}
 void checkCommDirection() {
     //you have finished send and time has elapsed.. start listen
     //if (GetTxStall() && (time_get(TLKTM) > 20) && (RS485_Port == TALK) && portClosed && !pendingSend) {

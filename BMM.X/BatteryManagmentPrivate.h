@@ -18,7 +18,7 @@ int j = 0;
 
 float CurrentOffset[6] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 int Current[6];
-float CVolt[6];
+
 float Volt1 = 0;
 float Volt2 = 0;
 float CC1;
@@ -37,22 +37,23 @@ char CFGR5 = 0;
 
    float TempK=0;
 # define To 0.003361344537   //Normal Temprature in kelvin
-  double TempCBank1[NUMBEROFIC][6];
-  double TempCBank2[NUMBEROFIC][6];
+  double TempCBank1[NUMBEROFIC][6] = { 0 };
+  double TempCBank2[NUMBEROFIC][6]= { 0 };
    float Vin=3.2;
 int VoltageDividerResistance =10000;
 #define A_Constant 8.42961857*pow(10,-4)
 #define B_Constant 3380
 #define Inverse_B_Constant 0.000295857988165
 #define C_Constant 1.578649669*pow(10,-7)
-int Over_Temp_Value=0; // TODO create number for this.
-int Over_Voltage_Value = 0x9C4; // Compare Voltage = Over_Voltage_Value*16*100uV  
-//Default Over_Voltage_Value=4.0 4.0=2500*16*100*10^-6
+int Over_Temp_Value=5000; // TODO create number for this.
+#define Over_Voltage_Value_LTC  0x9C4 // Compare Voltage = Over_Voltage_Value*16*100uV  
+//Default Over_Voltage_Value_LTC=4.0 4.0=2500*16*100*10^-6
 // 2500=0x7CF
+#define Over_Voltage_Value 4
+#define Under_Voltage_Value 3.2
 
-
-int Under_Voltage_Value = 0x7CF; // Compare Voltage = (Under_Voltage_Value +1) * 16 * 100uV  
-// Default Under Voltage Value should be= 3.2 3.2=(1999+1)*16*100*10^-6
+#define Under_Voltage_Value_LTC  0x7CF // Compare Voltage = (Under_Voltage_Value +1) * 16 * 100uV  
+// Default Under Voltage_LTC Value should be= 3.2 3.2=(1999+1)*16*100*10^-6
 // 1999=0x7CF
 
 #define  All_Stats 0x000 //SOC, ITMP, VA, VD
@@ -83,10 +84,7 @@ int Under_Voltage_Value = 0x7CF; // Compare Voltage = (Under_Voltage_Value +1) *
 
 #define Bank1_Array_Indicator 0
 #define Bank2_Array_Indicator 1
-  int Min_Temp[1][2];
-  int Max_Temp[1][2];
- static int Min_Cell_Voltage[1][2];
- static int Max_Cell_Voltage[1][2];
+  
 
 int Voltage_data[1][12];
 int Aux_data[1][6];
@@ -98,7 +96,8 @@ int LTC6804_DATA_ConfigBank1Read[NUMBEROFIC][NUMBEROFDATA];
 int LTC6804_DATA_ConfigBank2Read[NUMBEROFIC][NUMBEROFDATA];
 int Stat_codes_Bank1[NUMBEROFIC][6];
 int Stat_codes_Bank2[NUMBEROFIC][6];
-
+int RETURN_LTC6804_DATA_ConfigBank1[NUMBEROFIC][NUMBEROFDATA];
+int RETURN_LTC6804_DATA_ConfigBank2[NUMBEROFIC][NUMBEROFDATA];
 /*!< 
   The cell codes will be stored in the cell_codes[][12] array in the following format:
   
@@ -135,9 +134,9 @@ int SetBypass(int bank, int ic, int cell, bool value); //This sets the bypass fo
 int Startuptests(int Stat_codes[NUMBEROFIC][6]); //This function is to test the LTC6804 to make sure everything is in check.
 int CheckTestReading(int Stat_codes[NUMBEROFIC][6]); //Actually Checks the test from the data.
 int Check_All_Cell_Thresholds(int test,int IC, double cell_codes_bank1[][12],double cell_codes_bank2[][12]); // Checks the voltage of a bank if one cell has a error it will break out and present the error.  
-int CheckThresholds(int test, int data);// Checks each cell to see if the data is over the threshold.
-void Initalize_LT6804b();  //Setups the config registers to be sent the LT6804B.
-int RunBypass_Set(int bank, int cell_codesBank[][12]);
+int CheckThresholds(int test, double data);// Checks each cell to see if the data is over the threshold.
+void Configure_LT6804();  //Setups the config registers to be sent the LT6804B.
+int RunBypass_Set(int bank, double Conv_Cell_CodesBank[][12]);
 void Run_GPIO_Temp_ColumbCounting_Timer();
 int Read_GPIO(int BatteryPlacement, int aux_codes[NUMBEROFIC][6]);
  void Convert_To_Voltage_Cell(int Array_Bank1[][12], int Array_Bank2[][12]);  //Converts A to D readings from the LTC6804 to voltages to determine the voltage.
@@ -169,5 +168,9 @@ void Open_All_ByPass();
 #define ReadAuxRegFault 17
 #define NoBankselected 18
 #define Loose_Slave_Fault 19
+
+
+#define Voltage_Charge 294
+#define Amps_Charge 5
 #endif	/* BATTERYMANAGMENTPRIVATE_H */
 
