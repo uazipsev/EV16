@@ -269,17 +269,15 @@ void handleDebugRequests() {
 
             case CURRENT_PV:
                 ClearScreen();
-                
-                printf("Current %f %f %f %f %f %f \n \n \n ",CVolt[0],CVolt[1],CVolt[2],CVolt[3],CVolt[4],CVolt[5]);
-                printf("CS 1 C+ =  \n");
-                printf("CS 1 C- =  \n");
+                printf("CS 1 C+ =  %f\n",CurrentGet(1, 1));
+                printf("CS 1 C- =  %f\n",CurrentGet(1, 2));
                 printf("Voltage 1 =  \n");
                 printf("Voltage 2 =  \n");
                 printf("ADC 2 - Address = \n");
-                printf("CS 1 C+ =  \n");
-                printf("CS 1 C- =  \n");
-                printf("CS 1 C+ =  \n");
-                printf("CS 1 C- =  \n");
+                printf("CS 1 C+ =  %f\n",CurrentGet(1, 3));
+                printf("CS 1 C- =  %f\n",CurrentGet(0, 1));
+                printf("CS 1 C+ =  %f\n",CurrentGet(0, 2));
+                printf("CS 1 C- =  %f\n",CurrentGet(0, 3));
                 break;
             case FAULT:
                 printf("Align Error B1\n");

@@ -20,13 +20,13 @@
 #define module_2 2
 #define min_select 0
 #define max_select 1
-extern float CVolt[6];
+
 void Start_BMS(int mode); // Starts the BMS mode value is indicated by what to go into. 1=Run Mode for the car 2=Charge mode for the charger
 void ChargerEN();
 bool ChargerVal();
 void ReadCurrentVolt();
 void ReadVoltToCurrent();
-int CurrentGet(bool total, char channel);
+float CurrentGet(bool total, char channel);
 int Read_Battery(int BatteryPlacement,int cell_codes[][12] );// Amount of IC's, amount of cells per IC
 extern void CurrentCoulombCount(int tme);
 int UpdateLT6804(int bank); //Updates Lt6804 configuration sends a fault if a error is detected.

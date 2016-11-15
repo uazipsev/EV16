@@ -18,7 +18,7 @@ int j = 0;
 
 float CurrentOffset[6] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 int Current[6];
-
+float CVolt[8];
 float Volt1 = 0;
 float Volt2 = 0;
 float CC1;

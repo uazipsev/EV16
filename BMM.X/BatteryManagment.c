@@ -14,7 +14,6 @@
 //TODO Need to make a fault status and a use with var
 int Battery_Is_Charging_Flag = 0;
 int FaultValue = 0;
-float CVolt[6];
 //Arrays for Cell Voltages
 int cell_codes_Bank1[NUMBEROFIC][12];
 int cell_codes_Bank2[NUMBEROFIC][12];
@@ -1518,23 +1517,15 @@ int UpdateLT6804(int bank) {
  * @return          none
  * @note            This populates the array with raw ADC values
  *******************************************************************/
-
-// FIXME Need to change I2C address!
-
 void ReadCurrentVolt() {
-    CVolt[0] = ADS1015readADC_SingleEnded(0, 0x48); //Set channel and IC
-    printf(" 1  %f \n",CVolt[0]);
-    CVolt[1] = ADS1015readADC_SingleEnded(1, 0x48);
-    printf(" 1  %f \n",CVolt[1]);
-    CVolt[2] = ADS1015readADC_SingleEnded(2, 0x48);
-    printf(" 1  %f \n",CVolt[2]);
-    CVolt[3] = ADS1015readADC_SingleEnded(3, 0x48);
-    printf(" 1  %f \n",CVolt[3]);
-    CVolt[4] = ADS1015readADC_SingleEnded(0, 0x4B);
-    printf(" 1  %f \n",CVolt[4]);
-    CVolt[5] = ADS1015readADC_SingleEnded(1, 0x4B);
-    printf(" 1  %f \n",CVolt[5]);
+    CVolt[0] = ADS1015readADC_SingleEnded(0, 0x49); //Set channel and IC
+    CVolt[1] = ADS1015readADC_SingleEnded(1, 0x49);
+    CVolt[2] = ADS1015readADC_SingleEnded(2, 0x49);
+    CVolt[3] = ADS1015readADC_SingleEnded(3, 0x49);
+    CVolt[4] = ADS1015readADC_SingleEnded(0, 0x48);
+    CVolt[5] = ADS1015readADC_SingleEnded(1, 0x48);
     ReadVoltToCurrent(); //Converts ADC counts to amps
+    //ReadVolt();
 }
 
 /*******************************************************************
@@ -1545,8 +1536,8 @@ void ReadCurrentVolt() {
  *******************************************************************/
 
 void ReadVolt() {
-    Volt1 = ADS1015readADC_SingleEnded(2, 0x4B);
-    Volt2 = ADS1015readADC_SingleEnded(3, 0x4B);
+    Volt1 = ADS1015readADC_SingleEnded(2, 0x48);
+    Volt2 = ADS1015readADC_SingleEnded(3, 0x48);
     Volt1 = (Volt1 / ADCBIT)*5 * VOLTAGERATIO;
     Volt2 = (Volt2 / ADCBIT)*5 * VOLTAGERATIO;
 }
@@ -1609,7 +1600,7 @@ void CurrentCoulombCount(int tme) {
  * @note            This can give you a different response depending on input
  *******************************************************************/
 
-int CurrentGet(bool total, char channel) {
+float CurrentGet(bool total, char channel) {
 //    if (total) {
 //        if (CarOn) {
 //            return Current[0] + Current[2] + Current[4];

@@ -122,10 +122,16 @@ char StopI2C(void)
 ********************************************************************/
 void WriteI2C(unsigned char byte)
 {
+    int time = 0;
 	//This function transmits the byte passed to the function
 	//while (I2C1STATbits.TRSTAT);	//Wait for bus to be idle
 	I2C1TRN = byte;					//Load byte to I2C1 Transmit buffer
-	while (I2C1STATbits.TBF);		//wait for data transmission
+	while (I2C1STATbits.TBF){		//wait for data transmission
+        time++;
+        if(time>50){
+            break;
+        }
+    }
 
 }
 

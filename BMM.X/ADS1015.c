@@ -29,7 +29,7 @@ int  IC_gain = GAIN_ONE;
 void writeRegister(char i2cAddress, char reg, int value)
 {
 	IdleI2C();						//Ensure Module is Idle
-	StartI2C();						//Initiate start condition
+	StartI2C();
 	WriteI2C(i2cAddress << 1);			//write 1 byte
 	IdleI2C();						//Ensure module is Idle
 	WriteI2C(reg);			    	//Write High word address
@@ -37,8 +37,8 @@ void writeRegister(char i2cAddress, char reg, int value)
 	WriteI2C(value>>8);				//Write Low word address
     IdleI2C();						//Ensure module is idle
     WriteI2C(value & 0xFF);				//Write Low word address
-	NotAckI2C();					//Send Not Ack
-	//StopI2C();						//Send stop condition
+	//NotAckI2C();					//Send Not Ack
+	StopI2C();						//Send stop condition
     
 //    char data[2];
 //    data[0] = reg;
@@ -51,12 +51,12 @@ void writeRegister(char i2cAddress, char reg, int value)
     @brief  Writes 16-bits to the specified destination register
 */
 /**************************************************************************/
-int readRegister(char i2cAddress, char reg)
+unsigned int readRegister(char i2cAddress, char reg)
 {
     char data[3];
     IdleI2C();						//Ensure Module is Idle
 	StartI2C();						//Initiate start condition
-	WriteI2C(i2cAddress << 1);			//write 1 byte
+	WriteI2C(i2cAddress << 1);	    //write 1 byte
 	IdleI2C();						//Ensure module is Idle
     WriteI2C(reg);			    	//Write Low word address
 	IdleI2C();						//Ensure module is idle
@@ -64,14 +64,14 @@ int readRegister(char i2cAddress, char reg)
 	WriteI2C((i2cAddress << 1) | 0x01);	//Write 1 byte - R/W bit should be 1 for read
 	IdleI2C();						//Ensure bus is idle
 	getsI2C(data, 2);		     	//Read in multiple bytes
-	NotAckI2C();					//Send Not Ack
+	//NotAckI2C();					//Send Not Ack
 	StopI2C();						//Send stop condition
     
 //    char data[2];
 //    data[0] = reg;
 //    i2c_Write(i2cAddress, 1, data, 1);
 //    i2c_Write(i2cAddress, 0, data, 0);
-    return data[0] | data[1] << 8;;
+    return data[1] | data[0] << 8;;
 }
 
 /**************************************************************************/
@@ -98,7 +98,7 @@ void ADS1015SetGain(gain_enum gain)
     @brief  Gets a single-ended ADC reading from the specified channel
 */
 /**************************************************************************/
-int ADS1015readADC_SingleEnded(char channel, char i2cAddress){
+unsigned int ADS1015readADC_SingleEnded(char channel, char i2cAddress){
   if (channel > 3)
   {
     return 0;
@@ -143,5 +143,6 @@ int ADS1015readADC_SingleEnded(char channel, char i2cAddress){
 
   // Read the conversion results
   // Shift 12-bit results right 4 bits for the ADS1015
-  return readRegister(i2cAddress, ADS1015_REG_POINTER_CONVERT) >> bitShift;  
+   
+  return readRegister(i2cAddress, ADS1015_REG_POINTER_CONVERT) >> bitShift;
 }
