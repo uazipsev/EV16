@@ -271,8 +271,8 @@ void handleDebugRequests() {
                 ClearScreen();
                 printf("CS 1 C+ =  %f\n",CurrentGet(1, 1));
                 printf("CS 1 C- =  %f\n",CurrentGet(1, 2));
-                printf("Voltage 1 =  \n");
-                printf("Voltage 2 =  \n");
+                printf("Voltage 1 =  %f\n", VoltGet(1));
+                printf("Voltage 2 =  $f\n", VoltGet(0));
                 printf("ADC 2 - Address = \n");
                 printf("CS 1 C+ =  %f\n",CurrentGet(1, 3));
                 printf("CS 1 C- =  %f\n",CurrentGet(0, 1));

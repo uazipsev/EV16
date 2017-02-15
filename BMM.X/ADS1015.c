@@ -17,8 +17,7 @@
 
 // Instance-specific properties
 char i2cAddress;
-char conversionDelay = ADS1015_CONVERSIONDELAY;
-char bitShift = 4;
+char bitShift = 0;
 int  IC_gain = GAIN_ONE;
 
 /**************************************************************************/
@@ -80,6 +79,7 @@ unsigned int readRegister(char i2cAddress, char reg)
 */
 /**************************************************************************/
 void ADS1015Begin() {
+    ADS1015SetGain(GAIN_ONE);
     InitI2C();
 }
 
@@ -139,7 +139,7 @@ unsigned int ADS1015readADC_SingleEnded(char channel, char i2cAddress){
   writeRegister(i2cAddress, ADS1015_REG_POINTER_CONFIG, config);
 
   // Wait for the conversion to complete
-  Delay(conversionDelay);
+  Delay(ADS1115_CONVERSIONDELAY);
 
   // Read the conversion results
   // Shift 12-bit results right 4 bits for the ADS1015

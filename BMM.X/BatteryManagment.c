@@ -1525,7 +1525,7 @@ void ReadCurrentVolt() {
     CVolt[4] = ADS1015readADC_SingleEnded(0, 0x48);
     CVolt[5] = ADS1015readADC_SingleEnded(1, 0x48);
     ReadVoltToCurrent(); //Converts ADC counts to amps
-    //ReadVolt();
+    ReadVolt();
 }
 
 /*******************************************************************
@@ -1538,8 +1538,8 @@ void ReadCurrentVolt() {
 void ReadVolt() {
     Volt1 = ADS1015readADC_SingleEnded(2, 0x48);
     Volt2 = ADS1015readADC_SingleEnded(3, 0x48);
-    Volt1 = (Volt1 / ADCBIT)*5 * VOLTAGERATIO;
-    Volt2 = (Volt2 / ADCBIT)*5 * VOLTAGERATIO;
+    Volt1 = (Volt1*(0.125*158)/1000);
+    Volt2 = (Volt2*(0.125*158)/1000);
 }
 
 /*******************************************************************
@@ -1636,4 +1636,20 @@ float CurrentGet(bool total, char channel) {
 
     }
     return -1;
+}
+
+/*******************************************************************
+ * @brief           VoltGet
+ * @brief           getter
+ * @return          none
+ * @note            This can give you a different response depending on input
+ *******************************************************************/
+
+float VoltGet(char channel) {
+    if (channel) {
+        return Volt1;
+    }
+    else {
+        return Volt2;
+    }
 }

@@ -58,5 +58,6 @@ double Get_Extreme_Voltage(int type, int parm, int bank);
  extern  double Max_Cell_Voltage[2][3];
  
  double gettemp(int ic, int num,int bank);
+ float VoltGet(char channel);
 #endif	/* READ_BATTERY_LEVEL_H */
 
