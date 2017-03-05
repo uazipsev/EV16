@@ -104,31 +104,31 @@ void Run_Mode(bool Start_Setup) {
         
     switch (Type_Of_State) {
         case 0:
-           Fault_Type= Read_GPIO_Bank(Aux_codes_Bank1);
+          // Fault_Type= Read_GPIO_Bank(Aux_codes_Bank1);
             break;
         case 1:
-           Fault_Type= Read_GPIO_Bank(Aux_codes_Bank2);
+           //Fault_Type= Read_GPIO_Bank(Aux_codes_Bank2);
             break;
         case 2:
-           Fault_Type= Test_Temp_Sensors(Aux_codes_Bank1, Aux_codes_Bank2, Aux_codes_Bank1[6][0]);
+           //Fault_Type= Test_Temp_Sensors(Aux_codes_Bank1, Aux_codes_Bank2, Aux_codes_Bank1[6][0]);
             break;
         case 3:
-           Fault_Type= Test_Temp_Sensors(Aux_codes_Bank1, Aux_codes_Bank2, Aux_codes_Bank1[6][0]);
+           //Fault_Type= Test_Temp_Sensors(Aux_codes_Bank1, Aux_codes_Bank2, Aux_codes_Bank1[6][0]);
             break;
         case 4:
-           Fault_Type= Test_Temp_Sensors(Aux_codes_Bank1, Aux_codes_Bank2, Aux_codes_Bank1[6][0]);
+           //Fault_Type= Test_Temp_Sensors(Aux_codes_Bank1, Aux_codes_Bank2, Aux_codes_Bank1[6][0]);
             break;
         case 5:
-           Fault_Type= Test_Temp_Sensors(Aux_codes_Bank1, Aux_codes_Bank2, Aux_codes_Bank1[6][0]);
+           //Fault_Type= Test_Temp_Sensors(Aux_codes_Bank1, Aux_codes_Bank2, Aux_codes_Bank1[6][0]);
             break;
     }
-    CheckFault();
+    //CheckFault();
     
-     Type_Of_State++;
-     if (Type_Of_State==6){
-     Type_Of_State=0;
+    // Type_Of_State++;
+     //if (Type_Of_State==6){
+     //Type_Of_State=0;
      
-     }
+     
 Read_GPIO_Bank(Aux_codes_Bank1);
  Test_Temp_Sensors(Aux_codes_Bank1, Aux_codes_Bank2, Aux_codes_Bank1[6][0]);
 
