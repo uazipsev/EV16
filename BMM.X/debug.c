@@ -17,7 +17,7 @@ int old_debug = 0;
 bool stop_state = false;
 bool VerboseEn = 1;
 char m = 0;
-bool Menudisplay = 0;
+bool Menudisplay = true;
 char FunctionDataGrab = 0;
 char DataIn = 0;
 int Menu = 0;
@@ -42,6 +42,7 @@ void handleDebugRequests() {
     static int lastDebugState = 0;
 
     if (time_get(DEBUGTIME) > 1000) {
+        // printf("Time Value is %i: \n", debugState) ;
         int counter = 0;
         int ic = 0;
         double temp;
@@ -60,7 +61,7 @@ void handleDebugRequests() {
                 while (ic < 3) {
                     while (counter < 5) {
                         temp = gettemp(ic, counter, bank_1);
-                        //printf("Temp for IC:%i and Sensor #:%i =%f\n", ic, counter, temp);
+                        printf("Temp for IC:%i and Sensor #:%i =%f\n", ic, counter, temp);
                         temp = Aux_codes_Bank1[ic][counter]; //TODO for debuging consle get rid of
                         //printf("Temp for IC:%i and Sensor #:%i =%f\n", ic, counter, temp);
                         counter++;
@@ -287,6 +288,7 @@ void handleDebugRequests() {
                 break;
         }
         if (Menudisplay) {
+            //printf("HEYMAN");
             ClearScreen();
             MenuPrint(Menu, SubMenu);
         }

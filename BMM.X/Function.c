@@ -5,9 +5,6 @@
 #include "spi2.h"
 #include "UART1.h"
 #include "PinDef.h"
-int hi=0;
-float yo=0;
-int samp=0;
 void Setup(void) {
     PinSetMode();
    // INDICATOR = 1;
@@ -27,7 +24,7 @@ void Setup(void) {
     TRISBbits.TRISB9=0;
     TRISBbits.TRISB8=0;
     TRISBbits.TRISB7=0;
-    
+    IEC1bits.INT1IE=1;
 //    LATBbits.LATB9=0;
 //    LATBbits.LATB8=0;
 //    delay_ms(1000);
@@ -47,6 +44,7 @@ void Setup(void) {
     PPSin(_SDI1, _RP20);
     PPSLock;
 
+    
     initTimerOne();
     CommStart();
     UART1_init();
@@ -95,8 +93,8 @@ void PinSetMode(void) {
 
         if (time_get(LEDTM) > 500) {
             INDICATOR = !INDICATOR;
-            LATBbits.LATB6 =!LATBbits.LATB6 ;
-            ReadCurrentVolt();
+           // LATBbits.LATB6 =!LATBbits.LATB6 ;
+           // ReadCurrentVolt();
          /*  
             hi++;
             printf( "hi Value %i", hi);

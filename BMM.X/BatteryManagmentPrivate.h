@@ -118,7 +118,7 @@ int aux_codes_Bank2[NUMBEROFIC][6];
 #define Start_Run_Mode 1
 #define Start_Charge_Mode 2
 void Charge_Mode();
-void Run_Mode();
+void Run_Mode(bool Start_Setup);
 int Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]);
 int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12]);
 int Test_Temp_Sensors(int Aux_codes_Bank1t[][6], int Aux_codes_Bank2[][6], int x);

@@ -17,7 +17,6 @@ volatile unsigned long int time =0;
 static unsigned long int lastLEDTime=0, lastTalkTime=0, lastSlaveTime=0,lastADCTime=0;// TODO could be issue with timer was intilized in update timers with not decleration. 
 int FaultValueHistory=0;
    unsigned long count=0;
-   int state=0;
    
 /*******************************************************************
  * @brief           _T1Interrupt
@@ -44,10 +43,7 @@ void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void) {
    //FaultValue=Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2,Sample_Number);
   // if (FaultValue==0){
    //Delay(100);
-   state++;
-   if(state==3){
-   state=0;
-   }
+   
            
 //    readc();
 //     if (Sample_Numbers<=10)
@@ -253,10 +249,7 @@ int Get_Sample_Num()
 {
 return Sample_Numbers;
 }
-int Get_State(){
 
-return state;
-}
 void readc(){
     //double hey=0;
     

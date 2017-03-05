@@ -44,7 +44,8 @@ double Get_Extreme_Voltage(int type, int parm, int bank);
   extern double Converted_Cell_Codes_Bank2[NUMBEROFIC][12];
   extern double Average_cell_codes_Bank1[NUMBEROFIC][12];
   extern double Average_cell_codes_Bank2[NUMBEROFIC][12];
-  
+  extern bool BypassConfigbank1[NUMBEROFIC][12];
+  extern bool BypassConfigbank2[NUMBEROFIC][12];
   //Arrays for Aux GPIO
   extern int Aux_codes_Bank1[NUMBEROFIC][6];
   extern int Aux_codes_Bank2[NUMBEROFIC][6];
