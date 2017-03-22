@@ -14,6 +14,8 @@ bool MCS_COMMS_ERROR = false;
 extern int carActive;
 static int MCSErrorCounter = 0;
 
+unsigned int mn = 0; 
+
 bool requestMCSData() {
     if((GetTime(MCSTIMER) > BOARD_RESEND_MIN) && (readyToSendMCS == true)) {
         static int MCSErrorCounter = 0;
@@ -23,11 +25,14 @@ bool requestMCSData() {
         MCSErrorCounter = 0;
         
         ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
-        ToSend(OUTPUT_ACTIVE, carActive);
-        ToSend(THROTTLE_OUTPUT, GetThrottleBrakeValue(GETSAST1)*40.95);//TODO may need to add 40.95 if mcs gets rid of theres
-        ToSend(BRAKE_OUTPUT, GetThrottleBrakeValue(GETSASB1)*40.95); //TODO may need to add 40.95 if mcs gets rid of theres
+        ToSend(OUTPUT_ACTIVE, 1);//carActive);
+        ToSend(THROTTLE_OUTPUT, GetThrottleBrakeValue(GETSAST1));//TODO may need to add 40.95 if mcs gets rid of theres
+        ToSend(BRAKE_OUTPUT, GetThrottleBrakeValue(GETSASB1)); //TODO may need to add 40.95 if mcs gets rid of theres
         sendData(MCS_ADDRESS);
         SetTime(MCSTIMER);
+        if(mn > 4095){
+            mn = 0;
+        }
         return true;
     }
     else if(readyToSendMCS == false){
@@ -46,6 +51,7 @@ bool receiveCommMCS() {
             return true;
         }
         else{
+            wipeRxBuffer();
             return false;
         }
     }

@@ -62,8 +62,9 @@ bool requestBMMData() {
                 break;
         }
         //ToSend(RESPONSE_ADDRESS, ECU_ADDRESS);
-        sendData(BMM_ADDRESS);
         RS485_Direction2(TALK);
+        sendData(BMM_ADDRESS);
+        
         return true;
     }
     else if(readyToSendBMM == false){

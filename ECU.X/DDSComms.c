@@ -42,11 +42,15 @@ bool requestDDSData() {
 bool receiveCommDDS() {
     if (receiveData1()) {                  
         if (ReceiveArray1Get(RESPONSE_ADDRESS) == DDS_ADDRESS){
+            INDICATOR ^= 1;
             buttons = ReceiveArray1Get(BUTTONS_DDS);
             readyToSendDDS = true;
             SetTime(DDSTIMER);
             return true;
-        } else return false;
+        } else{
+            wipeRxBuffer1();
+            return false;
+        }
     } else return false;
 }
 
@@ -63,7 +67,7 @@ int seekButtonChange() {
     return changeInButton;
 }
 
-void changeLEDState(int LED, int state) {
+void changeLEDState(int LED, bool state) {
     if (state)
         indicators = indicators | (state << LED);
     

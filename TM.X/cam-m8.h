@@ -9,13 +9,13 @@
 #define	CAM_M8_H
 
 struct GPS_Data {
-    char Hours; // 7 bit address
-    char Minutes; // pin used for sda coresponds to gpio
-    char Seconds; // clock
+    unsigned int Hours; // 7 bit address
+    unsigned int Minutes; // pin used for sda coresponds to gpio
+    unsigned int Seconds; // clock
     float Latitude; // proportional to bus speed
     float Longitude;
 	int Altitude;
-	char Satellites;			// For serial port GPS
+	int Satellites;			// For serial port GPS
     int Speed;
     int Direction;
 	

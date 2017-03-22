@@ -16,7 +16,7 @@
 //#define DASH_LED2  0
 
 int seekButtonChange();
-void changeLEDState(int LED, int state);
+void changeLEDState(int LED, bool state);
 int GetDDSerrorCounter();
 bool receiveCommDDS();
 bool requestDDSData();

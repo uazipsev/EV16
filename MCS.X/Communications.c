@@ -15,7 +15,7 @@ void updateComms() {
     
     //If a new packet has arrived
     if (receiveData() && !pendingSend) {
-       
+        //INDICATOR ^= 1;
         SetCarMode(ReceiveArrayGet(OUTPUT_ACTIVE));
         SetSpeed(ReceiveArrayGet(THROTTLE_OUTPUT));
         SetRegen(ReceiveArrayGet(BRAKE_OUTPUT));

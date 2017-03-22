@@ -40,7 +40,11 @@ bool receiveCommSS() {
             readyToSendSS = true;
             SetTime(SSTIMER);
             return true;
-        } else return false;
+        }
+        else{
+            wipeRxBuffer1();
+            return false;
+        }
     } else return false;
 }
 

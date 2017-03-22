@@ -86,35 +86,35 @@ Program Memory  [Origin = 0x200, Length = 0x15600]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x1b6           0x291  (657)
-.text                        0x3b6              0x121e          0x1b2d  (6957)
-.dinit                      0x15d4                0x64            0x96  (150)
-.init.delay32               0x1638                0x1c            0x2a  (42)
-.text                       0x1654                0x1a            0x27  (39)
+.text                        0x3b6              0x11ea          0x1adf  (6879)
+.dinit                      0x15a0                0x64            0x96  (150)
+.text                       0x1604                0x36            0x51  (81)
+.init.delay32               0x163a                0x1c            0x2a  (42)
 
-                     Total program memory used (bytes):         0x1ea5  (7845) 5%
+                     Total program memory used (bytes):         0x1e81  (7809) 5%
 
 
 Data Memory  [Origin = 0x800, Length = 0x4000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0           0x5a4  (1444)
-.ndata                       0xda4                   0             0x8  (8)
-.nbss                        0xdac                   0             0x6  (6)
-.ndata                       0xdb2                   0             0x8  (8)
-.heap                        0xdba                   0            0x20  (32)
+.nbss                        0x800                   0           0x5a8  (1448)
+.ndata                       0xda8                   0             0x8  (8)
+.nbss                        0xdb0                   0             0x6  (6)
+.ndata                       0xdb6                   0             0x8  (8)
+.heap                        0xdbe                   0            0x20  (32)
 
-                        Total data memory used (bytes):          0x5da  (1498) 9%
+                        Total data memory used (bytes):          0x5de  (1502) 9%
 
 
 Dynamic Memory Usage
 
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
-heap                         0xdba                                0x20  (32)
-stack                        0xdda                              0x3a26  (14886)
+heap                         0xdbe                                0x20  (32)
+stack                        0xdde                              0x3a22  (14882)
 
-                        Maximum dynamic memory (bytes):         0x3a46  (14918)
+                        Maximum dynamic memory (bytes):         0x3a42  (14914)
 
 
 External Symbols in Data Memory (by address):
@@ -157,53 +157,55 @@ External Symbols in Data Memory (by address):
                     0x0d8c                  _MotorState
                     0x0d8e                  _spd
                     0x0d90                  _brk
-                    0x0d92                  _CarActiveMode
-                    0x0d93                  _MotorModeActive
-                    0x0d94                  _i2cBuffer
-                    0x0d96                  _writeState
-                    0x0d98                  _writeInProgress
-                    0x0d9c                  _talkTime
-                    0x0d9e                  _LEDtime
-                    0x0da0                  _safetyTime
-                    0x0da2                  _bootTime
-                    0x0da4                  _ADCSamp
-                    0x0da6                  _ADCPorts
-                    0x0dac                  _throttleOut
-                    0x0dae                  _brakeOut
-                    0x0db0                  _pendingSend
-                    0x0db2                  _dir
-                    0x0db4                  _Transmit_stall
-                    0x0db6                  _portClosed
-                    0x0db8                  _Transmit_stall2
+                    0x0d92                  _prevspd
+                    0x0d94                  _prevbrk
+                    0x0d96                  _CarActiveMode
+                    0x0d97                  _MotorModeActive
+                    0x0d98                  _i2cBuffer
+                    0x0d9a                  _writeState
+                    0x0d9c                  _writeInProgress
+                    0x0da0                  _talkTime
+                    0x0da2                  _LEDtime
+                    0x0da4                  _safetyTime
+                    0x0da6                  _bootTime
+                    0x0da8                  _ADCSamp
+                    0x0daa                  _ADCPorts
+                    0x0db0                  _throttleOut
+                    0x0db2                  _brakeOut
+                    0x0db4                  _pendingSend
+                    0x0db6                  _dir
+                    0x0db8                  _Transmit_stall
+                    0x0dba                  _portClosed
+                    0x0dbc                  _Transmit_stall2
 
 External Symbols in Data Memory (by name):
 
                     0x0d76                  _ADC
                     0x0d68                  _ADCDataReady
-                    0x0da6                  _ADCPorts
-                    0x0da4                  _ADCSamp
+                    0x0daa                  _ADCPorts
+                    0x0da8                  _ADCSamp
                     0x0d5a                  _ADCTime
                     0x0d5c                  _ADCbuffer
                     0x0934                  _AKNAKsend
-                    0x0d92                  _CarActiveMode
-                    0x0d9e                  _LEDtime
-                    0x0d93                  _MotorModeActive
+                    0x0d96                  _CarActiveMode
+                    0x0da2                  _LEDtime
+                    0x0d97                  _MotorModeActive
                     0x0d8c                  _MotorState
-                    0x0db4                  _Transmit_stall
-                    0x0db8                  _Transmit_stall2
+                    0x0db8                  _Transmit_stall
+                    0x0dbc                  _Transmit_stall2
                     0x093a                  _addressErrorCounter
                     0x0936                  _alignErrorCounter
-                    0x0da2                  _bootTime
+                    0x0da6                  _bootTime
                     0x0d72                  _brake
-                    0x0dae                  _brakeOut
+                    0x0db2                  _brakeOut
                     0x0d90                  _brk
                     0x092c                  _calc_CS
                     0x0938                  _crcErrorCounter
                     0x0a10                  _crc_buffer
                     0x093c                  _dataAdressErrorCounter
-                    0x0db2                  _dir
+                    0x0db6                  _dir
                     0x0a0e                  _group
-                    0x0d94                  _i2cBuffer
+                    0x0d98                  _i2cBuffer
                     0x0d78                  _i2cdata
                     0x0a22                  _input_buffer
                     0x0bbe                  _input_buffer2
@@ -211,8 +213,10 @@ External Symbols in Data Memory (by name):
                     0x092d                  _moduleAddress
                     0x0af0                  _output_buffer
                     0x0c8c                  _output_buffer2
-                    0x0db0                  _pendingSend
-                    0x0db6                  _portClosed
+                    0x0db4                  _pendingSend
+                    0x0dba                  _portClosed
+                    0x0d94                  _prevbrk
+                    0x0d92                  _prevspd
                     0x0800                  _receiveArray
                     0x0930                  _receiveArrayAddress
                     0x092e                  _returnAddress
@@ -221,19 +225,19 @@ External Symbols in Data Memory (by name):
                     0x092a                  _rx_array_inx
                     0x0830                  _rx_buffer
                     0x092b                  _rx_len
-                    0x0da0                  _safetyTime
+                    0x0da4                  _safetyTime
                     0x0932                  _sendStructAddress
                     0x082c                  _serial_available
                     0x082e                  _serial_peek
                     0x082a                  _serial_read
                     0x0828                  _serial_write
                     0x0d8e                  _spd
-                    0x0d9c                  _talkTime
+                    0x0da0                  _talkTime
                     0x0d6a                  _throttle1
                     0x0d6e                  _throttle2
-                    0x0dac                  _throttleOut
-                    0x0d98                  _writeInProgress
-                    0x0d96                  _writeState
+                    0x0db0                  _throttleOut
+                    0x0d9c                  _writeInProgress
+                    0x0d9a                  _writeState
 
 External Symbols in Program Memory (by address):
 
@@ -299,49 +303,49 @@ External Symbols in Program Memory (by address):
                   0x000d9e                  __U1RXInterrupt
                   0x000dce                  __U1TXInterrupt
                   0x000e08                  _MotorStateControl
-                  0x000efc                  _MotorUpdate
-                  0x000f86                  _MotorMode
-                  0x000f92                  _GetMotorMode
-                  0x000f9c                  _SetDirection
-                  0x000fa8                  _SetSpeed
-                  0x000fb4                  _SetRegen
-                  0x000fc0                  _SetCarMode
-                  0x000fd8                  _RegenEn
-                  0x000fec                  _I2c_Init
-                  0x001006                  _i2c_wait
-                  0x00101c                  _i2c_Write
-                  0x001088                  _i2c_startCommand
-                  0x001092                  _i2c_idle
-                  0x00109c                  _i2c_writeByte
-                  0x0010a8                  _i2c_addressSend
-                  0x0010b4                  _i2c_stopCommand
-                  0x0010be                  _i2c_haltBus
-                  0x0010c8                  _writeStateUpdate
-                  0x001174                  _readStateUpdate
-                  0x00117a                  _i2cUpdate
-                  0x001184                  _initADC
-                  0x001202                  __ADC1Interrupt
-                  0x001266                  _GetADC
-                  0x00126c                  _SetADC
-                  0x001272                  _handleADCValues
-                  0x0012a2                  _Setup
-                  0x00134a                  _Delay
-                  0x001368                  _ledDebug
-                  0x001398                  _PinSetMode
-                  0x0013b4                  _updateComms
-                  0x00144e                  _commSafety
-                  0x001458                  _respondECU
-                  0x00146c                  _checkCommDirection
-                  0x0014aa                  _TimerOneInit
-                  0x0014c6                  __T1Interrupt
-                  0x0014f6                  _GetTime
-                  0x001520                  _ClearTime
-                  0x00154a                  _SetDAC1
-                  0x001576                  _SetDAC2
-                  0x0015a2                  _ConfigDAC
-                  0x001638                  ___delay32
-                  0x001654                  _main
-                  0x001668                  _MCStest
+                  0x000ed8                  _MotorUpdate
+                  0x000f48                  _MotorMode
+                  0x000f54                  _GetMotorMode
+                  0x000f5e                  _SetDirection
+                  0x000f6a                  _SetSpeed
+                  0x000f88                  _SetRegen
+                  0x000fa6                  _SetCarMode
+                  0x000fbe                  _RegenEn
+                  0x000fd2                  _I2c_Init
+                  0x000fec                  _i2c_wait
+                  0x001002                  _i2c_Write
+                  0x00106e                  _i2c_startCommand
+                  0x001078                  _i2c_idle
+                  0x001082                  _i2c_writeByte
+                  0x00108e                  _i2c_addressSend
+                  0x00109a                  _i2c_stopCommand
+                  0x0010a4                  _i2c_haltBus
+                  0x0010ae                  _writeStateUpdate
+                  0x00115a                  _readStateUpdate
+                  0x001160                  _i2cUpdate
+                  0x00116a                  _initADC
+                  0x0011e8                  __ADC1Interrupt
+                  0x00124c                  _GetADC
+                  0x001252                  _SetADC
+                  0x001258                  _handleADCValues
+                  0x001288                  _Setup
+                  0x001330                  _Delay
+                  0x00134e                  _ledDebug
+                  0x001364                  _PinSetMode
+                  0x001380                  _updateComms
+                  0x00141a                  _commSafety
+                  0x001424                  _respondECU
+                  0x001438                  _checkCommDirection
+                  0x001476                  _TimerOneInit
+                  0x001492                  __T1Interrupt
+                  0x0014c2                  _GetTime
+                  0x0014ec                  _ClearTime
+                  0x001516                  _SetDAC1
+                  0x001542                  _SetDAC2
+                  0x00156e                  _ConfigDAC
+                  0x001604                  _main
+                  0x001618                  _MCStest
+                  0x00163a                  ___delay32
 
 External Symbols in Program Memory (by name):
 
@@ -349,24 +353,24 @@ External Symbols in Program Memory (by name):
                   0x000434                  _CRC8
                   0x00080a                  _CRCError
                   0x00092c                  _CRCcheck
-                  0x001520                  _ClearTime
-                  0x0015a2                  _ConfigDAC
-                  0x00134a                  _Delay
+                  0x0014ec                  _ClearTime
+                  0x00156e                  _ConfigDAC
+                  0x001330                  _Delay
                   0x000778                  _FastTransfer_buffer_flush
                   0x00073a                  _FastTransfer_buffer_get
                   0x0007a4                  _FastTransfer_buffer_modulo_inc
                   0x0006aa                  _FastTransfer_buffer_put
-                  0x001266                  _GetADC
-                  0x000f92                  _GetMotorMode
-                  0x0014f6                  _GetTime
-                  0x000fec                  _I2c_Init
+                  0x00124c                  _GetADC
+                  0x000f54                  _GetMotorMode
+                  0x0014c2                  _GetTime
+                  0x000fd2                  _I2c_Init
                   0x0002ae                  _IdleI2C1
-                  0x001668                  _MCStest
+                  0x001618                  _MCStest
                   0x0002ce                  _MasterWriteI2C1
-                  0x000f86                  _MotorMode
+                  0x000f48                  _MotorMode
                   0x000e08                  _MotorStateControl
-                  0x000efc                  _MotorUpdate
-                  0x001398                  _PinSetMode
+                  0x000ed8                  _MotorUpdate
+                  0x001364                  _PinSetMode
                   0x0003b6                  _ReceiveArrayGet
                   0x000d5a                  _Receive_available
                   0x000b48                  _Receive_available2
@@ -374,20 +378,20 @@ External Symbols in Program Memory (by name):
                   0x000b56                  _Receive_get2
                   0x000d4c                  _Receive_peek
                   0x000b3a                  _Receive_peek2
-                  0x000fd8                  _RegenEn
+                  0x000fbe                  _RegenEn
                   0x000d76                  _Send_put
                   0x000b64                  _Send_put2
-                  0x00126c                  _SetADC
-                  0x000fc0                  _SetCarMode
-                  0x00154a                  _SetDAC1
-                  0x001576                  _SetDAC2
-                  0x000f9c                  _SetDirection
-                  0x000fb4                  _SetRegen
-                  0x000fa8                  _SetSpeed
-                  0x0012a2                  _Setup
+                  0x001252                  _SetADC
+                  0x000fa6                  _SetCarMode
+                  0x001516                  _SetDAC1
+                  0x001542                  _SetDAC2
+                  0x000f5e                  _SetDirection
+                  0x000f88                  _SetRegen
+                  0x000f6a                  _SetSpeed
+                  0x001288                  _Setup
                   0x0002f2                  _StartI2C1
                   0x0002f6                  _StopI2C1
-                  0x0014aa                  _TimerOneInit
+                  0x001476                  _TimerOneInit
                   0x000698                  _ToSend
                   0x000ce2                  _UART_buff_flush
                   0x000ad0                  _UART_buff_flush2
@@ -405,14 +409,14 @@ External Symbols in Program Memory (by name):
                   0x000afc                  _UART_buff_size2
                   0x000bf6                  _UART_init
                   0x0009e0                  _UART_init2
-                  0x001202                  __ADC1Interrupt
+                  0x0011e8                  __ADC1Interrupt
                   0x0002aa                  __DefaultInterrupt
-                  0x0014c6                  __T1Interrupt
+                  0x001492                  __T1Interrupt
                   0x000d9e                  __U1RXInterrupt
                   0x000dce                  __U1TXInterrupt
                   0x000b8a                  __U2RXInterrupt
                   0x000bbc                  __U2TXInterrupt
-                  0x001638                  ___delay32
+                  0x00163a                  ___delay32
                   0x0002fe                  ___floatundisf
                   0x0002fa                  ___floatunsisf
                   0x00023c                  __data_init
@@ -423,33 +427,33 @@ External Symbols in Program Memory (by name):
                   0x000814                  _addressError
                   0x000800                  _alignError
                   0x0003ec                  _begin
-                  0x00146c                  _checkCommDirection
-                  0x00144e                  _commSafety
+                  0x001438                  _checkCommDirection
+                  0x00141a                  _commSafety
                   0x0008ce                  _crcBufS_get
                   0x000828                  _crcBufS_put
                   0x000880                  _crcBufS_status_put
                   0x00081e                  _dataAddressError
-                  0x001272                  _handleADCValues
-                  0x00117a                  _i2cUpdate
-                  0x00101c                  _i2c_Write
-                  0x0010a8                  _i2c_addressSend
-                  0x0010be                  _i2c_haltBus
-                  0x001092                  _i2c_idle
-                  0x001088                  _i2c_startCommand
-                  0x0010b4                  _i2c_stopCommand
-                  0x001006                  _i2c_wait
-                  0x00109c                  _i2c_writeByte
-                  0x001184                  _initADC
-                  0x001368                  _ledDebug
-                  0x001654                  _main
+                  0x001258                  _handleADCValues
+                  0x001160                  _i2cUpdate
+                  0x001002                  _i2c_Write
+                  0x00108e                  _i2c_addressSend
+                  0x0010a4                  _i2c_haltBus
+                  0x001078                  _i2c_idle
+                  0x00106e                  _i2c_startCommand
+                  0x00109a                  _i2c_stopCommand
+                  0x000fec                  _i2c_wait
+                  0x001082                  _i2c_writeByte
+                  0x00116a                  _initADC
+                  0x00134e                  _ledDebug
+                  0x001604                  _main
                   0x0003a8                  _memset
-                  0x001174                  _readStateUpdate
+                  0x00115a                  _readStateUpdate
                   0x00050c                  _receiveData
-                  0x001458                  _respondECU
+                  0x001424                  _respondECU
                   0x00049c                  _sendData
-                  0x0013b4                  _updateComms
+                  0x001380                  _updateComms
                   0x0003ca                  _wipeRxBuffer
-                  0x0010c8                  _writeStateUpdate
+                  0x0010ae                  _writeStateUpdate
 
 Memory Configuration
 
@@ -599,51 +603,51 @@ __FUID3
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x559a
+.debug_info       0x000000       0x5484
  *(.debug_info)
- .debug_info      0x000000        0x139 build/default/production/main.o
- .debug_info      0x000139        0xd89 build/default/production/Function.o
- .debug_info      0x000ec2        0x6ef build/default/production/MotorControler.o
- .debug_info      0x0015b1        0xb86 build/default/production/FastTransfer.o
- .debug_info      0x002137        0x166 build/default/production/MCP4725.o
- .debug_info      0x00229d         0x8f build/default/production/ConfigBits.o
- .debug_info      0x00232c        0x55c build/default/production/I2C.o
- .debug_info      0x002888        0xb54 build/default/production/UART.o
- .debug_info      0x0033dc        0x2a9 build/default/production/Communications.o
- .debug_info      0x003685        0x5da build/default/production/Timers.o
- .debug_info      0x003c5f        0xd2b build/default/production/ADC.o
- .debug_info      0x00498a        0xc10 build/default/production/UART2.o
+ .debug_info      0x000000        0x163 build/default/production/main.o
+ .debug_info      0x000163        0xbfb build/default/production/Function.o
+ .debug_info      0x000d5e        0x73d build/default/production/MotorControler.o
+ .debug_info      0x00149b        0xb86 build/default/production/FastTransfer.o
+ .debug_info      0x002021        0x166 build/default/production/MCP4725.o
+ .debug_info      0x002187         0x8f build/default/production/ConfigBits.o
+ .debug_info      0x002216        0x55c build/default/production/I2C.o
+ .debug_info      0x002772        0xb54 build/default/production/UART.o
+ .debug_info      0x0032c6        0x2a9 build/default/production/Communications.o
+ .debug_info      0x00356f        0x5da build/default/production/Timers.o
+ .debug_info      0x003b49        0xd2b build/default/production/ADC.o
+ .debug_info      0x004874        0xc10 build/default/production/UART2.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0xc91
+.debug_abbrev     0x000000        0xcbf
  *(.debug_abbrev)
- .debug_abbrev    0x000000         0x63 build/default/production/main.o
- .debug_abbrev    0x000063        0x123 build/default/production/Function.o
- .debug_abbrev    0x000186        0x121 build/default/production/MotorControler.o
- .debug_abbrev    0x0002a7        0x1d0 build/default/production/FastTransfer.o
- .debug_abbrev    0x000477         0x79 build/default/production/MCP4725.o
- .debug_abbrev    0x0004f0         0x1f build/default/production/ConfigBits.o
- .debug_abbrev    0x00050f        0x15c build/default/production/I2C.o
- .debug_abbrev    0x00066b        0x18e build/default/production/UART.o
- .debug_abbrev    0x0007f9         0xae build/default/production/Communications.o
- .debug_abbrev    0x0008a7        0x13b build/default/production/Timers.o
- .debug_abbrev    0x0009e2        0x121 build/default/production/ADC.o
- .debug_abbrev    0x000b03        0x18e build/default/production/UART2.o
+ .debug_abbrev    0x000000         0x91 build/default/production/main.o
+ .debug_abbrev    0x000091        0x123 build/default/production/Function.o
+ .debug_abbrev    0x0001b4        0x121 build/default/production/MotorControler.o
+ .debug_abbrev    0x0002d5        0x1d0 build/default/production/FastTransfer.o
+ .debug_abbrev    0x0004a5         0x79 build/default/production/MCP4725.o
+ .debug_abbrev    0x00051e         0x1f build/default/production/ConfigBits.o
+ .debug_abbrev    0x00053d        0x15c build/default/production/I2C.o
+ .debug_abbrev    0x000699        0x18e build/default/production/UART.o
+ .debug_abbrev    0x000827         0xae build/default/production/Communications.o
+ .debug_abbrev    0x0008d5        0x13b build/default/production/Timers.o
+ .debug_abbrev    0x000a10        0x121 build/default/production/ADC.o
+ .debug_abbrev    0x000b31        0x18e build/default/production/UART2.o
 
-.debug_line       0x000000       0x2006
+.debug_line       0x000000       0x1ff6
  *(.debug_line)
- .debug_line      0x000000         0x8a build/default/production/main.o
- .debug_line      0x00008a        0x210 build/default/production/Function.o
- .debug_line      0x00029a        0x3c6 build/default/production/MotorControler.o
- .debug_line      0x000660        0x76e build/default/production/FastTransfer.o
- .debug_line      0x000dce         0xdf build/default/production/MCP4725.o
- .debug_line      0x000ead         0x24 build/default/production/ConfigBits.o
- .debug_line      0x000ed1        0x3b7 build/default/production/I2C.o
- .debug_line      0x001288        0x3cc build/default/production/UART.o
- .debug_line      0x001654        0x1c4 build/default/production/Communications.o
- .debug_line      0x001818        0x1c0 build/default/production/Timers.o
- .debug_line      0x0019d8        0x250 build/default/production/ADC.o
- .debug_line      0x001c28        0x3de build/default/production/UART2.o
+ .debug_line      0x000000         0xb2 build/default/production/main.o
+ .debug_line      0x0000b2        0x208 build/default/production/Function.o
+ .debug_line      0x0002ba        0x396 build/default/production/MotorControler.o
+ .debug_line      0x000650        0x76e build/default/production/FastTransfer.o
+ .debug_line      0x000dbe         0xdf build/default/production/MCP4725.o
+ .debug_line      0x000e9d         0x24 build/default/production/ConfigBits.o
+ .debug_line      0x000ec1        0x3b7 build/default/production/I2C.o
+ .debug_line      0x001278        0x3cc build/default/production/UART.o
+ .debug_line      0x001644        0x1c4 build/default/production/Communications.o
+ .debug_line      0x001808        0x1c0 build/default/production/Timers.o
+ .debug_line      0x0019c8        0x250 build/default/production/ADC.o
+ .debug_line      0x001c18        0x3de build/default/production/UART2.o
 
 .debug_frame      0x000000        0x68c
  *(.debug_frame)
@@ -659,17 +663,17 @@ __FUID3
  .debug_frame     0x000534         0x64 build/default/production/ADC.o
  .debug_frame     0x000598         0xf4 build/default/production/UART2.o
 
-.debug_str        0x000000        0x3b3
+.debug_str        0x000000        0x3aa
  *(.debug_str)
- .debug_str       0x000000         0x61 build/default/production/Function.o
- .debug_str       0x000061         0x4a build/default/production/MotorControler.o
- .debug_str       0x0000ab        0x135 build/default/production/FastTransfer.o
- .debug_str       0x0001e0         0x32 build/default/production/I2C.o
- .debug_str       0x000212         0x57 build/default/production/UART.o
- .debug_str       0x000269         0x2f build/default/production/Communications.o
- .debug_str       0x000298         0x39 build/default/production/Timers.o
- .debug_str       0x0002d1         0x88 build/default/production/ADC.o
- .debug_str       0x000359         0x5a build/default/production/UART2.o
+ .debug_str       0x000000         0x58 build/default/production/Function.o
+ .debug_str       0x000058         0x4a build/default/production/MotorControler.o
+ .debug_str       0x0000a2        0x135 build/default/production/FastTransfer.o
+ .debug_str       0x0001d7         0x32 build/default/production/I2C.o
+ .debug_str       0x000209         0x57 build/default/production/UART.o
+ .debug_str       0x000260         0x2f build/default/production/Communications.o
+ .debug_str       0x00028f         0x39 build/default/production/Timers.o
+ .debug_str       0x0002c8         0x88 build/default/production/ADC.o
+ .debug_str       0x000350         0x5a build/default/production/UART2.o
 
 .debug_loc
  *(.debug_loc)
@@ -678,30 +682,30 @@ __FUID3
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0xa3b
+                  0x000000        0xa53
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000         0x27 build/default/production/main.o
  .debug_pubnames
                   0x000027         0x42 build/default/production/Function.o
  .debug_pubnames
-                  0x000069         0xea build/default/production/MotorControler.o
+                  0x000069        0x102 build/default/production/MotorControler.o
  .debug_pubnames
-                  0x000153        0x310 build/default/production/FastTransfer.o
+                  0x00016b        0x310 build/default/production/FastTransfer.o
  .debug_pubnames
-                  0x000463         0x44 build/default/production/MCP4725.o
+                  0x00047b         0x44 build/default/production/MCP4725.o
  .debug_pubnames
-                  0x0004a7        0x10e build/default/production/I2C.o
+                  0x0004bf        0x10e build/default/production/I2C.o
  .debug_pubnames
-                  0x0005b5        0x14a build/default/production/UART.o
+                  0x0005cd        0x14a build/default/production/UART.o
  .debug_pubnames
-                  0x0006ff         0x93 build/default/production/Communications.o
+                  0x000717         0x93 build/default/production/Communications.o
  .debug_pubnames
-                  0x000792         0x83 build/default/production/Timers.o
+                  0x0007aa         0x83 build/default/production/Timers.o
  .debug_pubnames
-                  0x000815         0xcd build/default/production/ADC.o
+                  0x00082d         0xcd build/default/production/ADC.o
  .debug_pubnames
-                  0x0008e2        0x159 build/default/production/UART2.o
+                  0x0008fa        0x159 build/default/production/UART2.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -743,7 +747,7 @@ __FUID3
                   0x000014          0x4 LONG 0x2aa DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000016          0x4 LONG 0x2aa DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000018          0x4 LONG 0x2aa DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00001a          0x4 LONG 0x14c6 DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00001a          0x4 LONG 0x1492 DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00001c          0x4 LONG 0x2aa DEFINED (__DMA0Interrupt)?ABSOLUTE (__DMA0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00001e          0x4 LONG 0x2aa DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000020          0x4 LONG 0x2aa DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -753,7 +757,7 @@ __FUID3
                   0x000028          0x4 LONG 0x2aa DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00002a          0x4 LONG 0xd9e DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00002c          0x4 LONG 0xdce DEFINED (__U1TXInterrupt)?ABSOLUTE (__U1TXInterrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00002e          0x4 LONG 0x1202 DEFINED (__ADC1Interrupt)?ABSOLUTE (__ADC1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00002e          0x4 LONG 0x11e8 DEFINED (__ADC1Interrupt)?ABSOLUTE (__ADC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000030          0x4 LONG 0x2aa DEFINED (__DMA1Interrupt)?ABSOLUTE (__DMA1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000032          0x4 LONG 0x2aa DEFINED (__Interrupt15)?ABSOLUTE (__Interrupt15):ABSOLUTE (__DefaultInterrupt)
                   0x000034          0x4 LONG 0x2aa DEFINED (__SI2C1Interrupt)?ABSOLUTE (__SI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -871,7 +875,7 @@ __FUID3
                   0x000114          0x4 LONG 0x2aa DEFINED (__AltINT0Interrupt)?ABSOLUTE (__AltINT0Interrupt):DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000116          0x4 LONG 0x2aa DEFINED (__AltIC1Interrupt)?ABSOLUTE (__AltIC1Interrupt):DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000118          0x4 LONG 0x2aa DEFINED (__AltOC1Interrupt)?ABSOLUTE (__AltOC1Interrupt):DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00011a          0x4 LONG 0x14c6 DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00011a          0x4 LONG 0x1492 DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00011c          0x4 LONG 0x2aa DEFINED (__AltDMA0Interrupt)?ABSOLUTE (__AltDMA0Interrupt):DEFINED (__DMA0Interrupt)?ABSOLUTE (__DMA0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00011e          0x4 LONG 0x2aa DEFINED (__AltIC2Interrupt)?ABSOLUTE (__AltIC2Interrupt):DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000120          0x4 LONG 0x2aa DEFINED (__AltOC2Interrupt)?ABSOLUTE (__AltOC2Interrupt):DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -881,7 +885,7 @@ __FUID3
                   0x000128          0x4 LONG 0x2aa DEFINED (__AltSPI1Interrupt)?ABSOLUTE (__AltSPI1Interrupt):DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00012a          0x4 LONG 0xd9e DEFINED (__AltU1RXInterrupt)?ABSOLUTE (__AltU1RXInterrupt):DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00012c          0x4 LONG 0xdce DEFINED (__AltU1TXInterrupt)?ABSOLUTE (__AltU1TXInterrupt):DEFINED (__U1TXInterrupt)?ABSOLUTE (__U1TXInterrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00012e          0x4 LONG 0x1202 DEFINED (__AltADC1Interrupt)?ABSOLUTE (__AltADC1Interrupt):DEFINED (__ADC1Interrupt)?ABSOLUTE (__ADC1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00012e          0x4 LONG 0x11e8 DEFINED (__AltADC1Interrupt)?ABSOLUTE (__AltADC1Interrupt):DEFINED (__ADC1Interrupt)?ABSOLUTE (__ADC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000130          0x4 LONG 0x2aa DEFINED (__AltDMA1Interrupt)?ABSOLUTE (__AltDMA1Interrupt):DEFINED (__DMA1Interrupt)?ABSOLUTE (__DMA1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000132          0x4 LONG 0x2aa DEFINED (__AltInterrupt15)?ABSOLUTE (__AltInterrupt15):DEFINED (__Interrupt15)?ABSOLUTE (__Interrupt15):ABSOLUTE (__DefaultInterrupt)
                   0x000134          0x4 LONG 0x2aa DEFINED (__AltSI2C1Interrupt)?ABSOLUTE (__AltSI2C1Interrupt):DEFINED (__SI2C1Interrupt)?ABSOLUTE (__SI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -1990,80 +1994,80 @@ LOAD heap
 LOAD data_init
 
 .debug_pubtypes
-                  0x000108        0x4d9
+                  0x000108        0x4bc
  .debug_pubtypes
                   0x000108         0x12 build/default/production/main.o
  .debug_pubtypes
-                  0x00011a        0x112 build/default/production/Function.o
+                  0x00011a         0xf5 build/default/production/Function.o
  .debug_pubtypes
-                  0x00022c         0x79 build/default/production/MotorControler.o
+                  0x00020f         0x79 build/default/production/MotorControler.o
  .debug_pubtypes
-                  0x0002a5         0x35 build/default/production/FastTransfer.o
+                  0x000288         0x35 build/default/production/FastTransfer.o
  .debug_pubtypes
-                  0x0002da         0x12 build/default/production/ConfigBits.o
+                  0x0002bd         0x12 build/default/production/ConfigBits.o
  .debug_pubtypes
-                  0x0002ec         0x44 build/default/production/I2C.o
+                  0x0002cf         0x44 build/default/production/I2C.o
  .debug_pubtypes
-                  0x000330         0x9f build/default/production/UART.o
+                  0x000313         0x9f build/default/production/UART.o
  .debug_pubtypes
-                  0x0003cf         0x2f build/default/production/Communications.o
+                  0x0003b2         0x2f build/default/production/Communications.o
  .debug_pubtypes
-                  0x0003fe         0x6b build/default/production/Timers.o
+                  0x0003e1         0x6b build/default/production/Timers.o
  .debug_pubtypes
-                  0x000469         0xd8 build/default/production/ADC.o
+                  0x00044c         0xd8 build/default/production/ADC.o
  .debug_pubtypes
-                  0x000541         0xa0 build/default/production/UART2.o
+                  0x000524         0xa0 build/default/production/UART2.o
 
 __c30_signature
-                  0x0005e2         0x8a
+                  0x0005c4         0x8a
  __c30_signature
-                  0x0005e2          0x6 build/default/production/main.o
+                  0x0005c4          0x6 build/default/production/main.o
  __c30_signature
-                  0x0005e8          0x6 build/default/production/Function.o
+                  0x0005ca          0x6 build/default/production/Function.o
  __c30_signature
-                  0x0005ee          0x6 build/default/production/MotorControler.o
+                  0x0005d0          0x6 build/default/production/MotorControler.o
  __c30_signature
-                  0x0005f4          0x6 build/default/production/FastTransfer.o
+                  0x0005d6          0x6 build/default/production/FastTransfer.o
  __c30_signature
-                  0x0005fa          0x6 build/default/production/MCP4725.o
+                  0x0005dc          0x6 build/default/production/MCP4725.o
  __c30_signature
-                  0x000600          0x6 build/default/production/ConfigBits.o
+                  0x0005e2          0x6 build/default/production/ConfigBits.o
  __c30_signature
-                  0x000606          0x6 build/default/production/I2C.o
+                  0x0005e8          0x6 build/default/production/I2C.o
  __c30_signature
-                  0x00060c          0x6 build/default/production/UART.o
+                  0x0005ee          0x6 build/default/production/UART.o
  __c30_signature
-                  0x000612          0x6 build/default/production/Communications.o
+                  0x0005f4          0x6 build/default/production/Communications.o
  __c30_signature
-                  0x000618          0x6 build/default/production/Timers.o
+                  0x0005fa          0x6 build/default/production/Timers.o
  __c30_signature
-                  0x00061e          0x6 build/default/production/ADC.o
+                  0x000600          0x6 build/default/production/ADC.o
  __c30_signature
-                  0x000624          0x6 build/default/production/UART2.o
+                  0x000606          0x6 build/default/production/UART2.o
  __c30_signature
-                  0x00062a          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib/dsPIC33F\libp33FJ128GP804-elf.a(IdleI2C1.o)
+                  0x00060c          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib/dsPIC33F\libp33FJ128GP804-elf.a(IdleI2C1.o)
  __c30_signature
-                  0x000630          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib/dsPIC33F\libp33FJ128GP804-elf.a(MasterWriteI2C1.o)
+                  0x000612          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib/dsPIC33F\libp33FJ128GP804-elf.a(MasterWriteI2C1.o)
  __c30_signature
-                  0x000636          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib/dsPIC33F\libp33FJ128GP804-elf.a(StartI2C1.o)
+                  0x000618          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib/dsPIC33F\libp33FJ128GP804-elf.a(StartI2C1.o)
  __c30_signature
-                  0x00063c          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib/dsPIC33F\libp33FJ128GP804-elf.a(StopI2C1.o)
+                  0x00061e          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib/dsPIC33F\libp33FJ128GP804-elf.a(StopI2C1.o)
  __c30_signature
-                  0x000642          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
+                  0x000624          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x000648          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
+                  0x00062a          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
  __c30_signature
-                  0x00064e          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
+                  0x000630          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
  __c30_signature
-                  0x000654          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libm-elf.a(floatunsisf.eo)
+                  0x000636          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libm-elf.a(floatunsisf.eo)
  __c30_signature
-                  0x00065a          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
+                  0x00063c          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
  __c30_signature
-                  0x000660          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libm-elf.a(fpack.eo)
+                  0x000642          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libm-elf.a(fpack.eo)
  __c30_signature
-                  0x000666          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libc-elf.a(memset.eo)
+                  0x000648          0x6 c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libc-elf.a(memset.eo)
 
-.nbss               0x0800        0x5a4
+.nbss               0x0800        0x5a8
  .nbss              0x0800        0x222 build/default/production/FastTransfer.o
                     0x0800                  _receiveArray
                     0x0828                  _serial_write
@@ -2104,45 +2108,47 @@ __c30_signature
                     0x0d76                  _ADC
  .nbss              0x0d78         0x14 build/default/production/MCP4725.o
                     0x0d78                  _i2cdata
- .nbss              0x0d8c          0x8 build/default/production/MotorControler.o
+ .nbss              0x0d8c          0xc build/default/production/MotorControler.o
                     0x0d8c                  _MotorState
                     0x0d8e                  _spd
                     0x0d90                  _brk
-                    0x0d92                  _CarActiveMode
-                    0x0d93                  _MotorModeActive
- .nbss              0x0d94          0x8 build/default/production/I2C.o
-                    0x0d94                  _i2cBuffer
-                    0x0d96                  _writeState
-                    0x0d98                  _writeInProgress
- .nbss              0x0d9c          0x8 build/default/production/Timers.o
-                    0x0d9c                  _talkTime
-                    0x0d9e                  _LEDtime
-                    0x0da0                  _safetyTime
-                    0x0da2                  _bootTime
+                    0x0d92                  _prevspd
+                    0x0d94                  _prevbrk
+                    0x0d96                  _CarActiveMode
+                    0x0d97                  _MotorModeActive
+ .nbss              0x0d98          0x8 build/default/production/I2C.o
+                    0x0d98                  _i2cBuffer
+                    0x0d9a                  _writeState
+                    0x0d9c                  _writeInProgress
+ .nbss              0x0da0          0x8 build/default/production/Timers.o
+                    0x0da0                  _talkTime
+                    0x0da2                  _LEDtime
+                    0x0da4                  _safetyTime
+                    0x0da6                  _bootTime
 
-.ndata              0x0da4          0x8
- .ndata             0x0da4          0x8 build/default/production/ADC.o
-                    0x0da4                  _ADCSamp
-                    0x0da6                  _ADCPorts
+.ndata              0x0da8          0x8
+ .ndata             0x0da8          0x8 build/default/production/ADC.o
+                    0x0da8                  _ADCSamp
+                    0x0daa                  _ADCPorts
 
-.nbss               0x0dac          0x6
- .nbss              0x0dac          0x6 build/default/production/Communications.o
-                    0x0dac                  _throttleOut
-                    0x0dae                  _brakeOut
-                    0x0db0                  _pendingSend
+.nbss               0x0db0          0x6
+ .nbss              0x0db0          0x6 build/default/production/Communications.o
+                    0x0db0                  _throttleOut
+                    0x0db2                  _brakeOut
+                    0x0db4                  _pendingSend
 
-.ndata              0x0db2          0x8
- .ndata             0x0db2          0x2 build/default/production/MotorControler.o
-                    0x0db2                  _dir
- .ndata             0x0db4          0x2 build/default/production/UART.o
-                    0x0db4                  _Transmit_stall
- .ndata             0x0db6          0x2 build/default/production/Communications.o
-                    0x0db6                  _portClosed
- .ndata             0x0db8          0x2 build/default/production/UART2.o
-                    0x0db8                  _Transmit_stall2
+.ndata              0x0db6          0x8
+ .ndata             0x0db6          0x2 build/default/production/MotorControler.o
+                    0x0db6                  _dir
+ .ndata             0x0db8          0x2 build/default/production/UART.o
+                    0x0db8                  _Transmit_stall
+ .ndata             0x0dba          0x2 build/default/production/Communications.o
+                    0x0dba                  _portClosed
+ .ndata             0x0dbc          0x2 build/default/production/UART2.o
+                    0x0dbc                  _Transmit_stall2
 
-.heap               0x0dba         0x20
- .heap              0x0dba         0x20 heap
+.heap               0x0dbe         0x20
+ .heap              0x0dbe         0x20 heap
 
 .config_JTAGEN    0xf8000e          0x2
  .config_JTAGEN
@@ -2171,7 +2177,7 @@ __c30_signature
 .config_RBS       0xf80000          0x2
  .config_RBS      0xf80000          0x2 build/default/production/ConfigBits.o
 
-.text             0x0003b6       0x121e
+.text             0x0003b6       0x11ea
  .text            0x0003b6        0x62a build/default/production/FastTransfer.o
                   0x0003b6                  _ReceiveArrayGet
                   0x0003ca                  _wipeRxBuffer
@@ -2223,63 +2229,63 @@ __c30_signature
                   0x000d76                  _Send_put
                   0x000d9e                  __U1RXInterrupt
                   0x000dce                  __U1TXInterrupt
- .text            0x000e08        0x1e4 build/default/production/MotorControler.o
+ .text            0x000e08        0x1ca build/default/production/MotorControler.o
                   0x000e08                  _MotorStateControl
-                  0x000efc                  _MotorUpdate
-                  0x000f86                  _MotorMode
-                  0x000f92                  _GetMotorMode
-                  0x000f9c                  _SetDirection
-                  0x000fa8                  _SetSpeed
-                  0x000fb4                  _SetRegen
-                  0x000fc0                  _SetCarMode
-                  0x000fd8                  _RegenEn
- .text            0x000fec        0x198 build/default/production/I2C.o
-                  0x000fec                  _I2c_Init
-                  0x001006                  _i2c_wait
-                  0x00101c                  _i2c_Write
-                  0x001088                  _i2c_startCommand
-                  0x001092                  _i2c_idle
-                  0x00109c                  _i2c_writeByte
-                  0x0010a8                  _i2c_addressSend
-                  0x0010b4                  _i2c_stopCommand
-                  0x0010be                  _i2c_haltBus
-                  0x0010c8                  _writeStateUpdate
-                  0x001174                  _readStateUpdate
-                  0x00117a                  _i2cUpdate
- .text            0x001184        0x11e build/default/production/ADC.o
-                  0x001184                  _initADC
-                  0x001202                  __ADC1Interrupt
-                  0x001266                  _GetADC
-                  0x00126c                  _SetADC
-                  0x001272                  _handleADCValues
- .text            0x0012a2        0x112 build/default/production/Function.o
-                  0x0012a2                  _Setup
-                  0x00134a                  _Delay
-                  0x001368                  _ledDebug
-                  0x001398                  _PinSetMode
- .text            0x0013b4         0xf6 build/default/production/Communications.o
-                  0x0013b4                  _updateComms
-                  0x00144e                  _commSafety
-                  0x001458                  _respondECU
-                  0x00146c                  _checkCommDirection
- .text            0x0014aa         0xa0 build/default/production/Timers.o
-                  0x0014aa                  _TimerOneInit
-                  0x0014c6                  __T1Interrupt
-                  0x0014f6                  _GetTime
-                  0x001520                  _ClearTime
- .text            0x00154a         0x8a build/default/production/MCP4725.o
-                  0x00154a                  _SetDAC1
-                  0x001576                  _SetDAC2
-                  0x0015a2                  _ConfigDAC
+                  0x000ed8                  _MotorUpdate
+                  0x000f48                  _MotorMode
+                  0x000f54                  _GetMotorMode
+                  0x000f5e                  _SetDirection
+                  0x000f6a                  _SetSpeed
+                  0x000f88                  _SetRegen
+                  0x000fa6                  _SetCarMode
+                  0x000fbe                  _RegenEn
+ .text            0x000fd2        0x198 build/default/production/I2C.o
+                  0x000fd2                  _I2c_Init
+                  0x000fec                  _i2c_wait
+                  0x001002                  _i2c_Write
+                  0x00106e                  _i2c_startCommand
+                  0x001078                  _i2c_idle
+                  0x001082                  _i2c_writeByte
+                  0x00108e                  _i2c_addressSend
+                  0x00109a                  _i2c_stopCommand
+                  0x0010a4                  _i2c_haltBus
+                  0x0010ae                  _writeStateUpdate
+                  0x00115a                  _readStateUpdate
+                  0x001160                  _i2cUpdate
+ .text            0x00116a        0x11e build/default/production/ADC.o
+                  0x00116a                  _initADC
+                  0x0011e8                  __ADC1Interrupt
+                  0x00124c                  _GetADC
+                  0x001252                  _SetADC
+                  0x001258                  _handleADCValues
+ .text            0x001288         0xf8 build/default/production/Function.o
+                  0x001288                  _Setup
+                  0x001330                  _Delay
+                  0x00134e                  _ledDebug
+                  0x001364                  _PinSetMode
+ .text            0x001380         0xf6 build/default/production/Communications.o
+                  0x001380                  _updateComms
+                  0x00141a                  _commSafety
+                  0x001424                  _respondECU
+                  0x001438                  _checkCommDirection
+ .text            0x001476         0xa0 build/default/production/Timers.o
+                  0x001476                  _TimerOneInit
+                  0x001492                  __T1Interrupt
+                  0x0014c2                  _GetTime
+                  0x0014ec                  _ClearTime
+ .text            0x001516         0x8a build/default/production/MCP4725.o
+                  0x001516                  _SetDAC1
+                  0x001542                  _SetDAC2
+                  0x00156e                  _ConfigDAC
 
-.dinit            0x0015d4         0x64
- .dinit           0x0015d4         0x64 data_init
+.dinit            0x0015a0         0x64
+ .dinit           0x0015a0         0x64 data_init
 
-.init.delay32     0x001638         0x1c
- .init.delay32    0x001638         0x1c c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
-                  0x001638                  ___delay32
+.text             0x001604         0x36
+ .text            0x001604         0x36 build/default/production/main.o
+                  0x001604                  _main
+                  0x001618                  _MCStest
 
-.text             0x001654         0x1a
- .text            0x001654         0x1a build/default/production/main.o
-                  0x001654                  _main
-                  0x001668                  _MCStest
+.init.delay32     0x00163a         0x1c
+ .init.delay32    0x00163a         0x1c c:/program files (x86)/microchip/xc16/v1.23/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
+                  0x00163a                  ___delay32

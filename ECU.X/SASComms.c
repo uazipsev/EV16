@@ -23,6 +23,7 @@ bool requestSASData() {
     if ((GetTime(SASTIMER) > BOARD_RESEND_MIN) && (readyToSendSAS == true)) {
         readyToSendSAS = false;
         RS485_Direction1(TALK);
+        Delay(1);
         ToSend1(RESPONSE_ADDRESS, ECU_ADDRESS);
         sendData1(SAS_ADDRESS);
         SetTime(SASTIMER);
@@ -51,6 +52,7 @@ bool receiveCommSAS() {
         }
         else{
             //SASErrorCounter++;
+            wipeRxBuffer1();
             return false;
         }
     } 

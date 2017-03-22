@@ -82,9 +82,9 @@ void ComStart(){
     
 void updateComms() {
     bus1Update();
-    //if(GetDriverEnabled()){  //prevents MCS and BMM from coming up....Stopping system boot 
+    if(!GetCarLock()){  //prevents MCS and BMM from coming up....Stopping system boot 
         bus2Update();
-    //}
+    }
     checkCommDirection();
     checkCommDirection1();
     //Delay(5);

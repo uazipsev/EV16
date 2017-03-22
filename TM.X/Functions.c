@@ -128,10 +128,10 @@ void ledDebug(){
         LastTime = GetTime(TIME);
         CamM8Read();
     }
-    if (GetTime(TIME) > 250) {
+    if (GetTime(TIME) > 1000) {
         INDICATOR ^= 1;
         LastTime = 0;
-        //PrintGPSData();
+        PrintGPSData();
         SetTime(TIME);
     }
 }

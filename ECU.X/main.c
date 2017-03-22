@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
         updateECUState(); // State MSN for CAR 
         updateBrakeLight(); // Runs Brake light!
         handleDebugRequests(); //This runs debug systems
-        DeltaThrottle();
+        //DeltaThrottle();
         //Delay(10);
     }
     return (EXIT_SUCCESS);

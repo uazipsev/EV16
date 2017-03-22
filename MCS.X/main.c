@@ -41,11 +41,11 @@ void MCStest(){
 //    Delay(5000);
 //    SetMotor(0, forward);
 //    Delay(5000);
-//    int i = 0;
-//    for(i = 0;i<70;i++){
-//        SetMotor(i, forward); 
-//        Delay(1000);
-//    }
+    int i = 0;
+    for(i = 0;i<4095;i++){
+        SetDAC1(i); 
+        Delay(10);
+    }
 //    Delay(5000);
 //    SetMotor(0, forward);
 //    Delay(5000);

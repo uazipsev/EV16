@@ -37,6 +37,7 @@ bool receiveCommPDU() {
             return true;
         }
         else{
+            wipeRxBuffer();
             return false;
         }
     } 

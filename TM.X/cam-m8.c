@@ -15,11 +15,11 @@ char GPSArray[100];
 
 void CamM8Init(){
     UART4_init();
-    Delay(10);
+    Delay(1);
     SetCarMode();
-    Delay(50);
+    Delay(1);
     setGPS_GNSS();
-    Delay(50);
+    Delay(1);
     SetPowerMode();
 }
 
@@ -161,13 +161,13 @@ void ProcessLine(struct GPS_Data *GPS, char *Buffer, int Count)
 	{
 		satellites = 0;
 	
-		if (strncmp(Buffer+3, "GGA", 3) == 0)
+		if (strncmp(Buffer+5, "GPGGA", 5) == 0)
 		{
 			MessageCount++;
 			if (sscanf(Buffer+7, "%f,%f,%c,%f,%c,%d,%d,%f,%f,%c", &utc_time, &latitude, &ns, &longitude, &ew, &lock, &satellites, &hdop, &altitude, &units) >= 1)
 			{	
 				// $GPGGA,124943.00,5157.01557,N,00232.66381,W,1,09,1.01,149.3,M,48.6,M,,*42
-				if (satellites >= 4)
+				if (satellites >= 2)
 				{
                     printf("Data-GGA");
 					unsigned long utc_seconds;
@@ -285,7 +285,7 @@ void ProcessLine(struct GPS_Data *GPS, char *Buffer, int Count)
 
 void PrintGPSData(){
     printf("GPS\n");
-    printf("H:%i M:%i\n",GPS_Storred->Hours,GPS_Storred->Minutes);
+    printf("H:%u M:%u S:%u\n",GPS_Storred->Hours,GPS_Storred->Minutes,GPS_Storred->Seconds);
     printf("LAT:%f LONG:%f\n",GPS_Storred->Latitude,GPS_Storred->Longitude);
-    printf("Sat Fixes = %c\n",GPS_Storred->Satellites);
+    printf("Sat Fixes = %d\n",GPS_Storred->Satellites);
 }

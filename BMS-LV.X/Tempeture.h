@@ -8,7 +8,10 @@
 #ifndef TEMPETURE_H
 #define	TEMPETURE_H
 
+#define TEMP_SENSE_PWR LATAbits.LA0 
 
+#define TEMP_ON 0
+#define TEMP_OFF 1
 
 extern char Temp_Fault();
 extern void Temp_Read();

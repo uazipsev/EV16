@@ -19,7 +19,7 @@
 #include <xc.h>
 //#include "UART2.h" Not working HELP
 
-unsigned int MotorState, spd, brk = 0;
+unsigned int MotorState, spd, brk, prevspd, prevbrk = 0;
 bool CarActiveMode =0;
 char dir = forward;
 char MotorModeActive = 0;
@@ -46,12 +46,13 @@ void MotorStateControl(){
         MotorMode(MotorModeActive);
     }
     else if(MotorModeActive == MCRUN){
+
         if(!CarActiveMode){
-            spd = 0;
-            brk = 0;
-            MotorMode(MotorModeActive);
-            MotorUpdate();
-            MotorMode(MCSTOP);
+//            spd = 0;
+//            brk = 0;
+//            MotorMode(MotorModeActive);
+//            MotorUpdate();
+//            MotorMode(MCSTOP);
         }
     }
     else if(MotorModeActive == MCSTOP){
@@ -68,8 +69,8 @@ void MotorUpdate(){
     switch(MotorState){
         case MCTURNON:
             DACRELAY = 0;
-            SetDAC1(0);
-            SetDAC2(0);   
+            //SetDAC1(0);
+            //SetDAC2(0);   
             BRAKE = 1;
             REVERSE  = 0;
             FORWARD = 0;
@@ -97,15 +98,21 @@ void MotorUpdate(){
             DACRELAY = 1;
             break;
         case MCRUN:
-            SetDAC1(spd);
-            SetDAC2(brk);
+//            if(spd != prevspd){
+//                prevspd = spd;
+//                SetDAC1(spd);
+//            }
+//            if(brk != prevbrk){
+//                prevbrk = brk;
+//                //SetDAC2(brk);
+//            }
             break;
         case MCSTOP:
             BRAKE = 0;
             DACRELAY = 0;
             DC12DISABLE;
-            SetDAC1(0);
-            SetDAC2(0);
+            //SetDAC1(0);
+            //SetDAC2(0);
             break;
     }
 }
@@ -124,10 +131,18 @@ void SetDirection(char direction){
 
 void SetSpeed(unsigned int value){
     spd = value;
+    if(spd != prevspd){
+        prevspd = spd;
+         SetDAC1(spd);
+    }
 }
 
 void SetRegen(unsigned int value){
     brk = value;
+    if(brk != prevbrk){
+        prevbrk = brk;
+        SetDAC2(brk);
+    }
 }
 
 void SetCarMode(unsigned int value){

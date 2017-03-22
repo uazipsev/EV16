@@ -32,7 +32,6 @@ void Start_BMS() {
   
     //Run_Mode();
     Initalize_LT6804b();
-    //ADS1015Begin();
 }
 
 void Charge_Mode(int command) {
@@ -42,16 +41,19 @@ void Charge_Mode(int command) {
 }
 
 void Run_Mode() {
-//cell_codes_Bank[0][0]=4535;
       Read_Battery(0,cell_codes_Bank);
-      
-      //int th=5;
       int k = 0;
       for(k;k<12;k++){
         printf(" Cell %d Voltage: %1.2f \n",k, cell_codes_Bank[0][k]*0.00001);
       }
- 
-   // Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2);
+      RunBypass_Set(1,0,cell_codes_Bank);
+      
+      TempRun();  //Calculate Temps 
+      for(k;k<6;k++){
+        printf(" Cell %d temp: %1.2f \n",k, Tempeture_Get(k));
+      }
+      Temp_Fault(); //Fault Detect on high temp 
+      
 }
 
 void Initalize_LT6804b() {
