@@ -46,12 +46,12 @@ void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void) {
    
            
 //    readc();
-//     if (Sample_Numbers<=10)
-//     {
-//            Sample_Numbers++;
-//     }
-//     else if (Sample_Numbers>10){
-//     Starting_Samples=false;}
+   if (Sample_Numbers<=10)
+     {
+           Sample_Numbers++;
+    }
+     else if (Sample_Numbers>10){
+     Starting_Samples=false;}
    
    //}
    // CurrentCoulombCount(time);
@@ -251,8 +251,5 @@ return Sample_Numbers;
 }
 
 void readc(){
-    //double hey=0;
-    
-//hey= getbigc();
-//printf( "C Value time %f", hey);
+
 }

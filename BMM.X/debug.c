@@ -10,6 +10,8 @@
 #include <string.h>
 #include "UART1.h"
 #include "BatteryManagment.h"
+#include "BatteryManagementTemperature.h"
+#include "BatteryManagementCells.h"
 
 enum debugStates debugState;
 void handleDebugRequests();
@@ -167,7 +169,7 @@ void handleDebugRequests() {
                 counter = 0;
                 while (ic < 3) {
                     while (counter < 11) {
-                        voltage = Get_Pack_Voltages(ic, counter, bank_1);
+                        voltage = Get_Cell_Voltages(ic, counter, bank_1);
                         printf("Battery Voltage for IC:%i and Sensor #:%i =%f\n", ic, counter, voltage);
                         counter++;
                     }
@@ -185,7 +187,7 @@ void handleDebugRequests() {
                 counter = 0;
                 while (ic < 6) {
                     while (counter < 11) {
-                        voltage = Get_Pack_Voltages(ic, counter, bank_1);
+                        voltage = Get_Cell_Voltages(ic, counter, bank_1);
                         printf("Battery Voltage for IC:%i and Sensor #:%i =%f\n", ic, counter, voltage);
                         counter++;
                     }
@@ -203,7 +205,7 @@ void handleDebugRequests() {
                 counter = 0;
                 while (ic < 9) {
                     while (counter < 11) {
-                        voltage = Get_Pack_Voltages(ic, counter, bank_1);
+                        voltage = Get_Cell_Voltages(ic, counter, bank_1);
                         printf("Battery Voltage for IC:%i and Sensor #:%i =%f\n", ic, counter, voltage);
                         counter++;
                     }
@@ -221,7 +223,7 @@ void handleDebugRequests() {
                 counter = 0;
                 while (ic < 3) {
                     while (counter < 11) {
-                        voltage = Get_Pack_Voltages(ic, counter, bank_2);
+                        voltage = Get_Cell_Voltages(ic, counter, bank_2);
                         printf("Battery Voltage for IC:%i and Sensor #:%i =%f\n", ic, counter, voltage);
                         counter++;
                     }
@@ -239,7 +241,7 @@ void handleDebugRequests() {
                 counter = 0;
                 while (ic < 6) {
                     while (counter < 11) {
-                        voltage = Get_Pack_Voltages(ic, counter, bank_2);
+                        voltage = Get_Cell_Voltages(ic, counter, bank_2);
                         printf("Battery Voltage for IC:%i and Sensor #:%i =%f\n", ic, counter, voltage);
                         counter++;
                     }
@@ -257,7 +259,7 @@ void handleDebugRequests() {
                 counter = 0;
                 while (ic < 9) {
                     while (counter < 11) {
-                        voltage = Get_Pack_Voltages(ic, counter, bank_2);
+                        voltage = Get_Cell_Voltages(ic, counter, bank_2);
                         printf("Battery Voltage for IC:%i and Sensor #:%i =%f\n", ic, counter, voltage);
                         counter++;
                     }
@@ -644,27 +646,27 @@ void Display_Max_and_Min(int select, int bank) {
         if (bank == bank_1) {
 
 
-            Data = Get_Extreme_Temprature(min_select, 0, bank_1);
-            IC_Loc = Get_Extreme_Temprature(min_select, 1, bank_1);
-            Sens_Loc = Get_Extreme_Temprature(min_select, 2, bank_1);
+            Data = Get_Extreme_Temperature(min_select, 0, bank_1);
+            IC_Loc = Get_Extreme_Temperature(min_select, 1, bank_1);
+            Sens_Loc = Get_Extreme_Temperature(min_select, 2, bank_1);
 
             printf("\nThe Minimum Temperature in this bank is: %f at IC %f and sensor %f\n", Data, IC_Loc, Sens_Loc);
 // GET_EXTREME TEMP is not working  need to check if it is workoing in BM file or just a issue when it is passing it to another file.
-            Data = Max_Temp[0][0];
-            IC_Loc = Max_Temp[0][1];
-            Sens_Loc = Max_Temp[0][2];
+            Data = Get_Extreme_Temperature(min_select, 0, bank_1);
+            IC_Loc = Get_Extreme_Temperature(min_select, 1, bank_1);
+            Sens_Loc = Get_Extreme_Temperature(min_select, 2, bank_1);
             printf("The Maximum Temperature in this bank is: %f at IC %f and sensor %f\n\n", Data, IC_Loc, Sens_Loc);
         }
         else if (bank == bank_2) {
-            Data = Get_Extreme_Temprature(min_select, 0, bank_2);
-            IC_Loc = Get_Extreme_Temprature(min_select, 1, bank_2);
-            Sens_Loc = Get_Extreme_Temprature(min_select, 2, bank_2);
+            Data = Get_Extreme_Temperature(min_select, 0, bank_2);
+            IC_Loc = Get_Extreme_Temperature(min_select, 1, bank_2);
+            Sens_Loc = Get_Extreme_Temperature(min_select, 2, bank_2);
 
             printf("\nThe Minimum Temperature in this bank is: %f at IC %f and sensor %f\n", Data, IC_Loc, Sens_Loc);
 
-            Data = Get_Extreme_Temprature(max_select, 0, bank_2);
-            IC_Loc = Get_Extreme_Temprature(max_select, 1, bank_2);
-            Sens_Loc = Get_Extreme_Temprature(max_select, 2, bank_2);
+            Data = Get_Extreme_Temperature(max_select, 0, bank_2);
+            IC_Loc = Get_Extreme_Temperature(max_select, 1, bank_2);
+            Sens_Loc = Get_Extreme_Temperature(max_select, 2, bank_2);
 
             printf("The Maximum Temperature in this bank is: %f at IC %f and sensor %f\n\n", Data, IC_Loc, Sens_Loc);
         }

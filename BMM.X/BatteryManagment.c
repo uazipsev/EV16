@@ -7,6 +7,8 @@
 #include <math.h>
 #include "BatteryManagment.h"
 #include "BatteryManagmentPrivate.h"
+#include "BatteryManagementTemperature.h"
+#include "BatteryManagementCells.h"
 #include "ADS1015.h"
 #include "LT6804.h"
 #include "Timers.h"
@@ -14,31 +16,10 @@
 //TODO Need to make a fault status and a use with var
 int Battery_Is_Charging_Flag = 0;
 int FaultValue = 0;
-//Arrays for Cell Voltages
-int cell_codes_Bank1[NUMBEROFIC][12];
-int cell_codes_Bank2[NUMBEROFIC][12];
-double Converted_Cell_Codes_Bank1[NUMBEROFIC][12];
-double Converted_Cell_Codes_Bank2[NUMBEROFIC][12];
-double Average_cell_codes_Bank1[NUMBEROFIC][12];
-double Average_cell_codes_Bank2[NUMBEROFIC][12];
-
-//Arrays for GPIO
-int Aux_codes_Bank1[NUMBEROFIC][6];
-int Aux_codes_Bank2[NUMBEROFIC][6];
-double Converted_Temprature_Bank1[NUMBEROFIC][6];
-double Converted_Temprature_Bank2[NUMBEROFIC][6];
-double Average_Temprature_Codes_Bank1[NUMBEROFIC][6];
-double Average_Temprature_Codes_Bank2[NUMBEROFIC][6];
-double Module_Voltage_Value[1][2];
-double Module_Average_Temp_Value[1][2];
 bool BypassConfigbank1[NUMBEROFIC][12];
 bool BypassConfigbank2[NUMBEROFIC][12];
 double bankforc = 0;
 int qw = 0;
- double Min_Temp[2][3];
- double Max_Temp[2][3];
- double Min_Cell_Voltage[2][3];
- double Max_Cell_Voltage[2][3];
  int Type_Of_State=0;
 //|r_config[0]|r_config[1]|r_config[2]|r_config[3]|r_config[4]|r_config[5]|r_config[6]  |r_config[7] |r_config[8]|r_config[9]|  .....    |
 //|-----------|-----------|-----------|-----------|-----------|-----------|-------------|------------|-----------|-----------|-----------|
@@ -53,10 +34,7 @@ int qw = 0;
 
 //TODO need to get communication protocol setup to run  the appropriate mode
 
-int Comm_Start() {
 
-    return 1;
-}
 
 void Start_BMS(int mode) {
     //TODO need to have a mode to make sure all slaves are up in running.
@@ -91,6 +69,7 @@ void Run_Mode(bool Start_Setup) {
     //This is used to start the process of the switch statement.
     if  (Start_Setup==true){
     
+        
     Type_Of_State=0;
     }
     
@@ -101,19 +80,90 @@ void Run_Mode(bool Start_Setup) {
     //Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2);
 
     //Read_Total_GPIO(Aux_codes_Bank1,Aux_codes_Bank2);
-        
+       if (0) {
     switch (Type_Of_State) {
         case 0:
-          // Fault_Type= Read_GPIO_Bank(Aux_codes_Bank1);
+           Fault_Type= Read_GPIO_Bank(Aux_codes_Bank1);
             break;
         case 1:
-           //Fault_Type= Read_GPIO_Bank(Aux_codes_Bank2);
+           Fault_Type= Read_GPIO_Bank(Aux_codes_Bank2);
             break;
         case 2:
-           //Fault_Type= Test_Temp_Sensors(Aux_codes_Bank1, Aux_codes_Bank2, Aux_codes_Bank1[6][0]);
+           Fault_Type= Convert_To_Temp_Total(Aux_codes_Bank1, Aux_codes_Bank2);
             break;
         case 3:
-           //Fault_Type= Test_Temp_Sensors(Aux_codes_Bank1, Aux_codes_Bank2, Aux_codes_Bank1[6][0]);
+          Fault_Type= Read_Cell_Voltage_Bank(cell_codes_Bank1);
+            break;
+        case 4:
+          Fault_Type= Read_Cell_Voltage_Bank(cell_codes_Bank2);
+            break;
+        case 5:
+          Fault_Type= Insert_Cell_Data_Total(cell_codes_Bank1,cell_codes_Bank2);
+            break;
+        case 6:
+            Pack_Cell_Voltage_Sum();
+            Pack_Temperature_Sum();
+            break;
+        case 7:
+            Pack_Cell_Voltage_Sum();
+            Pack_Temperature_Sum();
+            break;
+         case 8:
+            Pack_Cell_Voltage_Sum();
+            Pack_Temperature_Sum();
+            break;    
+    }
+       }
+    //Report_Fault(Fault_Type);
+    //CheckFault();
+    
+    // Type_Of_State++;
+     //if (Type_Of_State==6){
+     //Type_Of_State=0;
+     //Read_Total_Temperature(Aux_codes_Bank1, Aux_codes_Bank2);
+     Send_Read_GPIO_Command(0, Aux_codes_Bank1);
+//Read_GPIO_Bank(Aux_codes_Bank1);
+ //Convert_To_Temp_Total(Aux_codes_Bank1, Aux_codes_Bank2);
+
+    //    FaultValue=Startuptests(Stat_codes_Bank1);
+    //    FaultValue=Startuptests(Stat_codes_Bank2);
+    //    if (FaultValue!=0){
+    //        CheckFault();
+    //    }
+    //    else {
+    //        Run_GPIO_Temp_ColumbCounting_Timer();
+    //    }
+}
+
+     
+     void Run_Mode_debug(bool Start_Setup) {
+    //This is used to start the process of the switch statement.
+    if  (Start_Setup==true){
+    
+        
+    Type_Of_State=0;
+    }
+    
+
+    wakeup_idle();
+    
+    int Fault_Type=0;
+    //Read_Total_Voltage(cell_codes_Bank1, cell_codes_Bank2);
+
+    //Read_Total_GPIO(Aux_codes_Bank1,Aux_codes_Bank2);
+       if (0) {
+    switch (Type_Of_State) {
+        case 0:
+           Fault_Type= Read_GPIO_Bank(Aux_codes_Bank1);
+            break;
+        case 1:
+           Fault_Type= Read_GPIO_Bank(Aux_codes_Bank2);
+            break;
+        case 2:
+           Fault_Type= Convert_To_Temp_Total(Aux_codes_Bank1, Aux_codes_Bank2);
+            break;
+        case 3:
+          // Fault_Type= Convert_To_Temp_Total(Aux_codes_Bank1, Aux_codes_Bank2);
             break;
         case 4:
            //Fault_Type= Test_Temp_Sensors(Aux_codes_Bank1, Aux_codes_Bank2, Aux_codes_Bank1[6][0]);
@@ -122,15 +172,16 @@ void Run_Mode(bool Start_Setup) {
            //Fault_Type= Test_Temp_Sensors(Aux_codes_Bank1, Aux_codes_Bank2, Aux_codes_Bank1[6][0]);
             break;
     }
+       }
     //CheckFault();
     
     // Type_Of_State++;
      //if (Type_Of_State==6){
      //Type_Of_State=0;
-     
-     
-Read_GPIO_Bank(Aux_codes_Bank1);
- Test_Temp_Sensors(Aux_codes_Bank1, Aux_codes_Bank2, Aux_codes_Bank1[6][0]);
+     //Read_Total_Temperature(Aux_codes_Bank1, Aux_codes_Bank2);
+     Send_Read_GPIO_Command(0, Aux_codes_Bank1);
+//Read_GPIO_Bank(Aux_codes_Bank1);
+ //Convert_To_Temp_Total(Aux_codes_Bank1, Aux_codes_Bank2);
 
     //    FaultValue=Startuptests(Stat_codes_Bank1);
     //    FaultValue=Startuptests(Stat_codes_Bank2);
@@ -142,6 +193,8 @@ Read_GPIO_Bank(Aux_codes_Bank1);
     //    }
 
 }
+
+
 
 void Run_GPIO_Temp_ColumbCounting_Timer() {
     initTimerTwo();
@@ -441,838 +494,16 @@ int CheckTestReading(int Stat_codes[NUMBEROFIC][6]) {
         }
     }
     return TestError;
-
-
-
-    ;
 }
 
-
-int Read_Total_Voltage(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
-    int Read_Status_INC = 0;
-    int Error_Value = 0;
-    int FaultNum = 0;
-    //Reading the registers
-    do {
-        Error_Value = Read_Battery(0, cell_codes_Bank1);
-        Error_Value = 0; //TODO Get rid of fault detection will break
-        if (Error_Value != 0) {
-            // printf("Error!!! 1 %i ", Read_Status_INC);
-            // Read_Status_INC = Read_Status_INC + 1;
-        }
-    } while (Error_Value != 0 && Read_Status_INC <= 10);
-    //If we cant read the registers 10 times in the row call a fault. 
-    if (Read_Status_INC > 10) {
-        //printf("Fault!!! 1 %i ");
-        FaultNum = ReadVoltRegFault;
-    }
-    //If we got the data reset for bank 2
-    Read_Status_INC = 0;
-    do {
-        Error_Value = Read_Battery(0, cell_codesBank2);
-        Error_Value = 0; //TODO Get rid of fault detection will break
-        if (Error_Value != 0) {
-            //printf("Error!!! 2 %i ", Read_Status_INC);
-            // Read_Status_INC = Read_Status_INC + 1;
-        }
-
-    } while (Error_Value != 0 && Read_Status_INC <= 10);
-    if (Read_Status_INC > 10) {
-        // printf("Fault!!! 2 %i ");
-        FaultNum = ReadVoltRegFault;
-    }
-    //if there is no issues and we got data 
-    if (FaultNum == 0) {
-        //convert cells to volts.
-        Convert_To_Voltage_Cell(cell_codes_Bank1, cell_codes_Bank2);
-        //To stop first reading error
-        //If this is the first read of the array dont check faults because the frst signal could be bad.
-        if (Starting_Samples == true) {
-            Update_Average_Array_Cell(Converted_Cell_Codes_Bank1, Converted_Cell_Codes_Bank2);
-        } else if (Starting_Samples == false) {
-            //Update array then check if the
-            Update_Average_Array_Cell(Converted_Cell_Codes_Bank1, Converted_Cell_Codes_Bank2);
-            FaultNum = Check_Array_Faults_Cells(Average_cell_codes_Bank1, Average_cell_codes_Bank2);
-            if (FaultNum == 0) {
-                //Sum the voltage up into each module and ready to be sent.
-                Pack_Cell_Voltage_Sum(Average_cell_codes_Bank1, Average_cell_codes_Bank2);
-            } else {
-                Error_Value = FaultNum;
-            }
-        }
-    }
-    return Error_Value;
-}
 
 
 /*******************************************************************
- * @brief           Read_Battery
- * @brief           Reads battery voltage of each cell 
+ * @brief           Set_Bypass
+ * @brief           sets bypass for a cell on the stack
  * @return          none
  * @note            
  *******************************************************************/
-int Read_Battery(int BatteryPlacement, int cell_codes[NUMBEROFIC][12]) {
-    int Read_Status = 0;
-    switch (BatteryPlacement) {
-        //The proccess laid out in case 0 should be the same for the other cases.
-        //The difference is which set of cells are going to be read where case 0 is all of the cells.
-        case 0:
-            //Setup the ADC for the request.
-            set_adc(MD_FILTERED, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
-            //Alert the LTC6804
-            wakeup_idle();
-            //Send data
-            LTC6804_adcv();
-            //Alert the LTC6804
-            wakeup_idle();
-            //Read data
-            Read_Status = LTC6804_rdcv(0, NUMBEROFIC, cell_codes);
-            break;
-            //Not Sure if these work Check library and see if the 1,3 or 0,NumofCell is correct one is wrong.
-        case 1:
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_1and7, AUX_CH_ALL);
-            wakeup_idle();
-            LTC6804_adcv();
-            wakeup_idle();
-            Read_Status = LTC6804_rdcv(1, 3, cell_codes); //Cell 1
-            Read_Status = LTC6804_rdcv(3, 3, cell_codes); //Cell 7
-            break;
-        case 2:
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_2and8, AUX_CH_ALL);
-            wakeup_idle();
-            LTC6804_adcv();
-            wakeup_idle();
-            Read_Status = LTC6804_rdcv(0, NUMBEROFIC, cell_codes); // Cell 2
-            Read_Status = LTC6804_rdcv(3, NUMBEROFIC, cell_codes); //Cell 8
-            break;
-        case 3:
-            wakeup_idle();
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_3and9, AUX_CH_ALL);
-            LTC6804_adcv();
-            wakeup_idle();
-            Read_Status = LTC6804_rdcv(0, NUMBEROFIC, cell_codes); // Cell 3
-            Read_Status = LTC6804_rdcv(3, NUMBEROFIC, cell_codes); //Cell 9
-            break;
-        case 4:
-            wakeup_idle();
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_4and10, AUX_CH_ALL);
-            LTC6804_adcv();
-            wakeup_idle();
-            Read_Status = LTC6804_rdcv(2, NUMBEROFIC, cell_codes); // Cell 4
-            Read_Status = LTC6804_rdcv(4, NUMBEROFIC, cell_codes); //Cell 10
-            break;
-        case 5:
-            wakeup_idle();
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_5and11, AUX_CH_ALL);
-            LTC6804_adcv();
-            wakeup_idle();
-            Read_Status = LTC6804_rdcv(2, NUMBEROFIC, cell_codes); // Cell 5
-            Read_Status = LTC6804_rdcv(4, NUMBEROFIC, cell_codes); //Cell 11
-            break;
-        case 6:
-            wakeup_idle();
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_6and12, AUX_CH_ALL);
-            LTC6804_adcv();
-            wakeup_idle();
-            Read_Status = LTC6804_rdcv(2, NUMBEROFIC, cell_codes); // Cell 6
-            Read_Status = LTC6804_rdcv(4, NUMBEROFIC, cell_codes); //Cell 12
-            break;
-        default:
-            Read_Status = ReadVoltRegFault;
-            break;
-    }
-    return Read_Status;
-}
-
-
-//Function to check all the voltage thresholds in the pack. And assigning minimum and maximum values.
-int Check_All_Cell_Thresholds(int test, int IC, double cell_codes_bank1[][12], double cell_codes_bank2[][12]) {
-    int CurrentIC = 0;
-    int cell = 0;
-    int Error_Value = 0;
-    int bank = 0;
-    //Going through every bank, IC and cell
-    while (bank < 2) {
-        while (CurrentIC < IC) {
-            while (cell < 12) {
-                if (bank == 0) {
-                    Error_Value = CheckThresholds(test, cell_codes_bank1[CurrentIC][cell]);
-                    //Checking if the cell has the lowest voltage in the pack
-                    if (cell_codes_bank1[CurrentIC][cell] < Min_Cell_Voltage[bank][Data_Value]) {
-                    // Gathering location of the lowest IC.
-                        Min_Cell_Voltage[bank][Data_Value] = cell_codes_bank1[CurrentIC][cell];
-                        Min_Cell_Voltage[bank][IC_LOCATION] = CurrentIC;
-                        Min_Cell_Voltage[bank][SENSOR_LOCATION] = cell;
-                    }
-                    //Checking if the cell has the highest voltage in the pack
-                    else if (cell_codes_bank1[CurrentIC][cell] > Max_Cell_Voltage[bank][Data_Value]) {
-                        // Gathering location of the Highest IC.
-                        Max_Cell_Voltage[bank][Data_Value] = cell_codes_bank1[CurrentIC][cell];
-                        Max_Cell_Voltage[bank][IC_LOCATION] = CurrentIC;
-                        Max_Cell_Voltage[bank][SENSOR_LOCATION] = cell;
-                    }
-                    if (Error_Value != 0) {
-                        return Error_Value;
-                    }
-                    cell = cell + 1;
-                }
-                //Have to repeat even though its redundant because of cell_codes_bank2
-                else if (bank == 1) {
-                    Error_Value = CheckThresholds(test, cell_codes_bank2[CurrentIC][cell]);
-                    if (cell_codes_bank2[CurrentIC][cell] < Min_Cell_Voltage[bank][Data_Value]) {
-
-                        Min_Cell_Voltage[bank][Data_Value] = cell_codes_bank2[CurrentIC][cell];
-                        Min_Cell_Voltage[bank][IC_LOCATION] = CurrentIC;
-                        Min_Cell_Voltage[bank][SENSOR_LOCATION] = cell;
-                    } else if (cell_codes_bank2[CurrentIC][cell] > Max_Cell_Voltage[bank][Data_Value]) {
-
-                        Max_Cell_Voltage[bank][Data_Value] = cell_codes_bank2[CurrentIC][cell];
-                        Max_Cell_Voltage[bank][IC_LOCATION] = CurrentIC;
-                        Max_Cell_Voltage[bank][SENSOR_LOCATION] = cell;
-                    }
-                    if (Error_Value != 0) {
-                        return Error_Value;
-                    }
-                }
-                cell = cell + 1;
-            }
-
-            cell = 0;
-            CurrentIC = CurrentIC + 1;
-        }
-        cell=0;
-        CurrentIC = 0;
-        bank++;
-    }
-    return Error_Value;
-}
-//Checking if any of the voltages are critically low or high which would need to create a fault.
-int CheckThresholds(int test, double data) {
-    int FaultIndicator = 0;
-    switch (test) {
-        case OverVoltageFault:
-            if (data >= Over_Voltage_Value)
-                FaultIndicator = OverVoltageFault;
-            break;
-        case UnderVoltageFault:
-            if (data <= Under_Voltage_Value) {
-                FaultIndicator = UnderVoltageFault;
-            }
-            break;
-    }
-    return FaultIndicator;
-}
-
-int Check_Array_Faults_Cells(double cell_codes_Bank1[][12], double cell_codes_Bank2[][12]) {
-    int Error_Value;
-    Error_Value = Check_All_Cell_Thresholds(OverVoltageFault, NUMBEROFIC, Average_cell_codes_Bank1, Average_cell_codes_Bank2);
-    if (Error_Value != 0) {
-        return Error_Value;
-    }
-    Error_Value = Check_All_Cell_Thresholds(UnderVoltageFault, NUMBEROFIC, Average_cell_codes_Bank1, Average_cell_codes_Bank2);
-    return Error_Value;
-
-}
-
-/*******************************************************************
- * @brief           Convert_Voltage
- * @brief           Convert each reading from a battery to volts. 
- * @return          none
- * @note            
- *******************************************************************/
-//TODO make sure this is possible to have a array of 12 go into a array of 6
-
-void Convert_To_Voltage_Cell(int Array_Bank1[][12], int Array_Bank2[][12]) {
-    int ic = 0;
-    int cell = 0;
-    int Temp_ValB1 = 0;
-    int Temp_ValB2 = 0;
-    while (ic < NUMBEROFIC) {
-        while (cell < Cell_Per_Bank) {
-            Temp_ValB1 = Array_Bank1[ic][cell]*.0001;
-            Temp_ValB2 = Array_Bank2[ic][cell]*.0001;
-            Converted_Cell_Codes_Bank1[ic][cell] = Temp_ValB1;
-            Converted_Cell_Codes_Bank2[ic][cell] = Temp_ValB2;
-            cell++;
-        }
-        cell=0;
-        ic++;
-    }
-}
-
-//Making weighted average
-
-void Update_Average_Array_Cell(double Array_Bank1[][12], double Array_Bank2[][12]) {
-    int Ic = 0;
-    int cell = 0;
-    //If first sample there is no weighted needed because it is the first sample.
-
-    if (Starting_Samples == true) {
-        while (Ic < NUMBEROFIC) {
-            while (cell < 12) {
-
-                //Cell Voltages
-                Average_cell_codes_Bank1[Ic][cell] = Array_Bank1[Ic][cell];
-                Average_cell_codes_Bank2[Ic][cell] = Array_Bank2[Ic][cell];
-                cell = cell + 1;
-            }
-            cell = 0;
-            Ic = Ic + 1;
-        }
-        cell = 0;
-        Ic = 0;
-    } 
-    else if (Starting_Samples == false) {
-        while (Ic < NUMBEROFIC) {
-            while (cell < 12) {
-
-                Average_cell_codes_Bank1[Ic][cell] = (.8 * (Average_cell_codes_Bank1[Ic][cell])+ (.2 * Array_Bank1[Ic][cell]));
-                Average_cell_codes_Bank2[Ic][cell] = (.8 * (Average_cell_codes_Bank2[Ic][cell]) +(.2 * Array_Bank2[Ic][cell]));
-                cell = cell++;
-            }
-            cell = 0;
-            Ic = Ic++;
-        }
-    }
-
-}
-
-//This function is to sum up the voltage of each cell(12) and each ltc6804(3) into a array for each module to be sent to the ECU
-void Pack_Cell_Voltage_Sum(double Array_Bank1[][12], double Array_Bank2[][12]) {
-
-    int ic = 0, sense_num = 0, Bank_Num = 0;
-    //For both Banks
-    while (Bank_Num < 2) {
-        while (ic < 9) {
-            switch (ic) {
-                    //Each Module has 3 LTC6804 with 12 voltage cells a piece. Summing the total voltage for each module.
-                case 0:
-                case 1:
-                case 2:
-                    while (sense_num < 12) {
-                        if (Bank_Num == 0) {
-                            Module_Voltage_Value[Bank_Num][0] = Array_Bank1[ic][sense_num] + Module_Voltage_Value[Bank_Num][0];
-                        }
-                        if (Bank_Num == 1) {
-                            Module_Voltage_Value[Bank_Num][0] = Array_Bank2[ic][sense_num] + Module_Voltage_Value[Bank_Num][0];
-                        }
-                        sense_num++;
-                    }
-                    sense_num = 0;
-                    break;
-                case 3:
-                case 4:
-                case 5:
-                    while (sense_num < 12) {
-                        if (Bank_Num == 0) {
-                            Module_Voltage_Value[Bank_Num][1] = Array_Bank1[ic][sense_num] + Module_Voltage_Value[Bank_Num][1];
-                        }
-                        if (Bank_Num == 1) {
-                            Module_Voltage_Value[Bank_Num][1] = Array_Bank2[ic][sense_num] + Module_Voltage_Value[Bank_Num][1];
-                        }
-                        sense_num++;
-                    }
-                    sense_num = 0;
-                    break;
-                case 6:
-                case 7:
-                case 8:
-                    while (sense_num < 12) {
-                        if (Bank_Num == 0) {
-                            Module_Voltage_Value[Bank_Num][2] = Array_Bank1[ic][sense_num] + Module_Voltage_Value[Bank_Num][2];
-                        }
-                        if (Bank_Num == 1) {
-                            Module_Voltage_Value[Bank_Num][2] = Array_Bank2[ic][sense_num] + Module_Voltage_Value[Bank_Num][2];
-                        }
-                        sense_num++;
-                    }
-                    sense_num = 0;
-                    break;
-            }
-            ic++;
-        }
-        ic = 0;
-        Bank_Num++;
-    }
-}
-
-double Get_Cell_Voltages(int ic, int num, int bank) {
-    if (bank == 1) {
-        return Average_cell_codes_Bank1[ic][num];
-    }
-    if (bank == 2) {
-        return Average_cell_codes_Bank2[ic][num];
-    }
-}
-
-double Get_Pack_Voltages(int module, int bank) {
-    if (module == 0) {
-        if (bank == 1) {
-            //TODO have to change the bank number to be uniform
-            return Module_Voltage_Value[0][module_0];
-        }
-        if (bank == 2) {
-            return Module_Voltage_Value[1][module_0];
-        }
-    }
-    if (module == 1) {
-        if (bank == 1) {
-            return Module_Voltage_Value[0][module_1];
-        }
-        if (bank == 2) {
-            return Module_Voltage_Value[1][module_1];
-        }
-    }
-    if (module == 2) {
-        if (bank == 1) {
-            return Module_Voltage_Value[0][module_2];
-        }
-        if (bank == 2) {
-            return Module_Voltage_Value[1][module_2];
-        }
-    }
-}
-//This function gets a attribute of the extreme voltage.
-//Where type equal what extreme, Parm equals what property of that extreme (location,data etc.) and bank is what bank we are looking at.
-double Get_Extreme_Voltage(int type, int parm, int bank) {
-    //If we want to pick the minium voltage.
-    if (type == min_select) {
-        switch (parm) {
-            //If we want Data
-            case Data_Value:
-                if (bank = bank_1) {
-                    return Min_Cell_Voltage[Bank1_Array_Indicator][Data_Value];
-                } else if (bank = bank_2) {
-                    return Min_Cell_Voltage[Bank2_Array_Indicator][Data_Value];
-                }
-                break;
-                //If we want location
-            case IC_LOCATION:
-                if (bank = bank_1) {
-                    return Min_Cell_Voltage[Bank1_Array_Indicator][IC_LOCATION];
-                } else if (bank = bank_2) {
-                    return Min_Cell_Voltage[Bank2_Array_Indicator][IC_LOCATION];
-                }
-                break;
-                //If we want sensor location.
-            case SENSOR_LOCATION:
-                if (bank = bank_1) {
-                    return Min_Cell_Voltage[Bank1_Array_Indicator][SENSOR_LOCATION];
-                } else if (bank = bank_2) {
-                    return Min_Cell_Voltage[Bank2_Array_Indicator][SENSOR_LOCATION];
-                }
-                break;
-        }
-    } else if (type == max_select) {
-        //If we want Max voltage the parm is the same as the min.
-        switch (parm) {
-            case Data_Value:
-                if (bank = bank_1) {
-                    return Max_Cell_Voltage[Bank1_Array_Indicator][Data_Value];
-                } else if (bank = bank_2) {
-                    return Max_Cell_Voltage[Bank2_Array_Indicator][Data_Value];
-                }
-                break;
-            case IC_LOCATION:
-                if (bank = bank_1) {
-                    return Max_Cell_Voltage[Bank1_Array_Indicator][IC_LOCATION];
-                } else if (bank = bank_2) {
-                    return Max_Cell_Voltage[Bank2_Array_Indicator][IC_LOCATION];
-                }
-                break;
-            case SENSOR_LOCATION:
-                if (bank = bank_1) {
-                    return Max_Cell_Voltage[Bank1_Array_Indicator][SENSOR_LOCATION];
-                } else if (bank = bank_2) {
-                    return Max_Cell_Voltage[Bank2_Array_Indicator][SENSOR_LOCATION];
-                }
-                break;
-        }
-    }
-
-}
-
-
-int Read_Total_GPIO(int Aux_codes_Bank1t[][6], int Aux_codes_Bank2t[][6]) {
-    int Read_Status_INC = 0;
-    int Error_Value = 0;
-    int FaultNum = 0;
-
-    //LATBbits.LATB6 = 1;
-    Error_Value = Read_GPIO(0, Aux_codes_Bank1t);
-    //Error_Value = LTC6804_rdaux(0, NUMBEROFIC, Aux_codes_Bank1); // All GPIO and Ref
-    Read_GPIO(0, Aux_codes_Bank2t);
-    //Error_Value = LTC6804_rdaux(0, NUMBEROFIC, Aux_codes_Bank2); // All GPIO and Ref
-    //LATBbits.LATB6 = 0;
-
-
-    //  Read_Status_INC = 0;
-    //    do { 
-    //        Read_GPIO(0, Aux_codes_Bank2);
-    //       Error_Value = LTC6804_rdaux(0, NUMBEROFIC, Aux_codes_Bank2); // All GPIO and Ref
-    //        if (Error_Value != 0) {
-    //            Read_Status_INC = Read_Status_INC + 1;
-    //        }
-    //
-    //   } while (Error_Value != 0 && Read_Status_INC <= 10);
-    //   if (Read_Status_INC > 10) {
-    //        FaultNum = ReadAuxRegFault;
-    //    }
-    //   else if (Error_Value == 0) {
-    //
-    //        
-    //LATBbits.LATB6 = 1;
-    FaultNum = Test_Temp_Sensors(Aux_codes_Bank1t, Aux_codes_Bank2t, Aux_codes_Bank1t[6][0]);
-    //   }
-    //LATBbits.LATB6 = 0;
-    return FaultNum;
-}
-
-/*******************************************************************
- * @brief           Read_GPIO
- * @brief           Reads GPIO for the Temp sensors 
- * @return          none
- * @note            We may need to add some voltage to temp convert
- *******************************************************************/\
-//TODO Need to Reference the Aux array
-
-int Read_GPIO(int BatteryPlacement, int aux_codes[NUMBEROFIC][6]) {
-    int Read_Status = 0;
-    switch (BatteryPlacement) {
-        case 0:
-            wakeup_idle();
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_ALL);
-            LTC6804_adax();
-            wakeup_idle();
-            Read_Status = LTC6804_rdaux(0, NUMBEROFIC, Aux_codes_Bank1); // All GPIO and Ref
-            //Delay(100);
-            break;
-        case 1:
-            wakeup_idle();
-            set_adc(MD_FILTERED, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO1);
-            LTC6804_adax();
-            set_adc(MD_FILTERED, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO2);
-            LTC6804_adax();
-            set_adc(MD_FILTERED, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO3);
-            LTC6804_adax();
-            wakeup_idle();
-            Read_Status = LTC6804_rdaux(1, NUMBEROFIC, aux_codes); //GPIO 1
-            Read_Status = LTC6804_rdaux(2, NUMBEROFIC, aux_codes); //GPIO 1
-            break;
-        case 2:
-            wakeup_idle();
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO2);
-            LTC6804_adax();
-            wakeup_idle();
-            break;
-        case 3:
-            wakeup_idle();
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO3);
-            LTC6804_adax();
-            wakeup_idle();
-            break;
-        case 4:
-            wakeup_idle();
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO4);
-            LTC6804_adax();
-            wakeup_idle();
-            //Read_Status = LTC6804_rdaux(2, NUMBEROFIC, aux_codes); //GPIO 4
-            break;
-        case 5:
-            wakeup_idle();
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_GPIO5);
-            LTC6804_adax();
-            wakeup_idle();
-            break;
-        case 6:
-            wakeup_idle();
-            set_adc(MD_NORMAL, DCP_DISABLED, CELL_CH_ALL, AUX_CH_VREF2);
-            LTC6804_adax();
-            wakeup_idle();
-            break;
-        default:
-            Read_Status = ReadAuxRegFault;
-            break;
-    }
-    return Read_Status;
-}
-int Test_Temp_Sensors(int Aux_codes_Bank1t[][6], int Aux_codes_Bank2[][6], int x) {
-    int Fault = 0;
-    Convert_To_Voltage_Temp(Aux_codes_Bank1t, Aux_codes_Bank2); //Converting reading to proper voltage value.
-    CalculateTemp(bank_1, Converted_Temprature_Bank1); //Convert voltage reading to a temp in C
-    CalculateTemp(bank_2, Converted_Temprature_Bank2); //Convert voltage reading to a temp in C
-    Update_Average_Array_Temp(TempCBank1, TempCBank2); //Updates the average of all of th eC 
-    Check_Array_Faults_Temp(Average_Temprature_Codes_Bank1,Average_Temprature_Codes_Bank2);
-
-    // TODO need to check values.
-
-    return Fault;
-}
-
-void Convert_To_Voltage_Temp(int Array_Bank1[][6], int Array_Bank2[][6]) {
-    int ic = 6;
-    int cell = 0;
-    int Temp_ValB1 = 0;
-    int Temp_ValB2 = 0;
-    while (ic < 9) {
-        while (cell < 6) {
-            //Have to convert to float from int first than mutiply the floating number gave me errors otherwise.
-            Temp_ValB1 = Array_Bank1[ic][cell]; //*0.0001;
-            Temp_ValB2 = Array_Bank2[ic][cell];
-            Converted_Temprature_Bank1[ic][cell] = Temp_ValB1 * 0.0001;
-            Converted_Temprature_Bank2[ic][cell] = Temp_ValB2 * 0.0001;
-            cell++;
-        }
-        cell = 0;
-        ic++;
-    }
-}
-
-void CalculateTemp(int bank, double Conv_Temp[][6]) {
-    float TempC = 0;
-    int ic = 0; //The IC we are currently reading
-    int sensenum = 0; //The senesor we are currently reading.
-    while (ic < 9) {
-        while (sensenum < 6) {
-            float Volt_Of_GPIO = 0;
-            float Resist_Of_GPIO = 0;
-            float Voltage_diff = 0;
-            Volt_Of_GPIO = Conv_Temp[ic][sensenum]; //v2 vin v1 rgpio thermo r2  r1 10k
-            Resist_Of_GPIO = (Volt_Of_GPIO * 10000); //TOTAL EQUATION R2=(VO*R1)/(Vin-Vo)   CHECK DEBUG ADDING ARTifact
-            Voltage_diff = (Vin - Volt_Of_GPIO);
-            Resist_Of_GPIO = Resist_Of_GPIO / Voltage_diff; //Through Voltage Divider  TOTAL EQUATION R2=(VO*R1)/(Vin-Vo)
-            TempK = (To + ((Inverse_B_Constant) * (log(Resist_Of_GPIO / 10000))));
-            TempK = (1 / TempK);
-            TempC = TempK - 273.15;
-            if (bank == 1) {
-                TempCBank1[ic][sensenum] = TempC;
-            } else if (bank == 2) {
-                TempCBank2[ic][sensenum] = TempC;
-            }
-            sensenum = sensenum + 1;
-        }
-        sensenum = 0;
-        ic = ic + 1;
-    }
-}
-void Update_Average_Array_Temp(double Array_Bank1[][6], double Array_Bank2[][6]) {
-    int Ic = 0;
-    int cell = 0;
-    //If first sample there is no weighted needed becuase it is the first sample.
-    if (Starting_Samples == true) {
-        while (Ic < NUMBEROFIC) {
-            while (cell < 6) {
-                //GPIO Values
-                Average_Temprature_Codes_Bank1[Ic][cell] = Array_Bank1[Ic][cell];
-                Average_Temprature_Codes_Bank2[Ic][cell] = Array_Bank2[Ic][cell];
-                cell = cell + 1;
-            }
-            cell = 0;
-            Ic = Ic + 1;
-        }
-        cell = 0;
-        Ic = 0;
-    } else if (Starting_Samples == false) {
-        while (Ic < NUMBEROFIC) {
-            while (cell < 6) {
-                Average_Temprature_Codes_Bank1[Ic][cell] = (.8 * (Average_Temprature_Codes_Bank1[Ic][cell])+ (.2 * Array_Bank1[Ic][cell]));
-                Average_Temprature_Codes_Bank2[Ic][cell] = (.8 * (Average_Temprature_Codes_Bank2[Ic][cell]) +(.2 * Array_Bank2[Ic][cell]));
-                cell = cell++;
-            }
-            cell = 0;
-            Ic = Ic++;
-        }
-    }
-
-}
-
-
-int Check_Array_Faults_Temp(double cell_codes_bank1[][6], double cell_codes_bank2[][6]) {
-    int IC_Counter, TempSense_Counter, Fault;
-    for (IC_Counter = 0; IC_Counter < NUMBEROFIC; IC_Counter++) {
-        for (TempSense_Counter = 0; TempSense_Counter < 6; TempSense_Counter++) {
-            //Checking for max or min values to send to ECU
-            //Min Bank 1
-            if (TempCBank1[IC_Counter][TempSense_Counter] < Min_Temp[Bank1_Array_Indicator][Data_Value]) {
-                Min_Temp[Bank1_Array_Indicator][Data_Value] = TempCBank1[IC_Counter][TempSense_Counter];
-                Min_Temp[Bank1_Array_Indicator][IC_LOCATION] = IC_Counter;
-                Min_Temp[Bank1_Array_Indicator][SENSOR_LOCATION] = TempSense_Counter;
-
-            }                //Max Bank 1
-             if (TempCBank1[IC_Counter][TempSense_Counter] > Max_Temp[Bank1_Array_Indicator][Data_Value]) {
-
-                Max_Temp[Bank1_Array_Indicator][Data_Value] = TempCBank1[IC_Counter][TempSense_Counter];
-                Max_Temp[Bank1_Array_Indicator][IC_LOCATION] = IC_Counter;
-                Max_Temp[Bank1_Array_Indicator][SENSOR_LOCATION] = TempSense_Counter;
-            }  
-            
-            //Min Bank 2
-             if (TempCBank2[IC_Counter][TempSense_Counter] < Min_Temp[Bank2_Array_Indicator][Data_Value]) {
-
-                Min_Temp[Bank2_Array_Indicator][Data_Value] = TempCBank2[IC_Counter][TempSense_Counter];
-                Min_Temp[Bank2_Array_Indicator][IC_LOCATION] = IC_Counter;
-                Min_Temp[Bank2_Array_Indicator][SENSOR_LOCATION] = TempSense_Counter;
-                //Max Bank 2
-            }  if (TempCBank2[IC_Counter][TempSense_Counter] > Max_Temp[Bank2_Array_Indicator][Data_Value]) {
-
-                Max_Temp[Bank2_Array_Indicator][Data_Value] = TempCBank2[IC_Counter][TempSense_Counter];
-                Max_Temp[Bank2_Array_Indicator][IC_LOCATION] = IC_Counter;
-                Max_Temp[Bank2_Array_Indicator][SENSOR_LOCATION] = TempSense_Counter;
-            }
-            
-            if (TempCBank1[IC_Counter][TempSense_Counter] >= Over_Temp_Value) {
-                Fault = OverTempratureThreshold;
-                //If any of the temps are over this threshold exit out of loop and report.
-                TempSense_Counter = 6;
-                IC_Counter = NUMBEROFIC;
-            }
-            //For Bank 2
-            //If there is no fault for Bank1
-            if (Fault != OverTempratureThreshold) {
-                if (TempCBank2[IC_Counter][TempSense_Counter] >= Over_Temp_Value) {
-                    Fault = OverTempratureThreshold;
-                    //If any of the temps are over this threshold exit out of loop and report.
-                    TempSense_Counter = 6;
-                    IC_Counter = NUMBEROFIC;
-                }
-            }
-
-        }
-    }
-}
-
-
-double Get_Extreme_Temprature(int type, int parm, int bank) {
-    //TODO need to fix the output so it displays the value and not a constant like I have for testing.
-    if (type == min_select) {
-        switch (parm) {
-            case Data_Value:
-                if (bank = bank_1) {
-                    return Min_Temp[Bank1_Array_Indicator][Data_Value];
-                } else if (bank = bank_2) {
-                    return Min_Temp[Bank2_Array_Indicator][Data_Value];
-                }
-                break;
-            case IC_LOCATION:
-                if (bank = bank_1) {
-                    return Min_Temp[Bank1_Array_Indicator][IC_LOCATION];
-                } else if (bank = bank_2) {
-                    return Min_Temp[Bank2_Array_Indicator][IC_LOCATION];
-                }
-                break;
-            case SENSOR_LOCATION:
-                if (bank = bank_1) {
-                    return Min_Temp[Bank1_Array_Indicator][SENSOR_LOCATION];
-                } else if (bank = bank_2) {
-                    return Min_Temp[Bank2_Array_Indicator][SENSOR_LOCATION];
-                }
-                break;
-        }
-    } else if (type == max_select) {
-        switch (parm) {
-            case Data_Value:
-                if (bank = bank_1) {
-                    printf("Data %f",Max_Temp[Bank1_Array_Indicator][Data_Value]);
-                    return 52.555;//Max_Temp[Bank1_Array_Indicator][Data_Value];
-                    printf("\n\n\n HI");
-                } else if (bank = bank_2) {
-                    return Max_Temp[Bank2_Array_Indicator][Data_Value];
-                }
-                break;
-            case IC_LOCATION:
-                if (bank = bank_1) {
-                    printf("IC %f",Max_Temp[Bank1_Array_Indicator][IC_LOCATION]);
-                    return 55.6663;//Max_Temp[Bank1_Array_Indicator][IC_LOCATION];
-                    
-                } else if (bank = bank_2) {
-                    return Max_Temp[Bank2_Array_Indicator][IC_LOCATION];
-                }
-                break;
-            case SENSOR_LOCATION:
-                if (bank = bank_1) {
-                    printf("Sen %f",Max_Temp[Bank1_Array_Indicator][SENSOR_LOCATION]);
-                    return 72.56578;//Max_Temp[Bank1_Array_Indicator][SENSOR_LOCATION];
-                } else if (bank = bank_2) {
-                    return Max_Temp[Bank2_Array_Indicator][SENSOR_LOCATION];
-                }
-                break;
-        }
-    }
-}
-
-void Pack_Temprature_Sum(double Array_Bank1[][6], double Array_Bank2[][6]) {
-    int ic = 0, sense_num = 0, Bank_Num = 0;
-    //For both Banks
-    while (Bank_Num < 2) {
-        while (ic < 9) {
-            switch (ic) {
-                    //Each Module has 3 LTC6804 with 12 voltage cells a piece. Summing that up for each module.
-                case 0:
-                case 1:
-                case 2:
-                    while (sense_num < 5) { //We are doing 5 because the 6th is a voltage regulator and that is not a temprature
-                        if (Bank_Num == 0) {
-                            Module_Average_Temp_Value[Bank_Num][0] = Array_Bank1[ic][sense_num] + Module_Average_Temp_Value[Bank_Num][0];
-                        }
-                        if (Bank_Num == 1) {
-                            Module_Average_Temp_Value[Bank_Num][0] = Array_Bank2[ic][sense_num] + Module_Average_Temp_Value[Bank_Num][0];
-                        }
-                        sense_num++;
-                    }
-                    sense_num = 0;
-                    break;
-                case 3:
-                case 4:
-                case 5:
-                    while (sense_num < 5) { //We are doing 5 because the 6th is a voltage regulator and that is not a temprature
-                        if (Bank_Num == 0) {
-                            Module_Average_Temp_Value[Bank_Num][1] = Array_Bank1[ic][sense_num] + Module_Average_Temp_Value[Bank_Num][1];
-                        }
-                        if (Bank_Num == 1) {
-                            Module_Average_Temp_Value[Bank_Num][1] = Array_Bank2[ic][sense_num] + Module_Average_Temp_Value[Bank_Num][1];
-                        }
-                        sense_num++;
-                    }
-                    sense_num = 0;
-                    break;
-                case 6:
-                case 7:
-                case 8:
-                    while (sense_num < 5) { //We are doing 5 because the 6th is a voltage regulator and that is not a temprature
-                        if (Bank_Num == 0) {
-                            Module_Average_Temp_Value[Bank_Num][2] = Array_Bank1[ic][sense_num] + Module_Average_Temp_Value[Bank_Num][2];
-                        }
-                        if (Bank_Num == 1) {
-                            Module_Average_Temp_Value[Bank_Num][2] = Array_Bank2[ic][sense_num] + Module_Average_Temp_Value[Bank_Num][2];
-                        }
-                        sense_num++;
-                    }
-                    sense_num = 0;
-                    break;
-            }
-            ic++;
-        }
-        //      Once one bank is finished I am taking the 3 modules from this bank 
-        //      and dividing it by the total amount of sensors per bank (15) to get average temp of the module. We might want total temp if that is the case we will need to delete these functions.
-        Module_Average_Temp_Value[Bank_Num][0] = (Module_Average_Temp_Value[Bank_Num][0] / Num_TempSense_Per_Module);
-        Module_Average_Temp_Value[Bank_Num][1] = (Module_Average_Temp_Value[Bank_Num][1] / Num_TempSense_Per_Module);
-        Module_Average_Temp_Value[Bank_Num][2] = (Module_Average_Temp_Value[Bank_Num][2] / Num_TempSense_Per_Module);
-
-        ic = 0;
-        sense_num = 0;
-        Bank_Num++;
-    }
-
-}
-
-
-//Not sure if function is needed i think I have this for debug purposes.
-int Read_GPIO_Bank(int Aux_codes_Bank[][6]) {
-    int Error_Value = 0;
-    LATBbits.LATB6 = 1;
-    Error_Value = Read_GPIO(0, Aux_codes_Bank);
-    LATBbits.LATB6 = 0;
-}
 
 //Clears the Max and Min values for every run.
 
@@ -1289,38 +520,6 @@ void Re_Initialize_Extreme_Values() {
 
 
 
-/*******************************************************************
- * @brief           Set_Bypass
- * @brief           sets bypass for a cell on the stack
- * @return          none
- * @note            
- *******************************************************************/
-
-
-
-
-
-//Not sure what the purpose of this is. Purposing to remove this.
-double getbigc() {
-    if (qw == 0) {
-        bankforc = TempCBank1[7][1];
-        qw = 1;
-    } else {
-        bankforc = ((.8 * bankforc)+ (.2 * TempCBank1[7][1]));
-    }
-
-
-    return bankforc;
-}
-//Get the temp of a indvidual value might need this for debuging or something no being used.
-double gettemp(int ic, int num, int bank) {
-    if (bank == 1) {
-        return TempCBank1[ic][num];
-    }
-    if (bank == 2) {
-        return TempCBank2[ic][num];
-    }
-}
 
 int Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
     int bypass_flag = 0;
@@ -1331,7 +530,7 @@ int Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
         int Error_Value = 0;
         //Bank1
         do {
-            Error_Value = Read_Battery(0, cell_codes_Bank1);
+            Error_Value = Send_Read_CellV_Command(0, cell_codes_Bank1);
             if (Error_Value != 0) {
                 Read_Status_INC = Read_Status_INC + 1;
             }
@@ -1344,7 +543,7 @@ int Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
         }
         //Bank2
         do {
-            Error_Value = Read_Battery(0, cell_codesBank2);
+            Error_Value = Send_Read_CellV_Command(0, cell_codesBank2);
             if (Error_Value != 0) {
                 Read_Status_INC = Read_Status_INC + 1;
             }
@@ -1353,11 +552,11 @@ int Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
         if (Read_Status_INC >= 10) {
             return ReadVoltRegFault;
         }
-        Convert_To_Voltage_Cell(cell_codesBank1, cell_codesBank2);
+        //Convert_To_Voltage_Cell(cell_codesBank1, cell_codesBank2);
         //RunBypass
 
-        bypass_flag = RunBypass_Set(bank_1, Converted_Cell_Codes_Bank1);
-        bypass_flag = RunBypass_Set(bank_2, Converted_Cell_Codes_Bank2);
+       // bypass_flag = RunBypass_Set(bank_1, Converted_Cell_Codes_Bank1);
+       // bypass_flag = RunBypass_Set(bank_2, Converted_Cell_Codes_Bank2);
     }
     T3CONbits.TON = 0;
     //hold LED HIGH that indicates charging
@@ -1383,7 +582,7 @@ int RunBypass_Set(int bank, double Conv_Cell_Codes[][12]) {
 
         for (Cell = 0; Cell < Cell_Per_Bank; Cell++) // runs threw num of batteries
         {
-            batvolt = CheckThresholds(OverVoltageFault, Conv_Cell_Codes[Ic][Cell]);
+            batvolt = TestThreshold(OverVoltageFault, Conv_Cell_Codes[Ic][Cell]);
             if (batvolt == 0) // if bypass needs enabled..
             {
                 SetBypass(bank, Ic, Cell, false); // sets bypass off
