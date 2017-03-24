@@ -99,11 +99,12 @@ typedef enum
   GAIN_SIXTEEN      = ADS1015_REG_CONFIG_PGA_0_256V
 } gain_enum;
  
+void ADS1015SetGain(gain_enum gain);
   unsigned int readRegister(char i2cAddress, char reg);
   void writeRegister(char i2cAddress, char reg, int value);
   void  ADS1015Begin();
   unsigned int   ADS1015readADC_SingleEnded(char channel, char i2cAddress);
-  void  ADS1015setGain(gain_enum gain);
+  
 
 #endif	/* NEWFILE_H */
 

@@ -13,6 +13,7 @@
 #include "LT6804.h"
 #include "Timers.h"
 #include <stdbool.h>
+#include "Communications.h"
 //TODO Need to make a fault status and a use with var
 int Battery_Is_Charging_Flag = 0;
 int FaultValue = 0;
@@ -199,7 +200,7 @@ void Run_Mode(bool Start_Setup) {
 void Run_GPIO_Temp_ColumbCounting_Timer() {
     initTimerTwo();
 }
-Check_Fault(int fault_name){
+void Check_Fault(int fault_name){
     switch(fault_name){
     
         case 0:
@@ -234,10 +235,10 @@ Check_Fault(int fault_name){
 void Configure_LT6804() {
     int IC = 0;
     int bank = 1;
-    int Bank_Select = 0;
+    int Bank_Select;
     //set values to arrays for max and min
     //Selecting bank 0=bank 1   1=bank 2
-    for (Bank_Select; Bank_Select < 2; Bank_Select++) {
+    for (Bank_Select=0; Bank_Select < 2; Bank_Select++) {
         Min_Temp[Bank_Select][Data_Value] = 100;
         Max_Temp[Bank_Select][Data_Value] =0;
         Min_Cell_Voltage[Bank_Select][Data_Value] = 100;
@@ -508,8 +509,8 @@ int CheckTestReading(int Stat_codes[NUMBEROFIC][6]) {
 //Clears the Max and Min values for every run.
 
 void Re_Initialize_Extreme_Values() {
-    int Bank_Select = 0;
-    for (Bank_Select; Bank_Select < 2; Bank_Select++) {
+    int Bank_Select;
+    for (Bank_Select=0; Bank_Select < 2; Bank_Select++) {
         Min_Temp[Bank_Select][Data_Value] = 100;
         Max_Temp[Bank_Select][Data_Value] = 0;
         Min_Cell_Voltage[Bank_Select][Data_Value] = 100;
@@ -522,7 +523,7 @@ void Re_Initialize_Extreme_Values() {
 
 
 int Run_ByPass(int cell_codesBank1[][12], int cell_codesBank2[][12]) {
-    int bypass_flag = 0;
+    //int bypass_flag = 0;
     while (Battery_Is_Charging_Flag == 1) {
         Battery_Is_Charging_Flag = 0; // If this flag is tripped that means there is a cell that need more voltage. 
         int Read_Status_INC = 0;
@@ -900,7 +901,7 @@ void CurrentCoulombCount(int tme) {
  * @note            This can give you a different response depending on input
  *******************************************************************/
 
-float CurrentGet(bool total, char channel) {
+double CurrentGet(bool total, char channel) {
 //    if (total) {
 //        if (CarOn) {
 //            return Current[0] + Current[2] + Current[4];
@@ -945,7 +946,7 @@ float CurrentGet(bool total, char channel) {
  * @note            This can give you a different response depending on input
  *******************************************************************/
 
-float VoltGet(char channel) {
+double VoltGet(char channel) {
     if (channel) {
         return Volt1;
     }

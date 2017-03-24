@@ -51,7 +51,7 @@ void Setup(void) {
    //initTimerTwo();
     //Start_BMS();
     SPI2_Initialize();
-    InitI2C();
+   // InitI2C();
     //PWM_Init();
 }
 

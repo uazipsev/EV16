@@ -28,10 +28,10 @@ enum debugStates {
     CURRENT_PV = 13,
     FAULT = 14,
     ERRORRATE = 15,
-    MAXVOLT_EM=16,  //EM==Every Module
-    MINVOLT_EM=17,
-    MAXTEMP_EM=18,
-    MINTEMP_EM=19,
+    //MAXVOLT_EM=16,  //EM==Every Module
+    //MINVOLT_EM=17,
+    //MAXTEMP_EM=18,
+    //MINTEMP_EM=19,
 };
 
 void handleDebugRequests();
@@ -44,6 +44,7 @@ void ClearScreen();
 void MenuPrint(char Menuloc, char Subloc);
 void MenuClearFlag();
 void Display_Max_and_Min(int select, int bank);
+void MaxMenu(char menuitem);
 
 #endif	/* DEBUG_H */
 

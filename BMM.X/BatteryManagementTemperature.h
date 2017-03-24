@@ -40,6 +40,7 @@ int Check_Array_Faults_Temp();
 double Get_Extreme_Temperature(int type, int parm, int bank);
 int Read_GPIO_Bank(int Aux_codes_Bank[][6]);
 int Read_Total_Temperature(int Aux_codes_Bank1[][6], int Aux_codes_Bank2[][6]);
+void Pack_Temperature_Sum();
 double gettemp(int ic, int num,int bank);
  
 extern int Aux_codes_Bank1[NUMBEROFIC][6];

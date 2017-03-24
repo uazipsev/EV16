@@ -30,7 +30,7 @@
     void CheckFault(void); //This function looks and determines if it is a valid funcion.Currently it SHUTS THE CAR OFF.
     int Get_Sample_Num(void);
     extern int *Sample_Number;
-    static bool Starting_Samples=true;
+    extern bool Starting_Samples;
     
 #endif	/* TIMERS_H */
 

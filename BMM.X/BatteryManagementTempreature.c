@@ -273,7 +273,7 @@ void Update_Average_Array_Temp(int bank, double Array_Bank[][6]) {
  *                  It does this by adding all 15 temp sensors up and then dividing it by 15.      
  *******************************************************************/
 void Pack_Temperature_Sum() {
-    double Temporary_Module[2][3]={0};//This module holds the temp sensors as its totaling for the average.
+    double Temporary_Module[2][3]={{0}};//This module holds the temp sensors as its totaling for the average.
     int ic, sense_num, Bank_Num ;
     //This function has 3 nested loops. One for each sensor in a IC.
     //One for each IC in a bank. and finally One for each bank.
@@ -389,6 +389,7 @@ int Check_Array_Faults_Temp() {
 
         }
     }
+    return Fault;
 }
 /*******************************************************************
  * Title            Get_Extreme_Temperature
@@ -432,7 +433,11 @@ double gettemp(int ic, int num, int bank) {
     if (bank == 1) {
         return Average_Temperature_Codes_Bank1[ic][num];
     }
-    if (bank == 2) {
+    else  if (bank == 2) {
         return Average_Temperature_Codes_Bank2[ic][num];
     }
+    else {
+        return -1;  //We shouldnt get here if we do report a error.
+    }
+    
 }

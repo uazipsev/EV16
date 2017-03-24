@@ -41,7 +41,7 @@ char module = 0;
  *                  The fcn also sends repeat data for viewing.
  *******************************************************************/
 void handleDebugRequests() {
-    static int lastDebugState = 0;
+    //static int lastDebugState = 0;
 
     if (time_get(DEBUGTIME) > 1000) {
         // printf("Time Value is %i: \n", debugState) ;
@@ -275,7 +275,7 @@ void handleDebugRequests() {
                 printf("CS 1 C+ =  %f\n",CurrentGet(1, 1));
                 printf("CS 1 C- =  %f\n",CurrentGet(1, 2));
                 printf("Voltage 1 =  %f\n", VoltGet(1));
-                printf("Voltage 2 =  $f\n", VoltGet(0));
+                printf("Voltage 2 =  %f\n", VoltGet(0));
                 printf("ADC 2 - Address = \n");
                 printf("CS 1 C+ =  %f\n",CurrentGet(1, 3));
                 printf("CS 1 C- =  %f\n",CurrentGet(0, 1));

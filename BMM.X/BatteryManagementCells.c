@@ -196,8 +196,8 @@ void Update_Average_Array_Cell(int bank, double Array_Bank[][12]) {
     //If first sample there is no weighted needed because it is the first sample.
 
     if (Starting_Samples == true) {
-        while (Ic < NUMBEROFIC) {
-            while (cell < 12) {
+        for (Ic=0;Ic < NUMBEROFIC;Ic++) {
+            for (cell=0;cell < 12;cell++) {
 
                 //Cell Voltages
                 if (bank == bank_1) {
@@ -206,25 +206,19 @@ void Update_Average_Array_Cell(int bank, double Array_Bank[][12]) {
                 else if (bank == bank_2) {
                     Average_cell_codes_Bank2[Ic][cell] = Array_Bank[Ic][cell];
                 }
-                cell = cell + 1;
             }
-            cell = 0;
-            Ic = Ic + 1;
         }
     }
     else if (Starting_Samples == false) {
-        while (Ic < NUMBEROFIC) {
-            while (cell < 12) {
+        for (Ic=0;Ic < NUMBEROFIC;Ic++) {
+            for  (cell=0;cell < 12;cell++) {
                 if (bank == bank_1) {
                     Average_cell_codes_Bank1[Ic][cell] = (.8 * (Average_cell_codes_Bank1[Ic][cell])+ (.2 * Array_Bank[Ic][cell]));
                 }
                 else if (bank == bank_2) {
                     Average_cell_codes_Bank2[Ic][cell] = (.8 * (Average_cell_codes_Bank2[Ic][cell]) +(.2 * Array_Bank[Ic][cell]));
                 }
-                cell = cell++;
             }
-            cell = 0;
-            Ic = Ic++;
         }
     }
 
@@ -362,7 +356,7 @@ int TestThreshold(int test, double data) {
 //This function is to sum up the voltage of each cell(12) and each ltc6804(3) into a array for each module to be sent to the ECU
 
 void Pack_Cell_Voltage_Sum() {
-    double Temporary_Module[2][3]={0};
+    double Temporary_Module[2][3]={{0}};
     int ic, sense_num;
     //For both Banks
     for (ic = 0; ic < 9; ic++) {
@@ -409,8 +403,11 @@ double Get_Cell_Voltages(int ic, int num, int bank) {
     if (bank == 1) {
         return Average_cell_codes_Bank1[ic][num];
     }
-    if (bank == 2) {
+    else if (bank == 2) {
         return Average_cell_codes_Bank2[ic][num];
+    }
+    else{
+        return -1;//Should never be here report a error if we do.
     }
 }
 
@@ -419,11 +416,12 @@ double Get_Pack_Voltages(int module, int bank) {
     if (module>3||module<0){
         return -1;
     }
-     if (bank>2||bank<1){
+    else if (bank>2||bank<1){
         return -1;
     }
+     else{
  return Module_Voltage_Value[bank-1][module]; //bank-1 for arrays bank_1=1 thus 1-1=0 for the array. 
-}
+     }}
 
 //This function gets a attribute of the extreme voltage.
 //Where type equal what extreme, Parm equals what property of that extreme (location,data etc.) and bank is what bank we are looking at.
@@ -450,7 +448,8 @@ double Get_Extreme_Voltage(int type, int parm, int bank) {
 
 
 
-
+/*This is the old Extreme Voltage Function keeping if the other one does not work.
+ * 
 //This function gets a attribute of the extreme voltage.
 //Where type equal what extreme, Parm equals what property of that extreme (location,data etc.) and bank is what bank we are looking at.
 double Get_Extreme_Voltage2(int type, int parm, int bank) {
@@ -510,3 +509,4 @@ double Get_Extreme_Voltage2(int type, int parm, int bank) {
     }
 
 }
+ * */

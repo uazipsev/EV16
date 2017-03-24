@@ -3,4 +3,5 @@ Timers.c  \
 Timers.h  \
 PinDef.h  \
  BatteryManagment.h  \
+BatteryManagementGlobal.h  \
 Function.h 

@@ -22,6 +22,7 @@
     void updateComms();
     void checkCommDirection();
     void CommStart();
+    void Send_To_Charger(int Charge, int voltage, int amps);
     
 #endif	/* COMMUNICATIONS_H */
 

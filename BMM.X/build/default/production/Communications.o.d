@@ -3,8 +3,9 @@ Communications.c  \
  Communications.h  \
 ADDRESSING.h  \
 BatteryManagment.h  \
+ BatteryManagementGlobal.h  \
 Function.h  \
 PinDef.h  \
- FastTransfer.h  \
+FastTransfer.h  \
 UART.h  \
-Timers.h 
+ Timers.h 

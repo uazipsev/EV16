@@ -11,6 +11,7 @@
 int timer_3_Function=0;
 int *Sample_Number=0; //Need to figure what the fuck was this for.
 int Sample_Numbers=0;
+bool Starting_Samples=true;
 unsigned long int slaveTime = 0,ADCTime = 0,LEDtime = 0,talkTime = 0;
 unsigned long int DebugTime,lastDebugTime;
 volatile unsigned long int time =0;

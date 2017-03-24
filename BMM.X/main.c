@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include "PinDef.h"
 #include "Communications.h"
+#include "BatteryManagment.h"
 #include "Timers.h"
 #include <stdbool.h>
 #include <stdlib.h>

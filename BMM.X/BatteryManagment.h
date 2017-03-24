@@ -18,13 +18,18 @@ void ChargerEN();
 bool ChargerVal();
 void ReadCurrentVolt();
 void ReadVoltToCurrent();
-float CurrentGet(bool total, char channel);
+double CurrentGet(bool total, char channel);
 extern void CurrentCoulombCount(int tme);
 int UpdateLT6804(int bank); //Updates Lt6804 configuration sends a fault if a error is detected.
 
 void Update_Average_Array(bool Type_Of_Array,int Array_Index,double Array_Bank1[][Array_Index],double Array_Bank2[][Array_Index]);
 extern int Read_Total_GPIO(int Aux_codes_Bank1[][6], int Aux_codes_Bank2[][6]);
 double getbigc();
+void Check_Fault(int fault_name);
+void ReadVoltToCurrent();
+void ReadVolt();
+void Run_Mode(bool Start_Setup);
+void Charge_Mode();
   extern int FaultValue;// TODO IS THIs THE RIGHT WAY FOR A GLOBAL VARIABLE?
 
   extern bool BypassConfigbank1[NUMBEROFIC][12];
@@ -34,6 +39,6 @@ double getbigc();
 
  
  double gettemp(int ic, int num,int bank);
- float VoltGet(char channel);
+ double VoltGet(char channel);
 #endif	/* READ_BATTERY_LEVEL_H */
 
