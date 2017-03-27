@@ -1,0 +1,591 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"30 COBS.c
+[c E151 0 1 2 .. ]
+[n E151 . COBS_ENCODE_OK COBS_ENCODE_NULL_POINTER COBS_ENCODE_OUT_BUFFER_OVERFLOW  ]
+"41 cobs.h
+[s S5 `ui 1 `E151 1 ]
+[n S5 . out_len status ]
+"116 COBS.c
+[c E160 0 1 2 4 8 .. ]
+[n E160 . COBS_DECODE_OK COBS_DECODE_NULL_POINTER COBS_DECODE_OUT_BUFFER_OVERFLOW COBS_DECODE_ZERO_BYTE_IN_INPUT COBS_DECODE_INPUT_TOO_SHORT  ]
+"57 cobs.h
+[s S6 `ui 1 `E160 1 ]
+[n S6 . out_len status ]
+[; ;__size_t.h: 4: typedef unsigned size_t;
+[; ;stdlib.h: 7: typedef unsigned short wchar_t;
+[; ;stdlib.h: 15: typedef struct {
+[; ;stdlib.h: 16: int rem;
+[; ;stdlib.h: 17: int quot;
+[; ;stdlib.h: 18: } div_t;
+[; ;stdlib.h: 19: typedef struct {
+[; ;stdlib.h: 20: unsigned rem;
+[; ;stdlib.h: 21: unsigned quot;
+[; ;stdlib.h: 22: } udiv_t;
+[; ;stdlib.h: 23: typedef struct {
+[; ;stdlib.h: 24: long quot;
+[; ;stdlib.h: 25: long rem;
+[; ;stdlib.h: 26: } ldiv_t;
+[; ;stdlib.h: 27: typedef struct {
+[; ;stdlib.h: 28: unsigned long quot;
+[; ;stdlib.h: 29: unsigned long rem;
+[; ;stdlib.h: 30: } uldiv_t;
+[; ;stdlib.h: 53: extern double atof(const char *);
+[; ;stdlib.h: 54: extern double strtod(const char *, const char **);
+[; ;stdlib.h: 55: extern int atoi(const char *);
+[; ;stdlib.h: 56: extern unsigned xtoi(const char *);
+[; ;stdlib.h: 57: extern long atol(const char *);
+[; ;stdlib.h: 58: extern long strtol(const char *, char **, int);
+[; ;stdlib.h: 60: extern int rand(void);
+[; ;stdlib.h: 61: extern void srand(unsigned int);
+[; ;stdlib.h: 62: extern void * calloc(size_t, size_t);
+[; ;stdlib.h: 63: extern div_t div(int numer, int denom);
+[; ;stdlib.h: 64: extern udiv_t udiv(unsigned numer, unsigned denom);
+[; ;stdlib.h: 65: extern ldiv_t ldiv(long numer, long denom);
+[; ;stdlib.h: 66: extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
+[; ;stdlib.h: 67: extern unsigned long _lrotl(unsigned long value, unsigned int shift);
+[; ;stdlib.h: 68: extern unsigned long _lrotr(unsigned long value, unsigned int shift);
+[; ;stdlib.h: 69: extern unsigned int _rotl(unsigned int value, unsigned int shift);
+[; ;stdlib.h: 70: extern unsigned int _rotr(unsigned int value, unsigned int shift);
+[; ;stdlib.h: 75: extern void * malloc(size_t);
+[; ;stdlib.h: 76: extern void free(void *);
+[; ;stdlib.h: 77: extern void * realloc(void *, size_t);
+[; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
+[; ;stdlib.h: 86: extern int atexit(void (*)(void));
+[; ;stdlib.h: 87: extern char * getenv(const char *);
+[; ;stdlib.h: 88: extern char ** environ;
+[; ;stdlib.h: 89: extern int system(char *);
+[; ;stdlib.h: 90: extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
+[; ;stdlib.h: 91: extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
+[; ;stdlib.h: 92: extern int abs(int);
+[; ;stdlib.h: 93: extern long labs(long);
+[; ;stdlib.h: 95: extern char * itoa(char * buf, int val, int base);
+[; ;stdlib.h: 96: extern char * utoa(char * buf, unsigned val, int base);
+[; ;stdlib.h: 101: extern char * ltoa(char * buf, long val, int base);
+[; ;stdlib.h: 102: extern char * ultoa(char * buf, unsigned long val, int base);
+[; ;stdlib.h: 104: extern char * ftoa(float f, int * status);
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef signed short long int int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 43: typedef unsigned char uint8_t;
+[; ;stdint.h: 49: typedef unsigned int uint16_t;
+[; ;stdint.h: 56: typedef unsigned short long int uint24_t;
+[; ;stdint.h: 63: typedef unsigned long int uint32_t;
+[; ;stdint.h: 71: typedef signed char int_least8_t;
+[; ;stdint.h: 78: typedef signed int int_least16_t;
+[; ;stdint.h: 90: typedef signed short long int int_least24_t;
+[; ;stdint.h: 98: typedef signed long int int_least32_t;
+[; ;stdint.h: 105: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 111: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 121: typedef unsigned short long int uint_least24_t;
+[; ;stdint.h: 128: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 137: typedef signed char int_fast8_t;
+[; ;stdint.h: 144: typedef signed int int_fast16_t;
+[; ;stdint.h: 156: typedef signed short long int int_fast24_t;
+[; ;stdint.h: 164: typedef signed long int int_fast32_t;
+[; ;stdint.h: 171: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 177: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 187: typedef unsigned short long int uint_fast24_t;
+[; ;stdint.h: 194: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 200: typedef int32_t intmax_t;
+[; ;stdint.h: 205: typedef uint32_t uintmax_t;
+[; ;stdint.h: 210: typedef int16_t intptr_t;
+[; ;stdint.h: 215: typedef uint16_t uintptr_t;
+[; ;cobs.h: 33: typedef enum
+[; ;cobs.h: 34: {
+[; ;cobs.h: 35: COBS_ENCODE_OK = 0x00,
+[; ;cobs.h: 36: COBS_ENCODE_NULL_POINTER = 0x01,
+[; ;cobs.h: 37: COBS_ENCODE_OUT_BUFFER_OVERFLOW = 0x02
+[; ;cobs.h: 38: } cobs_encode_status;
+[; ;cobs.h: 40: typedef struct
+[; ;cobs.h: 41: {
+[; ;cobs.h: 42: size_t out_len;
+[; ;cobs.h: 43: cobs_encode_status status;
+[; ;cobs.h: 44: } cobs_encode_result;
+[; ;cobs.h: 47: typedef enum
+[; ;cobs.h: 48: {
+[; ;cobs.h: 49: COBS_DECODE_OK = 0x00,
+[; ;cobs.h: 50: COBS_DECODE_NULL_POINTER = 0x01,
+[; ;cobs.h: 51: COBS_DECODE_OUT_BUFFER_OVERFLOW = 0x02,
+[; ;cobs.h: 52: COBS_DECODE_ZERO_BYTE_IN_INPUT = 0x04,
+[; ;cobs.h: 53: COBS_DECODE_INPUT_TOO_SHORT = 0x08
+[; ;cobs.h: 54: } cobs_decode_status;
+[; ;cobs.h: 56: typedef struct
+[; ;cobs.h: 57: {
+[; ;cobs.h: 58: size_t out_len;
+[; ;cobs.h: 59: cobs_decode_status status;
+[; ;cobs.h: 60: } cobs_decode_result;
+[; ;cobs.h: 71: cobs_encode_result cobs_encode(uint8_t *dst_buf_ptr, size_t dst_buf_len, const uint8_t * src_ptr, size_t src_len);
+[; ;cobs.h: 72: cobs_decode_result cobs_decode(uint8_t *dst_buf_ptr, size_t dst_buf_len, const uint8_t * src_ptr, size_t src_len);
+"29 COBS.c
+[v _cobs_encode `(S5 ~T0 @X0 1 ef4`*uc`ui`*Cuc`ui ]
+"30
+{
+[; ;COBS.c: 29: cobs_encode_result cobs_encode(uint8_t *dst_buf_ptr, size_t dst_buf_len, const uint8_t * src_ptr, size_t src_len)
+[; ;COBS.c: 30: {
+[e :U _cobs_encode ]
+"29
+[v _dst_buf_ptr `*uc ~T0 @X0 1 r1 ]
+[v _dst_buf_len `ui ~T0 @X0 1 r2 ]
+[v _src_ptr `*Cuc ~T0 @X0 1 r3 ]
+[v _src_len `ui ~T0 @X0 1 r4 ]
+"30
+[f ]
+"31
+[v _result `S5 ~T0 @X0 1 a ]
+[v F186 `S5 ~T0 @X0 1 s ]
+[i F186
+:U ..
+:U ..
+-> -> 0 `i `ui
+. `E151 0
+..
+..
+]
+[; ;COBS.c: 31: cobs_encode_result result = { 0, COBS_ENCODE_OK };
+[e = _result F186 ]
+"32
+[v _src_end_ptr `*Cuc ~T0 @X0 1 a ]
+[; ;COBS.c: 32: const uint8_t * src_end_ptr = src_ptr + src_len;
+[e = _src_end_ptr + _src_ptr * -> _src_len `ux -> -> # *U _src_ptr `ui `ux ]
+"33
+[v _dst_buf_end_ptr `*uc ~T0 @X0 1 a ]
+[; ;COBS.c: 33: uint8_t * dst_buf_end_ptr = dst_buf_ptr + dst_buf_len;
+[e = _dst_buf_end_ptr + _dst_buf_ptr * -> _dst_buf_len `ux -> -> # *U _dst_buf_ptr `ui `ux ]
+"34
+[v _dst_code_write_ptr `*uc ~T0 @X0 1 a ]
+[; ;COBS.c: 34: uint8_t * dst_code_write_ptr = dst_buf_ptr;
+[e = _dst_code_write_ptr _dst_buf_ptr ]
+"35
+[v _dst_write_ptr `*uc ~T0 @X0 1 a ]
+[; ;COBS.c: 35: uint8_t * dst_write_ptr = dst_code_write_ptr + 1;
+[e = _dst_write_ptr + _dst_code_write_ptr * -> -> 1 `i `x -> -> # *U _dst_code_write_ptr `i `x ]
+"36
+[v _src_byte `uc ~T0 @X0 1 a ]
+[; ;COBS.c: 36: uint8_t src_byte = 0;
+[e = _src_byte -> -> 0 `i `uc ]
+"37
+[v _search_len `uc ~T0 @X0 1 a ]
+[; ;COBS.c: 37: uint8_t search_len = 1;
+[e = _search_len -> -> 1 `i `uc ]
+[; ;COBS.c: 41: if ((dst_buf_ptr == (0)) || (src_ptr == (0)))
+"41
+[e $ ! || == _dst_buf_ptr -> -> 0 `i `*uc == _src_ptr -> -> 0 `i `*Cuc 8  ]
+[; ;COBS.c: 42: {
+"42
+{
+[; ;COBS.c: 43: result.status = COBS_ENCODE_NULL_POINTER;
+"43
+[e = . _result 1 . `E151 1 ]
+[; ;COBS.c: 44: return result;
+"44
+[e ) _result ]
+[e $UE 7  ]
+"45
+}
+[e :U 8 ]
+[; ;COBS.c: 45: }
+[; ;COBS.c: 47: if (src_len != 0)
+"47
+[e $ ! != _src_len -> -> 0 `i `ui 9  ]
+[; ;COBS.c: 48: {
+"48
+{
+[; ;COBS.c: 50: for (;;)
+"50
+{
+"51
+[e :U 10 ]
+[; ;COBS.c: 51: {
+{
+[; ;COBS.c: 53: if (dst_write_ptr >= dst_buf_end_ptr)
+"53
+[e $ ! >= _dst_write_ptr _dst_buf_end_ptr 13  ]
+[; ;COBS.c: 54: {
+"54
+{
+[; ;COBS.c: 55: result.status |= COBS_ENCODE_OUT_BUFFER_OVERFLOW;
+"55
+[e =| . _result 1 . `E151 2 ]
+[; ;COBS.c: 56: break;
+"56
+[e $U 11  ]
+"57
+}
+[e :U 13 ]
+[; ;COBS.c: 57: }
+[; ;COBS.c: 59: src_byte = *src_ptr++;
+"59
+[e = _src_byte *U ++ _src_ptr * -> -> 1 `i `x -> -> # *U _src_ptr `i `x ]
+[; ;COBS.c: 60: if (src_byte == 0)
+"60
+[e $ ! == -> _src_byte `i -> 0 `i 14  ]
+[; ;COBS.c: 61: {
+"61
+{
+[; ;COBS.c: 63: *dst_code_write_ptr = search_len;
+"63
+[e = *U _dst_code_write_ptr _search_len ]
+[; ;COBS.c: 64: dst_code_write_ptr = dst_write_ptr++;
+"64
+[e = _dst_code_write_ptr ++ _dst_write_ptr * -> -> 1 `i `x -> -> # *U _dst_write_ptr `i `x ]
+[; ;COBS.c: 65: search_len = 1;
+"65
+[e = _search_len -> -> 1 `i `uc ]
+[; ;COBS.c: 66: if (src_ptr >= src_end_ptr)
+"66
+[e $ ! >= _src_ptr _src_end_ptr 15  ]
+[; ;COBS.c: 67: {
+"67
+{
+[; ;COBS.c: 68: break;
+"68
+[e $U 11  ]
+"69
+}
+[e :U 15 ]
+"70
+}
+[; ;COBS.c: 69: }
+[; ;COBS.c: 70: }
+[e $U 16  ]
+"71
+[e :U 14 ]
+[; ;COBS.c: 71: else
+[; ;COBS.c: 72: {
+"72
+{
+[; ;COBS.c: 74: *dst_write_ptr++ = src_byte;
+"74
+[e = *U ++ _dst_write_ptr * -> -> 1 `i `x -> -> # *U _dst_write_ptr `i `x _src_byte ]
+[; ;COBS.c: 75: search_len++;
+"75
+[e ++ _search_len -> -> 1 `i `uc ]
+[; ;COBS.c: 76: if (src_ptr >= src_end_ptr)
+"76
+[e $ ! >= _src_ptr _src_end_ptr 17  ]
+[; ;COBS.c: 77: {
+"77
+{
+[; ;COBS.c: 78: break;
+"78
+[e $U 11  ]
+"79
+}
+[e :U 17 ]
+[; ;COBS.c: 79: }
+[; ;COBS.c: 80: if (search_len == 0xFF)
+"80
+[e $ ! == -> _search_len `i -> 255 `i 18  ]
+[; ;COBS.c: 81: {
+"81
+{
+[; ;COBS.c: 84: *dst_code_write_ptr = search_len;
+"84
+[e = *U _dst_code_write_ptr _search_len ]
+[; ;COBS.c: 85: dst_code_write_ptr = dst_write_ptr++;
+"85
+[e = _dst_code_write_ptr ++ _dst_write_ptr * -> -> 1 `i `x -> -> # *U _dst_write_ptr `i `x ]
+[; ;COBS.c: 86: search_len = 1;
+"86
+[e = _search_len -> -> 1 `i `uc ]
+"87
+}
+[e :U 18 ]
+"88
+}
+[e :U 16 ]
+"89
+}
+[; ;COBS.c: 87: }
+[; ;COBS.c: 88: }
+[; ;COBS.c: 89: }
+[e $U 10  ]
+[e :U 11 ]
+}
+"90
+}
+[e :U 9 ]
+[; ;COBS.c: 90: }
+[; ;COBS.c: 96: if (dst_code_write_ptr >= dst_buf_end_ptr)
+"96
+[e $ ! >= _dst_code_write_ptr _dst_buf_end_ptr 19  ]
+[; ;COBS.c: 97: {
+"97
+{
+[; ;COBS.c: 99: result.status |= COBS_ENCODE_OUT_BUFFER_OVERFLOW;
+"99
+[e =| . _result 1 . `E151 2 ]
+[; ;COBS.c: 100: dst_write_ptr = dst_buf_end_ptr;
+"100
+[e = _dst_write_ptr _dst_buf_end_ptr ]
+"101
+}
+[; ;COBS.c: 101: }
+[e $U 20  ]
+"102
+[e :U 19 ]
+[; ;COBS.c: 102: else
+[; ;COBS.c: 103: {
+"103
+{
+[; ;COBS.c: 105: *dst_code_write_ptr = search_len;
+"105
+[e = *U _dst_code_write_ptr _search_len ]
+"106
+}
+[e :U 20 ]
+[; ;COBS.c: 106: }
+[; ;COBS.c: 109: result.out_len = dst_write_ptr - dst_buf_ptr;
+"109
+[e = . _result 0 -> / - -> _dst_write_ptr `x -> _dst_buf_ptr `x -> -> # *U _dst_write_ptr `i `x `ui ]
+[; ;COBS.c: 111: return result;
+"111
+[e ) _result ]
+[e $UE 7  ]
+[; ;COBS.c: 112: }
+"112
+[e :UE 7 ]
+}
+"115
+[v _cobs_decode `(S6 ~T0 @X0 1 ef4`*uc`ui`*Cuc`ui ]
+"116
+{
+[; ;COBS.c: 115: cobs_decode_result cobs_decode(uint8_t *dst_buf_ptr, size_t dst_buf_len, const uint8_t * src_ptr, size_t src_len)
+[; ;COBS.c: 116: {
+[e :U _cobs_decode ]
+"115
+[v _dst_buf_ptr `*uc ~T0 @X0 1 r1 ]
+[v _dst_buf_len `ui ~T0 @X0 1 r2 ]
+[v _src_ptr `*Cuc ~T0 @X0 1 r3 ]
+[v _src_len `ui ~T0 @X0 1 r4 ]
+"116
+[f ]
+"117
+[v _result `S6 ~T0 @X0 1 a ]
+[v F198 `S6 ~T0 @X0 1 s ]
+[i F198
+:U ..
+:U ..
+-> -> 0 `i `ui
+. `E160 0
+..
+..
+]
+[; ;COBS.c: 117: cobs_decode_result result = { 0, COBS_DECODE_OK };
+[e = _result F198 ]
+"118
+[v _src_end_ptr `*Cuc ~T0 @X0 1 a ]
+[; ;COBS.c: 118: const uint8_t * src_end_ptr = src_ptr + src_len;
+[e = _src_end_ptr + _src_ptr * -> _src_len `ux -> -> # *U _src_ptr `ui `ux ]
+"119
+[v _dst_buf_end_ptr `*uc ~T0 @X0 1 a ]
+[; ;COBS.c: 119: uint8_t * dst_buf_end_ptr = dst_buf_ptr + dst_buf_len;
+[e = _dst_buf_end_ptr + _dst_buf_ptr * -> _dst_buf_len `ux -> -> # *U _dst_buf_ptr `ui `ux ]
+"120
+[v _dst_write_ptr `*uc ~T0 @X0 1 a ]
+[; ;COBS.c: 120: uint8_t * dst_write_ptr = dst_buf_ptr;
+[e = _dst_write_ptr _dst_buf_ptr ]
+"121
+[v _remaining_bytes `ui ~T0 @X0 1 a ]
+"122
+[v _src_byte `uc ~T0 @X0 1 a ]
+"123
+[v _i `uc ~T0 @X0 1 a ]
+"124
+[v _len_code `uc ~T0 @X0 1 a ]
+[; ;COBS.c: 121: size_t remaining_bytes;
+[; ;COBS.c: 122: uint8_t src_byte;
+[; ;COBS.c: 123: uint8_t i;
+[; ;COBS.c: 124: uint8_t len_code;
+[; ;COBS.c: 128: if ((dst_buf_ptr == (0)) || (src_ptr == (0)))
+"128
+[e $ ! || == _dst_buf_ptr -> -> 0 `i `*uc == _src_ptr -> -> 0 `i `*Cuc 22  ]
+[; ;COBS.c: 129: {
+"129
+{
+[; ;COBS.c: 130: result.status = COBS_DECODE_NULL_POINTER;
+"130
+[e = . _result 1 . `E160 1 ]
+[; ;COBS.c: 131: return result;
+"131
+[e ) _result ]
+[e $UE 21  ]
+"132
+}
+[e :U 22 ]
+[; ;COBS.c: 132: }
+[; ;COBS.c: 134: if (src_len != 0)
+"134
+[e $ ! != _src_len -> -> 0 `i `ui 23  ]
+[; ;COBS.c: 135: {
+"135
+{
+[; ;COBS.c: 136: for (;;)
+"136
+{
+"137
+[e :U 24 ]
+[; ;COBS.c: 137: {
+{
+[; ;COBS.c: 138: len_code = *src_ptr++;
+"138
+[e = _len_code *U ++ _src_ptr * -> -> 1 `i `x -> -> # *U _src_ptr `i `x ]
+[; ;COBS.c: 139: if (len_code == 0)
+"139
+[e $ ! == -> _len_code `i -> 0 `i 27  ]
+[; ;COBS.c: 140: {
+"140
+{
+[; ;COBS.c: 141: result.status |= COBS_DECODE_ZERO_BYTE_IN_INPUT;
+"141
+[e =| . _result 1 . `E160 3 ]
+[; ;COBS.c: 142: break;
+"142
+[e $U 25  ]
+"143
+}
+[e :U 27 ]
+[; ;COBS.c: 143: }
+[; ;COBS.c: 144: len_code--;
+"144
+[e -- _len_code -> -> 1 `i `uc ]
+[; ;COBS.c: 147: remaining_bytes = src_end_ptr - src_ptr;
+"147
+[e = _remaining_bytes -> / - -> _src_end_ptr `x -> _src_ptr `x -> -> # *U _src_end_ptr `i `x `ui ]
+[; ;COBS.c: 148: if (len_code > remaining_bytes)
+"148
+[e $ ! > -> _len_code `ui _remaining_bytes 28  ]
+[; ;COBS.c: 149: {
+"149
+{
+[; ;COBS.c: 150: result.status |= COBS_DECODE_INPUT_TOO_SHORT;
+"150
+[e =| . _result 1 . `E160 4 ]
+[; ;COBS.c: 151: len_code = remaining_bytes;
+"151
+[e = _len_code -> _remaining_bytes `uc ]
+"152
+}
+[e :U 28 ]
+[; ;COBS.c: 152: }
+[; ;COBS.c: 155: remaining_bytes = dst_buf_end_ptr - dst_write_ptr;
+"155
+[e = _remaining_bytes -> / - -> _dst_buf_end_ptr `x -> _dst_write_ptr `x -> -> # *U _dst_buf_end_ptr `i `x `ui ]
+[; ;COBS.c: 156: if (len_code > remaining_bytes)
+"156
+[e $ ! > -> _len_code `ui _remaining_bytes 29  ]
+[; ;COBS.c: 157: {
+"157
+{
+[; ;COBS.c: 158: result.status |= COBS_DECODE_OUT_BUFFER_OVERFLOW;
+"158
+[e =| . _result 1 . `E160 2 ]
+[; ;COBS.c: 159: len_code = remaining_bytes;
+"159
+[e = _len_code -> _remaining_bytes `uc ]
+"160
+}
+[e :U 29 ]
+[; ;COBS.c: 160: }
+[; ;COBS.c: 162: for (i = len_code; i != 0; i--)
+"162
+{
+[e = _i _len_code ]
+[e $ != -> _i `i -> 0 `i 30  ]
+[e $U 31  ]
+"163
+[e :U 30 ]
+[; ;COBS.c: 163: {
+{
+[; ;COBS.c: 164: src_byte = *src_ptr++;
+"164
+[e = _src_byte *U ++ _src_ptr * -> -> 1 `i `x -> -> # *U _src_ptr `i `x ]
+[; ;COBS.c: 165: if (src_byte == 0)
+"165
+[e $ ! == -> _src_byte `i -> 0 `i 33  ]
+[; ;COBS.c: 166: {
+"166
+{
+[; ;COBS.c: 167: result.status |= COBS_DECODE_ZERO_BYTE_IN_INPUT;
+"167
+[e =| . _result 1 . `E160 3 ]
+"168
+}
+[e :U 33 ]
+[; ;COBS.c: 168: }
+[; ;COBS.c: 169: *dst_write_ptr++ = src_byte;
+"169
+[e = *U ++ _dst_write_ptr * -> -> 1 `i `x -> -> # *U _dst_write_ptr `i `x _src_byte ]
+"170
+}
+"162
+[e -- _i -> -> 1 `i `uc ]
+[e $ != -> _i `i -> 0 `i 30  ]
+[e :U 31 ]
+"170
+}
+[; ;COBS.c: 170: }
+[; ;COBS.c: 172: if (src_ptr >= src_end_ptr)
+"172
+[e $ ! >= _src_ptr _src_end_ptr 34  ]
+[; ;COBS.c: 173: {
+"173
+{
+[; ;COBS.c: 174: break;
+"174
+[e $U 25  ]
+"175
+}
+[e :U 34 ]
+[; ;COBS.c: 175: }
+[; ;COBS.c: 178: if (len_code != 0xFE)
+"178
+[e $ ! != -> _len_code `i -> 254 `i 35  ]
+[; ;COBS.c: 179: {
+"179
+{
+[; ;COBS.c: 180: if (dst_write_ptr >= dst_buf_end_ptr)
+"180
+[e $ ! >= _dst_write_ptr _dst_buf_end_ptr 36  ]
+[; ;COBS.c: 181: {
+"181
+{
+[; ;COBS.c: 182: result.status |= COBS_DECODE_OUT_BUFFER_OVERFLOW;
+"182
+[e =| . _result 1 . `E160 2 ]
+[; ;COBS.c: 183: break;
+"183
+[e $U 25  ]
+"184
+}
+[e :U 36 ]
+[; ;COBS.c: 184: }
+[; ;COBS.c: 185: *dst_write_ptr++ = 0;
+"185
+[e = *U ++ _dst_write_ptr * -> -> 1 `i `x -> -> # *U _dst_write_ptr `i `x -> -> 0 `i `uc ]
+"186
+}
+[e :U 35 ]
+"187
+}
+[; ;COBS.c: 186: }
+[; ;COBS.c: 187: }
+[e $U 24  ]
+[e :U 25 ]
+}
+"188
+}
+[e :U 23 ]
+[; ;COBS.c: 188: }
+[; ;COBS.c: 190: result.out_len = dst_write_ptr - dst_buf_ptr;
+"190
+[e = . _result 0 -> / - -> _dst_write_ptr `x -> _dst_buf_ptr `x -> -> # *U _dst_write_ptr `i `x `ui ]
+[; ;COBS.c: 192: return result;
+"192
+[e ) _result ]
+[e $UE 21  ]
+[; ;COBS.c: 193: }
+"193
+[e :UE 21 ]
+}
