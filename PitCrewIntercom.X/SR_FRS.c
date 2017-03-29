@@ -42,13 +42,13 @@ void SR_FRSPowerDown(void){
 void SR_FRSStart(void){
     SR_FRSPowerDown();  //Turn on radio
     Delay(500);         //wait 1/2 sec
-    SetCommandMode();   //Tell modem to ge ready for AT mode
+    SetCommandMode();   //Tell modem to get ready for AT mode
     Delay(1000);        //wait a second
     SetFrequency();     //Setup FRQ
     Delay(1000);        //wait a second
     SetPowerSave();     //Shutdown power Save
     Delay(1000);        //wait a second
-    SetVolume(5);       //Set SPR amp @ 5
+    SetVolume(7);       //Set SPR amp @ 5
     Delay(1000);        //wait a second
     SetVOX(0);          //disable VOX
     Delay(1000);        //wait a second
@@ -75,7 +75,7 @@ void SetCommandMode(void){
  *******************************************************************/
 void SetFrequency(void){
     printf("\r\n");
-    printf("AT+DMOSETGROUP=0,145.5500,145.5500,43,8,51,0");//,0,RXCX,SQ,TXCX,0);
+    printf("AT+DMOSETGROUP=0,145.5500,145.5500,0,1,0,0");//,0,RXCX,SQ,TXCX,0);
     printf("\r\n");
 }
 
