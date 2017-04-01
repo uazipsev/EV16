@@ -8580,11 +8580,11 @@ adc_result_t ADC_GetConversion(adc_channel_t channel);
 # 275
 void ADC_ISR(void);
 
-# 14 "BatteryManagment.h"
+# 15 "BatteryManagment.h"
 void Start_BMS();
 void ChargerEN();
-void ReadCurrentVolt();
-void ReadVoltToCurrent();
+float ReadCurrent();
+float ReadVoltToCurrent();
 int CurrentGet();
 int Read_Battery(int BatteryPlacement,int cell_codes[][12] );
 extern void CurrentCoulombCount(int tme);
@@ -8808,6 +8808,13 @@ void spi_write_array(int length, int *data);
 void spi_write_read(int *TxData, int TXlen, int *rx_data, int RXlen);
 int Voltage_data[1][12];
 
+# 16 "Tempeture.h"
+extern char Temp_Fault();
+extern void Temp_Read();
+extern void Temp_Filter();
+extern void Temp_Convert();
+extern float Tempeture_Get(int channelnum);
+
 # 7 "C:\Program Files (x86)\Microchip\xc8\v1.40\include\stdarg.h"
 typedef void * va_list[1];
 
@@ -8868,10 +8875,10 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 18 "BatteryManagment.c"
+# 19 "BatteryManagment.c"
 int Read_Status_INC = 0;
 
-# 31
+# 32
 void Start_BMS() {
 
 
@@ -8890,7 +8897,7 @@ int k = 0;
 for(k;k<12;k++){
 printf(" Cell %d Voltage: %1.2f \n",k, cell_codes_Bank[0][k]*0.00001);
 }
-RunBypass_Set(1,0,cell_codes_Bank);
+
 
 TempRun();
 for(k;k<6;k++){
@@ -8898,6 +8905,9 @@ printf(" Cell %d temp: %1.2f \n",k, Tempeture_Get(k));
 }
 Temp_Fault();
 
+if(ReadCurrent() > 20.0){
+printf("Over Current\n");
+}
 }
 
 void Initalize_LT6804b() {
@@ -9247,7 +9257,7 @@ Error_Value=CheckThresholdsBank( 1, 1, cell_codesBank);
 return Error_Value;
 }
 
-# 412
+# 416
 int getcell(){
 return cell_codes_Bank;
 ;}
@@ -9309,7 +9319,7 @@ break;
 return Read_Status;
 }
 
-# 484
+# 488
 int Read_GPIO(int BatteryPlacement, int aux_codes[1][6]) {
 int Read_Status = 0;
 switch (BatteryPlacement) {
@@ -9357,7 +9367,7 @@ break;
 return Read_Status;
 }
 
-# 540
+# 544
 int SetBypass(int bank, int ic, int cell, bool value) {
 int fault_value = 0;
 if (value) {
@@ -9387,7 +9397,7 @@ fault_value = 18;
 return fault_value;
 }
 
-# 575
+# 579
 int RunBypass_Set(int bank, int ic, int cell_codes[][12]) {
 int cellbyp = 0;
 int voltstat = 0;
@@ -9419,7 +9429,7 @@ UpdateLT6804();
 return cellbyp;
 }
 
-# 614
+# 618
 int SetTempEnable( int ic, bool value) {
 int fault_value = 0;
 if (value) {
@@ -9434,12 +9444,12 @@ LTC6804_DATA_ConfigBank[ic][0] = CFGR0;
 return fault_value;
 }
 
-# 635
+# 639
 int CheckUnderOverVoltageFlag() {
 return 1;
 }
 
-# 648
+# 652
 int SetUnderOverVoltage(int VUV, int VOV, int ic) {
 int fault_value = 0;
 
@@ -9457,7 +9467,7 @@ LTC6804_DATA_ConfigBank[ic][3] = CFGR3;
 
 }
 
-# 674
+# 678
 int Set_ADC_Mode(int ic, bool ADCOPT_Mode) {
 int fault_value = 0;
 if (ADCOPT_Mode) {
@@ -9508,36 +9518,43 @@ LTC6804_wrcfg(1, LTC6804_DATA_ConfigBank);
 
 }
 
-# 731
-void ReadCurrentVolt() {
+# 735
+float ReadCurrent() {
+float Return = 0;
 int i;
 
 for(i=6;i<1;i--){
 CVolt[i] = CVolt[i-1];
 }
 CVolt[0] = ADC_GetConversion(CURRENT);
-ReadVoltToCurrent();
+Return = ReadVoltToCurrent();
+return Return;
 }
 
-# 748
+# 754
 void ReadVolt() {
 Volt1 = (ADC_GetConversion(VEXT) / 4095)*5 * 5;
 }
 
-# 760
-void ReadVoltToCurrent() {
+# 766
+float ReadVoltToCurrent() {
+float CurrentTotal = 0;
 for (k = 0; k < 5; k++) {
 
-
+Current[k] = (((CVolt[k] / 4095)*5)/40) + CurrentOffset[k];
 }
+for (k = 0; k < 5; k++){
+CurrentTotal = Current[k] + CurrentTotal;
+}
+return CurrentTotal/6;
 }
 
-# 774
+# 785
 void ChargerEN() {
 CarOn = 0;
 }
 
-# 785
+# 796
 void CurrentCoulombCount(int tme) {
 if (CarOn) {
 CC1 = CC1 - (Current[0] * tme);
@@ -9550,7 +9567,7 @@ CC3 = CC3 + (Current[5] * tme);
 }
 }
 
-# 804
+# 815
 int CurrentGet() {
 return -1;
 }

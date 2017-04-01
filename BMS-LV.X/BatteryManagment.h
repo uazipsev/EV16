@@ -11,10 +11,11 @@
 #define NUMBEROFIC 1
 #define NUMBEROFCH 2
 #define NUMBEROFDATA 6
+#define CURRENTLIMIT 20.0
 void Start_BMS();
 void ChargerEN();
-void ReadCurrentVolt();
-void ReadVoltToCurrent();
+float ReadCurrent();
+float ReadVoltToCurrent();
 int CurrentGet();
 int Read_Battery(int BatteryPlacement,int cell_codes[][12] );// Amount of IC's, amount of cells per IC
 extern void CurrentCoulombCount(int tme);

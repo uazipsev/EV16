@@ -12,6 +12,7 @@
 #include "BatteryManagmentPrivate.h"
 #include "mcc_generated_files/pin_manager.h"
 #include "LT6804.h"
+#include "Tempeture.h"
 #include <stdbool.h>
 #include <stdio.h>
 //TODO Need to make a fault status and a use with var
@@ -46,7 +47,7 @@ void Run_Mode() {
       for(k;k<12;k++){
         printf(" Cell %d Voltage: %1.2f \n",k, cell_codes_Bank[0][k]*0.00001);
       }
-      RunBypass_Set(1,0,cell_codes_Bank);
+      //RunBypass_Set(1,0,cell_codes_Bank[0][]);
       
       TempRun();  //Calculate Temps 
       for(k;k<6;k++){
@@ -54,6 +55,9 @@ void Run_Mode() {
       }
       Temp_Fault(); //Fault Detect on high temp 
       
+      if(ReadCurrent() > CURRENTLIMIT){
+          printf("Over Current\n");
+      }
 }
 
 void Initalize_LT6804b() {
@@ -728,14 +732,16 @@ void UpdateLT6804() {
  * @note            This populates the array with raw ADC values
  *******************************************************************/
 
-void ReadCurrentVolt() {
+float ReadCurrent() {
+    float Return = 0;
     int i;
     //TODO: Need to check this.....
     for(i=6;i<1;i--){
        CVolt[i] = CVolt[i-1];
     }
     CVolt[0] = ADC_GetConversion(CURRENT);
-    ReadVoltToCurrent(); //Converts ADC counts to amps
+    Return = ReadVoltToCurrent(); //Converts ADC counts to amps
+    return Return;
 }
 
 /*******************************************************************
@@ -757,11 +763,16 @@ void ReadVolt() {
  *******************************************************************/
 // FIXME Need to simplify the ADC convert 1 ADC count = 1mV
 
-void ReadVoltToCurrent() {
+float ReadVoltToCurrent() {
+    float CurrentTotal = 0;
     for (k = 0; k < 5; k++) {
         //TODO: Remove for production firmware
-       // Current[k] = (((CVolt[k] / ADCBIT)*5) SHUNTOHMS/CURRENTGAIN) + CurrentOffset[k];
+        Current[k] = (((CVolt[k] / ADCBIT)*5)/CURRENTGAIN) + CurrentOffset[k];
     }
+    for (k = 0; k < 5; k++){
+        CurrentTotal = Current[k] + CurrentTotal;
+    }
+    return CurrentTotal/6;
 }
 
 /*******************************************************************

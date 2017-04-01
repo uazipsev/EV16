@@ -5,5 +5,6 @@ BatteryManagment.h  \
 Functions.h  \
 mcc_generated_files/adc.h  \
 LT6804.h  \
+Tempeture.h  \
 BatteryManagmentPrivate.h  \
 mcc_generated_files/pin_manager.h 
